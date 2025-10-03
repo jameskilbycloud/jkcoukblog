@@ -319,6 +319,12 @@ class WordPressStaticGenerator:
                         # WordPress media URLs that might be relative
                         full_url = self.wp_url + asset_url
                         self.downloaded_assets.add(full_url)
+                        print(f"   🔍 Found asset: {asset_url} -> {full_url}")
+                    elif asset_url.startswith('/wp-includes/'):
+                        # WordPress core files
+                        full_url = self.wp_url + asset_url
+                        self.downloaded_assets.add(full_url)
+                        print(f"   🔍 Found core asset: {asset_url} -> {full_url}")
         
         # Extract srcset URLs (multiple images for responsive design)
         for img in soup.find_all('img', srcset=True):
@@ -342,9 +348,32 @@ class WordPressStaticGenerator:
             for bg_url in bg_urls:
                 if bg_url.startswith(self.wp_url):
                     self.downloaded_assets.add(bg_url)
-                elif bg_url.startswith('/wp-content/'):
+                elif bg_url.startswith('/wp-content/') or bg_url.startswith('/wp-includes/'):
                     full_url = self.wp_url + bg_url
                     self.downloaded_assets.add(full_url)
+        
+        # Parse CSS files referenced and queue their font files if they contain font URLs
+        for link in soup.find_all('link', rel='stylesheet'):
+            href = link.get('href', '')
+            if href:
+                css_url = href if href.startswith('http') else self.wp_url + href
+                try:
+                    css_resp = self.session.get(css_url, timeout=15)
+                    if css_resp.status_code == 200:
+                        css_text = css_resp.text
+                        # Find font URLs and other assets inside CSS
+                        font_urls = re.findall(r'url\(([^)]+)\)', css_text)
+                        for url in font_urls:
+                            clean_url = url.strip('"\'')
+                            if clean_url.startswith('data:'):
+                                continue
+                            if clean_url.startswith('http'):
+                                if clean_url.startswith(self.wp_url):
+                                    self.downloaded_assets.add(clean_url)
+                            elif clean_url.startswith('/'):
+                                self.downloaded_assets.add(self.wp_url + clean_url)
+                except Exception:
+                    pass
     
     def download_assets(self):
         """Download all discovered assets"""
@@ -370,11 +399,23 @@ class WordPressStaticGenerator:
                 # Download with proper headers
                 response = self.session.get(asset_url, timeout=30, stream=True)
                 if response.status_code == 200:
-                    # Write in chunks for large files
-                    with open(output_path, 'wb') as f:
-                        for chunk in response.iter_content(chunk_size=8192):
-                            if chunk:
-                                f.write(chunk)
+                    # Special handling for CSS files - need to process URLs
+                    if asset_url.endswith('.css'):
+                        css_content = response.text
+                        # Convert absolute WordPress URLs to relative URLs
+                        css_content = css_content.replace(self.wp_url + '/wp-content/', '/wp-content/')
+                        css_content = css_content.replace(self.wp_url + '/wp-includes/', '/wp-includes/')
+                        # Also convert the target domain URLs to relative
+                        if self.target_domain:
+                            css_content = css_content.replace(self.target_domain + '/wp-content/', '/wp-content/')
+                            css_content = css_content.replace(self.target_domain + '/wp-includes/', '/wp-includes/')
+                        output_path.write_text(css_content, encoding='utf-8')
+                    else:
+                        # Write in chunks for large files
+                        with open(output_path, 'wb') as f:
+                            for chunk in response.iter_content(chunk_size=8192):
+                                if chunk:
+                                    f.write(chunk)
                     
                     # Get file size for reporting
                     file_size = output_path.stat().st_size
