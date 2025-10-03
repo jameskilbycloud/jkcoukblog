@@ -83,6 +83,10 @@ jobs:
         rm -rf public/
         mv ./static-output public/
         
+        # Convert absolute URLs to relative for better staging compatibility
+        echo "🔄 Converting URLs for staging compatibility..."
+        python convert_to_staging.py
+        
         # Check if there are changes to commit
         git add public/
         
