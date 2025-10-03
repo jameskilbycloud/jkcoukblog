@@ -65,52 +65,32 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         
-        # Fetch latest changes to avoid conflicts
-        echo "🔄 Fetching latest changes from remote..."
-        git fetch origin main
+        # Ensure we're on the latest version of main
+        echo "🔄 Syncing with remote repository..."
+        git fetch origin
+        git reset --hard origin/main
         
-        # Check if we need to pull changes
-        if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
-          echo "📥 Pulling latest changes to avoid conflicts..."
-          git pull --rebase origin main
-        fi
-        
-        # Add static files (assuming you want them in a 'static' or 'public' directory)
+        # Add static files
         rm -rf public/
         mv ./static-output public/
         
-        # Commit changes
+        # Check if there are changes to commit
         git add public/
-        git status
         
-        # Only commit if there are changes
         if [ -n "$(git diff --cached)" ]; then
+          echo "📝 Changes detected, committing..."
           git commit -m "🚀 Auto-update static site - $(date '+%Y-%m-%d %H:%M:%S')"
           
-          # Push with retry logic to handle race conditions
-          echo "📤 Pushing changes to repository..."
-          max_attempts=3
-          attempt=1
+          # Simple push with built-in retry
+          echo "📤 Pushing to remote..."
+          git push origin main || {
+            echo "⚠️  Push failed, trying once more with fresh sync..."
+            git fetch origin
+            git rebase origin/main
+            git push origin main
+          }
           
-          while [ $attempt -le $max_attempts ]; do
-            echo "Attempt $attempt of $max_attempts..."
-            if git push origin main; then
-              echo "✅ Static site updated and pushed to repository"
-              break
-            else
-              echo "⚠️  Push failed, attempting to pull and retry..."
-              git pull --rebase origin main
-              attempt=$((attempt + 1))
-              if [ $attempt -le $max_attempts ]; then
-                sleep 5  # Wait 5 seconds before retry
-              fi
-            fi
-          done
-          
-          if [ $attempt -gt $max_attempts ]; then
-            echo "❌ Failed to push after $max_attempts attempts"
-            exit 1
-          fi
+          echo "✅ Static site updated successfully"
         else
           echo "ℹ️  No changes to commit"
         fi
