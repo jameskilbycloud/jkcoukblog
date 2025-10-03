@@ -107,6 +107,45 @@ class WordPressStaticGenerator:
         print(f"✅ Found {len(urls)} URLs to process")
         return sorted(list(urls))
     
+    def get_all_media_assets(self):
+        """Get all media assets from WordPress Media API"""
+        print("🖼️  Discovering media assets from WordPress Media API...")
+        media_assets = set()
+        
+        page = 1
+        while True:
+            media_response = self.session.get(
+                f'{self.wp_url}/wp-json/wp/v2/media',
+                params={'per_page': 100, 'page': page}
+            )
+            if media_response.status_code != 200:
+                break
+                
+            media_items = media_response.json()
+            if not media_items:
+                break
+                
+            for media_item in media_items:
+                # Get the main media URL
+                if 'source_url' in media_item:
+                    media_assets.add(media_item['source_url'])
+                
+                # Get different size variants if available
+                if 'media_details' in media_item and 'sizes' in media_item['media_details']:
+                    sizes = media_item['media_details']['sizes']
+                    for size_name, size_data in sizes.items():
+                        if 'source_url' in size_data:
+                            media_assets.add(size_data['source_url'])
+                
+                print(f"   🖼️  Media: {media_item.get('title', {}).get('rendered', 'Untitled')}")
+            
+            page += 1
+        
+        # Add media assets to downloaded_assets set
+        self.downloaded_assets.update(media_assets)
+        print(f"✅ Found {len(media_assets)} media assets")
+        return media_assets
+    
     def download_and_process_url(self, url_path):
         """Download a single URL and process it for static hosting"""
         if url_path in self.processed_urls:
@@ -256,22 +295,61 @@ class WordPressStaticGenerator:
     
     def extract_assets(self, soup, current_url):
         """Extract asset URLs for later download"""
+        # Enhanced asset selectors including WordPress-specific patterns
         asset_selectors = [
             ('img', 'src'),
+            ('img', 'data-src'),  # Lazy loading images
             ('link[rel="stylesheet"]', 'href'),
             ('script[src]', 'src'),
-            ('source', 'src')
+            ('source', 'src'),
+            ('source', 'srcset'),
+            ('video', 'src'),
+            ('video', 'poster'),
+            ('audio', 'src')
         ]
         
         for selector, attr in asset_selectors:
             for element in soup.select(selector):
                 asset_url = element.get(attr)
-                if asset_url and asset_url.startswith(self.wp_url):
-                    self.downloaded_assets.add(asset_url)
+                if asset_url:
+                    # Handle both WordPress URL and relative URLs
+                    if asset_url.startswith(self.wp_url):
+                        self.downloaded_assets.add(asset_url)
+                    elif asset_url.startswith('/wp-content/'):
+                        # WordPress media URLs that might be relative
+                        full_url = self.wp_url + asset_url
+                        self.downloaded_assets.add(full_url)
+        
+        # Extract srcset URLs (multiple images for responsive design)
+        for img in soup.find_all('img', srcset=True):
+            srcset = img.get('srcset', '')
+            for srcset_item in srcset.split(','):
+                item = srcset_item.strip()
+                if item:
+                    url = item.split(' ')[0]  # Get URL part (before size descriptor)
+                    if url.startswith(self.wp_url):
+                        self.downloaded_assets.add(url)
+                    elif url.startswith('/wp-content/'):
+                        full_url = self.wp_url + url
+                        self.downloaded_assets.add(full_url)
+        
+        # Extract background images from inline styles
+        for element in soup.find_all(style=True):
+            style = element.get('style', '')
+            # Look for background-image URLs
+            import re
+            bg_urls = re.findall(r'background-image:\s*url\(["\']?([^"\')]+)["\']?\)', style)
+            for bg_url in bg_urls:
+                if bg_url.startswith(self.wp_url):
+                    self.downloaded_assets.add(bg_url)
+                elif bg_url.startswith('/wp-content/'):
+                    full_url = self.wp_url + bg_url
+                    self.downloaded_assets.add(full_url)
     
     def download_assets(self):
         """Download all discovered assets"""
         if not self.downloaded_assets:
+            print("   ⚠️  No assets discovered to download")
             return
             
         print(f"📁 Downloading {len(self.downloaded_assets)} assets...")
@@ -289,27 +367,51 @@ class WordPressStaticGenerator:
                 # Create directory
                 output_path.parent.mkdir(parents=True, exist_ok=True)
                 
-                # Download
-                response = self.session.get(asset_url, timeout=30)
+                # Download with proper headers
+                response = self.session.get(asset_url, timeout=30, stream=True)
                 if response.status_code == 200:
-                    output_path.write_bytes(response.content)
-                    return f"✅ {relative_path}"
+                    # Write in chunks for large files
+                    with open(output_path, 'wb') as f:
+                        for chunk in response.iter_content(chunk_size=8192):
+                            if chunk:
+                                f.write(chunk)
+                    
+                    # Get file size for reporting
+                    file_size = output_path.stat().st_size
+                    size_mb = file_size / 1024 / 1024
+                    if size_mb > 1:
+                        return f"✅ {relative_path} ({size_mb:.1f}MB)"
+                    else:
+                        return f"✅ {relative_path} ({file_size/1024:.1f}KB)"
                 else:
                     return f"❌ {relative_path} ({response.status_code})"
                     
             except Exception as e:
-                return f"❌ {relative_path} (Error: {str(e)[:30]})"
+                return f"❌ {relative_path} (Error: {str(e)[:50]})"
         
         # Download assets concurrently
         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
             results = list(executor.map(download_single_asset, self.downloaded_assets))
         
-        # Print results
-        for result in results[:10]:  # Show first 10 results
-            print(f"   {result}")
+        # Count and categorize results
+        success_results = [r for r in results if r.startswith('✅')]
+        error_results = [r for r in results if r.startswith('❌')]
+        skipped_results = [r for r in results if r.startswith('⏭️')]
         
-        if len(results) > 10:
-            print(f"   ... and {len(results) - 10} more assets")
+        print(f"   ✅ Downloaded: {len(success_results)}")
+        print(f"   ⏭️  Skipped: {len(skipped_results)}")
+        print(f"   ❌ Failed: {len(error_results)}")
+        
+        # Show some example results
+        if success_results:
+            print(f"   Recent downloads:")
+            for result in success_results[:5]:
+                print(f"     {result}")
+        
+        if error_results:
+            print(f"   ⚠️  Some download errors:")
+            for result in error_results[:3]:
+                print(f"     {result}")
     
     def create_redirects_file(self):
         """Create redirects for old URLs (Netlify/Cloudflare format)"""
@@ -374,6 +476,10 @@ class WordPressStaticGenerator:
         
         # Get all URLs from WordPress
         urls = self.get_all_content_urls()
+        
+        # Discover all media assets via WordPress API
+        print(f"\\n🖼️  Media Asset Discovery:")
+        media_assets = self.get_all_media_assets()
         
         # Download and process all content
         print(f"\\n⬇️  Processing {len(urls)} URLs...")
