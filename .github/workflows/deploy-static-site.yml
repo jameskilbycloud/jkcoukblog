@@ -1,0 +1,65 @@
+name: WordPress to Static Site Deploy
+
+on:
+  schedule:
+    - cron: '0 6,18 * * *'  # Twice daily at 6 AM and 6 PM UTC
+  workflow_dispatch:        # Manual trigger
+  repository_dispatch:      # Webhook trigger
+    types: [wordpress-update]
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted  # Changed to self-hosted for Cloudflare Access
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        pip install requests beautifulsoup4
+        
+    - name: Generate static site
+      env:
+        WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+      run: |
+        python wp_to_static_generator.py ./static-output
+        
+    - name: Commit and push static site
+      run: |
+        # Configure git
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # Add static files (assuming you want them in a 'static' or 'public' directory)
+        rm -rf public/
+        mv ./static-output public/
+        
+        # Commit changes
+        git add public/
+        git status
+        
+        # Only commit if there are changes
+        if [ -n "$(git diff --cached)" ]; then
+          git commit -m "🚀 Auto-update static site - $(date '+%Y-%m-%d %H:%M:%S')"
+          git push
+          echo "✅ Static site updated and pushed to repository"
+        else
+          echo "ℹ️  No changes to commit"
+        fi
+          
+    - name: Notify on success
+      if: success()
+      run: |
+        echo "✅ Static site generated and committed successfully!"
+        echo "🌐 Cloudflare will auto-deploy from the repository"
+        
+    - name: Notify on failure
+      if: failure()
+      run: |
+        echo "❌ Static site generation or commit failed!"
