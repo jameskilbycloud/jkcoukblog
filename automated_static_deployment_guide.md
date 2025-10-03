@@ -391,7 +391,7 @@ class WordPressStaticGenerator:
 def main():
     generator = WordPressStaticGenerator(
         wp_url='https://wordpress.jameskilby.cloud',
-        auth_token='***REMOVED-ROTATED-WP-CREDENTIAL***',
+        auth_token=os.getenv('WP_AUTH_TOKEN'),  # Use environment variable
         output_dir='./static-output'
     )
     

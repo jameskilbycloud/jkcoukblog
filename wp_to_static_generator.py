@@ -420,7 +420,7 @@ def main():
     
     # Configuration
     WP_URL = 'https://wordpress.jameskilby.cloud'
-    AUTH_TOKEN = '***REMOVED-ROTATED-WP-CREDENTIAL***'
+    AUTH_TOKEN = os.getenv('WP_AUTH_TOKEN', '***REMOVED-ROTATED-WP-CREDENTIAL***')  # Use environment variable or fallback
     TARGET_DOMAIN = 'https://jameskilby.co.uk'
     
     # Create generator instance
