@@ -420,7 +420,12 @@ def main():
     
     # Configuration
     WP_URL = 'https://wordpress.jameskilby.cloud'
-    AUTH_TOKEN = os.getenv('WP_AUTH_TOKEN', '***REMOVED-ROTATED-WP-CREDENTIAL***')  # Use environment variable or fallback
+    AUTH_TOKEN = os.getenv('WP_AUTH_TOKEN')  # Use environment variable
+    
+    if not AUTH_TOKEN:
+        print('❌ Error: WP_AUTH_TOKEN environment variable is required')
+        print('   Set it with: export WP_AUTH_TOKEN="your_token_here"')
+        sys.exit(1)
     TARGET_DOMAIN = 'https://jameskilby.co.uk'
     
     # Create generator instance
