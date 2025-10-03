@@ -65,10 +65,19 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         
+        # Debug: Show current state
+        echo "📋 Initial state:"
+        echo "Working directory: $(pwd)"
+        echo "Current branch: $(git branch --show-current)"
+        echo "Local HEAD: $(git rev-parse HEAD)"
+        echo "Remote HEAD: $(git ls-remote origin main | cut -f1)"
+        
         # Ensure we're on the latest version of main
         echo "🔄 Syncing with remote repository..."
         git fetch origin
+        echo "After fetch - Remote HEAD: $(git rev-parse origin/main)"
         git reset --hard origin/main
+        echo "After reset - Local HEAD: $(git rev-parse HEAD)"
         
         # Add static files
         rm -rf public/
@@ -83,12 +92,34 @@ jobs:
           
           # Simple push with built-in retry
           echo "📤 Pushing to remote..."
-          git push origin main || {
-            echo "⚠️  Push failed, trying once more with fresh sync..."
+          if git push origin main; then
+            echo "✅ Push successful"
+          else
+            echo "⚠️  Push failed, trying sync and retry..."
             git fetch origin
-            git rebase origin/main
-            git push origin main
-          }
+            
+            # Try rebase first
+            if git rebase origin/main; then
+              echo "📥 Rebase successful, pushing again..."
+              git push origin main
+            else
+              echo "⚠️  Rebase failed, using force push to resolve conflicts..."
+              git rebase --abort 2>/dev/null || true
+              
+              # Reset to origin, regenerate, and force push
+              git reset --hard origin/main
+              echo "🔄 Regenerating static site after reset..."
+              rm -rf public/ ./static-output
+              python wp_to_static_generator.py ./static-output
+              mv ./static-output public/
+              git add public/
+              git commit -m "🚀 Auto-update static site - $(date '+%Y-%m-%d %H:%M:%S') [force-resolved]"
+              
+              # Force push to resolve any conflicts definitively
+              echo "💪 Force pushing to resolve all conflicts..."
+              git push --force-with-lease origin main
+            fi
+          fi
           
           echo "✅ Static site updated successfully"
         else
