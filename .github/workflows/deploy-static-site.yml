@@ -81,7 +81,8 @@ jobs:
       if: success()
       run: |
         echo "✅ Static site generated and committed successfully!"
-        echo "🌐 Cloudflare will auto-deploy from the repository"
+        echo "🌐 Cloudflare Pages will auto-deploy from the 'public' directory"
+        echo "📁 Generated files are now in the 'public' directory for Pages deployment"
         
     - name: Notify on failure
       if: failure()
