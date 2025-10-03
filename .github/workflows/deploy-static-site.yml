@@ -7,6 +7,11 @@ on:
   repository_dispatch:      # Webhook trigger
     types: [wordpress-update]
 
+# Prevent concurrent runs of this workflow
+concurrency:
+  group: wordpress-static-site-deploy
+  cancel-in-progress: false  # Don't cancel running jobs, wait for completion
+
 jobs:
   build-and-deploy:
     runs-on: self-hosted  # Changed to self-hosted for Cloudflare Access
@@ -60,6 +65,16 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         
+        # Fetch latest changes to avoid conflicts
+        echo "🔄 Fetching latest changes from remote..."
+        git fetch origin main
+        
+        # Check if we need to pull changes
+        if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+          echo "📥 Pulling latest changes to avoid conflicts..."
+          git pull --rebase origin main
+        fi
+        
         # Add static files (assuming you want them in a 'static' or 'public' directory)
         rm -rf public/
         mv ./static-output public/
@@ -71,8 +86,31 @@ jobs:
         # Only commit if there are changes
         if [ -n "$(git diff --cached)" ]; then
           git commit -m "🚀 Auto-update static site - $(date '+%Y-%m-%d %H:%M:%S')"
-          git push
-          echo "✅ Static site updated and pushed to repository"
+          
+          # Push with retry logic to handle race conditions
+          echo "📤 Pushing changes to repository..."
+          max_attempts=3
+          attempt=1
+          
+          while [ $attempt -le $max_attempts ]; do
+            echo "Attempt $attempt of $max_attempts..."
+            if git push origin main; then
+              echo "✅ Static site updated and pushed to repository"
+              break
+            else
+              echo "⚠️  Push failed, attempting to pull and retry..."
+              git pull --rebase origin main
+              attempt=$((attempt + 1))
+              if [ $attempt -le $max_attempts ]; then
+                sleep 5  # Wait 5 seconds before retry
+              fi
+            fi
+          done
+          
+          if [ $attempt -gt $max_attempts ]; then
+            echo "❌ Failed to push after $max_attempts attempts"
+            exit 1
+          fi
         else
           echo "ℹ️  No changes to commit"
         fi
