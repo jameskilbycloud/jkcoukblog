@@ -24,9 +24,28 @@ def convert_html_to_relative_urls(html_content):
     
     return html_content
 
+def convert_css_urls(css_content):
+    """Convert WordPress URLs in CSS files to relative URLs"""
+    # Replace WordPress private site font URLs with relative paths
+    css_content = re.sub(
+        r'https://wordpress\.jameskilby\.cloud/wp-content/',
+        '/wp-content/',
+        css_content
+    )
+    
+    # Also replace any absolute references to the public domain in CSS
+    css_content = re.sub(
+        r'https://jameskilby\.co\.uk/wp-content/',
+        '/wp-content/',
+        css_content
+    )
+    
+    return css_content
+
 def process_directory(directory):
-    """Process all HTML files in directory"""
+    """Process all HTML and CSS files in directory"""
     html_files = list(Path(directory).rglob('*.html'))
+    css_files = list(Path(directory).rglob('*.css'))
     
     print(f"🔄 Converting {len(html_files)} HTML files to use relative URLs...")
     
@@ -40,7 +59,24 @@ def process_directory(directory):
         # Write back if changed
         if original_content != converted_content:
             html_file.write_text(converted_content, encoding='utf-8')
-            print(f"✅ Converted: {html_file.relative_to(directory)}")
+            print(f"✅ Converted HTML: {html_file.relative_to(directory)}")
+    
+    print(f"🎨 Converting {len(css_files)} CSS files to use relative URLs...")
+    
+    for css_file in css_files:
+        try:
+            # Read original content
+            original_content = css_file.read_text(encoding='utf-8')
+            
+            # Convert URLs
+            converted_content = convert_css_urls(original_content)
+            
+            # Write back if changed
+            if original_content != converted_content:
+                css_file.write_text(converted_content, encoding='utf-8')
+                print(f"✅ Converted CSS: {css_file.relative_to(directory)}")
+        except Exception as e:
+            print(f"⚠️  Error processing CSS {css_file.relative_to(directory)}: {e}")
     
     print("✅ Conversion complete!")
 
