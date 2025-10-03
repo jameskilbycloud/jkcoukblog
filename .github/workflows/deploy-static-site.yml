@@ -22,12 +22,33 @@ jobs:
         
     - name: Install dependencies
       run: |
+        echo "🔧 Installing Python dependencies..."
         pip install requests beautifulsoup4
+        echo "✅ Dependencies installed"
+        echo "📋 Installed packages:"
+        pip list | grep -E "(requests|beautifulsoup4)"
+        
+    - name: Debug working directory
+      run: |
+        echo "🔍 Current working directory: $(pwd)"
+        echo "📋 Files in current directory:"
+        ls -la
+        echo "📄 Looking for key files:"
+        ls -la wp_to_static_generator.py deploy_static_site.py || echo "❌ Files not found"
+        echo "🐍 Python version:"
+        python --version
         
     - name: Generate static site
       env:
         WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
       run: |
+        # Ensure we're in the right directory
+        echo "📁 Working from: $(pwd)"
+        if [ ! -f "wp_to_static_generator.py" ]; then
+          echo "❌ wp_to_static_generator.py not found!"
+          ls -la
+          exit 1
+        fi
         python wp_to_static_generator.py ./static-output
         
     - name: Commit and push static site
