@@ -484,8 +484,17 @@ class WordPressStaticGenerator:
         
         def download_single_asset(asset_url):
             try:
-                # Convert to relative path
-                relative_path = asset_url.replace(self.wp_url, '').lstrip('/')
+                # Convert to relative path - handle both wp_url and target_domain
+                if asset_url.startswith(self.wp_url):
+                    relative_path = asset_url.replace(self.wp_url, '').lstrip('/')
+                elif asset_url.startswith(self.target_domain):
+                    relative_path = asset_url.replace(self.target_domain, '').lstrip('/')
+                else:
+                    # Fallback - extract path after domain
+                    from urllib.parse import urlparse
+                    parsed = urlparse(asset_url)
+                    relative_path = parsed.path.lstrip('/')
+                    
                 output_path = self.output_dir / relative_path
                 
                 # Skip if already downloaded
