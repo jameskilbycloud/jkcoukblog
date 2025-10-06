@@ -447,8 +447,12 @@ class WordPressStaticGenerator:
         # Look for WPO minify CSS files
         wpo_css_matches = re.findall(r'href="([^"]*wpo-minify[^"]*\.min\.css[^"]*)"', str(soup))
         for css_match in wpo_css_matches:
+            # Always convert to WordPress domain for downloading, regardless of current URL
             if css_match.startswith('/'):
                 full_css_url = self.wp_url + css_match
+            elif css_match.startswith(self.target_domain):
+                # Convert target domain back to WordPress domain for downloading
+                full_css_url = css_match.replace(self.target_domain, self.wp_url)
             else:
                 full_css_url = css_match
             self.downloaded_assets.add(full_css_url)
@@ -457,8 +461,12 @@ class WordPressStaticGenerator:
         # Look for WPO minify JS files
         wpo_js_matches = re.findall(r'src="([^"]*wpo-minify[^"]*\.min\.js[^"]*)"', str(soup))
         for js_match in wpo_js_matches:
+            # Always convert to WordPress domain for downloading, regardless of current URL
             if js_match.startswith('/'):
                 full_js_url = self.wp_url + js_match
+            elif js_match.startswith(self.target_domain):
+                # Convert target domain back to WordPress domain for downloading
+                full_js_url = js_match.replace(self.target_domain, self.wp_url)
             else:
                 full_js_url = js_match
             self.downloaded_assets.add(full_js_url)
@@ -467,8 +475,12 @@ class WordPressStaticGenerator:
         # Look for any other cache files (general pattern)
         cache_matches = re.findall(r'(?:href|src)="([^"]*wp-content/cache[^"]+)"', str(soup))
         for cache_match in cache_matches:
+            # Always convert to WordPress domain for downloading, regardless of current URL
             if cache_match.startswith('/'):
                 full_cache_url = self.wp_url + cache_match
+            elif cache_match.startswith(self.target_domain):
+                # Convert target domain back to WordPress domain for downloading
+                full_cache_url = cache_match.replace(self.target_domain, self.wp_url)
             else:
                 full_cache_url = cache_match
             self.downloaded_assets.add(full_cache_url)
@@ -507,9 +519,29 @@ class WordPressStaticGenerator:
                 # Download with proper headers
                 response = self.session.get(asset_url, timeout=30, stream=True)
                 if response.status_code == 200:
+                    # Validate content type matches expected file type
+                    content_type = response.headers.get('content-type', '').lower()
+                    
+                    # Check for mismatched content type (e.g., HTML returned for CSS request)
+                    if asset_url.endswith('.css') and 'text/css' not in content_type:
+                        if 'text/html' in content_type:
+                            return f"❌ {relative_path} (HTML returned instead of CSS - authentication/access issue)"
+                        else:
+                            return f"❌ {relative_path} (Wrong content-type: {content_type})"
+                    elif asset_url.endswith('.js') and 'javascript' not in content_type and 'text/plain' not in content_type:
+                        if 'text/html' in content_type:
+                            return f"❌ {relative_path} (HTML returned instead of JS - authentication/access issue)"
+                        else:
+                            return f"❌ {relative_path} (Wrong content-type: {content_type})"
+                    
                     # Special handling for CSS files - need to process URLs
                     if asset_url.endswith('.css'):
                         css_content = response.text
+                        
+                        # Validate CSS content by checking for HTML doctype or tags
+                        if css_content.strip().startswith('<!DOCTYPE') or '<html' in css_content[:200].lower():
+                            return f"❌ {relative_path} (HTML content returned instead of CSS)"
+                        
                         # Convert absolute WordPress URLs to relative URLs
                         css_content = css_content.replace(self.wp_url + '/wp-content/', '/wp-content/')
                         css_content = css_content.replace(self.wp_url + '/wp-includes/', '/wp-includes/')
