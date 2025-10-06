@@ -300,6 +300,7 @@ class WordPressStaticGenerator:
             ('img', 'src'),
             ('img', 'data-src'),  # Lazy loading images
             ('link[rel="stylesheet"]', 'href'),
+            ('link[rel="preload"]', 'href'),  # Preload stylesheets
             ('script[src]', 'src'),
             ('source', 'src'),
             ('source', 'srcset'),
@@ -315,16 +316,17 @@ class WordPressStaticGenerator:
                     # Handle both WordPress URL and relative URLs
                     if asset_url.startswith(self.wp_url):
                         self.downloaded_assets.add(asset_url)
-                    elif asset_url.startswith('/wp-content/'):
-                        # WordPress media URLs that might be relative
+                        print(f"   🔍 Found absolute asset: {asset_url}")
+                    elif asset_url.startswith('/wp-content/') or asset_url.startswith('/wp-includes/'):
+                        # WordPress files - including cache, media, and core files
                         full_url = self.wp_url + asset_url
                         self.downloaded_assets.add(full_url)
-                        print(f"   🔍 Found asset: {asset_url} -> {full_url}")
-                    elif asset_url.startswith('/wp-includes/'):
-                        # WordPress core files
+                        print(f"   🔍 Found relative asset: {asset_url} -> {full_url}")
+                    elif asset_url.startswith('/') and not asset_url.startswith('//'):
+                        # Any other relative URLs (could be theme files, etc.)
                         full_url = self.wp_url + asset_url
                         self.downloaded_assets.add(full_url)
-                        print(f"   🔍 Found core asset: {asset_url} -> {full_url}")
+                        print(f"   🔍 Found other relative asset: {asset_url} -> {full_url}")
         
         # Extract srcset URLs (multiple images for responsive design)
         for img in soup.find_all('img', srcset=True):
@@ -353,27 +355,58 @@ class WordPressStaticGenerator:
                     self.downloaded_assets.add(full_url)
         
         # Parse CSS files referenced and queue their font files if they contain font URLs
-        for link in soup.find_all('link', rel='stylesheet'):
+        css_links = soup.find_all('link', rel=['stylesheet', 'preload'])
+        for link in css_links:
             href = link.get('href', '')
             if href:
-                css_url = href if href.startswith('http') else self.wp_url + href
+                # Build full CSS URL
+                if href.startswith('http'):
+                    css_url = href
+                elif href.startswith('/'):
+                    css_url = self.wp_url + href
+                else:
+                    css_url = self.wp_url + '/' + href
+                
+                print(f"   🎨 Parsing CSS for embedded assets: {href}")
                 try:
-                    css_resp = self.session.get(css_url, timeout=15)
+                    css_resp = self.session.get(css_url, timeout=30)
                     if css_resp.status_code == 200:
                         css_text = css_resp.text
-                        # Find font URLs and other assets inside CSS
-                        font_urls = re.findall(r'url\(([^)]+)\)', css_text)
-                        for url in font_urls:
-                            clean_url = url.strip('"\'')
-                            if clean_url.startswith('data:'):
-                                continue
-                            if clean_url.startswith('http'):
-                                if clean_url.startswith(self.wp_url):
-                                    self.downloaded_assets.add(clean_url)
-                            elif clean_url.startswith('/'):
-                                self.downloaded_assets.add(self.wp_url + clean_url)
-                except Exception:
-                    pass
+                        # Find all URL references in CSS (fonts, images, etc.)
+                        import re
+                        url_patterns = [
+                            r'url\(["\']?([^"\')]+)["\']?\)',  # Standard URL pattern
+                            r'@font-face[^}]*src:[^}]*url\(["\']?([^"\')]+)["\']?\)',  # Font face URLs
+                        ]
+                        
+                        for pattern in url_patterns:
+                            urls_found = re.findall(pattern, css_text)
+                            for found_url in urls_found:
+                                clean_url = found_url.strip('"\' ')
+                                if clean_url.startswith('data:') or not clean_url:
+                                    continue
+                                
+                                if clean_url.startswith('http'):
+                                    if clean_url.startswith(self.wp_url):
+                                        self.downloaded_assets.add(clean_url)
+                                        print(f"   📦 Found CSS asset (absolute): {clean_url}")
+                                elif clean_url.startswith('/'):
+                                    full_asset_url = self.wp_url + clean_url
+                                    self.downloaded_assets.add(full_asset_url)
+                                    print(f"   📦 Found CSS asset (relative): {clean_url} -> {full_asset_url}")
+                                else:
+                                    # Relative to CSS file location
+                                    base_path = '/'.join(href.split('/')[:-1]) if '/' in href else ''
+                                    if base_path:
+                                        full_asset_url = self.wp_url + '/' + base_path + '/' + clean_url
+                                    else:
+                                        full_asset_url = self.wp_url + '/' + clean_url
+                                    self.downloaded_assets.add(full_asset_url)
+                                    print(f"   📦 Found CSS asset (relative to CSS): {clean_url} -> {full_asset_url}")
+                    else:
+                        print(f"   ⚠️  Failed to fetch CSS: {css_url} (status: {css_resp.status_code})")
+                except Exception as e:
+                    print(f"   ⚠️  Error parsing CSS {css_url}: {str(e)}")
     
     def download_assets(self):
         """Download all discovered assets"""
