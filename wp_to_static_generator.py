@@ -205,6 +205,9 @@ class WordPressStaticGenerator:
         # Add static site optimizations
         self.add_static_optimizations(soup)
         
+        # Fix inline CSS font URLs
+        self.fix_inline_css_urls(soup)
+        
         # Extract and queue assets for download
         self.extract_assets(soup, current_url)
         
@@ -266,6 +269,35 @@ class WordPressStaticGenerator:
         # Remove WordPress REST API links
         for link in soup.find_all('link', rel='https://api.w.org/'):
             link.decompose()
+    
+    def fix_inline_css_urls(self, soup):
+        """Fix inline CSS to convert font URLs from absolute to relative"""
+        import re
+        
+        # Find all style tags with inline CSS
+        for style_tag in soup.find_all('style'):
+            if style_tag.string:
+                css_content = style_tag.string
+                
+                # Pattern to match font URLs
+                font_url_pattern = r"url\(([^)]+)\)"
+                
+                def replace_font_url(match):
+                    url = match.group(1).strip('"\'')
+                    if url.startswith(self.wp_url):
+                        # Convert absolute WordPress URL to relative
+                        relative_url = url.replace(self.wp_url, '')
+                        return f"url({relative_url})"
+                    else:
+                        # Leave other URLs as-is
+                        return match.group(0)
+                
+                # Replace font URLs in the inline CSS
+                updated_css = re.sub(font_url_pattern, replace_font_url, css_content)
+                
+                if updated_css != css_content:
+                    style_tag.string = updated_css
+                    print(f"   🎨 Fixed inline CSS font URLs")
     
     def add_static_optimizations(self, soup):
         """Add optimizations for static site performance"""
@@ -407,6 +439,40 @@ class WordPressStaticGenerator:
                         print(f"   ⚠️  Failed to fetch CSS: {css_url} (status: {css_resp.status_code})")
                 except Exception as e:
                     print(f"   ⚠️  Error parsing CSS {css_url}: {str(e)}")
+        
+        # Manually detect and queue WordPress minified cache files
+        print(f"   🔍 Manually detecting WordPress minified cache files...")
+        import re
+        
+        # Look for WPO minify CSS files
+        wpo_css_matches = re.findall(r'href="([^"]*wpo-minify[^"]*\.min\.css[^"]*)"', str(soup))
+        for css_match in wpo_css_matches:
+            if css_match.startswith('/'):
+                full_css_url = self.wp_url + css_match
+            else:
+                full_css_url = css_match
+            self.downloaded_assets.add(full_css_url)
+            print(f"   🎨 Found WPO minified CSS: {css_match} -> {full_css_url}")
+        
+        # Look for WPO minify JS files
+        wpo_js_matches = re.findall(r'src="([^"]*wpo-minify[^"]*\.min\.js[^"]*)"', str(soup))
+        for js_match in wpo_js_matches:
+            if js_match.startswith('/'):
+                full_js_url = self.wp_url + js_match
+            else:
+                full_js_url = js_match
+            self.downloaded_assets.add(full_js_url)
+            print(f"   📜 Found WPO minified JS: {js_match} -> {full_js_url}")
+        
+        # Look for any other cache files (general pattern)
+        cache_matches = re.findall(r'(?:href|src)="([^"]*wp-content/cache[^"]+)"', str(soup))
+        for cache_match in cache_matches:
+            if cache_match.startswith('/'):
+                full_cache_url = self.wp_url + cache_match
+            else:
+                full_cache_url = cache_match
+            self.downloaded_assets.add(full_cache_url)
+            print(f"   📦 Found cache file: {cache_match} -> {full_cache_url}")
     
     def download_assets(self):
         """Download all discovered assets"""
@@ -442,6 +508,28 @@ class WordPressStaticGenerator:
                         if self.target_domain:
                             css_content = css_content.replace(self.target_domain + '/wp-content/', '/wp-content/')
                             css_content = css_content.replace(self.target_domain + '/wp-includes/', '/wp-includes/')
+                        
+                        # Convert font URLs in CSS files to relative paths
+                        import re
+                        
+                        # Pattern to match font URLs in CSS @font-face declarations
+                        font_url_pattern = r"url\(([^)]+)\)"
+                        
+                        def replace_font_url(match):
+                            url = match.group(1).strip('"\'')
+                            if url.startswith(self.wp_url):
+                                # Convert absolute WordPress URL to relative
+                                relative_url = url.replace(self.wp_url, '')
+                                return f"url({relative_url})"
+                            elif url.startswith('http'):
+                                # Leave external URLs as-is
+                                return match.group(0)
+                            else:
+                                # Already relative or data URL
+                                return match.group(0)
+                        
+                        css_content = re.sub(font_url_pattern, replace_font_url, css_content)
+                        
                         output_path.write_text(css_content, encoding='utf-8')
                     else:
                         # Write in chunks for large files
