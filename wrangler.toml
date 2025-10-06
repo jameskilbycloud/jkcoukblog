@@ -1,0 +1,11 @@
+name = "jkcoukblog"
+compatibility_date = "2024-10-03"
+
+# For Cloudflare Pages static site deployment
+# The Pages service will handle the static files from the 'public' directory
+# No [site] configuration needed - that was for the deprecated Workers Sites
+
+# Pages configuration is handled in the Cloudflare dashboard:
+# - Build output directory: public
+# - Build command: (empty for pre-built static sites)
+# - Root directory: (empty or /)
