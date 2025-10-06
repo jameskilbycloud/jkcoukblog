@@ -27,7 +27,6 @@ def test_environment():
     print("\n🔍 Looking for required files:")
     required_files = [
         "wp_to_static_generator.py",
-        "deploy_static_site.py", 
         ".github/workflows/deploy-static-site.yml"
     ]
     
