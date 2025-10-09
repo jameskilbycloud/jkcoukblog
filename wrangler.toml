@@ -9,3 +9,13 @@ compatibility_date = "2024-10-03"
 # - Build output directory: public
 # - Build command: (empty for pre-built static sites)
 # - Root directory: (empty or /)
+
+# Worker configuration for Slack notifications
+[[workers]]
+name = "jkcoukblog-slack-notifications"
+main = "workers/slack-notification-handler.js"
+compatibility_date = "2024-10-03"
+
+[workers.vars]
+# Environment variables for the worker
+# SLACK_WEBHOOK_URL will be set as a secret in the Cloudflare dashboard

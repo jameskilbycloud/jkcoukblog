@@ -816,6 +816,143 @@ class WordPressStaticGenerator:
         sitemap_file.write_text('\n'.join(sitemap_content))
         print(f"✅ Created sitemap.xml with {len(urls_for_sitemap)} URLs")
     
+    def generate_search_index(self):
+        """Generate search index for client-side search functionality"""
+        print("🔍 Generating search index...")
+        
+        search_index = []
+        
+        # Process all HTML files
+        for html_file in self.output_dir.rglob('*.html'):
+            try:
+                relative_path = html_file.relative_to(self.output_dir)
+                
+                # Convert file path to URL path
+                if relative_path.name == 'index.html':
+                    if relative_path.parent == Path('.'):
+                        url_path = '/'
+                    else:
+                        url_path = f'/{relative_path.parent}/'
+                else:
+                    url_path = f'/{relative_path}'
+                
+                # Read and parse HTML
+                with open(html_file, 'r', encoding='utf-8', errors='ignore') as f:
+                    html_content = f.read()
+                
+                soup = BeautifulSoup(html_content, 'html.parser')
+                
+                # Skip redirects and error pages
+                if soup.find('meta', attrs={'http-equiv': 'refresh'}):
+                    continue
+                
+                # Extract metadata
+                title_tag = soup.find('title')
+                title = title_tag.get_text().strip() if title_tag else "Untitled"
+                
+                # Clean up title (remove site name)
+                title = re.sub(r'\s*[-–|]\s*jameskilby.*$', '', title, flags=re.IGNORECASE)
+                
+                # Skip if no meaningful title
+                if not title or title.lower() in ['untitled', 'page not found', '404']:
+                    continue
+                
+                # Meta description
+                meta_desc = soup.find('meta', attrs={'name': 'description'})
+                description = meta_desc.get('content', '').strip() if meta_desc else ''
+                
+                # Extract excerpt from content if no description
+                if not description:
+                    content_areas = soup.find_all(['div'], class_=re.compile(r'(content|entry|post|article)', re.I))
+                    if content_areas:
+                        # Remove script and style elements
+                        for script in content_areas[0](["script", "style", "nav", "footer"]):
+                            script.decompose()
+                        
+                        content_text = content_areas[0].get_text()
+                        # Clean up whitespace
+                        lines = (line.strip() for line in content_text.splitlines())
+                        chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+                        content_text = ' '.join(chunk for chunk in chunks if chunk)
+                        
+                        # Take first 150 words as excerpt
+                        words = content_text.split()
+                        description = ' '.join(words[:150]) + ('...' if len(words) > 150 else '')
+                
+                # Extract full content for searching (limit to 1000 chars)
+                # Remove script and style elements
+                content_soup = BeautifulSoup(html_content, 'html.parser')
+                for script in content_soup(["script", "style", "nav", "footer"]):
+                    script.decompose()
+                
+                full_content = content_soup.get_text()
+                # Clean up whitespace
+                lines = (line.strip() for line in full_content.splitlines())
+                chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+                full_content = ' '.join(chunk for chunk in chunks if chunk)
+                
+                # Skip if content is too short (likely navigation pages)
+                if len(full_content.split()) < 50:
+                    continue
+                
+                # Extract categories and tags
+                categories = []
+                tags = []
+                
+                # Look for category and tag links
+                cat_links = soup.find_all('a', href=re.compile(r'/category/'))
+                for link in cat_links:
+                    cat_text = link.get_text().strip()
+                    if cat_text and cat_text not in categories:
+                        categories.append(cat_text)
+                
+                tag_links = soup.find_all('a', href=re.compile(r'/tag/'))
+                for link in tag_links:
+                    tag_text = link.get_text().strip()
+                    if tag_text and tag_text not in tags:
+                        tags.append(tag_text)
+                
+                # Extract date
+                date = ""
+                date_elem = soup.find('time', class_=re.compile(r'(entry-date|published)', re.I))
+                if date_elem:
+                    date = date_elem.get('datetime', '') or date_elem.get_text().strip()
+                
+                # Create search entry
+                entry = {
+                    'title': title,
+                    'url': f"{self.target_domain}{url_path}",
+                    'description': description[:200] if description else '',  # Limit description length
+                    'content': full_content[:1000],  # Limit content for searching
+                    'categories': categories,
+                    'tags': tags,
+                    'date': date
+                }
+                
+                search_index.append(entry)
+                
+            except Exception as e:
+                print(f"❌ Error indexing {html_file}: {str(e)}")
+                continue
+        
+        # Save search index
+        if search_index:
+            # Save full version
+            search_index_file = self.output_dir / 'search-index.json'
+            with open(search_index_file, 'w', encoding='utf-8') as f:
+                json.dump(search_index, f, ensure_ascii=False, indent=2)
+            
+            # Save minified version
+            search_index_min_file = self.output_dir / 'search-index.min.json'
+            with open(search_index_min_file, 'w', encoding='utf-8') as f:
+                json.dump(search_index, f, ensure_ascii=False, separators=(',', ':'))
+            
+            print(f"✅ Generated search index with {len(search_index)} entries")
+            print(f"   📄 Full: search-index.json ({search_index_file.stat().st_size / 1024:.1f}KB)")
+            print(f"   📄 Min: search-index.min.json ({search_index_min_file.stat().st_size / 1024:.1f}KB)")
+        else:
+            print("⚠️  No content found for search index")
+    
     def generate_static_site(self):
         """Main generation process"""
         print(f"🚀 WordPress to Static Site Generator")
@@ -858,6 +995,7 @@ class WordPressStaticGenerator:
         print(f"\\n📄 Creating additional files:")
         self.create_redirects_file()
         self.create_sitemap()
+        self.generate_search_index()
         
         # Summary
         end_time = time.time()

@@ -1,0 +1,141 @@
+<!-- Search Integration for Static Site -->
+<!-- Add this to your theme's header or footer -->
+
+<!-- Add to <head> section -->
+<head>
+  <!-- ... your existing head content ... -->
+  
+  <!-- Search Styles (if needed) -->
+  <style>
+    .search-hint {
+      font-size: 11px;
+      color: #888;
+      margin-top: 2px;
+    }
+    
+    /* Enhanced search input styling */
+    .search-field {
+      position: relative;
+    }
+    
+    .search-field::placeholder {
+      color: #999;
+    }
+    
+    /* Keyboard shortcut hint */
+    .search-shortcut-hint {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      color: #ccc;
+      pointer-events: none;
+      font-family: monospace;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Your existing body content -->
+  
+  <!-- Enhanced Search Form (replace your existing search form) -->
+  <form class="search-form" role="search" method="get" action="/">
+    <label>
+      <span class="screen-reader-text">Search for:</span>
+      <div style="position: relative;">
+        <input 
+          class="search-field" 
+          name="s" 
+          placeholder="Search articles..." 
+          type="search" 
+          value=""
+        />
+        <span class="search-shortcut-hint">Ctrl+K</span>
+      </div>
+    </label>
+    <input class="search-submit" type="submit" value="Search"/>
+    <div class="search-hint">Press Ctrl+K (or Cmd+K on Mac) to quickly search</div>
+  </form>
+
+  <!-- Alternative: If you want to add a dedicated search button to header/nav -->
+  <!--
+  <button onclick="siteSearch.focusSearch()" class="search-trigger-btn">
+    🔍 Search
+  </button>
+  -->
+
+  <!-- Load Search Functionality (add before closing </body>) -->
+  <script src="/js/search.js"></script>
+  
+  <!-- Optional: Add search metadata for better SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://jameskilby.co.uk/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://jameskilby.co.uk/?s={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+</body>
+</html>
+
+<!-- 
+IMPLEMENTATION NOTES:
+
+1. AUTOMATIC DETECTION:
+   The search.js script automatically detects your existing search input using these selectors:
+   - .search-field
+   - input[name="s"]  
+   - #search-input
+   
+   No additional setup needed if you have a standard WordPress search form.
+
+2. KEYBOARD SHORTCUTS:
+   - Ctrl+K (or Cmd+K on Mac): Focus search input
+   - Escape: Close search overlay
+   - Click outside: Close search overlay
+
+3. FEATURES:
+   - Fuzzy search with Fuse.js
+   - Search by title, content, categories, and tags
+   - Highlighted search terms
+   - Responsive design
+   - Fast client-side search (no server required)
+
+4. CUSTOMIZATION:
+   You can customize the search by modifying the search.js file:
+   - Change search weights in fuseOptions
+   - Modify search threshold for sensitivity
+   - Customize styling in addSearchStyles()
+   - Add custom keyboard shortcuts
+
+5. PERFORMANCE:
+   - Search index is lazy-loaded only when needed
+   - Minified index file (~KB size typical for your blog)
+   - Debounced search (200ms delay) prevents excessive searching
+   - Uses CDN for Fuse.js library
+
+6. BROWSER SUPPORT:
+   - Works in all modern browsers
+   - Graceful degradation if JavaScript disabled
+   - Mobile-friendly responsive design
+-->
+
+<!-- 
+TROUBLESHOOTING:
+
+If search doesn't work:
+1. Check browser console for errors
+2. Verify search-index.min.json is accessible at /search-index.min.json
+3. Ensure search input has correct class (.search-field or name="s")
+4. Check that Fuse.js library loads correctly
+
+For WordPress themes:
+- Add the search.js script to your theme's functions.php:
+  wp_enqueue_script('site-search', get_template_directory_uri() . '/js/search.js', array(), '1.0.0', true);
+-->
