@@ -7,7 +7,7 @@
 
 ## Recommended Automated Solutions
 
-### 🚀 OPTION 1: GitHub Actions + WP2Static CLI (Recommended)
+### 🚀 OPTION 1: GitHub Actions + Custom Static Generation (Recommended)
 
 **Advantages**: Most reliable, version controlled, fully automated
 **Best for**: Your technical background and existing GitHub workflow
@@ -37,21 +37,23 @@ jobs:
       with:
         node-version: '18'
         
-    - name: Install WP2Static CLI
+    - name: Install Static Site Tools
       run: |
-        npm install -g @wp2static/wp2static-cli
-        # or use wget-based static site generator
+        npm install -g httrack wget
+        # Install additional static site generation tools
         
     - name: Generate static site
       env:
         WP_URL: https://wordpress.jameskilby.cloud
         WP_AUTH: ${{ secrets.WP_AUTH_TOKEN }}
       run: |
-        wp2static crawl $WP_URL \
-          --auth-token=$WP_AUTH \
-          --output-dir=./static \
-          --clean-urls \
-          --replace-urls
+        # Generate static site using HTTrack or custom crawler
+        httrack "$WP_URL" \
+          -O ./static \
+          -s0 -a \
+          --clean \
+          --replace-external \
+          -F "Mozilla/5.0 (compatible; StaticSiteBot/1.0)"
           
     - name: Deploy to production
       env:
@@ -75,7 +77,7 @@ FROM node:18-alpine
 RUN apk add --no-cache curl wget
 
 # Install static site generators
-RUN npm install -g @wp2static/wp2static-cli httrack
+RUN npm install -g httrack
 
 COPY scripts/ /app/scripts/
 COPY config/ /app/config/
@@ -102,23 +104,21 @@ DEPLOY_TARGET="cloudflare"  # or "s3", "netlify", etc.
 rm -rf $OUTPUT_DIR
 mkdir -p $OUTPUT_DIR
 
-# Method 1: WP2Static CLI approach
-wp2static crawl $WP_URL \
-  --auth-token="$WP_AUTH_TOKEN" \
-  --output-dir=$OUTPUT_DIR \
-  --clean-urls \
-  --replace-urls \
-  --exclude="/wp-admin,/wp-content/uploads/private" \
-  --include-discovery
+# Method 1: HTTrack approach (reliable for most setups)
+httrack "$WP_URL" \
+  -O "$OUTPUT_DIR" \
+  -s0 -a \
+  --clean \
+  --replace-external \
+  -F "Mozilla/5.0 (compatible; StaticSiteBot/1.0)" \
+  --connection-per-second=4 \
+  --exclude="*/wp-admin/*,*/wp-content/uploads/private/*"
 
-# Method 2: Alternative HTTrack approach (more reliable for some setups)
-# httrack "$WP_URL" \
-#   -O "$OUTPUT_DIR" \
-#   -s0 -a \
-#   --clean \
-#   --replace-external \
-#   -F "Mozilla/5.0 (compatible; StaticSiteBot/1.0)" \
-#   --connection-per-second=4
+# Method 2: Alternative wget approach (for simple sites)
+# wget --mirror --convert-links --adjust-extension \
+#   --page-requisites --no-parent \
+#   --directory-prefix="$OUTPUT_DIR" \
+#   "$WP_URL"
 
 # Post-processing
 echo "📝 Post-processing static files..."
