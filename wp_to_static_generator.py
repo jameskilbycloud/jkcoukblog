@@ -460,21 +460,20 @@ class WordPressStaticGenerator:
     def add_utterances_comments(self, soup):
         """Add Utterances comments section to the page"""
         # Only add comments to single post/page views, not archive/list pages
-        # Check if this is a single post by looking for single-post class or checking if there are multiple articles
         body = soup.find('body')
         if not body:
             return
         
-        # Skip if this is an archive/list page (multiple articles or archive class)
-        articles = soup.find_all('article')
-        if len(articles) > 1:
-            return  # Multiple articles = archive/list page, skip comments
-        
-        # Skip if body has archive-related classes
+        # Check body classes to determine if this is a single post
         body_classes = body.get('class', [])
-        archive_indicators = ['archive', 'category', 'tag', 'home', 'blog']
-        if any(indicator in ' '.join(body_classes).lower() for indicator in archive_indicators):
-            return
+        body_class_str = ' '.join(body_classes).lower()
+        
+        # Only add comments if this is explicitly a single post or page
+        is_single_post = 'single-post' in body_class_str or 'single' in body_classes
+        is_page = 'page-template' in body_class_str or ('page' in body_classes and 'single' not in body_class_str)
+        
+        if not (is_single_post or is_page):
+            return  # Not a single post/page, skip comments
         
         # Find the comments area or main content area to insert after
         insertion_point = None
