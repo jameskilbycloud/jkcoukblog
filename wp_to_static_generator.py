@@ -497,6 +497,7 @@ class WordPressStaticGenerator:
             script['theme'] = 'github-light'
             script['crossorigin'] = 'anonymous'
             script['async'] = ''
+            script['data-cfasync'] = 'false'  # Bypass Cloudflare Rocket Loader
             
             section.append(script)
             inner_div.append(section)
