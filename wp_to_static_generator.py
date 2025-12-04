@@ -538,9 +538,9 @@ class WordPressStaticGenerator:
             
             script = soup.new_tag('script')
             script['src'] = 'https://utteranc.es/client.js'
-            script['repo'] = 'jameskilbynet/jkcoukblog'
-            script['issue-term'] = 'pathname'
-            script['theme'] = 'github-light'
+            script['data-repo'] = 'jameskilbynet/jkcoukblog'
+            script['data-issue-term'] = 'pathname'
+            script['data-theme'] = 'github-light'
             script['crossorigin'] = 'anonymous'
             script['async'] = ''
             script['data-cfasync'] = 'false'  # Bypass Cloudflare Rocket Loader
