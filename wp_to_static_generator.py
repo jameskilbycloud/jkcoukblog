@@ -1019,6 +1019,143 @@ class WordPressStaticGenerator:
         sitemap_file.write_text('\n'.join(sitemap_content))
         print(f"✅ Created sitemap.xml with {len(urls_for_sitemap)} URLs")
     
+    def generate_rss_feed(self):
+        """Generate RSS feed from posts"""
+        print("📡 Generating RSS feed...")
+        
+        # Collect all post information
+        posts = []
+        
+        # Look for post directories (year/month pattern)
+        for year_dir in sorted(self.output_dir.glob('[0-9][0-9][0-9][0-9]'), reverse=True):
+            for month_dir in sorted(year_dir.glob('[0-9][0-9]'), reverse=True):
+                for post_dir in month_dir.iterdir():
+                    if post_dir.is_dir():
+                        index_file = post_dir / 'index.html'
+                        if index_file.exists():
+                            try:
+                                with open(index_file, 'r', encoding='utf-8', errors='ignore') as f:
+                                    html_content = f.read()
+                                
+                                soup = BeautifulSoup(html_content, 'html.parser')
+                                
+                                # Extract title
+                                title_tag = soup.find('h1', class_=re.compile(r'entry-title', re.I))
+                                if not title_tag:
+                                    title_tag = soup.find('title')
+                                title = title_tag.get_text().strip() if title_tag else 'Untitled'
+                                title = re.sub(r'\s*[-–|]\s*jameskilby.*$', '', title, flags=re.IGNORECASE)
+                                
+                                # Extract description
+                                meta_desc = soup.find('meta', attrs={'name': 'description'})
+                                description = meta_desc.get('content', '').strip() if meta_desc else ''
+                                
+                                if not description:
+                                    # Try to get excerpt from content
+                                    content_div = soup.find('div', class_=re.compile(r'entry-content|entry-summary', re.I))
+                                    if content_div:
+                                        for script in content_div(["script", "style"]):
+                                            script.decompose()
+                                        text = content_div.get_text()
+                                        words = text.split()[:50]
+                                        description = ' '.join(words) + ('...' if len(words) >= 50 else '')
+                                
+                                # Extract date
+                                date_elem = soup.find('time', class_=re.compile(r'published', re.I))
+                                pub_date = ''
+                                if date_elem:
+                                    datetime_str = date_elem.get('datetime', '')
+                                    if datetime_str:
+                                        try:
+                                            from email.utils import format_datetime
+                                            from datetime import datetime as dt
+                                            dt_obj = dt.fromisoformat(datetime_str.replace('Z', '+00:00'))
+                                            pub_date = format_datetime(dt_obj)
+                                        except:
+                                            pub_date = datetime_str
+                                
+                                # Extract author
+                                author_elem = soup.find('a', class_=re.compile(r'author|fn', re.I))
+                                author = author_elem.get_text().strip() if author_elem else 'James Kilby'
+                                
+                                # Construct URL
+                                relative_path = post_dir.relative_to(self.output_dir)
+                                url = f"{self.target_domain}/{relative_path}/"
+                                
+                                posts.append({
+                                    'title': title,
+                                    'description': description,
+                                    'link': url,
+                                    'pub_date': pub_date,
+                                    'author': author
+                                })
+                            except Exception as e:
+                                print(f"   ⚠️  Error processing {post_dir}: {str(e)}")
+                                continue
+        
+        # Sort posts by date (newest first) - take top 20
+        posts = posts[:20]
+        
+        if not posts:
+            print("   ⚠️  No posts found for RSS feed")
+            return
+        
+        # Generate RSS XML
+        from xml.sax.saxutils import escape
+        
+        rss_lines = [
+            '<?xml version="1.0" encoding="UTF-8"?>',
+            '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+            '  <channel>',
+            '    <title>Jameskilbycouk</title>',
+            f'    <link>{self.target_domain}/</link>',
+            '    <description>VMware and cloud infrastructure tutorials, homelab guides, and DevOps insights</description>',
+            '    <language>en-gb</language>',
+            f'    <lastBuildDate>{datetime.now().strftime("%a, %d %b %Y %H:%M:%S +0000")}</lastBuildDate>',
+            f'    <atom:link href="{self.target_domain}/feed/index.xml" rel="self" type="application/rss+xml" />',
+        ]
+        
+        for post in posts:
+            rss_lines.extend([
+                '    <item>',
+                f'      <title>{escape(post["title"])}</title>',
+                f'      <link>{escape(post["link"])}</link>',
+                f'      <description>{escape(post["description"])}</description>',
+                f'      <author>{escape(post["author"])}</author>',
+                f'      <guid isPermaLink="true">{escape(post["link"])}</guid>',
+            ])
+            if post['pub_date']:
+                rss_lines.append(f'      <pubDate>{escape(post["pub_date"])}</pubDate>')
+            rss_lines.append('    </item>')
+        
+        rss_lines.extend([
+            '  </channel>',
+            '</rss>'
+        ])
+        
+        # Save RSS feed
+        feed_dir = self.output_dir / 'feed'
+        feed_dir.mkdir(exist_ok=True)
+        
+        feed_file = feed_dir / 'index.xml'
+        feed_file.write_text('\n'.join(rss_lines), encoding='utf-8')
+        
+        # Also create a simple HTML redirect for /feed/
+        feed_html = feed_dir / 'index.html'
+        feed_html.write_text(
+            '<!DOCTYPE html>\n'
+            '<html><head>\n'
+            '<meta http-equiv="refresh" content="0; url=index.xml" />\n'
+            '<link rel="alternate" type="application/rss+xml" href="index.xml" />\n'
+            '</head><body>\n'
+            '<p>Redirecting to <a href="index.xml">RSS feed</a>...</p>\n'
+            '</body></html>',
+            encoding='utf-8'
+        )
+        
+        print(f"   ✅ Created RSS feed with {len(posts)} posts")
+        print(f"   📡 Feed URL: {self.target_domain}/feed/index.xml")
+    
     def generate_search_index(self):
         """Generate search index for client-side search functionality"""
         print("🔍 Generating search index...")
@@ -1198,6 +1335,7 @@ class WordPressStaticGenerator:
         print(f"\\n📄 Creating additional files:")
         self.create_redirects_file()
         self.create_sitemap()
+        self.generate_rss_feed()
         self.generate_search_index()
         
         # Summary
