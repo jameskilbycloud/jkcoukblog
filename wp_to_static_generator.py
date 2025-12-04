@@ -507,7 +507,7 @@ class WordPressStaticGenerator:
             
             script = soup.new_tag('script')
             script['src'] = 'https://utteranc.es/client.js'
-            script['repo'] = 'jameskilbynet/wordpresscomments'
+            script['repo'] = 'jameskilbynet/jkcoukblog'
             script['issue-term'] = 'pathname'
             script['theme'] = 'github-light'
             script['crossorigin'] = 'anonymous'
