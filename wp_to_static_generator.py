@@ -119,17 +119,6 @@ class WordPressStaticGenerator:
         essential_urls = ['/', '/category/', '/tag/']
         urls.update(essential_urls)
         
-        print(f"\n🔍 Fallback: Discovering post links from homepage and category pages...")
-        fallback_urls = self.discover_links_from_html()
-        new_urls = fallback_urls - urls
-        if new_urls:
-            print(f"   ✅ Found {len(new_urls)} additional URLs via fallback discovery")
-            for url in sorted(new_urls):
-                print(f"   📄 Fallback: {url}")
-            urls.update(new_urls)
-        else:
-            print(f"   ℹ️  No additional URLs found via fallback")
-        
         print(f"\n✅ Total URLs to process: {len(urls)}")
         return sorted(list(urls))
     
