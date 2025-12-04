@@ -508,8 +508,8 @@ class WordPressStaticGenerator:
                 entry_content = article.find('div', class_=lambda x: x and 'entry-content' in x)
                 
                 if entry_content:
-                    # Find the entry-footer that comes after entry-content
-                    entry_footer = entry_content.find_next_sibling('footer', class_=lambda x: x and 'entry-footer' in x)
+                    # Find the entry-footer in the parent article
+                    entry_footer = article.find('footer', class_=lambda x: x and 'entry-footer' in x)
                     
                     if entry_footer:
                         # Insert before the footer (between content and footer)
