@@ -224,9 +224,6 @@ class WordPressStaticGenerator:
         # Add static site optimizations
         self.add_static_optimizations(soup)
         
-        # Add Utterances comments to every page
-        self.add_utterances_comments(soup)
-        
         # Fix inline CSS font URLs
         self.fix_inline_css_urls(soup)
         
@@ -236,18 +233,11 @@ class WordPressStaticGenerator:
         # Clean up WordPress admin AJAX URLs
         self.clean_wordpress_ajax_urls(soup)
         
+        # Add Utterances comments to every page
+        self.add_utterances_comments(soup)
+        
         # Convert to string
-        html_output = str(soup)
-        
-        # Simple string replacement to inject Utterances in the right place for single posts
-        # This is more reliable than trying to manipulate the DOM
-        if '</div><!-- .entry-content -->' in html_output and '<footer class="entry-footer">' in html_output:
-            utterances_html = '''<div class="comments-area" id="comments"><div class="pb-30"><section id="utterances-comments"><script async="" crossorigin="anonymous" data-cfasync="false" issue-term="pathname" repo="jameskilbynet/jkcoukblog" src="https://utteranc.es/client.js" theme="github-light"></script></section></div></div><!-- #comments -->\n'''
-            html_output = html_output.replace('</div><!-- .entry-content -->\n<footer class="entry-footer">', 
-                                             '</div><!-- .entry-content -->\n' + utterances_html + '<footer class="entry-footer">')
-            print(f"   💬 Inserted Utterances after entry-content via string replacement")
-        
-        return html_output
+        return str(soup)
     
     def replace_urls_in_soup(self, soup):
         """Replace WordPress URLs with target domain URLs"""
