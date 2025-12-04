@@ -471,6 +471,9 @@ class WordPressStaticGenerator:
         generator_meta['content'] = 'WordPress Static Generator 1.0'
         soup.head.append(generator_meta)
         
+        # Add Plausible analytics if not already present
+        self.add_plausible_analytics(soup)
+        
         # Add preload hints for critical resources
         for link in soup.find_all('link', rel='stylesheet'):
             if link.get('href'):
@@ -479,6 +482,33 @@ class WordPressStaticGenerator:
                 preload['as'] = 'style'
                 preload['href'] = link['href']
                 soup.head.insert(0, preload)
+    
+    def add_plausible_analytics(self, soup):
+        """Add Plausible Analytics script to the page if not already present"""
+        if not soup.head:
+            return
+        
+        # Check if Plausible script is already present
+        plausible_domain = 'plausible.jameskilby.cloud'
+        plausible_script_url = f'https://{plausible_domain}/js/script.js'
+        target_analytics_domain = 'jameskilby.co.uk'
+        
+        # Look for existing Plausible script
+        existing_plausible = soup.find('script', src=lambda x: x and 'plausible' in x and 'script.js' in x)
+        
+        if existing_plausible:
+            # Update the data-domain attribute to ensure it's correct
+            existing_plausible['data-domain'] = target_analytics_domain
+            existing_plausible['defer'] = ''
+            print(f"   📊 Updated existing Plausible analytics configuration")
+        else:
+            # Add new Plausible script
+            plausible_script = soup.new_tag('script')
+            plausible_script['data-domain'] = target_analytics_domain
+            plausible_script['defer'] = ''
+            plausible_script['src'] = plausible_script_url
+            soup.head.append(plausible_script)
+            print(f"   📊 Added Plausible analytics script to page")
     
     def extract_assets(self, soup, current_url):
         """Extract asset URLs for later download"""
