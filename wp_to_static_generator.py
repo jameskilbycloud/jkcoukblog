@@ -211,6 +211,10 @@ class WordPressStaticGenerator:
         """Process HTML content for static site compatibility"""
         soup = BeautifulSoup(html_content, 'html.parser')
         
+        # Extract and queue assets for download BEFORE URL replacement
+        # This ensures we download from WordPress, not from the target domain
+        self.extract_assets(soup, current_url)
+        
         # Replace all WordPress URLs with target domain URLs
         self.replace_urls_in_soup(soup)
         
@@ -228,9 +232,6 @@ class WordPressStaticGenerator:
         
         # Process WordPress embeds (convert to proper iframes)
         self.process_wordpress_embeds(soup)
-        
-        # Extract and queue assets for download
-        self.extract_assets(soup, current_url)
         
         # Clean up WordPress admin AJAX URLs
         self.clean_wordpress_ajax_urls(soup)
