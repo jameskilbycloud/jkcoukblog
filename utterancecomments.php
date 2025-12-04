@@ -15,7 +15,7 @@ if (post_password_required()) {
         <!-- Utterances Comments Embed -->
         <section id="utterances-comments">
             <script src="https://utteranc.es/client.js"
-                repo="jameskilbynet/wordpresscomments"
+                repo="jameskilbynet/jkcoukblog"
                 issue-term="pathname"
                 theme="github-light"
                 crossorigin="anonymous"
