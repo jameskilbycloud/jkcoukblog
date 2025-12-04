@@ -475,23 +475,28 @@ class WordPressStaticGenerator:
         if not (is_single_post or is_page):
             return  # Not a single post/page, skip comments
         
-        # Find the comments area or main content area to insert after
+        # Find the best insertion point - right after the main article, before author/related sections
         insertion_point = None
         
-        # Try to find existing comments area
+        # Try to find existing comments area first
         comments_area = soup.find('div', id='comments')
         if comments_area:
             # Replace existing comments with Utterances
             insertion_point = comments_area
         else:
-            # Try to find article content area (only if single article)
+            # Find the main article element (only if single article)
             if articles and len(articles) == 1:
-                insertion_point = articles[0]
-            else:
-                # Try to find main content area
-                main = soup.find('main')
-                if main:
-                    insertion_point = main
+                article = articles[0]
+                
+                # Look for entry-content div inside the article - this is the main post content
+                entry_content = article.find('div', class_=lambda x: x and 'entry-content' in x)
+                
+                if entry_content:
+                    # Insert immediately after entry-content, before any other sections
+                    insertion_point = entry_content
+                else:
+                    # Fallback: insert after the article itself
+                    insertion_point = article
         
         if insertion_point:
             # Create the Utterances comments section
@@ -524,9 +529,9 @@ class WordPressStaticGenerator:
                 comments_area.replace_with(comments_div)
                 print(f"   💬 Replaced existing comments with Utterances")
             else:
-                # Append after the insertion point
+                # Insert immediately after the entry-content or article
                 insertion_point.insert_after(comments_div)
-                print(f"   💬 Added Utterances comments section")
+                print(f"   💬 Added Utterances comments section after main content")
     
     def add_static_optimizations(self, soup):
         """Add optimizations for static site performance"""
