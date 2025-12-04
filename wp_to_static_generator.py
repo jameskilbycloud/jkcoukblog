@@ -524,7 +524,7 @@ class WordPressStaticGenerator:
                     # Fallback: insert after the article itself
                     insertion_point = article
         
-        if insertion_point:
+        if insertion_point or insert_before:
             # Create the Utterances comments section
             comments_div = soup.new_tag('div')
             comments_div['id'] = 'comments'
