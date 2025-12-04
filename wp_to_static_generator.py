@@ -205,6 +205,9 @@ class WordPressStaticGenerator:
         # Add static site optimizations
         self.add_static_optimizations(soup)
         
+        # Add Utterances comments to every page
+        self.add_utterances_comments(soup)
+        
         # Fix inline CSS font URLs
         self.fix_inline_css_urls(soup)
         
@@ -453,6 +456,61 @@ class WordPressStaticGenerator:
                 if updated_css != css_content:
                     style_tag.string = updated_css
                     print(f"   🎨 Fixed inline CSS font URLs")
+    
+    def add_utterances_comments(self, soup):
+        """Add Utterances comments section to the page"""
+        # Find the comments area or main content area to insert after
+        insertion_point = None
+        
+        # Try to find existing comments area
+        comments_area = soup.find('div', id='comments')
+        if comments_area:
+            # Replace existing comments with Utterances
+            insertion_point = comments_area
+        else:
+            # Try to find article content area
+            article = soup.find('article')
+            if article:
+                insertion_point = article
+            else:
+                # Try to find main content area
+                main = soup.find('main')
+                if main:
+                    insertion_point = main
+        
+        if insertion_point:
+            # Create the Utterances comments section
+            comments_div = soup.new_tag('div')
+            comments_div['id'] = 'comments'
+            comments_div['class'] = 'comments-area'
+            
+            inner_div = soup.new_tag('div')
+            inner_div['class'] = 'pb-30'
+            
+            section = soup.new_tag('section')
+            section['id'] = 'utterances-comments'
+            
+            script = soup.new_tag('script')
+            script['src'] = 'https://utteranc.es/client.js'
+            script['repo'] = 'jameskilbynet/wordpresscomments'
+            script['issue-term'] = 'pathname'
+            script['theme'] = 'github-light'
+            script['crossorigin'] = 'anonymous'
+            script['async'] = ''
+            
+            section.append(script)
+            inner_div.append(section)
+            comments_div.append(inner_div)
+            
+            # Insert the comments section
+            if comments_area:
+                # Replace existing comments
+                comments_area.replace_with(comments_div)
+                print(f"   💬 Replaced existing comments with Utterances")
+            else:
+                # Append after the insertion point
+                insertion_point.insert_after(comments_div)
+                print(f"   💬 Added Utterances comments section")
     
     def add_static_optimizations(self, soup):
         """Add optimizations for static site performance"""
