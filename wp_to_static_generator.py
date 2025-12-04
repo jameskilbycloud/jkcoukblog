@@ -39,25 +39,40 @@ class WordPressStaticGenerator:
         
         # Get posts with pagination
         page = 1
+        post_count = 0
         while True:
+            print(f"   🔍 Fetching posts page {page}...")
             posts_response = self.session.get(
                 f'{self.wp_url}/wp-json/wp/v2/posts',
                 params={'per_page': 100, 'page': page, 'status': 'publish'}
             )
+            
             if posts_response.status_code != 200:
+                print(f"   ⚠️  Posts API returned status {posts_response.status_code} on page {page}")
+                if posts_response.status_code == 400:
+                    # Reached end of pagination
+                    print(f"   ℹ️  Reached end of posts (page {page})")
+                elif posts_response.status_code == 401:
+                    print(f"   ❌ Authentication failed - check WP_AUTH_TOKEN")
+                else:
+                    print(f"   ❌ Error: {posts_response.text[:200]}")
                 break
                 
             posts = posts_response.json()
             if not posts:
+                print(f"   ℹ️  No more posts on page {page}")
                 break
                 
             for post in posts:
                 # Convert WordPress URL to relative path
                 relative_url = post['link'].replace(self.wp_url, '')
                 urls.add(relative_url)
+                post_count += 1
                 print(f"   📄 Post: {post['title']['rendered']}")
             
             page += 1
+        
+        print(f"   ✅ Discovered {post_count} posts from REST API")
         
         # Get pages
         page = 1
@@ -104,7 +119,18 @@ class WordPressStaticGenerator:
         essential_urls = ['/', '/category/', '/tag/']
         urls.update(essential_urls)
         
-        print(f"✅ Found {len(urls)} URLs to process")
+        print(f"\n🔍 Fallback: Discovering post links from homepage and category pages...")
+        fallback_urls = self.discover_links_from_html()
+        new_urls = fallback_urls - urls
+        if new_urls:
+            print(f"   ✅ Found {len(new_urls)} additional URLs via fallback discovery")
+            for url in sorted(new_urls):
+                print(f"   📄 Fallback: {url}")
+            urls.update(new_urls)
+        else:
+            print(f"   ℹ️  No additional URLs found via fallback")
+        
+        print(f"\n✅ Total URLs to process: {len(urls)}")
         return sorted(list(urls))
     
     def get_all_media_assets(self):
@@ -475,8 +501,9 @@ class WordPressStaticGenerator:
         if not (is_single_post or is_page):
             return  # Not a single post/page, skip comments
         
-        # Find the best insertion point - right after the main article, before author/related sections
+        # Find the best insertion point - right after entry-content, before entry-footer
         insertion_point = None
+        insert_before = None
         
         # Try to find existing comments area first
         comments_area = soup.find('div', id='comments')
@@ -492,8 +519,15 @@ class WordPressStaticGenerator:
                 entry_content = article.find('div', class_=lambda x: x and 'entry-content' in x)
                 
                 if entry_content:
-                    # Insert immediately after entry-content, before any other sections
-                    insertion_point = entry_content
+                    # Find the entry-footer that comes after entry-content
+                    entry_footer = entry_content.find_next_sibling('footer', class_=lambda x: x and 'entry-footer' in x)
+                    
+                    if entry_footer:
+                        # Insert before the footer (between content and footer)
+                        insert_before = entry_footer
+                    else:
+                        # Fallback: insert after entry-content
+                        insertion_point = entry_content
                 else:
                     # Fallback: insert after the article itself
                     insertion_point = article
@@ -528,8 +562,12 @@ class WordPressStaticGenerator:
                 # Replace existing comments
                 comments_area.replace_with(comments_div)
                 print(f"   💬 Replaced existing comments with Utterances")
-            else:
-                # Insert immediately after the entry-content or article
+            elif insert_before:
+                # Insert before the entry-footer
+                insert_before.insert_before(comments_div)
+                print(f"   💬 Added Utterances comments section before footer")
+            elif insertion_point:
+                # Insert immediately after the insertion point
                 insertion_point.insert_after(comments_div)
                 print(f"   💬 Added Utterances comments section after main content")
     
