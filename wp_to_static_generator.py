@@ -500,8 +500,9 @@ class WordPressStaticGenerator:
             # Replace existing comments with Utterances
             insertion_point = comments_area
         else:
-            # Find the main article element (only if single article)
-            if articles and len(articles) == 1:
+            # Find the main article element
+            articles = soup.find_all('article')
+            if articles and len(articles) >= 1:
                 article = articles[0]
                 
                 # Look for entry-content div inside the article - this is the main post content
