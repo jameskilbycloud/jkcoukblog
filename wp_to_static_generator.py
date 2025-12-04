@@ -273,8 +273,72 @@ class WordPressStaticGenerator:
                             if original_url.startswith(self.wp_url):
                                 tag[attr] = original_url.replace(self.wp_url, self.target_domain)
                             elif original_url.startswith('/') and not original_url.startswith('//'):
-                                # Relative URLs - make them absolute with target domain
-                                tag[attr] = self.target_domain + original_url
+                                # Relative URLs - keep them relative (don't make absolute)
+                                pass  # Leave relative URLs as-is
+        
+        # Fix meta tags (Open Graph, Twitter Cards, canonical, etc.)
+        self.fix_meta_tag_urls(soup)
+        
+        # Fix JSON-LD structured data
+        self.fix_jsonld_urls(soup)
+    
+    def fix_meta_tag_urls(self, soup):
+        """Fix URLs in meta tags (Open Graph, Twitter Cards, canonical)"""
+        # Fix meta tags with property attribute (Open Graph)
+        for meta in soup.find_all('meta', property=True):
+            prop = meta.get('property', '')
+            content = meta.get('content', '')
+            
+            # Replace WordPress URLs in og:url, og:image, etc.
+            if content and self.wp_url in content:
+                meta['content'] = content.replace(self.wp_url, self.target_domain)
+                print(f"   🔧 Fixed meta property: {prop}")
+        
+        # Fix meta tags with name attribute (Twitter Cards)
+        for meta in soup.find_all('meta', attrs={'name': True}):
+            name = meta.get('name', '')
+            content = meta.get('content', '')
+            
+            # Fix twitter:image, twitter:url, etc.
+            if content and self.wp_url in content:
+                meta['content'] = content.replace(self.wp_url, self.target_domain)
+                print(f"   🔧 Fixed meta name: {name}")
+        
+        # Fix canonical links
+        for link in soup.find_all('link', rel='canonical'):
+            href = link.get('href', '')
+            if href and self.wp_url in href:
+                link['href'] = href.replace(self.wp_url, self.target_domain)
+                print(f"   🔧 Fixed canonical URL")
+        
+        # Fix RSS feed links
+        for link in soup.find_all('link', type=['application/rss+xml', 'application/atom+xml']):
+            href = link.get('href', '')
+            if href and self.wp_url in href:
+                link['href'] = href.replace(self.wp_url, self.target_domain)
+                print(f"   🔧 Fixed feed URL")
+    
+    def fix_jsonld_urls(self, soup):
+        """Fix URLs in JSON-LD structured data"""
+        # Find all script tags with JSON-LD
+        for script in soup.find_all('script', type='application/ld+json'):
+            if script.string:
+                try:
+                    # Replace WordPress URLs in the JSON string
+                    original_json = script.string
+                    # Replace escaped URLs (in JSON)
+                    updated_json = original_json.replace(
+                        self.wp_url.replace('/', '\\/'),
+                        self.target_domain.replace('/', '\\/')
+                    )
+                    # Also replace unescaped URLs
+                    updated_json = updated_json.replace(self.wp_url, self.target_domain)
+                    
+                    if updated_json != original_json:
+                        script.string = updated_json
+                        print(f"   🔧 Fixed JSON-LD structured data URLs")
+                except Exception as e:
+                    print(f"   ⚠️  Error fixing JSON-LD: {str(e)}")
     
     def remove_wordpress_elements(self, soup):
         """Remove WordPress-specific dynamic elements"""
