@@ -59,7 +59,7 @@ jobs:
       with:
         name: spelling-report-${{ github.run_id }}
         path: spelling_check_report.md
-        retention-days: 30
+        retention-days: 7
         
     - name: Comment on commit if errors found
       if: env.SPELL_CHECK_STATUS == 'failed' && github.event_name == 'workflow_dispatch'
