@@ -251,23 +251,23 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
         """
         Generate a markdown report of spelling errors
         """
-        report = ["# Spelling and Grammar Check Report\\n"]
-        report.append(f"Generated: {__import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\\n")
+        report = ["# Spelling and Grammar Check Report\n"]
+        report.append(f"Generated: {__import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
         
         posts_with_errors = [r for r in results if r.get('has_errors')]
         posts_clean = [r for r in results if not r.get('has_errors') and 'error' not in r]
         
-        report.append(f"## Summary\\n")
+        report.append(f"## Summary\n")
         report.append(f"- Total posts checked: {len(results)}")
         report.append(f"- Posts with errors: {len(posts_with_errors)}")
-        report.append(f"- Posts clean: {len(posts_clean)}\\n")
+        report.append(f"- Posts clean: {len(posts_clean)}\n")
         
         if posts_with_errors:
-            report.append("## Posts with Errors\\n")
+            report.append("## Posts with Errors\n")
             
             for result in posts_with_errors:
                 report.append(f"### {result['title']}")
-                report.append(f"**URL**: {result['link']}\\n")
+                report.append(f"**URL**: {result['link']}\n")
                 
                 for error in result['errors']:
                     report.append(f"- **{error['type'].upper()}** in `{error['section']}`:")
@@ -279,11 +279,11 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
                     report.append("")
         
         if posts_clean:
-            report.append("## Posts with No Errors ✅\\n")
+            report.append("## Posts with No Errors ✅\n")
             for result in posts_clean:
                 report.append(f"- {result['title']}")
         
-        return '\\n'.join(report)
+        return '\n'.join(report)
 
 def main():
     """
@@ -341,17 +341,17 @@ def main():
         report_file = Path('spelling_check_report.md')
         report_file.write_text(report)
         
-        print("\\n" + "=" * 60)
+        print("\n" + "=" * 60)
         print(f"📊 Report saved to: {report_file}")
         print()
         print(report)
         
         # Exit with error code if errors found
         if any(r.get('has_errors') for r in results):
-            print("\\n⚠️  Spelling errors found! Please review the report.")
+            print("\n⚠️  Spelling errors found! Please review the report.")
             sys.exit(1)
         else:
-            print("\\n✅ No spelling errors found!")
+            print("\n✅ No spelling errors found!")
             sys.exit(0)
     else:
         print("❌ No results to report")
