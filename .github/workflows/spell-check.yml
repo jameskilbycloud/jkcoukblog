@@ -70,18 +70,16 @@ jobs:
       if: env.SPELL_CHECK_STATUS == 'passed'
       uses: 8398a7/action-slack@v3
       with:
-        status: success
+        status: custom
         channel: '#web'
-        title: 'WordPress Spell Check ✅ Passed'
-        message: |
-          ✅ **All posts are clean!**
-          
-          📝 **Posts checked:** ${{ github.event.inputs.post_count || '5' }}
-          📅 **Time:** ${{ github.event.repository.updated_at }}
-          🔗 **Report:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          
-          No action needed.
-        color: good
+        custom_payload: |
+          {
+            "text": "✅ WordPress Spell Check Passed",
+            "attachments": [{
+              "color": "good",
+              "text": "All posts are clean!\n\n📝 Posts checked: ${{ github.event.inputs.post_count || '5' }}\n🔗 Report: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }]
+          }
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         
@@ -89,17 +87,15 @@ jobs:
       if: env.SPELL_CHECK_STATUS == 'failed'
       uses: 8398a7/action-slack@v3
       with:
-        status: warning
+        status: custom
         channel: '#web'
-        title: 'WordPress Spell Check ⚠️  Issues Found'
-        message: |
-          ⚠️  **Spelling errors detected**
-          
-          📝 **Posts checked:** ${{ github.event.inputs.post_count || '5' }}
-          📅 **Time:** ${{ github.event.repository.updated_at }}
-          🔗 **Report:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          
-          Please review the report and fix errors before publishing.
-        color: warning
+        custom_payload: |
+          {
+            "text": "⚠️  WordPress Spell Check - Issues Found",
+            "attachments": [{
+              "color": "warning",
+              "text": "Spelling errors detected\n\n📝 Posts checked: ${{ github.event.inputs.post_count || '5' }}\n🔗 Report: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\n\nPlease review the report and fix errors before publishing."
+            }]
+          }
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
