@@ -30,6 +30,9 @@ Thumbs.db
 *.log
 deploy.log
 
+# Spell check reports
+spelling_check_report.md
+
 # IDE files
 .vscode/
 .idea/

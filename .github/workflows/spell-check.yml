@@ -1,0 +1,85 @@
+name: Spell Check WordPress Content
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'  # Weekly on Monday at 8 AM UTC
+  workflow_dispatch:      # Manual trigger
+    inputs:
+      post_count:
+        description: 'Number of posts to check'
+        required: false
+        default: '5'
+
+jobs:
+  spell-check:
+    runs-on: self-hosted  # Self-hosted to access WordPress behind Cloudflare Access
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        echo "🔧 Installing Python dependencies..."
+        pip install requests beautifulsoup4
+        echo "✅ Dependencies installed"
+        
+    - name: Run spell checker
+      env:
+        WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+        OLLAMA_URL: https://ollama.jameskilby.cloud
+        WP_URL: https://wordpress.jameskilby.cloud
+        OLLAMA_MODEL: llama3.2:latest
+      run: |
+        echo "🚀 Starting spell check..."
+        POST_COUNT="${{ github.event.inputs.post_count || '5' }}"
+        echo "📝 Checking $POST_COUNT most recent posts"
+        
+        # Run spell checker (will exit 1 if errors found)
+        ./ollama_spell_checker.py $POST_COUNT || SPELL_CHECK_FAILED=1
+        
+        # Save exit code for later steps
+        if [ "$SPELL_CHECK_FAILED" = "1" ]; then
+          echo "SPELL_CHECK_STATUS=failed" >> $GITHUB_ENV
+          echo "⚠️  Spelling errors detected"
+        else
+          echo "SPELL_CHECK_STATUS=passed" >> $GITHUB_ENV
+          echo "✅ No spelling errors found"
+        fi
+        
+    - name: Upload spell check report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: spelling-report-${{ github.run_id }}
+        path: spelling_check_report.md
+        retention-days: 30
+        
+    - name: Comment on commit if errors found
+      if: env.SPELL_CHECK_STATUS == 'failed' && github.event_name == 'workflow_dispatch'
+      run: |
+        echo "📝 Spelling errors found. Report uploaded as artifact."
+        
+    - name: Notify Slack of results
+      if: always()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ env.SPELL_CHECK_STATUS == 'passed' && 'success' || 'warning' }}
+        channel: '#web'
+        title: 'WordPress Spell Check ${{ env.SPELL_CHECK_STATUS == "passed" && "✅ Passed" || "⚠️  Issues Found" }}'
+        message: |
+          ${{ env.SPELL_CHECK_STATUS == 'passed' && '✅ **All posts are clean!**' || '⚠️  **Spelling errors detected**' }}
+          
+          📝 **Posts checked:** ${{ github.event.inputs.post_count || '5' }}
+          📅 **Time:** ${{ github.event.repository.updated_at }}
+          🔗 **Report:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          
+          ${{ env.SPELL_CHECK_STATUS == 'passed' && 'No action needed.' || 'Please review the report and fix errors before publishing.' }}
+        color: ${{ env.SPELL_CHECK_STATUS == 'passed' && 'good' || 'warning' }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

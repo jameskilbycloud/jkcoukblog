@@ -46,6 +46,17 @@ jobs:
         echo "🔧 Running comprehensive environment test:"
         python test_runner_env.py
         
+    - name: Optional spell check (non-blocking)
+      env:
+        WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+        OLLAMA_URL: https://ollama.jameskilby.cloud
+        OLLAMA_MODEL: llama3.2:latest
+      run: |
+        echo "📝 Running quick spell check on recent posts..."
+        # Check 3 most recent posts, but don't fail deployment
+        ./ollama_spell_checker.py 3 || echo "⚠️  Spelling issues detected (non-blocking)"
+      continue-on-error: true
+        
     - name: Generate static site
       env:
         WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
