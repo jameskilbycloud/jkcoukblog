@@ -314,7 +314,11 @@ def main():
     print(f"Ollama: {OLLAMA_URL}")
     print(f"WordPress: {WP_URL}")
     print(f"Model: {MODEL}")
-    print("=" * 60)
+    print(f"Auth configured: {bool(OLLAMA_AUTH)}")
+    if OLLAMA_AUTH:
+        username = OLLAMA_AUTH.split(':', 1)[0] if ':' in OLLAMA_AUTH else 'INVALID'
+        print(f"Auth username: {username}")
+    print("="*60)
     print()
     
     # Create checker
