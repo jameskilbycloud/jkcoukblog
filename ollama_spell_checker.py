@@ -202,21 +202,25 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
             
             # Check each section
             for section_type, text in texts:
-                print(f"   🔍 Checking {section_type}...")
-                
-                # Skip very short text
-                if len(text.split()) < 5:
+                try:
+                    print(f"   🔍 Checking {section_type}...")
+                    
+                    # Skip very short text
+                    if len(text.split()) < 5:
+                        continue
+                    
+                    result = self.check_spelling_with_ollama(text)
+                    
+                    if result.get('has_errors'):
+                        errors_found = result.get('errors', [])
+                        print(f"      Debug: Found {len(errors_found)} errors in this section")
+                        for error in errors_found:
+                            error['section'] = section_type
+                            all_errors.append(error)
+                            print(f"      ⚠️  {error['type']}: {error['word']} → {error.get('suggestion', '?')}")
+                except Exception as e:
+                    print(f"      ⚠️  Error checking section: {str(e)}")
                     continue
-                
-                result = self.check_spelling_with_ollama(text)
-                
-                if result.get('has_errors'):
-                    errors_found = result.get('errors', [])
-                    print(f"      Debug: Found {len(errors_found)} errors in this section")
-                    for error in errors_found:
-                        error['section'] = section_type
-                        all_errors.append(error)
-                        print(f"      ⚠️  {error['type']}: {error['word']} → {error.get('suggestion', '?')}")
             
             print(f"   📊 Total errors found for this post: {len(all_errors)}")
             
@@ -350,6 +354,12 @@ def main():
     
     # Generate report
     if results:
+        print(f"\n📦 Debug: Generating report for {len(results)} posts")
+        for i, r in enumerate(results):
+            error_count = len(r.get('errors', []))
+            has_errors_flag = r.get('has_errors', False)
+            print(f"   Post {i+1}: {error_count} errors, has_errors={has_errors_flag}")
+        
         report = checker.generate_report(results)
         
         # Save report
