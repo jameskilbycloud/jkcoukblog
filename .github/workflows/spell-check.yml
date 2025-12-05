@@ -35,7 +35,7 @@ jobs:
         OLLAMA_API_CREDENTIALS: ${{ secrets.OLLAMA_API_CREDENTIALS }}
         WP_URL: https://wordpress.jameskilby.cloud
         OLLAMA_URL: https://ollama.jameskilby.cloud
-        OLLAMA_MODEL: llama3.2:latest
+        OLLAMA_MODEL: llama3.1:8b
       run: |
         echo "🚀 Starting spell check..."
         POST_COUNT="${{ github.event.inputs.post_count || '5' }}"

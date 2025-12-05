@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import List, Dict, Tuple
 
 class OllamaSpellChecker:
-    def __init__(self, ollama_url: str, wp_url: str, auth_token: str, model: str = "llama3.2:latest", ollama_auth: str = None):
+    def __init__(self, ollama_url: str, wp_url: str, auth_token: str, model: str = "llama3.1:8b", ollama_auth: str = None):
         self.ollama_url = ollama_url.rstrip('/')
         self.wp_url = wp_url.rstrip('/')
         self.auth_token = auth_token
@@ -293,7 +293,7 @@ def main():
     OLLAMA_URL = os.getenv('OLLAMA_URL', 'https://ollama.jameskilby.cloud')
     WP_URL = os.getenv('WP_URL', 'https://wordpress.jameskilby.cloud')
     AUTH_TOKEN = os.getenv('WP_AUTH_TOKEN')
-    MODEL = os.getenv('OLLAMA_MODEL', 'llama3.2:latest')
+    MODEL = os.getenv('OLLAMA_MODEL', 'llama3.1:8b')
     OLLAMA_AUTH = os.getenv('OLLAMA_API_CREDENTIALS')  # Format: username:password
     
     if not AUTH_TOKEN:

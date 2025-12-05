@@ -51,7 +51,7 @@ jobs:
         WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
         OLLAMA_API_CREDENTIALS: ${{ secrets.OLLAMA_API_CREDENTIALS }}
         OLLAMA_URL: https://ollama.jameskilby.cloud
-        OLLAMA_MODEL: llama3.2:latest
+        OLLAMA_MODEL: llama3.1:8b
       run: |
         echo "📝 Running quick spell check on recent posts..."
         # Check 3 most recent posts, but don't fail deployment
