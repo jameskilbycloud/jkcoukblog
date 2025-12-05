@@ -65,21 +65,40 @@ jobs:
       run: |
         echo "📝 Spelling errors found. Report uploaded as artifact."
         
-    - name: Notify Slack of results
-      if: always()
+    - name: Notify Slack on success
+      if: env.SPELL_CHECK_STATUS == 'passed'
       uses: 8398a7/action-slack@v3
       with:
-        status: ${{ env.SPELL_CHECK_STATUS == 'passed' && 'success' || 'warning' }}
+        status: success
         channel: '#web'
-        title: 'WordPress Spell Check ${{ env.SPELL_CHECK_STATUS == "passed" && "✅ Passed" || "⚠️  Issues Found" }}'
+        title: 'WordPress Spell Check ✅ Passed'
         message: |
-          ${{ env.SPELL_CHECK_STATUS == 'passed' && '✅ **All posts are clean!**' || '⚠️  **Spelling errors detected**' }}
+          ✅ **All posts are clean!**
           
           📝 **Posts checked:** ${{ github.event.inputs.post_count || '5' }}
           📅 **Time:** ${{ github.event.repository.updated_at }}
           🔗 **Report:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           
-          ${{ env.SPELL_CHECK_STATUS == 'passed' && 'No action needed.' || 'Please review the report and fix errors before publishing.' }}
-        color: ${{ env.SPELL_CHECK_STATUS == 'passed' && 'good' || 'warning' }}
+          No action needed.
+        color: good
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        
+    - name: Notify Slack on errors
+      if: env.SPELL_CHECK_STATUS == 'failed'
+      uses: 8398a7/action-slack@v3
+      with:
+        status: warning
+        channel: '#web'
+        title: 'WordPress Spell Check ⚠️  Issues Found'
+        message: |
+          ⚠️  **Spelling errors detected**
+          
+          📝 **Posts checked:** ${{ github.event.inputs.post_count || '5' }}
+          📅 **Time:** ${{ github.event.repository.updated_at }}
+          🔗 **Report:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          
+          Please review the report and fix errors before publishing.
+        color: warning
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
