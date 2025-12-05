@@ -14,11 +14,14 @@ from pathlib import Path
 from typing import List, Dict, Tuple
 
 class OllamaSpellChecker:
-    def __init__(self, ollama_url: str, wp_url: str, auth_token: str, model: str = "llama3.2:latest"):
+    def __init__(self, ollama_url: str, wp_url: str, auth_token: str, model: str = "llama3.2:latest", ollama_auth: str = None):
         self.ollama_url = ollama_url.rstrip('/')
         self.wp_url = wp_url.rstrip('/')
         self.auth_token = auth_token
         self.model = model
+        self.ollama_auth = ollama_auth
+        
+        # Session for WordPress API
         self.session = requests.Session()
         self.session.headers.update({
             'Authorization': f'Basic {auth_token}',
@@ -67,6 +70,14 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
 """
         
         try:
+            # Prepare authentication for Ollama if provided
+            ollama_auth_tuple = None
+            if self.ollama_auth:
+                # Parse username:password format
+                if ':' in self.ollama_auth:
+                    username, password = self.ollama_auth.split(':', 1)
+                    ollama_auth_tuple = (username, password)
+            
             response = requests.post(
                 f'{self.ollama_url}/api/generate',
                 json={
@@ -78,6 +89,7 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
                         'num_predict': 1000
                     }
                 },
+                auth=ollama_auth_tuple,
                 timeout=60
             )
             
@@ -279,6 +291,7 @@ def main():
     WP_URL = os.getenv('WP_URL', 'https://wordpress.jameskilby.cloud')
     AUTH_TOKEN = os.getenv('WP_AUTH_TOKEN')
     MODEL = os.getenv('OLLAMA_MODEL', 'llama3.2:latest')
+    OLLAMA_AUTH = os.getenv('OLLAMA_API_CREDENTIALS')  # Format: username:password
     
     if not AUTH_TOKEN:
         print('❌ Error: WP_AUTH_TOKEN environment variable is required')
@@ -306,7 +319,8 @@ def main():
         ollama_url=OLLAMA_URL,
         wp_url=WP_URL,
         auth_token=AUTH_TOKEN,
-        model=MODEL
+        model=MODEL,
+        ollama_auth=OLLAMA_AUTH
     )
     
     # Check posts

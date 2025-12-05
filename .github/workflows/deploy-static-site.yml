@@ -49,6 +49,7 @@ jobs:
     - name: Optional spell check (non-blocking)
       env:
         WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+        OLLAMA_API_CREDENTIALS: ${{ secrets.OLLAMA_API_CREDENTIALS }}
         OLLAMA_URL: https://ollama.jameskilby.cloud
         OLLAMA_MODEL: llama3.2:latest
       run: |
