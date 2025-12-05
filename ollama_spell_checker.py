@@ -103,15 +103,26 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
                 # Extract JSON from response
                 json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
                 if json_match:
-                    return json.loads(json_match.group())
+                    try:
+                        parsed = json.loads(json_match.group())
+                        return parsed
+                    except json.JSONDecodeError as e:
+                        print(f"⚠️  JSON parsing error: {str(e)}")
+                        print(f"      Raw response (first 200 chars): {response_text[:200]}")
+                        return {'has_errors': False, 'errors': []}
+                else:
+                    print(f"⚠️  No JSON found in response")
                 
                 return {'has_errors': False, 'errors': []}
             else:
                 print(f"❌ Ollama API error: {response.status_code}")
                 return {'has_errors': False, 'errors': []}
                 
-        except Exception as e:
+        except requests.exceptions.RequestException as e:
             print(f"⚠️  Ollama connection error: {str(e)}")
+            return {'has_errors': False, 'errors': []}
+        except Exception as e:
+            print(f"⚠️  Unexpected error: {str(e)}")
             return {'has_errors': False, 'errors': []}
     
     def extract_text_from_html(self, html_content: str, post_title: str = '', post_excerpt: str = '') -> List[Tuple[str, str]]:
@@ -200,10 +211,14 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
                 result = self.check_spelling_with_ollama(text)
                 
                 if result.get('has_errors'):
-                    for error in result.get('errors', []):
+                    errors_found = result.get('errors', [])
+                    print(f"      Debug: Found {len(errors_found)} errors in this section")
+                    for error in errors_found:
                         error['section'] = section_type
                         all_errors.append(error)
                         print(f"      ⚠️  {error['type']}: {error['word']} → {error.get('suggestion', '?')}")
+            
+            print(f"   📊 Total errors found for this post: {len(all_errors)}")
             
             return {
                 'post_id': post_id,
