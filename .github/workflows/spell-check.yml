@@ -54,7 +54,7 @@ jobs:
         
     - name: Upload spell check report
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: spelling-report-${{ github.run_id }}
         path: spelling_check_report.md
