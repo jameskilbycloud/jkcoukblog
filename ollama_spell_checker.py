@@ -77,6 +77,9 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
                 if ':' in self.ollama_auth:
                     username, password = self.ollama_auth.split(':', 1)
                     ollama_auth_tuple = (username, password)
+                    print(f"🔐 Debug: Using auth with username '{username}' (password length: {len(password)})")
+            else:
+                print("⚠️  Debug: No OLLAMA_API_CREDENTIALS found")
             
             response = requests.post(
                 f'{self.ollama_url}/api/generate',
