@@ -29,13 +29,13 @@ jobs:
         pip install requests beautifulsoup4
         echo "✅ Dependencies installed"
         
-      - name: Run spell check
-        env:
-          WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
-          OLLAMA_API_CREDENTIALS: ${{ secrets.OLLAMA_API_CREDENTIALS }}
-          WP_URL: https://wordpress.jameskilby.cloud
-          OLLAMA_URL: https://ollama.jameskilby.cloud
-          OLLAMA_MODEL: llama3.2:latest
+    - name: Run spell check
+      env:
+        WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+        OLLAMA_API_CREDENTIALS: ${{ secrets.OLLAMA_API_CREDENTIALS }}
+        WP_URL: https://wordpress.jameskilby.cloud
+        OLLAMA_URL: https://ollama.jameskilby.cloud
+        OLLAMA_MODEL: llama3.2:latest
       run: |
         echo "🚀 Starting spell check..."
         POST_COUNT="${{ github.event.inputs.post_count || '5' }}"
