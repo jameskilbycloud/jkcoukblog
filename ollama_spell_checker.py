@@ -215,6 +215,11 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
                         errors_found = result.get('errors', [])
                         print(f"      Debug: Found {len(errors_found)} errors in this section")
                         for error in errors_found:
+                            # Skip malformed errors that are missing required keys
+                            if not error.get('word') or not error.get('type'):
+                                print(f"      ⚠️  Skipping malformed error: {error}")
+                                continue
+                            
                             error['section'] = section_type
                             all_errors.append(error)
                             print(f"      ⚠️  {error['type']}: {error['word']} → {error.get('suggestion', '?')}")
