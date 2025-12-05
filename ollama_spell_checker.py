@@ -233,16 +233,33 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
         except Exception as e:
             return {'error': str(e)}
     
-    def check_recent_posts(self, count: int = 5) -> List[Dict]:
+    def check_recent_posts(self, count: int = 5, since: str = None) -> List[Dict]:
         """
         Check recent WordPress posts for spelling errors
+        Args:
+            count: Maximum number of posts to check
+            since: ISO 8601 timestamp - only check posts modified after this time
         """
-        print(f"🔍 Checking {count} most recent posts...")
+        if since:
+            print(f"🔍 Checking posts modified since {since}...")
+        else:
+            print(f"🔍 Checking {count} most recent posts...")
         
         try:
+            params = {
+                'per_page': count,
+                'status': 'publish',
+                'orderby': 'modified',
+                'order': 'desc'
+            }
+            
+            # Add modified_after filter if timestamp provided
+            if since:
+                params['modified_after'] = since
+            
             response = self.session.get(
                 f'{self.wp_url}/wp-json/wp/v2/posts',
-                params={'per_page': count, 'status': 'publish', 'orderby': 'modified', 'order': 'desc'}
+                params=params
             )
             
             if response.status_code != 200:
@@ -250,6 +267,12 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
                 return []
             
             posts = response.json()
+            
+            if not posts:
+                print("✅ No posts modified since last check")
+                return []
+            
+            print(f"📝 Found {len(posts)} post(s) to check")
             results = []
             
             for post in posts:
@@ -324,6 +347,8 @@ def main():
     
     # Parse command line arguments
     post_count = 5
+    since_timestamp = os.getenv('SINCE_TIMESTAMP')  # ISO 8601 format
+    
     if len(sys.argv) > 1:
         try:
             post_count = int(sys.argv[1])
@@ -348,7 +373,7 @@ def main():
     )
     
     # Check posts
-    results = checker.check_recent_posts(count=post_count)
+    results = checker.check_recent_posts(count=post_count, since=since_timestamp)
     
     # Generate report
     if results:
