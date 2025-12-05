@@ -1,8 +1,6 @@
 name: WordPress to Static Site Deploy
 
 on:
-  schedule:
-    - cron: '0 6,18 * * *'  # Twice daily at 6 AM and 6 PM UTC
   workflow_dispatch:        # Manual trigger
   repository_dispatch:      # Webhook trigger
     types: [wordpress-update]
