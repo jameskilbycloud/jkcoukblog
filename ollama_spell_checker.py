@@ -99,7 +99,7 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
             print(f"⚠️  Ollama connection error: {str(e)}")
             return {'has_errors': False, 'errors': []}
     
-    def extract_text_from_html(self, html_content: str) -> List[Tuple[str, str]]:
+    def extract_text_from_html(self, html_content: str, post_title: str = '', post_excerpt: str = '') -> List[Tuple[str, str]]:
         """
         Extract text content from HTML for spell checking
         Returns list of (text_type, content) tuples
@@ -107,28 +107,38 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
         soup = BeautifulSoup(html_content, 'html.parser')
         texts = []
         
-        # Extract title
-        title = soup.find('h1', class_=re.compile(r'entry-title|post-title', re.I))
-        if title:
-            texts.append(('title', title.get_text().strip()))
+        # Add title if provided (from API)
+        if post_title:
+            # Decode HTML entities like &#8211;
+            from html import unescape
+            clean_title = unescape(post_title)
+            texts.append(('title', clean_title))
         
-        # Extract meta description
-        meta_desc = soup.find('meta', attrs={'name': 'description'})
-        if meta_desc and meta_desc.get('content'):
-            texts.append(('description', meta_desc.get('content').strip()))
+        # Add excerpt if provided (from API)
+        if post_excerpt:
+            from html import unescape
+            clean_excerpt = unescape(post_excerpt)
+            # Strip HTML tags from excerpt
+            excerpt_soup = BeautifulSoup(clean_excerpt, 'html.parser')
+            excerpt_text = excerpt_soup.get_text().strip()
+            if excerpt_text:
+                texts.append(('excerpt', excerpt_text))
         
-        # Extract main content
-        content = soup.find('div', class_=re.compile(r'entry-content|post-content', re.I))
-        if content:
-            # Remove code blocks and scripts
-            for code in content.find_all(['pre', 'code', 'script', 'style']):
-                code.decompose()
-            
-            # Get paragraphs
-            for i, p in enumerate(content.find_all('p')):
-                p_text = p.get_text().strip()
-                if p_text and len(p_text) > 20:  # Skip very short paragraphs
-                    texts.append((f'paragraph_{i+1}', p_text))
+        # Remove code blocks, scripts, and styles before processing
+        for code in soup.find_all(['pre', 'code', 'script', 'style']):
+            code.decompose()
+        
+        # Get all paragraphs (REST API content is just the post content HTML)
+        for i, p in enumerate(soup.find_all('p')):
+            p_text = p.get_text().strip()
+            if p_text and len(p_text) > 20:  # Skip very short paragraphs
+                texts.append((f'paragraph_{i+1}', p_text))
+        
+        # Get headings
+        for i, heading in enumerate(soup.find_all(['h1', 'h2', 'h3', 'h4'])):
+            heading_text = heading.get_text().strip()
+            if heading_text and len(heading_text) > 5:
+                texts.append((f'heading_{i+1}', heading_text))
         
         return texts
     
@@ -148,17 +158,18 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
             post = response.json()
             post_title = post.get('title', {}).get('rendered', 'Untitled')
             post_link = post.get('link', '')
+            post_excerpt = post.get('excerpt', {}).get('rendered', '')
             
             print(f"   Title: {post_title}")
             print(f"   URL: {post_link}")
             
-            # Get the rendered HTML
+            # Get the rendered HTML content
             html_content = post.get('content', {}).get('rendered', '')
             if not html_content:
                 return {'error': 'No content found'}
             
-            # Extract text sections
-            texts = self.extract_text_from_html(html_content)
+            # Extract text sections (pass title and excerpt from API)
+            texts = self.extract_text_from_html(html_content, post_title, post_excerpt)
             print(f"   Found {len(texts)} text sections to check")
             
             all_errors = []
