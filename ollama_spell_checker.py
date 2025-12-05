@@ -294,7 +294,11 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
                 report.append(f"**URL**: {result['link']}\n")
                 
                 for error in result['errors']:
-                    report.append(f"- **{error['type'].upper()}** in `{error['section']}`:")
+                    # Skip errors missing required keys (shouldn't happen but be defensive)
+                    if not error.get('word') or not error.get('type'):
+                        continue
+                    
+                    report.append(f"- **{error.get('type', 'ERROR').upper()}** in `{error.get('section', 'unknown')}`:")
                     report.append(f"  - Word: `{error['word']}`")
                     if error.get('suggestion'):
                         report.append(f"  - Suggestion: `{error['suggestion']}`")
