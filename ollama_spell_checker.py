@@ -77,9 +77,6 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
                 if ':' in self.ollama_auth:
                     username, password = self.ollama_auth.split(':', 1)
                     ollama_auth_tuple = (username, password)
-                    print(f"🔐 Debug: Using auth with username '{username}' (password length: {len(password)})")
-            else:
-                print("⚠️  Debug: No OLLAMA_API_CREDENTIALS found")
             
             response = requests.post(
                 f'{self.ollama_url}/api/generate',
@@ -107,11 +104,11 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
                         parsed = json.loads(json_match.group())
                         return parsed
                     except json.JSONDecodeError as e:
-                        print(f"⚠️  JSON parsing error: {str(e)}")
-                        print(f"      Raw response (first 200 chars): {response_text[:200]}")
+                        # Silently skip malformed JSON responses
                         return {'has_errors': False, 'errors': []}
                 else:
-                    print(f"⚠️  No JSON found in response")
+                    # No JSON found in response
+                    pass
                 
                 return {'has_errors': False, 'errors': []}
             else:
@@ -213,21 +210,17 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
                     
                     if result.get('has_errors'):
                         errors_found = result.get('errors', [])
-                        print(f"      Debug: Found {len(errors_found)} errors in this section")
                         for error in errors_found:
                             # Skip malformed errors that are missing required keys
                             if not error.get('word') or not error.get('type'):
-                                print(f"      ⚠️  Skipping malformed error: {error}")
                                 continue
                             
                             error['section'] = section_type
                             all_errors.append(error)
                             print(f"      ⚠️  {error['type']}: {error['word']} → {error.get('suggestion', '?')}")
                 except Exception as e:
-                    print(f"      ⚠️  Error checking section: {str(e)}")
+                    # Silently skip sections with errors
                     continue
-            
-            print(f"   📊 Total errors found for this post: {len(all_errors)}")
             
             return {
                 'post_id': post_id,
@@ -342,10 +335,6 @@ def main():
     print(f"Ollama: {OLLAMA_URL}")
     print(f"WordPress: {WP_URL}")
     print(f"Model: {MODEL}")
-    print(f"Auth configured: {bool(OLLAMA_AUTH)}")
-    if OLLAMA_AUTH:
-        username = OLLAMA_AUTH.split(':', 1)[0] if ':' in OLLAMA_AUTH else 'INVALID'
-        print(f"Auth username: {username}")
     print("="*60)
     print()
     
@@ -363,12 +352,6 @@ def main():
     
     # Generate report
     if results:
-        print(f"\n📦 Debug: Generating report for {len(results)} posts")
-        for i, r in enumerate(results):
-            error_count = len(r.get('errors', []))
-            has_errors_flag = r.get('has_errors', False)
-            print(f"   Post {i+1}: {error_count} errors, has_errors={has_errors_flag}")
-        
         report = checker.generate_report(results)
         
         # Save report
