@@ -87,7 +87,36 @@ jobs:
           ls -la
           exit 1
         fi
+        
+        # Generate static site
         python wp_to_static_generator.py ./static-output
+        
+        # Replace WordPress images with already-optimized versions from public/
+        if [ -d "public/wp-content/uploads" ] && [ -d "./static-output/wp-content/uploads" ]; then
+          echo "📋 Checking for already-optimized images..."
+          REPLACED=0
+          
+          # For each image in static-output, check if optimized version exists in public/
+          find ./static-output/wp-content/uploads -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) | while read new_img; do
+            # Get relative path
+            rel_path="${new_img#./static-output/}"
+            old_img="public/$rel_path"
+            
+            # If optimized version exists and has different size (was optimized), use it
+            if [ -f "$old_img" ]; then
+              new_size=$(stat -f%z "$new_img" 2>/dev/null || stat -c%s "$new_img" 2>/dev/null)
+              old_size=$(stat -f%z "$old_img" 2>/dev/null || stat -c%s "$old_img" 2>/dev/null)
+              
+              # If old is smaller (was optimized), use it instead of new WordPress version
+              if [ "$old_size" -lt "$new_size" ]; then
+                cp "$old_img" "$new_img"
+                REPLACED=$((REPLACED + 1))
+              fi
+            fi
+          done
+          
+          echo "✅ Reused $REPLACED optimized images from previous build"
+        fi
         
     - name: Optimize images
       run: |
