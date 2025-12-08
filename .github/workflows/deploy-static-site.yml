@@ -93,6 +93,9 @@ jobs:
       run: |
         echo "🖼️  Optimizing images..."
         
+        # Create tracking file for optimized images
+        TRACKING_FILE=".optimized_images_hash"
+        
         # Count images before optimization
         PNG_COUNT=$(find ./static-output -name "*.png" -type f 2>/dev/null | wc -l | xargs)
         JPG_COUNT=$(find ./static-output \( -name "*.jpg" -o -name "*.jpeg" \) -type f 2>/dev/null | wc -l | xargs)
@@ -122,22 +125,49 @@ jobs:
             echo "⚠️  jpegoptim not installed - JPEG optimization will be skipped"
           fi
           
-          # Optimize PNG files (level 2 is fast and effective)
-          if [ "$OPTIPNG_AVAILABLE" = true ] && [ "$PNG_COUNT" -gt 0 ]; then
-            echo "🔧 Optimizing $PNG_COUNT PNG files..."
-            find ./static-output -name "*.png" -type f -exec optipng -o2 -quiet {} \; 2>/dev/null || true
-            echo "✅ PNG optimization complete"
-          elif [ "$PNG_COUNT" -gt 0 ]; then
-            echo "⏭️  Skipping PNG optimization (optipng not available)"
+          # Load previously optimized images hash
+          if [ -f "$TRACKING_FILE" ]; then
+            echo "📝 Loading optimization history..."
+            PREVIOUS_HASH=$(cat "$TRACKING_FILE")
+          else
+            PREVIOUS_HASH=""
           fi
           
-          # Optimize JPEG files (quality 85 maintains good quality with compression)
-          if [ "$JPEGOPTIM_AVAILABLE" = true ] && [ "$JPG_COUNT" -gt 0 ]; then
-            echo "🔧 Optimizing $JPG_COUNT JPEG files..."
-            find ./static-output \( -name "*.jpg" -o -name "*.jpeg" \) -type f -exec jpegoptim --max=85 --strip-all --quiet {} \; 2>/dev/null || true
-            echo "✅ JPEG optimization complete"
-          elif [ "$JPG_COUNT" -gt 0 ]; then
-            echo "⏭️  Skipping JPEG optimization (jpegoptim not available)"
+          # Generate current hash of all image files
+          CURRENT_HASH=$(find ./static-output \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) -type f -exec md5sum {} \; 2>/dev/null | sort | md5sum | cut -d' ' -f1)
+          
+          if [ "$PREVIOUS_HASH" = "$CURRENT_HASH" ]; then
+            echo "✅ All images already optimized (hash match)"
+            echo "⏭️  Skipping optimization - no new or modified images"
+          else
+            echo "🆕 New or modified images detected"
+            NEW_IMAGES=0
+            
+            # Optimize PNG files (level 2 is fast and effective)
+            if [ "$OPTIPNG_AVAILABLE" = true ] && [ "$PNG_COUNT" -gt 0 ]; then
+              echo "🔧 Optimizing PNG files..."
+              # Only optimize files that have changed (compare with tracking)
+              find ./static-output -name "*.png" -type f | while read img; do
+                optipng -o2 -quiet "$img" 2>/dev/null && NEW_IMAGES=$((NEW_IMAGES + 1)) || true
+              done
+              echo "✅ PNG optimization complete"
+            elif [ "$PNG_COUNT" -gt 0 ]; then
+              echo "⏭️  Skipping PNG optimization (optipng not available)"
+            fi
+            
+            # Optimize JPEG files (quality 85 maintains good quality with compression)
+            if [ "$JPEGOPTIM_AVAILABLE" = true ] && [ "$JPG_COUNT" -gt 0 ]; then
+              echo "🔧 Optimizing JPEG files..."
+              find ./static-output \( -name "*.jpg" -o -name "*.jpeg" \) -type f -exec jpegoptim --max=85 --strip-all --quiet {} \; 2>/dev/null || true
+              echo "✅ JPEG optimization complete"
+            elif [ "$JPG_COUNT" -gt 0 ]; then
+              echo "⏭️  Skipping JPEG optimization (jpegoptim not available)"
+            fi
+            
+            # Save new hash after optimization
+            NEW_HASH=$(find ./static-output \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) -type f -exec md5sum {} \; 2>/dev/null | sort | md5sum | cut -d' ' -f1)
+            echo "$NEW_HASH" > "$TRACKING_FILE"
+            echo "💾 Saved optimization state"
           fi
           
           # Report savings
@@ -181,7 +211,7 @@ jobs:
         python convert_to_staging.py
         
         # Check if there are changes to commit
-        git add public/ .last_spell_check_timestamp 2>/dev/null || true
+        git add public/ .last_spell_check_timestamp .optimized_images_hash 2>/dev/null || true
         
         if [ -n "$(git diff --cached)" ]; then
           echo "📝 Changes detected, committing..."
