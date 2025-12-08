@@ -1,8 +1,6 @@
 name: Spell Check WordPress Content
 
 on:
-  schedule:
-    - cron: '0 8 * * 1'  # Weekly on Monday at 8 AM UTC
   workflow_dispatch:      # Manual trigger
     inputs:
       post_count:
