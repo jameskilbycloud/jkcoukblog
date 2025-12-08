@@ -194,6 +194,12 @@ jobs:
         
         if [ "$PNG_COUNT" -eq 0 ] && [ "$JPG_COUNT" -eq 0 ]; then
           echo "ℹ️  No images to optimize"
+          # Set defaults if no images
+          echo "PNG_COUNT=0" >> $GITHUB_ENV
+          echo "JPG_COUNT=0" >> $GITHUB_ENV
+          echo "OPTIMIZED_COUNT=0" >> $GITHUB_ENV
+          echo "SKIPPED_COUNT=0" >> $GITHUB_ENV
+          echo "SAVED_MB=0.0" >> $GITHUB_ENV
         else
           # Get initial size
           INITIAL_SIZE=$(du -sk ./static-output 2>/dev/null | cut -f1)
@@ -304,13 +310,6 @@ jobs:
           echo "- **Newly Optimized:** $OPTIMIZED_COUNT" >> $GITHUB_STEP_SUMMARY
           echo "- **Already Optimized (Skipped):** $SKIPPED_COUNT" >> $GITHUB_STEP_SUMMARY
           echo "- **Space Saved:** ${SAVED_MB}MB" >> $GITHUB_STEP_SUMMARY
-        else
-          # Set defaults if no images
-          echo "PNG_COUNT=0" >> $GITHUB_ENV
-          echo "JPG_COUNT=0" >> $GITHUB_ENV
-          echo "OPTIMIZED_COUNT=0" >> $GITHUB_ENV
-          echo "SKIPPED_COUNT=0" >> $GITHUB_ENV
-          echo "SAVED_MB=0.0" >> $GITHUB_ENV
         fi
       continue-on-error: true
         
