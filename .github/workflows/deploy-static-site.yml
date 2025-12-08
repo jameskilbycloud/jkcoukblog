@@ -104,57 +104,40 @@ jobs:
           # Get initial size
           INITIAL_SIZE=$(du -sk ./static-output 2>/dev/null | cut -f1)
           
-          # Install optimization tools if not present
-          echo "🔍 Checking for optimization tools..."
+          # Check for optimization tools
+          OPTIPNG_AVAILABLE=false
+          JPEGOPTIM_AVAILABLE=false
           
-          if ! command -v optipng &> /dev/null; then
-            echo "📦 Installing optipng..."
-            echo "   Running: sudo apt-get update"
-            sudo apt-get update -qq 2>&1 | head -10 || true
-            echo "   Running: sudo apt-get install -y optipng"
-            if sudo apt-get install -y optipng 2>&1; then
-              echo "✅ optipng installed successfully"
-              optipng -v || true
-            else
-              EXIT_CODE=$?
-              echo "❌ Failed to install optipng (exit code: $EXIT_CODE)"
-              echo "   Checking apt cache for optipng:"
-              apt-cache search optipng || true
-            fi
+          if command -v optipng &> /dev/null; then
+            echo "✅ optipng found"
+            OPTIPNG_AVAILABLE=true
           else
-            echo "✅ optipng already installed"
-            optipng -v || true
+            echo "⚠️  optipng not installed - PNG optimization will be skipped"
           fi
           
-          if ! command -v jpegoptim &> /dev/null; then
-            echo "📦 Installing jpegoptim..."
-            echo "   Running: sudo apt-get install -y jpegoptim"
-            if sudo apt-get install -y jpegoptim 2>&1; then
-              echo "✅ jpegoptim installed successfully"
-              jpegoptim --version || true
-            else
-              EXIT_CODE=$?
-              echo "❌ Failed to install jpegoptim (exit code: $EXIT_CODE)"
-              echo "   Checking apt cache for jpegoptim:"
-              apt-cache search jpegoptim || true
-            fi
+          if command -v jpegoptim &> /dev/null; then
+            echo "✅ jpegoptim found"
+            JPEGOPTIM_AVAILABLE=true
           else
-            echo "✅ jpegoptim already installed"
-            jpegoptim --version || true
+            echo "⚠️  jpegoptim not installed - JPEG optimization will be skipped"
           fi
           
           # Optimize PNG files (level 2 is fast and effective)
-          if command -v optipng &> /dev/null && [ "$PNG_COUNT" -gt 0 ]; then
-            echo "🔧 Optimizing PNG files..."
+          if [ "$OPTIPNG_AVAILABLE" = true ] && [ "$PNG_COUNT" -gt 0 ]; then
+            echo "🔧 Optimizing $PNG_COUNT PNG files..."
             find ./static-output -name "*.png" -type f -exec optipng -o2 -quiet {} \; 2>/dev/null || true
             echo "✅ PNG optimization complete"
+          elif [ "$PNG_COUNT" -gt 0 ]; then
+            echo "⏭️  Skipping PNG optimization (optipng not available)"
           fi
           
           # Optimize JPEG files (quality 85 maintains good quality with compression)
-          if command -v jpegoptim &> /dev/null && [ "$JPG_COUNT" -gt 0 ]; then
-            echo "🔧 Optimizing JPEG files..."
+          if [ "$JPEGOPTIM_AVAILABLE" = true ] && [ "$JPG_COUNT" -gt 0 ]; then
+            echo "🔧 Optimizing $JPG_COUNT JPEG files..."
             find ./static-output \( -name "*.jpg" -o -name "*.jpeg" \) -type f -exec jpegoptim --max=85 --strip-all --quiet {} \; 2>/dev/null || true
             echo "✅ JPEG optimization complete"
+          elif [ "$JPG_COUNT" -gt 0 ]; then
+            echo "⏭️  Skipping JPEG optimization (jpegoptim not available)"
           fi
           
           # Report savings
