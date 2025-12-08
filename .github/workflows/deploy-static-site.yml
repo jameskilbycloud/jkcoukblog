@@ -88,6 +88,58 @@ jobs:
         fi
         python wp_to_static_generator.py ./static-output
         
+    - name: Optimize images
+      run: |
+        echo "🖼️  Optimizing images..."
+        
+        # Count images before optimization
+        PNG_COUNT=$(find ./static-output -name "*.png" -type f 2>/dev/null | wc -l | xargs)
+        JPG_COUNT=$(find ./static-output \( -name "*.jpg" -o -name "*.jpeg" \) -type f 2>/dev/null | wc -l | xargs)
+        echo "📊 Found $PNG_COUNT PNG images and $JPG_COUNT JPEG images"
+        
+        if [ "$PNG_COUNT" -eq 0 ] && [ "$JPG_COUNT" -eq 0 ]; then
+          echo "ℹ️  No images to optimize"
+        else
+          # Get initial size
+          INITIAL_SIZE=$(du -sk ./static-output 2>/dev/null | cut -f1)
+          
+          # Install optimization tools if not present
+          if ! command -v optipng &> /dev/null; then
+            echo "📦 Installing optipng..."
+            brew install optipng 2>/dev/null || echo "⚠️  optipng not available"
+          fi
+          
+          if ! command -v jpegoptim &> /dev/null; then
+            echo "📦 Installing jpegoptim..."
+            brew install jpegoptim 2>/dev/null || echo "⚠️  jpegoptim not available"
+          fi
+          
+          # Optimize PNG files (level 2 is fast and effective)
+          if command -v optipng &> /dev/null && [ "$PNG_COUNT" -gt 0 ]; then
+            echo "🔧 Optimizing PNG files..."
+            find ./static-output -name "*.png" -type f -exec optipng -o2 -quiet {} \; 2>/dev/null || true
+            echo "✅ PNG optimization complete"
+          fi
+          
+          # Optimize JPEG files (quality 85 maintains good quality with compression)
+          if command -v jpegoptim &> /dev/null && [ "$JPG_COUNT" -gt 0 ]; then
+            echo "🔧 Optimizing JPEG files..."
+            find ./static-output \( -name "*.jpg" -o -name "*.jpeg" \) -type f -exec jpegoptim --max=85 --strip-all --quiet {} \; 2>/dev/null || true
+            echo "✅ JPEG optimization complete"
+          fi
+          
+          # Report savings
+          FINAL_SIZE=$(du -sk ./static-output 2>/dev/null | cut -f1)
+          SAVED=$((INITIAL_SIZE - FINAL_SIZE))
+          if [ $SAVED -gt 0 ]; then
+            SAVED_MB=$(echo "scale=2; $SAVED / 1024" | bc)
+            echo "💾 Saved ${SAVED_MB}MB through image optimization"
+          else
+            echo "ℹ️  No significant size reduction"
+          fi
+        fi
+      continue-on-error: true
+        
     - name: Commit and push static site
       run: |
         # Configure git
