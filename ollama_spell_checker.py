@@ -34,7 +34,8 @@ class OllamaSpellChecker:
             'cloudflare', 'github', 'ansible', 'terraform', 'docker',
             'postgres', 'nginx', 'linux', 'ubuntu', 'api', 'json',
             'yaml', 'cli', 'devops', 'cicd', 'nvme', 'pcie', 'gb', 'tb',
-            'cpu', 'gpu', 'ram', 'ssd', 'nas', 'iscsi', 'nfs', 'vlan'
+            'cpu', 'gpu', 'ram', 'ssd', 'nas', 'iscsi', 'nfs', 'vlan',
+            'inteligent'  # Historical misspelling in redirects
         }
     
     def check_spelling_with_ollama(self, text: str) -> Dict:
