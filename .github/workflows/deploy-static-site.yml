@@ -11,12 +11,20 @@ concurrency:
   cancel-in-progress: false  # Don't cancel running jobs, wait for completion
 
 jobs:
-  build-and-deploy:
-    runs-on: self-hosted  # Changed to self-hosted for Cloudflare Access
-    
+  spell-check:
+    runs-on: self-hosted
+    continue-on-error: true  # Don't fail the workflow if spell check fails
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      
+    - name: Restore spell check cache
+      uses: actions/cache@v4
+      with:
+        path: .last_spell_check_timestamp
+        key: spell-check-${{ github.sha }}
+        restore-keys: |
+          spell-check-
       
     - name: Setup Python
       uses: actions/setup-python@v4
@@ -29,25 +37,8 @@ jobs:
       run: |
         echo "🔧 Installing Python dependencies..."
         pip install -r requirements.txt
-        echo "✅ Dependencies installed"
-        echo "📋 Installed packages:"
-        pip list | grep -E "(requests|beautifulsoup4)"
-        
-    - name: Test runner environment
-      run: |
-        echo "🔍 Current working directory: $(pwd)"
-        echo "📋 Files in current directory:"
-        ls -la
-        echo "📄 Looking for key files:"
-        ls -la wp_to_static_generator.py deploy_static_site.py || echo "❌ Files not found"
-        echo "🐍 Python version and path:"
-        python --version
-        which python
-        echo "📦 Checking Python dependencies:"
-        python -c "import requests; print(f'✅ requests {requests.__version__}')" || echo "❌ requests not found"
-        python -c "import bs4; print(f'✅ beautifulsoup4 {bs4.__version__}')" || echo "❌ beautifulsoup4 not found"
-        
-    - name: Optional spell check (non-blocking)
+    
+    - name: Run spell check
       env:
         WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
         OLLAMA_API_CREDENTIALS: ${{ secrets.OLLAMA_API_CREDENTIALS }}
@@ -76,7 +67,59 @@ jobs:
         # Save current timestamp for next run
         date -u +"%Y-%m-%dT%H:%M:%SZ" > "$TIMESTAMP_FILE"
         echo "💾 Saved timestamp for next check"
-      continue-on-error: true
+        
+        # Save spell check summary
+        echo "## 📝 Spell Check Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Status:** ✅ Completed" >> $GITHUB_STEP_SUMMARY
+        echo "- **Last Check:** $(cat $TIMESTAMP_FILE)" >> $GITHUB_STEP_SUMMARY
+
+  build-and-deploy:
+    runs-on: self-hosted  # Changed to self-hosted for Cloudflare Access
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Restore build cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          .image_optimization_cache
+          .last_spell_check_timestamp
+        key: build-cache-${{ github.sha }}
+        restore-keys: |
+          build-cache-
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+        cache-dependency-path: 'requirements.txt'
+        
+    - name: Install dependencies
+      run: |
+        echo "🔧 Installing Python dependencies..."
+        pip install -r requirements.txt
+        echo "✅ Dependencies installed"
+        echo "📋 Installed packages:"
+        pip list | grep -E "(requests|beautifulsoup4)"
+        
+    - name: Test runner environment
+      if: github.event_name == 'workflow_dispatch'  # Only on manual runs
+      run: |
+        echo "🔍 Current working directory: $(pwd)"
+        echo "📋 Files in current directory:"
+        ls -la
+        echo "📄 Looking for key files:"
+        ls -la wp_to_static_generator.py deploy_static_site.py || echo "❌ Files not found"
+        echo "🐍 Python version and path:"
+        python --version
+        which python
+        echo "📦 Checking Python dependencies:"
+        python -c "import requests; print(f'✅ requests {requests.__version__}')" || echo "❌ requests not found"
+        python -c "import bs4; print(f'✅ beautifulsoup4 {bs4.__version__}')" || echo "❌ beautifulsoup4 not found"
         
     - name: Generate static site
       env:
