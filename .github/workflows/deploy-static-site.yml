@@ -105,27 +105,42 @@ jobs:
           INITIAL_SIZE=$(du -sk ./static-output 2>/dev/null | cut -f1)
           
           # Install optimization tools if not present
+          echo "🔍 Checking for optimization tools..."
+          
           if ! command -v optipng &> /dev/null; then
             echo "📦 Installing optipng..."
-            sudo apt-get update -qq || true
-            if sudo apt-get install -y optipng; then
+            echo "   Running: sudo apt-get update"
+            sudo apt-get update -qq 2>&1 | head -10 || true
+            echo "   Running: sudo apt-get install -y optipng"
+            if sudo apt-get install -y optipng 2>&1; then
               echo "✅ optipng installed successfully"
+              optipng -v || true
             else
-              echo "⚠️  Failed to install optipng (exit code: $?)"
+              EXIT_CODE=$?
+              echo "❌ Failed to install optipng (exit code: $EXIT_CODE)"
+              echo "   Checking apt cache for optipng:"
+              apt-cache search optipng || true
             fi
           else
             echo "✅ optipng already installed"
+            optipng -v || true
           fi
           
           if ! command -v jpegoptim &> /dev/null; then
             echo "📦 Installing jpegoptim..."
-            if sudo apt-get install -y jpegoptim; then
+            echo "   Running: sudo apt-get install -y jpegoptim"
+            if sudo apt-get install -y jpegoptim 2>&1; then
               echo "✅ jpegoptim installed successfully"
+              jpegoptim --version || true
             else
-              echo "⚠️  Failed to install jpegoptim (exit code: $?)"
+              EXIT_CODE=$?
+              echo "❌ Failed to install jpegoptim (exit code: $EXIT_CODE)"
+              echo "   Checking apt cache for jpegoptim:"
+              apt-cache search jpegoptim || true
             fi
           else
             echo "✅ jpegoptim already installed"
+            jpegoptim --version || true
           fi
           
           # Optimize PNG files (level 2 is fast and effective)
