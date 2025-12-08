@@ -22,11 +22,13 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
+        cache: 'pip'
+        cache-dependency-path: 'requirements.txt'
         
     - name: Install dependencies
       run: |
         echo "🔧 Installing Python dependencies..."
-        pip install requests beautifulsoup4
+        pip install -r requirements.txt
         echo "✅ Dependencies installed"
         echo "📋 Installed packages:"
         pip list | grep -E "(requests|beautifulsoup4)"
@@ -91,6 +93,11 @@ jobs:
         # Generate static site
         python wp_to_static_generator.py ./static-output
         
+        # Count generated files for summary
+        HTML_COUNT=$(find ./static-output -name "*.html" -type f 2>/dev/null | wc -l | xargs)
+        TOTAL_SIZE=$(du -sh ./static-output 2>/dev/null | cut -f1)
+        echo "📊 Generated $HTML_COUNT HTML files, total size: $TOTAL_SIZE"
+        
         # Replace WordPress images with already-optimized versions from public/
         if [ -d "public/wp-content/uploads" ] && [ -d "./static-output/wp-content/uploads" ]; then
           echo "📋 Checking for already-optimized images..."
@@ -117,6 +124,13 @@ jobs:
           
           echo "✅ Reused $REPLACED optimized images from previous build"
         fi
+        
+        # Add generation summary to GitHub Actions UI
+        echo "## 📊 Site Generation Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **HTML Pages:** $HTML_COUNT" >> $GITHUB_STEP_SUMMARY
+        echo "- **Total Size:** $TOTAL_SIZE" >> $GITHUB_STEP_SUMMARY
+        echo "- **Output Directory:** `./static-output`" >> $GITHUB_STEP_SUMMARY
         
     - name: Optimize images
       run: |
@@ -223,8 +237,19 @@ jobs:
             SAVED_MB=$(echo "scale=2; $SAVED / 1024" | bc)
             echo "💾 Saved ${SAVED_MB}MB through image optimization"
           else
+            SAVED_MB="0.0"
             echo "ℹ️  No significant size reduction this run"
           fi
+          
+          # Add optimization summary to GitHub Actions UI
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 🖼️ Image Optimization Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **PNG Images:** $PNG_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "- **JPEG Images:** $JPG_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "- **Newly Optimized:** $OPTIMIZED_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "- **Already Optimized (Skipped):** $SKIPPED_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "- **Space Saved:** ${SAVED_MB}MB" >> $GITHUB_STEP_SUMMARY
         fi
       continue-on-error: true
         
@@ -295,8 +320,24 @@ jobs:
           fi
           
           echo "✅ Static site updated successfully"
+          
+          # Add deployment summary to GitHub Actions UI
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status:** ✅ Successfully deployed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Target:** `public/` directory" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit:** $(git rev-parse --short HEAD)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Cloudflare Pages:** Will auto-deploy from repository" >> $GITHUB_STEP_SUMMARY
         else
           echo "ℹ️  No changes to commit"
+          
+          # Add no-changes summary
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## ℹ️ Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status:** No changes detected" >> $GITHUB_STEP_SUMMARY
+          echo "- **Note:** Site is already up to date" >> $GITHUB_STEP_SUMMARY
         fi
           
     - name: Notify on success
