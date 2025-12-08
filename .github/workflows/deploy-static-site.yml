@@ -107,13 +107,25 @@ jobs:
           # Install optimization tools if not present
           if ! command -v optipng &> /dev/null; then
             echo "📦 Installing optipng..."
-            sudo apt-get update -qq
-            sudo apt-get install -y optipng 2>/dev/null || echo "⚠️  optipng not available"
+            sudo apt-get update -qq || true
+            if sudo apt-get install -y optipng; then
+              echo "✅ optipng installed successfully"
+            else
+              echo "⚠️  Failed to install optipng (exit code: $?)"
+            fi
+          else
+            echo "✅ optipng already installed"
           fi
           
           if ! command -v jpegoptim &> /dev/null; then
             echo "📦 Installing jpegoptim..."
-            sudo apt-get install -y jpegoptim 2>/dev/null || echo "⚠️  jpegoptim not available"
+            if sudo apt-get install -y jpegoptim; then
+              echo "✅ jpegoptim installed successfully"
+            else
+              echo "⚠️  Failed to install jpegoptim (exit code: $?)"
+            fi
+          else
+            echo "✅ jpegoptim already installed"
           fi
           
           # Optimize PNG files (level 2 is fast and effective)
