@@ -181,7 +181,7 @@ jobs:
           # Optimize PNG files (level 2 is fast and effective)
           if [ "$OPTIPNG_AVAILABLE" = true ] && [ "$PNG_COUNT" -gt 0 ]; then
             echo "🔧 Checking PNG files for optimization..."
-            find ./static-output -name "*.png" -type f | while read img; do
+            while IFS= read -r img; do
               if is_optimized "$img"; then
                 SKIPPED_COUNT=$((SKIPPED_COUNT + 1))
               else
@@ -190,7 +190,7 @@ jobs:
                   OPTIMIZED_COUNT=$((OPTIMIZED_COUNT + 1))
                 fi
               fi
-            done
+            done < <(find ./static-output -name "*.png" -type f)
             echo "✅ PNG optimization complete"
           elif [ "$PNG_COUNT" -gt 0 ]; then
             echo "⏭️  Skipping PNG optimization (optipng not available)"
@@ -199,7 +199,7 @@ jobs:
           # Optimize JPEG files (quality 85 maintains good quality with compression)
           if [ "$JPEGOPTIM_AVAILABLE" = true ] && [ "$JPG_COUNT" -gt 0 ]; then
             echo "🔧 Checking JPEG files for optimization..."
-            find ./static-output \( -name "*.jpg" -o -name "*.jpeg" \) -type f | while read img; do
+            while IFS= read -r img; do
               if is_optimized "$img"; then
                 SKIPPED_COUNT=$((SKIPPED_COUNT + 1))
               else
@@ -208,7 +208,7 @@ jobs:
                   OPTIMIZED_COUNT=$((OPTIMIZED_COUNT + 1))
                 fi
               fi
-            done
+            done < <(find ./static-output \( -name "*.jpg" -o -name "*.jpeg" \) -type f)
             echo "✅ JPEG optimization complete"
           elif [ "$JPG_COUNT" -gt 0 ]; then
             echo "⏭️  Skipping JPEG optimization (jpegoptim not available)"
