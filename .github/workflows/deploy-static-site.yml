@@ -180,6 +180,7 @@ jobs:
         echo "- **Output Directory:** `./static-output`" >> $GITHUB_STEP_SUMMARY
         
     - name: Optimize images
+      shell: bash
       run: |
         echo "🖼️  Optimizing images..."
         
