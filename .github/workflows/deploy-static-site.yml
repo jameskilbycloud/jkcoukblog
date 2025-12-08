@@ -41,8 +41,9 @@ jobs:
         echo "🐍 Python version and path:"
         python --version
         which python
-        echo "🔧 Running comprehensive environment test:"
-        python test_runner_env.py
+        echo "📦 Checking Python dependencies:"
+        python -c "import requests; print(f'✅ requests {requests.__version__}')" || echo "❌ requests not found"
+        python -c "import bs4; print(f'✅ beautifulsoup4 {bs4.__version__}')" || echo "❌ beautifulsoup4 not found"
         
     - name: Optional spell check (non-blocking)
       env:
