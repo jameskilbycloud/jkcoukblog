@@ -216,6 +216,11 @@ If there are no errors, return: {{"has_errors": false, "errors": []}}
                             if not error.get('word') or not error.get('type'):
                                 continue
                             
+                            # Skip whitelisted words (case-insensitive)
+                            if error['word'].lower() in self.whitelist:
+                                print(f"      ℹ️  Skipping whitelisted word: {error['word']}")
+                                continue
+                            
                             error['section'] = section_type
                             all_errors.append(error)
                             print(f"      ⚠️  {error['type']}: {error['word']} → {error.get('suggestion', '?')}")
