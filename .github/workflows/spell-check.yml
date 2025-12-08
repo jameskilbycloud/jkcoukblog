@@ -4,9 +4,14 @@ on:
   workflow_dispatch:      # Manual trigger
     inputs:
       post_count:
-        description: 'Number of posts to check'
+        description: 'Number of posts to check (ignored if check_modified is true)'
         required: false
         default: '5'
+      check_modified:
+        description: 'Only check posts modified since last run'
+        required: false
+        default: 'false'
+        type: boolean
 
 jobs:
   spell-check:
@@ -36,11 +41,27 @@ jobs:
         OLLAMA_MODEL: llama3.1:8b
       run: |
         echo "🚀 Starting spell check..."
-        POST_COUNT="${{ github.event.inputs.post_count || '5' }}"
-        echo "📝 Checking $POST_COUNT most recent posts"
         
-        # Run spell checker (will exit 1 if errors found)
-        ./ollama_spell_checker.py $POST_COUNT || SPELL_CHECK_FAILED=1
+        CHECK_MODIFIED="${{ github.event.inputs.check_modified || 'false' }}"
+        TIMESTAMP_FILE=".last_spell_check_timestamp"
+        
+        if [ "$CHECK_MODIFIED" = "true" ] && [ -f "$TIMESTAMP_FILE" ]; then
+          LAST_CHECK=$(cat "$TIMESTAMP_FILE")
+          echo "📅 Checking posts modified since: $LAST_CHECK"
+          export SINCE_TIMESTAMP="$LAST_CHECK"
+          
+          # Run spell checker for modified posts only
+          ./ollama_spell_checker.py || SPELL_CHECK_FAILED=1
+          
+          # Update timestamp after successful check
+          date -u +"%Y-%m-%dT%H:%M:%SZ" > "$TIMESTAMP_FILE"
+        else
+          POST_COUNT="${{ github.event.inputs.post_count || '5' }}"
+          echo "📝 Checking $POST_COUNT most recent posts"
+          
+          # Run spell checker (will exit 1 if errors found)
+          ./ollama_spell_checker.py $POST_COUNT || SPELL_CHECK_FAILED=1
+        fi
         
         # Save exit code for later steps
         if [ "$SPELL_CHECK_FAILED" = "1" ]; then

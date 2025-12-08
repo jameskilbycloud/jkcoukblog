@@ -51,9 +51,28 @@ jobs:
         OLLAMA_URL: https://ollama.jameskilby.cloud
         OLLAMA_MODEL: llama3.1:8b
       run: |
-        echo "📝 Running quick spell check on recent posts..."
-        # Check 3 most recent posts, but don't fail deployment
-        ./ollama_spell_checker.py 3 || echo "⚠️  Spelling issues detected (non-blocking)"
+        echo "📝 Running spell check on modified posts..."
+        
+        # Read last check timestamp from file (if exists)
+        TIMESTAMP_FILE=".last_spell_check_timestamp"
+        if [ -f "$TIMESTAMP_FILE" ]; then
+          LAST_CHECK=$(cat "$TIMESTAMP_FILE")
+          echo "📅 Last check: $LAST_CHECK"
+          export SINCE_TIMESTAMP="$LAST_CHECK"
+        else
+          echo "📅 No previous check found, checking last 3 posts"
+        fi
+        
+        # Run spell checker (only checks posts modified since SINCE_TIMESTAMP if set)
+        if [ -n "$SINCE_TIMESTAMP" ]; then
+          ./ollama_spell_checker.py || echo "⚠️  Spelling issues detected (non-blocking)"
+        else
+          ./ollama_spell_checker.py 3 || echo "⚠️  Spelling issues detected (non-blocking)"
+        fi
+        
+        # Save current timestamp for next run
+        date -u +"%Y-%m-%dT%H:%M:%SZ" > "$TIMESTAMP_FILE"
+        echo "💾 Saved timestamp for next check"
       continue-on-error: true
         
     - name: Generate static site
@@ -98,7 +117,7 @@ jobs:
         python convert_to_staging.py
         
         # Check if there are changes to commit
-        git add public/
+        git add public/ .last_spell_check_timestamp 2>/dev/null || true
         
         if [ -n "$(git diff --cached)" ]; then
           echo "📝 Changes detected, committing..."

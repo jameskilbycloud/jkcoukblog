@@ -33,6 +33,9 @@ deploy.log
 # Spell check reports
 spelling_check_report.md
 
+# Spell check timestamp (tracked in repo)
+!.last_spell_check_timestamp
+
 # IDE files
 .vscode/
 .idea/
