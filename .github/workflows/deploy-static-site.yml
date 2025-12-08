@@ -312,17 +312,17 @@ jobs:
       with:
         status: success
         channel: '#web'  # Change this to your preferred channel
-        title: 'jkcoukblog Build Success'
-        message: |
-          ✅ **jkcoukblog static site built and pushed successfully!**
+        text: |
+          ✅ *jkcoukblog Build Success*
           
-          📅 **Time:** ${{ github.event.head_commit.timestamp }}
-          📝 **Commit:** ${{ github.event.head_commit.message }}
-          👤 **Author:** ${{ github.event.head_commit.author.name }}
-          🔗 **Commit URL:** ${{ github.event.head_commit.url }}
+          jkcoukblog static site built and pushed successfully!
+          
+          📅 Time: ${{ github.event.head_commit.timestamp }}
+          📝 Commit: ${{ github.event.head_commit.message }}
+          👤 Author: ${{ github.event.head_commit.author.name }}
+          🔗 Commit URL: ${{ github.event.head_commit.url }}
           
           🌐 Cloudflare Pages will now deploy the site automatically.
-        color: good
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         
@@ -337,16 +337,16 @@ jobs:
       with:
         status: failure
         channel: '#web'  # Change this to your preferred channel
-        title: 'jkcoukblog Build Failed'
-        message: |
-          ❌ **jkcoukblog deployment failed!**
+        text: |
+          ❌ *jkcoukblog Build Failed*
           
-          📅 **Time:** ${{ github.event.head_commit.timestamp }}
-          📝 **Commit:** ${{ github.event.head_commit.message }}
-          👤 **Author:** ${{ github.event.head_commit.author.name }}
-          🔗 **Workflow:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          jkcoukblog deployment failed!
+          
+          📅 Time: ${{ github.event.head_commit.timestamp }}
+          📝 Commit: ${{ github.event.head_commit.message }}
+          👤 Author: ${{ github.event.head_commit.author.name }}
+          🔗 Workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           
           Please check the GitHub Actions logs for details.
-        color: danger
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
