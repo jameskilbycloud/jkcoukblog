@@ -98,6 +98,10 @@ jobs:
         TOTAL_SIZE=$(du -sh ./static-output 2>/dev/null | cut -f1)
         echo "📊 Generated $HTML_COUNT HTML files, total size: $TOTAL_SIZE"
         
+        # Save to environment file for use in later steps
+        echo "HTML_COUNT=$HTML_COUNT" >> $GITHUB_ENV
+        echo "TOTAL_SIZE=$TOTAL_SIZE" >> $GITHUB_ENV
+        
         # Replace WordPress images with already-optimized versions from public/
         if [ -d "public/wp-content/uploads" ] && [ -d "./static-output/wp-content/uploads" ]; then
           echo "📋 Checking for already-optimized images..."
@@ -241,6 +245,13 @@ jobs:
             echo "ℹ️  No significant size reduction this run"
           fi
           
+          # Save to environment file for use in later steps
+          echo "PNG_COUNT=$PNG_COUNT" >> $GITHUB_ENV
+          echo "JPG_COUNT=$JPG_COUNT" >> $GITHUB_ENV
+          echo "OPTIMIZED_COUNT=$OPTIMIZED_COUNT" >> $GITHUB_ENV
+          echo "SKIPPED_COUNT=$SKIPPED_COUNT" >> $GITHUB_ENV
+          echo "SAVED_MB=$SAVED_MB" >> $GITHUB_ENV
+          
           # Add optimization summary to GitHub Actions UI
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## 🖼️ Image Optimization Summary" >> $GITHUB_STEP_SUMMARY
@@ -250,6 +261,13 @@ jobs:
           echo "- **Newly Optimized:** $OPTIMIZED_COUNT" >> $GITHUB_STEP_SUMMARY
           echo "- **Already Optimized (Skipped):** $SKIPPED_COUNT" >> $GITHUB_STEP_SUMMARY
           echo "- **Space Saved:** ${SAVED_MB}MB" >> $GITHUB_STEP_SUMMARY
+        else
+          # Set defaults if no images
+          echo "PNG_COUNT=0" >> $GITHUB_ENV
+          echo "JPG_COUNT=0" >> $GITHUB_ENV
+          echo "OPTIMIZED_COUNT=0" >> $GITHUB_ENV
+          echo "SKIPPED_COUNT=0" >> $GITHUB_ENV
+          echo "SAVED_MB=0.0" >> $GITHUB_ENV
         fi
       continue-on-error: true
         
@@ -358,10 +376,17 @@ jobs:
           
           jkcoukblog static site built and pushed successfully!
           
-          📅 Time: ${{ github.event.head_commit.timestamp }}
-          📝 Commit: ${{ github.event.head_commit.message }}
-          👤 Author: ${{ github.event.head_commit.author.name }}
-          🔗 Commit URL: ${{ github.event.head_commit.url }}
+          *📊 Build Metrics:*
+          • HTML Pages: ${{ env.HTML_COUNT }}
+          • Site Size: ${{ env.TOTAL_SIZE }}
+          • Images Optimized: ${{ env.OPTIMIZED_COUNT }} (skipped: ${{ env.SKIPPED_COUNT }})
+          • Space Saved: ${{ env.SAVED_MB }}MB
+          
+          *📝 Commit Info:*
+          • Time: ${{ github.event.head_commit.timestamp }}
+          • Message: ${{ github.event.head_commit.message }}
+          • Author: ${{ github.event.head_commit.author.name }}
+          • URL: ${{ github.event.head_commit.url }}
           
           🌐 Cloudflare Pages will now deploy the site automatically.
       env:
