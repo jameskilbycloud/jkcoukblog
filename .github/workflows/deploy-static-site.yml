@@ -107,12 +107,13 @@ jobs:
           # Install optimization tools if not present
           if ! command -v optipng &> /dev/null; then
             echo "📦 Installing optipng..."
-            brew install optipng 2>/dev/null || echo "⚠️  optipng not available"
+            sudo apt-get update -qq
+            sudo apt-get install -y optipng 2>/dev/null || echo "⚠️  optipng not available"
           fi
           
           if ! command -v jpegoptim &> /dev/null; then
             echo "📦 Installing jpegoptim..."
-            brew install jpegoptim 2>/dev/null || echo "⚠️  jpegoptim not available"
+            sudo apt-get install -y jpegoptim 2>/dev/null || echo "⚠️  jpegoptim not available"
           fi
           
           # Optimize PNG files (level 2 is fast and effective)
