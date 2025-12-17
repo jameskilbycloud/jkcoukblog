@@ -1019,6 +1019,62 @@ class WordPressStaticGenerator:
         redirects_file.write_text('\n'.join(redirects_content))
         print("✅ Created _redirects file for URL corrections")
     
+    def create_robots_txt(self):
+        """
+        Download robots.txt from WordPress and update URLs for static site
+        """
+        print("🤖 Creating robots.txt...")
+        
+        try:
+            # Download robots.txt from WordPress
+            robots_url = f"{self.wp_url}/robots.txt"
+            response = self.session.get(robots_url, timeout=10)
+            
+            if response.status_code == 200 and 'text/plain' in response.headers.get('content-type', ''):
+                # Get robots.txt content
+                robots_content = response.text
+                
+                # Replace WordPress URLs with target domain URLs
+                robots_content = robots_content.replace(self.wp_url, self.target_domain)
+                
+                # Update sitemap reference to point to our generated sitemap
+                import re
+                robots_content = re.sub(
+                    r'Sitemap:\s*https?://[^\n]+',
+                    f'Sitemap: {self.target_domain}/sitemap.xml',
+                    robots_content,
+                    flags=re.IGNORECASE
+                )
+                
+                # Write to static output
+                robots_file = self.output_dir / 'robots.txt'
+                robots_file.write_text(robots_content)
+                print(f"   ✅ Downloaded and updated robots.txt from WordPress")
+                
+            else:
+                # WordPress doesn't have robots.txt, create a basic one
+                print(f"   ⚠️  WordPress robots.txt not found, creating default")
+                self._create_default_robots_txt()
+                
+        except Exception as e:
+            print(f"   ⚠️  Error downloading robots.txt: {str(e)}")
+            print(f"   🔧 Creating default robots.txt")
+            self._create_default_robots_txt()
+    
+    def _create_default_robots_txt(self):
+        """Create a default robots.txt file"""
+        robots_content = [
+            "User-agent: *",
+            "Allow: /",
+            "",
+            f"Sitemap: {self.target_domain}/sitemap.xml",
+            ""
+        ]
+        
+        robots_file = self.output_dir / 'robots.txt'
+        robots_file.write_text('\n'.join(robots_content))
+        print(f"   ✅ Created default robots.txt")
+    
     def create_sitemap(self):
         """Generate a basic XML sitemap"""
         urls_for_sitemap = []
@@ -1366,6 +1422,7 @@ class WordPressStaticGenerator:
         
         # Create additional files
         print(f"\\n📄 Creating additional files:")
+        self.create_robots_txt()
         self.create_redirects_file()
         self.create_sitemap()
         self.generate_rss_feed()
