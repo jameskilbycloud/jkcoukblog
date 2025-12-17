@@ -46,5 +46,10 @@ spelling_check_report.md
 gitleaks-report.json
 results.sarif
 
+# Lighthouse CI reports
+.lighthouseci/
+lighthouse-*.html
+lighthouse-*.json
+
 # Keep the public/ directory (this is what Cloudflare deploys)
 !public/

@@ -1,0 +1,164 @@
+name: Lighthouse CI Performance Monitoring
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:  # Allow manual triggers
+  schedule:
+    # Run daily at 3 AM UTC to track performance trends
+    - cron: '0 3 * * *'
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Wait for deployment
+        if: github.event_name == 'push'
+        run: |
+          echo "⏳ Waiting 2 minutes for Cloudflare Pages to deploy..."
+          sleep 120
+      
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: |
+            https://jameskilby.co.uk
+            https://jameskilby.co.uk/category/
+            https://jameskilby.co.uk/2025/
+          runs: 3  # Run 3 times and take median scores
+          uploadArtifacts: true
+          temporaryPublicStorage: true  # Upload results to public storage
+          budgetPath: .github/lighthouse/budget.json  # Performance budgets
+          configPath: .github/lighthouse/lighthouse-config.json  # Custom config
+      
+      - name: Generate performance summary
+        if: always()
+        run: |
+          echo "## 🚦 Lighthouse Performance Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Performance metrics have been collected for:" >> $GITHUB_STEP_SUMMARY
+          echo "- Homepage: https://jameskilby.co.uk" >> $GITHUB_STEP_SUMMARY
+          echo "- Category page: https://jameskilby.co.uk/category/" >> $GITHUB_STEP_SUMMARY
+          echo "- Recent posts: https://jameskilby.co.uk/2025/" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📊 **Metrics tracked:**" >> $GITHUB_STEP_SUMMARY
+          echo "- Performance Score" >> $GITHUB_STEP_SUMMARY
+          echo "- Accessibility Score" >> $GITHUB_STEP_SUMMARY
+          echo "- Best Practices Score" >> $GITHUB_STEP_SUMMARY
+          echo "- SEO Score" >> $GITHUB_STEP_SUMMARY
+          echo "- First Contentful Paint (FCP)" >> $GITHUB_STEP_SUMMARY
+          echo "- Largest Contentful Paint (LCP)" >> $GITHUB_STEP_SUMMARY
+          echo "- Time to Interactive (TTI)" >> $GITHUB_STEP_SUMMARY
+          echo "- Cumulative Layout Shift (CLS)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "View detailed reports in the artifacts section." >> $GITHUB_STEP_SUMMARY
+      
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports-${{ github.run_id }}
+          path: |
+            .lighthouseci/
+            lighthouse-*.html
+          retention-days: 30  # Keep reports for 30 days
+      
+      - name: Evaluate performance budgets
+        id: budget
+        continue-on-error: true
+        run: |
+          # Check if any budgets were exceeded
+          if [ -f ".lighthouseci/lhr-*.json" ]; then
+            echo "BUDGET_CHECK=completed" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Notify Slack on performance regression
+        if: failure() && github.event_name == 'push'
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "channel": "#web",
+              "username": "Lighthouse CI",
+              "icon_emoji": ":lighthouse:",
+              "attachments": [
+                {
+                  "color": "warning",
+                  "title": "⚠️ Performance Budget Exceeded",
+                  "text": "Lighthouse CI detected performance regressions on jameskilby.co.uk",
+                  "fields": [
+                    {
+                      "title": "Branch",
+                      "value": "${{ github.ref_name }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Triggered By",
+                      "value": "${{ github.actor }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Commit",
+                      "value": "<${{ github.event.head_commit.url }}|${{ github.sha }}>",
+                      "short": false
+                    }
+                  ],
+                  "footer": "Review the detailed Lighthouse reports in the workflow artifacts",
+                  "actions": [
+                    {
+                      "type": "button",
+                      "text": "View Report",
+                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      
+      - name: Notify Slack on success
+        if: success() && github.event_name == 'schedule'
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "channel": "#web",
+              "username": "Lighthouse CI",
+              "icon_emoji": ":lighthouse:",
+              "attachments": [
+                {
+                  "color": "good",
+                  "title": "✅ Daily Performance Check Complete",
+                  "text": "All performance budgets are within acceptable ranges for jameskilby.co.uk",
+                  "fields": [
+                    {
+                      "title": "Date",
+                      "value": "${{ github.event.repository.updated_at }}",
+                      "short": true
+                    }
+                  ],
+                  "footer": "Lighthouse CI - Daily Monitoring",
+                  "actions": [
+                    {
+                      "type": "button",
+                      "text": "View Report",
+                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
