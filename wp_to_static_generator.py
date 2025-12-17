@@ -781,6 +781,16 @@ class WordPressStaticGenerator:
         generator_meta['content'] = 'WordPress Static Generator 1.0'
         soup.head.append(generator_meta)
         
+        # Add theme-color meta tag for mobile browsers
+        # This colors the browser UI to match the site (improves mobile UX)
+        existing_theme_color = soup.find('meta', attrs={'name': 'theme-color'})
+        if not existing_theme_color:
+            theme_color_meta = soup.new_tag('meta')
+            theme_color_meta['name'] = 'theme-color'
+            theme_color_meta['content'] = '#ffffff'  # White - matches site background
+            soup.head.append(theme_color_meta)
+            print(f"   🎨 Added theme-color meta tag")
+        
         # Add Plausible analytics if not already present
         self.add_plausible_analytics(soup)
         
