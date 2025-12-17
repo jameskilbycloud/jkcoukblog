@@ -300,6 +300,39 @@ class WordPressStaticGenerator:
                 meta['content'] = content.replace(self.wp_url, self.target_domain)
                 print(f"   🔧 Fixed meta property: {prop}")
         
+        # Check if og:image exists, add default if missing
+        og_image = soup.find('meta', property='og:image')
+        if not og_image and soup.head:
+            # Use the site logo as default Open Graph image
+            default_image_url = f"{self.target_domain}/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png"
+            
+            og_image = soup.new_tag('meta')
+            og_image['property'] = 'og:image'
+            og_image['content'] = default_image_url
+            soup.head.append(og_image)
+            
+            # Also add og:image:width and og:image:height
+            og_image_width = soup.new_tag('meta')
+            og_image_width['property'] = 'og:image:width'
+            og_image_width['content'] = '1024'
+            soup.head.append(og_image_width)
+            
+            og_image_height = soup.new_tag('meta')
+            og_image_height['property'] = 'og:image:height'
+            og_image_height['content'] = '1024'
+            soup.head.append(og_image_height)
+            
+            print(f"   🇾added default og:image: {default_image_url}")
+        
+        # Add twitter:image if missing (use same as og:image)
+        twitter_image = soup.find('meta', attrs={'name': 'twitter:image'})
+        if not twitter_image and og_image and soup.head:
+            twitter_image = soup.new_tag('meta')
+            twitter_image['name'] = 'twitter:image'
+            twitter_image['content'] = og_image.get('content', '')
+            soup.head.append(twitter_image)
+            print(f"   🐦 Added twitter:image from og:image")
+        
         # Fix meta tags with name attribute (Twitter Cards)
         for meta in soup.find_all('meta', attrs={'name': True}):
             name = meta.get('name', '')
