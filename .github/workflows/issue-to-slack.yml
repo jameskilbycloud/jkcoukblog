@@ -9,11 +9,42 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Slack Notification
-        uses: slackapi/slack-github-action@v1.23.0
+        uses: slackapi/slack-github-action@v2.0.0
         with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
           payload: |
             {
-              "text": "New comment created: <${{ github.event.issue.html_url }}|${{ github.event.issue.title }}> by ${{ github.event.issue.user.login }}"
+              "channel": "#web",
+              "username": "GitHub",
+              "icon_emoji": ":github:",
+              "attachments": [
+                {
+                  "color": "warning",
+                  "title": "🐛 New Issue Created",
+                  "title_link": "${{ github.event.issue.html_url }}",
+                  "text": "*#${{ github.event.issue.number }}:* ${{ github.event.issue.title }}",
+                  "fields": [
+                    {
+                      "title": "Repository",
+                      "value": "<${{ github.event.repository.html_url }}|${{ github.repository }}>",
+                      "short": true
+                    },
+                    {
+                      "title": "Created By",
+                      "value": "${{ github.event.issue.user.login }}",
+                      "short": true
+                    }
+                  ],
+                  "footer": "GitHub Issues",
+                  "footer_icon": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+                  "actions": [
+                    {
+                      "type": "button",
+                      "text": "View Issue",
+                      "url": "${{ github.event.issue.html_url }}"
+                    }
+                  ]
+                }
+              ]
             }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

@@ -87,34 +87,82 @@ jobs:
         
     - name: Notify Slack on success
       if: env.SPELL_CHECK_STATUS == 'passed'
-      uses: 8398a7/action-slack@v3
+      uses: slackapi/slack-github-action@v2.0.0
       with:
-        status: custom
-        channel: '#web'
-        custom_payload: |
+        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+        webhook-type: incoming-webhook
+        payload: |
           {
-            "text": "✅ WordPress Spell Check Passed",
-            "attachments": [{
-              "color": "good",
-              "text": "All posts are clean!\n\n📝 Posts checked: ${{ github.event.inputs.post_count || '5' }}\n🔗 Report: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-            }]
+            "channel": "#web",
+            "username": "GitHub Actions",
+            "icon_emoji": ":github:",
+            "attachments": [
+              {
+                "color": "good",
+                "title": "✅ WordPress Spell Check Passed",
+                "text": "All posts are clean!",
+                "fields": [
+                  {
+                    "title": "Posts Checked",
+                    "value": "${{ github.event.inputs.post_count || '5' }}",
+                    "short": true
+                  },
+                  {
+                    "title": "Triggered By",
+                    "value": "${{ github.actor }}",
+                    "short": true
+                  }
+                ],
+                "footer": "WordPress Spell Checker",
+                "footer_icon": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+                "actions": [
+                  {
+                    "type": "button",
+                    "text": "View Report",
+                    "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  }
+                ]
+              }
+            ]
           }
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         
     - name: Notify Slack on errors
       if: env.SPELL_CHECK_STATUS == 'failed'
-      uses: 8398a7/action-slack@v3
+      uses: slackapi/slack-github-action@v2.0.0
       with:
-        status: custom
-        channel: '#web'
-        custom_payload: |
+        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+        webhook-type: incoming-webhook
+        payload: |
           {
-            "text": "⚠️  WordPress Spell Check - Issues Found",
-            "attachments": [{
-              "color": "warning",
-              "text": "Spelling errors detected\n\n📝 Posts checked: ${{ github.event.inputs.post_count || '5' }}\n🔗 Report: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\n\nPlease review the report and fix errors before publishing."
-            }]
+            "channel": "#web",
+            "username": "GitHub Actions",
+            "icon_emoji": ":github:",
+            "attachments": [
+              {
+                "color": "warning",
+                "title": "⚠️ WordPress Spell Check - Issues Found",
+                "text": "Spelling errors detected. Please review the report and fix errors before publishing.",
+                "fields": [
+                  {
+                    "title": "Posts Checked",
+                    "value": "${{ github.event.inputs.post_count || '5' }}",
+                    "short": true
+                  },
+                  {
+                    "title": "Triggered By",
+                    "value": "${{ github.actor }}",
+                    "short": true
+                  }
+                ],
+                "footer": "WordPress Spell Checker",
+                "footer_icon": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+                "actions": [
+                  {
+                    "type": "button",
+                    "text": "View Report",
+                    "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  }
+                ]
+              }
+            ]
           }
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

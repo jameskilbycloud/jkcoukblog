@@ -1,0 +1,114 @@
+name: Notify Slack on GitHub Events
+
+on:
+  issues:
+    types: [opened, reopened, closed]
+  issue_comment:
+    types: [created]
+  pull_request:
+    types: [opened, reopened, closed, ready_for_review]
+
+jobs:
+  notify-slack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine event details
+        id: event_info
+        run: |
+          case "${{ github.event_name }}" in
+            issues)
+              if [ "${{ github.event.action }}" = "opened" ]; then
+                echo "title=New Issue Created" >> $GITHUB_OUTPUT
+                echo "emoji=🐛" >> $GITHUB_OUTPUT
+                echo "color=warning" >> $GITHUB_OUTPUT
+              elif [ "${{ github.event.action }}" = "closed" ]; then
+                echo "title=Issue Closed" >> $GITHUB_OUTPUT
+                echo "emoji=✅" >> $GITHUB_OUTPUT
+                echo "color=good" >> $GITHUB_OUTPUT
+              else
+                echo "title=Issue Reopened" >> $GITHUB_OUTPUT
+                echo "emoji=🔄" >> $GITHUB_OUTPUT
+                echo "color=warning" >> $GITHUB_OUTPUT
+              fi
+              echo "url=${{ github.event.issue.html_url }}" >> $GITHUB_OUTPUT
+              echo "item_title=${{ github.event.issue.title }}" >> $GITHUB_OUTPUT
+              echo "item_user=${{ github.event.issue.user.login }}" >> $GITHUB_OUTPUT
+              echo "item_number=#${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+              ;;
+            issue_comment)
+              echo "title=New Comment on Issue" >> $GITHUB_OUTPUT
+              echo "emoji=💬" >> $GITHUB_OUTPUT
+              echo "color=#808080" >> $GITHUB_OUTPUT
+              echo "url=${{ github.event.comment.html_url }}" >> $GITHUB_OUTPUT
+              echo "item_title=${{ github.event.issue.title }}" >> $GITHUB_OUTPUT
+              echo "item_user=${{ github.event.comment.user.login }}" >> $GITHUB_OUTPUT
+              echo "item_number=#${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+              ;;
+            pull_request)
+              if [ "${{ github.event.action }}" = "opened" ]; then
+                echo "title=New Pull Request" >> $GITHUB_OUTPUT
+                echo "emoji=🔀" >> $GITHUB_OUTPUT
+                echo "color=good" >> $GITHUB_OUTPUT
+              elif [ "${{ github.event.action }}" = "closed" ]; then
+                if [ "${{ github.event.pull_request.merged }}" = "true" ]; then
+                  echo "title=Pull Request Merged" >> $GITHUB_OUTPUT
+                  echo "emoji=✅" >> $GITHUB_OUTPUT
+                  echo "color=#6f42c1" >> $GITHUB_OUTPUT
+                else
+                  echo "title=Pull Request Closed" >> $GITHUB_OUTPUT
+                  echo "emoji=❌" >> $GITHUB_OUTPUT
+                  echo "color=danger" >> $GITHUB_OUTPUT
+                fi
+              else
+                echo "title=Pull Request Updated" >> $GITHUB_OUTPUT
+                echo "emoji=🔄" >> $GITHUB_OUTPUT
+                echo "color=warning" >> $GITHUB_OUTPUT
+              fi
+              echo "url=${{ github.event.pull_request.html_url }}" >> $GITHUB_OUTPUT
+              echo "item_title=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
+              echo "item_user=${{ github.event.pull_request.user.login }}" >> $GITHUB_OUTPUT
+              echo "item_number=#${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+              ;;
+          esac
+
+      - name: Send Slack Notification
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "channel": "#web",
+              "username": "GitHub",
+              "icon_emoji": ":github:",
+              "attachments": [
+                {
+                  "color": "${{ steps.event_info.outputs.color }}",
+                  "title": "${{ steps.event_info.outputs.emoji }} ${{ steps.event_info.outputs.title }}",
+                  "title_link": "${{ steps.event_info.outputs.url }}",
+                  "text": "*${{ steps.event_info.outputs.item_number }}:* ${{ steps.event_info.outputs.item_title }}",
+                  "fields": [
+                    {
+                      "title": "Repository",
+                      "value": "<${{ github.event.repository.html_url }}|${{ github.repository }}>",
+                      "short": true
+                    },
+                    {
+                      "title": "User",
+                      "value": "${{ steps.event_info.outputs.item_user }}",
+                      "short": true
+                    }
+                  ],
+                  "footer": "GitHub Notifications",
+                  "footer_icon": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+                  "ts": ${{ github.event.issue.created_at && 'github.event.issue.created_at' || github.event.pull_request.created_at && 'github.event.pull_request.created_at' || 'github.event.comment.created_at' }},
+                  "actions": [
+                    {
+                      "type": "button",
+                      "text": "View on GitHub",
+                      "url": "${{ steps.event_info.outputs.url }}"
+                    }
+                  ]
+                }
+              ]
+            }
