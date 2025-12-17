@@ -227,6 +227,9 @@ class WordPressStaticGenerator:
         # Add lazy loading to images
         self.add_lazy_loading(soup)
         
+        # Add copy code button to code blocks
+        self.add_copy_code_button(soup)
+        
         # Fix inline CSS font URLs
         self.fix_inline_css_urls(soup)
         
@@ -881,6 +884,121 @@ class WordPressStaticGenerator:
                 print(f"   📦 Image {idx + 1}: lazy loading (below fold)")
         
         print(f"   ✅ Applied lazy loading to {len(images) - eager_count}/{len(images)} images")
+    
+    def add_copy_code_button(self, soup):
+        """Add copy code button to all code blocks"""
+        
+        # Find all pre > code blocks (standard code block pattern)
+        code_blocks = soup.find_all('pre')
+        
+        if not code_blocks:
+            return
+        
+        button_count = 0
+        
+        for pre in code_blocks:
+            # Skip if already has copy button wrapper
+            if pre.parent and 'code-block-wrapper' in pre.parent.get('class', []):
+                continue
+            
+            # Wrap pre in a div with relative positioning
+            wrapper = soup.new_tag('div')
+            wrapper['class'] = 'code-block-wrapper'
+            wrapper['style'] = 'position: relative; margin: 1em 0;'
+            
+            # Create copy button
+            button = soup.new_tag('button')
+            button['class'] = 'copy-code-button'
+            button['aria-label'] = 'Copy code to clipboard'
+            button['style'] = '''position: absolute; top: 8px; right: 8px; 
+                padding: 6px 12px; background: #2d3748; color: #fff; 
+                border: 1px solid #4a5568; border-radius: 4px; 
+                cursor: pointer; font-size: 12px; font-family: sans-serif;
+                opacity: 0.8; transition: opacity 0.2s, background 0.2s;
+                z-index: 10;'''
+            button.string = '📋 Copy'
+            
+            # Insert wrapper before pre
+            pre.insert_before(wrapper)
+            # Move pre into wrapper
+            wrapper.append(pre.extract())
+            # Add button to wrapper
+            wrapper.append(button)
+            
+            button_count += 1
+        
+        if button_count > 0:
+            # Add JavaScript for copy functionality
+            script = soup.new_tag('script')
+            script.string = '''
+(function() {
+    document.querySelectorAll('.copy-code-button').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var pre = this.previousElementSibling;
+            var code = pre.querySelector('code') || pre;
+            var text = code.textContent || code.innerText;
+            
+            // Copy to clipboard
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    // Success feedback
+                    button.textContent = '✅ Copied!';
+                    button.style.background = '#48bb78';
+                    setTimeout(function() {
+                        button.textContent = '📋 Copy';
+                        button.style.background = '#2d3748';
+                    }, 2000);
+                }).catch(function() {
+                    button.textContent = '❌ Failed';
+                    setTimeout(function() {
+                        button.textContent = '📋 Copy';
+                    }, 2000);
+                });
+            } else {
+                // Fallback for older browsers
+                var textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    button.textContent = '✅ Copied!';
+                    button.style.background = '#48bb78';
+                    setTimeout(function() {
+                        button.textContent = '📋 Copy';
+                        button.style.background = '#2d3748';
+                    }, 2000);
+                } catch (err) {
+                    button.textContent = '❌ Failed';
+                    setTimeout(function() {
+                        button.textContent = '📋 Copy';
+                    }, 2000);
+                }
+                document.body.removeChild(textarea);
+            }
+        });
+        
+        // Hover effects
+        button.addEventListener('mouseenter', function() {
+            this.style.opacity = '1';
+            this.style.background = '#4a5568';
+        });
+        button.addEventListener('mouseleave', function() {
+            this.style.opacity = '0.8';
+            this.style.background = '#2d3748';
+        });
+    });
+})();
+'''
+            
+            # Add script to end of body
+            if soup.body:
+                soup.body.append(script)
+                print(f"   📋 Added copy buttons to {button_count} code blocks")
+        else:
+            print(f"   ℹ️  No code blocks found to add copy buttons")
     
     def extract_assets(self, soup, current_url):
         """Extract asset URLs for later download"""
