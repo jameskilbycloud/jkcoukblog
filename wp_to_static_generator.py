@@ -1062,10 +1062,12 @@ class WordPressStaticGenerator:
                         break
                         
                 except (json.JSONDecodeError, Exception) as e:
+                    print(f"   ⚠️  Error parsing JSON-LD: {e}")
                     continue
         
         # Only add indicator if we have dates and the content was modified after publication
         if not date_published or not date_modified:
+            print(f"   ℹ️  Skipping freshness indicator - dates not found (pub: {date_published}, mod: {date_modified})")
             return
         
         # Parse dates to compare them
@@ -1081,6 +1083,7 @@ class WordPressStaticGenerator:
             # Only show freshness indicator if modified date is different from published date
             # (allowing for same-day edits to not trigger indicator)
             if pub_dt.date() == mod_dt.date():
+                print(f"   ℹ️  Skipping freshness indicator - same-day edit ({pub_dt.date()})")
                 return
             
         except (ValueError, AttributeError) as e:
@@ -1103,6 +1106,7 @@ class WordPressStaticGenerator:
                 break
         
         if not insertion_point:
+            print(f"   ⚠️  Could not find insertion point for freshness indicator")
             return
         
         # Create the freshness indicator
