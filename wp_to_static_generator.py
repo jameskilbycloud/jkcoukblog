@@ -322,26 +322,57 @@ class WordPressStaticGenerator:
                 print(f"   🔧 Fixed feed URL")
     
     def fix_jsonld_urls(self, soup):
-        """Fix URLs in JSON-LD structured data"""
+        """Fix URLs in JSON-LD structured data for rich results"""
         # Find all script tags with JSON-LD
         for script in soup.find_all('script', type='application/ld+json'):
             if script.string:
                 try:
-                    # Replace WordPress URLs in the JSON string
-                    original_json = script.string
-                    # Replace escaped URLs (in JSON)
-                    updated_json = original_json.replace(
-                        self.wp_url.replace('/', '\\/'),
-                        self.target_domain.replace('/', '\\/')
-                    )
-                    # Also replace unescaped URLs
-                    updated_json = updated_json.replace(self.wp_url, self.target_domain)
+                    # Parse JSON properly
+                    data = json.loads(script.string)
                     
-                    if updated_json != original_json:
-                        script.string = updated_json
-                        print(f"   🔧 Fixed JSON-LD structured data URLs")
+                    # Fix URLs recursively
+                    modified = self._fix_jsonld_object(data)
+                    
+                    if modified:
+                        # Convert back to JSON and update
+                        script.string = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+                        print(f"   🔧 Fixed JSON-LD structured data for rich results")
+                        
+                except json.JSONDecodeError as e:
+                    print(f"   ⚠️  Invalid JSON-LD: {str(e)}")
                 except Exception as e:
                     print(f"   ⚠️  Error fixing JSON-LD: {str(e)}")
+    
+    def _fix_jsonld_object(self, obj):
+        """Recursively fix URLs in JSON-LD object"""
+        modified = False
+        
+        if isinstance(obj, dict):
+            for key, value in obj.items():
+                # Fix URL strings
+                if isinstance(value, str):
+                    # Convert relative URLs to absolute
+                    if value.startswith('/'):
+                        # Relative URL - make absolute
+                        obj[key] = f"{self.target_domain}{value}"
+                        modified = True
+                    elif self.wp_url in value:
+                        # WordPress URL - replace with target
+                        obj[key] = value.replace(self.wp_url, self.target_domain)
+                        modified = True
+                
+                # Recursively process nested objects/arrays
+                elif isinstance(value, (dict, list)):
+                    if self._fix_jsonld_object(value):
+                        modified = True
+        
+        elif isinstance(obj, list):
+            for item in obj:
+                if isinstance(item, (dict, list)):
+                    if self._fix_jsonld_object(item):
+                        modified = True
+        
+        return modified
     
     def remove_wordpress_elements(self, soup):
         """Remove WordPress-specific dynamic elements"""
