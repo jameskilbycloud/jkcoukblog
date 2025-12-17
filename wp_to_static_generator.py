@@ -230,6 +230,9 @@ class WordPressStaticGenerator:
         # Add copy code button to code blocks
         self.add_copy_code_button(soup)
         
+        # Add content freshness indicator (published/updated dates)
+        self.add_content_freshness_indicator(soup)
+        
         # Fix inline CSS font URLs
         self.fix_inline_css_urls(soup)
         
@@ -1032,6 +1035,123 @@ class WordPressStaticGenerator:
                 print(f"   📋 Added copy buttons to {button_count} code blocks")
         else:
             print(f"   ℹ️  No code blocks found to add copy buttons")
+    
+    def add_content_freshness_indicator(self, soup):
+        """Add visible content freshness indicator showing published and updated dates"""
+        
+        # Extract dates from JSON-LD structured data
+        date_published = None
+        date_modified = None
+        
+        for script in soup.find_all('script', type='application/ld+json'):
+            if script.string:
+                try:
+                    data = json.loads(script.string)
+                    
+                    # Handle @graph structure (Rank Math uses this)
+                    items = data.get('@graph', [data]) if '@graph' in data else [data]
+                    
+                    for item in items:
+                        if isinstance(item, dict) and item.get('@type') in ['BlogPosting', 'WebPage']:
+                            date_published = item.get('datePublished')
+                            date_modified = item.get('dateModified')
+                            if date_published and date_modified:
+                                break
+                    
+                    if date_published and date_modified:
+                        break
+                        
+                except (json.JSONDecodeError, Exception) as e:
+                    continue
+        
+        # Only add indicator if we have dates and the content was modified after publication
+        if not date_published or not date_modified:
+            return
+        
+        # Parse dates to compare them
+        try:
+            from datetime import datetime
+            pub_dt = datetime.fromisoformat(date_published.replace('Z', '+00:00'))
+            mod_dt = datetime.fromisoformat(date_modified.replace('Z', '+00:00'))
+            
+            # Format dates for display (human-readable)
+            pub_formatted = pub_dt.strftime('%B %d, %Y')
+            mod_formatted = mod_dt.strftime('%B %d, %Y')
+            
+            # Only show freshness indicator if modified date is different from published date
+            # (allowing for same-day edits to not trigger indicator)
+            if pub_dt.date() == mod_dt.date():
+                return
+            
+        except (ValueError, AttributeError) as e:
+            print(f"   ⚠️  Error parsing dates: {e}")
+            return
+        
+        # Find the entry-header or entry-meta to insert the freshness indicator after
+        # Try multiple selectors to match different theme structures
+        insertion_targets = [
+            soup.find('header', class_=lambda x: x and 'entry-header' in x),
+            soup.find('div', class_=lambda x: x and 'entry-meta' in x),
+            soup.find('h1', class_=lambda x: x and 'entry-title' in x),
+            soup.find('article')
+        ]
+        
+        insertion_point = None
+        for target in insertion_targets:
+            if target:
+                insertion_point = target
+                break
+        
+        if not insertion_point:
+            return
+        
+        # Create the freshness indicator
+        freshness_div = soup.new_tag('div')
+        freshness_div['class'] = 'content-freshness-indicator'
+        freshness_div['style'] = '''background: #f7fafc; border-left: 4px solid #4299e1; 
+            padding: 12px 16px; margin: 20px 0; border-radius: 4px; 
+            font-size: 14px; line-height: 1.6; color: #2d3748;'''
+        
+        # Icon and text
+        icon_span = soup.new_tag('span')
+        icon_span['style'] = 'font-size: 16px; margin-right: 8px;'
+        icon_span.string = '📅'
+        
+        text_span = soup.new_tag('span')
+        
+        # Published date
+        pub_strong = soup.new_tag('strong')
+        pub_strong.string = 'Published: '
+        text_span.append(pub_strong)
+        
+        pub_time = soup.new_tag('time')
+        pub_time['datetime'] = date_published
+        pub_time.string = pub_formatted
+        text_span.append(pub_time)
+        
+        # Separator
+        separator = soup.new_tag('span')
+        separator['style'] = 'margin: 0 8px; color: #a0aec0;'
+        separator.string = '•'
+        text_span.append(separator)
+        
+        # Updated date
+        mod_strong = soup.new_tag('strong')
+        mod_strong.string = 'Updated: '
+        text_span.append(mod_strong)
+        
+        mod_time = soup.new_tag('time')
+        mod_time['datetime'] = date_modified
+        mod_time.string = mod_formatted
+        text_span.append(mod_time)
+        
+        freshness_div.append(icon_span)
+        freshness_div.append(text_span)
+        
+        # Insert after the entry-header or chosen insertion point
+        insertion_point.insert_after(freshness_div)
+        
+        print(f"   📅 Added content freshness indicator (Published: {pub_formatted}, Updated: {mod_formatted})")
     
     def extract_assets(self, soup, current_url):
         """Extract asset URLs for later download"""
