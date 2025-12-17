@@ -91,16 +91,12 @@ jobs:
           echo "- Cumulative Layout Shift (CLS)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "View detailed reports in the artifacts section." >> $GITHUB_STEP_SUMMARY
-      
-      - name: Upload Lighthouse reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lighthouse-reports-${{ github.run_id }}
-          path: |
-            .lighthouseci/
-            lighthouse-*.html
-          retention-days: 30  # Keep reports for 30 days
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Reports are automatically uploaded by Lighthouse CI action." >> $GITHUB_STEP_SUMMARY
+          if [ -d ".lighthouseci" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "📁 Lighthouse results available in workflow artifacts." >> $GITHUB_STEP_SUMMARY
+          fi
       
       - name: Evaluate performance budgets
         id: budget
