@@ -1481,9 +1481,10 @@ class WordPressStaticGenerator:
     def create_redirects_file(self):
         """Create redirects for old URLs (Netlify/Cloudflare format)"""
         redirects_content = [
-            "# Redirect www to non-www (canonical URL) - both HTTP and HTTPS",
-            "http://www.jameskilby.co.uk/* https://jameskilby.co.uk/:splat 301!",
-            "https://www.jameskilby.co.uk/* https://jameskilby.co.uk/:splat 301!",
+            "# Redirect www to non-www (canonical URL)",
+            "# Note: Cloudflare's 'Always Use HTTPS' runs first, so HTTP www gets 2 hops",
+            "# This is normal and acceptable for the rare HTTP www case",
+            "www.jameskilby.co.uk/* jameskilby.co.uk/:splat 301",
             "",
             "# Automatic redirects for spelling corrections",
             "/2025/04/warp-the-inteligent-terminal/ /2025/04/warp-the-intelligent-terminal/ 301",
