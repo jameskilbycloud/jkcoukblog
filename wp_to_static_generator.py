@@ -333,10 +333,14 @@ class WordPressStaticGenerator:
                     # Fix URLs recursively
                     modified = self._fix_jsonld_object(data)
                     
+                    # Enhance BlogPosting with reading time and word count
+                    if self._enhance_blogposting_schema(data, soup):
+                        modified = True
+                    
                     if modified:
                         # Convert back to JSON and update
                         script.string = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
-                        print(f"   🔧 Fixed JSON-LD structured data for rich results")
+                        print(f"   🔧 Enhanced JSON-LD with reading time and word count")
                         
                 except json.JSONDecodeError as e:
                     print(f"   ⚠️  Invalid JSON-LD: {str(e)}")
@@ -373,6 +377,80 @@ class WordPressStaticGenerator:
                         modified = True
         
         return modified
+    
+    def _enhance_blogposting_schema(self, data, soup):
+        """Add reading time and word count to BlogPosting schema"""
+        modified = False
+        
+        # Handle @graph structure (Rank Math uses this)
+        items = data.get('@graph', [data]) if '@graph' in data else [data]
+        
+        for item in items:
+            if isinstance(item, dict) and item.get('@type') == 'BlogPosting':
+                # Extract article content for word count
+                article_content = self._extract_article_text(soup)
+                
+                if article_content:
+                    # Calculate word count
+                    word_count = len(article_content.split())
+                    
+                    # Calculate reading time (200 words per minute average)
+                    reading_minutes = max(1, round(word_count / 200))
+                    
+                    # Add properties if not already present
+                    if 'wordCount' not in item:
+                        item['wordCount'] = word_count
+                        modified = True
+                        print(f"      ➕ Added wordCount: {word_count}")
+                    
+                    if 'timeRequired' not in item:
+                        # Format as ISO 8601 duration (PT5M = 5 minutes)
+                        item['timeRequired'] = f"PT{reading_minutes}M"
+                        modified = True
+                        print(f"      ➕ Added timeRequired: {reading_minutes} min")
+                    
+                    # Optionally add article body (truncated to 5000 chars)
+                    if 'articleBody' not in item and len(article_content) > 100:
+                        item['articleBody'] = article_content[:5000]
+                        modified = True
+                        print(f"      ➕ Added articleBody: {len(article_content[:5000])} chars")
+        
+        return modified
+    
+    def _extract_article_text(self, soup):
+        """Extract main article text for word count calculation"""
+        # Try to find the main article content
+        # Common WordPress content containers
+        content_selectors = [
+            'article .entry-content',
+            '.entry-content',
+            'article',
+            '.post-content',
+            '.content',
+            'main'
+        ]
+        
+        for selector in content_selectors:
+            content_div = soup.select_one(selector)
+            if content_div:
+                # Clone to avoid modifying original
+                content_copy = content_div.__copy__()
+                
+                # Remove unwanted elements
+                for tag in content_copy(['script', 'style', 'nav', 'aside', 'footer', 'header']):
+                    tag.decompose()
+                
+                # Get text content
+                text = content_copy.get_text(separator=' ', strip=True)
+                
+                # Clean up whitespace
+                text = ' '.join(text.split())
+                
+                # Only return if we found substantial content
+                if len(text) > 100:
+                    return text
+        
+        return None
     
     def remove_wordpress_elements(self, soup):
         """Remove WordPress-specific dynamic elements"""
