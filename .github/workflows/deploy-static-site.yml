@@ -186,135 +186,73 @@ jobs:
       timeout-minutes: 20  # Timeout for image optimization
       shell: bash
       run: |
-        echo "🖼️  Optimizing images..."
+        echo "🖼️  Starting advanced image optimization..."
         
-        # Create tracking directory for optimized images
-        TRACKING_DIR=".image_optimization_cache"
-        mkdir -p "$TRACKING_DIR"
-        
-        # Count images before optimization
-        PNG_COUNT=$(find ./static-output -name "*.png" -type f 2>/dev/null | wc -l | xargs)
-        JPG_COUNT=$(find ./static-output \( -name "*.jpg" -o -name "*.jpeg" \) -type f 2>/dev/null | wc -l | xargs)
-        echo "📊 Found $PNG_COUNT PNG images and $JPG_COUNT JPEG images"
-        
-        if [ "$PNG_COUNT" -eq 0 ] && [ "$JPG_COUNT" -eq 0 ]; then
-          echo "ℹ️  No images to optimize"
-          # Set defaults if no images
+        # Run the Python-based optimizer with parallel processing
+        # Uses 4 parallel workers for faster optimization
+        python optimize_images.py ./static-output --workers 4 --json-output optimization-results.json || {
+          echo "⚠️  Image optimization failed (non-blocking)"
+          # Set defaults if optimization fails
           echo "PNG_COUNT=0" >> $GITHUB_ENV
           echo "JPG_COUNT=0" >> $GITHUB_ENV
           echo "OPTIMIZED_COUNT=0" >> $GITHUB_ENV
           echo "SKIPPED_COUNT=0" >> $GITHUB_ENV
           echo "SAVED_MB=0.0" >> $GITHUB_ENV
-        else
-          # Get initial size
-          INITIAL_SIZE=$(du -sk ./static-output 2>/dev/null | cut -f1)
+          exit 0
+        }
+        
+        # Parse JSON results and extract metrics
+        if [ -f "optimization-results.json" ]; then
+          # Count by format type
+          PNG_COUNT=$(jq '[.[] | select(.format_type == "PNG")] | length' optimization-results.json)
+          JPG_COUNT=$(jq '[.[] | select(.format_type == "JPEG")] | length' optimization-results.json)
           
-          # Check for optimization tools
-          OPTIPNG_AVAILABLE=false
-          JPEGOPTIM_AVAILABLE=false
+          # Count optimized vs cached
+          OPTIMIZED_COUNT=$(jq '[.[] | select(.was_cached == false)] | length' optimization-results.json)
+          SKIPPED_COUNT=$(jq '[.[] | select(.was_cached == true)] | length' optimization-results.json)
           
-          if command -v optipng &> /dev/null; then
-            echo "✅ optipng found"
-            OPTIPNG_AVAILABLE=true
-          else
-            echo "⚠️  optipng not installed - PNG optimization will be skipped"
-          fi
+          # Calculate total savings in MB
+          SAVED_BYTES=$(jq '[.[] | .saved_bytes] | add // 0' optimization-results.json)
+          SAVED_MB=$(echo "scale=2; $SAVED_BYTES / 1024 / 1024" | bc)
           
-          if command -v jpegoptim &> /dev/null; then
-            echo "✅ jpegoptim found"
-            JPEGOPTIM_AVAILABLE=true
-          else
-            echo "⚠️  jpegoptim not installed - JPEG optimization will be skipped"
-          fi
+          # Calculate average optimization time for newly optimized images
+          AVG_TIME=$(jq '[.[] | select(.was_cached == false) | .duration_ms] | add / length // 0 | floor' optimization-results.json)
           
-          # Function to check if image was already optimized
-          is_optimized() {
-            local img="$1"
-            local cache_file="$TRACKING_DIR/$(echo "$img" | md5sum | cut -d' ' -f1)"
-            
-            if [ -f "$cache_file" ]; then
-              local cached_hash=$(cat "$cache_file")
-              local current_hash=$(md5sum "$img" 2>/dev/null | cut -d' ' -f1)
-              [ "$cached_hash" = "$current_hash" ] && return 0
-            fi
-            return 1
-          }
+          echo "📊 Optimization Results:"
+          echo "   • PNG Images: $PNG_COUNT"
+          echo "   • JPEG Images: $JPG_COUNT"
+          echo "   • Newly Optimized: $OPTIMIZED_COUNT"
+          echo "   • Cached (Skipped): $SKIPPED_COUNT"
+          echo "   • Space Saved: ${SAVED_MB}MB"
+          echo "   • Avg Time/Image: ${AVG_TIME}ms"
           
-          # Function to mark image as optimized
-          mark_optimized() {
-            local img="$1"
-            local cache_file="$TRACKING_DIR/$(echo "$img" | md5sum | cut -d' ' -f1)"
-            md5sum "$img" 2>/dev/null | cut -d' ' -f1 > "$cache_file"
-          }
-          
-          OPTIMIZED_COUNT=0
-          SKIPPED_COUNT=0
-          
-          # Optimize PNG files (level 2 is fast and effective)
-          if [ "$OPTIPNG_AVAILABLE" = true ] && [ "$PNG_COUNT" -gt 0 ]; then
-            echo "🔧 Checking PNG files for optimization..."
-            while IFS= read -r img; do
-              if is_optimized "$img"; then
-                SKIPPED_COUNT=$((SKIPPED_COUNT + 1))
-              else
-                if optipng -o2 -quiet "$img" 2>/dev/null; then
-                  mark_optimized "$img"
-                  OPTIMIZED_COUNT=$((OPTIMIZED_COUNT + 1))
-                fi
-              fi
-            done < <(find ./static-output -name "*.png" -type f)
-            echo "✅ PNG optimization complete"
-          elif [ "$PNG_COUNT" -gt 0 ]; then
-            echo "⏭️  Skipping PNG optimization (optipng not available)"
-          fi
-          
-          # Optimize JPEG files (quality 85 maintains good quality with compression)
-          if [ "$JPEGOPTIM_AVAILABLE" = true ] && [ "$JPG_COUNT" -gt 0 ]; then
-            echo "🔧 Checking JPEG files for optimization..."
-            while IFS= read -r img; do
-              if is_optimized "$img"; then
-                SKIPPED_COUNT=$((SKIPPED_COUNT + 1))
-              else
-                if jpegoptim --max=85 --strip-all --quiet "$img" 2>/dev/null; then
-                  mark_optimized "$img"
-                  OPTIMIZED_COUNT=$((OPTIMIZED_COUNT + 1))
-                fi
-              fi
-            done < <(find ./static-output \( -name "*.jpg" -o -name "*.jpeg" \) -type f)
-            echo "✅ JPEG optimization complete"
-          elif [ "$JPG_COUNT" -gt 0 ]; then
-            echo "⏭️  Skipping JPEG optimization (jpegoptim not available)"
-          fi
-          
-          echo "📊 Optimization summary: $OPTIMIZED_COUNT optimized, $SKIPPED_COUNT already optimized"
-          
-          # Report savings
-          FINAL_SIZE=$(du -sk ./static-output 2>/dev/null | cut -f1)
-          SAVED=$((INITIAL_SIZE - FINAL_SIZE))
-          if [ $SAVED -gt 0 ]; then
-            SAVED_MB=$(echo "scale=2; $SAVED / 1024" | bc)
-            echo "💾 Saved ${SAVED_MB}MB through image optimization"
-          else
-            SAVED_MB="0.0"
-            echo "ℹ️  No significant size reduction this run"
-          fi
-          
-          # Save to environment file for use in later steps
+          # Save to environment for later steps
           echo "PNG_COUNT=$PNG_COUNT" >> $GITHUB_ENV
           echo "JPG_COUNT=$JPG_COUNT" >> $GITHUB_ENV
           echo "OPTIMIZED_COUNT=$OPTIMIZED_COUNT" >> $GITHUB_ENV
           echo "SKIPPED_COUNT=$SKIPPED_COUNT" >> $GITHUB_ENV
           echo "SAVED_MB=$SAVED_MB" >> $GITHUB_ENV
+          echo "AVG_TIME=$AVG_TIME" >> $GITHUB_ENV
           
-          # Add optimization summary to GitHub Actions UI
+          # Add to GitHub Actions summary
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## 🖼️ Image Optimization Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- **PNG Images:** $PNG_COUNT" >> $GITHUB_STEP_SUMMARY
-          echo "- **JPEG Images:** $JPG_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "- **Total Images:** $((PNG_COUNT + JPG_COUNT))" >> $GITHUB_STEP_SUMMARY
+          echo "  - PNG: $PNG_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "  - JPEG: $JPG_COUNT" >> $GITHUB_STEP_SUMMARY
           echo "- **Newly Optimized:** $OPTIMIZED_COUNT" >> $GITHUB_STEP_SUMMARY
           echo "- **Already Optimized (Skipped):** $SKIPPED_COUNT" >> $GITHUB_STEP_SUMMARY
-          echo "- **Space Saved:** ${SAVED_MB}MB" >> $GITHUB_STEP_SUMMARY
+          echo "- **Space Saved:** ${SAVED_MB} MB" >> $GITHUB_STEP_SUMMARY
+          echo "- **Avg Time per Image:** ${AVG_TIME} ms" >> $GITHUB_STEP_SUMMARY
+          echo "- **Parallel Workers:** 4" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "⚠️  No optimization results found"
+          echo "PNG_COUNT=0" >> $GITHUB_ENV
+          echo "JPG_COUNT=0" >> $GITHUB_ENV
+          echo "OPTIMIZED_COUNT=0" >> $GITHUB_ENV
+          echo "SKIPPED_COUNT=0" >> $GITHUB_ENV
+          echo "SAVED_MB=0.0" >> $GITHUB_ENV
         fi
       continue-on-error: true
         

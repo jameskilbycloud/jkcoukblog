@@ -53,5 +53,8 @@ lhr-*.json
 manifest.json
 assertion-results.json
 
+# Image optimization results
+optimization-results.json
+
 # Keep the public/ directory (this is what Cloudflare deploys)
 !public/
