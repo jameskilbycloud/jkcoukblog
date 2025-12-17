@@ -1,0 +1,54 @@
+#!/bin/bash
+#
+# Pre-commit hook for secret scanning
+# Prevents commits containing secrets from being pushed
+#
+# Installation:
+#   1. Make executable: chmod +x .git-hooks/pre-commit
+#   2. Link to git hooks: ln -sf ../../.git-hooks/pre-commit .git/hooks/pre-commit
+#   Or use: git config core.hooksPath .git-hooks
+
+set -e
+
+echo "🔍 Running secret scan before commit..."
+
+# Check if gitleaks is installed
+if ! command -v gitleaks &> /dev/null; then
+    echo "⚠️  Gitleaks not found. Installing..."
+    
+    # Try to install via Homebrew (macOS)
+    if command -v brew &> /dev/null; then
+        echo "📦 Installing gitleaks via Homebrew..."
+        brew install gitleaks
+    else
+        echo "❌ Homebrew not found. Please install gitleaks manually:"
+        echo "   macOS: brew install gitleaks"
+        echo "   Linux: See https://github.com/gitleaks/gitleaks#installation"
+        echo ""
+        echo "⚠️  Skipping secret scan (not recommended)"
+        exit 0
+    fi
+fi
+
+# Run gitleaks on staged files only
+echo "🔎 Scanning staged files for secrets..."
+if gitleaks protect --staged --verbose --redact; then
+    echo "✅ No secrets detected - commit allowed"
+    exit 0
+else
+    echo ""
+    echo "❌ SECRETS DETECTED IN STAGED FILES!"
+    echo ""
+    echo "🚨 Your commit has been blocked because Gitleaks detected potential secrets."
+    echo ""
+    echo "Next steps:"
+    echo "  1. Review the output above to identify the detected secrets"
+    echo "  2. Remove the secrets from your code"
+    echo "  3. If it's a false positive, add it to .gitleaks.toml allowlist"
+    echo "  4. NEVER commit actual secrets - use environment variables or secret managers"
+    echo ""
+    echo "To bypass this check (NOT RECOMMENDED):"
+    echo "  git commit --no-verify"
+    echo ""
+    exit 1
+fi

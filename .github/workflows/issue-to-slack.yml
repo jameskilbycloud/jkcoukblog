@@ -7,6 +7,7 @@ on:
 jobs:
   notify-slack:
     runs-on: ubuntu-latest
+    timeout-minutes: 5  # Prevent workflow from hanging
     steps:
       - name: Send Slack Notification
         uses: slackapi/slack-github-action@v2.0.0

@@ -16,6 +16,7 @@ on:
 jobs:
   spell-check:
     runs-on: self-hosted  # Self-hosted to access WordPress behind Cloudflare Access
+    timeout-minutes: 20  # Prevent workflow from running indefinitely
     
     steps:
     - name: Checkout repository
@@ -33,6 +34,7 @@ jobs:
         echo "✅ Dependencies installed"
         
     - name: Run spell check
+      timeout-minutes: 15  # Timeout for spell checking
       env:
         WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
         OLLAMA_API_CREDENTIALS: ${{ secrets.OLLAMA_API_CREDENTIALS }}

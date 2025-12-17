@@ -13,6 +13,7 @@ concurrency:
 jobs:
   spell-check:
     runs-on: self-hosted
+    timeout-minutes: 15  # Prevent hanging spell checks
     continue-on-error: true  # Don't fail the workflow if spell check fails
     steps:
     - name: Checkout repository
@@ -76,6 +77,7 @@ jobs:
 
   build-and-deploy:
     runs-on: self-hosted  # Changed to self-hosted for Cloudflare Access
+    timeout-minutes: 60  # Prevent workflow from running indefinitely
     
     steps:
     - name: Checkout repository
@@ -122,6 +124,7 @@ jobs:
         python -c "import bs4; print(f'✅ beautifulsoup4 {bs4.__version__}')" || echo "❌ beautifulsoup4 not found"
         
     - name: Generate static site
+      timeout-minutes: 30  # Timeout for site generation
       env:
         WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
       run: |
@@ -180,6 +183,7 @@ jobs:
         echo "- **Output Directory:** `./static-output`" >> $GITHUB_STEP_SUMMARY
         
     - name: Optimize images
+      timeout-minutes: 20  # Timeout for image optimization
       shell: bash
       run: |
         echo "🖼️  Optimizing images..."
@@ -315,6 +319,7 @@ jobs:
       continue-on-error: true
         
     - name: Commit and push static site
+      timeout-minutes: 10  # Timeout for git operations
       run: |
         # Configure git
         git config --local user.email "action@github.com"

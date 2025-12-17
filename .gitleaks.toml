@@ -1,0 +1,67 @@
+# Gitleaks configuration for jkcoukblog
+# Customizes secret detection rules and allowlists
+
+title = "jkcoukblog Gitleaks Configuration"
+
+[extend]
+# Use the default Gitleaks ruleset as a base
+useDefault = true
+
+# Allowlist - Paths and patterns to exclude from scanning
+[allowlist]
+description = "Known false positives and test data"
+
+# Regex patterns that should not trigger alerts
+regexes = [
+    # Example WordPress URLs (not actual secrets)
+    '''wordpress\.jameskilby\.cloud''',
+    # Example GitHub URLs
+    '''github\.com/jameskilbynet''',
+    # Base64 encoded test strings that look like secrets but aren't
+    '''dGVzdA==''',  # "test" in base64
+    # Environment variable usage examples (not actual secrets)
+    '''AUTH_TOKEN = os\.getenv\('WP_AUTH_TOKEN'\)''',
+    '''your_token_here''',
+    '''your-token-here''',
+]
+
+# Paths to exclude from scanning
+paths = [
+    # Generated static site content (may contain example data)
+    '''public/.*''',
+    # Test output directories
+    '''static-output/.*''',
+    '''static-test-output/.*''',
+    # Documentation files with example secrets
+    '''.*\.md$''',
+    # Lock files
+    '''.*-lock\.json$''',
+    '''.*\.lock$''',
+]
+
+# Commits to exclude from scanning (if needed)
+commits = [
+    # Old commits with example/placeholder code (not real secrets)
+    "df684bc8eab0da7cc57ad8c975ac980b7f9b5aa1",  # Initial example code
+    "3cda9950e41bcd69ff321701dfa8efed878f8587",  # Initial example code
+]
+
+# Stopwords - strings that if found will stop the scan
+# Use carefully as these completely bypass secret detection
+stopwords = [
+    # None configured - better to use allowlist
+]
+
+# Custom rules can be added here
+# [[rules]]
+# id = "custom-api-key"
+# description = "Custom API Key Pattern"
+# regex = '''custom-api-[0-9a-z]{32}'''
+# tags = ["api", "custom"]
+
+# Entropy thresholds for generic secrets
+[allowlist.entropy]
+# Set minimum entropy to reduce false positives
+# Default is usually around 3.0-4.0
+# Higher values = fewer false positives but might miss some secrets
+# min = 4.5

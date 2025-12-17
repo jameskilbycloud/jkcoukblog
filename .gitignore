@@ -42,5 +42,9 @@ spelling_check_report.md
 *.swp
 *.swo
 
+# Gitleaks secret scanning reports
+gitleaks-report.json
+results.sarif
+
 # Keep the public/ directory (this is what Cloudflare deploys)
 !public/
