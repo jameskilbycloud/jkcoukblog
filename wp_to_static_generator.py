@@ -224,6 +224,9 @@ class WordPressStaticGenerator:
         # Add static site optimizations
         self.add_static_optimizations(soup)
         
+        # Add lazy loading to images
+        self.add_lazy_loading(soup)
+        
         # Fix inline CSS font URLs
         self.fix_inline_css_urls(soup)
         
@@ -682,6 +685,36 @@ class WordPressStaticGenerator:
             plausible_script['src'] = plausible_script_url
             soup.head.append(plausible_script)
             print(f"   📊 Added Plausible analytics script to page")
+    
+    def add_lazy_loading(self, soup):
+        """Add native lazy loading to below-fold images"""
+        
+        # Find all images
+        images = soup.find_all('img')
+        
+        if not images:
+            return
+        
+        # Keep first N images eager (above fold)
+        eager_count = 2  # First 2 images load immediately
+        
+        for idx, img in enumerate(images):
+            # Skip if image already has loading attribute
+            if img.get('loading'):
+                continue
+            
+            # First N images: eager loading (above fold)
+            if idx < eager_count:
+                img['loading'] = 'eager'
+                print(f"   ⚡ Image {idx + 1}: eager loading (above fold)")
+            else:
+                # Remaining images: lazy loading (below fold)
+                img['loading'] = 'lazy'
+                # Add async decoding for better performance
+                img['decoding'] = 'async'
+                print(f"   📦 Image {idx + 1}: lazy loading (below fold)")
+        
+        print(f"   ✅ Applied lazy loading to {len(images) - eager_count}/{len(images)} images")
     
     def extract_assets(self, soup, current_url):
         """Extract asset URLs for later download"""
