@@ -379,14 +379,39 @@ class WordPressStaticGenerator:
         return modified
     
     def _enhance_blogposting_schema(self, data, soup):
-        """Add reading time and word count to BlogPosting schema"""
+        """Add reading time, word count, and publisher URL to BlogPosting schema"""
         modified = False
         
         # Handle @graph structure (Rank Math uses this)
         items = data.get('@graph', [data]) if '@graph' in data else [data]
         
+        # First pass: Ensure Organization/Person publishers have URL
+        for item in items:
+            if isinstance(item, dict):
+                item_types = item.get('@type', [])
+                # Handle both single type and array of types
+                if not isinstance(item_types, list):
+                    item_types = [item_types]
+                
+                # If this is an Organization or Person that acts as publisher
+                if any(t in ['Organization', 'Person'] for t in item_types):
+                    if '@id' in item and '/#person' in item['@id']:
+                        if 'url' not in item:
+                            item['url'] = self.target_domain
+                            modified = True
+                            print(f"      ➕ Added URL to publisher entity: {self.target_domain}")
+        
+        # Second pass: Process BlogPosting items
         for item in items:
             if isinstance(item, dict) and item.get('@type') == 'BlogPosting':
+                # Ensure publisher reference has URL (for inline publisher objects)
+                if 'publisher' in item and isinstance(item['publisher'], dict):
+                    if '@id' not in item['publisher'] and 'url' not in item['publisher']:
+                        # Inline publisher without @id reference
+                        item['publisher']['url'] = self.target_domain
+                        modified = True
+                        print(f"      ➕ Added publisher URL to inline publisher: {self.target_domain}")
+                
                 # Extract article content for word count
                 article_content = self._extract_article_text(soup)
                 
