@@ -25,18 +25,50 @@ jobs:
           echo "⏳ Waiting 2 minutes for Cloudflare Pages to deploy..."
           sleep 120
       
-      - name: Run Lighthouse CI
+      - name: Check if config files exist
+        id: check_configs
+        run: |
+          if [ -f ".github/lighthouse/budget.json" ]; then
+            echo "budget_exists=true" >> $GITHUB_OUTPUT
+            echo "✅ Budget config found"
+          else
+            echo "budget_exists=false" >> $GITHUB_OUTPUT
+            echo "⚠️  Budget config not found, will use defaults"
+          fi
+          
+          if [ -f ".github/lighthouse/lighthouse-config.json" ]; then
+            echo "config_exists=true" >> $GITHUB_OUTPUT
+            echo "✅ Lighthouse config found"
+          else
+            echo "config_exists=false" >> $GITHUB_OUTPUT
+            echo "⚠️  Lighthouse config not found, will use defaults"
+          fi
+      
+      - name: Run Lighthouse CI (with configs)
+        if: steps.check_configs.outputs.budget_exists == 'true' && steps.check_configs.outputs.config_exists == 'true'
         uses: treosh/lighthouse-ci-action@v11
         with:
           urls: |
             https://jameskilby.co.uk
             https://jameskilby.co.uk/category/
             https://jameskilby.co.uk/2025/
-          runs: 3  # Run 3 times and take median scores
+          runs: 3
           uploadArtifacts: true
-          temporaryPublicStorage: true  # Upload results to public storage
-          budgetPath: .github/lighthouse/budget.json  # Performance budgets
-          configPath: .github/lighthouse/lighthouse-config.json  # Custom config
+          temporaryPublicStorage: true
+          budgetPath: .github/lighthouse/budget.json
+          configPath: .github/lighthouse/lighthouse-config.json
+      
+      - name: Run Lighthouse CI (without configs)
+        if: steps.check_configs.outputs.budget_exists == 'false' || steps.check_configs.outputs.config_exists == 'false'
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: |
+            https://jameskilby.co.uk
+            https://jameskilby.co.uk/category/
+            https://jameskilby.co.uk/2025/
+          runs: 3
+          uploadArtifacts: true
+          temporaryPublicStorage: true
       
       - name: Generate performance summary
         if: always()
