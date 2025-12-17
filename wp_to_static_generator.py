@@ -803,6 +803,28 @@ class WordPressStaticGenerator:
         plausible_script_url = f'https://{plausible_domain}/js/script.js'
         target_analytics_domain = 'jameskilby.co.uk'
         
+        # Add DNS prefetch and preconnect for faster analytics loading
+        # This helps browser establish connection early, improving performance
+        
+        # Check if dns-prefetch already exists
+        existing_dns_prefetch = soup.find('link', rel='dns-prefetch', href=f'//{plausible_domain}')
+        if not existing_dns_prefetch:
+            dns_prefetch = soup.new_tag('link')
+            dns_prefetch['rel'] = 'dns-prefetch'
+            dns_prefetch['href'] = f'//{plausible_domain}'
+            soup.head.insert(0, dns_prefetch)  # Insert early in head
+            print(f"   🔗 Added DNS prefetch for {plausible_domain}")
+        
+        # Check if preconnect already exists
+        existing_preconnect = soup.find('link', rel='preconnect', href=f'https://{plausible_domain}')
+        if not existing_preconnect:
+            preconnect = soup.new_tag('link')
+            preconnect['rel'] = 'preconnect'
+            preconnect['href'] = f'https://{plausible_domain}'
+            preconnect['crossorigin'] = ''
+            soup.head.insert(1, preconnect)  # Insert after dns-prefetch
+            print(f"   🔗 Added preconnect for {plausible_domain}")
+        
         # Look for existing Plausible script
         existing_plausible = soup.find('script', src=lambda x: x and 'plausible' in x and 'script.js' in x)
         
