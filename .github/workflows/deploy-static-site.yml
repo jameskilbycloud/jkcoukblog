@@ -190,7 +190,7 @@ jobs:
         
         # Run the Python-based optimizer with parallel processing
         # Uses 4 parallel workers for faster optimization
-        python optimize_images.py ./static-output --workers 4 --json-output optimization-results.json || {
+        python3 optimize_images.py ./static-output --workers 4 --json-output optimization-results.json || {
           echo "⚠️  Image optimization failed (non-blocking)"
           # Set defaults if optimization fails
           echo "PNG_COUNT=0" >> $GITHUB_ENV
