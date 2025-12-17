@@ -1481,6 +1481,9 @@ class WordPressStaticGenerator:
     def create_redirects_file(self):
         """Create redirects for old URLs (Netlify/Cloudflare format)"""
         redirects_content = [
+            "# Redirect www to non-www (canonical URL)",
+            "https://www.jameskilby.co.uk/* https://jameskilby.co.uk/:splat 301",
+            "",
             "# Automatic redirects for spelling corrections",
             "/2025/04/warp-the-inteligent-terminal/ /2025/04/warp-the-intelligent-terminal/ 301",
             "/category/artificial-inteligence/ /category/artificial-intelligence/ 301"
@@ -1488,7 +1491,7 @@ class WordPressStaticGenerator:
         
         redirects_file = self.output_dir / '_redirects'
         redirects_file.write_text('\n'.join(redirects_content))
-        print("✅ Created _redirects file for URL corrections")
+        print("✅ Created _redirects file for URL corrections and www redirect")
     
     def create_robots_txt(self):
         """
