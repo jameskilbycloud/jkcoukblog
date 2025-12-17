@@ -98,17 +98,65 @@ jobs:
             echo "📁 Lighthouse results available in workflow artifacts." >> $GITHUB_STEP_SUMMARY
           fi
       
-      - name: Evaluate performance budgets
-        id: budget
+      - name: Parse Lighthouse results
+        id: lighthouse_results
+        if: always()
         continue-on-error: true
         run: |
-          # Check if any budgets were exceeded
-          if [ -f ".lighthouseci/lhr-*.json" ]; then
-            echo "BUDGET_CHECK=completed" >> $GITHUB_OUTPUT
+          # Find the most recent Lighthouse report
+          REPORT=$(ls -t .lighthouseci/lhr-*.json 2>/dev/null | head -1)
+          
+          if [ -f "$REPORT" ]; then
+            echo "✅ Found Lighthouse report: $REPORT"
+            
+            # Extract scores using jq (performance, accessibility, best-practices, seo)
+            PERF=$(jq -r '.categories.performance.score * 100 | floor' "$REPORT")
+            A11Y=$(jq -r '.categories.accessibility.score * 100 | floor' "$REPORT")
+            BP=$(jq -r '.categories["best-practices"].score * 100 | floor' "$REPORT")
+            SEO=$(jq -r '.categories.seo.score * 100 | floor' "$REPORT")
+            
+            # Extract Core Web Vitals
+            LCP=$(jq -r '.audits["largest-contentful-paint"].displayValue // "N/A"' "$REPORT")
+            FCP=$(jq -r '.audits["first-contentful-paint"].displayValue // "N/A"' "$REPORT")
+            CLS=$(jq -r '.audits["cumulative-layout-shift"].displayValue // "N/A"' "$REPORT")
+            TTI=$(jq -r '.audits.interactive.displayValue // "N/A"' "$REPORT")
+            SI=$(jq -r '.audits["speed-index"].displayValue // "N/A"' "$REPORT")
+            TBT=$(jq -r '.audits["total-blocking-time"].displayValue // "N/A"' "$REPORT")
+            
+            # Get URL that was tested
+            URL=$(jq -r '.finalUrl' "$REPORT")
+            
+            # Save to outputs
+            echo "performance=$PERF" >> $GITHUB_OUTPUT
+            echo "accessibility=$A11Y" >> $GITHUB_OUTPUT
+            echo "best_practices=$BP" >> $GITHUB_OUTPUT
+            echo "seo=$SEO" >> $GITHUB_OUTPUT
+            echo "lcp=$LCP" >> $GITHUB_OUTPUT
+            echo "fcp=$FCP" >> $GITHUB_OUTPUT
+            echo "cls=$CLS" >> $GITHUB_OUTPUT
+            echo "tti=$TTI" >> $GITHUB_OUTPUT
+            echo "speed_index=$SI" >> $GITHUB_OUTPUT
+            echo "tbt=$TBT" >> $GITHUB_OUTPUT
+            echo "url=$URL" >> $GITHUB_OUTPUT
+            echo "has_results=true" >> $GITHUB_OUTPUT
+            
+            # Determine overall status (green if all above 90)
+            if [ "$PERF" -ge 90 ] && [ "$A11Y" -ge 90 ] && [ "$BP" -ge 90 ] && [ "$SEO" -ge 90 ]; then
+              echo "status=good" >> $GITHUB_OUTPUT
+            elif [ "$PERF" -lt 50 ] || [ "$A11Y" -lt 50 ] || [ "$BP" -lt 50 ] || [ "$SEO" -lt 50 ]; then
+              echo "status=danger" >> $GITHUB_OUTPUT
+            else
+              echo "status=warning" >> $GITHUB_OUTPUT
+            fi
+            
+            echo "📊 Scores: Performance=$PERF, A11y=$A11Y, BP=$BP, SEO=$SEO"
+          else
+            echo "⚠️  No Lighthouse reports found"
+            echo "has_results=false" >> $GITHUB_OUTPUT
           fi
       
-      - name: Notify Slack on performance regression
-        if: failure() && github.event_name == 'push'
+      - name: Notify Slack with metrics (on push/PR)
+        if: always() && steps.lighthouse_results.outputs.has_results == 'true' && (github.event_name == 'push' || github.event_name == 'pull_request')
         uses: slackapi/slack-github-action@v2.0.0
         with:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -120,31 +168,67 @@ jobs:
               "icon_emoji": ":lighthouse:",
               "attachments": [
                 {
-                  "color": "warning",
-                  "title": "⚠️ Performance Budget Exceeded",
-                  "text": "Lighthouse CI detected performance regressions on jameskilby.co.uk",
+                  "color": "${{ steps.lighthouse_results.outputs.status }}",
+                  "title": "🚀 Lighthouse Performance Report",
+                  "text": "Performance metrics for <${{ steps.lighthouse_results.outputs.url }}|jameskilby.co.uk>",
                   "fields": [
                     {
-                      "title": "Branch",
-                      "value": "${{ github.ref_name }}",
+                      "title": "🎯 Performance",
+                      "value": "${{ steps.lighthouse_results.outputs.performance }}/100",
+                      "short": true
+                    },
+                    {
+                      "title": "♿ Accessibility",
+                      "value": "${{ steps.lighthouse_results.outputs.accessibility }}/100",
+                      "short": true
+                    },
+                    {
+                      "title": "✅ Best Practices",
+                      "value": "${{ steps.lighthouse_results.outputs.best_practices }}/100",
+                      "short": true
+                    },
+                    {
+                      "title": "🔍 SEO",
+                      "value": "${{ steps.lighthouse_results.outputs.seo }}/100",
+                      "short": true
+                    },
+                    {
+                      "title": "📈 LCP (Largest Contentful Paint)",
+                      "value": "${{ steps.lighthouse_results.outputs.lcp }}",
+                      "short": true
+                    },
+                    {
+                      "title": "⚡ FCP (First Contentful Paint)",
+                      "value": "${{ steps.lighthouse_results.outputs.fcp }}",
+                      "short": true
+                    },
+                    {
+                      "title": "📊 CLS (Cumulative Layout Shift)",
+                      "value": "${{ steps.lighthouse_results.outputs.cls }}",
+                      "short": true
+                    },
+                    {
+                      "title": "🕒 TTI (Time to Interactive)",
+                      "value": "${{ steps.lighthouse_results.outputs.tti }}",
                       "short": true
                     },
                     {
                       "title": "Triggered By",
-                      "value": "${{ github.actor }}",
+                      "value": "${{ github.actor }} (${{ github.event_name }})",
                       "short": true
                     },
                     {
-                      "title": "Commit",
-                      "value": "<${{ github.event.head_commit.url }}|${{ github.sha }}>",
-                      "short": false
+                      "title": "Branch",
+                      "value": "${{ github.ref_name }}",
+                      "short": true
                     }
                   ],
-                  "footer": "Review the detailed Lighthouse reports in the workflow artifacts",
+                  "footer": "Lighthouse CI | View detailed reports in workflow artifacts",
+                  "footer_icon": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
                   "actions": [
                     {
                       "type": "button",
-                      "text": "View Report",
+                      "text": "View Full Report",
                       "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                     }
                   ]
@@ -154,8 +238,8 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       
-      - name: Notify Slack on success
-        if: success() && github.event_name == 'schedule'
+      - name: Notify Slack with daily metrics
+        if: github.event_name == 'schedule' && steps.lighthouse_results.outputs.has_results == 'true'
         uses: slackapi/slack-github-action@v2.0.0
         with:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -167,21 +251,42 @@ jobs:
               "icon_emoji": ":lighthouse:",
               "attachments": [
                 {
-                  "color": "good",
-                  "title": "✅ Daily Performance Check Complete",
-                  "text": "All performance budgets are within acceptable ranges for jameskilby.co.uk",
+                  "color": "${{ steps.lighthouse_results.outputs.status }}",
+                  "title": "📅 Daily Performance Report",
+                  "text": "Daily Lighthouse scan results for jameskilby.co.uk",
                   "fields": [
                     {
-                      "title": "Date",
-                      "value": "${{ github.event.repository.updated_at }}",
+                      "title": "🎯 Performance",
+                      "value": "${{ steps.lighthouse_results.outputs.performance }}/100",
                       "short": true
+                    },
+                    {
+                      "title": "♿ Accessibility",
+                      "value": "${{ steps.lighthouse_results.outputs.accessibility }}/100",
+                      "short": true
+                    },
+                    {
+                      "title": "✅ Best Practices",
+                      "value": "${{ steps.lighthouse_results.outputs.best_practices }}/100",
+                      "short": true
+                    },
+                    {
+                      "title": "🔍 SEO",
+                      "value": "${{ steps.lighthouse_results.outputs.seo }}/100",
+                      "short": true
+                    },
+                    {
+                      "title": "Core Web Vitals",
+                      "value": "LCP: ${{ steps.lighthouse_results.outputs.lcp }} | CLS: ${{ steps.lighthouse_results.outputs.cls }}",
+                      "short": false
                     }
                   ],
-                  "footer": "Lighthouse CI - Daily Monitoring",
+                  "footer": "Lighthouse CI - Daily Monitoring at 3 AM UTC",
+                  "footer_icon": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
                   "actions": [
                     {
                       "type": "button",
-                      "text": "View Report",
+                      "text": "View Full Report",
                       "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                     }
                   ]
