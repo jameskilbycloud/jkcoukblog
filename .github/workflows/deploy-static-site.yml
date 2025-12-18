@@ -363,6 +363,10 @@ jobs:
         echo "📋 Generating changelog page..."
         python generate_changelog.py || echo "⚠️  Changelog generation failed (non-blocking)"
         
+        # Generate stats page
+        echo "📊 Generating stats page..."
+        python3 generate_stats_page.py || echo "⚠️  Stats page generation failed (non-blocking)"
+        
         # Check if there are changes to commit
         git add public/ .last_spell_check_timestamp .image_optimization_cache/ 2>/dev/null || true
         
