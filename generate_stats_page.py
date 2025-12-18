@@ -125,6 +125,9 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
     """Generate the stats page HTML"""
     print("🏗️  Generating stats page HTML...")
     
+    # Get Plausible share link from environment
+    plausible_share_link = os.environ.get('PLAUSIBLE_SHARE_LINK', '')
+    
     # Calculate some derived metrics
     avg_page_size = (build_metrics['total_size_mb'] / build_metrics['total_pages']) if build_metrics['total_pages'] > 0 else 0
     images_per_post = (build_metrics['total_images'] / build_metrics['posts']) if build_metrics['posts'] > 0 else 0
@@ -521,15 +524,11 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
             </div>
             
             <!-- Plausible Embed -->
-            <iframe class="plausible-embed" 
-                    src="https://plausible.jameskilby.cloud/share/jameskilby.co.uk?auth=YOUR_SHARE_LINK&embed=true&theme=light"
+            {f'''<iframe class="plausible-embed" 
+                    src="https://plausible.jameskilby.cloud/share/jameskilby.co.uk?auth={plausible_share_link}&embed=true&theme=light"
                     scrolling="yes"
                     frameborder="0"
-                    loading="lazy"></iframe>
-            
-            <p style="margin-top: 20px; color: #718096; font-size: 0.9em;">
-                <strong>Note:</strong> To enable public analytics, create a shared link in your Plausible dashboard and update the iframe URL above.
-            </p>
+                    loading="lazy"></iframe>''' if plausible_share_link else '<div class="info-box"><p><strong>⚠️  Analytics Not Configured:</strong> Set PLAUSIBLE_SHARE_LINK environment variable to display analytics.</p></div>'}
         </div>
         
         <!-- About This Page -->
