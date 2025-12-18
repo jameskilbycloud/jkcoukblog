@@ -16,6 +16,42 @@ from datetime import datetime
 from pathlib import Path
 import requests
 
+def load_lighthouse_history():
+    """Load historical Lighthouse scores"""
+    history_file = Path('public/changelog/lighthouse-history.json')
+    if history_file.exists():
+        try:
+            with open(history_file, 'r') as f:
+                return json.load(f)
+        except:
+            return []
+    return []
+
+def save_lighthouse_scores(scores, history):
+    """Save current Lighthouse scores to history"""
+    # Add current scores to history
+    history.append({
+        'date': datetime.now().strftime('%Y-%m-%d'),
+        'timestamp': scores['timestamp'],
+        'performance': scores['performance'],
+        'accessibility': scores['accessibility'],
+        'best_practices': scores['best_practices'],
+        'seo': scores['seo']
+    })
+    
+    # Keep only last 90 days of history
+    cutoff_date = datetime.now().timestamp() - (90 * 24 * 60 * 60)
+    history = [entry for entry in history if datetime.strptime(entry['date'], '%Y-%m-%d').timestamp() > cutoff_date]
+    
+    # Save to file
+    history_file = Path('public/changelog/lighthouse-history.json')
+    history_file.parent.mkdir(parents=True, exist_ok=True)
+    with open(history_file, 'w') as f:
+        json.dump(history, f, indent=2)
+    
+    print(f"✅ Saved Lighthouse scores to history ({len(history)} entries)")
+    return history
+
 def get_lighthouse_scores():
     """Fetch Lighthouse scores for the site"""
     print("📊 Fetching Lighthouse scores...")
@@ -94,8 +130,41 @@ def get_git_stats():
     
     return stats
 
+def categorize_commit(subject, body):
+    """Categorize a commit based on its message"""
+    subject_lower = subject.lower()
+    body_lower = body.lower()
+    combined = subject_lower + ' ' + body_lower
+    
+    # Check for feature indicators
+    feature_keywords = ['add', 'implement', 'create', 'new', 'feature', 'introduce']
+    if any(keyword in subject_lower for keyword in feature_keywords):
+        return 'feature'
+    
+    # Check for fix indicators
+    fix_keywords = ['fix', 'resolve', 'correct', 'repair', 'patch', 'bug']
+    if any(keyword in subject_lower for keyword in fix_keywords):
+        return 'fix'
+    
+    # Check for documentation
+    doc_keywords = ['doc', 'documentation', 'readme', 'comment']
+    if any(keyword in combined for keyword in doc_keywords):
+        return 'docs'
+    
+    # Check for improvements/refactoring
+    improve_keywords = ['improve', 'enhance', 'optimize', 'refactor', 'update', 'upgrade', 'clean']
+    if any(keyword in subject_lower for keyword in improve_keywords):
+        return 'improvement'
+    
+    # Check for removal
+    if 'remove' in subject_lower or 'delete' in subject_lower:
+        return 'removal'
+    
+    # Default
+    return 'other'
+
 def get_recent_changes():
-    """Get recent significant changes from git log"""
+    """Get recent significant changes from git log with categorization"""
     print("📝 Extracting recent changes...")
     
     # Get commits with meaningful messages (exclude auto-updates)
@@ -123,11 +192,15 @@ def get_recent_changes():
             # Parse date
             commit_date = datetime.fromisoformat(date.split()[0])
             
+            # Categorize the commit
+            category = categorize_commit(subject, body)
+            
             changes.append({
                 'hash': commit_hash[:7],
                 'date': commit_date.strftime('%Y-%m-%d'),
                 'subject': subject,
-                'body': body
+                'body': body,
+                'category': category
             })
     
     return changes
