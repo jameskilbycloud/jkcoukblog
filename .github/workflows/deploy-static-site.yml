@@ -16,6 +16,36 @@ jobs:
     timeout-minutes: 15  # Prevent hanging spell checks
     continue-on-error: true  # Don't fail the workflow if spell check fails
     steps:
+    - name: Validate required environment variables
+      run: |
+        echo "🔍 Validating required environment variables..."
+        MISSING_VARS=()
+        
+        # Check for required secrets
+        if [ -z "${{ secrets.WP_AUTH_TOKEN }}" ]; then
+          MISSING_VARS+=("WP_AUTH_TOKEN")
+        fi
+        
+        if [ -z "${{ secrets.OLLAMA_API_CREDENTIALS }}" ]; then
+          MISSING_VARS+=("OLLAMA_API_CREDENTIALS")
+        fi
+        
+        # Report results
+        if [ ${#MISSING_VARS[@]} -gt 0 ]; then
+          echo "❌ Missing required environment variables:"
+          for var in "${MISSING_VARS[@]}"; do
+            echo "  - $var"
+          done
+          echo ""
+          echo "📝 Please configure these secrets in repository settings:"
+          echo "   Settings > Secrets and variables > Actions"
+          exit 1
+        else
+          echo "✅ All required environment variables are set"
+          echo "  ✓ WP_AUTH_TOKEN"
+          echo "  ✓ OLLAMA_API_CREDENTIALS"
+        fi
+    
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
@@ -82,6 +112,46 @@ jobs:
     timeout-minutes: 60  # Prevent workflow from running indefinitely
     
     steps:
+    - name: Validate required environment variables
+      run: |
+        echo "🔍 Validating required environment variables..."
+        MISSING_VARS=()
+        MISSING_OPTIONAL=()
+        
+        # Check for required secrets
+        if [ -z "${{ secrets.WP_AUTH_TOKEN }}" ]; then
+          MISSING_VARS+=("WP_AUTH_TOKEN")
+        fi
+        
+        # Check for optional secrets (warn but don't fail)
+        if [ -z "${{ secrets.SLACK_WEBHOOK_URL }}" ]; then
+          MISSING_OPTIONAL+=("SLACK_WEBHOOK_URL")
+        fi
+        
+        # Report required variables
+        if [ ${#MISSING_VARS[@]} -gt 0 ]; then
+          echo "❌ Missing required environment variables:"
+          for var in "${MISSING_VARS[@]}"; do
+            echo "  - $var"
+          done
+          echo ""
+          echo "📝 Please configure these secrets in repository settings:"
+          echo "   Settings > Secrets and variables > Actions"
+          exit 1
+        else
+          echo "✅ All required environment variables are set"
+          echo "  ✓ WP_AUTH_TOKEN"
+        fi
+        
+        # Report optional variables
+        if [ ${#MISSING_OPTIONAL[@]} -gt 0 ]; then
+          echo ""
+          echo "⚠️  Optional environment variables not set (non-blocking):"
+          for var in "${MISSING_OPTIONAL[@]}"; do
+            echo "  - $var"
+          done
+        fi
+    
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
