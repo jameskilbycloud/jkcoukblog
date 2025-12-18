@@ -125,7 +125,7 @@ If browser doesn't support these hints, it simply ignores them. No negative impa
 
 ### Check in Generated HTML
 ```bash
-curl -s https://jameskilby.co.uk/ | grep -A 1 "dns-prefetch\|preconnect"
+curl -s https://jameskilby.co.uk/ | grep -o '<link[^>]*preconnect[^>]*>' | head -5
 ```
 
 Expected output:
