@@ -376,6 +376,24 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
             margin-left: 10px;
         }}
         
+        .category-badge {{
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 10px;
+        }}
+        
+        .badge-feature {{ background: #c6f6d5; color: #22543d; }}
+        .badge-fix {{ background: #fed7d7; color: #742a2a; }}
+        .badge-improvement {{ background: #bee3f8; color: #2c5282; }}
+        .badge-docs {{ background: #feebc8; color: #7c2d12; }}
+        .badge-removal {{ background: #ffd8d8; color: #8b0000; }}
+        .badge-other {{ background: #e2e8f0; color: #4a5568; }}
+        
         .back-link {{
             display: inline-block;
             color: #4299e1;
@@ -494,9 +512,13 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
         subject = change['subject'].replace('Co-Authored-By: Warp <agent@warp.dev>', '').strip()
         body = change['body'].replace('Co-Authored-By: Warp <agent@warp.dev>', '').strip()
         
+        # Get category badge
+        category = change.get('category', 'other')
+        category_label = category.replace('_', ' ').title()
+        
         html += f"""
             <div class="change-entry">
-                <div class="change-date">{change['date']} <span class="change-hash">{change['hash']}</span></div>
+                <div class="change-date">{change['date']} <span class="change-hash">{change['hash']}</span><span class="category-badge badge-{category}">{category_label}</span></div>
                 <div class="change-title">{subject}</div>
 """
         
@@ -533,6 +555,10 @@ def main():
     git_stats = get_git_stats()
     changes = get_recent_changes()
     
+    # Load and save Lighthouse history
+    history = load_lighthouse_history()
+    history = save_lighthouse_scores(lighthouse_scores, history)
+    
     # Generate HTML
     html = generate_changelog_html(lighthouse_scores, git_stats, changes)
     
@@ -543,12 +569,20 @@ def main():
     output_file = output_dir / 'index.html'
     output_file.write_text(html, encoding='utf-8')
     
+    # Count changes by category
+    category_counts = {}
+    for change in changes:
+        cat = change.get('category', 'other')
+        category_counts[cat] = category_counts.get(cat, 0) + 1
+    
     print(f"\n✅ Changelog generated successfully!")
     print(f"   📄 Output: {output_file}")
     print(f"   🌐 URL: https://jameskilby.co.uk/changelog/")
     print(f"   📊 Lighthouse Performance: {lighthouse_scores['performance']}/100")
     print(f"   📈 Total Commits: {git_stats['total_commits']}")
     print(f"   📝 Recent Changes: {len(changes)}")
+    print(f"   🏷️  Categories: {', '.join(f'{cat.title()}: {count}' for cat, count in sorted(category_counts.items()))}")
+    print(f"   📅 Lighthouse History: {len(history)} entries")
     
     return True
 
