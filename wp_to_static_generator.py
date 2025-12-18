@@ -245,6 +245,9 @@ class WordPressStaticGenerator:
         # Add Utterances comments to every page
         self.add_utterances_comments(soup)
         
+        # Add meta descriptions for taxonomy pages (tags/categories)
+        self.add_taxonomy_meta_description(soup, current_url)
+        
         # Convert to string
         return str(soup)
     
@@ -1156,6 +1159,81 @@ class WordPressStaticGenerator:
         insertion_point.insert_after(freshness_div)
         
         print(f"   📅 Added content freshness indicator (Published: {pub_formatted}, Updated: {mod_formatted})")
+    
+    def add_taxonomy_meta_description(self, soup, current_url):
+        """Add meta descriptions to tag and category archive pages"""
+        # Check if this is a taxonomy page (tag or category)
+        if '/tag/' not in current_url and '/category/' not in current_url:
+            return
+        
+        # Check if description already exists
+        existing_desc = soup.find('meta', attrs={'name': 'description'})
+        if existing_desc and existing_desc.get('content'):
+            # Check if it's the default site description
+            content = existing_desc.get('content', '')
+            if 'James Kilby' in content and 'technical blog' in content:
+                # This is the generic site description, replace it
+                pass
+            else:
+                # Already has a specific description
+                return
+        
+        # Extract taxonomy name from URL and title
+        taxonomy_type = 'tag' if '/tag/' in current_url else 'category'
+        
+        # Try to get taxonomy name from the page title
+        title_tag = soup.find('title')
+        if title_tag:
+            title = title_tag.get_text().strip()
+            # Extract taxonomy name from title (e.g., "VMware Archives - jameskilbycouk" -> "VMware")
+            import re
+            match = re.match(r'^([^-|]+)(?:\s+Archives)?\s+[-|]', title)
+            if match:
+                taxonomy_name = match.group(1).strip()
+            else:
+                # Fallback to URL
+                taxonomy_name = current_url.strip('/').split('/')[-1].replace('-', ' ').title()
+        else:
+            # Fallback to URL
+            taxonomy_name = current_url.strip('/').split('/')[-1].replace('-', ' ').title()
+        
+        # Generate appropriate description
+        if taxonomy_type == 'tag':
+            description = f"Articles tagged with {taxonomy_name}. Explore technical guides, tutorials, and insights about {taxonomy_name} from James Kilby's blog."
+        else:
+            description = f"Browse all {taxonomy_name} articles. In-depth technical content covering {taxonomy_name} topics, best practices, and real-world solutions."
+        
+        # Update or create meta description
+        if existing_desc:
+            existing_desc['content'] = description
+            print(f"   🏷️  Updated meta description for {taxonomy_type}: {taxonomy_name}")
+        else:
+            # Create new meta description
+            if soup.head:
+                meta_desc = soup.new_tag('meta')
+                meta_desc['name'] = 'description'
+                meta_desc['content'] = description
+                soup.head.append(meta_desc)
+                print(f"   🏷️  Added meta description for {taxonomy_type}: {taxonomy_name}")
+        
+        # Also update og:description and twitter:description
+        og_desc = soup.find('meta', property='og:description')
+        if og_desc:
+            og_desc['content'] = description
+        elif soup.head:
+            og_desc = soup.new_tag('meta')
+            og_desc['property'] = 'og:description'
+            og_desc['content'] = description
+            soup.head.append(og_desc)
+        
+        twitter_desc = soup.find('meta', attrs={'name': 'twitter:description'})
+        if twitter_desc:
+            twitter_desc['content'] = description
+        elif soup.head:
+            twitter_desc = soup.new_tag('meta')
+            twitter_desc['name'] = 'twitter:description'
+            twitter_desc['content'] = description
+            soup.head.append(twitter_desc)
     
     def extract_assets(self, soup, current_url):
         """Extract asset URLs for later download"""
