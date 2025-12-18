@@ -285,6 +285,10 @@ jobs:
         echo "🔄 Converting URLs for staging compatibility..."
         python convert_to_staging.py
         
+        # Generate changelog page
+        echo "📋 Generating changelog page..."
+        python generate_changelog.py || echo "⚠️  Changelog generation failed (non-blocking)"
+        
         # Check if there are changes to commit
         git add public/ .last_spell_check_timestamp .image_optimization_cache/ 2>/dev/null || true
         
