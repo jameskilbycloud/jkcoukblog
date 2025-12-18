@@ -248,6 +248,9 @@ class WordPressStaticGenerator:
         # Add meta descriptions for taxonomy pages (tags/categories)
         self.add_taxonomy_meta_description(soup, current_url)
         
+        # Fix missing H1 on homepage
+        self.fix_homepage_h1(soup, current_url)
+        
         # Convert to string
         return str(soup)
     
@@ -1250,6 +1253,49 @@ class WordPressStaticGenerator:
             twitter_desc['name'] = 'twitter:description'
             twitter_desc['content'] = description
             soup.head.append(twitter_desc)
+    
+    def fix_homepage_h1(self, soup, current_url):
+        """Fix missing H1 tag on homepage by converting site title to H1"""
+        # Only apply to homepage
+        if current_url not in ['/', '']:
+            return
+        
+        # Check if H1 already exists
+        if soup.find('h1'):
+            print(f"   ℹ️  H1 already exists on homepage")
+            return
+        
+        # Find site-title elements (both desktop and mobile versions)
+        site_titles = soup.find_all(class_='site-title')
+        
+        if not site_titles:
+            print(f"   ⚠️  Could not find site-title element on homepage")
+            return
+        
+        # Convert each site-title to H1
+        for title_elem in site_titles:
+            # Get the current tag name (p, div, etc.)
+            old_tag_name = title_elem.name
+            
+            # Create new H1 tag with same attributes and content
+            h1_tag = soup.new_tag('h1')
+            
+            # Copy all attributes except class (we'll reconstruct it)
+            for attr, value in title_elem.attrs.items():
+                if attr == 'class':
+                    # Keep site-title class but ensure h1 semantics
+                    h1_tag['class'] = value
+                else:
+                    h1_tag[attr] = value
+            
+            # Copy all children (preserves inner structure)
+            for child in title_elem.children:
+                h1_tag.append(child)
+            
+            # Replace old tag with H1
+            title_elem.replace_with(h1_tag)
+            
+            print(f"   ✅ Converted {old_tag_name}.site-title to H1 on homepage")
     
     def extract_assets(self, soup, current_url):
         """Extract asset URLs for later download"""
