@@ -301,10 +301,15 @@ class WordPressStaticGenerator:
             prop = meta.get('property', '')
             content = meta.get('content', '')
             
-            # Replace WordPress URLs in og:url, og:image, etc.
-            if content and self.wp_url in content:
-                meta['content'] = content.replace(self.wp_url, self.target_domain)
-                print(f"   🔧 Fixed meta property: {prop}")
+            if content:
+                # Convert relative URLs to absolute (for og:image, og:url, etc.)
+                if content.startswith('/'):
+                    meta['content'] = f"{self.target_domain}{content}"
+                    print(f"   🔧 Made {prop} absolute: {content} -> {self.target_domain}{content}")
+                # Replace WordPress URLs in og:url, og:image, etc.
+                elif self.wp_url in content:
+                    meta['content'] = content.replace(self.wp_url, self.target_domain)
+                    print(f"   🔧 Fixed meta property: {prop}")
         
         # Check if og:image exists, add default if missing
         og_image = soup.find('meta', property='og:image')
@@ -344,17 +349,28 @@ class WordPressStaticGenerator:
             name = meta.get('name', '')
             content = meta.get('content', '')
             
-            # Fix twitter:image, twitter:url, etc.
-            if content and self.wp_url in content:
-                meta['content'] = content.replace(self.wp_url, self.target_domain)
-                print(f"   🔧 Fixed meta name: {name}")
+            if content:
+                # Convert relative URLs to absolute (for twitter:image, etc.)
+                if content.startswith('/'):
+                    meta['content'] = f"{self.target_domain}{content}"
+                    print(f"   🔧 Made {name} absolute: {content} -> {self.target_domain}{content}")
+                # Fix twitter:image, twitter:url, etc.
+                elif self.wp_url in content:
+                    meta['content'] = content.replace(self.wp_url, self.target_domain)
+                    print(f"   🔧 Fixed meta name: {name}")
         
-        # Fix canonical links
+        # Fix canonical links - make them absolute
         for link in soup.find_all('link', rel='canonical'):
             href = link.get('href', '')
-            if href and self.wp_url in href:
-                link['href'] = href.replace(self.wp_url, self.target_domain)
-                print(f"   🔧 Fixed canonical URL")
+            if href:
+                # Convert relative URLs to absolute
+                if href.startswith('/'):
+                    link['href'] = f"{self.target_domain}{href}"
+                    print(f"   🔧 Made canonical URL absolute: {href} -> {self.target_domain}{href}")
+                # Replace WordPress URLs
+                elif self.wp_url in href:
+                    link['href'] = href.replace(self.wp_url, self.target_domain)
+                    print(f"   🔧 Fixed canonical URL")
         
         # Fix RSS feed links
         for link in soup.find_all('link', type=['application/rss+xml', 'application/atom+xml']):
