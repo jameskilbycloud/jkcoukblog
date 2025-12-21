@@ -55,15 +55,12 @@
             // Create a search input if it doesn't exist
             const searchContainer = document.createElement('div');
             searchContainer.className = 'search-container-wrapper';
-            searchContainer.innerHTML = '<input type="text" class="search-field" placeholder="Search posts..." aria-label="Search">';
+            searchContainer.style.cssText = 'padding: 12px 16px; background: white; border-bottom: 1px solid #e0e0e0;';
+            searchContainer.innerHTML = '<input type="text" class="search-field" placeholder="🔍 Search posts..." aria-label="Search" style="width: 100%; max-width: 400px; padding: 10px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">';
             
-            // Try to insert near the header
-            const header = document.querySelector('header');
-            if (header) {
-                header.appendChild(searchContainer);
-            } else {
-                document.body.insertBefore(searchContainer, document.body.firstChild);
-            }
+            // Try to insert at the top of the main content area
+            const mainContent = document.querySelector('main #primary') || document.querySelector('main') || document.body;
+            mainContent.insertBefore(searchContainer, mainContent.firstChild);
             
             searchInput = searchContainer.querySelector('.search-field');
         }
@@ -221,12 +218,21 @@
         const style = document.createElement('style');
         style.textContent = `
             .search-container-wrapper {
-                display: none;
+                display: block;
+                z-index: 999;
+                position: relative;
             }
 
             .search-field {
                 position: relative;
                 z-index: 1000;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            
+            .search-field:focus {
+                outline: none;
+                border-color: #1a73e8 !important;
+                box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
             }
 
             #search-results-overlay {
