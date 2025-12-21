@@ -128,6 +128,13 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
     # Get Plausible share link from environment
     plausible_share_link = os.environ.get('PLAUSIBLE_SHARE_LINK', '')
     
+    # Extract just the auth token if a full URL was provided
+    if 'auth=' in plausible_share_link:
+        import re
+        auth_match = re.search(r'auth=([^&]+)', plausible_share_link)
+        if auth_match:
+            plausible_share_link = auth_match.group(1)
+    
     # Calculate some derived metrics
     avg_page_size = (build_metrics['total_size_mb'] / build_metrics['total_pages']) if build_metrics['total_pages'] > 0 else 0
     images_per_post = (build_metrics['total_images'] / build_metrics['posts']) if build_metrics['posts'] > 0 else 0
