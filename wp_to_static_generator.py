@@ -1861,6 +1861,60 @@ class WordPressStaticGenerator:
         print(f"   ✅ Created RSS feed with {len(posts)} posts")
         print(f"   📡 Feed URL: {self.target_domain}/feed/index.xml")
     
+    def copy_search_script(self):
+        """Copy search script to public/js directory"""
+        print("📋 Copying search script...")
+        
+        # Create js directory
+        js_dir = self.output_dir / 'js'
+        js_dir.mkdir(exist_ok=True)
+        
+        # Copy search.js from project root
+        search_script_src = Path(__file__).parent / 'search.js'
+        search_script_dest = js_dir / 'search.js'
+        
+        if search_script_src.exists():
+            shutil.copy(search_script_src, search_script_dest)
+            print(f"   ✅ Copied search.js to public/js/search.js")
+        else:
+            print(f"   ⚠️  search.js not found at {search_script_src}")
+    
+    def inject_search_script(self):
+        """Inject search script into all HTML files"""
+        print("📝 Injecting search script into HTML files...")
+        
+        injected_count = 0
+        
+        # Find all HTML files
+        for html_file in self.output_dir.rglob('*.html'):
+            try:
+                # Read HTML
+                with open(html_file, 'r', encoding='utf-8', errors='ignore') as f:
+                    html_content = f.read()
+                
+                # Check if search script is already injected
+                if '<script src="/js/search.js"' in html_content:
+                    continue
+                
+                # Find closing body tag and inject script before it
+                if '</body>' in html_content:
+                    search_script_tag = '<script src="/js/search.js"></script>\n</body>'
+                    html_content = html_content.replace('</body>', search_script_tag)
+                    
+                    # Write back to file
+                    with open(html_file, 'w', encoding='utf-8') as f:
+                        f.write(html_content)
+                    
+                    injected_count += 1
+            except Exception as e:
+                print(f"   ⚠️  Error injecting script into {html_file}: {str(e)}")
+                continue
+        
+        if injected_count > 0:
+            print(f"   ✅ Injected search script into {injected_count} HTML files")
+        else:
+            print(f"   ℹ️  No HTML files needed script injection")
+    
     def generate_search_index(self):
         """Generate search index for client-side search functionality"""
         print("🔍 Generating search index...")
@@ -2044,6 +2098,8 @@ class WordPressStaticGenerator:
         self.create_sitemap()
         self.generate_rss_feed()
         self.generate_search_index()
+        self.copy_search_script()
+        self.inject_search_script()
         
         # Summary
         end_time = time.time()
