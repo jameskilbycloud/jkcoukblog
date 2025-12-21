@@ -1898,7 +1898,7 @@ class WordPressStaticGenerator:
                 
                 # Find closing body tag and inject script before it
                 if '</body>' in html_content:
-                    search_script_tag = '<script src="/js/search.js"></script>\n</body>'
+                    search_script_tag = '<script src="/js/search.js" data-cfasync="false"></script>\n</body>'
                     html_content = html_content.replace('</body>', search_script_tag)
                     
                     # Write back to file
