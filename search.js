@@ -1,12 +1,11 @@
-// Blog Search - FIXED VERSION (prevents duplicates)
+// Blog Search - Beautiful UI Version
 console.log('[Search] Script loaded');
 
 (function() {
     'use strict';
     
-    // Prevent duplicate execution
     if (window.searchInitialized) {
-        console.log('[Search] Already initialized, skipping');
+        console.log('[Search] Already initialized');
         return;
     }
     window.searchInitialized = true;
@@ -15,22 +14,30 @@ console.log('[Search] Script loaded');
     let fuse = null;
     
     function createSearchBox() {
-        // Check if already exists
         if (document.getElementById('blog-search-container')) {
-            console.log('[Search] Search box already exists');
             return;
         }
         
-        console.log('[Search] Creating search box');
-        const searchHTML = '<div id="blog-search-container" style="background: #f8f9fa; padding: 16px; border-bottom: 2px solid #e9ecef; margin-bottom: 20px;"><div style="max-width: 600px; margin: 0 auto;"><input type="text" id="blog-search-input" placeholder="🔍 Search posts..." style="width: 100%; padding: 12px 16px; font-size: 16px; border: 2px solid #dee2e6; border-radius: 8px; box-sizing: border-box;" onfocus="this.style.borderColor=\'#0d6efd\'" onblur="this.style.borderColor=\'#dee2e6\'"></div></div>';
+        const searchHTML = `
+            <div id="blog-search-container" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 24px 16px; margin-bottom: 30px; box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);">
+                <div style="max-width: 600px; margin: 0 auto;">
+                    <div style="position: relative;">
+                        <input type="text" 
+                               id="blog-search-input" 
+                               placeholder="🔍 Search 160+ posts..." 
+                               style="width: 100%; padding: 14px 40px 14px 16px; font-size: 16px; border: none; border-radius: 8px; outline: none; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s ease; font-family: inherit;">
+                        <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #999; pointer-events: none;">⌘K</span>
+                    </div>
+                    <div style="color: rgba(255,255,255,0.8); font-size: 13px; margin-top: 8px; text-align: center;">Press <kbd style="background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 3px; font-size: 12px;">Ctrl+K</kbd> to search</div>
+                </div>
+            </div>
+        `;
         
         const main = document.querySelector('main');
         if (main) {
             main.insertAdjacentHTML('afterbegin', searchHTML);
-            console.log('[Search] Search box created');
             attachSearchListener();
-        } else {
-            console.log('[Search] No main element found');
+            attachKeyboardShortcut();
         }
     }
     
@@ -38,8 +45,22 @@ console.log('[Search] Script loaded');
         const input = document.getElementById('blog-search-input');
         if (input) {
             input.addEventListener('input', debounce(handleSearch, 300));
-            console.log('[Search] Event listener attached');
+            input.addEventListener('focus', function() {
+                this.style.boxShadow = '0 4px 20px rgba(102, 126, 234, 0.3), 0 0 0 3px rgba(102, 126, 234, 0.1)';
+            });
+            input.addEventListener('blur', function() {
+                this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+            });
         }
+    }
+    
+    function attachKeyboardShortcut() {
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('blog-search-input')?.focus();
+            }
+        });
     }
     
     function debounce(func, ms) {
@@ -58,8 +79,6 @@ console.log('[Search] Script loaded');
             return;
         }
         
-        console.log('[Search] Searching for:', query);
-        
         if (!searchIndex) {
             loadIndex(() => search(query));
         } else if (fuse) {
@@ -68,11 +87,9 @@ console.log('[Search] Script loaded');
     }
     
     function loadIndex(callback) {
-        console.log('[Search] Loading index');
         fetch('/search-index.min.json')
             .then(r => r.json())
             .then(data => {
-                console.log('[Search] Index loaded:', data.length, 'items');
                 searchIndex = data;
                 loadFuse(callback);
             })
@@ -80,53 +97,70 @@ console.log('[Search] Script loaded');
     }
     
     function loadFuse(callback) {
-        console.log('[Search] Loading Fuse.js');
         const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0';
+        script.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0'\;
         script.onload = () => {
-            console.log('[Search] Fuse.js loaded');
             fuse = new window.Fuse(searchIndex, {
                 keys: ['title', 'description', 'content'],
                 threshold: 0.4
             });
-            console.log('[Search] Fuse initialized');
             if (callback) callback();
         };
-        script.onerror = () => console.error('[Search] Failed to load Fuse.js');
         document.head.appendChild(script);
     }
     
     function search(query) {
-        if (!fuse) {
-            console.log('[Search] Fuse not ready');
-            return;
-        }
+        if (!fuse) return;
         
         const results = fuse.search(query);
-        console.log('[Search] Found', results.length, 'results');
         displayResults(results, query);
     }
     
     function displayResults(results, query) {
-        hideResults(); // Remove any existing results
+        hideResults();
         
-        let html = '<div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 99999; padding: 40px 20px; overflow-y: auto;" onclick="if(event.target===this) this.remove()"><div style="background: white; border-radius: 12px; max-width: 600px; margin: 0 auto; max-height: 70vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">';
-        
-        html += '<div style="padding: 20px; border-bottom: 1px solid #e0e0e0; font-weight: bold; position: sticky; top: 0; background: white;">' + results.length + ' result' + (results.length !== 1 ? 's' : '') + ' for "' + escapeHtml(query) + '"</div>';
+        let html = `<div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 99999; display: flex; align-items: flex-start; justify-content: center; padding: 40px 20px; overflow-y: auto; animation: fadeIn 0.2s ease;" onclick="if(event.target===this) this.remove()">
+            <div style="background: white; border-radius: 12px; max-width: 650px; width: 100%; max-height: 75vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: slideUp 0.3s ease;">
+                <div style="padding: 24px; border-bottom: 1px solid #e5e7eb; background: linear-gradient(135deg, #f5f7fa 0%, #f9fafb 100%); position: sticky; top: 0; z-index: 10;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-size: 14px; color: #667eea; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Search Results</div>
+                            <div style="font-size: 18px; font-weight: 700; color: #111;">` + results.length + ` result` + (results.length !== 1 ? 's' : '') + ` for "<span style="color: #667eea;">` + escapeHtml(query) + `</span>"</div>
+                        </div>
+                        <button onclick="this.closest('[style*=\"position: fixed\"]').remove()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #999; padding: 0; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.background='#f0f0f0'; this.style.color='#111'" onmouseout="this.style.background='none'; this.style.color='#999'">×</button>
+                    </div>
+                </div>
+                <div style="overflow-y: auto; max-height: calc(75vh - 120px);">`;
         
         if (results.length === 0) {
-            html += '<div style="padding: 40px; text-align: center; color: #999;">No results found</div>';
+            html += `<div style="padding: 60px 40px; text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 16px;">🔍</div>
+                <div style="font-size: 18px; font-weight: 600; color: #111; margin-bottom: 8px;">No results found</div>
+                <div style="color: #666; font-size: 14px;">Try searching for different keywords</div>
+            </div>`;
         } else {
-            results.slice(0, 10).forEach(r => {
+            results.slice(0, 10).forEach((r, idx) => {
                 const item = r.item;
-                html += '<a href="' + item.url + '" style="display: block; padding: 16px 20px; border-bottom: 1px solid #f0f0f0; text-decoration: none; color: inherit;" onmouseover="this.style.background=\'#f8f9fa\'" onmouseout="this.style.background=\'white\'">';
-                html += '<div style="color: #0d6efd; font-weight: 600; margin-bottom: 4px;">' + escapeHtml(item.title) + '</div>';
-                html += '<div style="color: #666; font-size: 14px;">' + escapeHtml((item.description || '').substring(0, 100)) + '</div>';
-                html += '</a>';
+                html += `<a href="` + item.url + `" style="display: block; padding: 20px 24px; border-bottom: 1px solid #f0f0f0; text-decoration: none; color: inherit; transition: all 0.15s;" onmouseover="this.style.background='#f9fafb'; this.style.paddingLeft='28px'" onmouseout="this.style.background='white'; this.style.paddingLeft='24px'">
+                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                        <div style="flex-shrink: 0; width: 24px; height: 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 600; margin-top: 2px;">` + (idx + 1) + `</div>
+                        <div style="flex: 1; min-width: 0;">
+                            <div style="font-size: 15px; font-weight: 600; color: #111; margin-bottom: 6px; line-height: 1.4;">` + escapeHtml(item.title) + `</div>
+                            <div style="font-size: 13px; color: #666; margin-bottom: 8px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">` + escapeHtml((item.description || '').substring(0, 120)) + `</div>
+                            <div style="font-size: 12px; color: #999;">` + item.url.replace('https://jameskilby.co.uk', '') + `</div>
+                        </div>
+                    </div>
+                </a>`;
             });
         }
         
-        html += '</div></div>';
+        html += `</div>
+            </div>
+            <style>
+                @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+                @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+            </style>
+        </div>`;
         
         const div = document.createElement('div');
         div.innerHTML = html;
@@ -134,7 +168,7 @@ console.log('[Search] Script loaded');
     }
     
     function hideResults() {
-        const overlay = document.querySelector('div[style*="position: fixed"][style*="rgba(0,0,0,0.5)"]');
+        const overlay = document.querySelector('div[style*="position: fixed"][style*="rgba(0,0,0,0.6)"]');
         if (overlay) overlay.remove();
     }
     
@@ -144,7 +178,6 @@ console.log('[Search] Script loaded');
         return div.innerHTML;
     }
     
-    // Initialize
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', createSearchBox);
     } else {
