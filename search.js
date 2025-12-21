@@ -1,22 +1,36 @@
-// Blog Search - WORKING VERSION
-console.log('[Search] Script loaded and executing');
+// Blog Search - FIXED VERSION (prevents duplicates)
+console.log('[Search] Script loaded');
 
 (function() {
     'use strict';
     
+    // Prevent duplicate execution
+    if (window.searchInitialized) {
+        console.log('[Search] Already initialized, skipping');
+        return;
+    }
+    window.searchInitialized = true;
+    
     let searchIndex = null;
     let fuse = null;
     
-    // Create search box immediately
     function createSearchBox() {
+        // Check if already exists
+        if (document.getElementById('blog-search-container')) {
+            console.log('[Search] Search box already exists');
+            return;
+        }
+        
         console.log('[Search] Creating search box');
         const searchHTML = '<div id="blog-search-container" style="background: #f8f9fa; padding: 16px; border-bottom: 2px solid #e9ecef; margin-bottom: 20px;"><div style="max-width: 600px; margin: 0 auto;"><input type="text" id="blog-search-input" placeholder="🔍 Search posts..." style="width: 100%; padding: 12px 16px; font-size: 16px; border: 2px solid #dee2e6; border-radius: 8px; box-sizing: border-box;" onfocus="this.style.borderColor=\'#0d6efd\'" onblur="this.style.borderColor=\'#dee2e6\'"></div></div>';
         
         const main = document.querySelector('main');
         if (main) {
             main.insertAdjacentHTML('afterbegin', searchHTML);
-            console.log('[Search] Search box created in main');
+            console.log('[Search] Search box created');
             attachSearchListener();
+        } else {
+            console.log('[Search] No main element found');
         }
     }
     
@@ -38,39 +52,34 @@ console.log('[Search] Script loaded and executing');
     
     function handleSearch(e) {
         const query = e.target.value.trim();
-        console.log('[Search] Query:', query);
         
         if (query.length < 2) {
             hideResults();
             return;
         }
         
-        // Load dependencies if needed
+        console.log('[Search] Searching for:', query);
+        
         if (!searchIndex) {
-            console.log('[Search] Loading index and Fuse');
-            loadIndex();
+            loadIndex(() => search(query));
         } else if (fuse) {
-            console.log('[Search] Index ready, searching');
             search(query);
         }
     }
     
-    function loadIndex() {
-        console.log('[Search] Fetching search-index.min.json');
+    function loadIndex(callback) {
+        console.log('[Search] Loading index');
         fetch('/search-index.min.json')
-            .then(r => {
-                console.log('[Search] Response status:', r.status);
-                return r.json();
-            })
+            .then(r => r.json())
             .then(data => {
                 console.log('[Search] Index loaded:', data.length, 'items');
                 searchIndex = data;
-                loadFuse();
+                loadFuse(callback);
             })
             .catch(e => console.error('[Search] Failed to load index:', e));
     }
     
-    function loadFuse() {
+    function loadFuse(callback) {
         console.log('[Search] Loading Fuse.js');
         const script = document.createElement('script');
         script.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0';
@@ -81,12 +90,7 @@ console.log('[Search] Script loaded and executing');
                 threshold: 0.4
             });
             console.log('[Search] Fuse initialized');
-            
-            // Do search if there's a query
-            const input = document.getElementById('blog-search-input');
-            if (input && input.value.length >= 2) {
-                search(input.value.trim());
-            }
+            if (callback) callback();
         };
         script.onerror = () => console.error('[Search] Failed to load Fuse.js');
         document.head.appendChild(script);
@@ -104,6 +108,8 @@ console.log('[Search] Script loaded and executing');
     }
     
     function displayResults(results, query) {
+        hideResults(); // Remove any existing results
+        
         let html = '<div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 99999; padding: 40px 20px; overflow-y: auto;" onclick="if(event.target===this) this.remove()"><div style="background: white; border-radius: 12px; max-width: 600px; margin: 0 auto; max-height: 70vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">';
         
         html += '<div style="padding: 20px; border-bottom: 1px solid #e0e0e0; font-weight: bold; position: sticky; top: 0; background: white;">' + results.length + ' result' + (results.length !== 1 ? 's' : '') + ' for "' + escapeHtml(query) + '"</div>';
@@ -144,6 +150,4 @@ console.log('[Search] Script loaded and executing');
     } else {
         createSearchBox();
     }
-    
-    console.log('[Search] Setup complete');
 })();
