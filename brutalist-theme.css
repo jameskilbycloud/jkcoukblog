@@ -231,47 +231,35 @@ img {
   opacity: 0.85;
 }
 
-/* Featured/Post thumbnail positioning */
+/* Featured/Post thumbnail - keep default positioning */
 .post-thumbnail,
 .article-post-thumbnail {
-  margin-bottom: 2rem !important;
-  position: relative !important;
-  display: block !important;
+  margin-bottom: 0 !important;
 }
 
 .post-thumbnail-inner {
   background-color: transparent !important;
 }
 
-/* Fix for "behind" positioned thumbnails - disable the overlap effect */
-.kadence-thumbnail-position-behind {
-  position: static !important;
-  margin-bottom: 0 !important;
-}
-
-.kadence-thumbnail-position-behind + article {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-  position: static !important;
-}
-
-/* Ensure entry content has proper background */
+/* Ensure entry content wrap has proper dark background so text is readable over images */
 .entry-content-wrap {
-  background-color: rgba(255, 255, 255, 0.02) !important;
+  background-color: var(--bg-dark) !important;
   position: relative !important;
-  padding: 2rem !important;
-  border: 1px solid var(--gray-mid) !important;
 }
 
-/* Entry header should have proper spacing */
-.entry-header {
-  margin-bottom: 1.5rem !important;
+/* Make sure the header has a solid background if it overlaps the image */
+.entry-header,
+.post-title {
+  background-color: var(--bg-dark) !important;
+  padding: 1.5rem !important;
+  margin: 0 !important;
 }
 
-/* Ensure proper stacking context */
-article.entry {
-  position: relative !important;
-  margin-top: 2rem !important;
+/* Entry content should have proper background */
+.entry-content,
+.single-content {
+  background-color: var(--bg-dark) !important;
+  padding: 1.5rem !important;
 }
 
 /* Footer */

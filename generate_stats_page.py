@@ -161,6 +161,16 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
     <meta name="twitter:description" content="Public statistics and metrics for jameskilby.co.uk">
     
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+        
+        :root {{
+            --bg-dark: #0a0a0a;
+            --text-light: #fafafa;
+            --accent-orange: #f6821f;
+            --gray-mid: #404040;
+            --gray-light: #666666;
+        }}
+        
         * {{
             margin: 0;
             padding: 0;
@@ -168,47 +178,70 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
         }}
         
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
-            color: #2d3748;
-            background: #f7fafc;
+            color: var(--text-light);
+            background: var(--bg-dark);
             padding: 20px;
+            position: relative;
+        }}
+        
+        body::before {{
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }}
         
         .container {{
             max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }}
         
         header {{
-            background: white;
+            background: rgba(255, 255, 255, 0.02);
             padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
             margin-bottom: 30px;
         }}
         
         h1 {{
-            color: #1a202c;
+            font-family: 'Anton', sans-serif;
+            color: var(--text-light);
             font-size: 2.5em;
             margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
         }}
         
         .subtitle {{
-            color: #718096;
+            color: var(--gray-light);
             font-size: 1.1em;
         }}
         
         .back-link {{
             display: inline-block;
-            color: #4299e1;
+            color: var(--accent-orange);
             text-decoration: none;
             margin-bottom: 20px;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.9rem;
         }}
         
         .back-link:hover {{
             text-decoration: underline;
+            opacity: 0.8;
         }}
         
         .stats-grid {{
