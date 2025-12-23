@@ -220,6 +220,7 @@ img {
   border: 1px solid var(--gray-mid);
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
 .post-thumbnail img {
@@ -228,6 +229,49 @@ img {
 
 .post-thumbnail:hover img {
   opacity: 0.85;
+}
+
+/* Featured/Post thumbnail positioning */
+.post-thumbnail,
+.article-post-thumbnail {
+  margin-bottom: 2rem !important;
+  position: relative !important;
+  display: block !important;
+}
+
+.post-thumbnail-inner {
+  background-color: transparent !important;
+}
+
+/* Fix for "behind" positioned thumbnails - disable the overlap effect */
+.kadence-thumbnail-position-behind {
+  position: static !important;
+  margin-bottom: 0 !important;
+}
+
+.kadence-thumbnail-position-behind + article {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  position: static !important;
+}
+
+/* Ensure entry content has proper background */
+.entry-content-wrap {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  position: relative !important;
+  padding: 2rem !important;
+  border: 1px solid var(--gray-mid) !important;
+}
+
+/* Entry header should have proper spacing */
+.entry-header {
+  margin-bottom: 1.5rem !important;
+}
+
+/* Ensure proper stacking context */
+article.entry {
+  position: relative !important;
+  margin-top: 2rem !important;
 }
 
 /* Footer */
