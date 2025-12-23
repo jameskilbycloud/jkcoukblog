@@ -98,7 +98,6 @@ a:focus {
 #masthead {
   background-color: var(--bg-dark) !important;
   border-bottom: 2px solid var(--gray-mid);
-  backdrop-filter: blur(10px);
 }
 
 .site-branding .site-title a,
