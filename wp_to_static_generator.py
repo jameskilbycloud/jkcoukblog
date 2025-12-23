@@ -802,7 +802,7 @@ class WordPressStaticGenerator:
             script['src'] = 'https://utteranc.es/client.js'
             script['data-repo'] = 'jameskilbynet/jkcoukblog'
             script['data-issue-term'] = 'pathname'
-            script['data-theme'] = 'github-light'
+            script['data-theme'] = 'github-dark'
             script['crossorigin'] = 'anonymous'
             script['async'] = ''
             script['data-cfasync'] = 'false'  # Bypass Cloudflare Rocket Loader
@@ -848,9 +848,16 @@ class WordPressStaticGenerator:
         if not existing_theme_color:
             theme_color_meta = soup.new_tag('meta')
             theme_color_meta['name'] = 'theme-color'
-            theme_color_meta['content'] = '#ffffff'  # White - matches site background
+            theme_color_meta['content'] = '#0a0a0a'  # Dark background - matches brutalist theme
             soup.head.append(theme_color_meta)
             print(f"   🎨 Added theme-color meta tag")
+        else:
+            # Update existing theme-color to match brutalist theme
+            existing_theme_color['content'] = '#0a0a0a'
+            print(f"   🎨 Updated theme-color meta tag to dark theme")
+        
+        # Inject brutalist theme CSS
+        self.add_brutalist_theme_css(soup)
         
         # Add Plausible analytics if not already present
         self.add_plausible_analytics(soup)
@@ -863,6 +870,37 @@ class WordPressStaticGenerator:
                 preload['as'] = 'style'
                 preload['href'] = link['href']
                 soup.head.insert(0, preload)
+    
+    def add_brutalist_theme_css(self, soup):
+        """Add brutalist theme CSS inspired by justfuckingusecloudflare.com"""
+        if not soup.head:
+            return
+        
+        # Check if brutalist theme is already injected
+        existing_brutalist = soup.find('style', id='brutalist-theme')
+        if existing_brutalist:
+            return
+        
+        # Read the brutalist theme CSS file
+        brutalist_css_path = Path(__file__).parent / 'brutalist-theme.css'
+        if not brutalist_css_path.exists():
+            print(f"   ⚠️  Brutalist theme CSS not found at {brutalist_css_path}")
+            return
+        
+        try:
+            with open(brutalist_css_path, 'r', encoding='utf-8') as f:
+                css_content = f.read()
+            
+            # Create a style tag with the CSS content
+            style_tag = soup.new_tag('style')
+            style_tag['id'] = 'brutalist-theme'
+            style_tag.string = css_content
+            
+            # Append to head (after existing styles so it overrides)
+            soup.head.append(style_tag)
+            print(f"   🎨 Added brutalist theme CSS ({len(css_content)} bytes)")
+        except Exception as e:
+            print(f"   ❌ Failed to add brutalist theme CSS: {str(e)}")
     
     def add_plausible_analytics(self, soup):
         """Add Plausible Analytics script to the page if not already present"""
