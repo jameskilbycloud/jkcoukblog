@@ -110,10 +110,11 @@ def get_git_stats():
         stats['contributors'] = 'N/A'
     
     # Repository age
-    result = subprocess.run(['git', 'log', '--reverse', '--format=%ci', '-1'], 
+    result = subprocess.run(['git', 'log', '--reverse', '--format=%ci'], 
                           capture_output=True, text=True)
-    if result.returncode == 0:
-        first_commit = result.stdout.strip()
+    if result.returncode == 0 and result.stdout.strip():
+        # Get the first line (first commit)
+        first_commit = result.stdout.strip().split('\n')[0]
         if first_commit:
             first_date = datetime.fromisoformat(first_commit.split()[0])
             age_days = (datetime.now() - first_date).days
