@@ -13,8 +13,8 @@ This is an automated WordPress-to-static-site generator and deployment system. I
 # Generate static site (requires WP_AUTH_TOKEN environment variable)
 python3 wp_to_static_generator.py ./static-output
 
-# Generate with deployment
-python3 deploy_static_site.py full ./static-output --git
+# Submit URLs to search engines via IndexNow
+python3 submit_indexnow.py ./public
 ```
 
 ### Testing
@@ -98,6 +98,13 @@ gh run list --workflow=deploy-static-site.yml
 - Processes both HTML and CSS files
 - Enables staging site (`jkcoukblog.pages.dev`) to work correctly
 
+**submit_indexnow.py** - IndexNow submission tool
+- Submits all pages to search engines (Bing, Yandex, etc.) via IndexNow protocol
+- Generates and manages API key for domain verification
+- Creates key verification file in site root
+- Logs submission history to `indexnow-submission.json`
+- Key class: `IndexNowSubmitter`
+
 ### GitHub Actions Workflow
 
 **`.github/workflows/deploy-static-site.yml`**
@@ -110,9 +117,10 @@ gh run list --workflow=deploy-static-site.yml
   4. Reuse optimized images from previous builds
   5. Optimize images (optipng, jpegoptim) with caching
   6. Convert URLs for staging compatibility
-  7. Commit to `public/` directory
-  8. Push to repository (triggers Cloudflare Pages auto-deploy)
-  9. Send Slack notifications on success/failure
+  7. Submit URLs to IndexNow (notify search engines)
+  8. Commit to `public/` directory
+  9. Push to repository (triggers Cloudflare Pages auto-deploy)
+  10. Send Slack notifications on success/failure
 
 ### Deployment Flow
 
@@ -260,6 +268,16 @@ pip install requests beautifulsoup4
 - Used for incremental spell checking
 - Tracked in git to persist state
 
+### `/.indexnow_key`
+- UUID-based API key for IndexNow protocol
+- Auto-generated on first run
+- Tracked in git for persistence across builds
+
+### `/indexnow-submission.json`
+- Submission history log (last 30 submissions)
+- Contains timestamps, URLs submitted, and response codes
+- Used for monitoring and troubleshooting
+
 ### `/workers/`
 - Cloudflare Workers scripts (if any)
 - See `wrangler.toml` for configuration
@@ -275,6 +293,7 @@ pip install requests beautifulsoup4
 - `RSS_FEED_IMPLEMENTATION.md` - RSS feed details
 - `SEO_QUICK_WINS.md` - SEO optimization notes
 - `SPELL_CHECK_TRACKING.md` - Spell check tracking system
+- `INDEXNOW_IMPLEMENTATION.md` - IndexNow integration for instant search engine notifications
 
 ## WordPress-Specific Notes
 

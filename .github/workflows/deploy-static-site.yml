@@ -371,8 +371,12 @@ jobs:
         echo "📊 Generating stats page..."
         PLAUSIBLE_SHARE_LINK="${{ secrets.PLAUSIBLE_SHARE_LINK }}" python3 generate_stats_page.py || echo "⚠️  Stats page generation failed (non-blocking)"
         
+        # Submit to IndexNow (notify search engines about all pages)
+        echo "🔔 Submitting URLs to IndexNow..."
+        python3 submit_indexnow.py ./public || echo "⚠️  IndexNow submission failed (non-blocking)"
+        
         # Check if there are changes to commit
-        git add public/ .last_spell_check_timestamp .image_optimization_cache/ 2>/dev/null || true
+        git add public/ .last_spell_check_timestamp .image_optimization_cache/ .indexnow_key indexnow-submission.json 2>/dev/null || true
         
         if [ -n "$(git diff --cached)" ]; then
           echo "📝 Changes detected, committing..."
