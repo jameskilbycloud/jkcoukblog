@@ -219,6 +219,16 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://jameskilby.co.uk/changelog/">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+        
+        :root {{
+            --bg-dark: #0a0a0a;
+            --text-light: #fafafa;
+            --accent-orange: #f6821f;
+            --gray-mid: #404040;
+            --gray-light: #666666;
+        }}
+        
         * {{
             margin: 0;
             padding: 0;
@@ -226,30 +236,55 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
         }}
         
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
-            color: #2d3748;
-            background: #f7fafc;
+            color: var(--text-light);
+            background: var(--bg-dark);
             padding: 20px;
+            position: relative;
+        }}
+        
+        body::before {{
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }}
         
         .container {{
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
+            background: rgba(255, 255, 255, 0.02);
             padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
+            position: relative;
+            z-index: 1;
         }}
         
         h1 {{
-            color: #1a202c;
+            font-family: 'Anton', sans-serif;
+            color: var(--text-light);
             margin-bottom: 10px;
             font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }}
+        
+        h2 {{
+            font-family: 'Anton', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
         }}
         
         .subtitle {{
-            color: #718096;
+            color: var(--gray-light);
             margin-bottom: 40px;
             font-size: 1.1em;
         }}
@@ -262,28 +297,30 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
         }}
         
         .metric-card {{
-            background: #f7fafc;
+            background: rgba(255, 255, 255, 0.02);
             padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #4299e1;
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
+            border-left: 4px solid var(--accent-orange);
         }}
         
         .metric-card h3 {{
-            color: #4a5568;
+            color: var(--gray-light);
             font-size: 0.9em;
             text-transform: uppercase;
             margin-bottom: 10px;
             font-weight: 600;
+            letter-spacing: 0.05em;
         }}
         
         .metric-value {{
             font-size: 2em;
             font-weight: bold;
-            color: #2d3748;
+            color: var(--accent-orange);
         }}
         
         .metric-label {{
-            color: #718096;
+            color: var(--gray-light);
             font-size: 0.9em;
             margin-top: 5px;
         }}
@@ -298,8 +335,9 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
         .score-card {{
             text-align: center;
             padding: 20px;
-            background: #f7fafc;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
         }}
         
         .score-circle {{
@@ -312,17 +350,19 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
             justify-content: center;
             font-size: 1.5em;
             font-weight: bold;
-            color: white;
+            color: var(--bg-dark);
         }}
         
-        .score-excellent {{ background: #48bb78; }}
-        .score-good {{ background: #ed8936; }}
-        .score-poor {{ background: #f56565; }}
+        .score-excellent {{ background: var(--accent-orange); }}
+        .score-good {{ background: var(--gray-light); }}
+        .score-poor {{ background: var(--gray-mid); }}
         
         .score-label {{
-            color: #4a5568;
+            color: var(--gray-light);
             font-weight: 600;
             font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }}
         
         .changelog-section {{
@@ -330,56 +370,59 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
         }}
         
         .changelog-section h2 {{
-            color: #1a202c;
+            color: var(--text-light);
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #e2e8f0;
+            border-bottom: 2px solid var(--gray-mid);
         }}
         
         .change-entry {{
             margin-bottom: 30px;
             padding-left: 20px;
-            border-left: 3px solid #e2e8f0;
+            border-left: 3px solid var(--gray-mid);
+            transition: border-color 0.2s;
         }}
         
         .change-entry:hover {{
-            border-left-color: #4299e1;
+            border-left-color: var(--accent-orange);
         }}
         
         .change-date {{
-            color: #4299e1;
+            color: var(--accent-orange);
             font-weight: 600;
             margin-bottom: 5px;
         }}
         
         .change-title {{
             font-weight: 600;
-            color: #2d3748;
+            color: var(--text-light);
             margin-bottom: 10px;
             font-size: 1.1em;
         }}
         
         .change-details {{
-            color: #4a5568;
+            color: var(--gray-light);
             line-height: 1.6;
             white-space: pre-wrap;
         }}
         
         .change-hash {{
             display: inline-block;
-            background: #edf2f7;
+            background: rgba(255, 255, 255, 0.05);
             padding: 2px 8px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
             font-size: 0.85em;
-            color: #4a5568;
+            color: var(--gray-light);
             margin-left: 10px;
         }}
         
         .category-badge {{
             display: inline-block;
             padding: 3px 10px;
-            border-radius: 12px;
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
             font-size: 0.75em;
             font-weight: 600;
             text-transform: uppercase;
@@ -387,32 +430,36 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
             margin-left: 10px;
         }}
         
-        .badge-feature {{ background: #c6f6d5; color: #22543d; }}
-        .badge-fix {{ background: #fed7d7; color: #742a2a; }}
-        .badge-improvement {{ background: #bee3f8; color: #2c5282; }}
-        .badge-docs {{ background: #feebc8; color: #7c2d12; }}
-        .badge-removal {{ background: #ffd8d8; color: #8b0000; }}
-        .badge-other {{ background: #e2e8f0; color: #4a5568; }}
+        .badge-feature {{ background: rgba(246, 130, 31, 0.2); color: var(--accent-orange); border-color: var(--accent-orange); }}
+        .badge-fix {{ background: rgba(255, 255, 255, 0.05); color: var(--gray-light); }}
+        .badge-improvement {{ background: rgba(246, 130, 31, 0.1); color: var(--text-light); }}
+        .badge-docs {{ background: rgba(255, 255, 255, 0.02); color: var(--gray-light); }}
+        .badge-removal {{ background: rgba(255, 255, 255, 0.05); color: var(--gray-light); border-color: var(--gray-light); }}
+        .badge-other {{ background: transparent; color: var(--gray-light); }}
         
         .back-link {{
             display: inline-block;
-            color: #4299e1;
+            color: var(--accent-orange);
             text-decoration: none;
             margin-bottom: 20px;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.9rem;
         }}
         
         .back-link:hover {{
             text-decoration: underline;
+            opacity: 0.8;
         }}
         
         .timestamp {{
             text-align: right;
-            color: #a0aec0;
+            color: var(--gray-light);
             font-size: 0.85em;
             margin-top: 40px;
             padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid var(--gray-mid);
         }}
         
         @media (max-width: 768px) {{

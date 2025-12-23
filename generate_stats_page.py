@@ -252,28 +252,28 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
         }}
         
         .stat-card {{
-            background: white;
+            background: rgba(255, 255, 255, 0.02);
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
             text-align: center;
-            transition: transform 0.2s;
+            transition: border-color 0.2s, transform 0.2s;
         }}
         
         .stat-card:hover {{
+            border-color: var(--accent-orange);
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }}
         
         .stat-value {{
             font-size: 3em;
             font-weight: bold;
-            color: #4299e1;
+            color: var(--accent-orange);
             margin: 10px 0;
         }}
         
         .stat-label {{
-            color: #718096;
+            color: var(--gray-light);
             font-size: 0.9em;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -286,18 +286,21 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
         }}
         
         .section {{
-            background: white;
+            background: rgba(255, 255, 255, 0.02);
             padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
             margin-bottom: 30px;
         }}
         
         .section h2 {{
-            color: #1a202c;
+            font-family: 'Anton', sans-serif;
+            color: var(--text-light);
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #e2e8f0;
+            border-bottom: 2px solid var(--gray-mid);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
         }}
         
         .lighthouse-grid {{
@@ -310,8 +313,9 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
         .score-card {{
             text-align: center;
             padding: 20px;
-            background: #f7fafc;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
         }}
         
         .score-circle {{
@@ -324,39 +328,50 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
             justify-content: center;
             font-size: 2em;
             font-weight: bold;
-            color: white;
+            color: var(--bg-dark);
         }}
         
-        .score-excellent {{ background: #48bb78; }}
-        .score-good {{ background: #ed8936; }}
-        .score-poor {{ background: #f56565; }}
+        .score-excellent {{ background: var(--accent-orange); }}
+        .score-good {{ background: var(--gray-light); }}
+        .score-poor {{ background: var(--gray-mid); }}
         
         .score-label {{
-            color: #4a5568;
+            color: var(--gray-light);
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.85rem;
         }}
         
         .metrics-table {{
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            border: 1px solid var(--gray-mid);
         }}
         
         .metrics-table th,
         .metrics-table td {{
             padding: 12px;
             text-align: left;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid var(--gray-mid);
         }}
         
         .metrics-table th {{
-            background: #f7fafc;
+            background: rgba(255, 255, 255, 0.05);
             font-weight: 600;
-            color: #4a5568;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.85rem;
+        }}
+        
+        .metrics-table td {{
+            color: var(--gray-light);
         }}
         
         .metrics-table tr:hover {{
-            background: #f7fafc;
+            background: rgba(255, 255, 255, 0.02);
         }}
         
         .plausible-embed {{
@@ -368,25 +383,38 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
         }}
         
         .info-box {{
-            background: #ebf8ff;
-            border-left: 4px solid #4299e1;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 4px solid var(--accent-orange);
             padding: 15px 20px;
-            border-radius: 4px;
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
+            border-left-width: 4px;
+            border-left-color: var(--accent-orange);
             margin-top: 20px;
         }}
         
         .info-box p {{
             margin: 5px 0;
-            color: #2c5282;
+            color: var(--gray-light);
+        }}
+        
+        .info-box a {{
+            color: var(--accent-orange);
+            text-decoration: none;
+        }}
+        
+        .info-box a:hover {{
+            text-decoration: underline;
+            opacity: 0.8;
         }}
         
         .timestamp {{
             text-align: center;
-            color: #a0aec0;
+            color: var(--gray-light);
             font-size: 0.85em;
             margin-top: 40px;
             padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid var(--gray-mid);
         }}
         
         @media (max-width: 768px) {{
