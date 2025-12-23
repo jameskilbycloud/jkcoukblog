@@ -317,6 +317,44 @@ textarea:focus {
   color: var(--bg-dark) !important;
 }
 
+/* Post navigation (prev/next) */
+.post-navigation,
+.navigation,
+.nav-links {
+  background-color: transparent !important;
+  padding: 2rem 0 !important;
+  border-top: 1px solid var(--gray-mid) !important;
+  margin-top: 3rem !important;
+}
+
+.post-navigation a,
+.navigation a {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid var(--gray-mid) !important;
+  padding: 1.5rem !important;
+  display: block !important;
+  color: var(--text-light) !important;
+}
+
+.post-navigation a:hover,
+.navigation a:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border-color: var(--accent-orange) !important;
+}
+
+.post-navigation-sub,
+.nav-previous,
+.nav-next {
+  background-color: transparent !important;
+}
+
+.post-navigation-sub small {
+  color: var(--gray-light) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-size: 0.75rem !important;
+}
+
 /* Blockquotes */
 blockquote {
   border-left: 4px solid var(--accent-orange) !important;
@@ -395,6 +433,45 @@ th {
 #wrapper,
 .site,
 .content-area,
-.site-container {
+.site-container,
+.site-footer-wrap,
+.site-bottom-footer-wrap,
+.footer-widget-area,
+.site-info,
+footer,
+#colophon,
+.carousel,
+.slider,
+.slick-slider,
+.splide,
+.swiper,
+.wp-block-gallery,
+.blocks-gallery-grid,
+.navigation,
+.post-navigation,
+.pagination-wrap,
+.content-wrap,
+main,
+#main,
+#inner-wrap,
+.wrap {
   background-color: var(--bg-dark) !important;
+}
+
+/* Ensure all divs and sections have dark background by default */
+div, section, aside, nav {
+  background-color: transparent !important;
+}
+
+/* Specific overrides for white/light colored elements */
+.has-white-background-color,
+.has-white-background,
+[style*="background-color: white"],
+[style*="background-color: #fff"],
+[style*="background-color: #ffffff"],
+[style*="background: white"],
+[style*="background: #fff"],
+[style*="background: #ffffff"] {
+  background-color: var(--bg-dark) !important;
+  background: var(--bg-dark) !important;
 }
