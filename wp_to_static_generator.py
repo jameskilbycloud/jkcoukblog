@@ -557,6 +557,16 @@ class WordPressStaticGenerator:
         # Remove WordPress REST API links
         for link in soup.find_all('link', rel='https://api.w.org/'):
             link.decompose()
+        
+        # Remove Kadence WP footer credit/links
+        for link in soup.find_all('a', href=lambda x: x and 'kadencewp.com' in x):
+            # Remove the parent paragraph or just the link
+            parent = link.parent
+            if parent and parent.name == 'p' and 'WordPress Theme by' in parent.get_text():
+                parent.decompose()
+                print(f"   🗑️  Removed Kadence WP footer credit")
+            else:
+                link.decompose()
     
     def process_wordpress_embeds(self, soup):
         """Convert WordPress embed blocks to proper iframe embeds"""
