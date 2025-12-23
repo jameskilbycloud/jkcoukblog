@@ -153,6 +153,31 @@ blockquote {
   max-width: 1200px;
   margin: 0 auto;
 }
+
+/* Content freshness indicator */
+.content-freshness-indicator {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-left: 4px solid var(--accent-orange) !important;
+  color: var(--text-light) !important;
+  border-radius: 0 !important;
+  padding: 1rem 1.5rem !important;
+  margin: 1.5rem 0 !important;
+}
+
+.content-freshness-indicator strong {
+  color: var(--text-light) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}
+
+.content-freshness-indicator time {
+  color: var(--gray-light) !important;
+}
+
+.content-freshness-indicator span {
+  color: var(--text-light) !important;
+}
     </style>
 </head>
 <body>
@@ -169,6 +194,17 @@ blockquote {
                     By James • December 23, 2025
                 </div>
             </header>
+
+            <div class="content-freshness-indicator">
+                <span style="font-size: 16px; margin-right: 8px;">📅</span>
+                <span>
+                    <strong>Published: </strong>
+                    <time datetime="2025-12-23T10:00:00+00:00">December 23, 2025</time>
+                    <span style="margin: 0 8px; color: var(--gray-mid);">•</span>
+                    <strong>Updated: </strong>
+                    <time datetime="2025-12-23T10:24:00+00:00">December 23, 2025</time>
+                </span>
+            </div>
 
             <div class="entry-content">
                 <p>This is a preview of your blog with the new brutalist dark theme inspired by <a href="https://justfuckingusecloudflare.com">justfuckingusecloudflare.com</a>. The theme features:</p>
