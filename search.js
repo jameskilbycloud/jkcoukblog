@@ -19,16 +19,15 @@ console.log('[Search] Script loaded');
         }
         
         const searchHTML = `
-            <div id="blog-search-container" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 24px 16px; margin-bottom: 30px; box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);">
+            <div id="blog-search-container" style="padding: 16px; margin-bottom: 20px;">
                 <div style="max-width: 600px; margin: 0 auto;">
                     <div style="position: relative;">
                         <input type="text" 
                                id="blog-search-input" 
-                               placeholder="🔍 Search 160+ posts..." 
-                               style="width: 100%; padding: 14px 40px 14px 16px; font-size: 16px; border: none; border-radius: 8px; outline: none; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s ease; font-family: inherit;">
-                        <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #999; pointer-events: none;">⌘K</span>
+                               placeholder="🔍 Search posts..." 
+                               style="width: 100%; padding: 12px 40px 12px 16px; font-size: 15px; border: 1px solid #ddd; border-radius: 6px; outline: none; box-sizing: border-box; background: #fafafa; transition: all 0.2s ease; font-family: inherit;">
+                        <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #999; pointer-events: none; font-size: 12px;">⌘K</span>
                     </div>
-                    <div style="color: rgba(255,255,255,0.8); font-size: 13px; margin-top: 8px; text-align: center;">Press <kbd style="background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 3px; font-size: 12px;">Ctrl+K</kbd> to search</div>
                 </div>
             </div>
         `;
@@ -46,10 +45,14 @@ console.log('[Search] Script loaded');
         if (input) {
             input.addEventListener('input', debounce(handleSearch, 300));
             input.addEventListener('focus', function() {
-                this.style.boxShadow = '0 4px 20px rgba(102, 126, 234, 0.3), 0 0 0 3px rgba(102, 126, 234, 0.1)';
+                this.style.borderColor = '#0d6efd';
+                this.style.background = '#fff';
+                this.style.boxShadow = '0 0 0 3px rgba(13, 110, 253, 0.1)';
             });
             input.addEventListener('blur', function() {
-                this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                this.style.borderColor = '#ddd';
+                this.style.background = '#fafafa';
+                this.style.boxShadow = 'none';
             });
         }
     }
