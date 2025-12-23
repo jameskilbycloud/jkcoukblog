@@ -122,15 +122,15 @@ console.log('[Search] Script loaded');
     function displayResults(results, query) {
         hideResults();
         
-        let html = `<div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 99999; display: flex; align-items: flex-start; justify-content: center; padding: 40px 20px; overflow-y: auto; animation: fadeIn 0.2s ease;" onclick="if(event.target===this) this.remove()">
-            <div style="background: white; border-radius: 12px; max-width: 650px; width: 100%; max-height: 75vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: slideUp 0.3s ease;">
-                <div style="padding: 24px; border-bottom: 1px solid #e5e7eb; background: linear-gradient(135deg, #f5f7fa 0%, #f9fafb 100%); position: sticky; top: 0; z-index: 10;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <div style="font-size: 14px; color: #667eea; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Search Results</div>
-                            <div style="font-size: 18px; font-weight: 700; color: #111;">` + results.length + ` result` + (results.length !== 1 ? 's' : '') + ` for "<span style="color: #667eea;">` + escapeHtml(query) + `</span>"</div>
+        let html = `<div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px; overflow-y: auto; animation: fadeIn 0.2s ease;" onclick="if(event.target===this) this.remove()">
+            <div style="background: white; border-radius: 12px; max-width: 650px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: slideUp 0.3s ease; margin-top: 20px;">
+                <div style="padding: 20px; border-bottom: 1px solid #e5e7eb; background: #f9fafb; position: sticky; top: 0; z-index: 10;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;">
+                        <div style="flex: 1;">
+                            <div style="font-size: 13px; color: #667eea; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Search Results</div>
+                            <div style="font-size: 16px; font-weight: 700; color: #111; word-break: break-word;">` + results.length + ` result` + (results.length !== 1 ? 's' : '') + `</div>
                         </div>
-                        <button onclick="this.closest('[style*=\"position: fixed\"]').remove()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #999; padding: 0; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.background='#f0f0f0'; this.style.color='#111'" onmouseout="this.style.background='none'; this.style.color='#999'">×</button>
+                        <button onclick="this.closest('[style*=\"position: fixed\"]').remove()" style="background: #f0f0f0; border: none; font-size: 20px; cursor: pointer; color: #333; padding: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 6px; transition: all 0.2s; flex-shrink: 0;" onmouseover="this.style.background='#e0e0e0'" onmouseout="this.style.background='#f0f0f0'">×</button>
                     </div>
                 </div>
                 <div style="overflow-y: auto; max-height: calc(75vh - 120px);">`;
@@ -144,13 +144,13 @@ console.log('[Search] Script loaded');
         } else {
             results.slice(0, 10).forEach((r, idx) => {
                 const item = r.item;
-                html += `<a href="` + item.url + `" style="display: block; padding: 20px 24px; border-bottom: 1px solid #f0f0f0; text-decoration: none; color: inherit; transition: all 0.15s;" onmouseover="this.style.background='#f9fafb'; this.style.paddingLeft='28px'" onmouseout="this.style.background='white'; this.style.paddingLeft='24px'">
-                    <div style="display: flex; align-items: flex-start; gap: 12px;">
-                        <div style="flex-shrink: 0; width: 24px; height: 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 600; margin-top: 2px;">` + (idx + 1) + `</div>
+                html += `<a href="` + item.url + `" style="display: block; padding: 16px; border-bottom: 1px solid #f0f0f0; text-decoration: none; color: inherit; transition: all 0.15s;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
+                    <div style="display: flex; align-items: flex-start; gap: 10px;">
+                        <div style="flex-shrink: 0; width: 28px; height: 28px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 600;">` + (idx + 1) + `</div>
                         <div style="flex: 1; min-width: 0;">
-                            <div style="font-size: 15px; font-weight: 600; color: #111; margin-bottom: 6px; line-height: 1.4;">` + escapeHtml(item.title) + `</div>
-                            <div style="font-size: 13px; color: #666; margin-bottom: 8px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">` + escapeHtml((item.description || '').substring(0, 120)) + `</div>
-                            <div style="font-size: 12px; color: #999;">` + item.url.replace('https://jameskilby.co.uk', '') + `</div>
+                            <div style="font-size: 14px; font-weight: 600; color: #111; margin-bottom: 4px; line-height: 1.3;">` + escapeHtml(item.title) + `</div>
+                            <div style="font-size: 12px; color: #666; margin-bottom: 6px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">` + escapeHtml((item.description || '').substring(0, 100)) + `</div>
+                            <div style="font-size: 11px; color: #999; word-break: break-all;">` + item.url.replace('https://jameskilby.co.uk', '') + `</div>
                         </div>
                     </div>
                 </a>`;
