@@ -1,0 +1,20 @@
+[
+  {
+    "timestamp": "2025-12-23T22:08:16.798115Z",
+    "site_domain": "https://jameskilby.co.uk",
+    "results": {
+      "total_urls": 163,
+      "batches": 1,
+      "successful_batches": 1,
+      "failed_batches": 0,
+      "responses": [
+        {
+          "batch": 1,
+          "endpoint": "https://api.indexnow.org/indexnow",
+          "status_code": 202,
+          "success": true
+        }
+      ]
+    }
+  }
+]
