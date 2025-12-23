@@ -98,7 +98,7 @@ console.log('[Search] Script loaded');
     
     function loadFuse(callback) {
         const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0'\;
+        script.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0';
         script.onload = () => {
             fuse = new window.Fuse(searchIndex, {
                 keys: ['title', 'description', 'content'],
