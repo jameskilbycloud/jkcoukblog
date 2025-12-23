@@ -1668,7 +1668,7 @@ class WordPressStaticGenerator:
             "  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=()",
             "  ",
             "  # Content Security Policy - controls what resources can load",
-            "  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https: cdn.jsdelivr.net plausible.jameskilby.cloud utteranc.es github.com static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https: github.com; img-src 'self' data: https:; font-src 'self' data: https:; connect-src 'self' https: plausible.jameskilby.cloud; frame-src https://www.youtube.com https://player.vimeo.com https://utteranc.es https://plausible.jameskilby.cloud; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'",
+            "  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https: cdn.jsdelivr.net plausible.jameskilby.cloud utteranc.es github.com static.cloudflareinsights.com cdn.credly.com cdn.youracclaim.com; style-src 'self' 'unsafe-inline' https: github.com; img-src 'self' data: https:; font-src 'self' data: https:; connect-src 'self' https: plausible.jameskilby.cloud; frame-src https://www.youtube.com https://player.vimeo.com https://utteranc.es https://plausible.jameskilby.cloud https://www.credly.com https://www.youracclaim.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'",
         ]
         
         headers_file = self.output_dir / '_headers'
