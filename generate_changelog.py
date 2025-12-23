@@ -377,6 +377,10 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
             border-bottom: 2px solid var(--gray-mid);
         }}
         
+        .changelog-section p {{
+            color: var(--gray-light);
+        }}
+        
         .change-entry {{
             margin-bottom: 30px;
             padding-left: 20px;

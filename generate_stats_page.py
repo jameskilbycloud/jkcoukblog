@@ -303,6 +303,24 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
             letter-spacing: 0.02em;
         }}
         
+        .section p {{
+            color: var(--gray-light);
+        }}
+        
+        .section ul {{
+            color: var(--gray-light);
+        }}
+        
+        .section a {{
+            color: var(--accent-orange);
+            text-decoration: none;
+        }}
+        
+        .section a:hover {{
+            text-decoration: underline;
+            opacity: 0.8;
+        }}
+        
         .lighthouse-grid {{
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -586,7 +604,7 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
             <p>Privacy-friendly analytics with no cookies or tracking. Data is aggregated and anonymous.</p>
             
             <div class="info-box">
-                <p><strong>🔒 Privacy First:</strong> This site uses <a href="https://plausible.io" target="_blank" style="color: #4299e1;">Plausible Analytics</a> - a privacy-friendly alternative to Google Analytics.</p>
+                <p><strong>🔒 Privacy First:</strong> This site uses <a href="https://plausible.io" target="_blank">Plausible Analytics</a> - a privacy-friendly alternative to Google Analytics.</p>
                 <p><strong>✅ No cookies, no tracking, no personal data collection</strong></p>
                 <p><strong>📊 Transparent:</strong> All data is publicly shared below with full transparency</p>
             </div>
@@ -603,7 +621,7 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
         <div class="section">
             <h2>ℹ️ About This Page</h2>
             <p>This statistics page is automatically generated on every deployment and includes:</p>
-            <ul style="margin-top: 15px; margin-left: 20px; color: #4a5568;">
+            <ul style="margin-top: 15px; margin-left: 20px;">
                 <li><strong>Lighthouse Scores:</strong> Performance metrics from Google's Lighthouse CI</li>
                 <li><strong>Build Metrics:</strong> Statistics about the static site generation process</li>
                 <li><strong>Git Statistics:</strong> Deployment frequency and commit history</li>
@@ -613,7 +631,7 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
             <div class="info-box" style="margin-top: 20px;">
                 <p><strong>🔄 Auto-Updated:</strong> This page regenerates with every site deployment</p>
                 <p><strong>🌐 Public:</strong> All metrics are openly shared for transparency</p>
-                <p><strong>💻 Open Source:</strong> Check the <a href="https://github.com/jameskilbynet/jkcoukblog" target="_blank" style="color: #4299e1;">GitHub repository</a> to see how this works</p>
+                <p><strong>💻 Open Source:</strong> Check the <a href="https://github.com/jameskilbynet/jkcoukblog" target="_blank">GitHub repository</a> to see how this works</p>
             </div>
         </div>
         
