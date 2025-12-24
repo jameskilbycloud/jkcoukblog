@@ -27,6 +27,12 @@ python3 test_search.py
 
 # Test environment configuration (runner validation)
 python3 test_runner_env.py
+
+# Test live site formatting and structure
+python3 test_live_site_formatting.py
+
+# Test staging site
+python3 test_live_site_formatting.py --url https://jkcoukblog.pages.dev
 ```
 
 ### Search Index
@@ -57,6 +63,12 @@ gh workflow run deploy-static-site.yml
 
 # View workflow runs
 gh run list --workflow=deploy-static-site.yml
+
+# Manually trigger live site testing
+gh workflow run test-live-site.yml
+
+# Test staging site
+gh workflow run test-live-site.yml -f test_url='https://jkcoukblog.pages.dev'
 ```
 
 ## Architecture
@@ -294,6 +306,8 @@ pip install requests beautifulsoup4
 - `SEO_QUICK_WINS.md` - SEO optimization notes
 - `SPELL_CHECK_TRACKING.md` - Spell check tracking system
 - `INDEXNOW_IMPLEMENTATION.md` - IndexNow integration for instant search engine notifications
+- `LIVE_SITE_FORMATTING_TESTS.md` - Live site formatting and structure validation
+- `GITHUB_ACTIONS_LIVE_SITE_TESTING.md` - GitHub Actions workflow for automated live site testing
 
 ## WordPress-Specific Notes
 
