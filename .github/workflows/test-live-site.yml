@@ -137,10 +137,16 @@ jobs:
         echo "*Triggered by: @${{ github.actor }}*" >> $GITHUB_STEP_SUMMARY
         
     - name: Send Slack notification
-      if: always() && secrets.SLACK_WEBHOOK_URL != ''
+      if: always()
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       run: |
+        # Check if Slack webhook is configured
+        if [ -z "$SLACK_WEBHOOK_URL" ]; then
+          echo "ℹ️  SLACK_WEBHOOK_URL not configured, skipping Slack notification"
+          exit 0
+        fi
+        
         # Determine overall status
         MAIN_STATUS="${{ steps.test_main.outputs.EXIT_CODE }}"
         
