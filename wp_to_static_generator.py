@@ -1997,6 +1997,26 @@ class WordPressStaticGenerator:
         print(f"   ✅ Created RSS feed with {len(posts)} posts")
         print(f"   📡 Feed URL: {self.target_domain}/feed/index.xml")
     
+    def copy_assets(self):
+        """Copy assets directory (fonts, CSS, etc.) to output"""
+        print("📦 Copying static assets...")
+        
+        # Copy assets directory from project root
+        assets_src = Path(__file__).parent / 'assets'
+        assets_dest = self.output_dir / 'assets'
+        
+        if assets_src.exists():
+            shutil.copytree(assets_src, assets_dest, dirs_exist_ok=True)
+            
+            # Count files copied
+            file_count = sum(1 for _ in assets_dest.rglob('*') if _.is_file())
+            total_size = sum(f.stat().st_size for f in assets_dest.rglob('*') if f.is_file())
+            
+            print(f"   ✅ Copied {file_count} asset files ({total_size / 1024:.1f}KB)")
+            print(f"   📁 Assets directory: {assets_dest}")
+        else:
+            print(f"   ℹ️  No assets directory found at {assets_src}")
+    
     def copy_search_script(self):
         """Copy search script to public/js directory"""
         print("📋 Copying search script...")
@@ -2225,6 +2245,10 @@ class WordPressStaticGenerator:
         # Download assets
         print(f"\\n📁 Asset Processing:")
         self.download_assets()
+        
+        # Copy static assets (fonts, CSS, etc.)
+        print(f"\n📦 Static Assets:")
+        self.copy_assets()
         
         # Create additional files
         print(f"\n📄 Creating additional files:")
