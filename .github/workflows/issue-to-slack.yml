@@ -1,4 +1,4 @@
-name: Notify Slack on Issue Creation
+name: Issue Comment Creation
 
 on:
   issues:
