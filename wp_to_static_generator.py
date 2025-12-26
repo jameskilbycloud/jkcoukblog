@@ -30,6 +30,8 @@ class WordPressStaticGenerator:
         })
         self.downloaded_assets = set()
         self.processed_urls = set()
+        self.extracted_css_files = {}  # Map CSS hash to filename
+        self.css_output_dir = self.output_dir / 'assets' / 'css'
         
     def get_all_content_urls(self):
         """Get all content URLs from WordPress REST API"""
@@ -235,6 +237,9 @@ class WordPressStaticGenerator:
         
         # Fix inline CSS font URLs
         self.fix_inline_css_urls(soup)
+        
+        # Extract inline CSS to external files
+        self.extract_inline_css(soup, current_url)
         
         # Process WordPress embeds (convert to proper iframes)
         self.process_wordpress_embeds(soup)
@@ -745,6 +750,69 @@ class WordPressStaticGenerator:
                 if updated_css != css_content:
                     style_tag.string = updated_css
                     print(f"   🎨 Fixed inline CSS font URLs")
+    
+    def extract_inline_css(self, soup, current_url):
+        """Extract inline CSS to external files to reduce HTML payload"""
+        import hashlib
+        
+        # Find all inline style tags
+        style_tags = soup.find_all('style')
+        
+        if not style_tags:
+            return
+        
+        # Ensure CSS output directory exists
+        self.css_output_dir.mkdir(parents=True, exist_ok=True)
+        
+        for style_tag in style_tags:
+            # Skip empty style tags
+            if not style_tag.string or not style_tag.string.strip():
+                continue
+            
+            # Get style ID if present
+            style_id = style_tag.get('id', 'inline-styles')
+            css_content = style_tag.string
+            
+            # Skip very small CSS blocks (< 100 bytes) - not worth extracting
+            if len(css_content) < 100:
+                continue
+            
+            # Create a hash of the CSS content for deduplication
+            css_hash = hashlib.md5(css_content.encode()).hexdigest()[:8]
+            
+            # Check if we've already created a file for this CSS content
+            if css_hash in self.extracted_css_files:
+                css_filename = self.extracted_css_files[css_hash]
+            else:
+                # Create external CSS file
+                css_filename = f"{style_id}-{css_hash}.min.css"
+                css_file_path = self.css_output_dir / css_filename
+                
+                # Write CSS to external file
+                css_file_path.write_text(css_content, encoding='utf-8')
+                self.extracted_css_files[css_hash] = css_filename
+                print(f"   📄 Created CSS: /assets/css/{css_filename}")
+            
+            # Calculate relative path from current HTML file to CSS file
+            # Determine the depth of the current URL
+            url_depth = len([p for p in current_url.strip('/').split('/') if p])
+            
+            # Build relative path
+            if url_depth == 0:
+                # Root level (e.g., /)
+                css_path = f"assets/css/{css_filename}"
+            else:
+                # Nested pages - go up the appropriate number of levels
+                css_path = '../' * url_depth + f"assets/css/{css_filename}"
+            
+            # Create link tag to replace inline style
+            link_tag = soup.new_tag('link')
+            link_tag['rel'] = 'stylesheet'
+            link_tag['href'] = css_path
+            link_tag['media'] = 'all'
+            
+            # Replace inline style with link tag
+            style_tag.replace_with(link_tag)
     
     def add_utterances_comments(self, soup):
         """Add Utterances comments section to the page"""
