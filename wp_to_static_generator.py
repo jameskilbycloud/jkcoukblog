@@ -256,6 +256,9 @@ class WordPressStaticGenerator:
         # Fix missing H1 on homepage
         self.fix_homepage_h1(soup, current_url)
         
+        # Fix table structure (add proper header rows)
+        self.fix_table_headers(soup)
+        
         # Convert to string
         return str(soup)
     
@@ -1412,6 +1415,73 @@ class WordPressStaticGenerator:
             title_elem.replace_with(h1_tag)
             
             print(f"   ✅ Converted {old_tag_name}.site-title to H1 on homepage")
+    
+    def fix_table_headers(self, soup):
+        """Fix table structure by converting first row to proper thead with th elements"""
+        # Find all tables
+        tables = soup.find_all('table')
+        
+        if not tables:
+            return
+        
+        fixed_count = 0
+        
+        for table in tables:
+            # Check if table already has a thead
+            if table.find('thead'):
+                continue
+            
+            # Find tbody
+            tbody = table.find('tbody')
+            if not tbody:
+                continue
+            
+            # Get the first row
+            first_row = tbody.find('tr')
+            if not first_row:
+                continue
+            
+            # Check if first row contains only td elements (potential header)
+            cells = first_row.find_all(['td', 'th'])
+            if not cells:
+                continue
+            
+            # Only convert if all cells are td (not already th)
+            all_td = all(cell.name == 'td' for cell in cells)
+            if not all_td:
+                continue
+            
+            # Create new thead element
+            thead = soup.new_tag('thead')
+            
+            # Create new tr for the header
+            header_row = soup.new_tag('tr')
+            
+            # Convert each td to th
+            for cell in cells:
+                th = soup.new_tag('th')
+                # Copy all attributes
+                for attr, value in cell.attrs.items():
+                    th[attr] = value
+                # Copy all children (preserves inner structure)
+                for child in list(cell.children):
+                    th.append(child.extract())
+                header_row.append(th)
+            
+            # Add the header row to thead
+            thead.append(header_row)
+            
+            # Remove the first row from tbody
+            first_row.decompose()
+            
+            # Insert thead before tbody in the table
+            tbody.insert_before(thead)
+            
+            fixed_count += 1
+            print(f"   📊 Converted table first row to proper header (thead with th elements)")
+        
+        if fixed_count > 0:
+            print(f"   ✅ Fixed {fixed_count} table(s) with proper semantic structure")
     
     def extract_assets(self, soup, current_url):
         """Extract asset URLs for later download"""
