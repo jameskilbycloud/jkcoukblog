@@ -1,0 +1,196 @@
+name: Rollback Site to Previous Commit
+
+on:
+  workflow_dispatch:        # Manual trigger only
+
+jobs:
+  rollback:
+    runs-on: self-hosted
+    timeout-minutes: 10
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Fetch full history to see previous commits
+        
+    - name: Validate rollback is possible
+      run: |
+        echo "🔍 Checking if rollback is possible..."
+        
+        # Get current commit and previous commit
+        CURRENT_COMMIT=$(git rev-parse HEAD)
+        PREVIOUS_COMMIT=$(git rev-parse HEAD~1)
+        
+        echo "📌 Current commit: $CURRENT_COMMIT"
+        echo "📌 Previous commit: $PREVIOUS_COMMIT"
+        
+        # Check if previous commit exists
+        if [ -z "$PREVIOUS_COMMIT" ]; then
+          echo "❌ No previous commit found. Cannot rollback."
+          exit 1
+        fi
+        
+        # Show what we're rolling back
+        echo ""
+        echo "📋 Current commit details:"
+        git log -1 --pretty=format:"  Author: %an%n  Date: %ad%n  Message: %s" HEAD
+        echo ""
+        echo ""
+        echo "📋 Rolling back to:"
+        git log -1 --pretty=format:"  Author: %an%n  Date: %ad%n  Message: %s" HEAD~1
+        echo ""
+        
+        # Save for later steps
+        echo "CURRENT_COMMIT=$CURRENT_COMMIT" >> $GITHUB_ENV
+        echo "PREVIOUS_COMMIT=$PREVIOUS_COMMIT" >> $GITHUB_ENV
+        
+    - name: Perform rollback
+      run: |
+        echo "🔄 Rolling back to previous commit..."
+        
+        # Configure git
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # Sync with remote
+        git fetch origin
+        git reset --hard origin/main
+        
+        # Revert to previous commit (create a new commit that undoes the last one)
+        git revert HEAD --no-edit -m 1 2>/dev/null || git revert HEAD --no-edit
+        
+        # Update commit message to be more descriptive
+        ROLLED_BACK_COMMIT=$(git log -1 --pretty=format:"%s" HEAD~1)
+        git commit --amend -m "⏮️ Rollback: Revert to previous version
+
+Rolled back from: ${{ env.CURRENT_COMMIT }}
+Reverted to: ${{ env.PREVIOUS_COMMIT }}
+Original commit: $ROLLED_BACK_COMMIT
+
+Triggered by: ${{ github.actor }}
+Date: $(date '+%Y-%m-%d %H:%M:%S')
+
+Co-Authored-By: Warp <agent@warp.dev>"
+        
+        echo "✅ Rollback commit created"
+        
+    - name: Push rollback
+      run: |
+        echo "📤 Pushing rollback to remote..."
+        
+        if git push origin main; then
+          echo "✅ Rollback pushed successfully"
+        else
+          echo "⚠️ Push failed, trying with force-with-lease..."
+          git push --force-with-lease origin main
+        fi
+        
+        NEW_COMMIT=$(git rev-parse HEAD)
+        echo "NEW_COMMIT=$NEW_COMMIT" >> $GITHUB_ENV
+        
+        echo "✅ Site rolled back successfully"
+        echo "🌐 Cloudflare Pages will auto-deploy the rolled-back version"
+        
+    - name: Generate summary
+      run: |
+        echo "## ⏮️ Rollback Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Status:** ✅ Successfully rolled back" >> $GITHUB_STEP_SUMMARY
+        echo "- **Rolled back from:** \`${{ env.CURRENT_COMMIT }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Reverted to:** \`${{ env.PREVIOUS_COMMIT }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **New commit:** \`${{ env.NEW_COMMIT }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Triggered by:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Cloudflare Pages:** Will auto-deploy the rolled-back version" >> $GITHUB_STEP_SUMMARY
+        
+    - name: Notify Slack on Success
+      if: success()
+      uses: slackapi/slack-github-action@v2.0.0
+      with:
+        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+        webhook-type: incoming-webhook
+        payload: |
+          {
+            "channel": "#web",
+            "username": "GitHub Actions",
+            "icon_emoji": ":github:",
+            "attachments": [
+              {
+                "color": "warning",
+                "title": "⏮️ jkcoukblog Site Rolled Back",
+                "text": "The site has been rolled back to the previous version.",
+                "fields": [
+                  {
+                    "title": "Rolled back from",
+                    "value": "${{ env.CURRENT_COMMIT }}",
+                    "short": true
+                  },
+                  {
+                    "title": "Reverted to",
+                    "value": "${{ env.PREVIOUS_COMMIT }}",
+                    "short": true
+                  },
+                  {
+                    "title": "Triggered by",
+                    "value": "${{ github.actor }}",
+                    "short": true
+                  },
+                  {
+                    "title": "New Commit",
+                    "value": "${{ env.NEW_COMMIT }}",
+                    "short": true
+                  }
+                ],
+                "footer": "🌐 Cloudflare Pages will now deploy the rolled-back version",
+                "footer_icon": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+                "actions": [
+                  {
+                    "type": "button",
+                    "text": "View Workflow",
+                    "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  }
+                ]
+              }
+            ]
+          }
+        
+    - name: Notify Slack on Failure  
+      if: failure()
+      uses: slackapi/slack-github-action@v2.0.0
+      with:
+        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+        webhook-type: incoming-webhook
+        payload: |
+          {
+            "channel": "#web",
+            "username": "GitHub Actions",
+            "icon_emoji": ":github:",
+            "attachments": [
+              {
+                "color": "danger",
+                "title": "❌ jkcoukblog Rollback Failed",
+                "text": "Failed to rollback the site to the previous version!",
+                "fields": [
+                  {
+                    "title": "Triggered by",
+                    "value": "${{ github.actor }}",
+                    "short": true
+                  },
+                  {
+                    "title": "Branch",
+                    "value": "${{ github.ref_name }}",
+                    "short": true
+                  }
+                ],
+                "footer": "Please check the GitHub Actions logs for details",
+                "footer_icon": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+                "actions": [
+                  {
+                    "type": "button",
+                    "text": "View Workflow Logs",
+                    "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  }
+                ]
+              }
+            ]
+          }
