@@ -333,6 +333,58 @@ jobs:
           echo "SAVED_MB=0.0" >> $GITHUB_ENV
         fi
       continue-on-error: true
+    
+    - name: Brotli compress static files
+      timeout-minutes: 10
+      run: |
+        echo "🗜️  Compressing static files with Brotli..."
+        
+        # Run Brotli compression
+        python3 brotli_compress.py ./public || {
+          echo "⚠️  Brotli compression failed (non-blocking)"
+          echo "BROTLI_COUNT=0" >> $GITHUB_ENV
+          echo "BROTLI_SAVED_MB=0.0" >> $GITHUB_ENV
+          exit 0
+        }
+        
+        # Count compressed files
+        BROTLI_COUNT=$(find ./public -name "*.br" -type f | wc -l | xargs)
+        
+        # Calculate total size of .br files
+        BROTLI_SIZE=$(find ./public -name "*.br" -type f -exec ls -l {} \; | awk '{sum+=$5} END {print sum}')
+        BROTLI_SIZE_MB=$(echo "scale=2; $BROTLI_SIZE / 1024 / 1024" | bc)
+        
+        # Calculate original size for comparison
+        ORIGINAL_SIZE=$(find ./public -type f \( -name "*.html" -o -name "*.css" -o -name "*.js" -o -name "*.json" -o -name "*.xml" -o -name "*.svg" \) -exec ls -l {} \; | awk '{sum+=$5} END {print sum}')
+        ORIGINAL_SIZE_MB=$(echo "scale=2; $ORIGINAL_SIZE / 1024 / 1024" | bc)
+        
+        # Calculate savings
+        BROTLI_SAVED=$(echo "$ORIGINAL_SIZE - $BROTLI_SIZE" | bc)
+        BROTLI_SAVED_MB=$(echo "scale=2; $BROTLI_SAVED / 1024 / 1024" | bc)
+        BROTLI_RATIO=$(echo "scale=1; (1 - $BROTLI_SIZE / $ORIGINAL_SIZE) * 100" | bc)
+        
+        echo "📊 Brotli Compression Results:"
+        echo "   • Files compressed: $BROTLI_COUNT"
+        echo "   • Original size: ${ORIGINAL_SIZE_MB}MB"
+        echo "   • Compressed size: ${BROTLI_SIZE_MB}MB"
+        echo "   • Space saved: ${BROTLI_SAVED_MB}MB"
+        echo "   • Compression ratio: ${BROTLI_RATIO}%"
+        
+        # Save to environment
+        echo "BROTLI_COUNT=$BROTLI_COUNT" >> $GITHUB_ENV
+        echo "BROTLI_SAVED_MB=$BROTLI_SAVED_MB" >> $GITHUB_ENV
+        echo "BROTLI_RATIO=$BROTLI_RATIO" >> $GITHUB_ENV
+        
+        # Add to GitHub Actions summary
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## 🗜️ Brotli Compression Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Files Compressed:** $BROTLI_COUNT" >> $GITHUB_STEP_SUMMARY
+        echo "- **Original Size:** ${ORIGINAL_SIZE_MB} MB" >> $GITHUB_STEP_SUMMARY
+        echo "- **Compressed Size:** ${BROTLI_SIZE_MB} MB" >> $GITHUB_STEP_SUMMARY
+        echo "- **Space Saved:** ${BROTLI_SAVED_MB} MB" >> $GITHUB_STEP_SUMMARY
+        echo "- **Compression Ratio:** ${BROTLI_RATIO}%" >> $GITHUB_STEP_SUMMARY
+      continue-on-error: true
         
     - name: Commit and push static site
       timeout-minutes: 10  # Timeout for git operations
@@ -376,6 +428,7 @@ jobs:
         python3 submit_indexnow.py ./public || echo "⚠️  IndexNow submission failed (non-blocking)"
         
         # Check if there are changes to commit
+        # Note: .br files are automatically included in public/
         git add public/ .last_spell_check_timestamp .image_optimization_cache/ .indexnow_key indexnow-submission.json 2>/dev/null || true
         
         if [ -n "$(git diff --cached)" ]; then
