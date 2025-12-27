@@ -1,0 +1,118 @@
+name: Handle Spell Check Approval
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  handle-approval:
+    # Only run on issues with the spell-check label
+    if: |
+      contains(github.event.issue.labels.*.name, 'spell-check') &&
+      contains(github.event.issue.labels.*.name, 'awaiting-approval')
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check for approval command
+      id: check-command
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const comment = context.payload.comment.body.trim().toLowerCase();
+          const isApprove = comment === '/approve';
+          const isReject = comment === '/reject';
+          
+          console.log(`Comment: ${comment}`);
+          console.log(`Is approve: ${isApprove}`);
+          console.log(`Is reject: ${isReject}`);
+          
+          return { approve: isApprove, reject: isReject };
+    
+    - name: Extract run ID from issue
+      if: fromJSON(steps.check-command.outputs.result).approve
+      id: extract-run-id
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const issueBody = context.payload.issue.body;
+          const runMatch = issueBody.match(/Run #(\d+)/);
+          
+          if (runMatch) {
+            const runId = runMatch[1];
+            console.log(`Found run ID: ${runId}`);
+            return runId;
+          }
+          
+          throw new Error('Could not find run ID in issue');
+    
+    - name: Trigger corrections application
+      if: fromJSON(steps.check-command.outputs.result).approve
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const runId = ${{ steps.extract-run-id.outputs.result }};
+          
+          // Create a repository dispatch event to trigger the apply job
+          await github.rest.repos.createDispatchEvent({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            event_type: 'apply-spell-corrections',
+            client_payload: {
+              issue_number: context.issue.number,
+              run_id: runId,
+              approved_by: context.actor
+            }
+          });
+          
+          // Add a comment to acknowledge
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body: `✅ Approval received from @${context.actor}. Applying corrections to WordPress...`
+          });
+          
+          // Update labels
+          await github.rest.issues.removeLabel({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            name: 'awaiting-approval'
+          });
+          
+          await github.rest.issues.addLabels({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            labels: ['applying-corrections']
+          });
+    
+    - name: Handle rejection
+      if: fromJSON(steps.check-command.outputs.result).reject
+      uses: actions/github-script@v7
+      with:
+        script: |
+          // Add a comment
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body: `❌ Corrections rejected by @${context.actor}. Closing issue without applying changes.`
+          });
+          
+          // Close the issue
+          await github.rest.issues.update({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            state: 'closed'
+          });
+          
+          // Update labels
+          await github.rest.issues.removeLabel({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            name: 'awaiting-approval'
+          });

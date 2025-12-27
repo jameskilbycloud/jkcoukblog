@@ -1,0 +1,308 @@
+name: Spell Check and Fix WordPress Content
+
+on:
+  workflow_dispatch:      # Manual trigger only
+    inputs:
+      post_count:
+        description: 'Number of posts to check (ignored if check_modified is true)'
+        required: false
+        default: '5'
+      check_modified:
+        description: 'Only check posts modified since last run'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  spell-check:
+    runs-on: self-hosted  # Self-hosted to access WordPress behind Cloudflare Access
+    timeout-minutes: 20
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        echo "🔧 Installing Python dependencies..."
+        pip install requests beautifulsoup4
+        echo "✅ Dependencies installed"
+        
+    - name: Run spell check and generate corrections
+      id: spell-check
+      timeout-minutes: 15
+      env:
+        WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+        OLLAMA_API_CREDENTIALS: ${{ secrets.OLLAMA_API_CREDENTIALS }}
+        WP_URL: https://wordpress.jameskilby.cloud
+        OLLAMA_URL: https://ollama.jameskilby.cloud
+        OLLAMA_MODEL: llama3.1:8b
+      run: |
+        echo "🚀 Starting spell check..."
+        
+        CHECK_MODIFIED="${{ github.event.inputs.check_modified || 'false' }}"
+        TIMESTAMP_FILE=".last_spell_check_timestamp"
+        
+        if [ "$CHECK_MODIFIED" = "true" ] && [ -f "$TIMESTAMP_FILE" ]; then
+          LAST_CHECK=$(cat "$TIMESTAMP_FILE")
+          echo "📅 Checking posts modified since: $LAST_CHECK"
+          export SINCE_TIMESTAMP="$LAST_CHECK"
+          
+          # Run spell checker for modified posts only
+          ./wp_spell_check_and_fix.py --check-only || SPELL_CHECK_FAILED=1
+        else
+          POST_COUNT="${{ github.event.inputs.post_count || '5' }}"
+          echo "📝 Checking $POST_COUNT most recent posts"
+          
+          # Run spell checker
+          ./wp_spell_check_and_fix.py --check-only --count $POST_COUNT || SPELL_CHECK_FAILED=1
+        fi
+        
+        # Save results
+        if [ "$SPELL_CHECK_FAILED" = "1" ]; then
+          echo "status=errors_found" >> $GITHUB_OUTPUT
+          echo "⚠️  Spelling errors detected"
+        else
+          echo "status=clean" >> $GITHUB_OUTPUT
+          echo "✅ No spelling errors found"
+        fi
+        
+    - name: Upload spell check report
+      if: steps.spell-check.outputs.status == 'errors_found'
+      uses: actions/upload-artifact@v4
+      with:
+        name: spelling-corrections-${{ github.run_id }}
+        path: |
+          spelling_corrections_report.md
+          spelling_corrections.json
+        retention-days: 30
+        
+    - name: Create issue with corrections for approval
+      if: steps.spell-check.outputs.status == 'errors_found'
+      uses: actions/github-script@v7
+      id: create-issue
+      with:
+        script: |
+          const fs = require('fs');
+          
+          // Read the report
+          let report = '';
+          try {
+            report = fs.readFileSync('spelling_corrections_report.md', 'utf8');
+          } catch (error) {
+            report = '⚠️ Could not read report file';
+          }
+          
+          // Create issue with corrections
+          const issue = await github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: `Spell Check: Corrections Needed (Run #${context.runId})`,
+            body: `## 📝 Spelling Corrections Proposed
+          
+          ${report}
+          
+          ---
+          
+          ## ✅ Approve and Apply Corrections
+          
+          To apply these corrections to WordPress:
+          
+          1. Review the corrections above
+          2. If you approve, comment on this issue with: \`/approve\`
+          3. The workflow will automatically apply the corrections to WordPress
+          
+          ## ❌ Reject Corrections
+          
+          To reject these corrections:
+          
+          1. Comment on this issue with: \`/reject\`
+          2. Close this issue
+          
+          ---
+          
+          **Workflow Run:** [View Details](${context.payload.repository.html_url}/actions/runs/${context.runId})
+          **Artifact:** [Download Full Report](${context.payload.repository.html_url}/actions/runs/${context.runId})`,
+            labels: ['spell-check', 'awaiting-approval']
+          });
+          
+          console.log(`Created issue #${issue.data.number}`);
+          return issue.data.number;
+        
+    - name: Wait for approval
+      if: steps.spell-check.outputs.status == 'errors_found'
+      run: |
+        echo "⏳ Waiting for manual approval..."
+        echo "Please review the issue and comment with /approve or /reject"
+        echo "Issue: ${{ steps.create-issue.outputs.result }}"
+        
+    - name: Notify Slack - Corrections Pending
+      if: steps.spell-check.outputs.status == 'errors_found'
+      uses: slackapi/slack-github-action@v2.0.0
+      with:
+        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+        webhook-type: incoming-webhook
+        payload: |
+          {
+            "channel": "#web",
+            "username": "GitHub Actions",
+            "icon_emoji": ":github:",
+            "attachments": [
+              {
+                "color": "warning",
+                "title": "⚠️ WordPress Spell Check - Corrections Pending Approval",
+                "text": "Spelling errors found. Please review and approve corrections.",
+                "fields": [
+                  {
+                    "title": "Posts Checked",
+                    "value": "${{ github.event.inputs.post_count || '5' }}",
+                    "short": true
+                  },
+                  {
+                    "title": "Status",
+                    "value": "Awaiting Approval",
+                    "short": true
+                  }
+                ],
+                "actions": [
+                  {
+                    "type": "button",
+                    "text": "Review Issue",
+                    "url": "${{ github.server_url }}/${{ github.repository }}/issues/${{ steps.create-issue.outputs.result }}"
+                  },
+                  {
+                    "type": "button",
+                    "text": "View Report",
+                    "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  }
+                ]
+              }
+            ]
+          }
+        
+    - name: Notify Slack - No Errors
+      if: steps.spell-check.outputs.status == 'clean'
+      uses: slackapi/slack-github-action@v2.0.0
+      with:
+        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+        webhook-type: incoming-webhook
+        payload: |
+          {
+            "channel": "#web",
+            "username": "GitHub Actions",
+            "icon_emoji": ":github:",
+            "attachments": [
+              {
+                "color": "good",
+                "title": "✅ WordPress Spell Check Passed",
+                "text": "All posts are clean!",
+                "fields": [
+                  {
+                    "title": "Posts Checked",
+                    "value": "${{ github.event.inputs.post_count || '5' }}",
+                    "short": true
+                  },
+                  {
+                    "title": "Triggered By",
+                    "value": "${{ github.actor }}",
+                    "short": true
+                  }
+                ]
+              }
+            ]
+          }
+
+  # This job runs when someone approves the corrections
+  apply-corrections:
+    runs-on: self-hosted
+    timeout-minutes: 15
+    # This job is triggered manually through repository_dispatch or workflow_dispatch
+    # after approval is given in the issue
+    if: github.event_name == 'repository_dispatch' && github.event.action == 'apply-spell-corrections'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        pip install requests beautifulsoup4
+        
+    - name: Download corrections artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: spelling-corrections-${{ github.event.client_payload.run_id }}
+        
+    - name: Apply corrections to WordPress
+      env:
+        WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+        WP_URL: https://wordpress.jameskilby.cloud
+      run: |
+        echo "🔧 Applying spelling corrections to WordPress..."
+        
+        ./wp_spell_check_and_fix.py --apply-from-file spelling_corrections.json
+        
+        echo "✅ Corrections applied successfully"
+        
+    - name: Update timestamp
+      run: |
+        date -u +"%Y-%m-%dT%H:%M:%SZ" > .last_spell_check_timestamp
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add .last_spell_check_timestamp
+        git commit -m "Update spell check timestamp after applying corrections" || true
+        git push || true
+        
+    - name: Close issue
+      uses: actions/github-script@v7
+      with:
+        script: |
+          await github.rest.issues.update({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: ${{ github.event.client_payload.issue_number }},
+            state: 'closed'
+          });
+          
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: ${{ github.event.client_payload.issue_number }},
+            body: '✅ Spelling corrections have been applied to WordPress successfully!'
+          });
+        
+    - name: Notify Slack - Corrections Applied
+      uses: slackapi/slack-github-action@v2.0.0
+      with:
+        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+        webhook-type: incoming-webhook
+        payload: |
+          {
+            "channel": "#web",
+            "username": "GitHub Actions",
+            "icon_emoji": ":github:",
+            "attachments": [
+              {
+                "color": "good",
+                "title": "✅ WordPress Spelling Corrections Applied",
+                "text": "Spelling corrections have been successfully applied to WordPress content.",
+                "fields": [
+                  {
+                    "title": "Approved By",
+                    "value": "${{ github.event.client_payload.approved_by }}",
+                    "short": true
+                  }
+                ]
+              }
+            ]
+          }
