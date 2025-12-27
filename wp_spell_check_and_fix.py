@@ -21,6 +21,7 @@ class WordPressSpellCheckFixer:
         self.auth_token = auth_token
         self.model = model
         self.ollama_auth = ollama_auth
+        self.ollama_checked = False
         
         # Session for WordPress API
         self.session = requests.Session()
@@ -38,6 +39,46 @@ class WordPressSpellCheckFixer:
             'cpu', 'gpu', 'ram', 'ssd', 'nas', 'iscsi', 'nfs', 'vlan',
             'inteligent'  # Historical misspelling in redirects
         }
+    
+    def check_ollama_connection(self) -> bool:
+        """Check if Ollama is reachable and list available models"""
+        if self.ollama_checked:
+            return True
+        
+        try:
+            ollama_auth_tuple = None
+            if self.ollama_auth and ':' in self.ollama_auth:
+                username, password = self.ollama_auth.split(':', 1)
+                ollama_auth_tuple = (username, password)
+            
+            # Try to list models
+            print(f"🔍 Checking Ollama connection at {self.ollama_url}")
+            response = requests.get(
+                f'{self.ollama_url}/api/tags',
+                auth=ollama_auth_tuple,
+                timeout=10
+            )
+            
+            if response.status_code == 200:
+                result = response.json()
+                models = result.get('models', [])
+                print(f"✅ Ollama connected. Available models:")
+                for model in models:
+                    model_name = model.get('name', 'unknown')
+                    print(f"   - {model_name}")
+                    if self.model in model_name or model_name in self.model:
+                        print(f"   ✅ Model '{self.model}' is available")
+                
+                self.ollama_checked = True
+                return True
+            else:
+                print(f"⚠️  Ollama API returned {response.status_code}")
+                print(f"   Response: {response.text[:200]}")
+                return False
+                
+        except Exception as e:
+            print(f"⚠️  Could not connect to Ollama: {str(e)}")
+            return False
     
     def check_spelling_with_ollama(self, text: str) -> Dict:
         """Use Ollama to check spelling and suggest corrections"""
@@ -71,8 +112,12 @@ If no errors: {{"has_errors": false, "corrections": []}}
                 username, password = self.ollama_auth.split(':', 1)
                 ollama_auth_tuple = (username, password)
             
+            api_endpoint = f'{self.ollama_url}/api/generate'
+            print(f"      🔌 Calling Ollama API: {api_endpoint}")
+            print(f"      📦 Model: {self.model}")
+            
             response = requests.post(
-                f'{self.ollama_url}/api/generate',
+                api_endpoint,
                 json={
                     'model': self.model,
                     'prompt': prompt,
@@ -85,6 +130,47 @@ If no errors: {{"has_errors": false, "corrections": []}}
                 auth=ollama_auth_tuple,
                 timeout=60
             )
+            
+            print(f"      📡 Response status: {response.status_code}")
+            
+            # Handle 404 - model might not exist or wrong format
+            if response.status_code == 404:
+                print(f"⚠️  404 Error - Model '{self.model}' not found")
+                print(f"   This usually means:")
+                print(f"   1. The model name format is incorrect")
+                print(f"   2. The model hasn't been pulled on the Ollama server")
+                print(f"   3. Try 'llama3.1' instead of 'llama3.1:8b' or vice versa")
+                
+                # Try alternative model name format
+                alternative_model = None
+                if ':' in self.model:
+                    alternative_model = self.model.split(':')[0]  # Try without tag
+                else:
+                    alternative_model = f"{self.model}:latest"  # Try with tag
+                
+                print(f"   🔄 Retrying with alternative model name: {alternative_model}")
+                
+                alt_response = requests.post(
+                    api_endpoint,
+                    json={
+                        'model': alternative_model,
+                        'prompt': prompt,
+                        'stream': False,
+                        'options': {
+                            'temperature': 0.1,
+                            'num_predict': 1000
+                        }
+                    },
+                    auth=ollama_auth_tuple,
+                    timeout=60
+                )
+                
+                if alt_response.status_code == 200:
+                    print(f"   ✅ Success with {alternative_model}")
+                    response = alt_response
+                else:
+                    print(f"   ❌ Alternative also failed: {alt_response.status_code}")
+                    return {'has_errors': False, 'corrections': []}
             
             if response.status_code == 200:
                 result = response.json()
@@ -103,6 +189,13 @@ If no errors: {{"has_errors": false, "corrections": []}}
                 return {'has_errors': False, 'corrections': []}
             else:
                 print(f"❌ Ollama API error: {response.status_code}")
+                print(f"   URL: {api_endpoint}")
+                print(f"   Model: {self.model}")
+                try:
+                    error_body = response.text[:500]
+                    print(f"   Response: {error_body}")
+                except:
+                    pass
                 return {'has_errors': False, 'corrections': []}
                 
         except Exception as e:
@@ -207,6 +300,13 @@ If no errors: {{"has_errors": false, "corrections": []}}
     def check_recent_posts(self, count: int = 5, since: str = None) -> List[Dict]:
         """Check recent posts and return those needing corrections"""
         print(f"🔍 Checking posts...")
+        
+        # Check Ollama connection first
+        if not self.check_ollama_connection():
+            print("❌ Cannot connect to Ollama. Aborting.")
+            return []
+        
+        print()
         
         try:
             params = {

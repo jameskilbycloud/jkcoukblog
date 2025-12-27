@@ -244,6 +244,45 @@ Check:
 - Self-hosted runner can access WordPress
 - WordPress REST API is responding
 
+### Ollama 404 Error
+
+If you see a 404 error when calling Ollama:
+
+**Likely causes:**
+1. **Model name format** - Ollama expects exact model names
+2. **Model not pulled** - The model doesn't exist on the server
+3. **Wrong API endpoint** - Check Ollama URL is correct
+
+**Diagnose the issue:**
+```bash
+# Run the test script on the runner
+./test_ollama_connection.py
+```
+
+This will:
+- Test connectivity to Ollama
+- List all available models
+- Try different model name formats
+- Suggest the correct model name to use
+
+**Common fixes:**
+
+1. **Pull the model on the Ollama server:**
+```bash
+ollama pull llama3.1:8b
+```
+
+2. **Try different model name format:**
+- If using `llama3.1:8b`, try `llama3.1`
+- If using `llama3.1`, try `llama3.1:latest` or `llama3.1:8b`
+
+3. **Update workflow environment variable:**
+```yaml
+OLLAMA_MODEL: llama3.1  # Remove the :8b tag
+```
+
+The script now automatically tries alternative formats if the first attempt fails.
+
 ### Ollama Timeout
 
 If Ollama times out:
