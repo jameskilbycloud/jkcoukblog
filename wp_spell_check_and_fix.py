@@ -244,7 +244,11 @@ If no errors: {{"has_errors": false, "corrections": []}}
         print(f"📄 Checking post ID: {post_id}")
         
         try:
-            response = self.session.get(f'{self.wp_url}/wp-json/wp/v2/posts/{post_id}')
+            # Fetch with context=edit to get raw editable content
+            response = self.session.get(
+                f'{self.wp_url}/wp-json/wp/v2/posts/{post_id}',
+                params={'context': 'edit'}
+            )
             
             if response.status_code != 200:
                 print(f"   ❌ Failed to fetch: {response.status_code}")
@@ -390,28 +394,39 @@ If no errors: {{"has_errors": false, "corrections": []}}
         
         # Title
         if 'title' in section_corrections:
-            original_title = post_data.get('title', {}).get('raw', '')
-            corrected_title = self.apply_corrections_to_text(
-                original_title,
-                section_corrections['title']
-            )
-            updated_data['title'] = corrected_title
-            print(f"   Title: {original_title} → {corrected_title}")
+            # Try to get raw content, fallback to rendered
+            title_data = post_data.get('title', {})
+            original_title = title_data.get('raw') or title_data.get('rendered', '')
+            if not original_title:
+                print(f"   ⚠️  Could not get title content")
+            else:
+                corrected_title = self.apply_corrections_to_text(
+                    original_title,
+                    section_corrections['title']
+                )
+                updated_data['title'] = corrected_title
+                print(f"   Title: {original_title} → {corrected_title}")
         
         # Excerpt
         if 'excerpt' in section_corrections:
-            original_excerpt = post_data.get('excerpt', {}).get('raw', '')
-            corrected_excerpt = self.apply_corrections_to_text(
-                original_excerpt,
-                section_corrections['excerpt']
-            )
-            updated_data['excerpt'] = corrected_excerpt
-            print(f"   Excerpt corrected")
+            excerpt_data = post_data.get('excerpt', {})
+            original_excerpt = excerpt_data.get('raw') or excerpt_data.get('rendered', '')
+            if original_excerpt:
+                corrected_excerpt = self.apply_corrections_to_text(
+                    original_excerpt,
+                    section_corrections['excerpt']
+                )
+                updated_data['excerpt'] = corrected_excerpt
+                print(f"   Excerpt corrected")
         
         # Content (paragraphs)
         content_corrections = [c for c in corrections if c['section'].startswith('paragraph_')]
         if content_corrections:
-            original_content = post_data.get('content', {}).get('raw', '')
+            content_data = post_data.get('content', {})
+            original_content = content_data.get('raw') or content_data.get('rendered', '')
+            if not original_content:
+                print(f"   ⚠️  Could not get content")
+                return False
             corrected_content = self.apply_corrections_to_text(
                 original_content,
                 content_corrections
