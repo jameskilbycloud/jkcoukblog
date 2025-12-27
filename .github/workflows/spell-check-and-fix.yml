@@ -12,6 +12,8 @@ on:
         required: false
         default: 'false'
         type: boolean
+  repository_dispatch:
+    types: [apply-spell-corrections]
 
 jobs:
   spell-check:
@@ -224,9 +226,8 @@ jobs:
   apply-corrections:
     runs-on: self-hosted
     timeout-minutes: 15
-    # This job is triggered manually through repository_dispatch or workflow_dispatch
-    # after approval is given in the issue
-    if: github.event_name == 'repository_dispatch' && github.event.action == 'apply-spell-corrections'
+    # This job is triggered by repository_dispatch after approval is given in the issue
+    if: github.event_name == 'repository_dispatch'
     
     steps:
     - name: Checkout repository
