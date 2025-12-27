@@ -32,7 +32,7 @@ jobs:
     - name: Install dependencies
       run: |
         echo "🔧 Installing Python dependencies..."
-        pip install requests beautifulsoup4
+        pip install requests beautifulsoup4 pyspellchecker
         echo "✅ Dependencies installed"
         
     - name: Run spell check and generate corrections
@@ -240,7 +240,7 @@ jobs:
         
     - name: Install dependencies
       run: |
-        pip install requests beautifulsoup4
+        pip install requests beautifulsoup4 pyspellchecker
         
     - name: Download corrections artifact
       uses: actions/download-artifact@v4

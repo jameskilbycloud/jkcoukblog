@@ -30,7 +30,7 @@ jobs:
     - name: Install dependencies
       run: |
         echo "🔧 Installing Python dependencies..."
-        pip install requests beautifulsoup4
+        pip install requests beautifulsoup4 pyspellchecker
         echo "✅ Dependencies installed"
         
     - name: Run spell check

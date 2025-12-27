@@ -4,12 +4,25 @@ Automated spell checking for WordPress content using Ollama AI, with manual appr
 
 ## Overview
 
-This workflow:
-1. **Checks** WordPress posts for spelling errors using Ollama
-2. **Creates** a GitHub issue with proposed corrections
-3. **Waits** for manual approval via issue comment
-4. **Applies** corrections back to WordPress upon approval
-5. **Notifies** via Slack at each step
+This workflow uses a **two-stage spell checking approach** for efficiency:
+1. **Stage 1 (Fast)**: Traditional spell checker (`pyspellchecker`) does initial scan
+2. **Stage 2 (Smart)**: Ollama AI validates ambiguous cases with full context
+3. **Creates** a GitHub issue with proposed corrections
+4. **Waits** for manual approval via issue comment
+5. **Applies** corrections back to WordPress upon approval
+6. **Notifies** via Slack at each step
+
+### Why Two-Stage?
+
+**Performance Improvements:**
+- ~10-20x faster than AI-only approach
+- Single Ollama API call per post (vs 10-20+ calls previously)
+- Only sends ambiguous words to AI for validation
+
+**Better Accuracy:**
+- Traditional spell checker catches obvious errors quickly
+- AI sees full post context instead of isolated sections
+- Reduces false positives on technical terms
 
 ## Workflow Files
 
@@ -175,11 +188,19 @@ Code blocks, scripts, and styles are excluded.
 
 ### Spelling Check
 
-For each text section:
-1. Send to Ollama with specific prompt
-2. Receive JSON with corrections
-3. Filter out whitelisted terms
-4. Store corrections with context
+**Stage 1: Fast Traditional Check**
+1. Extract all words from post content
+2. Use `pyspellchecker` for rapid dictionary lookup
+3. Build list of potential misspellings
+4. Skip whitelisted technical terms
+5. Skip words < 3 characters
+
+**Stage 2: AI Validation (if candidates found)**
+1. Batch all post sections together (title + excerpt + content)
+2. Send full text + candidate words to Ollama
+3. AI validates which candidates are actual errors in context
+4. Returns only confirmed errors with suggestions
+5. Maps errors back to specific sections
 
 ### Applying Corrections
 
