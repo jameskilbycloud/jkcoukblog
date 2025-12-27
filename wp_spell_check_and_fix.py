@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """
 WordPress Spell Check and Fix
-Checks spelling using Ollama, generates corrections report, and applies fixes to WordPress
+Two-stage spell checking:
+1. Fast traditional spell checker (pyspellchecker) for initial scan
+2. Ollama AI for ambiguous cases with full context
 """
 
 import os
@@ -9,10 +11,12 @@ import sys
 import json
 import argparse
 import requests
+import re
 from datetime import datetime
 from pathlib import Path
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Set
 from bs4 import BeautifulSoup
+from spellchecker import SpellChecker
 
 class WordPressSpellCheckFixer:
     def __init__(self, ollama_url: str, wp_url: str, auth_token: str, model: str = "llama3.1:8b", ollama_auth: str = None):
@@ -30,6 +34,9 @@ class WordPressSpellCheckFixer:
             'User-Agent': 'SpellCheckerFixer/1.0'
         })
         
+        # Initialize traditional spell checker
+        self.spell = SpellChecker()
+        
         # Common technical terms that shouldn't be flagged
         self.whitelist = {
             'vmware', 'vsphere', 'vsan', 'vmc', 'kubernetes', 'homelab',
@@ -37,8 +44,13 @@ class WordPressSpellCheckFixer:
             'postgres', 'nginx', 'linux', 'ubuntu', 'api', 'json',
             'yaml', 'cli', 'devops', 'cicd', 'nvme', 'pcie', 'gb', 'tb',
             'cpu', 'gpu', 'ram', 'ssd', 'nas', 'iscsi', 'nfs', 'vlan',
-            'inteligent'  # Historical misspelling in redirects
+            'inteligent',  # Historical misspelling in redirects
+            'acast', 'plausible', 'indexnow', 'netlify', 'vimeo',
+            'srcset', 'iframe', 'jpegoptim', 'optipng', 'fuse'
         }
+        
+        # Add whitelist to spell checker's dictionary
+        self.spell.word_frequency.load_words(self.whitelist)
     
     def check_ollama_connection(self) -> bool:
         """Check if Ollama is reachable and list available models"""
@@ -80,30 +92,66 @@ class WordPressSpellCheckFixer:
             print(f"⚠️  Could not connect to Ollama: {str(e)}")
             return False
     
-    def check_spelling_with_ollama(self, text: str) -> Dict:
-        """Use Ollama to check spelling and suggest corrections"""
-        prompt = f"""You are a spell checker for technical blog content.
+    def fast_spell_check(self, text: str) -> Set[str]:
+        """
+        First-pass spell check using traditional spell checker.
+        Returns set of potentially misspelled words.
+        """
+        # Extract words (alphanumeric only, preserve case)
+        words = re.findall(r'\b[a-zA-Z]+\b', text)
+        
+        # Check for misspellings (case-insensitive)
+        misspelled = set()
+        for word in words:
+            word_lower = word.lower()
+            # Skip very short words (likely abbreviations)
+            if len(word_lower) < 3:
+                continue
+            # Skip whitelisted terms
+            if word_lower in self.whitelist:
+                continue
+            # Check if misspelled
+            if word_lower not in self.spell:
+                misspelled.add(word)
+        
+        return misspelled
+    
+    def check_with_ollama_batched(self, full_text: str, candidate_errors: Set[str]) -> Dict:
+        """
+        Use Ollama to validate potential errors with full context.
+        Batches all text sections together for efficiency.
+        """
+        if not candidate_errors:
+            return {'has_errors': False, 'corrections': []}
+        
+        candidates_list = ', '.join(sorted(candidate_errors))
+        
+        prompt = f"""You are a spell checker for technical blog content about DevOps, VMware, and cloud infrastructure.
 
-Review this text and identify spelling errors. Ignore technical terms like VMware, vSphere, Kubernetes, etc.
+Potential misspellings found: {candidates_list}
 
-Text to check:
+Review the full text below and determine which of these words are ACTUAL errors:
+- Ignore proper nouns, technical terms, brand names, abbreviations
+- Ignore intentional informal language
+- Only flag clear spelling mistakes
+
+Full text:
 \"\"\"
-{text}
+{full_text}
 \"\"\"
 
-For each error, provide the exact correction. Respond ONLY with valid JSON:
+Respond ONLY with valid JSON:
 {{
   "has_errors": true/false,
   "corrections": [
     {{
       "original": "teh",
-      "corrected": "the",
-      "context": "surrounding text snippet"
+      "corrected": "the"
     }}
   ]
 }}
 
-If no errors: {{"has_errors": false, "corrections": []}}
+If no actual errors, return: {{"has_errors": false, "corrections": []}}
 """
         
         try:
@@ -121,6 +169,7 @@ If no errors: {{"has_errors": false, "corrections": []}}
                 json={
                     'model': self.model,
                     'prompt': prompt,
+                    'format': 'json',  # Force JSON output
                     'stream': False,
                     'options': {
                         'temperature': 0.1,
@@ -128,7 +177,7 @@ If no errors: {{"has_errors": false, "corrections": []}}
                     }
                 },
                 auth=ollama_auth_tuple,
-                timeout=60
+                timeout=90  # Increased for batched content
             )
             
             print(f"      📡 Response status: {response.status_code}")
@@ -155,6 +204,7 @@ If no errors: {{"has_errors": false, "corrections": []}}
                     json={
                         'model': alternative_model,
                         'prompt': prompt,
+                        'format': 'json',  # Force JSON output
                         'stream': False,
                         'options': {
                             'temperature': 0.1,
@@ -162,7 +212,7 @@ If no errors: {{"has_errors": false, "corrections": []}}
                         }
                     },
                     auth=ollama_auth_tuple,
-                    timeout=60
+                    timeout=90  # Increased for batched content
                 )
                 
                 if alt_response.status_code == 200:
@@ -176,15 +226,19 @@ If no errors: {{"has_errors": false, "corrections": []}}
                 result = response.json()
                 response_text = result.get('response', '')
                 
-                # Extract JSON from response
-                import re
-                json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
-                if json_match:
-                    try:
-                        parsed = json.loads(json_match.group())
-                        return parsed
-                    except json.JSONDecodeError:
-                        return {'has_errors': False, 'corrections': []}
+                # Try to parse as JSON directly first
+                try:
+                    parsed = json.loads(response_text)
+                    return parsed
+                except json.JSONDecodeError:
+                    # Fallback: Extract JSON from response
+                    json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
+                    if json_match:
+                        try:
+                            parsed = json.loads(json_match.group())
+                            return parsed
+                        except json.JSONDecodeError:
+                            pass
                 
                 return {'has_errors': False, 'corrections': []}
             else:
@@ -240,7 +294,10 @@ If no errors: {{"has_errors": false, "corrections": []}}
         return sections
     
     def check_post(self, post_id: int) -> Optional[Dict]:
-        """Check a post and return corrections needed"""
+        """
+        Check a post and return corrections needed.
+        Uses two-stage approach: fast traditional check, then Ollama for validation.
+        """
         print(f"📄 Checking post ID: {post_id}")
         
         try:
@@ -261,31 +318,57 @@ If no errors: {{"has_errors": false, "corrections": []}}
             print(f"   Title: {post_title}")
             
             sections = self.extract_text_sections(post)
-            all_corrections = []
+            
+            # Stage 1: Fast traditional spell check on all sections
+            print(f"   ⚡ Stage 1: Fast spell check...")
+            all_candidate_errors = set()
+            section_texts = {}
             
             for section_type, text in sections:
                 if len(text.split()) < 5:
                     continue
-                
-                print(f"   🔍 Checking {section_type}...")
-                result = self.check_spelling_with_ollama(text)
-                
-                if result.get('has_errors'):
-                    corrections = result.get('corrections', [])
-                    for correction in corrections:
-                        if not correction.get('original') or not correction.get('corrected'):
-                            continue
-                        
-                        # Skip whitelisted words
-                        if correction['original'].lower() in self.whitelist:
-                            continue
-                        
-                        correction['section'] = section_type
-                        correction['section_text'] = text
-                        all_corrections.append(correction)
-                        print(f"      ⚠️  {correction['original']} → {correction['corrected']}")
+                section_texts[section_type] = text
+                candidates = self.fast_spell_check(text)
+                all_candidate_errors.update(candidates)
+            
+            if not all_candidate_errors:
+                print(f"   ✅ No potential errors found")
+                return None
+            
+            print(f"   🔍 Stage 2: Validating {len(all_candidate_errors)} candidates with Ollama...")
+            
+            # Stage 2: Batch validate with Ollama using full context
+            # Combine all text for context
+            full_text = f"Title: {post_title}\n\n"
+            for section_type, text in section_texts.items():
+                full_text += f"{text}\n\n"
+            
+            result = self.check_with_ollama_batched(full_text, all_candidate_errors)
+            
+            all_corrections = []
+            if result.get('has_errors'):
+                corrections = result.get('corrections', [])
+                for correction in corrections:
+                    if not correction.get('original') or not correction.get('corrected'):
+                        continue
+                    
+                    # Try to identify which section contains this error
+                    error_word = correction['original']
+                    section_found = 'unknown'
+                    section_text = ''
+                    for section_type, text in section_texts.items():
+                        if error_word in text or error_word.lower() in text.lower():
+                            section_found = section_type
+                            section_text = text
+                            break
+                    
+                    correction['section'] = section_found
+                    correction['section_text'] = section_text
+                    all_corrections.append(correction)
+                    print(f"      ⚠️  {correction['original']} → {correction['corrected']} (in {section_found})")
             
             if all_corrections:
+                print(f"   ⚠️  Found {len(all_corrections)} confirmed errors")
                 return {
                     'post_id': post_id,
                     'title': post_title,
@@ -293,8 +376,9 @@ If no errors: {{"has_errors": false, "corrections": []}}
                     'corrections': all_corrections,
                     'post_data': post  # Store for later update
                 }
+            else:
+                print(f"   ✅ All candidates were false positives")
             
-            print(f"   ✅ No errors found")
             return None
             
         except Exception as e:

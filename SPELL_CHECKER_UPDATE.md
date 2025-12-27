@@ -26,12 +26,15 @@ The spell checker has been upgraded to use a **two-stage approach** for signific
 ## Changes Made
 
 ### Code Changes
-1. **`ollama_spell_checker.py`**
+1. **`wp_spell_check_and_fix.py`** (Main spell checker used in workflows)
    - Added `fast_spell_check()` method using `pyspellchecker`
    - Added `check_with_ollama_batched()` method for single API call
    - Refactored `check_post()` to use two-stage approach
    - Added `format: json` to Ollama API calls for better reliability
    - Increased timeout to 90s for batched content
+
+2. **`ollama_spell_checker.py`** (Legacy/alternative spell checker)
+   - Same optimizations applied for consistency
 
 2. **`requirements.txt`**
    - Added `pyspellchecker` dependency
