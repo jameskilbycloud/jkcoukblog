@@ -115,7 +115,8 @@ When the spell checker runs, you'll see new output:
 ✅ **Better context** - AI sees full post, not isolated sections  
 ✅ **More accurate** - Fewer false positives on technical terms  
 ✅ **Same workflow** - No changes to GitHub Actions usage  
-✅ **Backward compatible** - Gracefully handles missing dependencies
+✅ **Backward compatible** - Gracefully handles missing dependencies  
+✅ **Published content only** - Checks what's live, not drafts/revisions
 
 ## Testing
 
@@ -137,6 +138,25 @@ The test will verify:
 If needed, you can rollback by reverting these commits. The old version will continue to work (just slower).
 
 ## Technical Details
+
+### WordPress Content Context
+
+The spell checker now uses different API contexts for checking vs applying:
+
+**Checking (context=view):**
+- Fetches **published content only** (what visitors see)
+- Excludes draft changes and revision history
+- Prevents false positives from unpublished content
+
+**Applying (context=edit):**
+- Fetches **raw editable content** to make changes
+- Required to get the `raw` field for proper editing
+- Only used when corrections are approved
+
+This prevents the spell checker from flagging errors in:
+- Draft content you haven't published yet
+- Old revisions stored in WordPress
+- Content saved but not visible on the live site
 
 ### Why pyspellchecker?
 

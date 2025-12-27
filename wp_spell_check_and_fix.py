@@ -301,10 +301,10 @@ If no actual errors, return: {{"has_errors": false, "corrections": []}}
         print(f"📄 Checking post ID: {post_id}")
         
         try:
-            # Fetch with context=edit to get raw editable content
+            # Fetch with context=view to get published content only (not drafts/revisions)
             response = self.session.get(
                 f'{self.wp_url}/wp-json/wp/v2/posts/{post_id}',
-                params={'context': 'edit'}
+                params={'context': 'view'}  # 'view' = published content only
             )
             
             if response.status_code != 200:
@@ -373,8 +373,8 @@ If no actual errors, return: {{"has_errors": false, "corrections": []}}
                     'post_id': post_id,
                     'title': post_title,
                     'link': post_link,
-                    'corrections': all_corrections,
-                    'post_data': post  # Store for later update
+                    'corrections': all_corrections
+                    # Note: Don't store post_data - we fetch fresh with context=edit when applying
                 }
             else:
                 print(f"   ✅ All candidates were false positives")
@@ -460,10 +460,25 @@ If no actual errors, return: {{"has_errors": false, "corrections": []}}
     def apply_corrections_to_post(self, post_corrections: Dict) -> bool:
         """Apply corrections to a WordPress post"""
         post_id = post_corrections['post_id']
-        post_data = post_corrections['post_data']
         corrections = post_corrections['corrections']
         
         print(f"🔧 Applying corrections to post {post_id}: {post_corrections['title']}")
+        
+        # Fetch the post again with context=edit to get raw editable content
+        try:
+            response = self.session.get(
+                f'{self.wp_url}/wp-json/wp/v2/posts/{post_id}',
+                params={'context': 'edit'}
+            )
+            
+            if response.status_code != 200:
+                print(f"   ❌ Failed to fetch post for editing: {response.status_code}")
+                return False
+            
+            post_data = response.json()
+        except Exception as e:
+            print(f"   ❌ Error fetching post: {str(e)}")
+            return False
         
         # Group corrections by section
         section_corrections = {}
