@@ -386,6 +386,21 @@ th {
   font-size: 0.9rem;
 }
 
+/* Striped tables */
+.is-style-stripes tbody tr:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.is-style-stripes tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+}
+
+/* Ensure table text is always readable */
+.is-style-stripes td,
+.is-style-stripes th {
+  color: var(--text-light) !important;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   h1, .site-title { font-size: 2rem !important; }
