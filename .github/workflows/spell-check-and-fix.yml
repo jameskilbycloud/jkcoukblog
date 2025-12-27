@@ -246,6 +246,8 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: spelling-corrections-${{ github.event.client_payload.run_id }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        run-id: ${{ github.event.client_payload.run_id }}
         
     - name: Apply corrections to WordPress
       env:
