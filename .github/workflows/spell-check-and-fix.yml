@@ -126,8 +126,11 @@ jobs:
           
           ---
           
+          **Workflow Run ID:** ${context.runId}
           **Workflow Run:** [View Details](${context.payload.repository.html_url}/actions/runs/${context.runId})
-          **Artifact:** [Download Full Report](${context.payload.repository.html_url}/actions/runs/${context.runId})`,
+          **Artifact:** [Download Full Report](${context.payload.repository.html_url}/actions/runs/${context.runId})
+          
+          <!-- metadata: run_id=${context.runId} -->`,
             labels: ['spell-check', 'awaiting-approval']
           });
           

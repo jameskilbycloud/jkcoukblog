@@ -1,0 +1,124 @@
+name: Apply Spell Corrections (Manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Run ID from the spell check workflow'
+        required: true
+      issue_number:
+        description: 'Issue number to close after applying'
+        required: true
+
+jobs:
+  apply-corrections:
+    runs-on: self-hosted
+    timeout-minutes: 15
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        pip install requests beautifulsoup4
+        
+    - name: Download corrections artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: spelling-corrections-${{ github.event.inputs.run_id }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        run-id: ${{ github.event.inputs.run_id }}
+        
+    - name: Verify artifact downloaded
+      run: |
+        echo "📂 Checking for corrections file..."
+        if [ -f "spelling_corrections.json" ]; then
+          echo "✅ Found spelling_corrections.json"
+          echo "📊 File size: $(wc -c < spelling_corrections.json) bytes"
+          echo "Preview:"
+          head -20 spelling_corrections.json
+        else
+          echo "❌ spelling_corrections.json not found"
+          ls -la
+          exit 1
+        fi
+        
+    - name: Apply corrections to WordPress
+      env:
+        WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+        WP_URL: https://wordpress.jameskilby.cloud
+      run: |
+        echo "🔧 Applying spelling corrections to WordPress..."
+        
+        ./wp_spell_check_and_fix.py --apply-from-file spelling_corrections.json
+        
+        echo "✅ Corrections applied successfully"
+        
+    - name: Update timestamp
+      run: |
+        date -u +"%Y-%m-%dT%H:%M:%SZ" > .last_spell_check_timestamp
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add .last_spell_check_timestamp
+        git commit -m "Update spell check timestamp after applying corrections
+
+Co-Authored-By: Warp <agent@warp.dev>" || true
+        git push || true
+        
+    - name: Close issue
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const issueNumber = parseInt('${{ github.event.inputs.issue_number }}');
+          
+          await github.rest.issues.update({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: issueNumber,
+            state: 'closed'
+          });
+          
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: issueNumber,
+            body: '✅ Spelling corrections have been applied to WordPress successfully!\n\nApplied via manual workflow run.'
+          });
+        
+    - name: Notify Slack - Corrections Applied
+      if: always()
+      uses: slackapi/slack-github-action@v2.0.0
+      with:
+        webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+        webhook-type: incoming-webhook
+        payload: |
+          {
+            "channel": "#web",
+            "username": "GitHub Actions",
+            "icon_emoji": ":github:",
+            "attachments": [
+              {
+                "color": "good",
+                "title": "✅ WordPress Spelling Corrections Applied",
+                "text": "Spelling corrections have been successfully applied to WordPress content.",
+                "fields": [
+                  {
+                    "title": "Applied By",
+                    "value": "${{ github.actor }}",
+                    "short": true
+                  },
+                  {
+                    "title": "Issue",
+                    "value": "#${{ github.event.inputs.issue_number }}",
+                    "short": true
+                  }
+                ]
+              }
+            ]
+          }

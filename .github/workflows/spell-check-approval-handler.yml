@@ -35,15 +35,52 @@ jobs:
       with:
         script: |
           const issueBody = context.payload.issue.body;
-          const runMatch = issueBody.match(/Run #(\d+)/);
+          const issueTitle = context.payload.issue.title;
           
-          if (runMatch) {
-            const runId = runMatch[1];
-            console.log(`Found run ID: ${runId}`);
-            return runId;
+          // Try multiple patterns to find the run ID
+          let runId = null;
+          
+          // Pattern 1: HTML comment metadata
+          let match = issueBody.match(/<!-- metadata: run_id=(\d+) -->/);
+          if (match) {
+            runId = match[1];
+            console.log(`Found run ID from metadata: ${runId}`);
           }
           
-          throw new Error('Could not find run ID in issue');
+          // Pattern 2: "Workflow Run ID:" line
+          if (!runId) {
+            match = issueBody.match(/\*\*Workflow Run ID:\*\*\s*(\d+)/);
+            if (match) {
+              runId = match[1];
+              console.log(`Found run ID from 'Workflow Run ID': ${runId}`);
+            }
+          }
+          
+          // Pattern 3: "Run #" in title
+          if (!runId) {
+            match = issueTitle.match(/Run #(\d+)/);
+            if (match) {
+              runId = match[1];
+              console.log(`Found run ID from title: ${runId}`);
+            }
+          }
+          
+          // Pattern 4: actions/runs/ URL
+          if (!runId) {
+            match = issueBody.match(/actions\/runs\/(\d+)/);
+            if (match) {
+              runId = match[1];
+              console.log(`Found run ID from URL: ${runId}`);
+            }
+          }
+          
+          if (!runId) {
+            console.log('Issue body:', issueBody);
+            console.log('Issue title:', issueTitle);
+            throw new Error('Could not find run ID in issue');
+          }
+          
+          return runId;
     
     - name: Trigger corrections application
       if: fromJSON(steps.check-command.outputs.result).approve
