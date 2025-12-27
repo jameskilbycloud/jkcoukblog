@@ -3,8 +3,12 @@ name: Lighthouse CI Performance Monitoring
 on:
   push:
     branches: [main, master]
+    paths:
+      - 'public/**'
   pull_request:
     branches: [main, master]
+    paths:
+      - 'public/**'
   workflow_dispatch:  # Allow manual triggers
   schedule:
     # Run daily at 3 AM UTC to track performance trends
