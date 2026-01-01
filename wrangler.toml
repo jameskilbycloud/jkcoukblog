@@ -10,6 +10,16 @@ compatibility_date = "2024-10-03"
 # - Build command: (empty for pre-built static sites)
 # - Root directory: (empty or /)
 
+# Worker configuration for HTML caching (Pages Functions)
+# This worker runs as a Cloudflare Pages Function to cache HTML at the edge
+# Deploy by placing html-cache.js in the functions/_middleware.js location
+# Or deploy as a separate worker and route to your domain
+
+[[workers]]
+name = "jkcoukblog-html-cache"
+main = "workers/html-cache.js"
+compatibility_date = "2024-10-03"
+
 # Worker configuration for Slack notifications
 [[workers]]
 name = "jkcoukblog-slack-notifications"
