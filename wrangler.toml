@@ -1,31 +1,9 @@
-name = "jkcoukblog"
-compatibility_date = "2024-10-03"
-
-# For Cloudflare Pages static site deployment
-# The Pages service will handle the static files from the 'public' directory
-# No [site] configuration needed - that was for the deprecated Workers Sites
-
-# Pages configuration is handled in the Cloudflare dashboard:
-# - Build output directory: public
-# - Build command: (empty for pre-built static sites)
-# - Root directory: (empty or /)
-
-# Worker configuration for HTML caching (Pages Functions)
-# This worker runs as a Cloudflare Pages Function to cache HTML at the edge
-# Deploy by placing html-cache.js in the functions/_middleware.js location
-# Or deploy as a separate worker and route to your domain
-
-[[workers]]
+# HTML Cache Worker Configuration
 name = "jkcoukblog-html-cache"
 main = "workers/html-cache.js"
 compatibility_date = "2024-10-03"
 
-# Worker configuration for Slack notifications
-[[workers]]
-name = "jkcoukblog-slack-notifications"
-main = "workers/slack-notification-handler.js"
-compatibility_date = "2024-10-03"
-
-[workers.vars]
-# Environment variables for the worker
-# SLACK_WEBHOOK_URL will be set as a secret in the Cloudflare dashboard
+# Route configuration to intercept requests
+routes = [
+  { pattern = "jameskilby.co.uk/*", zone_name = "jameskilby.co.uk" }
+]
