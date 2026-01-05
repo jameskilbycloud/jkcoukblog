@@ -717,8 +717,9 @@ class WordPressStaticGenerator:
                 # Replace WordPress admin AJAX URLs
                 if 'wp-admin/admin-ajax.php' in script_content:
                     # Comment out or remove the AJAX URL since it won't work in static site
+                    wp_domain = self.wp_url.replace('https://', '').replace('http://', '')
                     updated_content = script_content.replace(
-                        f'"ajaxurl":"https:\\/\\/wordpress.jameskilby.cloud\\/wp-admin\\/admin-ajax.php"',
+                        f'"ajaxurl":"https:\\/\\/{wp_domain}\\/wp-admin\\/admin-ajax.php"',
                         '"ajaxurl":"#" /* Static site - AJAX disabled */'
                     )
                     if updated_content != script_content:
@@ -988,10 +989,13 @@ class WordPressStaticGenerator:
         if not soup.head:
             return
         
+        # Import config for Plausible settings
+        from config import Config
+        
         # Check if Plausible script is already present
-        plausible_domain = 'plausible.jameskilby.cloud'
-        plausible_script_url = f'https://{plausible_domain}/js/script.js'
-        target_analytics_domain = 'jameskilby.co.uk'
+        plausible_domain = Config.PLAUSIBLE_URL
+        plausible_script_url = Config.get_plausible_script_url()
+        target_analytics_domain = Config.get_plausible_domain()
         
         # Add DNS prefetch and preconnect for faster analytics loading
         # This helps browser establish connection early, improving performance
@@ -2354,22 +2358,23 @@ def main():
     output_dir = sys.argv[1]
     deploy_flag = '--deploy' in sys.argv
     
-    # Configuration
-    WP_URL = 'https://wordpress.jameskilby.cloud'
-    AUTH_TOKEN = os.getenv('WP_AUTH_TOKEN')  # Use environment variable
+    # Import configuration
+    from config import Config
+    
+    # Get authentication token from environment
+    AUTH_TOKEN = os.getenv('WP_AUTH_TOKEN')
     
     if not AUTH_TOKEN:
         print('❌ Error: WP_AUTH_TOKEN environment variable is required')
         print('   Set it with: export WP_AUTH_TOKEN="your_token_here"')
         sys.exit(1)
-    TARGET_DOMAIN = 'https://jameskilby.co.uk'
     
     # Create generator instance
     generator = WordPressStaticGenerator(
-        wp_url=WP_URL,
+        wp_url=Config.WP_URL,
         auth_token=AUTH_TOKEN,
         output_dir=output_dir,
-        target_domain=TARGET_DOMAIN
+        target_domain=Config.TARGET_DOMAIN
     )
     
     # Generate static site

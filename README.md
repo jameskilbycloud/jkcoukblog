@@ -461,14 +461,31 @@ crontab -e
 
 ## ⚙️ Configuration
 
-The system is pre-configured for:
-- **Source**: `wordpress.jameskilby.cloud` (Cloudflare Access protected)
-- **Target**: `jameskilby.co.uk` (public static site)
-- **Auth**: Basic authentication via `WP_AUTH_TOKEN` environment variable
+### Centralized Configuration File
 
-To customize for your setup, edit the configuration section in the Python scripts:
-- `wp_to_static_generator.py` (lines 731, 738)
-- `deploy_static_site.py` (lines 350, 357)
+All URLs and domains are centralized in `config.py`:
+- **WordPress URL**: `https://wordpress.jameskilby.cloud`
+- **Target Domain**: `https://jameskilby.co.uk`
+- **Staging Domain**: `jkcoukblog.pages.dev`
+- **Ollama URL**: `https://ollama.jameskilby.cloud`
+- **Plausible Analytics**: `plausible.jameskilby.cloud`
+
+To customize for your setup, edit `config.py`. Secrets (tokens, credentials) remain in environment variables and GitHub Secrets.
+
+**Test your configuration:**
+```bash
+python3 config.py
+```
+
+### Environment Variables
+
+The system requires:
+- **`WP_AUTH_TOKEN`**: WordPress Basic Auth token (required)
+
+Optional:
+- **`OLLAMA_API_CREDENTIALS`**: Ollama authentication (format: `username:password`)
+- **`SLACK_WEBHOOK_URL`**: Slack notifications
+- **`PLAUSIBLE_SHARE_LINK`**: Plausible Analytics share link
 
 ## 📊 Performance
 

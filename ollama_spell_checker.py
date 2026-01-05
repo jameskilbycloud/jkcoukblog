@@ -418,11 +418,14 @@ def main():
     """
     Main function to run spell checker
     """
-    # Configuration
-    OLLAMA_URL = os.getenv('OLLAMA_URL', 'https://ollama.jameskilby.cloud')
-    WP_URL = os.getenv('WP_URL', 'https://wordpress.jameskilby.cloud')
+    # Import configuration
+    from config import Config
+    
+    # Get configuration from Config class and environment
+    OLLAMA_URL = os.getenv('OLLAMA_URL', Config.OLLAMA_URL)
+    WP_URL = os.getenv('WP_URL', Config.WP_URL)
     AUTH_TOKEN = os.getenv('WP_AUTH_TOKEN')
-    MODEL = os.getenv('OLLAMA_MODEL', 'llama3.1:8b')
+    MODEL = os.getenv('OLLAMA_MODEL', Config.OLLAMA_MODEL)
     OLLAMA_AUTH = os.getenv('OLLAMA_API_CREDENTIALS')  # Format: username:password
     
     if not AUTH_TOKEN:

@@ -165,13 +165,16 @@ wordpress.jameskilby.cloud         (Self-Hosted Runner)       (public/ dir)     
 - `SINCE_TIMESTAMP` - ISO timestamp for incremental spell checking
 - `SLACK_WEBHOOK_URL` - For Slack notifications in GitHub Actions
 
-### Hardcoded Configuration
+### Centralized Configuration
 
-In `wp_to_static_generator.py` and `deploy_static_site.py`:
+All URLs and domains are centralized in `config.py`:
 - **WordPress URL**: `https://wordpress.jameskilby.cloud`
 - **Target Domain**: `https://jameskilby.co.uk`
 - **Staging Domain**: `jkcoukblog.pages.dev`
-- **Analytics Domain**: `plausible.jameskilby.cloud`
+- **Ollama URL**: `https://ollama.jameskilby.cloud`
+- **Plausible URL**: `plausible.jameskilby.cloud`
+
+Secrets remain in environment variables and GitHub Secrets.
 
 ### GitHub Runner Requirements
 

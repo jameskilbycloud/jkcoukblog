@@ -5,19 +5,23 @@ Convert static site to use relative URLs for staging deployment
 import os
 import re
 from pathlib import Path
+from config import Config
 
 def convert_html_to_relative_urls(html_content):
     """Convert absolute URLs to relative URLs for staging"""
+    # Get domain from config
+    target_domain = Config.TARGET_DOMAIN.replace('https://', '').replace('http://', '')
+    
     # Replace absolute URLs with relative URLs
     html_content = re.sub(
-        r'https://jameskilby\.co\.uk/wp-content/',
+        rf'https://{re.escape(target_domain)}/wp-content/',
         '/wp-content/',
         html_content
     )
     
     # Also replace any other absolute references to the domain
     html_content = re.sub(
-        r'https://jameskilby\.co\.uk/',
+        rf'https://{re.escape(target_domain)}/',
         '/',
         html_content
     )
@@ -26,16 +30,20 @@ def convert_html_to_relative_urls(html_content):
 
 def convert_css_urls(css_content):
     """Convert WordPress URLs in CSS files to relative URLs"""
+    # Get domains from config
+    wp_domain = Config.WP_URL.replace('https://', '').replace('http://', '')
+    target_domain = Config.TARGET_DOMAIN.replace('https://', '').replace('http://', '')
+    
     # Replace WordPress private site font URLs with relative paths
     css_content = re.sub(
-        r'https://wordpress\.jameskilby\.cloud/wp-content/',
+        rf'https://{re.escape(wp_domain)}/wp-content/',
         '/wp-content/',
         css_content
     )
     
     # Also replace any absolute references to the public domain in CSS
     css_content = re.sub(
-        r'https://jameskilby\.co\.uk/wp-content/',
+        rf'https://{re.escape(target_domain)}/wp-content/',
         '/wp-content/',
         css_content
     )
