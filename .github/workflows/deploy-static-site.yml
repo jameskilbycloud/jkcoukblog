@@ -167,9 +167,9 @@ jobs:
         path: |
           .image_optimization_cache
           .last_spell_check_timestamp
-        key: build-cache-${{ github.sha }}
+        key: build-cache-avif-v1-${{ github.sha }}
         restore-keys: |
-          build-cache-
+          build-cache-avif-v1-
       
     - name: Setup Python
       uses: actions/setup-python@v4
