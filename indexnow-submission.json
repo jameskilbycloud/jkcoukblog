@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2025-12-24T09:54:56.674996Z",
-    "site_domain": "https://jameskilby.co.uk",
-    "results": {
-      "total_urls": 163,
-      "batches": 1,
-      "successful_batches": 1,
-      "failed_batches": 0,
-      "responses": [
-        {
-          "batch": 1,
-          "endpoint": "https://api.indexnow.org/indexnow",
-          "status_code": 403,
-          "success": false,
-          "message": "{\"code\":\"UserForbiddedToAccessSite\",\"message\":\"User is unauthorized to access the site. Please verify the site using the key and try again\"}"
-        },
-        {
-          "batch": 1,
-          "endpoint": "https://www.bing.com/indexnow",
-          "status_code": 403,
-          "success": false,
-          "message": "{\"code\":\"UserForbiddedToAccessSite\",\"message\":\"User is unauthorized to access the site. Please verify the site using the key and try again\"}"
-        },
-        {
-          "batch": 1,
-          "endpoint": "https://yandex.com/indexnow",
-          "status_code": 202,
-          "success": true
-        }
-      ]
-    }
-  },
-  {
     "timestamp": "2025-12-24T10:00:57.673958Z",
     "site_domain": "https://jameskilby.co.uk",
     "results": {
@@ -949,6 +917,38 @@
           "status_code": 403,
           "success": false,
           "message": "{\"errorCode\":\"UserForbiddedToAccessSite\",\"message\":\"User is unauthorized to access the site. Please verify the site using the key and try again\",\"details\":null}"
+        },
+        {
+          "batch": 1,
+          "endpoint": "https://yandex.com/indexnow",
+          "status_code": 202,
+          "success": true
+        }
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-01-12T23:09:26.960113Z",
+    "site_domain": "https://jameskilby.co.uk",
+    "results": {
+      "total_urls": 163,
+      "batches": 1,
+      "successful_batches": 1,
+      "failed_batches": 0,
+      "responses": [
+        {
+          "batch": 1,
+          "endpoint": "https://api.indexnow.org/indexnow",
+          "status_code": 403,
+          "success": false,
+          "message": "{\"code\":\"UserForbiddedToAccessSite\",\"message\":\"User is unauthorized to access the site. Please verify the site using the key and try again\"}"
+        },
+        {
+          "batch": 1,
+          "endpoint": "https://www.bing.com/indexnow",
+          "status_code": 403,
+          "success": false,
+          "message": "{\"code\":\"UserForbiddedToAccessSite\",\"message\":\"User is unauthorized to access the site. Please verify the site using the key and try again\"}"
         },
         {
           "batch": 1,
