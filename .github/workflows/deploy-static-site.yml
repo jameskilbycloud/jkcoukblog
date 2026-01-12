@@ -258,9 +258,12 @@ jobs:
         echo "TOTAL_SIZE=$TOTAL_SIZE" >> $GITHUB_ENV
         
         # Replace WordPress images with already-optimized versions from public/
+        # Also copy AVIF and WebP versions if they exist
         if [ -d "public/wp-content/uploads" ] && [ -d "./static-output/wp-content/uploads" ]; then
           echo "📋 Checking for already-optimized images..."
           REPLACED=0
+          AVIF_COPIED=0
+          WEBP_COPIED=0
           
           # For each image in static-output, check if optimized version exists in public/
           find ./static-output/wp-content/uploads -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) | while read new_img; do
@@ -277,11 +280,26 @@ jobs:
               if [ "$old_size" -lt "$new_size" ]; then
                 cp "$old_img" "$new_img"
                 REPLACED=$((REPLACED + 1))
+                
+                # Also copy AVIF version if it exists
+                base_name="${old_img%.*}"
+                if [ -f "${base_name}.avif" ]; then
+                  cp "${base_name}.avif" "${new_img%.*}.avif"
+                  AVIF_COPIED=$((AVIF_COPIED + 1))
+                fi
+                
+                # Also copy WebP version if it exists
+                if [ -f "${base_name}.webp" ]; then
+                  cp "${base_name}.webp" "${new_img%.*}.webp"
+                  WEBP_COPIED=$((WEBP_COPIED + 1))
+                fi
               fi
             fi
           done
           
           echo "✅ Reused $REPLACED optimized images from previous build"
+          [ $AVIF_COPIED -gt 0 ] && echo "✅ Copied $AVIF_COPIED AVIF files"
+          [ $WEBP_COPIED -gt 0 ] && echo "✅ Copied $WEBP_COPIED WebP files"
         fi
         
         # Add generation summary to GitHub Actions UI
