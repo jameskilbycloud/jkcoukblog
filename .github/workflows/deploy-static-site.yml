@@ -270,9 +270,11 @@ jobs:
             # Get relative path
             rel_path="${new_img#./static-output/}"
             old_img="public/$rel_path"
+            base_name="${old_img%.*}"
             
-            # If optimized version exists and has different size (was optimized), use it
-            if [ -f "$old_img" ]; then
+            # Only copy if optimized version AND AVIF version exist
+            # This ensures images without AVIF get re-optimized to create AVIF files
+            if [ -f "$old_img" ] && [ -f "${base_name}.avif" ]; then
               new_size=$(stat -f%z "$new_img" 2>/dev/null || stat -c%s "$new_img" 2>/dev/null)
               old_size=$(stat -f%z "$old_img" 2>/dev/null || stat -c%s "$old_img" 2>/dev/null)
               
@@ -281,12 +283,9 @@ jobs:
                 cp "$old_img" "$new_img"
                 REPLACED=$((REPLACED + 1))
                 
-                # Also copy AVIF version if it exists
-                base_name="${old_img%.*}"
-                if [ -f "${base_name}.avif" ]; then
-                  cp "${base_name}.avif" "${new_img%.*}.avif"
-                  AVIF_COPIED=$((AVIF_COPIED + 1))
-                fi
+                # Copy AVIF version (we know it exists)
+                cp "${base_name}.avif" "${new_img%.*}.avif"
+                AVIF_COPIED=$((AVIF_COPIED + 1))
                 
                 # Also copy WebP version if it exists
                 if [ -f "${base_name}.webp" ]; then
