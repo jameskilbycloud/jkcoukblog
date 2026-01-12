@@ -297,6 +297,12 @@ jobs:
       run: |
         echo "🖼️  Starting advanced image optimization with AVIF..."
         
+        # Delete the optimization cache to force regeneration with AVIF
+        if [ -d ".image_optimization_cache" ]; then
+          echo "🗑️  Clearing image optimization cache to regenerate with AVIF..."
+          rm -rf .image_optimization_cache
+        fi
+        
         # Run the Python-based optimizer with parallel processing
         # Uses 4 parallel workers, creates AVIF versions by default
         python3 optimize_images.py ./static-output --workers 4 --json-output optimization-results.json || {
