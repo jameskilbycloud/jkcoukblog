@@ -383,10 +383,25 @@ jobs:
         fi
       continue-on-error: true
     
+    - name: Convert images to picture elements
+      timeout-minutes: 10
+      shell: bash
+      run: |
+        echo "🖼️  Converting img tags to picture elements with AVIF/WebP..."
+        
+        python3 convert_images_to_picture.py ./static-output || {
+          echo "⚠️  Image to picture conversion failed (non-blocking)"
+          echo "PICTURE_CONVERTED=0" >> $GITHUB_ENV
+          exit 0
+        }
+        
+        echo "PICTURE_CONVERTED=1" >> $GITHUB_ENV
+      continue-on-error: true
+    
     - name: Brotli compress static files
       timeout-minutes: 10
       run: |
-        echo "🗜️  Compressing static files with Brotli..."
+        echo "🗁️  Compressing static files with Brotli..."
         
         # Run Brotli compression
         python3 brotli_compress.py ./public || {
