@@ -185,6 +185,30 @@ jobs:
         echo "✅ Dependencies installed"
         echo "📋 Installed packages:"
         pip list | grep -E "(requests|beautifulsoup4)"
+    
+    - name: Install image optimization tools
+      run: |
+        echo "🖼️  Checking image optimization tools..."
+        
+        # Check if avifenc is already installed
+        if command -v avifenc &> /dev/null; then
+          echo "✅ avifenc already installed"
+          avifenc --version 2>&1 | head -n 1 || echo "Version info not available"
+        else
+          echo "📦 Installing libavif-bin..."
+          sudo apt-get update -qq
+          sudo apt-get install -y libavif-bin
+          echo "✅ libavif-bin installed"
+          avifenc --version 2>&1 | head -n 1 || echo "Version info not available"
+        fi
+        
+        # Check for other optimization tools (optional)
+        echo ""
+        echo "📊 Image optimization tools status:"
+        command -v optipng &> /dev/null && echo "  ✅ optipng" || echo "  ⚠️  optipng not found (optional)"
+        command -v jpegoptim &> /dev/null && echo "  ✅ jpegoptim" || echo "  ⚠️  jpegoptim not found (optional)"
+        command -v cwebp &> /dev/null && echo "  ✅ cwebp" || echo "  ⚠️  cwebp not found (optional)"
+        command -v avifenc &> /dev/null && echo "  ✅ avifenc" || echo "  ❌ avifenc not found"
         
     - name: Test runner environment
       if: github.event_name == 'workflow_dispatch'  # Only on manual runs
@@ -264,10 +288,10 @@ jobs:
       timeout-minutes: 20  # Timeout for image optimization
       shell: bash
       run: |
-        echo "🖼️  Starting advanced image optimization..."
+        echo "🖼️  Starting advanced image optimization with AVIF..."
         
         # Run the Python-based optimizer with parallel processing
-        # Uses 4 parallel workers for faster optimization
+        # Uses 4 parallel workers, creates AVIF versions by default
         python3 optimize_images.py ./static-output --workers 4 --json-output optimization-results.json || {
           echo "⚠️  Image optimization failed (non-blocking)"
           # Set defaults if optimization fails
@@ -296,11 +320,17 @@ jobs:
           # Calculate average optimization time for newly optimized images
           AVG_TIME=$(jq '[.[] | select(.was_cached == false) | .duration_ms] | add / length // 0 | floor' optimization-results.json)
           
+          # Count AVIF and WebP versions created
+          AVIF_COUNT=$(jq '[.[] | select(.avif_created == true)] | length' optimization-results.json)
+          WEBP_COUNT=$(jq '[.[] | select(.webp_created == true)] | length' optimization-results.json)
+          
           echo "📊 Optimization Results:"
           echo "   • PNG Images: $PNG_COUNT"
           echo "   • JPEG Images: $JPG_COUNT"
           echo "   • Newly Optimized: $OPTIMIZED_COUNT"
           echo "   • Cached (Skipped): $SKIPPED_COUNT"
+          echo "   • AVIF Created: $AVIF_COUNT"
+          echo "   • WebP Created: $WEBP_COUNT"
           echo "   • Space Saved: ${SAVED_MB}MB"
           echo "   • Avg Time/Image: ${AVG_TIME}ms"
           
@@ -309,6 +339,8 @@ jobs:
           echo "JPG_COUNT=$JPG_COUNT" >> $GITHUB_ENV
           echo "OPTIMIZED_COUNT=$OPTIMIZED_COUNT" >> $GITHUB_ENV
           echo "SKIPPED_COUNT=$SKIPPED_COUNT" >> $GITHUB_ENV
+          echo "AVIF_COUNT=$AVIF_COUNT" >> $GITHUB_ENV
+          echo "WEBP_COUNT=$WEBP_COUNT" >> $GITHUB_ENV
           echo "SAVED_MB=$SAVED_MB" >> $GITHUB_ENV
           echo "AVG_TIME=$AVG_TIME" >> $GITHUB_ENV
           
@@ -321,6 +353,9 @@ jobs:
           echo "  - JPEG: $JPG_COUNT" >> $GITHUB_STEP_SUMMARY
           echo "- **Newly Optimized:** $OPTIMIZED_COUNT" >> $GITHUB_STEP_SUMMARY
           echo "- **Already Optimized (Skipped):** $SKIPPED_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "- **Modern Formats:**" >> $GITHUB_STEP_SUMMARY
+          echo "  - AVIF: $AVIF_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "  - WebP: $WEBP_COUNT" >> $GITHUB_STEP_SUMMARY
           echo "- **Space Saved:** ${SAVED_MB} MB" >> $GITHUB_STEP_SUMMARY
           echo "- **Avg Time per Image:** ${AVG_TIME} ms" >> $GITHUB_STEP_SUMMARY
           echo "- **Parallel Workers:** 4" >> $GITHUB_STEP_SUMMARY

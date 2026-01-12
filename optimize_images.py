@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Advanced Image Optimization Script
-Handles parallel processing, WebP conversion, and intelligent caching
+Handles parallel processing, AVIF/WebP conversion, and intelligent caching
 """
 
 import os
@@ -26,6 +26,8 @@ class OptimizationResult:
     format_type: str
     was_cached: bool
     duration_ms: float
+    avif_created: bool = False
+    avif_size: int = 0
     webp_created: bool = False
     webp_size: int = 0
 
@@ -44,6 +46,7 @@ class ImageOptimizer:
         self.tools = {
             'optipng': self._check_tool('optipng'),
             'jpegoptim': self._check_tool('jpegoptim'),
+            'avifenc': self._check_tool('avifenc'),  # AVIF encoder
             'cwebp': self._check_tool('cwebp'),  # WebP encoder
         }
         
@@ -215,6 +218,33 @@ class ImageOptimizer:
             print(f"⚠️  Error optimizing {filepath}: {e}")
             return None
     
+    def _create_avif(self, filepath: Path) -> Tuple[bool, int]:
+        """Create AVIF version of image"""
+        if not self.tools['avifenc']:
+            return False, 0
+        
+        avif_path = filepath.with_suffix('.avif')
+        
+        # Skip if AVIF already exists and is newer than source
+        if avif_path.exists():
+            if avif_path.stat().st_mtime > filepath.stat().st_mtime:
+                return True, avif_path.stat().st_size
+        
+        try:
+            # Speed 6 (balanced), quality 80 for good balance
+            subprocess.run(
+                ['avifenc', '--speed', '6', '--quality', '80', str(filepath), str(avif_path)],
+                capture_output=True,
+                check=True,
+                timeout=60
+            )
+            
+            return True, avif_path.stat().st_size
+            
+        except Exception as e:
+            print(f"⚠️  Error creating AVIF for {filepath}: {e}")
+            return False, 0
+    
     def _create_webp(self, filepath: Path) -> Tuple[bool, int]:
         """Create WebP version of image"""
         if not self.tools['cwebp']:
@@ -242,7 +272,7 @@ class ImageOptimizer:
             print(f"⚠️  Error creating WebP for {filepath}: {e}")
             return False, 0
     
-    def _optimize_image(self, filepath: Path, create_webp: bool = False) -> Optional[OptimizationResult]:
+    def _optimize_image(self, filepath: Path, create_avif: bool = False, create_webp: bool = False) -> Optional[OptimizationResult]:
         """Optimize a single image file"""
         suffix = filepath.suffix.lower()
         
@@ -254,17 +284,24 @@ class ImageOptimizer:
         else:
             return None
         
-        # Create WebP version if requested and result was successful
-        if result and create_webp and not result.was_cached:
-            webp_created, webp_size = self._create_webp(filepath)
-            result.webp_created = webp_created
-            result.webp_size = webp_size
+        # Create modern format versions if requested and result was successful
+        if result and not result.was_cached:
+            if create_avif:
+                avif_created, avif_size = self._create_avif(filepath)
+                result.avif_created = avif_created
+                result.avif_size = avif_size
+            
+            if create_webp:
+                webp_created, webp_size = self._create_webp(filepath)
+                result.webp_created = webp_created
+                result.webp_size = webp_size
         
         return result
     
     def optimize_directory(
         self,
         directory: str,
+        create_avif: bool = False,
         create_webp: bool = False,
         recursive: bool = True
     ) -> List[OptimizationResult]:
@@ -273,6 +310,7 @@ class ImageOptimizer:
         
         Args:
             directory: Path to directory containing images
+            create_avif: Whether to create AVIF versions
             create_webp: Whether to create WebP versions
             recursive: Whether to search recursively
             
@@ -304,7 +342,7 @@ class ImageOptimizer:
         results = []
         with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_workers) as executor:
             future_to_file = {
-                executor.submit(self._optimize_image, img, create_webp): img
+                executor.submit(self._optimize_image, img, create_avif, create_webp): img
                 for img in image_files
             }
             
@@ -347,6 +385,12 @@ class ImageOptimizer:
         png_count = sum(1 for r in results if r.format_type == 'PNG')
         jpeg_count = sum(1 for r in results if r.format_type == 'JPEG')
         
+        avif_count = sum(1 for r in results if r.avif_created)
+        avif_saved = sum(
+            r.optimized_size - r.avif_size
+            for r in results if r.avif_created and r.avif_size < r.optimized_size
+        )
+        
         webp_count = sum(1 for r in results if r.webp_created)
         webp_saved = sum(
             r.optimized_size - r.webp_size
@@ -364,6 +408,9 @@ class ImageOptimizer:
         print(f"\n✅ Newly Optimized:     {optimized_count}")
         print(f"⏭️  Cached (Skipped):    {cached_count}")
         
+        if avif_count > 0:
+            print(f"🎨 AVIF Created:        {avif_count}")
+        
         if webp_count > 0:
             print(f"🌐 WebP Created:        {webp_count}")
         
@@ -371,6 +418,9 @@ class ImageOptimizer:
         print(f"   • Original:          {total_original / 1024 / 1024:.2f} MB")
         print(f"   • Optimized:         {total_optimized / 1024 / 1024:.2f} MB")
         print(f"   • Saved:             {total_saved / 1024 / 1024:.2f} MB ({(total_saved / total_original * 100) if total_original > 0 else 0:.1f}%)")
+        
+        if avif_count > 0 and avif_saved > 0:
+            print(f"   • AVIF Extra:        {avif_saved / 1024 / 1024:.2f} MB")
         
         if webp_count > 0 and webp_saved > 0:
             print(f"   • WebP Extra:        {webp_saved / 1024 / 1024:.2f} MB")
@@ -395,9 +445,20 @@ def main():
         help='Directory containing images to optimize'
     )
     parser.add_argument(
+        '--avif',
+        action='store_true',
+        default=True,
+        help='Create AVIF versions of images (requires avifenc) - enabled by default'
+    )
+    parser.add_argument(
+        '--no-avif',
+        action='store_true',
+        help='Disable AVIF creation'
+    )
+    parser.add_argument(
         '--webp',
         action='store_true',
-        help='Create WebP versions of images (requires cwebp)'
+        help='Also create WebP versions of images (requires cwebp)'
     )
     parser.add_argument(
         '--workers',
@@ -428,18 +489,24 @@ def main():
         max_workers=args.workers
     )
     
+    # Determine format flags
+    create_avif = args.avif and not args.no_avif
+    create_webp = args.webp
+    
     # Run optimization
     print(f"\n🚀 Starting image optimization...")
     print(f"📁 Directory: {args.directory}")
     print(f"👷 Workers: {args.workers}")
-    print(f"🌐 WebP: {'Yes' if args.webp else 'No'}")
+    print(f"🎨 AVIF: {'Yes' if create_avif else 'No'}")
+    print(f"🌐 WebP: {'Yes' if create_webp else 'No'}")
     print()
     
     start_time = time.time()
     
     results = optimizer.optimize_directory(
         args.directory,
-        create_webp=args.webp,
+        create_avif=create_avif,
+        create_webp=create_webp,
         recursive=not args.no_recursive
     )
     
