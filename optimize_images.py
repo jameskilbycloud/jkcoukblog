@@ -232,15 +232,21 @@ class ImageOptimizer:
         
         try:
             # Speed 6 (balanced), quality 80 for good balance
-            subprocess.run(
-                ['avifenc', '--speed', '6', '--quality', '80', str(filepath), str(avif_path)],
+            # Using -s for speed, -q for quality (more compatible syntax)
+            result = subprocess.run(
+                ['avifenc', '-s', '6', '-q', '80', str(filepath), str(avif_path)],
                 capture_output=True,
                 check=True,
-                timeout=60
+                timeout=60,
+                text=True
             )
             
             return True, avif_path.stat().st_size
             
+        except subprocess.CalledProcessError as e:
+            error_msg = e.stderr.strip() if e.stderr else "Unknown error"
+            print(f"⚠️  Error creating AVIF for {filepath}: {error_msg}")
+            return False, 0
         except Exception as e:
             print(f"⚠️  Error creating AVIF for {filepath}: {e}")
             return False, 0

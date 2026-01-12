@@ -210,6 +210,13 @@ jobs:
         command -v cwebp &> /dev/null && echo "  ✅ cwebp" || echo "  ⚠️  cwebp not found (optional)"
         command -v avifenc &> /dev/null && echo "  ✅ avifenc" || echo "  ❌ avifenc not found"
         
+        # Verify avifenc works by checking help
+        if command -v avifenc &> /dev/null; then
+          echo ""
+          echo "🧪 Testing avifenc..."
+          avifenc --help &> /dev/null && echo "  ✅ avifenc is functional" || echo "  ⚠️  avifenc may have issues"
+        fi
+        
     - name: Test runner environment
       if: github.event_name == 'workflow_dispatch'  # Only on manual runs
       run: |
