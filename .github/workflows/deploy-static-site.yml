@@ -325,7 +325,8 @@ jobs:
           SAVED_MB=$(echo "scale=2; $SAVED_BYTES / 1024 / 1024" | bc)
           
           # Calculate average optimization time for newly optimized images
-          AVG_TIME=$(jq '[.[] | select(.was_cached == false) | .duration_ms] | add / length // 0 | floor' optimization-results.json)
+          # Handle case where all images are cached (length = 0)
+          AVG_TIME=$(jq '[.[] | select(.was_cached == false) | .duration_ms] | if length > 0 then (add / length | floor) else 0 end' optimization-results.json)
           
           # Count AVIF and WebP versions created
           AVIF_COUNT=$(jq '[.[] | select(.avif_created == true)] | length' optimization-results.json)
