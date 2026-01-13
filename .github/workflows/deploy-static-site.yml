@@ -409,12 +409,12 @@ jobs:
         
         # Debug: Check if AVIF files exist before conversion
         echo "🔍 DEBUG: Checking for AVIF files in ./static-output..."
-        AVIF_FILES=$(find ./static-output -name "*.avif" -type f | wc -l | xargs)
+        AVIF_FILES=$(find ./static-output -name "*.avif" -type f 2>/dev/null | wc -l | xargs)
         echo "   Found $AVIF_FILES AVIF files"
         
         if [ "$AVIF_FILES" -gt 0 ]; then
           echo "   Sample AVIF files:"
-          find ./static-output -name "*.avif" -type f | head -5
+          find ./static-output -name "*.avif" -type f 2>/dev/null | head -5 || true
         else
           echo "   ⚠️  WARNING: No AVIF files found! Picture conversion may skip all images."
         fi
@@ -424,7 +424,7 @@ jobs:
         echo "🔍 DEBUG: Directory structure:"
         echo "   Current directory: $(pwd)"
         echo "   Static output exists: $([ -d ./static-output ] && echo 'YES' || echo 'NO')"
-        echo "   HTML files in static-output: $(find ./static-output -name '*.html' | wc -l | xargs)"
+        echo "   HTML files in static-output: $(find ./static-output -name '*.html' 2>/dev/null | wc -l | xargs)"
         
         # Run the conversion
         echo ""
@@ -437,13 +437,13 @@ jobs:
         # Debug: Verify picture elements were created
         echo ""
         echo "🔍 DEBUG: Checking for picture elements after conversion..."
-        PICTURE_COUNT=$(find ./static-output -name "*.html" -exec grep -l "<picture>" {} \; | wc -l | xargs)
+        PICTURE_COUNT=$(find ./static-output -name "*.html" -exec grep -l "<picture>" {} \; 2>/dev/null | wc -l | xargs)
         echo "   HTML files with <picture> tags: $PICTURE_COUNT"
         
         if [ "$PICTURE_COUNT" -gt 0 ]; then
           echo "   ✅ Picture elements successfully created!"
           echo "   Sample:"
-          find ./static-output -name "*.html" -exec grep -l "<picture>" {} \; | head -1 | xargs grep -o "<picture>[^<]*<source[^>]*avif[^>]*>" | head -1
+          find ./static-output -name "*.html" -exec grep -l "<picture>" {} \; 2>/dev/null | head -1 | xargs grep -o "<picture>[^<]*<source[^>]*avif[^>]*>" | head -1 || true
         else
           echo "   ⚠️  WARNING: No picture elements found after conversion!"
         fi
