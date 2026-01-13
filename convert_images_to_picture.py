@@ -123,6 +123,14 @@ class ImageToPictureConverter:
             # Find all img tags
             img_tags = soup.find_all('img')
             
+            # Debug first file
+            if self.debug_count == 0 and img_tags:
+                print(f"\n🔍 DEBUG: First HTML file: {html_file}")
+                print(f"   Total img tags found: {len(img_tags)}")
+                if img_tags:
+                    first_img = img_tags[0]
+                    print(f"   First img src: {first_img.get('src', 'NO SRC')}")
+            
             for img in img_tags:
                 if not self._should_convert_img(img):
                     self.stats['images_skipped'] += 1
@@ -137,6 +145,8 @@ class ImageToPictureConverter:
                 # Only convert if at least one modern format exists
                 if not (has_avif or has_webp):
                     self.stats['images_skipped'] += 1
+                    if self.debug_count <= 3:
+                        print(f"   ⚠️  No AVIF or WebP found for this image")
                     continue
                 
                 # Create picture element and replace img
