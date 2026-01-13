@@ -291,7 +291,8 @@ class ImageOptimizer:
             return None
         
         # Create modern format versions if requested and result was successful
-        if result and not result.was_cached:
+        # IMPORTANT: Create AVIF/WebP even for cached images to ensure all images have modern formats
+        if result:
             if create_avif:
                 avif_created, avif_size = self._create_avif(filepath)
                 result.avif_created = avif_created
