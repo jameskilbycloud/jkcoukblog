@@ -96,14 +96,18 @@ class ImageOptimizer:
     
     def _is_cached(self, filepath: Path) -> bool:
         """Check if file has already been optimized"""
-        path_str = str(filepath)
-        if path_str not in self.cache:
-            return False
+        # TEMPORARILY DISABLED FOR TROUBLESHOOTING - Always return False to force re-optimization
+        return False
         
-        cached_hash = self.cache[path_str].get('hash')
-        current_hash = self._get_file_hash(filepath)
-        
-        return cached_hash == current_hash
+        # Original code commented out:
+        # path_str = str(filepath)
+        # if path_str not in self.cache:
+        #     return False
+        # 
+        # cached_hash = self.cache[path_str].get('hash')
+        # current_hash = self._get_file_hash(filepath)
+        # 
+        # return cached_hash == current_hash
     
     def _update_cache(self, filepath: Path, result: OptimizationResult):
         """Update cache with optimization result"""
@@ -225,10 +229,11 @@ class ImageOptimizer:
         
         avif_path = filepath.with_suffix('.avif')
         
+        # TEMPORARILY DISABLED - Always recreate AVIF for troubleshooting
         # Skip if AVIF already exists and is newer than source
-        if avif_path.exists():
-            if avif_path.stat().st_mtime > filepath.stat().st_mtime:
-                return True, avif_path.stat().st_size
+        # if avif_path.exists():
+        #     if avif_path.stat().st_mtime > filepath.stat().st_mtime:
+        #         return True, avif_path.stat().st_size
         
         try:
             # Speed 6 (balanced), quality 80 for good balance
