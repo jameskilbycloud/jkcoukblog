@@ -22,6 +22,7 @@ class ImageToPictureConverter:
             'images_converted': 0,
             'images_skipped': 0,
         }
+        self.debug_count = 0  # For debugging first few images
     
     def _has_modern_format(self, img_src: str, base_path: Path) -> Tuple[bool, bool]:
         """Check if AVIF and WebP versions exist for an image"""
@@ -32,12 +33,29 @@ class ImageToPictureConverter:
         img_path = img_src.lstrip('/')
         full_path = base_path / img_path
         
+        # Debug first few images
+        if self.debug_count < 3:
+            self.debug_count += 1
+            print(f"\n🔍 DEBUG Image #{self.debug_count}:")
+            print(f"   img_src: {img_src}")
+            print(f"   img_path: {img_path}")
+            print(f"   full_path: {full_path}")
+            print(f"   full_path exists: {full_path.exists()}")
+        
         if not full_path.exists():
+            if self.debug_count <= 3:
+                print(f"   ⚠️  Original image not found!")
             return False, False
         
         # Check for AVIF and WebP versions
         avif_path = full_path.with_suffix('.avif')
         webp_path = full_path.with_suffix('.webp')
+        
+        if self.debug_count <= 3:
+            print(f"   avif_path: {avif_path}")
+            print(f"   avif exists: {avif_path.exists()}")
+            print(f"   webp_path: {webp_path}")
+            print(f"   webp exists: {webp_path.exists()}")
         
         return avif_path.exists(), webp_path.exists()
     
