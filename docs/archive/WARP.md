@@ -22,6 +22,9 @@ python3 submit_indexnow.py ./public
 # Start local test server
 python3 deploy_static_site.py server ./static-output 8080
 
+# Validate HTML and assets (broken links, missing assets)
+python3 validate_html.py ./static-output
+
 # Test search functionality
 python3 test_search.py
 
@@ -117,6 +120,15 @@ gh workflow run test-live-site.yml -f test_url='https://jkcoukblog.pages.dev'
 - Logs submission history to `indexnow-submission.json`
 - Key class: `IndexNowSubmitter`
 
+**validate_html.py** - HTML validation tool
+- Validates generated static site before deployment
+- Checks for broken internal links
+- Verifies all assets exist (images, CSS, JS, fonts)
+- Validates HTML structure (doctype, head, body)
+- Checks for missing alt attributes on images
+- Validates CSS file asset references
+- Key class: `HTMLValidator`
+
 ### GitHub Actions Workflow
 
 **`.github/workflows/deploy-static-site.yml`**
@@ -126,13 +138,16 @@ gh workflow run test-live-site.yml -f test_url='https://jkcoukblog.pages.dev'
   1. Setup Python 3.11 and install dependencies (`requests`, `beautifulsoup4`)
   2. Run optional spell check (non-blocking)
   3. Generate static site
-  4. Reuse optimized images from previous builds
-  5. Optimize images (optipng, jpegoptim) with caching
-  6. Convert URLs for staging compatibility
-  7. Submit URLs to IndexNow (notify search engines)
-  8. Commit to `public/` directory
-  9. Push to repository (triggers Cloudflare Pages auto-deploy)
-  10. Send Slack notifications on success/failure
+  4. Validate HTML build (broken links, missing assets)
+  5. Reuse optimized images from previous builds
+  6. Optimize images (optipng, jpegoptim) with caching
+  7. Convert images to picture elements (AVIF/WebP)
+  8. Brotli compress static files
+  9. Convert URLs for staging compatibility
+  10. Submit URLs to IndexNow (notify search engines)
+  11. Commit to `public/` directory
+  12. Push to repository (triggers Cloudflare Pages auto-deploy)
+  13. Send Slack notifications on success/failure
 
 ### Deployment Flow
 
@@ -311,6 +326,7 @@ pip install requests beautifulsoup4
 - `INDEXNOW_IMPLEMENTATION.md` - IndexNow integration for instant search engine notifications
 - `LIVE_SITE_FORMATTING_TESTS.md` - Live site formatting and structure validation
 - `GITHUB_ACTIONS_LIVE_SITE_TESTING.md` - GitHub Actions workflow for automated live site testing
+- `HTML_VALIDATION.md` - Build-time HTML validation (broken links and missing assets)
 
 ## WordPress-Specific Notes
 
