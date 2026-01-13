@@ -26,11 +26,29 @@ class ImageToPictureConverter:
     
     def _has_modern_format(self, img_src: str, base_path: Path) -> Tuple[bool, bool]:
         """Check if AVIF and WebP versions exist for an image"""
-        if not img_src or img_src.startswith(('http://', 'https://', 'data:', '//')):
+        if not img_src:
             return False, False
         
-        # Remove leading slash for local path resolution
-        img_path = img_src.lstrip('/')
+        # Skip data URIs
+        if img_src.startswith('data:'):
+            return False, False
+        
+        # Handle absolute URLs with the site domain - convert to relative
+        if img_src.startswith(('http://', 'https://')):
+            # Extract path after domain (e.g., https://jameskilby.co.uk/wp-content/... -> wp-content/...)
+            try:
+                from urllib.parse import urlparse
+                parsed = urlparse(img_src)
+                img_path = parsed.path.lstrip('/')
+            except:
+                return False, False
+        elif img_src.startswith('//'):
+            # Protocol-relative URLs
+            return False, False
+        else:
+            # Relative path
+            img_path = img_src.lstrip('/')
+        
         full_path = base_path / img_path
         
         # Debug first few images
