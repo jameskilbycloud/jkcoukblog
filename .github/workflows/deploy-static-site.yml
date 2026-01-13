@@ -308,6 +308,27 @@ jobs:
         echo "- **Total Size:** $TOTAL_SIZE" >> $GITHUB_STEP_SUMMARY
         echo "- **Output Directory:** `./static-output`" >> $GITHUB_STEP_SUMMARY
         
+    - name: Validate HTML build
+      timeout-minutes: 5
+      run: |
+        echo "🔍 Validating generated HTML and assets..."
+        
+        # Run HTML validation on the generated site
+        python3 validate_html.py ./static-output || {
+          echo "❌ HTML validation failed!"
+          echo "⚠️  This indicates broken links or missing assets in the generated site."
+          exit 1
+        }
+        
+        echo "✅ HTML validation passed!"
+        
+        # Add validation summary to GitHub Actions
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## ✅ HTML Validation" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Status:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
+        echo "- **Checks:** Broken links, missing assets, HTML structure" >> $GITHUB_STEP_SUMMARY
+        
     - name: Optimize images
       timeout-minutes: 20  # Timeout for image optimization
       shell: bash
@@ -394,27 +415,6 @@ jobs:
         fi
       continue-on-error: true
     
-    - name: Validate HTML build
-      timeout-minutes: 5
-      run: |
-        echo "🔍 Validating generated HTML and assets..."
-        
-        # Run HTML validation on the generated site
-        python3 validate_html.py ./static-output || {
-          echo "❌ HTML validation failed!"
-          echo "⚠️  This indicates broken links or missing assets in the generated site."
-          exit 1
-        }
-        
-        echo "✅ HTML validation passed!"
-        
-        # Add validation summary to GitHub Actions
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "## ✅ HTML Validation" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "- **Status:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
-        echo "- **Checks:** Broken links, missing assets, HTML structure" >> $GITHUB_STEP_SUMMARY
-        
     - name: Convert images to picture elements
       timeout-minutes: 10
       shell: bash
