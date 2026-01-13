@@ -137,9 +137,10 @@ class HTMLValidator:
                 self.log_error(f"{html_file.relative_to(self.site_dir)}: Missing <body> tag")
                 return False
                 
-            # Check for title
-            if not soup.find('title'):
-                self.log_warning(f"{html_file.relative_to(self.site_dir)}: Missing <title> tag")
+            # Check for title (skip for feed files which may not have titles)
+            rel_path = str(html_file.relative_to(self.site_dir))
+            if not soup.find('title') and 'feed' not in rel_path.lower():
+                self.log_warning(f"{rel_path}: Missing <title> tag")
                 
             return True
             
@@ -283,8 +284,8 @@ class HTMLValidator:
             for match in url_pattern.finditer(content):
                 url = match.group(1)
                 
-                # Skip external URLs and data URIs
-                if url.startswith(('http://', 'https://', 'data:', '//')):
+                # Skip external URLs, data URIs, and fragment identifiers (like #id or %23id)
+                if url.startswith(('http://', 'https://', 'data:', '//', '#', '%23')):
                     continue
                     
                 target_path = self.normalize_path(url, css_file)
