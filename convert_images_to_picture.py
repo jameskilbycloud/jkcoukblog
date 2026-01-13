@@ -83,9 +83,14 @@ class ImageToPictureConverter:
         if img.parent and img.parent.name == 'picture':
             return False
         
-        # Skip if it's a data URI or external image
+        # Skip if it's a data URI
         src = img.get('src', '')
-        if not src or src.startswith(('data:', 'http://', 'https://', '//')):
+        if not src or src.startswith('data:'):
+            return False
+        
+        # Skip protocol-relative or fully external URLs
+        # But allow absolute URLs with http/https (will be parsed to extract path)
+        if src.startswith('//'):
             return False
         
         # Skip SVG images (already vector format)
