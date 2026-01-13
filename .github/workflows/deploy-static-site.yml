@@ -407,11 +407,46 @@ jobs:
       run: |
         echo "🖼️  Converting img tags to picture elements with AVIF/WebP..."
         
+        # Debug: Check if AVIF files exist before conversion
+        echo "🔍 DEBUG: Checking for AVIF files in ./static-output..."
+        AVIF_FILES=$(find ./static-output -name "*.avif" -type f | wc -l | xargs)
+        echo "   Found $AVIF_FILES AVIF files"
+        
+        if [ "$AVIF_FILES" -gt 0 ]; then
+          echo "   Sample AVIF files:"
+          find ./static-output -name "*.avif" -type f | head -5
+        else
+          echo "   ⚠️  WARNING: No AVIF files found! Picture conversion may skip all images."
+        fi
+        
+        # Debug: Check directory structure
+        echo ""
+        echo "🔍 DEBUG: Directory structure:"
+        echo "   Current directory: $(pwd)"
+        echo "   Static output exists: $([ -d ./static-output ] && echo 'YES' || echo 'NO')"
+        echo "   HTML files in static-output: $(find ./static-output -name '*.html' | wc -l | xargs)"
+        
+        # Run the conversion
+        echo ""
         python3 convert_images_to_picture.py ./static-output || {
           echo "⚠️  Image to picture conversion failed (non-blocking)"
           echo "PICTURE_CONVERTED=0" >> $GITHUB_ENV
           exit 0
         }
+        
+        # Debug: Verify picture elements were created
+        echo ""
+        echo "🔍 DEBUG: Checking for picture elements after conversion..."
+        PICTURE_COUNT=$(find ./static-output -name "*.html" -exec grep -l "<picture>" {} \; | wc -l | xargs)
+        echo "   HTML files with <picture> tags: $PICTURE_COUNT"
+        
+        if [ "$PICTURE_COUNT" -gt 0 ]; then
+          echo "   ✅ Picture elements successfully created!"
+          echo "   Sample:"
+          find ./static-output -name "*.html" -exec grep -l "<picture>" {} \; | head -1 | xargs grep -o "<picture>[^<]*<source[^>]*avif[^>]*>" | head -1
+        else
+          echo "   ⚠️  WARNING: No picture elements found after conversion!"
+        fi
         
         echo "PICTURE_CONVERTED=1" >> $GITHUB_ENV
       continue-on-error: true
