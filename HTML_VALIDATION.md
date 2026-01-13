@@ -164,6 +164,7 @@ By validating immediately after generation, we catch issues before spending time
 The validator intentionally skips:
 
 - External URLs (http://, https://)
+- Protocol-relative URLs (//cdn.example.com)
 - Data URIs (data:image/png;base64,...)
 - Email links (mailto:)
 - Phone links (tel:)

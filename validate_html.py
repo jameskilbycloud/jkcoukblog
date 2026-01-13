@@ -233,7 +233,8 @@ class HTMLValidator:
             for link in soup.find_all('link', rel='stylesheet', href=True):
                 href = link['href']
                 
-                if href.startswith(('http://', 'https://')):
+                # Skip external URLs (including protocol-relative URLs)
+                if href.startswith(('http://', 'https://', '//')):
                     continue
                     
                 target_path = self.normalize_path(href, html_file)
@@ -249,7 +250,8 @@ class HTMLValidator:
             for script in soup.find_all('script', src=True):
                 src = script['src']
                 
-                if src.startswith(('http://', 'https://')):
+                # Skip external URLs (including protocol-relative URLs)
+                if src.startswith(('http://', 'https://', '//')):
                     continue
                     
                 target_path = self.normalize_path(src, html_file)
