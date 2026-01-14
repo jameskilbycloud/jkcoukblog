@@ -45,9 +45,9 @@ console.log('[Search] Script loaded');
         if (input) {
             input.addEventListener('input', debounce(handleSearch, 300));
             input.addEventListener('focus', function() {
-                this.style.borderColor = '#0d6efd';
+                this.style.borderColor = '#f6821f';
                 this.style.background = '#fff';
-                this.style.boxShadow = '0 0 0 3px rgba(13, 110, 253, 0.1)';
+                this.style.boxShadow = '0 0 0 3px rgba(246, 130, 31, 0.1)';
             });
             input.addEventListener('blur', function() {
                 this.style.borderColor = '#ddd';
