@@ -956,6 +956,53 @@ class WordPressStaticGenerator:
                 preload['href'] = link['href']
                 soup.head.insert(0, preload)
     
+    def add_favicon_links(self, soup):
+        """Add favicon links for better browser support and performance"""
+        if not soup.head:
+            return
+        
+        # Check if favicon links already exist
+        existing_favicon = soup.find('link', rel=lambda x: x and 'icon' in x)
+        if existing_favicon:
+            return  # Already has favicon links
+        
+        # Add favicon.ico (legacy browser support)
+        favicon_ico = soup.new_tag('link')
+        favicon_ico['rel'] = 'icon'
+        favicon_ico['type'] = 'image/x-icon'
+        favicon_ico['href'] = '/favicon.ico'
+        soup.head.append(favicon_ico)
+        
+        # Add PNG favicon for modern browsers
+        favicon_32 = soup.new_tag('link')
+        favicon_32['rel'] = 'icon'
+        favicon_32['type'] = 'image/png'
+        favicon_32['sizes'] = '32x32'
+        favicon_32['href'] = '/favicon-32x32.png'
+        soup.head.append(favicon_32)
+        
+        favicon_16 = soup.new_tag('link')
+        favicon_16['rel'] = 'icon'
+        favicon_16['type'] = 'image/png'
+        favicon_16['sizes'] = '16x16'
+        favicon_16['href'] = '/favicon-16x16.png'
+        soup.head.append(favicon_16)
+        
+        # Add Apple touch icon
+        apple_touch = soup.new_tag('link')
+        apple_touch['rel'] = 'apple-touch-icon'
+        apple_touch['sizes'] = '180x180'
+        apple_touch['href'] = '/apple-touch-icon.png'
+        soup.head.append(apple_touch)
+        
+        # Add web app manifest
+        manifest = soup.new_tag('link')
+        manifest['rel'] = 'manifest'
+        manifest['href'] = '/site.webmanifest'
+        soup.head.append(manifest)
+        
+        print(f"   🐞 Added favicon links for browser support")
+    
     def add_brutalist_theme_css(self, soup):
         """Add brutalist theme CSS inspired by justfuckingusecloudflare.com"""
         if not soup.head:
