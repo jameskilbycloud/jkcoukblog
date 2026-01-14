@@ -225,11 +225,10 @@ class ImageOptimizer:
         
         avif_path = filepath.with_suffix('.avif')
         
-        # TEMPORARILY DISABLED - Always recreate AVIF for troubleshooting
         # Skip if AVIF already exists and is newer than source
-        # if avif_path.exists():
-        #     if avif_path.stat().st_mtime > filepath.stat().st_mtime:
-        #         return True, avif_path.stat().st_size
+        if avif_path.exists():
+            if avif_path.stat().st_mtime > filepath.stat().st_mtime:
+                return True, avif_path.stat().st_size
         
         try:
             # Speed 6 (balanced), quality 80 for good balance
