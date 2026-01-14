@@ -1002,33 +1002,36 @@ class WordPressStaticGenerator:
         print(f"   🐞 Added favicon links for browser support")
     
     def add_brutalist_theme_css(self, soup):
-        """Add brutalist theme CSS inspired by justfuckingusecloudflare.com"""
+        """Add brutalist theme CSS as external file with cache headers inspired by justfuckingusecloudflare.com"""
         if not soup.head:
             return
         
-        # Check if brutalist theme is already injected
-        existing_brutalist = soup.find('style', id='brutalist-theme')
+        # Check if brutalist theme link is already injected
+        existing_brutalist = soup.find('link', href='/assets/css/brutalist-theme.css')
         if existing_brutalist:
             return
         
-        # Read the brutalist theme CSS file
-        brutalist_css_path = Path(__file__).parent / 'brutalist-theme.css'
-        if not brutalist_css_path.exists():
-            print(f"   ⚠️  Brutalist theme CSS not found at {brutalist_css_path}")
+        # Copy CSS to output directory once
+        source_css_path = Path(__file__).parent / 'brutalist-theme.css'
+        theme_css_path = self.output_dir / 'assets' / 'css' / 'brutalist-theme.css'
+        
+        if not source_css_path.exists():
+            print(f"   ⚠️  Brutalist theme CSS not found at {source_css_path}")
             return
         
         try:
-            with open(brutalist_css_path, 'r', encoding='utf-8') as f:
-                css_content = f.read()
+            # Ensure the assets/css directory exists
+            theme_css_path.parent.mkdir(parents=True, exist_ok=True)
             
-            # Create a style tag with the CSS content
-            style_tag = soup.new_tag('style')
-            style_tag['id'] = 'brutalist-theme'
-            style_tag.string = css_content
+            # Copy CSS file if it doesn't exist or is outdated
+            if not theme_css_path.exists() or source_css_path.stat().st_mtime > theme_css_path.stat().st_mtime:
+                shutil.copy(source_css_path, theme_css_path)
+                print(f"   📋 Copied brutalist theme CSS to {theme_css_path}")
             
-            # Append to head (after existing styles so it overrides)
-            soup.head.append(style_tag)
-            print(f"   🎨 Added brutalist theme CSS ({len(css_content)} bytes)")
+            # Link to external file
+            link = soup.new_tag('link', rel='stylesheet', href='/assets/css/brutalist-theme.css')
+            soup.head.append(link)
+            print(f"   🎨 Added brutalist theme CSS link")
         except Exception as e:
             print(f"   ❌ Failed to add brutalist theme CSS: {str(e)}")
     
@@ -2452,9 +2455,10 @@ class WordPressStaticGenerator:
         
         # Print results summary
         success_count = len([r for r in results if r.startswith('✅')])
+        error_count = len(results) - success_count
         print(f"\\n📊 Processing Results:")
         print(f"   ✅ Success: {success_count}")
-        print(f"   ❌ Failed: {len(results) - success_count}")
+        print(f"   ❌ Failed: {error_count}")
         
         # Download assets
         print(f"\\n📁 Asset Processing:")
@@ -2486,6 +2490,20 @@ class WordPressStaticGenerator:
         # Show directory size
         total_size = sum(f.stat().st_size for f in self.output_dir.rglob('*') if f.is_file())
         print(f"Total size: {total_size / 1024 / 1024:.1f} MB")
+        
+        # Generate build metrics report
+        print(f"\n📊 Generating build report:")
+        try:
+            from generate_build_report import generate_build_metrics
+            generate_build_metrics(
+                output_dir=self.output_dir,
+                duration=duration,
+                urls_processed=len(urls),
+                assets_downloaded=len(self.downloaded_assets),
+                error_count=error_count
+            )
+        except Exception as e:
+            print(f"   ⚠️  Failed to generate build report: {str(e)}")
         
         return True
 
