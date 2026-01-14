@@ -1075,13 +1075,18 @@ class WordPressStaticGenerator:
         if existing_plausible:
             # Update the data-domain attribute to ensure it's correct
             existing_plausible['data-domain'] = target_analytics_domain
-            existing_plausible['async'] = ''
+            existing_plausible['defer'] = ''  # Use defer for better preconnect timing
+            existing_plausible['data-cfasync'] = 'false'  # Bypass Cloudflare Rocket Loader
+            # Remove async if it exists
+            if existing_plausible.get('async'):
+                del existing_plausible['async']
             print(f"   📊 Updated existing Plausible analytics configuration")
         else:
             # Add new Plausible script
             plausible_script = soup.new_tag('script')
             plausible_script['data-domain'] = target_analytics_domain
-            plausible_script['async'] = ''
+            plausible_script['defer'] = ''  # Use defer for better preconnect timing
+            plausible_script['data-cfasync'] = 'false'  # Bypass Cloudflare Rocket Loader
             plausible_script['src'] = plausible_script_url
             soup.head.append(plausible_script)
             print(f"   📊 Added Plausible analytics script to page")
