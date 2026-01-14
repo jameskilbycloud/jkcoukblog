@@ -43,7 +43,7 @@ class OllamaSpellChecker:
             'cpu', 'gpu', 'ram', 'ssd', 'nas', 'iscsi', 'nfs', 'vlan',
             'inteligent',  # Historical misspelling in redirects
             'acast', 'plausible', 'indexnow', 'netlify', 'vimeo',
-            'srcset', 'iframe', 'jpegoptim', 'optipng', 'fuse'
+            'srcset', 'iframe', 'jpegoptim', 'optipng', 'fuse', 'simplystatic', 'holodeck', 'holoconsole', 'holobuilder'
         }
         
         # Add whitelist to spell checker's dictionary
@@ -192,9 +192,22 @@ If no actual errors, return: {{"has_errors": false, "errors": []}}
             if excerpt_text:
                 texts.append(('excerpt', excerpt_text))
         
-        # Remove code blocks, scripts, and styles before processing
+        # Remove code blocks, scripts, styles, and WordPress block comments before processing
         for code in soup.find_all(['pre', 'code', 'script', 'style']):
             code.decompose()
+        
+        # Remove elements that are typically hidden or not visible to users
+        for hidden in soup.find_all(class_=lambda x: x and ('screen-reader-text' in x or 'visually-hidden' in x or 'hidden' in x)):
+            hidden.decompose()
+        
+        # Remove elements with display:none or visibility:hidden inline styles
+        for element in soup.find_all(style=lambda x: x and ('display:none' in x or 'display: none' in x or 'visibility:hidden' in x or 'visibility: hidden' in x)):
+            element.decompose()
+        
+        # Remove HTML comments (WordPress block comments like <!-- wp:paragraph -->)
+        for comment in soup.find_all(string=lambda text: isinstance(text, type(soup))):
+            if hasattr(comment, 'extract'):
+                comment.extract()
         
         # Get all paragraphs (REST API content is just the post content HTML)
         for i, p in enumerate(soup.find_all('p')):
@@ -240,6 +253,18 @@ If no actual errors, return: {{"has_errors": false, "errors": []}}
             # Extract text sections (pass title and excerpt from API)
             texts = self.extract_text_from_html(html_content, post_title, post_excerpt)
             print(f"   Found {len(texts)} text sections")
+            
+            # Debug: Save extracted content if DEBUG env var is set
+            if os.getenv('DEBUG_SPELL_CHECK'):
+                debug_file = Path(f'debug_post_{post_id}_extracted.txt')
+                with open(debug_file, 'w') as f:
+                    f.write(f"Post ID: {post_id}\n")
+                    f.write(f"Title: {post_title}\n")
+                    f.write(f"URL: {post_link}\n")
+                    f.write("=" * 60 + "\n\n")
+                    for section_type, text in texts:
+                        f.write(f"[{section_type}]\n{text}\n\n")
+                print(f"   🐛 Debug: Extracted content saved to {debug_file}")
             
             # Stage 1: Fast traditional spell check on all sections
             print(f"   ⚡ Stage 1: Fast spell check...")
