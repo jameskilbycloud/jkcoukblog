@@ -1025,13 +1025,13 @@ class WordPressStaticGenerator:
         if existing_plausible:
             # Update the data-domain attribute to ensure it's correct
             existing_plausible['data-domain'] = target_analytics_domain
-            existing_plausible['defer'] = ''
+            existing_plausible['async'] = ''
             print(f"   📊 Updated existing Plausible analytics configuration")
         else:
             # Add new Plausible script
             plausible_script = soup.new_tag('script')
             plausible_script['data-domain'] = target_analytics_domain
-            plausible_script['defer'] = ''
+            plausible_script['async'] = ''
             plausible_script['src'] = plausible_script_url
             soup.head.append(plausible_script)
             print(f"   📊 Added Plausible analytics script to page")
