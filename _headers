@@ -40,7 +40,7 @@
 # Security headers (all pages)
 /*
   X-Content-Type-Options: nosniff
-  X-Frame-Options: SAMEORIGIN
   X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Content-Security-Policy: frame-ancestors 'self'; frame-src 'self' https://embed.acast.com https://www.youtube.com https://youtube.com https://utteranc.es;
