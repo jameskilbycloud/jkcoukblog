@@ -96,18 +96,14 @@ class ImageOptimizer:
     
     def _is_cached(self, filepath: Path) -> bool:
         """Check if file has already been optimized"""
-        # TEMPORARILY DISABLED FOR TROUBLESHOOTING - Always return False to force re-optimization
-        return False
+        path_str = str(filepath)
+        if path_str not in self.cache:
+            return False
         
-        # Original code commented out:
-        # path_str = str(filepath)
-        # if path_str not in self.cache:
-        #     return False
-        # 
-        # cached_hash = self.cache[path_str].get('hash')
-        # current_hash = self._get_file_hash(filepath)
-        # 
-        # return cached_hash == current_hash
+        cached_hash = self.cache[path_str].get('hash')
+        current_hash = self._get_file_hash(filepath)
+        
+        return cached_hash == current_hash
     
     def _update_cache(self, filepath: Path, result: OptimizationResult):
         """Update cache with optimization result"""

@@ -85,6 +85,7 @@ gh workflow run test-live-site.yml -f test_url='https://jkcoukblog.pages.dev'
 - Performs URL replacement (WordPress → target domain)
 - Processes WordPress embeds (Acast, YouTube, Vimeo, Twitter)
 - Injects Plausible Analytics tracking code
+- Adds reading time and word count to post metadata (visible and schema)
 - Generates sitemap and redirects file
 - Uses concurrent processing (ThreadPoolExecutor) for performance
 - Key class: `WordPressStaticGenerator`

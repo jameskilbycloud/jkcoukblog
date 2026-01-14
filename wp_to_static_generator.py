@@ -238,6 +238,9 @@ class WordPressStaticGenerator:
         # Add content freshness indicator (published/updated dates)
         self.add_content_freshness_indicator(soup)
         
+        # Add reading time and word count to entry-meta
+        self.add_reading_time_indicator(soup)
+        
         # Fix inline CSS font URLs
         self.fix_inline_css_urls(soup)
         
@@ -1385,6 +1388,59 @@ class WordPressStaticGenerator:
         insertion_point.insert_after(freshness_div)
         
         print(f"   📅 Added content freshness indicator (Published: {pub_formatted}, Updated: {mod_formatted})")
+    
+    def add_reading_time_indicator(self, soup):
+        """Add visible reading time and word count to the entry-meta section"""
+        
+        # Extract article content for word count
+        article_content = self._extract_article_text(soup)
+        
+        if not article_content:
+            print(f"   ℹ️  Skipping reading time indicator - no article content found")
+            return
+        
+        # Calculate word count and reading time
+        word_count = len(article_content.split())
+        reading_minutes = max(1, round(word_count / 200))  # 200 words per minute average
+        
+        # Find the entry-meta div to add reading time
+        entry_meta = soup.find('div', class_=lambda x: x and 'entry-meta' in x)
+        
+        if not entry_meta:
+            print(f"   ℹ️  Skipping reading time indicator - entry-meta not found")
+            return
+        
+        # Create reading time span
+        reading_time_span = soup.new_tag('span')
+        reading_time_span['class'] = 'reading-time'
+        reading_time_span['style'] = 'color: #718096;'
+        
+        # Add separator
+        separator = soup.new_tag('span')
+        separator.string = ' • '
+        reading_time_span.append(separator)
+        
+        # Add reading time icon and text
+        time_icon = soup.new_tag('span')
+        time_icon['style'] = 'margin-right: 4px;'
+        time_icon.string = '📖'
+        reading_time_span.append(time_icon)
+        
+        # Reading time text
+        time_text = soup.new_tag('span')
+        time_text.string = f'{reading_minutes} min read'
+        reading_time_span.append(time_text)
+        
+        # Add word count
+        word_count_text = soup.new_tag('span')
+        word_count_text['style'] = 'margin-left: 4px; color: #a0aec0;'
+        word_count_text.string = f'({word_count:,} words)'
+        reading_time_span.append(word_count_text)
+        
+        # Append to entry-meta
+        entry_meta.append(reading_time_span)
+        
+        print(f"   📖 Added reading time: {reading_minutes} min ({word_count:,} words)")
     
     def add_taxonomy_meta_description(self, soup, current_url):
         """Add meta descriptions to tag and category archive pages"""

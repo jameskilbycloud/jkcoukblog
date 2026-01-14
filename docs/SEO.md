@@ -192,6 +192,7 @@ https://securityheaders.com/?q=jameskilby.co.uk
 - ✅ Alt text on all images
 - ✅ Internal linking structure
 - ✅ Clean URL structure
+- ✅ Reading time and word count visible on posts
 
 #### Technical SEO
 - ✅ XML sitemap generated automatically
@@ -212,7 +213,6 @@ https://securityheaders.com/?q=jameskilby.co.uk
 #### Content
 - [ ] Add FAQ schema markup
 - [ ] Implement article series/collection pages
-- [ ] Add estimated reading time
 - [ ] Create cornerstone content
 
 #### Technical
