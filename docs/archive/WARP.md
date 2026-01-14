@@ -31,6 +31,9 @@ python3 manage_build_cache.py inspect
 
 # Clear cache (force full rebuild)
 python3 manage_build_cache.py clear
+
+# Test incremental build system
+python3 test_incremental_build.py
 ```
 
 ### Testing
