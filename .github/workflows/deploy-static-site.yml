@@ -329,6 +329,50 @@ jobs:
         echo "- **Status:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
         echo "- **Checks:** Broken links, missing assets, HTML structure" >> $GITHUB_STEP_SUMMARY
         
+    - name: Content quality validation
+      timeout-minutes: 5
+      continue-on-error: true  # Non-blocking: warnings won't fail the build
+      run: |
+        echo "📋 Running content quality checks..."
+        
+        # Copy to public directory for validation (uses relative paths)
+        rm -rf public/
+        cp -r ./static-output public/
+        
+        # Run content validator (non-blocking)
+        python3 content_validator.py || {
+          echo "⚠️  Content validation found issues (non-blocking)"
+        }
+        
+        # Parse validation report and add to summary
+        if [ -f "validation-report.json" ]; then
+          ERROR_COUNT=$(jq '.summary.errors' validation-report.json)
+          WARNING_COUNT=$(jq '.summary.warnings' validation-report.json)
+          STATUS=$(jq -r '.summary.status' validation-report.json)
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 📋 Content Quality Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status:** $([ "$STATUS" = "PASS" ] && echo "✅ Pass" || echo "⚠️ Issues Found")" >> $GITHUB_STEP_SUMMARY
+          echo "- **Errors:** $ERROR_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "- **Warnings:** $WARNING_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Show top issues if any
+          if [ "$ERROR_COUNT" -gt 0 ]; then
+            echo "### ❌ Top Errors" >> $GITHUB_STEP_SUMMARY
+            jq -r '.errors[:3] | .[] | "- " + .message' validation-report.json >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "$WARNING_COUNT" -gt 0 ]; then
+            echo "### ⚠️ Top Warnings" >> $GITHUB_STEP_SUMMARY
+            jq -r '.warnings[:3] | .[] | "- " + .message' validation-report.json >> $GITHUB_STEP_SUMMARY
+          fi
+        else
+          echo "⚠️  No validation report generated" >> $GITHUB_STEP_SUMMARY
+        fi
+        
     - name: Optimize images
       timeout-minutes: 20  # Timeout for image optimization
       shell: bash
@@ -560,7 +604,7 @@ jobs:
         
         # Check if there are changes to commit
         # Note: .br files are automatically included in public/
-        git add public/ .last_spell_check_timestamp .image_optimization_cache/ .indexnow_key indexnow-submission.json 2>/dev/null || true
+        git add public/ .last_spell_check_timestamp .image_optimization_cache/ .indexnow_key indexnow-submission.json validation-report.json 2>/dev/null || true
         
         if [ -n "$(git diff --cached)" ]; then
           echo "📝 Changes detected, committing..."
