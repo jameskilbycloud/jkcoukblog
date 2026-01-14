@@ -46,7 +46,7 @@ class WordPressSpellCheckFixer:
             'cpu', 'gpu', 'ram', 'ssd', 'nas', 'iscsi', 'nfs', 'vlan',
             'inteligent',  # Historical misspelling in redirects
             'acast', 'plausible', 'indexnow', 'netlify', 'vimeo',
-            'srcset', 'iframe', 'jpegoptim', 'optipng', 'fuse'
+            'srcset', 'iframe', 'jpegoptim', 'optipng', 'fuse', 'simplystatic', 'holodeck', 'holoconsole', 'holobuilder' , 'brotli', 'webp', 'avif', 'lqip', 'nextcloud', 'collabora', 'onlyoffice', 'markdown', 'mdx', 'jekyll', 'hugo'
         }
         
         # Add whitelist to spell checker's dictionary
