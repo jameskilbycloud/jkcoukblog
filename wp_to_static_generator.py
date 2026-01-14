@@ -938,6 +938,9 @@ class WordPressStaticGenerator:
             existing_theme_color['content'] = '#0a0a0a'
             print(f"   🎨 Updated theme-color meta tag to dark theme")
         
+        # Add favicon links
+        self.add_favicon_links(soup)
+        
         # Inject brutalist theme CSS
         self.add_brutalist_theme_css(soup)
         
