@@ -105,7 +105,10 @@ console.log('[Search] Script loaded');
         script.onload = () => {
             fuse = new window.Fuse(searchIndex, {
                 keys: ['title', 'description', 'content'],
-                threshold: 0.4
+                threshold: 0.4,
+                includeMatches: true,
+                ignoreLocation: true,
+                minMatchCharLength: 2
             });
             if (callback) callback();
         };
@@ -117,6 +120,9 @@ console.log('[Search] Script loaded');
         
         const results = fuse.search(query);
         displayResults(results, query);
+        
+        // Track search analytics (privacy-friendly)
+        trackSearch(query, results.length);
     }
     
     function displayResults(results, query) {
@@ -144,12 +150,15 @@ console.log('[Search] Script loaded');
         } else {
             results.slice(0, 10).forEach((r, idx) => {
                 const item = r.item;
+                const highlightedTitle = highlightSearchTerms(item.title, query);
+                const highlightedDesc = highlightSearchTerms((item.description || '').substring(0, 150), query);
+                
                 html += `<a href="` + item.url + `" style="display: block; padding: 16px; border-bottom: 1px solid #f0f0f0; text-decoration: none; color: inherit; transition: all 0.15s;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
                     <div style="display: flex; align-items: flex-start; gap: 10px;">
                         <div style="flex-shrink: 0; width: 28px; height: 28px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 600;">` + (idx + 1) + `</div>
                         <div style="flex: 1; min-width: 0;">
-                            <div style="font-size: 14px; font-weight: 600; color: #111; margin-bottom: 4px; line-height: 1.3;">` + escapeHtml(item.title) + `</div>
-                            <div style="font-size: 12px; color: #666; margin-bottom: 6px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">` + escapeHtml((item.description || '').substring(0, 100)) + `</div>
+                            <div style="font-size: 14px; font-weight: 600; color: #111; margin-bottom: 4px; line-height: 1.3;">` + highlightedTitle + `</div>
+                            <div style="font-size: 12px; color: #666; margin-bottom: 6px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">` + highlightedDesc + `</div>
                             <div style="font-size: 11px; color: #999; word-break: break-all;">` + item.url.replace('https://jameskilby.co.uk', '') + `</div>
                         </div>
                     </div>
@@ -179,6 +188,36 @@ console.log('[Search] Script loaded');
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+    
+    // Highlight search terms in text
+    function highlightSearchTerms(text, query) {
+        if (!query || !text) return escapeHtml(text);
+        
+        const escapedText = escapeHtml(text);
+        const terms = query.toLowerCase().split(/\s+/).filter(t => t.length > 1);
+        
+        let highlighted = escapedText;
+        terms.forEach(term => {
+            const regex = new RegExp(`(${term})`, 'gi');
+            highlighted = highlighted.replace(regex, '<mark style="background-color: #fef3c7; padding: 1px 2px; border-radius: 2px; font-weight: 500;">$1</mark>');
+        });
+        
+        return highlighted;
+    }
+    
+    // Privacy-friendly search analytics
+    function trackSearch(query, resultCount) {
+        // Send to Plausible as custom event (respects DNT and privacy)
+        if (window.plausible) {
+            window.plausible('Search', {
+                props: {
+                    query_length: query.length,
+                    result_count: resultCount,
+                    has_results: resultCount > 0 ? 'yes' : 'no'
+                }
+            });
+        }
     }
     
     if (document.readyState === 'loading') {
