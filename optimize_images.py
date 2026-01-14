@@ -218,17 +218,21 @@ class ImageOptimizer:
             print(f"⚠️  Error optimizing {filepath}: {e}")
             return None
     
-    def _create_avif(self, filepath: Path) -> Tuple[bool, int]:
-        """Create AVIF version of image"""
+    def _create_avif(self, filepath: Path, was_cached: bool = False) -> Tuple[bool, int, bool]:
+        """Create AVIF version of image
+        
+        Returns:
+            Tuple of (created, size, was_newly_created)
+        """
         if not self.tools['avifenc']:
-            return False, 0
+            return False, 0, False
         
         avif_path = filepath.with_suffix('.avif')
         
         # Skip if AVIF already exists and is newer than source
         if avif_path.exists():
-            if avif_path.stat().st_mtime > filepath.stat().st_mtime:
-                return True, avif_path.stat().st_size
+            if avif_path.stat().st_mtime >= filepath.stat().st_mtime:
+                return True, avif_path.stat().st_size, False
         
         try:
             # Speed 6 (balanced), quality 80 for good balance
@@ -241,27 +245,31 @@ class ImageOptimizer:
                 text=True
             )
             
-            return True, avif_path.stat().st_size
+            return True, avif_path.stat().st_size, True
             
         except subprocess.CalledProcessError as e:
             error_msg = e.stderr.strip() if e.stderr else "Unknown error"
             print(f"⚠️  Error creating AVIF for {filepath}: {error_msg}")
-            return False, 0
+            return False, 0, False
         except Exception as e:
             print(f"⚠️  Error creating AVIF for {filepath}: {e}")
-            return False, 0
+            return False, 0, False
     
-    def _create_webp(self, filepath: Path) -> Tuple[bool, int]:
-        """Create WebP version of image"""
+    def _create_webp(self, filepath: Path, was_cached: bool = False) -> Tuple[bool, int, bool]:
+        """Create WebP version of image
+        
+        Returns:
+            Tuple of (created, size, was_newly_created)
+        """
         if not self.tools['cwebp']:
-            return False, 0
+            return False, 0, False
         
         webp_path = filepath.with_suffix('.webp')
         
         # Skip if WebP already exists and is newer than source
         if webp_path.exists():
-            if webp_path.stat().st_mtime > filepath.stat().st_mtime:
-                return True, webp_path.stat().st_size
+            if webp_path.stat().st_mtime >= filepath.stat().st_mtime:
+                return True, webp_path.stat().st_size, False
         
         try:
             # Quality 80 for good balance
@@ -272,11 +280,11 @@ class ImageOptimizer:
                 timeout=60
             )
             
-            return True, webp_path.stat().st_size
+            return True, webp_path.stat().st_size, True
             
         except Exception as e:
             print(f"⚠️  Error creating WebP for {filepath}: {e}")
-            return False, 0
+            return False, 0, False
     
     def _optimize_image(self, filepath: Path, create_avif: bool = False, create_webp: bool = False) -> Optional[OptimizationResult]:
         """Optimize a single image file"""
@@ -294,14 +302,20 @@ class ImageOptimizer:
         # IMPORTANT: Create AVIF/WebP even for cached images to ensure all images have modern formats
         if result:
             if create_avif:
-                avif_created, avif_size = self._create_avif(filepath)
+                avif_created, avif_size, avif_newly_created = self._create_avif(filepath, result.was_cached)
                 result.avif_created = avif_created
                 result.avif_size = avif_size
+                # If image was cached and AVIF wasn't newly created, ensure was_cached stays true
+                if result.was_cached and not avif_newly_created:
+                    result.was_cached = True
             
             if create_webp:
-                webp_created, webp_size = self._create_webp(filepath)
+                webp_created, webp_size, webp_newly_created = self._create_webp(filepath, result.was_cached)
                 result.webp_created = webp_created
                 result.webp_size = webp_size
+                # If image was cached and WebP wasn't newly created, ensure was_cached stays true
+                if result.was_cached and not webp_newly_created:
+                    result.was_cached = True
         
         return result
     
