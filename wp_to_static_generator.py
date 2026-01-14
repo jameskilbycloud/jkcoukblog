@@ -229,6 +229,9 @@ class WordPressStaticGenerator:
         # Add lazy loading to images
         self.add_lazy_loading(soup)
         
+        # Optimize responsive image sizes
+        self.optimize_responsive_images(soup)
+        
         # Add copy code button to code blocks
         self.add_copy_code_button(soup)
         
@@ -1112,6 +1115,40 @@ class WordPressStaticGenerator:
                 print(f"   📦 Image {idx + 1}: lazy loading (below fold)")
         
         print(f"   ✅ Applied lazy loading to {len(images) - eager_count}/{len(images)} images")
+    
+    def optimize_responsive_images(self, soup):
+        """Optimize responsive image sizes attribute for better performance"""
+        # Find featured images (post thumbnails) that have srcset
+        featured_images = soup.find_all('img', class_=lambda x: x and 'wp-post-image' in x and 'attachment-medium_large' in x)
+        
+        if not featured_images:
+            return
+        
+        optimized_count = 0
+        
+        for img in featured_images:
+            srcset = img.get('srcset', '')
+            sizes = img.get('sizes', '')
+            
+            if not srcset or not sizes:
+                continue
+            
+            # Featured images on archive pages typically display at ~360-400px width
+            # Original: sizes="(max-width: 768px) 100vw, 768px"
+            # Optimized: sizes="(max-width: 768px) 100vw, 400px"
+            # This tells the browser to use a smaller image on desktop
+            
+            # Check if this is the old pattern that loads too-large images
+            if '768px' in sizes and '100vw' in sizes:
+                # Update sizes to use 400px on desktop instead of 768px
+                # This matches the typical display size of featured images in grid layouts
+                new_sizes = '(max-width: 768px) 100vw, 400px'
+                img['sizes'] = new_sizes
+                optimized_count += 1
+                print(f"   🖼️  Optimized featured image sizes: 768px -> 400px")
+        
+        if optimized_count > 0:
+            print(f"   ✅ Optimized {optimized_count} featured image(s) for better responsive loading")
     
     def add_copy_code_button(self, soup):
         """Add copy code button to all code blocks"""
