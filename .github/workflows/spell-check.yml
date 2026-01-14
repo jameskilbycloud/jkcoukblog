@@ -12,6 +12,11 @@ on:
         required: false
         default: 'false'
         type: boolean
+      debug_mode:
+        description: 'Enable debug mode (saves extracted content)'
+        required: false
+        default: 'false'
+        type: boolean
 
 jobs:
   spell-check:
@@ -41,6 +46,7 @@ jobs:
         WP_URL: https://wordpress.jameskilby.cloud
         OLLAMA_URL: https://ollama.jameskilby.cloud
         OLLAMA_MODEL: llama3.1:8b
+        DEBUG_SPELL_CHECK: ${{ github.event.inputs.debug_mode == 'true' && '1' || '' }}
       run: |
         echo "🚀 Starting spell check..."
         
@@ -79,7 +85,9 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: spelling-report-${{ github.run_id }}
-        path: spelling_check_report.md
+        path: |
+          spelling_check_report.md
+          debug_post_*_extracted.txt
         retention-days: 7
         
     - name: Comment on commit if errors found
