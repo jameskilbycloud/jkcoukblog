@@ -797,17 +797,9 @@ class WordPressStaticGenerator:
                 self.extracted_css_files[css_hash] = css_filename
                 print(f"   📄 Created CSS: /assets/css/{css_filename}")
             
-            # Calculate relative path from current HTML file to CSS file
-            # Determine the depth of the current URL
-            url_depth = len([p for p in current_url.strip('/').split('/') if p])
-            
-            # Build relative path
-            if url_depth == 0:
-                # Root level (e.g., /)
-                css_path = f"assets/css/{css_filename}"
-            else:
-                # Nested pages - go up the appropriate number of levels
-                css_path = '../' * url_depth + f"assets/css/{css_filename}"
+            # Use absolute path from root for CSS files
+            # This works correctly at any depth in the site hierarchy
+            css_path = f"/assets/css/{css_filename}"
             
             # Create link tag to replace inline style
             link_tag = soup.new_tag('link')
