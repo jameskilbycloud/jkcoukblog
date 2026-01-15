@@ -322,6 +322,14 @@ jobs:
         echo "- **Total Size:** $TOTAL_SIZE" >> $GITHUB_STEP_SUMMARY
         echo "- **Output Directory:** `./static-output`" >> $GITHUB_STEP_SUMMARY
         
+    - name: Export to Markdown
+      run: |
+        echo "📝 Exporting content to markdown..."
+        python markdown_exporter.py \
+          ./public \
+          ./public/markdown \
+          https://jameskilby.co.uk
+        
     - name: Validate HTML build
       timeout-minutes: 5
       run: |
