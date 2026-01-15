@@ -436,10 +436,15 @@ class MarkdownExporter:
                 if frontmatter_match:
                     try:
                         fm = yaml.safe_load(frontmatter_match.group(1))
+                        # Convert date to string if it's a datetime object
+                        date_value = fm.get('date', '')
+                        if isinstance(date_value, datetime):
+                            date_value = date_value.strftime('%Y-%m-%dT%H:%M:%SZ')
+                        
                         index_data['posts'].append({
                             'file': f"posts/{md_file.name}",
                             'title': fm.get('title', ''),
-                            'date': fm.get('date', ''),
+                            'date': date_value,
                             'url': fm.get('url', '')
                         })
                     except:
