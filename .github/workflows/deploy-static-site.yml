@@ -333,7 +333,7 @@ jobs:
     - name: Generate Markdown API
       run: |
         echo "🔌 Generating markdown API..."
-        python generate_markdown_api.py \
+        python markdown_api.py \
           ./public/markdown \
           ./public/api
         

@@ -419,7 +419,7 @@ class MarkdownExporter:
         print("\n📋 Creating markdown index...")
         
         index_data = {
-            'generated': datetime.now().isoformat(),
+            'generated': datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ'),
             'total_files': self.stats['posts_exported'] + self.stats['pages_exported'],
             'posts': [],
             'pages': []
