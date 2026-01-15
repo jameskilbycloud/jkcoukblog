@@ -312,6 +312,9 @@ class WordPressStaticGenerator:
         # Fix table structure (add proper header rows)
         self.fix_table_headers(soup)
         
+        # Add markdown and API links to footer
+        self.add_markdown_api_links(soup)
+        
         # Convert to string
         return str(soup)
     
@@ -1610,6 +1613,37 @@ class WordPressStaticGenerator:
             
             print(f"   ✅ Converted {old_tag_name}.site-title to H1 on homepage")
     
+    def add_markdown_api_links(self, soup):
+        """Add links to markdown and API versions in footer"""
+        import re
+        
+        footer = soup.find('footer', class_=re.compile(r'site-footer', re.I))
+        
+        if footer:
+            # Create a new div for content formats
+            formats_div = soup.new_tag('div')
+            formats_div['class'] = 'content-formats'
+            formats_div['style'] = 'margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--gray-mid);'
+            
+            p = soup.new_tag('p')
+            p.string = 'Content also available in: '
+            
+            # Markdown link
+            md_link = soup.new_tag('a', href='/markdown/')
+            md_link.string = 'Markdown'
+            p.append(md_link)
+            
+            p.append(' | ')
+            
+            # API link
+            api_link = soup.new_tag('a', href='/api/')
+            api_link.string = 'JSON API'
+            p.append(api_link)
+            
+            formats_div.append(p)
+            footer.append(formats_div)
+            print(f"   🔗 Added markdown and API links to footer")
+    
     def fix_table_headers(self, soup):
         """Fix table structure by converting first row to proper thead with th elements"""
         # Find all tables
@@ -1994,6 +2028,21 @@ class WordPressStaticGenerator:
             "# Search index - moderate caching",
             "/search-index*.json",
             "  Cache-Control: public, max-age=3600",
+            "",
+            "# Markdown files - allow CORS for API access",
+            "/markdown/*",
+            "  Content-Type: text/markdown; charset=utf-8",
+            "  Cache-Control: public, max-age=3600",
+            "  Access-Control-Allow-Origin: *",
+            "  Access-Control-Allow-Methods: GET, HEAD, OPTIONS",
+            "",
+            "# API endpoints - JSON with CORS",
+            "/api/*",
+            "  Content-Type: application/json; charset=utf-8",
+            "  Cache-Control: public, max-age=600",
+            "  Access-Control-Allow-Origin: *",
+            "  Access-Control-Allow-Methods: GET, HEAD, OPTIONS",
+            "  Access-Control-Allow-Headers: Content-Type",
             "",
             "# Global security headers",
             "/*",

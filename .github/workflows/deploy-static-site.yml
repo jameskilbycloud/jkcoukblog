@@ -330,6 +330,13 @@ jobs:
           ./public/markdown \
           https://jameskilby.co.uk
         
+    - name: Generate Markdown API
+      run: |
+        echo "🔌 Generating markdown API..."
+        python generate_markdown_api.py \
+          ./public/markdown \
+          ./public/api
+        
     - name: Validate HTML build
       timeout-minutes: 5
       run: |
