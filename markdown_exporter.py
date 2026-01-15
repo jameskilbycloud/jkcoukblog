@@ -374,10 +374,14 @@ class MarkdownExporter:
         
         # Add metadata in consistent order
         if 'title' in metadata:
-            frontmatter.append(f"title: \"{metadata['title']}\"")
+            # Escape double quotes and backslashes for YAML
+            title = metadata['title'].replace('\\', '\\\\').replace('"', '\\"')
+            frontmatter.append(f'title: "{title}"')
         
         if 'description' in metadata:
-            frontmatter.append(f"description: \"{metadata['description']}\"")
+            # Escape double quotes and backslashes for YAML
+            description = metadata['description'].replace('\\', '\\\\').replace('"', '\\"')
+            frontmatter.append(f'description: "{description}"')
         
         if 'date_published' in metadata:
             frontmatter.append(f"date: {metadata['date_published']}")

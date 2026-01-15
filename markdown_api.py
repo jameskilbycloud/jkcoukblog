@@ -297,15 +297,28 @@ class MarkdownAPIGenerator:
             body = frontmatter_match.group(2).strip()
             
             # Parse YAML frontmatter
-            metadata = yaml.safe_load(frontmatter_str)
+            try:
+                metadata = yaml.safe_load(frontmatter_str)
+            except yaml.YAMLError as ye:
+                print(f"   ⚠️  YAML parsing error in {md_file.name}: {str(ye)}")
+                return None
+            
+            # Convert datetime objects to strings for JSON serialization
+            date_value = metadata.get('date', '')
+            if isinstance(date_value, datetime):
+                date_value = date_value.strftime('%Y-%m-%dT%H:%M:%SZ')
+            
+            modified_value = metadata.get('modified', '')
+            if isinstance(modified_value, datetime):
+                modified_value = modified_value.strftime('%Y-%m-%dT%H:%M:%SZ')
             
             # Create post data
             post_data = {
                 'slug': md_file.stem,
                 'title': metadata.get('title', ''),
                 'description': metadata.get('description', ''),
-                'date': metadata.get('date', ''),
-                'modified': metadata.get('modified', ''),
+                'date': date_value,
+                'modified': modified_value,
                 'author': metadata.get('author', 'James Kilby'),
                 'url': metadata.get('url', ''),
                 'markdown_url': f"/markdown/posts/{md_file.name}",
