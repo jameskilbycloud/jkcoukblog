@@ -81,6 +81,9 @@ class MarkdownAPIGenerator:
                 post_data = self._parse_markdown_file(md_file)
                 if post_data and 'categories' in post_data:
                     for category in post_data['categories']:
+                        # Skip None or empty categories
+                        if not category:
+                            continue
                         slug = self._slugify(category)
                         if slug not in categories:
                             categories[slug] = {
@@ -119,6 +122,9 @@ class MarkdownAPIGenerator:
                 post_data = self._parse_markdown_file(md_file)
                 if post_data and 'tags' in post_data:
                     for tag in post_data['tags']:
+                        # Skip None or empty tags
+                        if not tag:
+                            continue
                         slug = self._slugify(tag)
                         if slug not in tags:
                             tags[slug] = {
@@ -357,10 +363,12 @@ class MarkdownAPIGenerator:
     
     def _slugify(self, text):
         """Convert text to URL-friendly slug"""
-        text = text.lower()
+        if not text:
+            return 'untitled'
+        text = str(text).lower()
         text = re.sub(r'[^a-z0-9]+', '-', text)
         text = text.strip('-')
-        return text
+        return text if text else 'untitled'
 
 
 def main():
