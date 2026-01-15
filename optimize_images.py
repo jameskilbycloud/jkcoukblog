@@ -72,9 +72,17 @@ class ImageOptimizer:
         if self.cache_file.exists():
             try:
                 with open(self.cache_file, 'r') as f:
-                    return json.load(f)
+                    cache = json.load(f)
+                    print(f"📂 Loaded cache with {len(cache)} entries")
+                    if cache:
+                        # Show sample cache key
+                        sample_key = list(cache.keys())[0]
+                        print(f"   Sample cache key: {sample_key}")
+                    return cache
             except Exception as e:
                 print(f"⚠️  Could not load cache: {e}")
+        else:
+            print(f"ℹ️  No existing cache file found at {self.cache_file}")
         return {}
     
     def _save_cache(self):
@@ -103,7 +111,15 @@ class ImageOptimizer:
         cached_hash = self.cache[path_str].get('hash')
         current_hash = self._get_file_hash(filepath)
         
-        return cached_hash == current_hash
+        is_match = cached_hash == current_hash
+        # Debug: Show first cache hit
+        if is_match and not hasattr(self, '_first_cache_hit_logged'):
+            self._first_cache_hit_logged = True
+            print(f"✓ First cache hit: {path_str}")
+            print(f"  Cached hash: {cached_hash[:8]}...")
+            print(f"  Current hash: {current_hash[:8]}...")
+        
+        return is_match
     
     def _update_cache(self, filepath: Path, result: OptimizationResult):
         """Update cache with optimization result"""
