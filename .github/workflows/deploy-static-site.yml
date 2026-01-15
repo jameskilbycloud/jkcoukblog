@@ -162,6 +162,7 @@ jobs:
         fetch-depth: 0  # Fetch full history for accurate git stats in changelog
       
     - name: Restore build cache
+      id: cache-restore
       uses: actions/cache@v4
       with:
         path: |
@@ -170,6 +171,19 @@ jobs:
         key: build-cache-avif-v2-${{ github.sha }}
         restore-keys: |
           build-cache-avif-v2-
+    
+    - name: Check cache status
+      run: |
+        echo "🔍 Checking cache restoration status..."
+        echo "Cache hit: ${{ steps.cache-restore.outputs.cache-hit }}"
+        echo "Cache matched key: ${{ steps.cache-restore.outputs.cache-matched-key }}"
+        
+        if [ -f ".image_optimization_cache/optimization_cache.json" ]; then
+          ENTRIES=$(python3 -c "import json; print(len(json.load(open('.image_optimization_cache/optimization_cache.json'))))" 2>/dev/null || echo "0")
+          echo "✓ Cache file exists with $ENTRIES entries"
+        else
+          echo "⚠️  Cache file not found (will be created on first run)"
+        fi
       
     - name: Setup Python
       uses: actions/setup-python@v4
@@ -458,6 +472,30 @@ jobs:
           echo "SAVED_MB=0.0" >> $GITHUB_ENV
         fi
       continue-on-error: true
+    
+    - name: Verify cache was updated
+      run: |
+        echo "🔍 Verifying cache was updated after optimization..."
+        
+        if [ -f ".image_optimization_cache/optimization_cache.json" ]; then
+          ENTRIES=$(python3 -c "import json; print(len(json.load(open('.image_optimization_cache/optimization_cache.json'))))" 2>/dev/null || echo "0")
+          SIZE=$(wc -c < ".image_optimization_cache/optimization_cache.json")
+          echo "✓ Cache file exists"
+          echo "  Entries: $ENTRIES"
+          echo "  Size: $SIZE bytes"
+          
+          if [ "$ENTRIES" -gt 0 ]; then
+            echo "✓ Cache successfully populated"
+            echo "  Sample entries:"
+            python3 -c "import json; data=json.load(open('.image_optimization_cache/optimization_cache.json')); import itertools; [print(f'    - {k}') for k in itertools.islice(data.keys(), 3)]" 2>/dev/null || true
+          else
+            echo "⚠️  WARNING: Cache file is empty!"
+            echo "  This means all images were skipped or optimization failed."
+          fi
+        else
+          echo "❌ ERROR: Cache file was not created!"
+          echo "  The optimization script may have failed to save the cache."
+        fi
     
     - name: Convert images to picture elements
       timeout-minutes: 10
