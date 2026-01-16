@@ -326,16 +326,16 @@ jobs:
       run: |
         echo "📝 Exporting content to markdown..."
         python markdown_exporter.py \
-          ./public \
-          ./public/markdown \
+          ./static-output \
+          ./static-output/markdown \
           https://jameskilby.co.uk
         
     - name: Generate Markdown API
       run: |
         echo "🔌 Generating markdown API..."
         python markdown_api.py \
-          ./public/markdown \
-          ./public/api
+          ./static-output/markdown \
+          ./static-output/api
         
     - name: Validate HTML build
       timeout-minutes: 5
