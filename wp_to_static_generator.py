@@ -995,14 +995,21 @@ class WordPressStaticGenerator:
         # Add Plausible analytics if not already present
         self.add_plausible_analytics(soup)
         
-        # Add preload hints for critical resources
+        # Add font preloading for critical fonts
+        self.add_font_preloads(soup)
+        
+        # Add preload hints for critical resources (with duplicate detection)
         for link in soup.find_all('link', rel='stylesheet'):
             if link.get('href'):
-                preload = soup.new_tag('link')
-                preload['rel'] = 'preload'
-                preload['as'] = 'style'
-                preload['href'] = link['href']
-                soup.head.insert(0, preload)
+                href = link['href']
+                # Check if preload already exists for this href
+                existing_preload = soup.find('link', rel='preload', href=href)
+                if not existing_preload:
+                    preload = soup.new_tag('link')
+                    preload['rel'] = 'preload'
+                    preload['as'] = 'style'
+                    preload['href'] = href
+                    soup.head.insert(0, preload)
     
     def add_favicon_links(self, soup):
         """Add favicon links for better browser support and performance"""
@@ -1050,6 +1057,34 @@ class WordPressStaticGenerator:
         soup.head.append(manifest)
         
         print(f"   🐞 Added favicon links for browser support")
+    
+    def add_font_preloads(self, soup):
+        """Preload critical fonts for faster text rendering (reduces FCP/LCP)"""
+        if not soup.head:
+            return
+        
+        # Critical fonts used above-the-fold
+        # Anton for headings, Space Grotesk for body text
+        critical_fonts = [
+            '/assets/fonts/anton-v27-latin-400.woff2',
+            '/assets/fonts/spacegrotesk-v22-latin-400.woff2',
+            '/assets/fonts/spacegrotesk-v22-latin-500.woff2'
+        ]
+        
+        for font_url in critical_fonts:
+            # Check if font preload already exists
+            existing_preload = soup.find('link', rel='preload', href=font_url)
+            if not existing_preload:
+                preload = soup.new_tag('link')
+                preload['rel'] = 'preload'
+                preload['as'] = 'font'
+                preload['type'] = 'font/woff2'
+                preload['href'] = font_url
+                preload['crossorigin'] = 'anonymous'
+                # Insert at beginning of head for highest priority
+                soup.head.insert(0, preload)
+        
+        print(f"   🔤 Preloaded {len(critical_fonts)} critical fonts")
     
     def add_brutalist_theme_css(self, soup):
         """Add brutalist theme CSS with critical mobile CSS inlined"""
