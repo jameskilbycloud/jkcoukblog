@@ -30,25 +30,47 @@ wordpress.jameskilby.cloud   |                    |                   jameskilby
 ```
 ├── .github/workflows/
 │   ├── deploy-static-site.yml           # Main deployment workflow
+│   ├── optimize-images.yml              # Image optimization workflow
 │   └── quality-checks.yml               # Live site testing workflow
+├── scripts/                             # Python automation scripts
+│   ├── wp_to_static_generator.py        # Core WordPress to static converter
+│   ├── optimize_images.py               # Image optimization (WebP/AVIF)
+│   ├── convert_images_to_picture.py     # HTML picture element converter
+│   ├── brotli_compress.py               # Brotli compression
+│   ├── markdown_exporter.py             # Markdown export functionality
+│   ├── markdown_api.py                  # Markdown API generator
+│   ├── validate_html.py                 # HTML validation
+│   ├── content_validator.py             # Content quality validation
+│   ├── submit_indexnow.py               # IndexNow submission
+│   ├── generate_changelog.py            # Changelog generator
+│   ├── generate_stats_page.py           # Stats page generator
+│   ├── incremental_builder.py           # Incremental build system
+│   ├── manage_build_cache.py            # Build cache management
+│   ├── test_incremental_build.py        # Incremental build tests
+│   ├── test_live_site_formatting.py     # Live site tests
+│   ├── convert_to_staging.py            # URL converter for staging
+│   ├── config.py                        # Configuration module
+│   ├── ollama_spell_checker.py          # AI spell checker
+│   ├── wp_spell_check_and_fix.py        # WordPress spell checker
+│   └── generate_build_report.py         # Build report generator
+├── docs/                                # Documentation
+│   ├── README.md                        # Documentation hub
+│   ├── DEVELOPMENT.md                   # Development guide
+│   ├── IMAGE_OPTIMIZATION.md            # Image optimization guide
+│   └── archive/                         # Historical docs
 ├── public/                              # Generated static site (deployed by Cloudflare)
-├── wp_to_static_generator.py            # Core WordPress to static converter
-├── deploy_static_site.py                # Multi-platform deployment tool
-├── generate_search_index.py             # Search index generator
-├── convert_to_staging.py                # URL converter for staging compatibility
-├── test_runner_env.py                   # Environment validation script
-├── test_search.py                       # Search functionality tests
 ├── workers/                             # Cloudflare Workers scripts
+├── validate_incremental.sh              # Incremental build validation script
+├── diagnose_cache.sh                    # Cache diagnostic script
 ├── wrangler.toml                        # Cloudflare Wrangler configuration
-├── automated_static_deployment_guide.md # Detailed deployment documentation
-├── SEARCH_IMPLEMENTATION.md             # Search functionality documentation
-├── PLAUSIBLE_ANALYTICS.md               # Analytics automation documentation
 └── README.md                            # This file
 ```
 
 ## 🐍 Python Scripts - Detailed Documentation
 
-### 1. `wp_to_static_generator.py` - Core Static Site Generator
+All Python scripts are located in the `scripts/` directory for better organization.
+
+### 1. `scripts/wp_to_static_generator.py` - Core Static Site Generator
 
 **Purpose:** The main engine that converts a live WordPress site into a static HTML site.
 
@@ -134,7 +156,7 @@ python3 scripts/wp_to_static_generator.py ./output-directory
 
 ---
 
-### 2. `deploy_static_site.py` - Multi-Platform Deployment Tool
+### 2. `scripts/deploy_static_site.py` - Multi-Platform Deployment Tool
 
 **Purpose:** Provides deployment capabilities to multiple hosting platforms and local testing.
 
@@ -205,7 +227,7 @@ python3 scripts/deploy_static_site.py setup-cron
 
 ---
 
-### 3. `generate_search_index.py` - Search Index Generator
+### 3. `scripts/generate_search_index.py` - Search Index Generator
 
 **Purpose:** Creates a searchable JSON index from static HTML files for client-side search functionality.
 
@@ -263,7 +285,7 @@ python3 scripts/generate_search_index.py ./public --output search.json --base-ur
 
 ---
 
-### 4. `convert_to_staging.py` - Staging URL Converter
+### 4. `scripts/convert_to_staging.py` - Staging URL Converter
 
 **Purpose:** Converts absolute URLs in a static site to relative URLs for staging deployment.
 
@@ -297,7 +319,7 @@ Perfect for staging environments like `jkcoukblog.pages.dev` where absolute URLs
 
 ---
 
-### 5. `test_runner_env.py` - Environment Validation
+### 5. `scripts/test_runner_env.py` - Environment Validation
 
 **Purpose:** Validates that the self-hosted GitHub runner environment is properly configured.
 
@@ -341,7 +363,7 @@ python3 scripts/test_runner_env.py
 
 ---
 
-### 6. `test_search.py` - Search Functionality Tests
+### 6. `scripts/test_search.py` - Search Functionality Tests
 
 **Purpose:** Tests the search index generation and validates search functionality.
 
