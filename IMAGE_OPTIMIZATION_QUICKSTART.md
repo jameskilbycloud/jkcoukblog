@@ -21,16 +21,16 @@ Runs automatically every Sunday at 2 AM UTC.
 
 ```bash
 # Basic usage
-python3 optimize_images.py ./public
+python3 scripts/optimize_images.py ./public
 
 # Custom quality (higher = better quality, larger files)
-python3 optimize_images.py ./public --quality 90
+python3 scripts/optimize_images.py ./public --quality 90
 
 # More workers (faster on powerful machines)
-python3 optimize_images.py ./public --workers 8
+python3 scripts/optimize_images.py ./public --workers 8
 
 # Skip HTML updates (generate images only)
-python3 optimize_images.py ./public --skip-html
+python3 scripts/optimize_images.py ./public --skip-html
 ```
 
 ## What It Does

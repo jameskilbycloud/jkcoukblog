@@ -362,7 +362,7 @@ jobs:
 
         # Run the test and capture output
         OUTPUT_FILE="test_output_main.txt"
-        python3 test_live_site_formatting.py --url "${{ github.event.inputs.test_url }}" > "$OUTPUT_FILE" 2>&1
+        python3 scripts/test_live_site_formatting.py --url "${{ github.event.inputs.test_url }}" > "$OUTPUT_FILE" 2>&1
         TEST_EXIT_CODE=$?
 
         # Save output for later use
@@ -394,7 +394,7 @@ jobs:
 
         # Run the test and capture output
         OUTPUT_FILE="test_output_post.txt"
-        python3 test_live_site_formatting.py --url "${{ github.event.inputs.test_post }}" > "$OUTPUT_FILE" 2>&1
+        python3 scripts/test_live_site_formatting.py --url "${{ github.event.inputs.test_post }}" > "$OUTPUT_FILE" 2>&1
         TEST_EXIT_CODE=$?
 
         # Save output for later use

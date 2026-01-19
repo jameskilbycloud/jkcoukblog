@@ -118,7 +118,7 @@ wordpress.jameskilby.cloud   |                    |                   jameskilby
 **Usage:**
 ```bash
 export WP_AUTH_TOKEN="your_token_here"
-python3 wp_to_static_generator.py ./output-directory
+python3 scripts/wp_to_static_generator.py ./output-directory
 ```
 
 **Key Classes:**
@@ -174,22 +174,22 @@ python3 wp_to_static_generator.py ./output-directory
 **Usage Examples:**
 ```bash
 # Generate static site only
-python3 deploy_static_site.py generate ./static
+python3 scripts/deploy_static_site.py generate ./static
 
 # Deploy to Cloudflare Pages
-python3 deploy_static_site.py deploy ./static --cloudflare jameskilby-co-uk
+python3 scripts/deploy_static_site.py deploy ./static --cloudflare jameskilby-co-uk
 
 # Full generation and deployment
-python3 deploy_static_site.py full ./static --cloudflare jameskilby-co-uk
+python3 scripts/deploy_static_site.py full ./static --cloudflare jameskilby-co-uk
 
 # Start local test server
-python3 deploy_static_site.py server ./static 8080
+python3 scripts/deploy_static_site.py server ./static 8080
 
 # Create GitHub Actions workflow
-python3 deploy_static_site.py setup-github
+python3 scripts/deploy_static_site.py setup-github
 
 # Create cron automation script
-python3 deploy_static_site.py setup-cron
+python3 scripts/deploy_static_site.py setup-cron
 ```
 
 **Key Classes:**
@@ -245,10 +245,10 @@ python3 deploy_static_site.py setup-cron
 **Usage:**
 ```bash
 # Generate search index from static site
-python3 generate_search_index.py ./public
+python3 scripts/generate_search_index.py ./public
 
 # Specify custom output file and base URL
-python3 generate_search_index.py ./public --output search.json --base-url https://yoursite.com
+python3 scripts/generate_search_index.py ./public --output search.json --base-url https://yoursite.com
 ```
 
 **Key Classes:**
@@ -289,7 +289,7 @@ python3 generate_search_index.py ./public --output search.json --base-url https:
 **Usage:**
 ```bash
 # Convert URLs in public directory
-python3 convert_to_staging.py
+python3 scripts/convert_to_staging.py
 ```
 
 **Use Case:**
@@ -332,7 +332,7 @@ Perfect for staging environments like `jkcoukblog.pages.dev` where absolute URLs
 **Usage:**
 ```bash
 # Run environment validation
-python3 test_runner_env.py
+python3 scripts/test_runner_env.py
 ```
 
 **Exit Codes:**
@@ -363,7 +363,7 @@ python3 test_runner_env.py
 **Usage:**
 ```bash
 # Run search tests
-python3 test_search.py
+python3 scripts/test_search.py
 ```
 
 ---
@@ -406,13 +406,13 @@ Before getting started, ensure you have:
 export WP_AUTH_TOKEN="your_wordpress_auth_token_here"
 
 # Generate static site
-python3 deploy_static_site.py generate ./static-output
+python3 scripts/deploy_static_site.py generate ./static-output
 
 # Test locally
-python3 deploy_static_site.py server ./static-output 8080
+python3 scripts/deploy_static_site.py server ./static-output 8080
 
 # Deploy to repository (triggers Cloudflare auto-deploy)
-python3 deploy_static_site.py deploy ./static-output --git
+python3 scripts/deploy_static_site.py deploy ./static-output --git
 ```
 
 ### Option 3: Cron Automation

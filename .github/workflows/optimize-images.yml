@@ -60,7 +60,7 @@ jobs:
           WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
         run: |
           echo "📦 Generating static site..."
-          python3 deploy_static_site.py generate ./public
+          python3 scripts/wp_to_static_generator.py ./public
 
       - name: Count images before optimization
         id: before
@@ -107,9 +107,9 @@ jobs:
           echo ""
 
           if [ "$SKIP_HTML" = "true" ]; then
-            python3 optimize_images.py ./public --quality $QUALITY --workers $WORKERS --skip-html
+            python3 scripts/optimize_images.py ./public --quality $QUALITY --workers $WORKERS --skip-html
           else
-            python3 optimize_images.py ./public --quality $QUALITY --workers $WORKERS
+            python3 scripts/optimize_images.py ./public --quality $QUALITY --workers $WORKERS
           fi
 
       - name: Count images after optimization

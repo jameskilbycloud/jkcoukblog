@@ -23,40 +23,40 @@ Automated WordPress-to-static-site generator and deployment system. Converts pri
 ### Site Generation
 ```bash
 # Generate static site (requires WP_AUTH_TOKEN environment variable)
-python3 wp_to_static_generator.py ./static-output
+python3 scripts/wp_to_static_generator.py ./static-output
 
 # Submit URLs to search engines via IndexNow
-python3 submit_indexnow.py ./public
+python3 scripts/submit_indexnow.py ./public
 ```
 
 ### Testing
 ```bash
 # Start local test server
-python3 deploy_static_site.py server ./static-output 8080
+python3 scripts/deploy_static_site.py server ./static-output 8080
 
 # Test search functionality
-python3 test_search.py
+python3 scripts/test_search.py
 
 # Test environment configuration (runner validation)
-python3 test_runner_env.py
+python3 scripts/test_runner_env.py
 
 # Test live site formatting and structure
-python3 test_live_site_formatting.py
+python3 scripts/test_live_site_formatting.py
 
 # Test staging site
-python3 test_live_site_formatting.py --url https://jkcoukblog.pages.dev
+python3 scripts/test_live_site_formatting.py --url https://jkcoukblog.pages.dev
 ```
 
 ### Search Index
 ```bash
 # Generate search index from static site
-python3 generate_search_index.py ./public
+python3 scripts/generate_search_index.py ./public
 ```
 
 ### URL Conversion
 ```bash
 # Convert absolute URLs to relative (for staging)
-python3 convert_to_staging.py
+python3 scripts/convert_to_staging.py
 ```
 
 ### Spell Checking

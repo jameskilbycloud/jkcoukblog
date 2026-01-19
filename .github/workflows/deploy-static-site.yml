@@ -260,7 +260,7 @@ jobs:
         fi
         
         # Generate static site
-        python wp_to_static_generator.py ./static-output
+        python scripts/wp_to_static_generator.py ./static-output
         
         # Count generated files for summary
         HTML_COUNT=$(find ./static-output -name "*.html" -type f 2>/dev/null | wc -l | xargs)
@@ -325,7 +325,7 @@ jobs:
     - name: Export to Markdown
       run: |
         echo "📝 Exporting content to markdown..."
-        python markdown_exporter.py \
+        python scripts/markdown_exporter.py \
           ./static-output \
           ./static-output/markdown \
           https://jameskilby.co.uk
@@ -333,7 +333,7 @@ jobs:
     - name: Generate Markdown API
       run: |
         echo "🔌 Generating markdown API..."
-        python markdown_api.py \
+        python scripts/markdown_api.py \
           ./static-output/markdown \
           ./static-output/api
         
@@ -343,7 +343,7 @@ jobs:
         echo "🔍 Validating generated HTML and assets..."
         
         # Run HTML validation on the generated site
-        python3 validate_html.py ./static-output || {
+        python3 scripts/validate_html.py ./static-output || {
           echo "❌ HTML validation failed!"
           echo "⚠️  This indicates broken links or missing assets in the generated site."
           exit 1
@@ -369,7 +369,7 @@ jobs:
         cp -r ./static-output public/
         
         # Run content validator (non-blocking)
-        python3 content_validator.py || {
+        python3 scripts/content_validator.py || {
           echo "⚠️  Content validation found issues (non-blocking)"
         }
         
@@ -410,7 +410,7 @@ jobs:
         
         # Run the Python-based optimizer with parallel processing
         # Uses 4 parallel workers, creates AVIF versions by default
-        python3 optimize_images.py ./static-output --workers 4 --json-output optimization-results.json || {
+        python3 scripts/optimize_images.py ./static-output --workers 4 --json-output optimization-results.json || {
           echo "⚠️  Image optimization failed (non-blocking)"
           # Set defaults if optimization fails
           echo "PNG_COUNT=0" >> $GITHUB_ENV
@@ -539,7 +539,7 @@ jobs:
         
         # Run the conversion
         echo ""
-        python3 convert_images_to_picture.py ./static-output || {
+        python3 scripts/convert_images_to_picture.py ./static-output || {
           echo "⚠️  Image to picture conversion failed (non-blocking)"
           echo "PICTURE_CONVERTED=0" >> $GITHUB_ENV
           exit 0
@@ -568,7 +568,7 @@ jobs:
         echo "🗁️  Compressing static files with Brotli..."
         
         # Run Brotli compression
-        python3 brotli_compress.py ./public || {
+        python3 scripts/brotli_compress.py ./public || {
           echo "⚠️  Brotli compression failed (non-blocking)"
           echo "BROTLI_COUNT=0" >> $GITHUB_ENV
           echo "BROTLI_SAVED_MB=0.0" >> $GITHUB_ENV
@@ -659,19 +659,19 @@ jobs:
         
         # Convert absolute URLs to relative for better staging compatibility
         echo "🔄 Converting URLs for staging compatibility..."
-        python convert_to_staging.py
+        python scripts/convert_to_staging.py
         
         # Generate changelog page
         echo "📋 Generating changelog page..."
-        python generate_changelog.py || echo "⚠️  Changelog generation failed (non-blocking)"
+        python scripts/generate_changelog.py || echo "⚠️  Changelog generation failed (non-blocking)"
         
         # Generate stats page
         echo "📊 Generating stats page..."
-        PLAUSIBLE_SHARE_LINK="${{ secrets.PLAUSIBLE_SHARE_LINK }}" python3 generate_stats_page.py || echo "⚠️  Stats page generation failed (non-blocking)"
+        PLAUSIBLE_SHARE_LINK="${{ secrets.PLAUSIBLE_SHARE_LINK }}" python3 scripts/generate_stats_page.py || echo "⚠️  Stats page generation failed (non-blocking)"
         
         # Submit to IndexNow (notify search engines about all pages)
         echo "🔔 Submitting URLs to IndexNow..."
-        python3 submit_indexnow.py ./public || echo "⚠️  IndexNow submission failed (non-blocking)"
+        python3 scripts/submit_indexnow.py ./public || echo "⚠️  IndexNow submission failed (non-blocking)"
         
         # Check if there are changes to commit
         # Note: .br files are automatically included in public/
@@ -701,7 +701,7 @@ jobs:
               git reset --hard origin/main
               echo "🔄 Regenerating static site after reset..."
               rm -rf public/ ./static-output
-              python wp_to_static_generator.py ./static-output
+              python scripts/wp_to_static_generator.py ./static-output
               mv ./static-output public/
               git add public/
               git commit -m "🚀 Auto-update static site - $(date '+%Y-%m-%d %H:%M:%S') [force-resolved]"

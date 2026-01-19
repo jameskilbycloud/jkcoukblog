@@ -21,7 +21,7 @@ echo ""
 # Step 1: Check current cache state
 echo "Step 1: Checking current cache state..."
 echo "----------------------------------------"
-python3 manage_build_cache.py stats
+python3 scripts/manage_build_cache.py stats
 echo ""
 
 # Step 2: Check if cache file exists
@@ -49,12 +49,12 @@ if [ -f ".build-cache.json" ]; then
         echo "⏱️  Timing build..."
         echo ""
         
-        time python3 wp_to_static_generator.py ./public
+        time python3 scripts/wp_to_static_generator.py ./public
         
         echo ""
         echo "Step 3: Verifying incremental build worked..."
         echo "----------------------------------------"
-        python3 manage_build_cache.py stats
+        python3 scripts/manage_build_cache.py stats
         echo ""
         
         echo "✅ Validation complete!"
@@ -81,7 +81,7 @@ else
         echo "⏱️  This will take ~12 seconds..."
         echo ""
         
-        time python3 wp_to_static_generator.py ./public
+        time python3 scripts/wp_to_static_generator.py ./public
         
         echo ""
         echo "Step 3: Verifying cache was created..."
@@ -89,7 +89,7 @@ else
         
         if [ -f ".build-cache.json" ]; then
             echo "✅ Cache created successfully!"
-            python3 manage_build_cache.py stats
+            python3 scripts/manage_build_cache.py stats
             echo ""
             
             echo "Step 4: Test incremental build..."
@@ -102,7 +102,7 @@ else
                 echo "⏱️  Timing incremental build (should be ~2-3 seconds)..."
                 echo ""
                 
-                time python3 wp_to_static_generator.py ./public
+                time python3 scripts/wp_to_static_generator.py ./public
                 
                 echo ""
                 echo "✅ INCREMENTAL BUILD TEST COMPLETE!"
@@ -124,6 +124,6 @@ fi
 
 echo ""
 echo "📚 Additional validation commands:"
-echo "   python3 manage_build_cache.py inspect   # Detailed cache view"
-echo "   python3 manage_build_cache.py clear     # Force full rebuild"
-echo "   python3 test_incremental_build.py       # Run automated tests"
+echo "   python3 scripts/manage_build_cache.py inspect   # Detailed cache view"
+echo "   python3 scripts/manage_build_cache.py clear     # Force full rebuild"
+echo "   python3 scripts/test_incremental_build.py       # Run automated tests"

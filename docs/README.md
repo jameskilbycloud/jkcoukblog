@@ -30,12 +30,12 @@ Welcome to the jkcoukblog documentation! This site automatically converts a Word
 **Generate Static Site:**
 ```bash
 export WP_AUTH_TOKEN="your_token"
-python3 wp_to_static_generator.py ./public
+python3 scripts/wp_to_static_generator.py ./public
 ```
 
 **Test Locally:**
 ```bash
-python3 deploy_static_site.py server ./public 8080
+python3 scripts/deploy_static_site.py server ./public 8080
 ```
 
 **Deploy via GitHub Actions:**
@@ -45,7 +45,7 @@ gh workflow run deploy-static-site.yml
 
 **Test Live Site:**
 ```bash
-python3 test_live_site_formatting.py
+python3 scripts/test_live_site_formatting.py
 ```
 
 ### Key Scripts

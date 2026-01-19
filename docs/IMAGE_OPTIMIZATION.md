@@ -39,13 +39,13 @@ Run image optimization on your local machine:
 pip install -r requirements-images.txt
 
 # Optimize images in public directory
-python3 optimize_images.py ./public
+python3 scripts/optimize_images.py ./public
 
 # With custom settings
-python3 optimize_images.py ./public --quality 90 --workers 8
+python3 scripts/optimize_images.py ./public --quality 90 --workers 8
 
 # Skip HTML updates (optimization only)
-python3 optimize_images.py ./public --skip-html
+python3 scripts/optimize_images.py ./public --skip-html
 ```
 
 ## ⚙️ How It Works
@@ -114,7 +114,7 @@ Based on your current 92MB of images:
 ### Command Line Arguments
 
 ```bash
-python3 optimize_images.py [PUBLIC_DIR] [OPTIONS]
+python3 scripts/optimize_images.py [PUBLIC_DIR] [OPTIONS]
 
 Arguments:
   PUBLIC_DIR          Path to public directory (default: ./public)
@@ -168,10 +168,10 @@ import subprocess
 
 def deploy_with_optimization():
     # Generate static site
-    subprocess.run(['python3', 'wp_to_static_generator.py', './public'])
+    subprocess.run(['python3', 'scripts/wp_to_static_generator.py', './public'])
 
     # Optimize images
-    subprocess.run(['python3', 'optimize_images.py', './public', '--quality', '85'])
+    subprocess.run(['python3', 'scripts/optimize_images.py', './public', '--quality', '85'])
 
     # Deploy to Cloudflare
     subprocess.run(['git', 'add', '.'])
@@ -270,10 +270,10 @@ Each workflow run generates a summary showing:
 Optimize images after adding new blog posts:
 ```bash
 # Generate new static site
-python3 deploy_static_site.py generate ./public
+python3 scripts/deploy_static_site.py generate ./public
 
 # Optimize all images (including new ones)
-python3 optimize_images.py ./public
+python3 scripts/optimize_images.py ./public
 ```
 
 ### 2. Use Quality 85 for Most Images
