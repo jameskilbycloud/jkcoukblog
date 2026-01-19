@@ -246,40 +246,69 @@ class LiveSiteFormattingTester:
         print(f"\n🔍 Testing images (sampling up to {sample_size})...")
         soup = BeautifulSoup(html, 'html.parser')
         images = soup.find_all('img')
-        
+        pictures = soup.find_all('picture')
+
         if not images:
             self.log_warning("No images found on page")
             return True
-            
+
         self.log_info(f"Found {len(images)} image(s) on page")
-        
+        if pictures:
+            self.log_info(f"Found {len(pictures)} <picture> element(s) with modern format support")
+
+        # Count modern format usage
+        webp_sources = soup.find_all('source', type='image/webp')
+        avif_sources = soup.find_all('source', type='image/avif')
+
+        if webp_sources:
+            self.log_success(f"WebP format used in {len(webp_sources)} source element(s)")
+        else:
+            self.log_warning("No WebP images found - consider image optimization")
+
+        if avif_sources:
+            self.log_success(f"AVIF format used in {len(avif_sources)} source element(s)")
+        else:
+            self.log_warning("No AVIF images found - consider image optimization")
+
         # Sample images
         test_images = images[:sample_size]
         issues = 0
-        
+        lazy_count = 0
+
         for idx, img in enumerate(test_images, 1):
             src = img.get('src', '')
             alt = img.get('alt', '')
-            
+
             if not src:
                 self.log_error(f"Image #{idx} missing src attribute")
                 issues += 1
                 continue
-                
-            if not alt:
+
+            if not alt and alt != '':  # Empty alt is valid for decorative images
                 self.log_warning(f"Image #{idx} missing alt attribute: {src[:60]}")
                 issues += 1
-                
+
             # Check for responsive images
             srcset = img.get('srcset', '')
             if srcset:
                 self.log_info(f"Image #{idx} has responsive srcset")
-                
+
             # Check for loading attribute
             loading = img.get('loading', '')
-            if loading not in ['lazy', 'eager']:
-                self.log_info(f"Image #{idx} missing loading attribute")
-                
+            if loading == 'lazy':
+                lazy_count += 1
+            elif loading not in ['lazy', 'eager'] and idx > 1:  # First image should load eagerly
+                self.log_info(f"Image #{idx} could benefit from loading='lazy'")
+
+            # Check for width/height attributes (prevent layout shift)
+            width = img.get('width', '')
+            height = img.get('height', '')
+            if not width or not height:
+                self.log_info(f"Image #{idx} missing width/height (may cause CLS)")
+
+        if lazy_count > 0:
+            self.log_success(f"{lazy_count} image(s) use lazy loading")
+
         if issues == 0:
             self.log_success(f"All {len(test_images)} tested images have proper attributes")
             return True
@@ -534,30 +563,30 @@ class LiveSiteFormattingTester:
         """Test that utterances comments widget is properly configured."""
         print("\n🔍 Testing utterances comments...")
         soup = BeautifulSoup(html, 'html.parser')
-        
+
         # Find utterances script
         utterances_scripts = soup.find_all('script', src=lambda x: x and 'utteranc.es' in x.lower())
-        
+
         if not utterances_scripts:
             self.log_info("Utterances comments script not found (may only be on post pages)")
             return True
-            
+
         if len(utterances_scripts) > 1:
             self.log_warning(f"Multiple utterances scripts found ({len(utterances_scripts)})")
-            
+
         script = utterances_scripts[0]
         src = script.get('src', '')
         repo = script.get('data-repo', '')
         theme = script.get('data-theme', '')
         issue_term = script.get('data-issue-term', '')
-        
+
         # Check script source
         if 'utteranc.es/client.js' not in src:
             self.log_error(f"Incorrect utterances script source: {src}")
             return False
         else:
             self.log_success(f"Utterances script source correct: {src}")
-            
+
         # Check data-repo attribute
         if not repo:
             self.log_error("Missing data-repo attribute for utterances")
@@ -566,26 +595,242 @@ class LiveSiteFormattingTester:
             self.log_warning(f"Unexpected data-repo: '{repo}' (expected 'jameskilbynet/jkcoukblog')")
         else:
             self.log_success(f"Utterances data-repo correct: {repo}")
-            
+
         # Check data-theme attribute
         if not theme:
             self.log_warning("Missing data-theme attribute for utterances")
         else:
             self.log_success(f"Utterances theme configured: {theme}")
-            
+
         # Check data-issue-term attribute
         if not issue_term:
             self.log_warning("Missing data-issue-term attribute for utterances")
         else:
             self.log_success(f"Utterances issue-term configured: {issue_term}")
-            
+
         # Check crossorigin attribute
         if not script.has_attr('crossorigin'):
             self.log_warning("Utterances script missing 'crossorigin' attribute")
         else:
             self.log_success("Utterances script has 'crossorigin' attribute")
-            
+
         return True
+
+    def test_security_headers(self) -> bool:
+        """Test for important security headers."""
+        print("\n🔍 Testing security headers...")
+        response, error = self.fetch_url(self.base_url)
+
+        if error or not response:
+            self.log_warning("Could not fetch headers for security test")
+            return True
+
+        headers = response.headers
+        all_good = True
+
+        # Content-Security-Policy
+        csp = headers.get('Content-Security-Policy', '')
+        if csp:
+            self.log_success(f"Content-Security-Policy header present")
+        else:
+            self.log_warning("Content-Security-Policy header missing")
+            all_good = False
+
+        # X-Frame-Options
+        xfo = headers.get('X-Frame-Options', '')
+        if xfo:
+            self.log_success(f"X-Frame-Options: {xfo}")
+        else:
+            self.log_warning("X-Frame-Options header missing (clickjacking protection)")
+            all_good = False
+
+        # X-Content-Type-Options
+        xcto = headers.get('X-Content-Type-Options', '')
+        if xcto == 'nosniff':
+            self.log_success("X-Content-Type-Options: nosniff")
+        else:
+            self.log_warning("X-Content-Type-Options: nosniff header missing")
+            all_good = False
+
+        # Strict-Transport-Security (HSTS)
+        hsts = headers.get('Strict-Transport-Security', '')
+        if hsts:
+            self.log_success(f"Strict-Transport-Security header present")
+        else:
+            self.log_warning("Strict-Transport-Security header missing (HTTPS enforcement)")
+            all_good = False
+
+        # Referrer-Policy
+        referrer = headers.get('Referrer-Policy', '')
+        if referrer:
+            self.log_success(f"Referrer-Policy: {referrer}")
+        else:
+            self.log_info("Referrer-Policy header not set")
+
+        # Permissions-Policy
+        perms = headers.get('Permissions-Policy', '')
+        if perms:
+            self.log_success("Permissions-Policy header present")
+        else:
+            self.log_info("Permissions-Policy header not set")
+
+        return all_good
+
+    def test_performance_hints(self, html: str) -> bool:
+        """Test for performance optimization hints."""
+        print("\n🔍 Testing performance hints...")
+        soup = BeautifulSoup(html, 'html.parser')
+        all_good = True
+
+        # Preconnect hints
+        preconnects = soup.find_all('link', rel='preconnect')
+        if preconnects:
+            self.log_success(f"Found {len(preconnects)} preconnect hint(s)")
+            for pc in preconnects[:3]:
+                href = pc.get('href', '')
+                self.log_info(f"  Preconnect: {href}")
+        else:
+            self.log_info("No preconnect hints found")
+
+        # DNS prefetch
+        dns_prefetch = soup.find_all('link', rel='dns-prefetch')
+        if dns_prefetch:
+            self.log_success(f"Found {len(dns_prefetch)} dns-prefetch hint(s)")
+
+        # Preload hints
+        preloads = soup.find_all('link', rel='preload')
+        if preloads:
+            self.log_success(f"Found {len(preloads)} preload hint(s)")
+            for pl in preloads[:3]:
+                href = pl.get('href', '')
+                as_type = pl.get('as', '')
+                self.log_info(f"  Preload: {href} (as: {as_type})")
+        else:
+            self.log_info("No preload hints found (consider for critical assets)")
+
+        # Check for async/defer on scripts
+        scripts = soup.find_all('script', src=True)
+        async_count = sum(1 for s in scripts if s.has_attr('async'))
+        defer_count = sum(1 for s in scripts if s.has_attr('defer'))
+
+        if async_count + defer_count > 0:
+            self.log_success(f"Scripts optimized: {async_count} async, {defer_count} defer")
+        else:
+            self.log_warning("No async/defer scripts found - blocking scripts may slow page load")
+            all_good = False
+
+        return all_good
+
+    def test_accessibility(self, html: str) -> bool:
+        """Test for basic accessibility features."""
+        print("\n🔍 Testing accessibility features...")
+        soup = BeautifulSoup(html, 'html.parser')
+        all_good = True
+
+        # HTML lang attribute
+        html_tag = soup.find('html')
+        if html_tag and html_tag.get('lang'):
+            self.log_success(f"HTML lang attribute present: {html_tag['lang']}")
+        else:
+            self.log_error("HTML lang attribute missing (required for screen readers)")
+            all_good = False
+
+        # Skip to content link
+        skip_links = soup.find_all('a', href='#main-content') + soup.find_all('a', href='#content')
+        if skip_links:
+            self.log_success("Skip to content link found")
+        else:
+            self.log_info("No skip to content link (helpful for keyboard navigation)")
+
+        # ARIA landmarks
+        main_tag = soup.find('main')
+        nav_tags = soup.find_all('nav')
+        header_tag = soup.find('header')
+        footer_tag = soup.find('footer')
+
+        landmark_count = sum([1 for x in [main_tag, header_tag, footer_tag] if x])
+        landmark_count += len(nav_tags)
+
+        if landmark_count >= 3:
+            self.log_success(f"Found {landmark_count} semantic landmarks (main, nav, header, footer)")
+        else:
+            self.log_warning("Limited semantic landmarks - consider using <main>, <nav>, <header>, <footer>")
+            all_good = False
+
+        # Form labels
+        inputs = soup.find_all(['input', 'textarea', 'select'])
+        if inputs:
+            inputs_with_labels = 0
+            for inp in inputs[:5]:  # Sample first 5
+                input_id = inp.get('id', '')
+                aria_label = inp.get('aria-label', '')
+                if input_id:
+                    label = soup.find('label', attrs={'for': input_id})
+                    if label or aria_label:
+                        inputs_with_labels += 1
+
+            if inputs_with_labels == len(inputs[:5]):
+                self.log_success("Form inputs have associated labels")
+            else:
+                self.log_warning(f"Some form inputs missing labels ({inputs_with_labels}/{len(inputs[:5])})")
+                all_good = False
+
+        # Heading hierarchy
+        headings = soup.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
+        h1_count = len(soup.find_all('h1'))
+
+        if h1_count == 1:
+            self.log_success("Exactly one H1 heading (good heading hierarchy)")
+        elif h1_count == 0:
+            self.log_error("No H1 heading found")
+            all_good = False
+        else:
+            self.log_warning(f"Multiple H1 headings found ({h1_count})")
+            all_good = False
+
+        if len(headings) > 1:
+            self.log_success(f"Found {len(headings)} heading elements")
+
+        return all_good
+
+    def test_mobile_optimization(self, html: str) -> bool:
+        """Test for mobile optimization features."""
+        print("\n🔍 Testing mobile optimization...")
+        soup = BeautifulSoup(html, 'html.parser')
+        all_good = True
+
+        # Viewport meta tag (already tested, but check content)
+        viewport = soup.find('meta', attrs={'name': 'viewport'})
+        if viewport:
+            content = viewport.get('content', '')
+            if 'width=device-width' in content and 'initial-scale=1' in content:
+                self.log_success("Viewport properly configured for mobile")
+            else:
+                self.log_warning(f"Viewport content may not be optimal: {content}")
+                all_good = False
+
+        # Touch icons
+        apple_touch_icons = soup.find_all('link', rel=lambda x: x and 'apple-touch-icon' in str(x))
+        if apple_touch_icons:
+            self.log_success(f"Found {len(apple_touch_icons)} Apple touch icon(s)")
+        else:
+            self.log_info("No Apple touch icons found (improves mobile UX)")
+
+        # Manifest
+        manifest = soup.find('link', rel='manifest')
+        if manifest:
+            self.log_success("Web app manifest present (PWA support)")
+        else:
+            self.log_info("No web app manifest found (needed for PWA)")
+
+        # Theme color
+        theme_color = soup.find('meta', attrs={'name': 'theme-color'})
+        if theme_color:
+            self.log_success(f"Theme color defined: {theme_color.get('content', '')}")
+        else:
+            self.log_info("No theme-color meta tag (improves mobile browser UI)")
+
+        return all_good
             
     def run_all_tests(self) -> bool:
         """Run all formatting tests."""
@@ -593,31 +838,46 @@ class LiveSiteFormattingTester:
         print("🚀 Starting Live Site Formatting Tests")
         print(f"🌐 Testing: {self.base_url}")
         print("=" * 70)
-        
+
         # Fetch homepage
         response, error = self.fetch_url(self.base_url)
         if error or not response:
             self.log_error(f"Failed to fetch homepage: {error}")
             return False
-            
+
         html = response.text
-        
-        # Run all tests
+
+        # Run all tests - organized by category
         test_results = {
+            # Core functionality
             "Homepage Loads": self.test_homepage_loads(),
             "HTML Structure": self.test_html_structure(html),
+
+            # SEO & Meta
             "Meta Tags": self.test_meta_tags(html),
             "Title Tag": self.test_title_tag(html),
             "Canonical URL": self.test_canonical_url(html),
+            "Structured Data": self.test_structured_data(html),
+
+            # Analytics & Tracking
             "Plausible Analytics": self.test_plausible_analytics(html),
+
+            # Content & Assets
             "WordPress Cleanup": self.test_wordpress_cleanup(html),
             "Utterances Comments": self.test_utterances_comments(html),
             "Images": self.test_images(html),
             "CSS Assets": self.test_css_assets(html),
             "JavaScript Assets": self.test_js_assets(html),
             "Internal Links": self.test_links(html),
-            "Structured Data": self.test_structured_data(html),
+
+            # Performance & Security
+            "Security Headers": self.test_security_headers(),
+            "Performance Hints": self.test_performance_hints(html),
             "Cache Control": self.test_cache_control(html),
+
+            # Accessibility & Mobile
+            "Accessibility": self.test_accessibility(html),
+            "Mobile Optimization": self.test_mobile_optimization(html),
         }
         
         # Summary
