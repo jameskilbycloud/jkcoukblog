@@ -321,9 +321,7 @@ jobs:
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
         git add .last_spell_check_timestamp
-        git commit -m "Update spell check timestamp after applying corrections
-
-Co-Authored-By: Warp <agent@warp.dev>" || true
+        git commit -m "Update spell check timestamp after applying corrections" -m "Co-Authored-By: Warp <agent@warp.dev>" || true
         git push || true
         
     - name: Close issue
