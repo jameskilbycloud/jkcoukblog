@@ -19,10 +19,9 @@ Welcome to the jkcoukblog documentation! This site automatically converts a Word
 
 ### Reference Documentation
 - [CHANGELOG.md](CHANGELOG.md) - Version history and improvements
-- [IMPROVEMENTS_AND_IMPLEMENTATIONS.md](IMPROVEMENTS_AND_IMPLEMENTATIONS.md) - Historical implementation record
-- [CONTENT_FRESHNESS_INDICATOR.md](CONTENT_FRESHNESS_INDICATOR.md) - Content freshness feature
-- [THEME_COLOR_IMPLEMENTATION.md](THEME_COLOR_IMPLEMENTATION.md) - Theme color meta tag implementation
-- [SECRET_SCANNING.md](SECRET_SCANNING.md) - Security scanning configuration
+- [BUILD_AND_DEPLOY_DOCUMENTATION.md](BUILD_AND_DEPLOY_DOCUMENTATION.md) - Comprehensive build and deployment guide
+- [IMAGE_OPTIMIZATION.md](IMAGE_OPTIMIZATION.md) - Image optimization strategy and implementation
+- [archive/](archive/) - Historical implementation docs and archived guides
 
 ## 🚀 Quick Links
 
@@ -64,18 +63,22 @@ python3 test_live_site_formatting.py
 
 ```
 docs/
-├── README.md (this file)          # Documentation hub
-├── DEVELOPMENT.md                 # Development guide
-├── FEATURES.md                    # Feature documentation
-├── OPTIMIZATION.md                # Performance optimization
-├── SEO.md                         # SEO and search engines
-├── DEPLOYMENT.md                  # Deployment and CI/CD
-├── TESTING.md                     # Testing procedures
-├── CHANGELOG.md                   # Version history
-└── archive/                       # Archived individual docs
-    ├── PLAUSIBLE_ANALYTICS.md
-    ├── SEARCH_IMPLEMENTATION.md
-    └── ... (original files)
+├── README.md                                  # Documentation hub
+├── DEVELOPMENT.md                             # Development guide
+├── FEATURES.md                                # Feature documentation
+├── OPTIMIZATION.md                            # Performance optimization
+├── IMAGE_OPTIMIZATION.md                      # Image optimization
+├── SEO.md                                     # SEO and search engines
+├── DEPLOYMENT.md                              # Deployment and CI/CD
+├── BUILD_AND_DEPLOY_DOCUMENTATION.md          # Build system guide
+├── TESTING.md                                 # Testing procedures
+├── CHANGELOG.md                               # Version history
+└── archive/                                   # Historical implementation docs
+    ├── Implementation-specific docs (CLS, CSS, fonts, etc.)
+    ├── Build & validation docs (HTML cache, incremental build)
+    ├── Mobile optimization docs
+    ├── Spell checker implementation history
+    └── Feature implementation records
 ```
 
 ## 🔗 External Resources
@@ -93,6 +96,7 @@ When updating documentation:
 2. Keep cross-references updated
 3. Test all commands and examples
 4. Update this hub if adding new documentation categories
+5. Move implementation-specific or historical docs to archive/ to keep the root clean
 
 ## 📝 Documentation Guidelines
 
