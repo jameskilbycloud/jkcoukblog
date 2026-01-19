@@ -1,0 +1,11 @@
+# Image Optimization Requirements
+# Install with: pip install -r requirements-images.txt
+
+# Core dependencies
+Pillow>=10.0.0
+pillow-avif-plugin>=1.4.0
+beautifulsoup4>=4.12.0
+requests>=2.31.0
+
+# Optional: For better performance
+# Pillow-SIMD  # Drop-in replacement for Pillow with SIMD optimizations

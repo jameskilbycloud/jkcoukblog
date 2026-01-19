@@ -1,0 +1,237 @@
+name: Optimize Images
+
+on:
+  workflow_dispatch:
+    inputs:
+      quality:
+        description: 'Image quality (0-100)'
+        required: false
+        default: '85'
+      workers:
+        description: 'Number of parallel workers'
+        required: false
+        default: '4'
+      skip_html:
+        description: 'Skip HTML updates'
+        required: false
+        type: boolean
+        default: false
+  schedule:
+    # Run weekly on Sunday at 2 AM UTC
+    - cron: '0 2 * * 0'
+
+jobs:
+  optimize-images:
+    runs-on: self-hosted
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install Pillow pillow-avif-plugin beautifulsoup4 requests
+
+      - name: Check for existing static site
+        id: check_public
+        run: |
+          if [ -d "public" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "✅ Public directory found"
+            du -sh public/
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "⚠️ No public directory - will generate static site first"
+          fi
+
+      - name: Generate static site (if needed)
+        if: steps.check_public.outputs.exists == 'false'
+        env:
+          WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+        run: |
+          echo "📦 Generating static site..."
+          python3 deploy_static_site.py generate ./public
+
+      - name: Count images before optimization
+        id: before
+        run: |
+          echo "📊 Image statistics BEFORE optimization:"
+
+          UPLOADS_DIR="public/wp-content/uploads"
+          if [ -d "$UPLOADS_DIR" ]; then
+            TOTAL_JPG=$(find $UPLOADS_DIR -type f \( -iname "*.jpg" -o -iname "*.jpeg" \) | wc -l)
+            TOTAL_PNG=$(find $UPLOADS_DIR -type f -iname "*.png" | wc -l)
+            TOTAL_WEBP=$(find $UPLOADS_DIR -type f -iname "*.webp" | wc -l)
+            TOTAL_AVIF=$(find $UPLOADS_DIR -type f -iname "*.avif" | wc -l)
+            TOTAL_SIZE=$(du -sh $UPLOADS_DIR | cut -f1)
+
+            echo "jpg_count=$TOTAL_JPG" >> $GITHUB_OUTPUT
+            echo "png_count=$TOTAL_PNG" >> $GITHUB_OUTPUT
+            echo "webp_count=$TOTAL_WEBP" >> $GITHUB_OUTPUT
+            echo "avif_count=$TOTAL_AVIF" >> $GITHUB_OUTPUT
+            echo "total_size=$TOTAL_SIZE" >> $GITHUB_OUTPUT
+
+            echo "  JPG/JPEG: $TOTAL_JPG files"
+            echo "  PNG:      $TOTAL_PNG files"
+            echo "  WebP:     $TOTAL_WEBP files"
+            echo "  AVIF:     $TOTAL_AVIF files"
+            echo "  Total:    $TOTAL_SIZE"
+          else
+            echo "⚠️ No uploads directory found"
+            echo "total_size=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run image optimization
+        id: optimize
+        run: |
+          echo "🖼️ Starting image optimization..."
+
+          QUALITY="${{ github.event.inputs.quality || '85' }}"
+          WORKERS="${{ github.event.inputs.workers || '4' }}"
+          SKIP_HTML="${{ github.event.inputs.skip_html || 'false' }}"
+
+          echo "Settings:"
+          echo "  Quality: $QUALITY"
+          echo "  Workers: $WORKERS"
+          echo "  Skip HTML: $SKIP_HTML"
+          echo ""
+
+          if [ "$SKIP_HTML" = "true" ]; then
+            python3 optimize_images.py ./public --quality $QUALITY --workers $WORKERS --skip-html
+          else
+            python3 optimize_images.py ./public --quality $QUALITY --workers $WORKERS
+          fi
+
+      - name: Count images after optimization
+        id: after
+        run: |
+          echo "📊 Image statistics AFTER optimization:"
+
+          UPLOADS_DIR="public/wp-content/uploads"
+          if [ -d "$UPLOADS_DIR" ]; then
+            TOTAL_WEBP=$(find $UPLOADS_DIR -type f -iname "*.webp" | wc -l)
+            TOTAL_AVIF=$(find $UPLOADS_DIR -type f -iname "*.avif" | wc -l)
+            TOTAL_SIZE=$(du -sh $UPLOADS_DIR | cut -f1)
+
+            echo "webp_count=$TOTAL_WEBP" >> $GITHUB_OUTPUT
+            echo "avif_count=$TOTAL_AVIF" >> $GITHUB_OUTPUT
+            echo "total_size=$TOTAL_SIZE" >> $GITHUB_OUTPUT
+
+            echo "  WebP:     $TOTAL_WEBP files"
+            echo "  AVIF:     $TOTAL_AVIF files"
+            echo "  Total:    $TOTAL_SIZE"
+          fi
+
+      - name: Commit optimized images
+        id: commit
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          # Add all optimized images and updated HTML
+          git add public/wp-content/uploads/**/*.webp 2>/dev/null || true
+          git add public/wp-content/uploads/**/*.avif 2>/dev/null || true
+          git add public/**/*.html 2>/dev/null || true
+          git add public/.image-optimization-cache.json 2>/dev/null || true
+
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit (all images already optimized)"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            WEBP_NEW=${{ steps.after.outputs.webp_count }}
+            AVIF_NEW=${{ steps.after.outputs.avif_count }}
+            WEBP_OLD=${{ steps.before.outputs.webp_count }}
+            AVIF_OLD=${{ steps.before.outputs.avif_count }}
+
+            WEBP_ADDED=$((WEBP_NEW - WEBP_OLD))
+            AVIF_ADDED=$((AVIF_NEW - AVIF_OLD))
+
+            git commit -m "🖼️ Optimize images: +${WEBP_ADDED} WebP, +${AVIF_ADDED} AVIF
+
+            Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "✅ Committed optimized images"
+          fi
+
+      - name: Push changes
+        if: steps.commit.outputs.has_changes == 'true'
+        run: |
+          git push origin ${{ github.ref_name }}
+          echo "✅ Pushed optimized images to repository"
+
+      - name: Generate optimization summary
+        if: always()
+        run: |
+          echo "# 🖼️ Image Optimization Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Before Optimization" >> $GITHUB_STEP_SUMMARY
+          echo "- **JPG/JPEG Files:** ${{ steps.before.outputs.jpg_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **PNG Files:** ${{ steps.before.outputs.png_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **WebP Files:** ${{ steps.before.outputs.webp_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **AVIF Files:** ${{ steps.before.outputs.avif_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Total Size:** ${{ steps.before.outputs.total_size }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## After Optimization" >> $GITHUB_STEP_SUMMARY
+          echo "- **WebP Files:** ${{ steps.after.outputs.webp_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **AVIF Files:** ${{ steps.after.outputs.avif_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Total Size:** ${{ steps.after.outputs.total_size }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ steps.commit.outputs.has_changes }}" = "true" ]; then
+            WEBP_ADDED=$((steps.after.outputs.webp_count - steps.before.outputs.webp_count))
+            AVIF_ADDED=$((steps.after.outputs.avif_count - steps.before.outputs.avif_count))
+            echo "## Changes" >> $GITHUB_STEP_SUMMARY
+            echo "- ✅ **New WebP images:** ${WEBP_ADDED}" >> $GITHUB_STEP_SUMMARY
+            echo "- ✅ **New AVIF images:** ${AVIF_ADDED}" >> $GITHUB_STEP_SUMMARY
+            echo "- ✅ **Changes committed and pushed**" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "## Result" >> $GITHUB_STEP_SUMMARY
+            echo "- ℹ️ No new optimizations needed (all images already optimized)" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Trigger deployment
+        if: steps.commit.outputs.has_changes == 'true'
+        run: |
+          echo "🚀 Optimized images have been committed."
+          echo "Cloudflare Pages will automatically deploy the updated site."
+          echo ""
+          echo "The deployment will include:"
+          echo "  - Optimized WebP images for better compression"
+          echo "  - AVIF images for modern browsers"
+          echo "  - Updated HTML with <picture> elements"
+          echo "  - Fallback to original images for older browsers"
+
+      - name: Notify on failure
+        if: failure() && github.event_name == 'schedule'
+        run: |
+          echo "❌ Image optimization failed!"
+          echo "Check the workflow logs for details."
+          # Add Slack notification here if SLACK_WEBHOOK_URL is configured
+          if [ -n "${{ secrets.SLACK_WEBHOOK_URL }}" ]; then
+            curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
+              -H 'Content-Type: application/json' \
+              -d '{
+                "text": "❌ Image optimization workflow failed",
+                "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "*Image Optimization Failed*\n\nWorkflow: `optimize-images.yml`\nRepository: `${{ github.repository }}`\nBranch: `${{ github.ref_name }}`\n\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Logs>"
+                    }
+                  }
+                ]
+              }'
+          fi
