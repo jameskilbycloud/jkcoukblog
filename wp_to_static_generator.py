@@ -294,6 +294,9 @@ class WordPressStaticGenerator:
         # Extract inline CSS to external files
         self.extract_inline_css(soup, current_url)
         
+        # Consolidate small inline CSS files to reduce critical request chain
+        self.consolidate_inline_css_files(soup)
+        
         # Process WordPress embeds (convert to proper iframes)
         self.process_wordpress_embeds(soup)
         
@@ -1085,6 +1088,80 @@ class WordPressStaticGenerator:
                 soup.head.insert(0, preload)
         
         print(f"   🔤 Preloaded {len(critical_fonts)} critical fonts")
+    
+    def consolidate_inline_css_files(self, soup):
+        """Consolidate multiple small inline CSS files into one to reduce critical request chain"""
+        if not soup.head:
+            return
+        
+        # Find all inline CSS files (wp-block-*, global-styles, etc.)
+        inline_css_patterns = [
+            'wp-block-library-inline-css',
+            'wp-block-heading-inline-css',
+            'wp-block-paragraph-inline-css',
+            'wp-block-table-inline-css',
+            'wp-img-auto-sizes-contain-inline-css',
+            'global-styles-inline-css',
+            'classic-theme-styles-inline-css',
+            'inline-styles-'
+        ]
+        
+        css_links_to_consolidate = []
+        
+        for link in soup.find_all('link', rel='stylesheet'):
+            href = link.get('href', '')
+            if any(pattern in href for pattern in inline_css_patterns):
+                css_links_to_consolidate.append(link)
+        
+        if len(css_links_to_consolidate) < 2:
+            return  # Not enough files to consolidate
+        
+        print(f"   📦 Consolidating {len(css_links_to_consolidate)} inline CSS files")
+        
+        # Read and merge CSS content
+        consolidated_css = []
+        
+        for link in css_links_to_consolidate:
+            href = link.get('href', '')
+            if href.startswith('/'):
+                css_file_path = self.output_dir / href.lstrip('/')
+                if css_file_path.exists():
+                    try:
+                        css_content = css_file_path.read_text(encoding='utf-8')
+                        consolidated_css.append(f"/* {href} */\n{css_content}\n")
+                    except Exception as e:
+                        print(f"   ⚠️  Could not read {href}: {e}")
+        
+        if not consolidated_css:
+            return
+        
+        # Create consolidated file
+        consolidated_content = '\n'.join(consolidated_css)
+        consolidated_filename = 'consolidated-inline-styles.min.css'
+        consolidated_path = self.output_dir / 'assets' / 'css' / consolidated_filename
+        
+        consolidated_path.parent.mkdir(parents=True, exist_ok=True)
+        consolidated_path.write_text(consolidated_content, encoding='utf-8')
+        
+        # Replace all inline CSS links with single consolidated link
+        # Remove old links
+        for link in css_links_to_consolidate:
+            link.decompose()
+        
+        # Add new consolidated link
+        consolidated_link = soup.new_tag('link')
+        consolidated_link['rel'] = 'stylesheet'
+        consolidated_link['href'] = f'/assets/css/{consolidated_filename}'
+        consolidated_link['media'] = 'all'
+        
+        # Insert after first stylesheet or at beginning of head
+        first_stylesheet = soup.find('link', rel='stylesheet')
+        if first_stylesheet:
+            first_stylesheet.insert_after(consolidated_link)
+        else:
+            soup.head.insert(0, consolidated_link)
+        
+        print(f"   ✅ Consolidated {len(css_links_to_consolidate)} CSS files → {consolidated_filename} ({len(consolidated_content)} bytes)")
     
     def add_brutalist_theme_css(self, soup):
         """Add brutalist theme CSS with critical mobile CSS inlined"""
