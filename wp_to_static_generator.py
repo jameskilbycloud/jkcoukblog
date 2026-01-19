@@ -1052,7 +1052,7 @@ class WordPressStaticGenerator:
         print(f"   🐞 Added favicon links for browser support")
     
     def add_brutalist_theme_css(self, soup):
-        """Add brutalist theme CSS as external file with cache headers inspired by justfuckingusecloudflare.com"""
+        """Add brutalist theme CSS with critical mobile CSS inlined"""
         if not soup.head:
             return
         
@@ -1078,10 +1078,49 @@ class WordPressStaticGenerator:
                 shutil.copy(source_css_path, theme_css_path)
                 print(f"   📋 Copied brutalist theme CSS to {theme_css_path}")
             
-            # Link to external file
+            # Inline critical mobile CSS for faster FCP
+            critical_css_path = Path(__file__).parent / 'critical-mobile.css'
+            if critical_css_path.exists():
+                try:
+                    critical_css = critical_css_path.read_text(encoding='utf-8')
+                    # Minify: remove comments and extra whitespace
+                    import re
+                    critical_css = re.sub(r'/\*[^*]*\*+(?:[^/*][^*]*\*+)*/', '', critical_css)  # Remove comments
+                    critical_css = re.sub(r'\s+', ' ', critical_css)  # Collapse whitespace
+                    critical_css = critical_css.strip()
+                    
+                    # Create inline style tag with media query for mobile
+                    style_tag = soup.new_tag('style')
+                    style_tag['media'] = 'screen and (max-width: 768px)'
+                    style_tag.string = critical_css
+                    # Insert at beginning of head for highest priority
+                    soup.head.insert(0, style_tag)
+                    print(f"   📱 Inlined critical mobile CSS ({len(critical_css)} bytes)")
+                except Exception as e:
+                    print(f"   ⚠️  Failed to inline critical CSS: {str(e)}")
+            
+            # Link to external file with media query and preload
+            # Add preload for faster loading
+            preload = soup.new_tag('link')
+            preload['rel'] = 'preload'
+            preload['as'] = 'style'
+            preload['href'] = '/assets/css/brutalist-theme.css'
+            soup.head.append(preload)
+            
+            # Add main stylesheet link
             link = soup.new_tag('link', rel='stylesheet', href='/assets/css/brutalist-theme.css')
+            # Use media="print" trick for non-blocking CSS load, then switch to "all"
+            link['media'] = 'print'
+            link['onload'] = "this.media='all'"
             soup.head.append(link)
-            print(f"   🎨 Added brutalist theme CSS link")
+            
+            # Add noscript fallback for users without JS
+            noscript = soup.new_tag('noscript')
+            noscript_link = soup.new_tag('link', rel='stylesheet', href='/assets/css/brutalist-theme.css')
+            noscript.append(noscript_link)
+            soup.head.append(noscript)
+            
+            print(f"   🎨 Added brutalist theme CSS with non-blocking load")
         except Exception as e:
             print(f"   ❌ Failed to add brutalist theme CSS: {str(e)}")
     
