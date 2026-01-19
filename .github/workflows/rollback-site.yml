@@ -53,36 +53,28 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         
-        # Sync with remote
+        # Sync with remote to ensure we're up to date
         git fetch origin
-        git reset --hard origin/main
         
-        # Revert to previous commit (create a new commit that undoes the last one)
-        git revert HEAD --no-edit -m 1 2>/dev/null || git revert HEAD --no-edit
-        
-        # Update commit message to be more descriptive
-        ROLLED_BACK_COMMIT=$(git log -1 --pretty=format:"%s" HEAD~1)
-        git commit --amend -m "⏮️ Rollback: Revert to previous version
-
-Rolled back from: ${{ env.CURRENT_COMMIT }}
-Reverted to: ${{ env.PREVIOUS_COMMIT }}
-Original commit: $ROLLED_BACK_COMMIT
-
-Triggered by: ${{ github.actor }}
-Date: $(date '+%Y-%m-%d %H:%M:%S')
-
-Co-Authored-By: Warp <agent@warp.dev>"
+        # Reset to previous commit
+        ROLLED_BACK_COMMIT=$(git log -1 --pretty=format:"%s" HEAD)
+        git reset --hard HEAD~1
         
         echo "✅ Rollback commit created"
+        echo "📝 Reset to previous commit: $ROLLED_BACK_COMMIT"
         
     - name: Push rollback
       run: |
         echo "📤 Pushing rollback to remote..."
         
+        # Attempt push
         if git push origin main; then
           echo "✅ Rollback pushed successfully"
         else
-          echo "⚠️ Push failed, trying with force-with-lease..."
+          echo "⚠️ Push failed, syncing with remote and retrying..."
+          git fetch origin
+          git reset --hard origin/main
+          git reset --hard HEAD~1
           git push --force-with-lease origin main
         fi
         
