@@ -424,6 +424,8 @@ th {
 }
 
 /* Responsive adjustments */
+
+/* Tablets and large phones (≤768px) */
 @media (max-width: 768px) {
   h1, .site-title { font-size: 2rem !important; }
   h2, .entry-title { font-size: 1.5rem !important; }
@@ -431,6 +433,82 @@ th {
   
   .kadence-posts-list.grid-cols {
     gap: 1rem;
+  }
+}
+
+/* Standard phones (≤480px) */
+@media (max-width: 480px) {
+  h1, .site-title { font-size: 1.75rem !important; }
+  h2, .entry-title { font-size: 1.25rem !important; }
+  h3 { font-size: 1.125rem !important; }
+  h4 { font-size: 1rem !important; }
+  
+  /* Reduce spacing for more content above fold */
+  .kadence-posts-list.grid-cols {
+    gap: 0.75rem;
+  }
+  
+  /* Smaller buttons on phones */
+  .post-more-link,
+  button,
+  .wp-block-button__link {
+    padding: 0.625rem 1.25rem !important;
+    font-size: 0.875rem !important;
+  }
+  
+  /* Tighter entry content */
+  .entry-header,
+  .entry-content {
+    padding: 1rem !important;
+  }
+  
+  /* Smaller meta text */
+  .entry-meta {
+    font-size: 0.8rem !important;
+  }
+}
+
+/* Small phones (≤375px - iPhone SE, iPhone 13 mini) */
+@media (max-width: 375px) {
+  h1, .site-title { font-size: 1.5rem !important; }
+  h2, .entry-title { font-size: 1.125rem !important; }
+  h3 { font-size: 1rem !important; }
+  h4 { font-size: 0.9rem !important; }
+  
+  /* Even tighter spacing for small screens */
+  .kadence-posts-list.grid-cols {
+    gap: 0.5rem;
+  }
+  
+  /* Compact buttons */
+  .post-more-link,
+  button,
+  .wp-block-button__link {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.8rem !important;
+  }
+  
+  /* Compact padding */
+  .entry-header,
+  .entry-content {
+    padding: 0.75rem !important;
+  }
+  
+  /* Even smaller meta text */
+  .entry-meta {
+    font-size: 0.75rem !important;
+  }
+  
+  /* Reduce line height slightly for readability */
+  body {
+    line-height: 1.5 !important;
+  }
+  
+  /* Make category/tag badges smaller */
+  .category-links a,
+  .tag-links a {
+    padding: 0.2rem 0.6rem !important;
+    font-size: 0.7rem !important;
   }
 }
 
