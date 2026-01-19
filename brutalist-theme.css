@@ -34,6 +34,28 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
+/* Mobile optimization: reduce noise overlay GPU impact */
+@media (max-width: 768px) {
+  body::before {
+    opacity: 0.02; /* Lighter on mobile */
+    will-change: auto; /* Remove GPU acceleration hint */
+  }
+}
+
+/* Optional: disable on small/slow mobile devices to save battery and improve performance */
+@media (max-width: 480px) and (prefers-reduced-motion: reduce) {
+  body::before {
+    display: none; /* Completely remove for accessibility and low-end devices */
+  }
+}
+
+/* Disable noise on very small screens or when user prefers reduced data */
+@media (max-width: 375px) {
+  body::before {
+    opacity: 0.015; /* Very subtle on small screens */
+  }
+}
+
 /* Typography */
 h1, h2, h3, h4, h5, h6,
 .site-title,
@@ -437,9 +459,22 @@ th {
   color: var(--text-light) !important;
 }
 
-/* Smooth transitions */
-* {
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+/* Smooth transitions - applied only to interactive elements for better performance */
+a,
+button,
+.post-more-link,
+.wp-block-button__link,
+.category-links a,
+.tag-links a,
+.post-thumbnail img,
+.menu-item a,
+.page-numbers,
+.pagination a,
+.post-navigation a,
+.navigation a,
+input,
+textarea {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
 }
 
 /* Override any white backgrounds */
