@@ -30,7 +30,7 @@ wordpress.jameskilby.cloud   |                    |                   jameskilby
 ```
 ├── .github/workflows/
 │   ├── deploy-static-site.yml           # Main deployment workflow
-│   └── test-live-site.yml               # Live site testing workflow
+│   └── quality-checks.yml               # Live site testing workflow
 ├── public/                              # Generated static site (deployed by Cloudflare)
 ├── wp_to_static_generator.py            # Core WordPress to static converter
 ├── deploy_static_site.py                # Multi-platform deployment tool
@@ -576,17 +576,32 @@ echo 'export WP_AUTH_TOKEN="your_token_here"' >> ~/.zshrc
 
 ---
 
-#### 2. Test Live Site Formatting
-**File:** `.github/workflows/test-live-site.yml`
+#### 2. Quality Checks (Lighthouse + Formatting Tests)
+**File:** `.github/workflows/quality-checks.yml`
 
-**Purpose:** Tests live site (production or staging) for formatting, SEO, and technical standards
+**Purpose:** Comprehensive quality monitoring combining Lighthouse performance tests and site formatting validation
 
-**Trigger:** Manual only (`workflow_dispatch`)
+**Triggers:**
+- Push to main/master (Lighthouse only)
+- Pull requests (Lighthouse only)
+- Manual trigger (`workflow_dispatch`) - can run both or individually
+- Daily schedule at 3 AM UTC (Lighthouse only)
 
-**Key Features:**
-- 14 comprehensive tests
-- Test production or staging
-- Optional post page testing
+**Jobs:**
+
+##### Lighthouse Performance
+- Runs automatically on push/PR and daily
+- Tests homepage, category page, recent posts
+- Tracks Performance, Accessibility, Best Practices, SEO scores
+- Monitors Core Web Vitals (LCP, FCP, CLS, TTI)
+- Slack notifications with detailed metrics
+- Artifacts available for detailed analysis
+
+##### Site Formatting Tests
+- Manual trigger only
+- 14 comprehensive formatting tests
+- Test production or staging URL
+- Optional specific post testing
 - Slack notifications
 - GitHub Actions summary
 
@@ -598,22 +613,35 @@ echo 'export WP_AUTH_TOKEN="your_token_here"' >> ~/.zshrc
 
 ##### Via GitHub UI
 1. Go to **Actions** tab
-2. Select **Test Live Site Formatting**
+2. Select **Quality Checks**
 3. Click **Run workflow**
-4. Choose URL to test
-5. Optionally add post page URL
+4. Choose which tests to run:
+   - Lighthouse performance: ✅/❌
+   - Site formatting: ✅/❌
+5. Choose URL to test (formatting)
+6. Optionally add post page URL (formatting)
 
 ##### Via CLI
 ```bash
-# Test production
-gh workflow run test-live-site.yml
+# Run both Lighthouse and formatting tests
+gh workflow run quality-checks.yml \
+  -f run_lighthouse=true \
+  -f run_formatting=true
 
-# Test staging
-gh workflow run test-live-site.yml \
+# Run only Lighthouse
+gh workflow run quality-checks.yml \
+  -f run_lighthouse=true \
+  -f run_formatting=false
+
+# Run only formatting tests on staging
+gh workflow run quality-checks.yml \
+  -f run_lighthouse=false \
+  -f run_formatting=true \
   -f test_url='https://jkcoukblog.pages.dev'
 
 # Test with specific post
-gh workflow run test-live-site.yml \
+gh workflow run quality-checks.yml \
+  -f run_formatting=true \
   -f test_post='https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/'
 ```
 
@@ -633,8 +661,11 @@ gh run list --limit 10
 # Deployment workflow
 gh run list --workflow=deploy-static-site.yml
 
-# Testing workflow
-gh run list --workflow=test-live-site.yml
+# Quality checks (Lighthouse + formatting)
+gh run list --workflow=quality-checks.yml
+
+# Image optimization
+gh run list --workflow=optimize-images.yml
 ```
 
 #### Watch Live Workflow Run
@@ -662,19 +693,19 @@ gh run cancel <run-id>
 1. WordPress plugin generates static site
 2. Webhook triggers `deploy-static-site.yml`
 3. Site is deployed to Cloudflare Pages
-4. Manually run `test-live-site.yml` to verify
+4. Manually run `quality-checks.yml` to verify
 
 #### Before Major Changes
 
-1. Test current production: `gh workflow run test-live-site.yml`
+1. Test current production: `gh workflow run quality-checks.yml`
 2. Make changes in WordPress
 3. Deploy to staging first
-4. Test staging: `gh workflow run test-live-site.yml -f test_url='https://jkcoukblog.pages.dev'`
+4. Test staging: `gh workflow run quality-checks.yml -f test_url='https://jkcoukblog.pages.dev'`
 5. If tests pass, deploy to production
 
 #### Regular Maintenance
 
-- Run `test-live-site.yml` weekly to catch issues
+- Run `quality-checks.yml` weekly to catch issues
 - Review warnings even when tests pass
 - Check Slack notifications for results
 
@@ -703,7 +734,7 @@ gh run rerun <run-id> --failed
 
 [![Deploy Static Site](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/deploy-static-site.yml/badge.svg)](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/deploy-static-site.yml)
 
-[![Test Live Site](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/test-live-site.yml/badge.svg)](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/test-live-site.yml)
+[![Quality Checks](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml/badge.svg)](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml)
 
 ---
 
