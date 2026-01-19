@@ -1,4 +1,4 @@
-name: Lighthouse CI Performance Monitoring
+name: Quality Checks
 
 on:
   push:
@@ -9,26 +9,56 @@ on:
     branches: [main, master]
     paths:
       - 'public/**'
-  workflow_dispatch:  # Allow manual triggers
+  workflow_dispatch:
+    inputs:
+      run_lighthouse:
+        description: 'Run Lighthouse performance tests'
+        required: false
+        default: true
+        type: boolean
+      run_formatting:
+        description: 'Run site formatting tests'
+        required: false
+        default: true
+        type: boolean
+      test_url:
+        description: 'URL to test for formatting (default: production)'
+        required: false
+        default: 'https://jameskilby.co.uk'
+        type: choice
+        options:
+          - 'https://jameskilby.co.uk'
+          - 'https://jkcoukblog.pages.dev'
+      test_post:
+        description: 'Specific post URL to test (leave empty to skip)'
+        required: false
+        default: ''
+        type: string
   schedule:
     # Run daily at 3 AM UTC to track performance trends
     - cron: '0 3 * * *'
 
 jobs:
   lighthouse:
+    name: Lighthouse Performance
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    
+    if: |
+      github.event_name == 'schedule' ||
+      github.event_name == 'push' ||
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.run_lighthouse == 'true')
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: Wait for deployment
         if: github.event_name == 'push'
         run: |
           echo "⏳ Waiting 2 minutes for Cloudflare Pages to deploy..."
           sleep 120
-      
+
       - name: Check if config files exist
         id: check_configs
         run: |
@@ -39,7 +69,7 @@ jobs:
             echo "budget_exists=false" >> $GITHUB_OUTPUT
             echo "⚠️  Budget config not found, will use defaults"
           fi
-          
+
           if [ -f ".github/lighthouse/lighthouse-config.json" ]; then
             echo "config_exists=true" >> $GITHUB_OUTPUT
             echo "✅ Lighthouse config found"
@@ -47,7 +77,7 @@ jobs:
             echo "config_exists=false" >> $GITHUB_OUTPUT
             echo "⚠️  Lighthouse config not found, will use defaults"
           fi
-      
+
       - name: Run Lighthouse CI (with configs)
         if: steps.check_configs.outputs.budget_exists == 'true' && steps.check_configs.outputs.config_exists == 'true'
         uses: treosh/lighthouse-ci-action@v11
@@ -61,7 +91,7 @@ jobs:
           temporaryPublicStorage: true
           budgetPath: .github/lighthouse/budget.json
           configPath: .github/lighthouse/lighthouse-config.json
-      
+
       - name: Run Lighthouse CI (without configs)
         if: steps.check_configs.outputs.budget_exists == 'false' || steps.check_configs.outputs.config_exists == 'false'
         uses: treosh/lighthouse-ci-action@v11
@@ -73,7 +103,7 @@ jobs:
           runs: 3
           uploadArtifacts: true
           temporaryPublicStorage: true
-      
+
       - name: Generate performance summary
         if: always()
         run: |
@@ -101,7 +131,7 @@ jobs:
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "📁 Lighthouse results available in workflow artifacts." >> $GITHUB_STEP_SUMMARY
           fi
-      
+
       - name: Parse Lighthouse results
         id: lighthouse_results
         if: always()
@@ -109,16 +139,16 @@ jobs:
         run: |
           # Find the most recent Lighthouse report
           REPORT=$(ls -t .lighthouseci/lhr-*.json 2>/dev/null | head -1)
-          
+
           if [ -f "$REPORT" ]; then
             echo "✅ Found Lighthouse report: $REPORT"
-            
+
             # Extract scores using jq (performance, accessibility, best-practices, seo)
             PERF=$(jq -r '.categories.performance.score * 100 | floor' "$REPORT")
             A11Y=$(jq -r '.categories.accessibility.score * 100 | floor' "$REPORT")
             BP=$(jq -r '.categories["best-practices"].score * 100 | floor' "$REPORT")
             SEO=$(jq -r '.categories.seo.score * 100 | floor' "$REPORT")
-            
+
             # Extract Core Web Vitals
             LCP=$(jq -r '.audits["largest-contentful-paint"].displayValue // "N/A"' "$REPORT")
             FCP=$(jq -r '.audits["first-contentful-paint"].displayValue // "N/A"' "$REPORT")
@@ -126,10 +156,10 @@ jobs:
             TTI=$(jq -r '.audits.interactive.displayValue // "N/A"' "$REPORT")
             SI=$(jq -r '.audits["speed-index"].displayValue // "N/A"' "$REPORT")
             TBT=$(jq -r '.audits["total-blocking-time"].displayValue // "N/A"' "$REPORT")
-            
+
             # Get URL that was tested
             URL=$(jq -r '.finalUrl' "$REPORT")
-            
+
             # Save to outputs
             echo "performance=$PERF" >> $GITHUB_OUTPUT
             echo "accessibility=$A11Y" >> $GITHUB_OUTPUT
@@ -143,7 +173,7 @@ jobs:
             echo "tbt=$TBT" >> $GITHUB_OUTPUT
             echo "url=$URL" >> $GITHUB_OUTPUT
             echo "has_results=true" >> $GITHUB_OUTPUT
-            
+
             # Determine overall status (green if all above 90)
             if [ "$PERF" -ge 90 ] && [ "$A11Y" -ge 90 ] && [ "$BP" -ge 90 ] && [ "$SEO" -ge 90 ]; then
               echo "status=good" >> $GITHUB_OUTPUT
@@ -152,13 +182,13 @@ jobs:
             else
               echo "status=warning" >> $GITHUB_OUTPUT
             fi
-            
+
             echo "📊 Scores: Performance=$PERF, A11y=$A11Y, BP=$BP, SEO=$SEO"
           else
             echo "⚠️  No Lighthouse reports found"
             echo "has_results=false" >> $GITHUB_OUTPUT
           fi
-      
+
       - name: Notify Slack with metrics (on push/PR)
         if: always() && steps.lighthouse_results.outputs.has_results == 'true' && (github.event_name == 'push' || github.event_name == 'pull_request')
         uses: slackapi/slack-github-action@v2.0.0
@@ -241,7 +271,7 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      
+
       - name: Notify Slack with daily metrics
         if: github.event_name == 'schedule' && steps.lighthouse_results.outputs.has_results == 'true'
         uses: slackapi/slack-github-action@v2.0.0
@@ -299,3 +329,227 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  formatting:
+    name: Site Formatting Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    if: |
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.run_formatting == 'true'
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+        cache-dependency-path: 'requirements.txt'
+
+    - name: Install dependencies
+      run: |
+        echo "🔧 Installing Python dependencies..."
+        pip install -r requirements.txt
+        echo "✅ Dependencies installed"
+
+    - name: Test live site (main URL)
+      id: test_main
+      run: |
+        echo "🚀 Testing ${{ github.event.inputs.test_url }}..."
+
+        # Run the test and capture output
+        OUTPUT_FILE="test_output_main.txt"
+        python3 test_live_site_formatting.py --url "${{ github.event.inputs.test_url }}" > "$OUTPUT_FILE" 2>&1
+        TEST_EXIT_CODE=$?
+
+        # Save output for later use
+        cat "$OUTPUT_FILE"
+
+        # Extract summary information
+        PASSED=$(grep "tests passed" "$OUTPUT_FILE" | grep -oE '[0-9]+/[0-9]+' | head -1 || echo "0/0")
+        ERRORS=$(grep "Errors:" "$OUTPUT_FILE" | grep -oE '[0-9]+' | head -1 || echo "0")
+        WARNINGS=$(grep "Warnings:" "$OUTPUT_FILE" | grep -oE '[0-9]+' | head -1 || echo "0")
+
+        # Save to environment for Slack notification
+        echo "PASSED=$PASSED" >> $GITHUB_OUTPUT
+        echo "ERRORS=$ERRORS" >> $GITHUB_OUTPUT
+        echo "WARNINGS=$WARNINGS" >> $GITHUB_OUTPUT
+        echo "EXIT_CODE=$TEST_EXIT_CODE" >> $GITHUB_OUTPUT
+
+        # Save detailed output
+        {
+          echo 'DETAILED_OUTPUT<<EOF'
+          cat "$OUTPUT_FILE"
+          echo 'EOF'
+        } >> $GITHUB_OUTPUT
+
+    - name: Test post page (if specified)
+      id: test_post
+      if: github.event.inputs.test_post != ''
+      run: |
+        echo "🚀 Testing post page: ${{ github.event.inputs.test_post }}..."
+
+        # Run the test and capture output
+        OUTPUT_FILE="test_output_post.txt"
+        python3 test_live_site_formatting.py --url "${{ github.event.inputs.test_post }}" > "$OUTPUT_FILE" 2>&1
+        TEST_EXIT_CODE=$?
+
+        # Save output for later use
+        cat "$OUTPUT_FILE"
+
+        # Extract summary information
+        PASSED=$(grep "tests passed" "$OUTPUT_FILE" | grep -oE '[0-9]+/[0-9]+' | head -1 || echo "0/0")
+        ERRORS=$(grep "Errors:" "$OUTPUT_FILE" | grep -oE '[0-9]+' | head -1 || echo "0")
+        WARNINGS=$(grep "Warnings:" "$OUTPUT_FILE" | grep -oE '[0-9]+' | head -1 || echo "0")
+
+        # Save to environment for Slack notification
+        echo "PASSED=$PASSED" >> $GITHUB_OUTPUT
+        echo "ERRORS=$ERRORS" >> $GITHUB_OUTPUT
+        echo "WARNINGS=$WARNINGS" >> $GITHUB_OUTPUT
+        echo "EXIT_CODE=$TEST_EXIT_CODE" >> $GITHUB_OUTPUT
+
+    - name: Create GitHub Step Summary
+      if: always()
+      run: |
+        echo "# 🧪 Live Site Formatting Test Results" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+
+        # Main URL results
+        echo "## 🌐 Main URL Test" >> $GITHUB_STEP_SUMMARY
+        echo "**URL:** ${{ github.event.inputs.test_url }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Tests Passed:** ${{ steps.test_main.outputs.PASSED }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Errors:** ${{ steps.test_main.outputs.ERRORS }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Warnings:** ${{ steps.test_main.outputs.WARNINGS }}" >> $GITHUB_STEP_SUMMARY
+
+        if [ "${{ steps.test_main.outputs.EXIT_CODE }}" -eq 0 ]; then
+          echo "- **Status:** ✅ All tests passed" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "- **Status:** ❌ Some tests failed" >> $GITHUB_STEP_SUMMARY
+        fi
+
+        # Post page results (if tested)
+        if [ -n "${{ github.event.inputs.test_post }}" ]; then
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 📄 Post Page Test" >> $GITHUB_STEP_SUMMARY
+          echo "**URL:** ${{ github.event.inputs.test_post }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Tests Passed:** ${{ steps.test_post.outputs.PASSED }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Errors:** ${{ steps.test_post.outputs.ERRORS }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Warnings:** ${{ steps.test_post.outputs.WARNINGS }}" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ steps.test_post.outputs.EXIT_CODE }}" -eq 0 ]; then
+            echo "- **Status:** ✅ All tests passed" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- **Status:** ❌ Some tests failed" >> $GITHUB_STEP_SUMMARY
+          fi
+        fi
+
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "---" >> $GITHUB_STEP_SUMMARY
+        echo "*Triggered by: @${{ github.actor }}*" >> $GITHUB_STEP_SUMMARY
+
+    - name: Send Slack notification
+      if: always()
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        # Check if Slack webhook is configured
+        if [ -z "$SLACK_WEBHOOK_URL" ]; then
+          echo "ℹ️  SLACK_WEBHOOK_URL not configured, skipping Slack notification"
+          exit 0
+        fi
+
+        # Determine overall status
+        MAIN_STATUS="${{ steps.test_main.outputs.EXIT_CODE }}"
+
+        if [ "$MAIN_STATUS" -eq 0 ]; then
+          STATUS_ICON="✅"
+          STATUS_TEXT="Passed"
+          COLOR="good"
+        else
+          STATUS_ICON="❌"
+          STATUS_TEXT="Failed"
+          COLOR="danger"
+        fi
+
+        # Build error/warning list
+        ERROR_LIST=""
+        if [ "${{ steps.test_main.outputs.ERRORS }}" -gt 0 ]; then
+          ERROR_LIST="${ERROR_LIST}• ${{ steps.test_main.outputs.ERRORS }} error(s) found\n"
+        fi
+        if [ "${{ steps.test_main.outputs.WARNINGS }}" -gt 0 ]; then
+          ERROR_LIST="${ERROR_LIST}• ${{ steps.test_main.outputs.WARNINGS }} warning(s) found\n"
+        fi
+
+        # Add post page results if tested
+        POST_SECTION=""
+        if [ -n "${{ github.event.inputs.test_post }}" ]; then
+          POST_STATUS="${{ steps.test_post.outputs.EXIT_CODE }}"
+          if [ "$POST_STATUS" -eq 0 ]; then
+            POST_ICON="✅"
+          else
+            POST_ICON="❌"
+            COLOR="danger"  # Change overall color if post fails
+          fi
+
+          POST_SECTION=",
+          {
+            \"type\": \"section\",
+            \"text\": {
+              \"type\": \"mrkdwn\",
+              \"text\": \"*📄 Post Page Test:* $POST_ICON\n${{ github.event.inputs.test_post }}\n• Tests: ${{ steps.test_post.outputs.PASSED }}\n• Errors: ${{ steps.test_post.outputs.ERRORS }}\n• Warnings: ${{ steps.test_post.outputs.WARNINGS }}\"
+            }
+          }"
+        fi
+
+        # Send to Slack
+        curl -X POST "$SLACK_WEBHOOK_URL" \
+          -H 'Content-Type: application/json' \
+          -d @- << EOF
+        {
+          "text": "Live Site Formatting Test: $STATUS_ICON $STATUS_TEXT",
+          "attachments": [
+            {
+              "color": "$COLOR",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "$STATUS_ICON Live Site Formatting Test: $STATUS_TEXT",
+                    "emoji": true
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*🌐 Main URL Test:*\n${{ github.event.inputs.test_url }}\n• Tests passed: ${{ steps.test_main.outputs.PASSED }}\n• Errors: ${{ steps.test_main.outputs.ERRORS }}\n• Warnings: ${{ steps.test_main.outputs.WARNINGS }}"
+                  }
+                }$POST_SECTION,
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "Triggered by *${{ github.actor }}* | <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Workflow Run>"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        EOF
+
+        echo "✅ Slack notification sent"
+
+    - name: Fail workflow if tests failed
+      if: steps.test_main.outputs.EXIT_CODE != '0'
+      run: |
+        echo "❌ Tests failed with exit code ${{ steps.test_main.outputs.EXIT_CODE }}"
+        exit 1
