@@ -56,7 +56,7 @@ jobs:
       run: |
         echo "🔧 Applying spelling corrections to WordPress..."
         
-        ./wp_spell_check_and_fix.py --apply-from-file spelling_corrections.json
+        python3 scripts/wp_spell_check_and_fix.py --apply-from-file spelling_corrections.json
         
         echo "✅ Corrections applied successfully"
         
@@ -66,9 +66,7 @@ jobs:
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
         git add .last_spell_check_timestamp
-        git commit -m "Update spell check timestamp after applying corrections
-
-Co-Authored-By: Warp <agent@warp.dev>" || true
+        git commit -m "Update spell check timestamp after applying corrections" -m "Co-Authored-By: Warp <agent@warp.dev>" || true
         git push || true
         
     - name: Close issue

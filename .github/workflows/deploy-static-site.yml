@@ -92,9 +92,9 @@ jobs:
         
         # Run spell checker (only checks posts modified since SINCE_TIMESTAMP if set)
         if [ -n "$SINCE_TIMESTAMP" ]; then
-          ./ollama_spell_checker.py || echo "⚠️  Spelling issues detected (non-blocking)"
+          python3 scripts/ollama_spell_checker.py || echo "⚠️  Spelling issues detected (non-blocking)"
         else
-          ./ollama_spell_checker.py 3 || echo "⚠️  Spelling issues detected (non-blocking)"
+          python3 scripts/ollama_spell_checker.py 3 || echo "⚠️  Spelling issues detected (non-blocking)"
         fi
         
         # Save current timestamp for next run

@@ -61,7 +61,7 @@ jobs:
         echo "🔍 Verifying spelling corrections..."
         echo ""
         
-        ./verify_spelling_corrections.py "$CORRECTIONS_FILE" > verification_report.txt 2>&1
+        python3 scripts/verify_spelling_corrections.py "$CORRECTIONS_FILE" > verification_report.txt 2>&1
         VERIFY_EXIT=$?
         
         # Display the report

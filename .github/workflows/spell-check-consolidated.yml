@@ -72,9 +72,9 @@ jobs:
           export SINCE_TIMESTAMP="$LAST_CHECK"
           
           if [ "$MODE" = "create-corrections" ]; then
-            ./wp_spell_check_and_fix.py --check-only || SPELL_CHECK_FAILED=1
+            python3 scripts/wp_spell_check_and_fix.py --check-only || SPELL_CHECK_FAILED=1
           else
-            ./ollama_spell_checker.py || SPELL_CHECK_FAILED=1
+            python3 scripts/ollama_spell_checker.py || SPELL_CHECK_FAILED=1
           fi
           
           # Update timestamp after successful check
@@ -86,9 +86,9 @@ jobs:
           echo "📝 Checking $POST_COUNT most recent posts"
           
           if [ "$MODE" = "create-corrections" ]; then
-            ./wp_spell_check_and_fix.py --check-only --count $POST_COUNT || SPELL_CHECK_FAILED=1
+            python3 scripts/wp_spell_check_and_fix.py --check-only --count $POST_COUNT || SPELL_CHECK_FAILED=1
           else
-            ./ollama_spell_checker.py $POST_COUNT || SPELL_CHECK_FAILED=1
+            python3 scripts/ollama_spell_checker.py $POST_COUNT || SPELL_CHECK_FAILED=1
           fi
         fi
         
@@ -312,7 +312,7 @@ jobs:
         WP_URL: https://wordpress.jameskilby.cloud
       run: |
         echo "🔧 Applying spelling corrections to WordPress..."
-        ./wp_spell_check_and_fix.py --apply-from-file spelling_corrections.json
+        python3 scripts/wp_spell_check_and_fix.py --apply-from-file spelling_corrections.json
         echo "✅ Corrections applied successfully"
         
     - name: Update timestamp
@@ -399,7 +399,7 @@ jobs:
         WP_URL: https://wordpress.jameskilby.cloud
       run: |
         echo "🔍 Verifying spelling corrections..."
-        ./verify_spelling_corrections.py spelling_corrections.json > verification_report.txt 2>&1
+        python3 scripts/verify_spelling_corrections.py spelling_corrections.json > verification_report.txt 2>&1
         VERIFY_EXIT=$?
         cat verification_report.txt
         echo "VERIFY_EXIT_CODE=$VERIFY_EXIT" >> $GITHUB_ENV

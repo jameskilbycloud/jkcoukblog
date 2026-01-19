@@ -59,7 +59,7 @@ jobs:
           export SINCE_TIMESTAMP="$LAST_CHECK"
           
           # Run spell checker for modified posts only
-          ./ollama_spell_checker.py || SPELL_CHECK_FAILED=1
+          python3 scripts/ollama_spell_checker.py || SPELL_CHECK_FAILED=1
           
           # Update timestamp after successful check
           date -u +"%Y-%m-%dT%H:%M:%SZ" > "$TIMESTAMP_FILE"
@@ -68,7 +68,7 @@ jobs:
           echo "📝 Checking $POST_COUNT most recent posts"
           
           # Run spell checker (will exit 1 if errors found)
-          ./ollama_spell_checker.py $POST_COUNT || SPELL_CHECK_FAILED=1
+          python3 scripts/ollama_spell_checker.py $POST_COUNT || SPELL_CHECK_FAILED=1
         fi
         
         # Save exit code for later steps

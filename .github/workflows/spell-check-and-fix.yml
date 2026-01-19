@@ -56,13 +56,13 @@ jobs:
           export SINCE_TIMESTAMP="$LAST_CHECK"
           
           # Run spell checker for modified posts only
-          ./wp_spell_check_and_fix.py --check-only || SPELL_CHECK_FAILED=1
+          python3 scripts/wp_spell_check_and_fix.py --check-only || SPELL_CHECK_FAILED=1
         else
           POST_COUNT="${{ github.event.inputs.post_count || '5' }}"
           echo "📝 Checking $POST_COUNT most recent posts"
           
           # Run spell checker
-          ./wp_spell_check_and_fix.py --check-only --count $POST_COUNT || SPELL_CHECK_FAILED=1
+          python3 scripts/wp_spell_check_and_fix.py --check-only --count $POST_COUNT || SPELL_CHECK_FAILED=1
         fi
         
         # Save results
