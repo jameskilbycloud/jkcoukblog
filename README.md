@@ -707,10 +707,35 @@ gh run rerun <run-id> --failed
 
 ---
 
+## 🖼️ Image Optimization
+
+**NEW:** Automated image optimization with WebP and AVIF conversion!
+
+- ✅ **Converts images** to modern WebP and AVIF formats
+- ✅ **Reduces bandwidth** by 40-50% without quality loss
+- ✅ **Updates HTML** with responsive `<picture>` elements
+- ✅ **GitHub Actions** workflow for automated optimization
+- ✅ **Intelligent caching** to avoid reprocessing
+
+**Quick Start:**
+```bash
+# Install dependencies
+pip install -r requirements-images.txt
+
+# Optimize all images
+python3 optimize_images.py ./public
+
+# Or run via GitHub Actions (weekly automatic + manual trigger)
+```
+
+**See:** `docs/IMAGE_OPTIMIZATION.md` for complete guide
+
+---
+
 ## 📈 Future Enhancements
 
 - [ ] **Webhook integration** for real-time updates
-- [ ] **Image optimization** and WebP conversion  
+- [x] **Image optimization** and WebP/AVIF conversion ✅ COMPLETED
 - [ ] **Advanced SEO features** and schema markup
 - [ ] **Multi-language support**
 - [ ] **Content validation** and broken link checking
@@ -719,6 +744,7 @@ gh run rerun <run-id> --failed
 
 ## 📚 Related Documentation
 
+- `docs/IMAGE_OPTIMIZATION.md` - **NEW:** Image optimization complete guide
 - `docs/WARP.md` - General project guidance
 - `docs/GITHUB_ACTIONS_LIVE_SITE_TESTING.md` - Detailed testing workflow docs
 - `docs/LIVE_SITE_FORMATTING_TESTS.md` - What gets tested
