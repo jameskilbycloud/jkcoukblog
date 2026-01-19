@@ -107,9 +107,9 @@ jobs:
           echo ""
 
           if [ "$SKIP_HTML" = "true" ]; then
-            python3 optimize_images.py ./public --quality $QUALITY --workers $WORKERS --skip-html
+            python3 optimize_images.py ./public --quality $QUALITY --workers $WORKERS --webp --skip-html
           else
-            python3 optimize_images.py ./public --quality $QUALITY --workers $WORKERS
+            python3 optimize_images.py ./public --quality $QUALITY --workers $WORKERS --webp
           fi
 
       - name: Count images after optimization
