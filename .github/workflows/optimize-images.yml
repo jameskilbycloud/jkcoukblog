@@ -60,6 +60,11 @@ jobs:
           WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
         run: |
           echo "📦 Generating static site..."
+          if [ ! -f "scripts/wp_to_static_generator.py" ]; then
+            echo "❌ scripts/wp_to_static_generator.py not found!"
+            ls -la scripts/
+            exit 1
+          fi
           python3 scripts/wp_to_static_generator.py ./public
 
       - name: Count images before optimization
