@@ -139,6 +139,8 @@ jobs:
           git config user.email "actions@github.com"
 
           # Add all optimized images and updated HTML
+          # Enable globstar for ** pattern matching
+          shopt -s globstar
           git add public/wp-content/uploads/**/*.webp 2>/dev/null || true
           git add public/wp-content/uploads/**/*.avif 2>/dev/null || true
           git add public/**/*.html 2>/dev/null || true

@@ -252,12 +252,54 @@ class ImageOptimizer:
         # Print statistics
         self.print_statistics(duration)
 
+    def _get_responsive_srcset(self, base_path: Path, img_srcset: str, format_ext: str) -> str:
+        """
+        Generate responsive srcset for modern formats based on original img srcset
+
+        Args:
+            base_path: Base path for the image (without extension)
+            img_srcset: Original srcset from img tag (e.g., "img-300.jpg 300w, img-768.jpg 768w")
+            format_ext: File extension for modern format (.webp or .avif)
+
+        Returns:
+            Responsive srcset string for the modern format
+        """
+        if not img_srcset:
+            return None
+
+        srcset_parts = []
+        for part in img_srcset.split(','):
+            part = part.strip()
+            if not part:
+                continue
+
+            # Parse "path/to/image.jpg 300w" format
+            components = part.split()
+            if len(components) >= 2:
+                img_url = components[0]
+                width_descriptor = components[1]  # e.g., "300w"
+
+                # Convert the image URL to modern format
+                # Handle both relative and absolute paths
+                img_path_str = img_url.lstrip('/')
+                img_path = self.public_dir / img_path_str
+
+                # Check if modern format exists
+                modern_path = img_path.with_suffix(format_ext)
+                if modern_path.exists():
+                    modern_url = '/' + str(modern_path.relative_to(self.public_dir))
+                    srcset_parts.append(f"{modern_url} {width_descriptor}")
+
+        return ', '.join(srcset_parts) if srcset_parts else None
+
     def update_html_files(self):
-        """Update all HTML files to use picture elements with WebP/AVIF fallbacks"""
+        """Update all HTML files to use picture elements with WebP/AVIF fallbacks and responsive srcset"""
         print("\n📝 Updating HTML files with optimized images...")
 
         html_files = list(self.public_dir.rglob('*.html'))
         updated_count = 0
+        pictures_updated = 0
+        pictures_created = 0
 
         for html_file in html_files:
             try:
@@ -267,7 +309,79 @@ class ImageOptimizer:
                 soup = BeautifulSoup(content, 'html.parser')
                 modified = False
 
-                # Find all img tags that aren't already in picture elements
+                # First, update existing picture elements that are missing WebP sources
+                for picture in soup.find_all('picture'):
+                    img = picture.find('img')
+                    if not img:
+                        continue
+
+                    src = img.get('src', '')
+                    if not src or not any(src.endswith(ext) for ext in ['.jpg', '.jpeg', '.png']):
+                        continue
+
+                    # Get the base image path
+                    img_path = self.public_dir / src.lstrip('/')
+                    webp_path = img_path.with_suffix('.webp')
+                    avif_path = img_path.with_suffix('.avif')
+
+                    # Check what sources already exist in the picture element
+                    existing_sources = {s.get('type'): s for s in picture.find_all('source')}
+                    img_srcset = img.get('srcset', '')
+
+                    # Add missing AVIF source with responsive srcset
+                    if avif_path.exists() and 'image/avif' not in existing_sources:
+                        avif_src = '/' + str(avif_path.relative_to(self.public_dir))
+                        avif_srcset = self._get_responsive_srcset(img_path, img_srcset, '.avif')
+
+                        source_avif = soup.new_tag('source', type='image/avif')
+                        source_avif['srcset'] = avif_srcset if avif_srcset else avif_src
+
+                        # Insert AVIF source as first child (highest priority)
+                        picture.insert(0, source_avif)
+                        modified = True
+                        pictures_updated += 1
+
+                    # Update existing AVIF source to add responsive srcset if missing
+                    elif 'image/avif' in existing_sources:
+                        avif_source = existing_sources['image/avif']
+                        current_srcset = avif_source.get('srcset', '')
+                        # Only update if current srcset doesn't have multiple sizes (no commas)
+                        if ',' not in current_srcset and img_srcset:
+                            avif_srcset = self._get_responsive_srcset(img_path, img_srcset, '.avif')
+                            if avif_srcset:
+                                avif_source['srcset'] = avif_srcset
+                                modified = True
+
+                    # Add missing WebP source with responsive srcset
+                    if webp_path.exists() and 'image/webp' not in existing_sources:
+                        webp_src = '/' + str(webp_path.relative_to(self.public_dir))
+                        webp_srcset = self._get_responsive_srcset(img_path, img_srcset, '.webp')
+
+                        source_webp = soup.new_tag('source', type='image/webp')
+                        source_webp['srcset'] = webp_srcset if webp_srcset else webp_src
+
+                        # Insert WebP source after AVIF (if exists) or as first child
+                        if 'image/avif' in existing_sources:
+                            avif_source = existing_sources['image/avif']
+                            avif_source.insert_after(source_webp)
+                        else:
+                            picture.insert(0, source_webp)
+
+                        modified = True
+                        pictures_updated += 1
+
+                    # Update existing WebP source to add responsive srcset if missing
+                    elif 'image/webp' in existing_sources:
+                        webp_source = existing_sources['image/webp']
+                        current_srcset = webp_source.get('srcset', '')
+                        # Only update if current srcset doesn't have multiple sizes (no commas)
+                        if ',' not in current_srcset and img_srcset:
+                            webp_srcset = self._get_responsive_srcset(img_path, img_srcset, '.webp')
+                            if webp_srcset:
+                                webp_source['srcset'] = webp_srcset
+                                modified = True
+
+                # Second, find all img tags that aren't already in picture elements
                 for img in soup.find_all('img'):
                     # Skip if already in a picture element
                     if img.parent.name == 'picture':
@@ -287,17 +401,24 @@ class ImageOptimizer:
 
                     # Create picture element
                     picture = soup.new_tag('picture')
+                    img_srcset = img.get('srcset', '')
 
-                    # Add AVIF source if exists
+                    # Add AVIF source with responsive srcset if exists
                     if avif_path.exists():
                         avif_src = '/' + str(avif_path.relative_to(self.public_dir))
-                        source_avif = soup.new_tag('source', srcset=avif_src, type='image/avif')
+                        avif_srcset = self._get_responsive_srcset(img_path, img_srcset, '.avif')
+
+                        source_avif = soup.new_tag('source', type='image/avif')
+                        source_avif['srcset'] = avif_srcset if avif_srcset else avif_src
                         picture.append(source_avif)
 
-                    # Add WebP source if exists
+                    # Add WebP source with responsive srcset if exists
                     if webp_path.exists():
                         webp_src = '/' + str(webp_path.relative_to(self.public_dir))
-                        source_webp = soup.new_tag('source', srcset=webp_src, type='image/webp')
+                        webp_srcset = self._get_responsive_srcset(img_path, img_srcset, '.webp')
+
+                        source_webp = soup.new_tag('source', type='image/webp')
+                        source_webp['srcset'] = webp_srcset if webp_srcset else webp_src
                         picture.append(source_webp)
 
                     # Clone the original img as fallback
@@ -309,6 +430,7 @@ class ImageOptimizer:
                     # Replace img with picture
                     img.replace_with(picture)
                     modified = True
+                    pictures_created += 1
 
                 # Write back if modified
                 if modified:
@@ -319,7 +441,9 @@ class ImageOptimizer:
             except Exception as e:
                 print(f"⚠️  Error updating {html_file}: {e}")
 
-        print(f"✅ Updated {updated_count} HTML files with <picture> elements")
+        print(f"✅ Updated {updated_count} HTML files")
+        print(f"   - {pictures_created} new <picture> elements created")
+        print(f"   - {pictures_updated} existing <picture> elements enhanced with WebP/responsive srcset")
 
     def print_statistics(self, duration: float):
         """Print optimization statistics"""
