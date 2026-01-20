@@ -190,8 +190,8 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
 
           if [ "${{ steps.commit.outputs.has_changes }}" = "true" ]; then
-            WEBP_ADDED=$((steps.after.outputs.webp_count - steps.before.outputs.webp_count))
-            AVIF_ADDED=$((steps.after.outputs.avif_count - steps.before.outputs.avif_count))
+            WEBP_ADDED=$((${{ steps.after.outputs.webp_count }} - ${{ steps.before.outputs.webp_count }}))
+            AVIF_ADDED=$((${{ steps.after.outputs.avif_count }} - ${{ steps.before.outputs.avif_count }}))
             echo "## Changes" >> $GITHUB_STEP_SUMMARY
             echo "- ✅ **New WebP images:** ${WEBP_ADDED}" >> $GITHUB_STEP_SUMMARY
             echo "- ✅ **New AVIF images:** ${AVIF_ADDED}" >> $GITHUB_STEP_SUMMARY
