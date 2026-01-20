@@ -261,18 +261,15 @@ img {
 
 /* Kadence uses 2:3 ratio for thumbnails */
 .kadence-thumbnail-ratio-2-3 .post-thumbnail-inner {
-  aspect-ratio: 2 / 3;
+  /* Remove fixed aspect ratio to let images display at their natural proportions */
   overflow: hidden;
 }
 
 .kadence-thumbnail-ratio-2-3 .post-thumbnail-inner img {
-  position: absolute;
-  top: 0;
-  left: 0;
+  /* Let images display at natural size without cropping */
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center center;
+  height: auto;
+  display: block;
 }
 
 /* Smooth image loading */
