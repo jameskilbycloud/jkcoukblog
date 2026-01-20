@@ -253,9 +253,9 @@ jobs:
       run: |
         # Ensure we're in the right directory
         echo "📁 Working from: $(pwd)"
-        if [ ! -f "wp_to_static_generator.py" ]; then
-          echo "❌ wp_to_static_generator.py not found!"
-          ls -la
+        if [ ! -f "scripts/wp_to_static_generator.py" ]; then
+          echo "❌ scripts/wp_to_static_generator.py not found!"
+          ls -la scripts/
           exit 1
         fi
         
