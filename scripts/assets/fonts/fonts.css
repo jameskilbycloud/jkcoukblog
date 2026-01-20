@@ -1,0 +1,110 @@
+/* Self-Hosted Google Fonts */
+/* Anton, JetBrains Mono, Space Grotesk */
+
+/* Anton Regular 400 */
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional; /* Prevent CLS - no layout shift if font loads slowly */
+  src: url('./anton-v27-latin-400.woff2') format('woff2');
+}
+
+/* Mobile-optimized font loading - prevents layout shifts */
+@media (max-width: 768px) {
+  @font-face {
+    font-family: 'Anton';
+    font-style: normal;
+    font-weight: 400;
+    font-display: optional;
+    src: url('./anton-v27-latin-400.woff2') format('woff2');
+  }
+}
+
+/* JetBrains Mono Regular 400 */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional; /* Prevent CLS */
+  src: url('./jetbrainsmono-v24-latin-400.woff2') format('woff2');
+}
+
+/* JetBrains Mono Bold 700 */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: optional; /* Prevent CLS */
+  src: url('./jetbrainsmono-v24-latin-700.woff2') format('woff2');
+}
+
+/* Space Grotesk Regular 400 */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional; /* Prevent CLS */
+  src: url('./spacegrotesk-v22-latin-400.woff2') format('woff2');
+}
+
+/* Space Grotesk Medium 500 */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: optional; /* Prevent CLS */
+  src: url('./spacegrotesk-v22-latin-500.woff2') format('woff2');
+}
+
+/* Space Grotesk Bold 700 */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: optional; /* Prevent CLS */
+  src: url('./spacegrotesk-v22-latin-700.woff2') format('woff2');
+}
+
+/* Mobile-optimized font loading for body text - prevents layout shifts */
+@media (max-width: 768px) {
+  @font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: optional;
+    src: url('./jetbrainsmono-v24-latin-400.woff2') format('woff2');
+  }
+  
+  @font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 700;
+    font-display: optional;
+    src: url('./jetbrainsmono-v24-latin-700.woff2') format('woff2');
+  }
+  
+  @font-face {
+    font-family: 'Space Grotesk';
+    font-style: normal;
+    font-weight: 400;
+    font-display: optional;
+    src: url('./spacegrotesk-v22-latin-400.woff2') format('woff2');
+  }
+  
+  @font-face {
+    font-family: 'Space Grotesk';
+    font-style: normal;
+    font-weight: 500;
+    font-display: optional;
+    src: url('./spacegrotesk-v22-latin-500.woff2') format('woff2');
+  }
+  
+  @font-face {
+    font-family: 'Space Grotesk';
+    font-style: normal;
+    font-weight: 700;
+    font-display: optional;
+    src: url('./spacegrotesk-v22-latin-700.woff2') format('woff2');
+  }
+}
