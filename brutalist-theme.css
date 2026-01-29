@@ -198,11 +198,15 @@ article {
   background-color: transparent !important;
   border: 1px solid var(--gray-mid) !important;
   color: var(--text-light) !important;
-  padding: 0.25rem 0.75rem;
+  padding: 0.5rem 0.875rem;
   border-radius: 0;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  box-sizing: border-box;
 }
 
 .category-links a:hover,
@@ -227,6 +231,11 @@ button,
   border-radius: 0 !important;
   transition: all 0.2s ease;
   cursor: pointer;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .post-more-link:hover,
@@ -338,12 +347,117 @@ textarea:focus {
   border-color: var(--accent-orange) !important;
 }
 
-/* Mobile menu */
+/* Mobile menu toggle button */
 .mobile-toggle-open-container button,
 .menu-toggle-open {
   background-color: transparent !important;
   border: 1px solid var(--gray-mid) !important;
   color: var(--text-light) !important;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.menu-toggle-open:hover,
+.menu-toggle-open:focus {
+  border-color: var(--accent-orange) !important;
+  outline: none;
+}
+
+/* Mobile drawer menu */
+#mobile-drawer,
+.popup-drawer,
+.mobile-drawer-content {
+  background-color: var(--bg-dark) !important;
+}
+
+.popup-drawer .drawer-inner,
+.popup-drawer .drawer-content {
+  background-color: var(--bg-dark) !important;
+  border-left: 2px solid var(--gray-mid);
+}
+
+.popup-drawer .drawer-header {
+  background-color: var(--bg-dark) !important;
+  border-bottom: 1px solid var(--gray-mid);
+  padding: 1rem 1.5rem;
+}
+
+/* Mobile drawer close button */
+.menu-toggle-close,
+.drawer-toggle.menu-toggle-close {
+  background-color: transparent !important;
+  border: 1px solid var(--gray-mid) !important;
+  color: var(--text-light) !important;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-toggle-close:hover,
+.menu-toggle-close:focus {
+  border-color: var(--accent-orange) !important;
+  color: var(--accent-orange) !important;
+}
+
+/* Mobile drawer navigation links */
+.popup-drawer .menu,
+.mobile-drawer-content .menu {
+  background-color: var(--bg-dark) !important;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.popup-drawer .menu-item,
+.mobile-drawer-content .menu-item {
+  border-bottom: 1px solid var(--gray-mid);
+}
+
+.popup-drawer .menu-item a,
+.mobile-drawer-content .menu-item a {
+  color: var(--text-light) !important;
+  padding: 1rem 1.5rem !important;
+  display: block !important;
+  min-height: 44px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none !important;
+}
+
+.popup-drawer .menu-item a:hover,
+.popup-drawer .menu-item a:focus,
+.mobile-drawer-content .menu-item a:hover,
+.mobile-drawer-content .menu-item a:focus {
+  background-color: rgba(246, 130, 31, 0.1) !important;
+  color: var(--accent-orange) !important;
+}
+
+/* Mobile drawer overlay/backdrop */
+.drawer-overlay {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Kadence-specific mobile drawer classes */
+.mobile-navigation,
+.mobile-navigation-content {
+  background-color: var(--bg-dark) !important;
+}
+
+.mobile-navigation .menu-item a {
+  color: var(--text-light) !important;
+  padding: 1rem 1.5rem !important;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.mobile-navigation .menu-item a:hover {
+  color: var(--accent-orange) !important;
+  background-color: rgba(246, 130, 31, 0.1) !important;
 }
 
 /* Pagination */
@@ -468,26 +582,35 @@ th {
   h2, .entry-title { font-size: 1.25rem !important; }
   h3 { font-size: 1.125rem !important; }
   h4 { font-size: 1rem !important; }
-  
+
   /* Reduce spacing for more content above fold */
   .kadence-posts-list.grid-cols {
     gap: 0.75rem;
   }
-  
-  /* Smaller buttons on phones */
+
+  /* Buttons - maintain 44px touch target */
   .post-more-link,
   button,
   .wp-block-button__link {
     padding: 0.625rem 1.25rem !important;
     font-size: 0.875rem !important;
+    min-height: 44px !important;
   }
-  
+
+  /* Category/tag links - maintain 44px touch target */
+  .category-links a,
+  .tag-links a {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.7rem !important;
+    min-height: 44px !important;
+  }
+
   /* Tighter entry content */
   .entry-header,
   .entry-content {
     padding: 1rem !important;
   }
-  
+
   /* Smaller meta text */
   .entry-meta {
     font-size: 0.8rem !important;
@@ -500,41 +623,43 @@ th {
   h2, .entry-title { font-size: 1.125rem !important; }
   h3 { font-size: 1rem !important; }
   h4 { font-size: 0.9rem !important; }
-  
+
   /* Even tighter spacing for small screens */
   .kadence-posts-list.grid-cols {
     gap: 0.5rem;
   }
-  
-  /* Compact buttons */
+
+  /* Compact buttons - maintain 44px touch target */
   .post-more-link,
   button,
   .wp-block-button__link {
     padding: 0.5rem 1rem !important;
     font-size: 0.8rem !important;
+    min-height: 44px !important;
   }
-  
+
   /* Compact padding */
   .entry-header,
   .entry-content {
     padding: 0.75rem !important;
   }
-  
+
   /* Even smaller meta text */
   .entry-meta {
     font-size: 0.75rem !important;
   }
-  
+
   /* Reduce line height slightly for readability */
   body {
     line-height: 1.5 !important;
   }
-  
-  /* Make category/tag badges smaller */
+
+  /* Category/tag badges - maintain 44px touch target */
   .category-links a,
   .tag-links a {
-    padding: 0.2rem 0.6rem !important;
-    font-size: 0.7rem !important;
+    padding: 0.4rem 0.6rem !important;
+    font-size: 0.65rem !important;
+    min-height: 44px !important;
   }
 }
 
