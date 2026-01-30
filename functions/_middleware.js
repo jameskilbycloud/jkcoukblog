@@ -44,39 +44,51 @@ export async function onRequest(context) {
  * Handle caching with KV (preferred method)
  */
 async function handleKVCache(request, env, next, path) {
-  const cacheKey = `html:${path}`;
-  const cached = await env.HTML_CACHE.getWithMetadata(cacheKey, { type: 'text' });
-  
-  if (cached && cached.value) {
-    const views = parseInt(cached.metadata?.views || 0) + 1;
+  try {
+    const cacheKey = `html:${path}`;
+    const cached = await env.HTML_CACHE.getWithMetadata(cacheKey, { type: 'text' });
     
-    // Increment view count asynchronously
-    env.HTML_CACHE.put(cacheKey, cached.value, {
-      expirationTtl: getTTL(path),
-      metadata: { ...cached.metadata, views }
-    });
+    if (cached && cached.value) {
+      const views = parseInt(cached.metadata?.views || 0) + 1;
+      
+      // Increment view count asynchronously (don't await)
+      env.HTML_CACHE.put(cacheKey, cached.value, {
+        expirationTtl: getTTL(path),
+        metadata: { ...cached.metadata, views }
+      });
+      
+      return new Response(cached.value, {
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'public, max-age=300',
+          'X-Cache-Status': 'HIT',
+          'X-Cache-Views': views.toString(),
+          'X-Worker': 'pages-function-kv',
+        }
+      });
+    }
     
-    return new Response(cached.value, {
-      headers: {
-        'Content-Type': 'text/html; charset=utf-8',
-        'Cache-Control': 'public, max-age=300',
-        'X-Cache-Status': 'HIT',
-        'X-Cache-Views': views.toString(),
-        'X-Worker': 'pages-function-kv',
-      }
-    });
-  }
-  
-  // Fetch from Pages
-  const response = await next();
-  
-  // Cache successful HTML responses
-  if (response.ok && response.headers.get('content-type')?.includes('text/html')) {
+    // Fetch from Pages
+    const response = await next();
+    
+    // Don't cache non-successful responses
+    if (!response.ok) {
+      return response;
+    }
+    
+    // Only cache HTML
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.includes('text/html')) {
+      return response;
+    }
+    
+    // Clone before reading body
+    const clonedResponse = response.clone();
     const html = await response.text();
     const ttl = getTTL(path);
     
-    // Store in KV
-    await env.HTML_CACHE.put(cacheKey, html, {
+    // Store in KV (don't await to avoid blocking response)
+    env.HTML_CACHE.put(cacheKey, html, {
       expirationTtl: ttl,
       metadata: { 
         views: 1,
@@ -85,18 +97,23 @@ async function handleKVCache(request, env, next, path) {
       }
     });
     
+    // Return with our headers
+    const newHeaders = new Headers(clonedResponse.headers);
+    newHeaders.set('Content-Type', 'text/html; charset=utf-8');
+    newHeaders.set('Cache-Control', `public, max-age=${ttl}`);
+    newHeaders.set('X-Cache-Status', 'MISS');
+    newHeaders.set('X-Cache-TTL', ttl.toString());
+    newHeaders.set('X-Worker', 'pages-function-kv');
+    
     return new Response(html, {
-      headers: {
-        'Content-Type': 'text/html; charset=utf-8',
-        'Cache-Control': `public, max-age=${ttl}`,
-        'X-Cache-Status': 'MISS',
-        'X-Cache-TTL': ttl.toString(),
-        'X-Worker': 'pages-function-kv',
-      }
+      status: clonedResponse.status,
+      headers: newHeaders
     });
+  } catch (error) {
+    // If KV fails, fall back to Cache API
+    console.error('KV cache error:', error);
+    return handleCacheAPI(request, next, path);
   }
-  
-  return response;
 }
 
 /**
