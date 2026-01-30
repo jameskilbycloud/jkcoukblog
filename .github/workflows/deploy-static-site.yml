@@ -198,6 +198,13 @@ jobs:
         pip install -r requirements.txt
         echo "✅ Dependencies installed"
         echo "📋 Installed packages:"
+        
+    - name: Setup Node.js (for Wrangler)
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: 'package-lock.json'
         pip list | grep -E "(requests|beautifulsoup4)"
     
     - name: Install image optimization tools
@@ -688,6 +695,163 @@ jobs:
         # Submit to IndexNow (notify search engines about all pages)
         echo "🔔 Submitting URLs to IndexNow..."
         python3 scripts/submit_indexnow.py ./public || echo "⚠️  IndexNow submission failed (non-blocking)"
+        
+    - name: Upload search index to Workers KV
+      if: success()
+      run: |
+        echo "🔍 Uploading search index to Workers KV..."
+        
+        # Check if search index exists
+        if [ ! -f "public/search-index.json" ]; then
+          echo "⚠️  Search index not found, skipping KV upload"
+          exit 0
+        fi
+        
+        # Install Wrangler if not already available
+        if ! command -v wrangler &> /dev/null; then
+          echo "Installing Wrangler..."
+          npm install -g wrangler
+        fi
+        
+        # Upload to KV (requires CLOUDFLARE_API_TOKEN and KV_SEARCH_INDEX_ID secrets)
+        if [ -n "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] && [ -n "${{ secrets.KV_SEARCH_INDEX_ID }}" ]; then
+          CURRENT_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          
+          npx wrangler kv:key put \
+            --namespace-id="${{ secrets.KV_SEARCH_INDEX_ID }}" \
+            --binding=SEARCH_INDEX \
+            "current" public/search-index.json \
+            --metadata="{\"updated\":\"${CURRENT_TIME}\"}" || {
+            echo "⚠️  Failed to upload search index to KV (non-blocking)"
+          }
+          
+          echo "✅ Search index uploaded to Workers KV"
+          echo "   Updated: ${CURRENT_TIME}"
+          
+          # Add to summary
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 🔍 Search Index Updated" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **KV Namespace:** SEARCH_INDEX" >> $GITHUB_STEP_SUMMARY
+          echo "- **Updated:** ${CURRENT_TIME}" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "ℹ️  Skipping KV upload (CLOUDFLARE_API_TOKEN or KV_SEARCH_INDEX_ID not set)"
+          echo "   To enable: Add secrets to repository settings"
+        fi
+      continue-on-error: true
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    
+    - name: Selective cache purge
+      if: success()
+      run: |
+        echo "🗑️ Purging changed pages from Workers KV cache..."
+        
+        # Get list of changed HTML files from this deploy
+        git fetch origin
+        CHANGED_FILES=$(git diff --name-only HEAD origin/main | grep "^public/.*\.html$" || true)
+        
+        if [ -z "$CHANGED_FILES" ]; then
+          echo "ℹ️  No HTML files changed, skipping cache purge"
+          exit 0
+        fi
+        
+        # Check if cache purge is configured
+        if [ -z "${{ secrets.CACHE_PURGE_TOKEN }}" ]; then
+          echo "ℹ️  CACHE_PURGE_TOKEN not set, skipping selective purge"
+          echo "   To enable: Add CACHE_PURGE_TOKEN to repository secrets"
+          exit 0
+        fi
+        
+        echo "Changed HTML files detected:"
+        echo "$CHANGED_FILES" | head -10
+        
+        PURGED_COUNT=0
+        
+        # Convert file paths to URL paths and purge from cache
+        echo "$CHANGED_FILES" | while read file; do
+          # Convert public/2026/01/post/index.html -> /2026/01/post/
+          URL_PATH=$(echo "$file" | sed 's|^public||' | sed 's|/index\.html$|/|')
+          
+          echo "Purging: $URL_PATH"
+          
+          # Call purge endpoint
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X GET "https://jameskilby.co.uk/.purge?path=${URL_PATH}" \
+            -H "X-Purge-Token: ${{ secrets.CACHE_PURGE_TOKEN }}")
+          
+          if [ "$HTTP_CODE" = "200" ]; then
+            PURGED_COUNT=$((PURGED_COUNT + 1))
+          else
+            echo "  ⚠️  Failed to purge (HTTP $HTTP_CODE)"
+          fi
+        done
+        
+        echo ""
+        echo "✅ Purged $PURGED_COUNT URLs from cache"
+        
+        # Add to summary
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## 🗑️ Cache Purged" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **URLs Purged:** $PURGED_COUNT" >> $GITHUB_STEP_SUMMARY
+        echo "- **Method:** Selective (changed files only)" >> $GITHUB_STEP_SUMMARY
+      continue-on-error: true
+    
+    - name: Commit and push static site
+      timeout-minutes: 10  # Timeout for git operations
+      run: |
+        # Configure git
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # Debug: Show current state
+        echo "📋 Initial state:"
+        echo "Working directory: $(pwd)"
+        echo "Current branch: $(git branch --show-current)"
+        echo "Local HEAD: $(git rev-parse HEAD)"
+        echo "Remote HEAD: $(git ls-remote origin main | cut -f1)"
+        
+        # IMPORTANT: Preserve the populated cache before reset
+        echo "💾 Preserving optimization cache before reset..."
+        if [ -f ".image_optimization_cache/optimization_cache.json" ]; then
+          CACHE_ENTRIES=$(python3 -c "import json; print(len(json.load(open('.image_optimization_cache/optimization_cache.json'))))" 2>/dev/null || echo "0")
+          echo "  Cache has $CACHE_ENTRIES entries before reset"
+          cp -r .image_optimization_cache /tmp/preserved_cache_$$
+          echo "  ✓ Cache backed up to /tmp/preserved_cache_$$"
+        fi
+        
+        # Ensure we're on the latest version of main
+        echo "🔄 Syncing with remote repository..."
+        git fetch origin
+        echo "After fetch - Remote HEAD: $(git rev-parse origin/main)"
+        git reset --hard origin/main
+        echo "After reset - Local HEAD: $(git rev-parse HEAD)"
+        
+        # Restore the cache after reset
+        echo "♻️  Restoring optimization cache after reset..."
+        if [ -d "/tmp/preserved_cache_$$" ]; then
+          cp -r /tmp/preserved_cache_$$/optimization_cache.json .image_optimization_cache/
+          RESTORED_ENTRIES=$(python3 -c "import json; print(len(json.load(open('.image_optimization_cache/optimization_cache.json'))))" 2>/dev/null || echo "0")
+          echo "  ✓ Cache restored with $RESTORED_ENTRIES entries"
+          rm -rf /tmp/preserved_cache_$$
+        fi
+        
+        # Add static files
+        rm -rf public/
+        mv ./static-output public/
+        
+        # Convert absolute URLs to relative for better staging compatibility
+        echo "🔄 Converting URLs for staging compatibility..."
+        python scripts/convert_to_staging.py
+        
+        # Generate changelog page
+        echo "📋 Generating changelog page..."
+        python scripts/generate_changelog.py || echo "⚠️  Changelog generation failed (non-blocking)"
+        
+        # Generate stats page
+        echo "📊 Generating stats page..."
+        PLAUSIBLE_SHARE_LINK="${{ secrets.PLAUSIBLE_SHARE_LINK }}" python3 scripts/generate_stats_page.py || echo "⚠️  Stats page generation failed (non-blocking)"
         
         # Check if there are changes to commit
         # Note: .br files are automatically included in public/

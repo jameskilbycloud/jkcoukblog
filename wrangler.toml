@@ -1,9 +1,57 @@
-# HTML Cache Worker Configuration
-name = "jkcoukblog-html-cache"
-main = "workers/html-cache.js"
+# =========================================
+# Cloudflare Workers Configuration
+# =========================================
+
+# 1. Enhanced HTML Cache Worker with KV
+# Provides smart caching with view tracking
+name = "jkcoukblog-html-cache-kv"
+main = "workers/html-cache-kv.js"
 compatibility_date = "2024-10-03"
+
+# KV Namespaces (you'll need to create these)
+# Run: npx wrangler kv:namespace create HTML_CACHE
+# Run: npx wrangler kv:namespace create SEARCH_INDEX
+[[kv_namespaces]]
+binding = "HTML_CACHE"
+id = "5528672ccf0644c9bd65e7de8b629189"
+
+[[kv_namespaces]]
+binding = "SEARCH_INDEX"
+id = "da75861d372642d4979c8611b4856ab0"
+
+# Environment variables
+# IMPORTANT: PURGE_TOKEN should be set as a secret, not in this file
+# Run: wrangler secret put PURGE_TOKEN
+# For local development, create .dev.vars with: PURGE_TOKEN=your-token-here
+[vars]
+# Non-sensitive environment variables go here
 
 # Route configuration to intercept requests
 routes = [
   { pattern = "jameskilby.co.uk/*", zone_name = "jameskilby.co.uk" }
 ]
+
+# =========================================
+# Alternative: Search API Worker (separate)
+# Uncomment to deploy search API as separate worker
+# =========================================
+# [[workers]]
+# name = "jkcoukblog-search-api"
+# main = "workers/search-api.js"
+# compatibility_date = "2024-10-03"
+# 
+# [[workers.kv_namespaces]]
+# binding = "SEARCH_INDEX"
+# id = "REPLACE_WITH_YOUR_SEARCH_INDEX_KV_ID"
+# 
+# [[workers.routes]]
+# pattern = "jameskilby.co.uk/api/*"
+# zone_name = "jameskilby.co.uk"
+
+# =========================================
+# Legacy: Basic HTML Cache Worker
+# Keep this for rollback if needed
+# =========================================
+# name = "jkcoukblog-html-cache-basic"
+# main = "workers/html-cache.js"
+# compatibility_date = "2024-10-03"

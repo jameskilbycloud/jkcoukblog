@@ -63,3 +63,9 @@ optimization-results.json
 # Keep the public/ directory (this is what Cloudflare deploys)
 !public/
 docs/IMAGE_CACHE_DIAGNOSIS.md
+
+# Cloudflare Wrangler
+.wrangler/
+worker-build/
+.dev.vars
+node_modules/
