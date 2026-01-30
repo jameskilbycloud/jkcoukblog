@@ -31,13 +31,12 @@ export async function onRequest(context) {
     return next();
   }
   
-  // Try KV cache if available
-  // KV DISABLED - needs more testing. Using Cache API for now.
-  if (false && env.HTML_CACHE) {
+  // Try KV cache if available (with fallback to Cache API)
+  if (env.HTML_CACHE) {
     return handleKVCache(request, env, next, path);
   }
   
-  // Use Cache API (working and stable)
+  // Fallback to Cache API if KV not bound
   return handleCacheAPI(request, next, path);
 }
 
