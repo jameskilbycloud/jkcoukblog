@@ -219,6 +219,24 @@ article {
   line-height: 1.7;
 }
 
+/* Entry summary truncation for cleaner card layout */
+.loop-entry .entry-summary p,
+.entry-list-item .entry-summary p {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Reading time badge styling */
+.reading-time {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  color: var(--gray-light) !important;
+}
+
 /* Meta information */
 .entry-meta,
 .posted-by,
@@ -315,17 +333,32 @@ img {
   min-height: 0; /* Prevents collapsing */
 }
 
-/* Kadence uses 2:3 ratio for thumbnails */
+/* Kadence uses 2:3 ratio for thumbnails - enforce consistent aspect ratio in grid */
+.loop-entry .post-thumbnail-inner,
+.entry-list-item .post-thumbnail-inner,
 .kadence-thumbnail-ratio-2-3 .post-thumbnail-inner {
-  /* Remove fixed aspect ratio to let images display at their natural proportions */
+  aspect-ratio: 16 / 9;
   overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
+.loop-entry .post-thumbnail-inner img,
+.entry-list-item .post-thumbnail-inner img,
 .kadence-thumbnail-ratio-2-3 .post-thumbnail-inner img {
-  /* Let images display at natural size without cropping */
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
+}
+
+/* Single post featured image - allow natural proportions */
+.single .article-post-thumbnail .post-thumbnail-inner {
+  aspect-ratio: unset;
+}
+
+.single .article-post-thumbnail .post-thumbnail-inner img {
+  height: auto;
+  object-fit: unset;
 }
 
 /* Smooth image loading */
@@ -724,9 +757,22 @@ th {
   h1, .site-title { font-size: 2rem !important; }
   h2, .entry-title { font-size: 1.5rem !important; }
   h3 { font-size: 1.25rem !important; }
-  
+
   .kadence-posts-list.grid-cols {
     gap: 1rem;
+  }
+
+  /* Truncate entry summaries to 3 lines on tablets */
+  .loop-entry .entry-summary p,
+  .entry-list-item .entry-summary p {
+    -webkit-line-clamp: 3;
+  }
+
+  /* Footer spacing reduction */
+  .site-footer,
+  #colophon {
+    margin-top: 2.5rem;
+    padding: 1.5rem 0;
   }
 }
 
@@ -769,6 +815,29 @@ th {
   .entry-meta {
     font-size: 0.8rem !important;
   }
+
+  /* Truncate entry summaries to 2 lines on phones */
+  .loop-entry .entry-summary p,
+  .entry-list-item .entry-summary p {
+    -webkit-line-clamp: 2;
+  }
+
+  /* Reading time on its own line */
+  .reading-time {
+    display: block;
+    margin-top: 0.5rem;
+  }
+
+  .reading-time span:first-child {
+    display: none; /* Hide the bullet separator */
+  }
+
+  /* Footer spacing reduction */
+  .site-footer,
+  #colophon {
+    margin-top: 2rem;
+    padding: 1.25rem 0;
+  }
 }
 
 /* Small phones (≤375px - iPhone SE, iPhone 13 mini) */
@@ -780,7 +849,7 @@ th {
 
   /* Even tighter spacing for small screens */
   .kadence-posts-list.grid-cols {
-    gap: 0.5rem;
+    gap: 0.625rem;
   }
 
   /* Compact buttons - maintain 44px touch target */
@@ -796,6 +865,12 @@ th {
   .entry-header,
   .entry-content {
     padding: 0.75rem !important;
+  }
+
+  /* Entry card internal padding for breathing room */
+  .loop-entry .entry-content-wrap,
+  .entry-list-item .entry-content-wrap {
+    padding: 0.875rem !important;
   }
 
   /* Even smaller meta text */
@@ -814,6 +889,13 @@ th {
     padding: 0.4rem 0.6rem !important;
     font-size: 0.65rem !important;
     min-height: 44px !important;
+  }
+
+  /* Footer compact on small phones */
+  .site-footer,
+  #colophon {
+    margin-top: 1.5rem;
+    padding: 1rem 0;
   }
 }
 
