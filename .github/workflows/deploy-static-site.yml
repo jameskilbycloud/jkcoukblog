@@ -780,6 +780,16 @@ jobs:
         rm -rf public/
         mv ./static-output public/
         
+        # Ensure functions directory is in place for Cloudflare Pages
+        echo "📦 Preparing Cloudflare Pages Functions..."
+        if [ -d "functions" ]; then
+          echo "✅ Functions directory exists at root (Cloudflare Pages will detect it)"
+          echo "   Files: $(ls -1 functions/ | tr '\n' ', ' | sed 's/,$//')"
+        else
+          echo "⚠️  WARNING: functions/ directory not found at repo root"
+          echo "   Cloudflare Pages Functions will not be deployed"
+        fi
+        
         # Convert absolute URLs to relative for better staging compatibility
         echo "🔄 Converting URLs for staging compatibility..."
         python scripts/convert_to_staging.py
@@ -795,7 +805,8 @@ jobs:
         # Check if there are changes to commit
         # Note: .br files are automatically included in public/
         # Note: IndexNow key file (*.txt in root) must be committed so it's accessible at the site root
-        git add public/ .last_spell_check_timestamp .image_optimization_cache/ .indexnow_key *.txt indexnow-submission.json validation-report.json 2>/dev/null || true
+        # Note: functions/ directory must be at repo root for Cloudflare Pages to detect it
+        git add public/ functions/ .last_spell_check_timestamp .image_optimization_cache/ .indexnow_key *.txt indexnow-submission.json validation-report.json 2>/dev/null || true
         
         if [ -n "$(git diff --cached)" ]; then
           echo "📝 Changes detected, committing..."
