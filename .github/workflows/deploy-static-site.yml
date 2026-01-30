@@ -780,14 +780,21 @@ jobs:
         rm -rf public/
         mv ./static-output public/
         
-        # Ensure functions directory is in place for Cloudflare Pages
-        echo "📦 Preparing Cloudflare Pages Functions..."
-        if [ -d "functions" ]; then
-          echo "✅ Functions directory exists at root (Cloudflare Pages will detect it)"
-          echo "   Files: $(ls -1 functions/ | tr '\n' ', ' | sed 's/,$//')"
+        # Copy Advanced Mode worker to public directory
+        echo "📦 Preparing Cloudflare Pages Advanced Mode Worker..."
+        if [ -f "_worker.template.js" ]; then
+          cp _worker.template.js public/_worker.js
+          echo "✅ _worker.js copied to public/ directory"
+          echo "   This enables Advanced Mode for full request interception"
         else
-          echo "⚠️  WARNING: functions/ directory not found at repo root"
-          echo "   Cloudflare Pages Functions will not be deployed"
+          echo "⚠️  WARNING: _worker.template.js not found"
+          echo "   Advanced Mode will not be enabled"
+        fi
+        
+        # Note: functions directory is ignored when _worker.js exists
+        echo "📝 NOTE: When _worker.js exists, functions/ directory is ignored by Cloudflare Pages"
+        if [ -d "functions" ]; then
+          echo "   Functions directory exists but will be ignored: $(ls -1 functions/ | tr '\n' ', ' | sed 's/,$//')"
         fi
         
         # Convert absolute URLs to relative for better staging compatibility
