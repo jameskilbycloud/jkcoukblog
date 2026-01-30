@@ -39,11 +39,21 @@ a {
   text-decoration: none !important;
 }
 
-/* Mobile navigation */
+/* Mobile navigation - burger menu button */
+.mobile-toggle-open-container .menu-toggle-open,
 .menu-toggle-open {
-  background-color: transparent !important;
-  border: 1px solid var(--gray-mid) !important;
-  color: var(--text-light) !important;
+  background: #0a0a0a !important;
+  background-color: #0a0a0a !important;
+  border: 2px solid #fafafa !important;
+  color: #fafafa !important;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.menu-toggle-open svg,
+.menu-toggle-open .kadence-svg-icon {
+  fill: #fafafa !important;
+  color: #fafafa !important;
 }
 
 /* Content area - visible immediately */
