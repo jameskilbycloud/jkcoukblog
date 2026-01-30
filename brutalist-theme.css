@@ -394,59 +394,42 @@ img {
   display: block;
 }
 
-/* Prevent CLS by reserving aspect-ratio space */
-.post-thumbnail img,
-.wp-post-image {
-  aspect-ratio: attr(width) / attr(height); /* Modern browsers */
-  width: 100%;
-  height: auto;
+/* Base thumbnail inner positioning - absolute within the padding-based container */
+.post-thumbnail-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background-color: transparent !important;
 }
 
-/* Picture elements inside thumbnails - ensure they fill container */
+/* Picture elements inside thumbnails - fill the container */
 .post-thumbnail-inner picture {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-/* Fallback for older browsers - reserve space for 2:3 thumbnail ratio */
-.post-thumbnail-inner {
-  position: relative;
-  background-color: transparent !important;
-  min-height: 0; /* Prevents collapsing */
-}
-
-/* Kadence uses 2:3 ratio for thumbnails - enforce consistent aspect ratio in grid */
-.loop-entry .post-thumbnail-inner,
-.entry-list-item .post-thumbnail-inner,
-.kadence-thumbnail-ratio-2-3 .post-thumbnail-inner {
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.02);
-}
-
-.loop-entry .post-thumbnail-inner img,
-.entry-list-item .post-thumbnail-inner img,
-.kadence-thumbnail-ratio-2-3 .post-thumbnail-inner img,
-.loop-entry .post-thumbnail-inner picture img,
-.entry-list-item .post-thumbnail-inner picture img,
-.kadence-thumbnail-ratio-2-3 .post-thumbnail-inner picture img {
+/* Base thumbnail images - fill container with object-fit */
+.post-thumbnail-inner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  display: block;
+  object-position: center top;
 }
 
-/* Single post featured image - allow natural proportions */
+/* Grid thumbnails - add subtle background for loading state */
+.loop-entry .post-thumbnail-inner,
+.entry-list-item .post-thumbnail-inner,
+.kadence-thumbnail-ratio-2-3 .post-thumbnail-inner {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Single post featured image - inherit from base rules */
 .single .article-post-thumbnail .post-thumbnail-inner {
-  aspect-ratio: unset;
-}
-
-.single .article-post-thumbnail .post-thumbnail-inner img,
-.single .article-post-thumbnail .post-thumbnail-inner picture img {
-  height: auto;
-  object-fit: unset;
+  /* Base rules handle positioning and image fit */
 }
 
 /* Content images inside posts - maintain natural proportions */
