@@ -619,6 +619,14 @@ jobs:
         echo "- **Compression Ratio:** ${BROTLI_RATIO}%" >> $GITHUB_STEP_SUMMARY
       continue-on-error: true
 
+    - name: Optimize CSS files
+      run: |
+        echo "🎨 Optimizing CSS files (removing unused selectors)..."
+        python3 scripts/optimize_css.py ./static-output || {
+          echo "⚠️  CSS optimization failed (non-blocking)"
+        }
+      continue-on-error: true
+
     - name: Apply SEO fixes
       run: |
         echo "🔧 Applying SEO fixes to HTML files..."
@@ -629,7 +637,7 @@ jobs:
 
     - name: Apply performance optimizations
       run: |
-        echo "⚡ Applying performance optimizations..."
+        echo "⚡ Applying performance optimizations (async/defer, preconnect, fonts)..."
         python3 scripts/enhance_html_performance.py ./static-output || {
           echo "⚠️  Performance enhancements failed (non-blocking)"
         }

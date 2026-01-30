@@ -4,3 +4,5 @@ brotli
 pyspellchecker
 html2text==2020.1.16
 pyyaml==6.0.1
+cssutils
+Pillow

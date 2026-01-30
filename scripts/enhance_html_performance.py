@@ -50,6 +50,15 @@ class HTMLPerformanceEnhancer:
             if self.optimize_external_scripts(soup):
                 modified = True
 
+            if self.add_resource_hints(soup):
+                modified = True
+
+            if self.optimize_fonts(soup):
+                modified = True
+
+            if self.add_preload_hints(soup):
+                modified = True
+
             # Save if modified
             if modified:
                 with open(file_path, 'w', encoding='utf-8') as f:
@@ -158,6 +167,160 @@ class HTMLPerformanceEnhancer:
                 self.optimizations_applied += 1
 
         return modified
+
+    def add_resource_hints(self, soup):
+        """Add preconnect hints for critical external domains"""
+        if not soup.head:
+            return False
+
+        modified = False
+
+        # Critical domains that should use preconnect (stronger than dns-prefetch)
+        critical_domains = {
+            'https://plausible.jameskilby.cloud',  # Analytics
+            'https://fonts.googleapis.com',        # Google Fonts API
+            'https://fonts.gstatic.com',           # Google Fonts files
+        }
+
+        for domain in critical_domains:
+            # Check if this domain is actually used in the page
+            domain_used = False
+            for tag in soup.find_all(['script', 'link', 'img']):
+                src = tag.get('src') or tag.get('href', '')
+                if domain in src:
+                    domain_used = True
+                    break
+
+            if not domain_used:
+                continue
+
+            # Check if preconnect already exists
+            existing = soup.find('link', rel='preconnect', href=domain)
+            if not existing:
+                preconnect = soup.new_tag('link')
+                preconnect['rel'] = 'preconnect'
+                preconnect['href'] = domain
+
+                # Add crossorigin for fonts
+                if 'fonts' in domain:
+                    preconnect['crossorigin'] = ''
+
+                soup.head.insert(0, preconnect)
+                modified = True
+                self.optimizations_applied += 1
+
+        return modified
+
+    def optimize_fonts(self, soup):
+        """Optimize web font loading"""
+        if not soup.head:
+            return False
+
+        modified = False
+
+        # Add display=swap to Google Fonts links
+        for link in soup.find_all('link', href=re.compile(r'fonts\.googleapis\.com')):
+            href = link.get('href', '')
+            if 'display=' not in href:
+                # Add display=swap parameter
+                separator = '&' if '?' in href else '?'
+                link['href'] = f"{href}{separator}display=swap"
+                modified = True
+                self.optimizations_applied += 1
+
+        # Find and preload WOFF2 fonts from @font-face declarations
+        for style in soup.find_all('style'):
+            if style.string and '@font-face' in style.string:
+                # Extract WOFF2 font URLs
+                font_urls = re.findall(r'url\(["\']?(.*?\.woff2)["\']?\)', style.string)
+                for font_url in font_urls:
+                    font_url = font_url.strip('\'"')
+
+                    # Check if preload already exists
+                    existing = soup.find('link', rel='preload', href=font_url)
+                    if not existing:
+                        preload = soup.new_tag('link')
+                        preload['rel'] = 'preload'
+                        preload['href'] = font_url
+                        preload['as'] = 'font'
+                        preload['type'] = 'font/woff2'
+                        preload['crossorigin'] = ''
+                        soup.head.insert(0, preload)
+                        modified = True
+                        self.optimizations_applied += 1
+
+        return modified
+
+    def add_preload_hints(self, soup):
+        """Add preload hints for critical resources"""
+        if not soup.head:
+            return False
+
+        modified = False
+
+        # Find hero/first image in main content for preloading
+        main_content = soup.find(['main', 'article', 'div'])
+        if main_content:
+            first_img = main_content.find('img')
+            if first_img and first_img.get('src'):
+                img_src = first_img['src']
+
+                # Only preload if it's not a small icon/avatar
+                # Check if image has width/height attributes indicating it's large
+                width = first_img.get('width', '')
+                try:
+                    if width and int(width) > 200:
+                        # Check if preload already exists
+                        existing = soup.find('link', rel='preload', href=img_src)
+                        if not existing:
+                            preload = soup.new_tag('link')
+                            preload['rel'] = 'preload'
+                            preload['href'] = img_src
+                            preload['as'] = 'image'
+
+                            # Add type attribute for modern formats
+                            img_type = self._get_image_type(img_src)
+                            if img_type:
+                                preload['type'] = img_type
+
+                            soup.head.insert(0, preload)
+                            modified = True
+                            self.optimizations_applied += 1
+                except (ValueError, AttributeError):
+                    pass
+
+        # Preload critical CSS files
+        for link in soup.find_all('link', rel='stylesheet'):
+            href = link.get('href', '')
+            # Only preload critical CSS (indicated by filename)
+            if any(keyword in href for keyword in ['critical', 'main', 'style']) and 'print' not in href:
+                # Check if it's not already preloaded
+                existing = soup.find('link', rel='preload', href=href)
+                if not existing and len(href) > 0:
+                    preload = soup.new_tag('link')
+                    preload['rel'] = 'preload'
+                    preload['href'] = href
+                    preload['as'] = 'style'
+                    soup.head.insert(0, preload)
+                    modified = True
+                    self.optimizations_applied += 1
+                    break  # Only preload one critical CSS file
+
+        return modified
+
+    def _get_image_type(self, src):
+        """Get MIME type from image extension"""
+        if src.endswith('.avif'):
+            return 'image/avif'
+        elif src.endswith('.webp'):
+            return 'image/webp'
+        elif src.endswith(('.jpg', '.jpeg')):
+            return 'image/jpeg'
+        elif src.endswith('.png'):
+            return 'image/png'
+        elif src.endswith('.svg'):
+            return 'image/svg+xml'
+        return None
 
 
 def main():
