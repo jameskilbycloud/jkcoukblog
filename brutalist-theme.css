@@ -402,6 +402,13 @@ img {
   height: auto;
 }
 
+/* Picture elements inside thumbnails - ensure they fill container */
+.post-thumbnail-inner picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 /* Fallback for older browsers - reserve space for 2:3 thumbnail ratio */
 .post-thumbnail-inner {
   position: relative;
@@ -420,10 +427,14 @@ img {
 
 .loop-entry .post-thumbnail-inner img,
 .entry-list-item .post-thumbnail-inner img,
-.kadence-thumbnail-ratio-2-3 .post-thumbnail-inner img {
+.kadence-thumbnail-ratio-2-3 .post-thumbnail-inner img,
+.loop-entry .post-thumbnail-inner picture img,
+.entry-list-item .post-thumbnail-inner picture img,
+.kadence-thumbnail-ratio-2-3 .post-thumbnail-inner picture img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 
@@ -432,9 +443,50 @@ img {
   aspect-ratio: unset;
 }
 
-.single .article-post-thumbnail .post-thumbnail-inner img {
+.single .article-post-thumbnail .post-thumbnail-inner img,
+.single .article-post-thumbnail .post-thumbnail-inner picture img {
   height: auto;
   object-fit: unset;
+}
+
+/* Content images inside posts - maintain natural proportions */
+.entry-content figure.wp-block-image {
+  margin: 1.5rem 0;
+  max-width: 100%;
+}
+
+.entry-content .wp-block-image img,
+.entry-content figure img {
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+/* Full width and wide alignment images */
+.entry-content .wp-block-image.alignfull,
+.entry-content .wp-block-image.alignwide {
+  max-width: none;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+
+.entry-content .wp-block-image.alignwide {
+  max-width: calc(100% + 4rem);
+  width: calc(100% + 4rem);
+  margin-left: -2rem;
+  margin-right: -2rem;
+}
+
+/* Image captions */
+.entry-content figcaption,
+.wp-block-image figcaption {
+  color: var(--gray-light);
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: 0.5rem;
+  font-style: italic;
 }
 
 /* Smooth image loading */
