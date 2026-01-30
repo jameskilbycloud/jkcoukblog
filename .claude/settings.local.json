@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(git add:*)",
-      "Bash(git commit -m \"$\\(cat <<''EOF''\nFix IndexNow verification by re-adding submission step\n\nThe IndexNow submission step was removed from the workflow,\nwhich meant the verification file was never created in public/.\n\nChanges:\n- Re-add IndexNow submission step before git commit\n- Script creates verification file in public/ directory\n- Verification file will be committed and deployed\n- File will be accessible at site root for IndexNow validation\n\nThis fixes the 403 \"UserForbiddedToAccessSite\" errors from\napi.indexnow.org and Bing by ensuring the verification file\nexists and is properly deployed.\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nFix IndexNow verification by re-adding submission step\n\nThe IndexNow submission step was removed from the workflow,\nwhich meant the verification file was never created in public/.\n\nChanges:\n- Re-add IndexNow submission step before git commit\n- Script creates verification file in public/ directory\n- Verification file will be committed and deployed\n- File will be accessible at site root for IndexNow validation\n\nThis fixes the 403 \"UserForbiddedToAccessSite\" errors from\napi.indexnow.org and Bing by ensuring the verification file\nexists and is properly deployed.\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git fetch:*)",
+      "Bash(git rebase:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
