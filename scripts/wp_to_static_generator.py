@@ -318,6 +318,12 @@ class WordPressStaticGenerator:
         # Add markdown and API links to footer
         self.add_markdown_api_links(soup)
         
+        # Add breadcrumb navigation with schema markup
+        self.add_breadcrumb_navigation(soup, current_url)
+        
+        # Add related posts section (only for single posts)
+        self.add_related_posts(soup, current_url)
+        
         # Convert to string
         return str(soup)
     
@@ -606,7 +612,7 @@ class WordPressStaticGenerator:
         return None
     
     def remove_wordpress_elements(self, soup):
-        """Remove WordPress-specific dynamic elements"""
+        """Remove WordPress-specific dynamic elements and artifacts"""
         # Remove admin bar
         for element in soup.find_all(id='wpadminbar'):
             element.decompose()
@@ -624,6 +630,29 @@ class WordPressStaticGenerator:
         # Remove WordPress REST API links
         for link in soup.find_all('link', rel='https://api.w.org/'):
             link.decompose()
+        
+        # Remove xmlrpc.php RSD (Really Simple Discovery) links
+        for link in soup.find_all('link', rel='EditURI'):
+            if link.get('href') and 'xmlrpc.php' in link.get('href'):
+                link.decompose()
+                print(f"   🗑️  Removed xmlrpc.php RSD link")
+        
+        # Remove Windows Live Writer manifest links
+        for link in soup.find_all('link', rel='wlwmanifest'):
+            link.decompose()
+            print(f"   🗑️  Removed wlwmanifest link")
+        
+        # Remove Rank Math HTML comments
+        import re
+        comments = soup.find_all(string=lambda text: isinstance(text, str) and '<!-- Search Engine Optimization by Rank Math' in text)
+        for comment in comments:
+            comment.extract()
+        
+        # Also remove the closing Rank Math comment
+        comments = soup.find_all(string=lambda text: isinstance(text, str) and '/Rank Math WordPress SEO plugin' in text)
+        for comment in comments:
+            comment.extract()
+            print(f"   🗑️  Removed Rank Math HTML comments")
         
         # Remove Kadence WP footer credit/links
         for link in soup.find_all('a', href=lambda x: x and 'kadencewp.com' in x):
@@ -2227,6 +2256,298 @@ class WordPressStaticGenerator:
             print(f"   ⚠️  Some download errors:")
             for result in error_results[:3]:
                 print(f"     {result}")
+    
+    def add_breadcrumb_navigation(self, soup, current_url):
+        """Add breadcrumb navigation with schema markup for better site hierarchy and SEO"""
+        
+        # Only add breadcrumbs to non-homepage pages
+        if current_url == '/' or current_url == '':
+            return
+        
+        # Check if this is a single post or page
+        body = soup.find('body')
+        if not body:
+            return
+        
+        body_classes = body.get('class', [])
+        body_class_str = ' '.join(body_classes).lower()
+        
+        # Parse URL to build breadcrumb path
+        url_parts = [p for p in current_url.strip('/').split('/') if p]
+        
+        if not url_parts:
+            return
+        
+        # Build breadcrumb items
+        breadcrumb_items = [{
+            'name': 'Home',
+            'url': self.target_domain,
+            'position': 1
+        }]
+        
+        cumulative_path = ''
+        position = 2
+        
+        # Determine breadcrumb structure based on URL pattern
+        if 'category' in url_parts:
+            # Category archive: Home > Category Name
+            category_index = url_parts.index('category')
+            if category_index + 1 < len(url_parts):
+                category_slug = url_parts[category_index + 1]
+                category_name = category_slug.replace('-', ' ').title()
+                breadcrumb_items.append({
+                    'name': category_name,
+                    'url': f"{self.target_domain}/category/{category_slug}/",
+                    'position': position
+                })
+        
+        elif 'tag' in url_parts:
+            # Tag archive: Home > Tags > Tag Name
+            breadcrumb_items.append({
+                'name': 'Tags',
+                'url': f"{self.target_domain}/tag/",
+                'position': position
+            })
+            position += 1
+            tag_index = url_parts.index('tag')
+            if tag_index + 1 < len(url_parts):
+                tag_slug = url_parts[tag_index + 1]
+                tag_name = tag_slug.replace('-', ' ').title()
+                breadcrumb_items.append({
+                    'name': tag_name,
+                    'url': f"{self.target_domain}/tag/{tag_slug}/",
+                    'position': position
+                })
+        
+        elif len(url_parts) >= 3 and url_parts[0].isdigit():
+            # Single post: Home > Category > Post Title
+            # Extract category from page if available
+            categories = soup.find_all('a', rel='tag', href=lambda x: x and '/category/' in x)
+            if categories:
+                # Use first category
+                first_category = categories[0]
+                category_url = first_category.get('href', '')
+                category_name = first_category.get_text(strip=True)
+                
+                breadcrumb_items.append({
+                    'name': category_name,
+                    'url': category_url if category_url.startswith('http') else f"{self.target_domain}{category_url}",
+                    'position': position
+                })
+                position += 1
+            
+            # Add current page (extract title from h1)
+            h1 = soup.find('h1', class_=lambda x: x and 'entry-title' in x)
+            if h1:
+                page_title = h1.get_text(strip=True)
+                breadcrumb_items.append({
+                    'name': page_title,
+                    'url': f"{self.target_domain}{current_url}",
+                    'position': position
+                })
+        
+        else:
+            # Generic page: Home > Page Title
+            h1 = soup.find('h1')
+            if h1:
+                page_title = h1.get_text(strip=True)
+                breadcrumb_items.append({
+                    'name': page_title,
+                    'url': f"{self.target_domain}{current_url}",
+                    'position': position
+                })
+        
+        # Only proceed if we have more than just Home
+        if len(breadcrumb_items) <= 1:
+            return
+        
+        # Create breadcrumb HTML
+        breadcrumb_nav = soup.new_tag('nav')
+        breadcrumb_nav['class'] = 'breadcrumb-navigation'
+        breadcrumb_nav['aria-label'] = 'Breadcrumb'
+        breadcrumb_nav['style'] = '''margin: 20px 0; padding: 12px 0; font-size: 14px; color: #718096;'''
+        
+        breadcrumb_ol = soup.new_tag('ol')
+        breadcrumb_ol['style'] = 'list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px;'
+        
+        for i, item in enumerate(breadcrumb_items):
+            li = soup.new_tag('li')
+            li['style'] = 'display: inline-flex; align-items: center;'
+            
+            # Add separator for non-first items
+            if i > 0:
+                separator = soup.new_tag('span')
+                separator['style'] = 'margin-right: 8px; color: #a0aec0;'
+                separator.string = '/'
+                li.append(separator)
+            
+            # Last item is current page (no link)
+            if i == len(breadcrumb_items) - 1:
+                current_span = soup.new_tag('span')
+                current_span['style'] = 'color: #2d3748; font-weight: 500;'
+                current_span['aria-current'] = 'page'
+                current_span.string = item['name']
+                li.append(current_span)
+            else:
+                link = soup.new_tag('a')
+                link['href'] = item['url']
+                link['style'] = 'color: #4299e1; text-decoration: none; hover: text-decoration: underline;'
+                link.string = item['name']
+                li.append(link)
+            
+            breadcrumb_ol.append(li)
+        
+        breadcrumb_nav.append(breadcrumb_ol)
+        
+        # Find insertion point (after header, before main content)
+        main_wrap = soup.find('main', id='inner-wrap')
+        if main_wrap:
+            # Insert at the beginning of main
+            first_child = main_wrap.find()
+            if first_child:
+                first_child.insert_before(breadcrumb_nav)
+            else:
+                main_wrap.insert(0, breadcrumb_nav)
+            
+            # Add BreadcrumbList JSON-LD schema
+            if soup.head:
+                schema_script = soup.new_tag('script')
+                schema_script['type'] = 'application/ld+json'
+                
+                breadcrumb_list = {
+                    "@context": "https://schema.org",
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "position": item['position'],
+                            "name": item['name'],
+                            "item": item['url']
+                        }
+                        for item in breadcrumb_items
+                    ]
+                }
+                
+                schema_script.string = json.dumps(breadcrumb_list, ensure_ascii=False, separators=(',', ':'))
+                soup.head.append(schema_script)
+                
+                print(f"   🍞 Added breadcrumb navigation: {' > '.join([item['name'] for item in breadcrumb_items])}")
+    
+    def add_related_posts(self, soup, current_url):
+        """Add related posts section based on categories and tags"""
+        
+        # Only add to single post pages
+        body = soup.find('body')
+        if not body:
+            return
+        
+        body_classes = body.get('class', [])
+        body_class_str = ' '.join(body_classes).lower()
+        
+        # Check if this is a single post (not a page or archive)
+        if 'single-post' not in body_class_str and 'single' not in body_classes:
+            return
+        
+        # Extract categories and tags from the current post
+        categories = []
+        tags = []
+        
+        # Find category links
+        category_links = soup.find_all('a', rel='tag', href=lambda x: x and '/category/' in x)
+        for link in category_links:
+            category_slug = link.get('href', '').split('/category/')[1].strip('/')
+            if category_slug and category_slug not in categories:
+                categories.append(category_slug)
+        
+        # Find tag links
+        tag_links = soup.find_all('a', rel='tag', href=lambda x: x and '/tag/' in x)
+        for link in tag_links:
+            tag_slug = link.get('href', '').split('/tag/')[1].strip('/')
+            if tag_slug and tag_slug not in tags:
+                tags.append(tag_slug)
+        
+        if not categories and not tags:
+            print(f"   ℹ️  No categories or tags found for related posts")
+            return
+        
+        # Query WordPress API for related posts
+        try:
+            related_posts = []
+            
+            # First try to get posts from the same categories
+            if categories:
+                # Get category ID from the first category
+                cat_response = self.session.get(
+                    f'{self.wp_url}/wp-json/wp/v2/categories',
+                    params={'slug': categories[0]}
+                )
+                if cat_response.status_code == 200:
+                    cat_data = cat_response.json()
+                    if cat_data:
+                        category_id = cat_data[0]['id']
+                        
+                        # Get posts from this category
+                        posts_response = self.session.get(
+                            f'{self.wp_url}/wp-json/wp/v2/posts',
+                            params={'categories': category_id, 'per_page': 4, '_fields': 'id,title,link,featured_media'}
+                        )
+                        if posts_response.status_code == 200:
+                            related_posts = posts_response.json()
+            
+            # Filter out current post
+            current_post_url = f"{self.wp_url}{current_url}"
+            related_posts = [p for p in related_posts if p['link'] != current_post_url][:3]
+            
+            if not related_posts:
+                print(f"   ℹ️  No related posts found")
+                return
+            
+            # Create related posts section
+            related_section = soup.new_tag('section')
+            related_section['class'] = 'related-posts'
+            related_section['style'] = '''margin: 40px 0; padding: 30px; background: #f7fafc; border-radius: 8px; border-left: 4px solid #4299e1;'''
+            
+            # Section heading
+            heading = soup.new_tag('h2')
+            heading['style'] = 'margin: 0 0 20px 0; font-size: 24px; color: #2d3748;'
+            heading.string = '📚 Related Posts'
+            related_section.append(heading)
+            
+            # Posts list
+            posts_list = soup.new_tag('ul')
+            posts_list['style'] = 'list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;'
+            
+            for post in related_posts:
+                li = soup.new_tag('li')
+                li['style'] = 'background: white; padding: 16px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: box-shadow 0.2s;'
+                
+                link = soup.new_tag('a')
+                link['href'] = post['link'].replace(self.wp_url, self.target_domain)
+                link['style'] = 'color: #2d3748; text-decoration: none; display: block; font-weight: 500; hover: color: #4299e1;'
+                link.string = post['title']['rendered']
+                
+                li.append(link)
+                posts_list.append(li)
+            
+            related_section.append(posts_list)
+            
+            # Find insertion point (after entry-content, before comments)
+            entry_content = soup.find('div', class_=lambda x: x and 'entry-content' in x)
+            if entry_content:
+                # Find the parent article
+                article = entry_content.find_parent('article')
+                if article:
+                    # Insert before comments or at the end of article
+                    comments = article.find('div', id='comments')
+                    if comments:
+                        comments.insert_before(related_section)
+                    else:
+                        article.append(related_section)
+                    
+                    print(f"   📚 Added {len(related_posts)} related posts")
+        
+        except Exception as e:
+            print(f"   ⚠️  Error fetching related posts: {str(e)}")
     
     def create_security_headers(self):
         """Create _headers file with security headers for Cloudflare Pages"""
