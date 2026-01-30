@@ -360,51 +360,51 @@ textarea:focus {
 }
 
 /* Mobile menu toggle button - high specificity to override Kadence */
-#mobile-header .mobile-toggle-open-container button,
-#mobile-header .menu-toggle-open,
-.site-mobile-header-wrap .mobile-toggle-open-container button,
-.site-mobile-header-wrap .menu-toggle-open,
-.mobile-toggle-open-container button.menu-toggle-open,
-button.menu-toggle-open.drawer-toggle {
-  background: var(--bg-dark) !important;
-  background-color: var(--bg-dark) !important;
-  border: 2px solid var(--text-light) !important;
-  color: var(--text-light) !important;
+/* Kadence uses background:rgba(0,0,0,0) - use raw hex values to ensure override */
+#mobile-header .mobile-toggle-open-container button.menu-toggle-open,
+#mobile-header button.menu-toggle-open.drawer-toggle.menu-toggle-style-default,
+.site-mobile-header-wrap button.menu-toggle-open,
+button.menu-toggle-open.drawer-toggle.menu-toggle-style-default,
+button.menu-toggle-open {
+  background: #0a0a0a !important;
+  background-color: #0a0a0a !important;
+  border: 2px solid #fafafa !important;
+  color: #fafafa !important;
   min-width: 44px;
   min-height: 44px;
   box-shadow: none !important;
 }
 
 /* Ensure the SVG icon inside burger menu is visible */
-#mobile-header .menu-toggle-open .kadence-svg-icon,
-#mobile-header .menu-toggle-open svg,
+button.menu-toggle-open .kadence-svg-icon,
+button.menu-toggle-open svg,
 .menu-toggle-open .kadence-svg-icon,
 .menu-toggle-open svg {
-  fill: var(--text-light) !important;
-  color: var(--text-light) !important;
+  fill: #fafafa !important;
+  color: #fafafa !important;
 }
 
-#mobile-header .menu-toggle-open:hover,
-#mobile-header .menu-toggle-open:focus,
-.site-mobile-header-wrap .menu-toggle-open:hover,
-.site-mobile-header-wrap .menu-toggle-open:focus,
-.mobile-toggle-open-container .menu-toggle-open:hover,
-.mobile-toggle-open-container .menu-toggle-open:focus,
-.mobile-toggle-open-container .menu-toggle-open:focus-visible {
-  background: var(--bg-dark) !important;
-  background-color: var(--bg-dark) !important;
-  border-color: var(--accent-orange) !important;
-  color: var(--accent-orange) !important;
+/* Hover and focus states */
+#mobile-header button.menu-toggle-open:hover,
+#mobile-header button.menu-toggle-open:focus,
+#mobile-header button.menu-toggle-open:focus-visible,
+button.menu-toggle-open:hover,
+button.menu-toggle-open:focus,
+button.menu-toggle-open:focus-visible {
+  background: #0a0a0a !important;
+  background-color: #0a0a0a !important;
+  border-color: #f6821f !important;
+  color: #f6821f !important;
   outline: none !important;
   box-shadow: none !important;
 }
 
-#mobile-header .menu-toggle-open:hover .kadence-svg-icon,
-#mobile-header .menu-toggle-open:focus .kadence-svg-icon,
+button.menu-toggle-open:hover .kadence-svg-icon,
+button.menu-toggle-open:focus .kadence-svg-icon,
 .menu-toggle-open:hover .kadence-svg-icon,
 .menu-toggle-open:focus .kadence-svg-icon {
-  fill: var(--accent-orange) !important;
-  color: var(--accent-orange) !important;
+  fill: #f6821f !important;
+  color: #f6821f !important;
 }
 
 /* Mobile drawer menu */
