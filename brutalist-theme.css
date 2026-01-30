@@ -188,6 +188,46 @@ a:focus {
   color: var(--accent-orange) !important;
 }
 
+/* Menu item focus states */
+.main-navigation a:focus,
+.main-navigation a:focus-visible,
+.menu-item a:focus,
+.menu-item a:focus-visible {
+  outline: 2px solid var(--accent-orange);
+  outline-offset: 2px;
+  color: var(--accent-orange) !important;
+}
+
+/* Skip link - visible on focus for keyboard navigation */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: -999;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  z-index: 100000;
+  background-color: var(--accent-orange) !important;
+  color: var(--bg-dark) !important;
+  padding: 1rem 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 2px solid var(--text-light);
+  outline: none;
+}
+
 /* Content areas */
 .content-bg,
 .entry,
@@ -257,7 +297,17 @@ article {
   color: var(--accent-orange) !important;
 }
 
-/* Categories and tags */
+/* Categories and tags container - handle wrapping */
+.category-links,
+.tag-links,
+.entry-taxonomies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Categories and tags links */
 .category-links a,
 .tag-links a {
   background-color: transparent !important;
@@ -272,10 +322,23 @@ article {
   align-items: center;
   min-height: 44px;
   box-sizing: border-box;
+  white-space: nowrap;
 }
 
 .category-links a:hover,
 .tag-links a:hover {
+  background-color: var(--accent-orange) !important;
+  border-color: var(--accent-orange) !important;
+  color: var(--bg-dark) !important;
+}
+
+/* Focus states for category/tag links */
+.category-links a:focus,
+.tag-links a:focus,
+.category-links a:focus-visible,
+.tag-links a:focus-visible {
+  outline: 2px solid var(--accent-orange);
+  outline-offset: 2px;
   background-color: var(--accent-orange) !important;
   border-color: var(--accent-orange) !important;
   color: var(--bg-dark) !important;
@@ -306,6 +369,19 @@ button,
 .post-more-link:hover,
 button:hover,
 .wp-block-button__link:hover {
+  background-color: var(--accent-orange) !important;
+  color: var(--bg-dark) !important;
+}
+
+/* Button focus states */
+.post-more-link:focus,
+.post-more-link:focus-visible,
+button:focus,
+button:focus-visible,
+.wp-block-button__link:focus,
+.wp-block-button__link:focus-visible {
+  outline: 2px solid var(--accent-orange);
+  outline-offset: 2px;
   background-color: var(--accent-orange) !important;
   color: var(--bg-dark) !important;
 }
@@ -611,6 +687,18 @@ button.menu-toggle-open:focus .kadence-svg-icon,
   color: var(--bg-dark) !important;
 }
 
+/* Pagination focus states */
+.pagination a:focus,
+.pagination a:focus-visible,
+.page-numbers:focus,
+.page-numbers:focus-visible {
+  outline: 2px solid var(--accent-orange);
+  outline-offset: 2px;
+  background-color: var(--accent-orange) !important;
+  border-color: var(--accent-orange) !important;
+  color: var(--bg-dark) !important;
+}
+
 /* Post navigation (prev/next) */
 .post-navigation,
 .navigation,
@@ -632,6 +720,17 @@ button.menu-toggle-open:focus .kadence-svg-icon,
 
 .post-navigation a:hover,
 .navigation a:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border-color: var(--accent-orange) !important;
+}
+
+/* Post navigation focus states */
+.post-navigation a:focus,
+.post-navigation a:focus-visible,
+.navigation a:focus,
+.navigation a:focus-visible {
+  outline: 2px solid var(--accent-orange);
+  outline-offset: 2px;
   background-color: rgba(255, 255, 255, 0.05) !important;
   border-color: var(--accent-orange) !important;
 }
@@ -766,6 +865,13 @@ th {
   .loop-entry .entry-summary p,
   .entry-list-item .entry-summary p {
     -webkit-line-clamp: 3;
+  }
+
+  /* Category/tag container - enable horizontal scroll if needed */
+  .entry-taxonomies,
+  .category-links,
+  .tag-links {
+    gap: 0.375rem;
   }
 
   /* Footer spacing reduction */
