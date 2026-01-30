@@ -85,6 +85,53 @@ pre {
   padding: 1.5rem !important;
   overflow-x: auto;
   border: 1px solid var(--gray-mid);
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Code block scroll indicator - fade hint on right edge */
+.wp-block-code,
+.entry-content pre,
+pre:not(:has(code)) {
+  position: relative;
+}
+
+.wp-block-code::after,
+.entry-content pre::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 2.5rem;
+  background: linear-gradient(to right, transparent, rgba(10, 10, 10, 0.9));
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Show fade when content is scrollable */
+.wp-block-code:has(code),
+.entry-content pre {
+  container-type: inline-size;
+}
+
+/* Always show scroll hint on mobile for code blocks */
+@media (max-width: 768px) {
+  .wp-block-code::after,
+  .entry-content pre::after {
+    opacity: 0.7;
+  }
+
+  pre {
+    padding: 1rem !important;
+    font-size: 0.85rem;
+  }
+
+  code {
+    font-size: 0.85rem;
+  }
 }
 
 /* Links */
@@ -599,6 +646,60 @@ th {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-size: 0.9rem;
+}
+
+/* Responsive table wrapper */
+.entry-content .wp-block-table,
+.entry-content figure.wp-block-table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+/* Table scroll indicator */
+.entry-content .wp-block-table::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 2rem;
+  background: linear-gradient(to right, transparent, rgba(10, 10, 10, 0.9));
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Mobile table responsiveness */
+@media (max-width: 768px) {
+  .entry-content .wp-block-table::after {
+    opacity: 0.7;
+  }
+
+  .entry-content table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
+  th, td {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  th {
+    font-size: 0.8rem;
+  }
+}
+
+/* Very small screens - stack approach hint */
+@media (max-width: 480px) {
+  th, td {
+    padding: 0.4rem;
+    font-size: 0.8rem;
+  }
 }
 
 /* Striped tables */
