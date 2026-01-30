@@ -613,7 +613,23 @@ jobs:
         echo "- **Space Saved:** ${BROTLI_SAVED_MB} MB" >> $GITHUB_STEP_SUMMARY
         echo "- **Compression Ratio:** ${BROTLI_RATIO}%" >> $GITHUB_STEP_SUMMARY
       continue-on-error: true
-        
+
+    - name: Apply SEO fixes
+      run: |
+        echo "🔧 Applying SEO fixes to HTML files..."
+        python3 scripts/fix_seo_issues.py ./static-output || {
+          echo "⚠️  SEO fixes failed (non-blocking)"
+        }
+      continue-on-error: true
+
+    - name: Apply performance optimizations
+      run: |
+        echo "⚡ Applying performance optimizations..."
+        python3 scripts/enhance_html_performance.py ./static-output || {
+          echo "⚠️  Performance enhancements failed (non-blocking)"
+        }
+      continue-on-error: true
+
     - name: Commit and push static site
       timeout-minutes: 10  # Timeout for git operations
       run: |
