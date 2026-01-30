@@ -360,11 +360,14 @@ textarea:focus {
 }
 
 /* Mobile menu toggle button - high specificity to override Kadence */
-/* Kadence uses background:rgba(0,0,0,0) - use raw hex values to ensure override */
-#mobile-header .mobile-toggle-open-container button.menu-toggle-open,
-#mobile-header button.menu-toggle-open.drawer-toggle.menu-toggle-style-default,
-.site-mobile-header-wrap button.menu-toggle-open,
-button.menu-toggle-open.drawer-toggle.menu-toggle-style-default,
+/* Kadence uses .mobile-toggle-open-container .menu-toggle-open with background:rgba(0,0,0,0) */
+.mobile-toggle-open-container .menu-toggle-open,
+.mobile-toggle-open-container .menu-toggle-open.menu-toggle-style-default,
+.mobile-toggle-open-container .menu-toggle-open.menu-toggle-style-bordered,
+.mobile-toggle-open-container button.menu-toggle-open,
+#mobile-header .mobile-toggle-open-container .menu-toggle-open,
+.site-mobile-header-wrap .mobile-toggle-open-container .menu-toggle-open,
+button.menu-toggle-open.drawer-toggle,
 button.menu-toggle-open {
   background: #0a0a0a !important;
   background-color: #0a0a0a !important;
@@ -376,6 +379,8 @@ button.menu-toggle-open {
 }
 
 /* Ensure the SVG icon inside burger menu is visible */
+.mobile-toggle-open-container .menu-toggle-open .kadence-svg-icon,
+.mobile-toggle-open-container .menu-toggle-open svg,
 button.menu-toggle-open .kadence-svg-icon,
 button.menu-toggle-open svg,
 .menu-toggle-open .kadence-svg-icon,
@@ -384,10 +389,12 @@ button.menu-toggle-open svg,
   color: #fafafa !important;
 }
 
-/* Hover and focus states */
-#mobile-header button.menu-toggle-open:hover,
-#mobile-header button.menu-toggle-open:focus,
-#mobile-header button.menu-toggle-open:focus-visible,
+/* Hover and focus states - match Kadence's specificity */
+.mobile-toggle-open-container .menu-toggle-open:hover,
+.mobile-toggle-open-container .menu-toggle-open:focus,
+.mobile-toggle-open-container .menu-toggle-open:focus-visible,
+#mobile-header .mobile-toggle-open-container .menu-toggle-open:hover,
+#mobile-header .mobile-toggle-open-container .menu-toggle-open:focus,
 button.menu-toggle-open:hover,
 button.menu-toggle-open:focus,
 button.menu-toggle-open:focus-visible {
@@ -399,6 +406,8 @@ button.menu-toggle-open:focus-visible {
   box-shadow: none !important;
 }
 
+.mobile-toggle-open-container .menu-toggle-open:hover .kadence-svg-icon,
+.mobile-toggle-open-container .menu-toggle-open:focus .kadence-svg-icon,
 button.menu-toggle-open:hover .kadence-svg-icon,
 button.menu-toggle-open:focus .kadence-svg-icon,
 .menu-toggle-open:hover .kadence-svg-icon,
