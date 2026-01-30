@@ -346,14 +346,23 @@ def main():
         sys.exit(1)
     
     html_files = list(public_dir.rglob('*.html'))
-    
+
     if not html_files:
         print("⚠️  Warning: No HTML files found in public directory")
         sys.exit(0)
-    
+
     print(f"🔍 Validating {len(html_files)} HTML files...\n")
-    
+
+    # Files to exclude from validation (RSS feeds, sitemaps, etc.)
+    exclude_patterns = ['feed/index.html', 'sitemap', 'robots.txt']
+
     for html_file in html_files:
+        # Check if file should be excluded
+        relative_path = str(html_file.relative_to(public_dir))
+        if any(pattern in relative_path for pattern in exclude_patterns):
+            print(f"⏭️  Skipping: {relative_path} (excluded pattern)")
+            continue
+
         validator.validate_html_file(html_file)
     
     report = validator.generate_report()

@@ -63,6 +63,13 @@ class IndexNowSubmitter:
         key_file.write_text(self.api_key)
         print(f"✅ Created key verification file: {key_file.name}")
         print(f"   This file must be accessible at: {self.site_domain}/{self.api_key}.txt")
+
+        # Also copy to root for reference (so it gets committed to repo)
+        root_key_file = self.output_dir.parent / f'{self.api_key}.txt'
+        if not root_key_file.exists():
+            root_key_file.write_text(self.api_key)
+            print(f"   Also saved to repository root: {root_key_file.name}")
+
         return key_file
     
     def collect_urls(self):

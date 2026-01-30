@@ -675,7 +675,8 @@ jobs:
         
         # Check if there are changes to commit
         # Note: .br files are automatically included in public/
-        git add public/ .last_spell_check_timestamp .image_optimization_cache/ .indexnow_key indexnow-submission.json validation-report.json 2>/dev/null || true
+        # Note: IndexNow key file (*.txt in root) must be committed so it's accessible at the site root
+        git add public/ .last_spell_check_timestamp .image_optimization_cache/ .indexnow_key *.txt indexnow-submission.json validation-report.json 2>/dev/null || true
         
         if [ -n "$(git diff --cached)" ]; then
           echo "📝 Changes detected, committing..."
@@ -732,7 +733,6 @@ jobs:
           echo "- **Status:** No changes detected" >> $GITHUB_STEP_SUMMARY
           echo "- **Note:** Site is already up to date" >> $GITHUB_STEP_SUMMARY
         fi
-          
     - name: Notify on success
       if: success()
       run: |
