@@ -178,8 +178,6 @@ class HTMLPerformanceEnhancer:
         # Critical domains that should use preconnect (stronger than dns-prefetch)
         critical_domains = {
             'https://plausible.jameskilby.cloud',  # Analytics
-            'https://fonts.googleapis.com',        # Google Fonts API
-            'https://fonts.gstatic.com',           # Google Fonts files
         }
 
         for domain in critical_domains:
@@ -201,10 +199,6 @@ class HTMLPerformanceEnhancer:
                 preconnect['rel'] = 'preconnect'
                 preconnect['href'] = domain
 
-                # Add crossorigin for fonts
-                if 'fonts' in domain:
-                    preconnect['crossorigin'] = ''
-
                 soup.head.insert(0, preconnect)
                 modified = True
                 self.optimizations_applied += 1
@@ -217,16 +211,6 @@ class HTMLPerformanceEnhancer:
             return False
 
         modified = False
-
-        # Add display=swap to Google Fonts links
-        for link in soup.find_all('link', href=re.compile(r'fonts\.googleapis\.com')):
-            href = link.get('href', '')
-            if 'display=' not in href:
-                # Add display=swap parameter
-                separator = '&' if '?' in href else '?'
-                link['href'] = f"{href}{separator}display=swap"
-                modified = True
-                self.optimizations_applied += 1
 
         # Find and preload WOFF2 fonts from @font-face declarations
         for style in soup.find_all('style'):
