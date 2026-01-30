@@ -32,12 +32,12 @@ export async function onRequest(context) {
   }
   
   // Try KV cache if available
-  // TEMPORARILY DISABLED - debugging 404 issue
+  // KV DISABLED - needs more testing. Using Cache API for now.
   if (false && env.HTML_CACHE) {
     return handleKVCache(request, env, next, path);
   }
   
-  // Fallback to Cache API
+  // Use Cache API (working and stable)
   return handleCacheAPI(request, next, path);
 }
 
