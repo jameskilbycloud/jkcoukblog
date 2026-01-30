@@ -808,7 +808,11 @@ jobs:
         # Generate stats page
         echo "📊 Generating stats page..."
         PLAUSIBLE_SHARE_LINK="${{ secrets.PLAUSIBLE_SHARE_LINK }}" python3 scripts/generate_stats_page.py || echo "⚠️  Stats page generation failed (non-blocking)"
-        
+
+        # Submit URLs to IndexNow (creates verification file in public/)
+        echo "🔔 Submitting URLs to IndexNow..."
+        python3 scripts/submit_indexnow.py ./public || echo "⚠️  IndexNow submission failed (non-blocking)"
+
         # Check if there are changes to commit
         # Note: .br files are automatically included in public/
         # Note: IndexNow key file (*.txt in root) must be committed so it's accessible at the site root
