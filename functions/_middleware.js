@@ -1,113 +1,228 @@
 /**
- * Cloudflare Worker for HTML Caching
+ * Cloudflare Pages Function - Advanced HTML Caching with KV
  * 
- * This worker caches HTML pages at Cloudflare's edge to improve TTFB.
- * It converts cf-cache-status from DYNAMIC to HIT for cached content.
+ * This middleware runs on ALL requests to jameskilby.co.uk
+ * Provides smart TTL caching, view tracking, and selective purge
  * 
  * Features:
- * - Caches HTML responses for 5 minutes (300s)
- * - Respects cache-control headers from origin
- * - Adds cache status headers for debugging
- * - Handles cache purging via special header
+ * - Smart TTL: 5min homepage, 15min recent posts, 1hr old posts
+ * - View count tracking in KV metadata
+ * - Selective cache purge via /.purge endpoint
+ * - Falls back to Cache API if KV unavailable
  */
 
-export default {
-  async fetch(request, env, ctx) {
-    const url = new URL(request.url);
+export async function onRequest(context) {
+  const { request, env, next } = context;
+  const url = new URL(request.url);
+  const path = url.pathname;
+  
+  // Only cache GET requests
+  if (request.method !== 'GET') {
+    return next();
+  }
+  
+  // Handle purge requests
+  if (path === '/.purge') {
+    return handlePurge(request, env);
+  }
+  
+  // Don't cache assets or special paths
+  if (!shouldCache(path)) {
+    return next();
+  }
+  
+  // Try KV cache if available
+  if (env.HTML_CACHE) {
+    return handleKVCache(request, env, next, path);
+  }
+  
+  // Fallback to Cache API
+  return handleCacheAPI(request, next, path);
+}
+
+/**
+ * Handle caching with KV (preferred method)
+ */
+async function handleKVCache(request, env, next, path) {
+  const cacheKey = `html:${path}`;
+  const cached = await env.HTML_CACHE.getWithMetadata(cacheKey, { type: 'text' });
+  
+  if (cached && cached.value) {
+    const views = parseInt(cached.metadata?.views || 0) + 1;
     
-    // Only cache GET requests
-    if (request.method !== 'GET') {
-      return fetch(request);
-    }
+    // Increment view count asynchronously
+    env.HTML_CACHE.put(cacheKey, cached.value, {
+      expirationTtl: getTTL(path),
+      metadata: { ...cached.metadata, views }
+    });
     
-    // Don't cache admin/preview URLs
-    if (url.pathname.includes('/wp-admin') || url.pathname.includes('/preview')) {
-      return fetch(request);
-    }
-    
-    // Cache API
-    const cache = caches.default;
-    
-    // Create cache key (include query string for different variants)
-    const cacheKey = new Request(url.toString(), request);
-    
-    // Check for cache purge header (for manual cache clearing)
-    if (request.headers.get('X-Purge-Cache') === 'true') {
-      await cache.delete(cacheKey);
-      return new Response('Cache purged', { status: 200 });
-    }
-    
-    // Try to get from cache first
-    let response = await cache.match(cacheKey);
-    
-    if (response) {
-      // Cache hit - add debug header
-      const newHeaders = new Headers(response.headers);
-      newHeaders.set('X-Worker-Cache', 'HIT');
-      newHeaders.set('X-Cache-Age', Math.floor((Date.now() - new Date(response.headers.get('Date')).getTime()) / 1000));
-      
-      return new Response(response.body, {
-        status: response.status,
-        statusText: response.statusText,
-        headers: newHeaders
-      });
-    }
-    
-    // Cache miss - fetch from origin
-    response = await fetch(request);
-    
-    // Only cache successful HTML responses
-    const contentType = response.headers.get('content-type') || '';
-    const isHTML = contentType.includes('text/html');
-    const isSuccess = response.status === 200;
-    
-    if (isSuccess && isHTML) {
-      // Clone the response so we can cache it
-      const responseToCache = response.clone();
-      
-      // Modify headers for caching
-      const newHeaders = new Headers(responseToCache.headers);
-      
-      // Ensure cache-control is set properly
-      // Use origin's cache-control or default to 5 minutes
-      if (!newHeaders.has('Cache-Control')) {
-        newHeaders.set('Cache-Control', 'public, max-age=300, s-maxage=300');
+    return new Response(cached.value, {
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'public, max-age=300',
+        'X-Cache-Status': 'HIT',
+        'X-Cache-Views': views.toString(),
+        'X-Worker': 'pages-function-kv',
       }
-      
-      // Add debug headers
-      newHeaders.set('X-Worker-Cache', 'MISS');
-      newHeaders.set('X-Cache-Date', new Date().toISOString());
-      
-      // Create cached response
-      const cachedResponse = new Response(responseToCache.body, {
-        status: responseToCache.status,
-        statusText: responseToCache.statusText,
-        headers: newHeaders
-      });
-      
-      // Cache it asynchronously (doesn't block the response)
-      ctx.waitUntil(cache.put(cacheKey, cachedResponse));
-      
-      // Return the original response with debug headers
-      const finalHeaders = new Headers(response.headers);
-      finalHeaders.set('X-Worker-Cache', 'MISS');
-      finalHeaders.set('X-Cache-Date', new Date().toISOString());
-      
-      return new Response(response.body, {
-        status: response.status,
-        statusText: response.statusText,
-        headers: finalHeaders
-      });
-    }
+    });
+  }
+  
+  // Fetch from Pages
+  const response = await next();
+  
+  // Cache successful HTML responses
+  if (response.ok && response.headers.get('content-type')?.includes('text/html')) {
+    const html = await response.text();
+    const ttl = getTTL(path);
     
-    // Don't cache non-HTML or error responses
-    const bypassHeaders = new Headers(response.headers);
-    bypassHeaders.set('X-Worker-Cache', 'BYPASS');
+    // Store in KV
+    await env.HTML_CACHE.put(cacheKey, html, {
+      expirationTtl: ttl,
+      metadata: { 
+        views: 1,
+        cached_at: new Date().toISOString(),
+        path: path
+      }
+    });
+    
+    return new Response(html, {
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': `public, max-age=${ttl}`,
+        'X-Cache-Status': 'MISS',
+        'X-Cache-TTL': ttl.toString(),
+        'X-Worker': 'pages-function-kv',
+      }
+    });
+  }
+  
+  return response;
+}
+
+/**
+ * Fallback: Cache API (if KV unavailable)
+ */
+async function handleCacheAPI(request, next, path) {
+  const cache = caches.default;
+  const cacheKey = new Request(request.url, request);
+  
+  let response = await cache.match(cacheKey);
+  
+  if (response) {
+    const newHeaders = new Headers(response.headers);
+    newHeaders.set('X-Cache-Status', 'HIT');
+    newHeaders.set('X-Worker', 'pages-function-cache-api');
     
     return new Response(response.body, {
       status: response.status,
-      statusText: response.statusText,
-      headers: bypassHeaders
+      headers: newHeaders
     });
   }
-};
+  
+  response = await next();
+  
+  if (response.ok && response.headers.get('content-type')?.includes('text/html')) {
+    const responseToCache = response.clone();
+    const newHeaders = new Headers(responseToCache.headers);
+    
+    if (!newHeaders.has('Cache-Control')) {
+      newHeaders.set('Cache-Control', `public, max-age=${getTTL(path)}`);
+    }
+    
+    newHeaders.set('X-Cache-Status', 'MISS');
+    newHeaders.set('X-Worker', 'pages-function-cache-api');
+    
+    const cachedResponse = new Response(responseToCache.body, {
+      status: responseToCache.status,
+      headers: newHeaders
+    });
+    
+    // Cache asynchronously
+    await cache.put(cacheKey, cachedResponse);
+    
+    return new Response(response.body, {
+      status: response.status,
+      headers: newHeaders
+    });
+  }
+  
+  return response;
+}
+
+/**
+ * Determine if path should be cached
+ */
+function shouldCache(path) {
+  if (path.includes('/wp-admin') || 
+      path.includes('/preview') ||
+      path.startsWith('/api/') || 
+      path.startsWith('/.well-known/') ||
+      path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|json|xml|txt|webp|avif|br)$/)) {
+    return false;
+  }
+  
+  return true;
+}
+
+/**
+ * Smart TTL based on URL pattern
+ */
+function getTTL(path) {
+  // Homepage - 5 minutes
+  if (path === '/' || path === '/index.html') {
+    return 300;
+  }
+  
+  // Recent posts - 15 minutes
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth() + 1;
+  const pathMatch = path.match(/^\/(\d{4})\/(\d{2})\//);  
+  if (pathMatch) {
+    const year = parseInt(pathMatch[1]);
+    const month = parseInt(pathMatch[2]);
+    
+    if (year === currentYear && month >= currentMonth - 1) {
+      return 900; // 15 minutes
+    }
+  }
+  
+  // Older content - 1 hour
+  return 3600;
+}
+
+/**
+ * Handle selective cache purge
+ */
+async function handlePurge(request, env) {
+  const url = new URL(request.url);
+  const purgeToken = request.headers.get('X-Purge-Token');
+  
+  if (!env.PURGE_TOKEN || purgeToken !== env.PURGE_TOKEN) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+  
+  const path = url.searchParams.get('path');
+  
+  if (!path) {
+    return new Response('Missing path parameter', { status: 400 });
+  }
+  
+  // Delete from KV if available
+  if (env.HTML_CACHE) {
+    const cacheKey = `html:${path}`;
+    await env.HTML_CACHE.delete(cacheKey);
+  }
+  
+  // Also clear from Cache API
+  const cache = caches.default;
+  const cacheKey = new Request(`https://jameskilby.co.uk${path}`);
+  await cache.delete(cacheKey);
+  
+  return new Response(JSON.stringify({
+    success: true,
+    purged: path,
+    timestamp: new Date().toISOString()
+  }), {
+    headers: { 'Content-Type': 'application/json' }
+  });
+}
