@@ -1,0 +1,63 @@
+name: Enable Cloudflare Pages Indexing
+
+on:
+  workflow_dispatch:  # Manual trigger only
+
+jobs:
+  enable-indexing:
+    runs-on: self-hosted
+    timeout-minutes: 5
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        echo "📦 Installing required packages..."
+        pip install requests
+        
+    - name: Enable Cloudflare Pages indexing
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      run: |
+        echo "🔧 Enabling search engine indexing on Cloudflare Pages..."
+        python3 scripts/enable_cloudflare_indexing.py
+        
+    - name: Verify indexing enabled
+      run: |
+        echo ""
+        echo "✅ Indexing has been enabled!"
+        echo ""
+        echo "📋 Next steps:"
+        echo "1. Wait for next deployment (or trigger one manually)"
+        echo "2. Verify with: curl -I https://jameskilby.co.uk | grep -i x-robots"
+        echo "   (Should NOT show 'X-Robots-Tag: noindex')"
+        echo "3. Submit sitemap to search engines:"
+        echo "   • Google: https://search.google.com/search-console"
+        echo "   • Bing: https://www.bing.com/webmasters"
+        echo ""
+        
+    - name: Add summary
+      run: |
+        echo "## ✅ Search Engine Indexing Enabled" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "The Cloudflare Pages project has been configured to allow search engine indexing." >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### What Changed" >> $GITHUB_STEP_SUMMARY
+        echo "- Production environment: Indexing **ENABLED** ✅" >> $GITHUB_STEP_SUMMARY
+        echo "- Preview environment: Indexing **ENABLED** ✅" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Verification" >> $GITHUB_STEP_SUMMARY
+        echo "Run this command to verify the X-Robots-Tag header is removed:" >> $GITHUB_STEP_SUMMARY
+        echo '```bash' >> $GITHUB_STEP_SUMMARY
+        echo "curl -I https://jameskilby.co.uk | grep -i x-robots" >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "The header should NOT contain \`X-Robots-Tag: noindex\`" >> $GITHUB_STEP_SUMMARY
