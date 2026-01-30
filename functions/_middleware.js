@@ -32,7 +32,8 @@ export async function onRequest(context) {
   }
   
   // Try KV cache if available
-  if (env.HTML_CACHE) {
+  // TEMPORARILY DISABLED - debugging 404 issue
+  if (false && env.HTML_CACHE) {
     return handleKVCache(request, env, next, path);
   }
   
