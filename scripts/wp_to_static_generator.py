@@ -102,6 +102,11 @@ class WordPressStaticGenerator:
                 params={'per_page': 100, 'page': page, 'status': post_status}
             )
             
+            # Debug: log the actual request URL
+            if page == 1 and self.include_drafts:
+                print(f"   🔍 DEBUG: Request URL: {posts_response.url}")
+                print(f"   🔍 DEBUG: Response status: {posts_response.status_code}")
+            
             if posts_response.status_code != 200:
                 print(f"   ⚠️  Posts API returned status {posts_response.status_code} on page {page}")
                 if posts_response.status_code == 400:
