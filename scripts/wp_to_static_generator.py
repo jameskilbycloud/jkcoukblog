@@ -19,12 +19,11 @@ from datetime import datetime
 from incremental_builder import IncrementalBuilder
 
 class WordPressStaticGenerator:
-    def __init__(self, wp_url, auth_token, output_dir, target_domain, use_incremental=True, include_drafts=False):
+    def __init__(self, wp_url, auth_token, output_dir, target_domain, use_incremental=True):
         self.wp_url = wp_url.rstrip('/')
         self.auth_token = auth_token
         self.output_dir = Path(output_dir)
         self.target_domain = target_domain.rstrip('/')
-        self.include_drafts = include_drafts
         self.session = requests.Session()
         self.session.headers.update({
             'Authorization': f'Basic {auth_token}',
@@ -90,22 +89,12 @@ class WordPressStaticGenerator:
         # Get posts with pagination
         page = 1
         post_count = 0
-        # Include drafts and scheduled posts for staging
-        post_status = 'publish,future,draft' if self.include_drafts else 'publish'
-        status_label = 'all statuses (drafts + scheduled + published)' if self.include_drafts else 'published only'
-        print(f"   📝 Status filter: {status_label}")
-        
         while True:
             print(f"   🔍 Fetching posts page {page}...")
             posts_response = self.session.get(
                 f'{self.wp_url}/wp-json/wp/v2/posts',
-                params={'per_page': 100, 'page': page, 'status': post_status}
+                params={'per_page': 100, 'page': page, 'status': 'publish'}
             )
-            
-            # Debug: log the actual request URL
-            if page == 1 and self.include_drafts:
-                print(f"   🔍 DEBUG: Request URL: {posts_response.url}")
-                print(f"   🔍 DEBUG: Response status: {posts_response.status_code}")
             
             if posts_response.status_code != 200:
                 print(f"   ⚠️  Posts API returned status {posts_response.status_code} on page {page}")
@@ -128,8 +117,7 @@ class WordPressStaticGenerator:
                 relative_url = post['link'].replace(self.wp_url, '')
                 urls.add(relative_url)
                 post_count += 1
-                post_status_icon = {'publish': '✅', 'future': '⏰', 'draft': '📝'}.get(post.get('status'), '📄')
-                print(f"   {post_status_icon} Post: {post['title']['rendered']} [{post.get('status', 'unknown')}]")
+                print(f"   📄 Post: {post['title']['rendered']}")
             
             page += 1
         
@@ -137,11 +125,10 @@ class WordPressStaticGenerator:
         
         # Get pages
         page = 1
-        page_status = 'publish,future,draft' if self.include_drafts else 'publish'
         while True:
             pages_response = self.session.get(
                 f'{self.wp_url}/wp-json/wp/v2/pages',
-                params={'per_page': 100, 'page': page, 'status': page_status}
+                params={'per_page': 100, 'page': page, 'status': 'publish'}
             )
             if pages_response.status_code != 200:
                 break
@@ -3191,17 +3178,15 @@ class WordPressStaticGenerator:
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python wp_to_static_generator.py <output_directory> [--deploy] [--no-incremental] [--include-drafts]")
+        print("Usage: python wp_to_static_generator.py <output_directory> [--deploy] [--no-incremental]")
         print("Example: python wp_to_static_generator.py ./static-site-output")
         print("Options:")
         print("  --no-incremental    Force full build (ignore cache)")
-        print("  --include-drafts    Include draft and scheduled posts (for staging)")
         sys.exit(1)
     
     output_dir = sys.argv[1]
     deploy_flag = '--deploy' in sys.argv
     use_incremental = '--no-incremental' not in sys.argv
-    include_drafts = '--include-drafts' in sys.argv
     
     # Import configuration
     from config import Config
@@ -3220,15 +3205,8 @@ def main():
         auth_token=AUTH_TOKEN,
         output_dir=output_dir,
         target_domain=Config.TARGET_DOMAIN,
-        use_incremental=use_incremental,
-        include_drafts=include_drafts
+        use_incremental=use_incremental
     )
-    
-    # Show build mode
-    if include_drafts:
-        print("\n🎭 STAGING MODE: Including drafts and scheduled posts")
-    else:
-        print("\n🚀 PRODUCTION MODE: Published posts only")
     
     # Generate static site
     success = generator.generate_static_site()
