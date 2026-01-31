@@ -35,7 +35,7 @@ jobs:
         WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
       run: |
         echo "🎭 STAGING BUILD: Including drafts and scheduled posts"
-        python scripts/wp_to_static_generator.py ./static-output --include-drafts
+        python scripts/wp_to_static_generator.py ./static-output --include-drafts --no-incremental
         
     - name: Convert URLs for staging
       run: |
