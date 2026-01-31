@@ -1,5 +1,6 @@
 name: WordPress to Staging Site Deploy
 
+# Staging deployment workflow - includes draft and scheduled posts
 on:
   workflow_dispatch:        # Manual trigger only - no automatic deploys to staging
 
