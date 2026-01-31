@@ -39,8 +39,8 @@ jobs:
         
     - name: Convert URLs for staging
       run: |
-        rm -rf public-staging/
-        mv ./static-output public-staging/
+        rm -rf public/
+        mv ./static-output public/
         python scripts/convert_to_staging.py
         
     - name: Commit and push to staging branch
@@ -49,7 +49,7 @@ jobs:
         git config --local user.name "GitHub Action"
         git fetch origin staging
         git reset --hard origin/staging
-        git add public-staging/
+        git add public/
         
         if [ -n "$(git diff --cached)" ]; then
           git commit -m "🎭 Auto-update staging site - $(date '+%Y-%m-%d %H:%M:%S')"
