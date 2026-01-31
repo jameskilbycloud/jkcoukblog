@@ -37,18 +37,23 @@ jobs:
         echo "🎭 STAGING BUILD: Including drafts and scheduled posts"
         python scripts/wp_to_static_generator.py ./static-output --include-drafts --no-incremental
         
-    - name: Convert URLs for staging
+    - name: Prepare for commit
       run: |
+        # First, fetch and reset to get clean staging branch
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git fetch origin staging
+        git reset --hard origin/staging
+        
+    - name: Replace public directory with new build
+      run: |
+        # Now replace public/ with the generated site
         rm -rf public/
         mv ./static-output public/
         python scripts/convert_to_staging.py
         
     - name: Commit and push to staging branch
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git fetch origin staging
-        git reset --hard origin/staging
         git add public/
         
         if [ -n "$(git diff --cached)" ]; then
