@@ -39,11 +39,11 @@ jobs:
         
     - name: Prepare for commit
       run: |
-        # First, fetch and reset to get clean staging branch
+        # First, fetch and switch to staging branch
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git fetch origin staging
-        git reset --hard origin/staging
+        git checkout -B staging origin/staging
         
     - name: Replace public directory with new build
       run: |
