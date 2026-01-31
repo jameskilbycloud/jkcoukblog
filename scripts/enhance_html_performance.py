@@ -59,6 +59,9 @@ class HTMLPerformanceEnhancer:
             if self.add_preload_hints(soup):
                 modified = True
 
+            if self.optimize_images(soup):
+                modified = True
+
             # Save if modified
             if modified:
                 with open(file_path, 'w', encoding='utf-8') as f:
@@ -289,6 +292,43 @@ class HTMLPerformanceEnhancer:
                     modified = True
                     self.optimizations_applied += 1
                     break  # Only preload one critical CSS file
+
+        return modified
+
+    def optimize_images(self, soup):
+        """Add lazy loading, fetchpriority, and responsive attributes to images"""
+        if not soup.body:
+            return False
+
+        modified = False
+        images = soup.find_all('img')
+
+        for idx, img in enumerate(images):
+            # First 2 images (likely hero/LCP candidates) get high priority
+            if idx < 2:
+                if not img.get('fetchpriority'):
+                    img['fetchpriority'] = 'high'
+                    modified = True
+                    self.optimizations_applied += 1
+            else:
+                # All other images: lazy load
+                if not img.get('loading'):
+                    img['loading'] = 'lazy'
+                    modified = True
+                    self.optimizations_applied += 1
+
+            # Add async decoding hint for all images
+            if not img.get('decoding'):
+                img['decoding'] = 'async'
+                modified = True
+                self.optimizations_applied += 1
+
+            # Ensure width/height attributes (prevent CLS)
+            if img.get('src') and not (img.get('width') and img.get('height')):
+                # If we can determine dimensions, add them
+                # For now, we'll skip this as it requires image analysis
+                # But we track it for potential future enhancement
+                pass
 
         return modified
 

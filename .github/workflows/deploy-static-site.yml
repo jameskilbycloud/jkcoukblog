@@ -635,9 +635,17 @@ jobs:
         }
       continue-on-error: true
 
+    - name: Extract and inline critical CSS
+      run: |
+        echo "🎨 Extracting and inlining critical CSS..."
+        python3 scripts/extract_critical_css.py ./static-output || {
+          echo "⚠️  Critical CSS extraction failed (non-blocking)"
+        }
+      continue-on-error: true
+
     - name: Apply performance optimizations
       run: |
-        echo "⚡ Applying performance optimizations (async/defer, preconnect, fonts)..."
+        echo "⚡ Applying performance optimizations (lazy loading, async/defer, preconnect, fonts)..."
         python3 scripts/enhance_html_performance.py ./static-output || {
           echo "⚠️  Performance enhancements failed (non-blocking)"
         }
