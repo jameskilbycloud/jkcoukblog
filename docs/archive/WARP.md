@@ -10,8 +10,11 @@ This is an automated WordPress-to-static-site generator and deployment system. I
 
 ### Site Generation
 ```bash
-# Generate static site (requires WP_AUTH_TOKEN environment variable)
+# Generate PRODUCTION site (published posts only)
 python3 wp_to_static_generator.py ./static-output
+
+# Generate STAGING site (includes drafts and scheduled posts)
+python3 wp_to_static_generator.py ./static-output --include-drafts
 
 # Generate static site (incremental - only changed content)
 # Automatically uses .build-cache.json if it exists
@@ -80,11 +83,15 @@ python3 convert_to_staging.py
 
 ### GitHub Actions
 ```bash
-# Manually trigger deployment workflow
+# Manually trigger PRODUCTION deployment
 gh workflow run deploy-static-site.yml
+
+# Manually trigger STAGING deployment (includes drafts)
+gh workflow run deploy-staging-site.yml
 
 # View workflow runs
 gh run list --workflow=deploy-static-site.yml
+gh run list --workflow=deploy-staging-site.yml
 
 # Manually trigger live site testing
 gh workflow run test-live-site.yml
@@ -186,10 +193,18 @@ gh workflow run test-live-site.yml -f test_url='https://jkcoukblog.pages.dev'
 
 ### Deployment Flow
 
+**Production Flow:**
 ```
 WordPress CMS (Private)     →     Static Generator     →     GitHub Repo     →     Cloudflare Pages (Public)
-wordpress.jameskilby.cloud         (Self-Hosted Runner)       (public/ dir)           jameskilby.co.uk
-(Behind Cloudflare Access)                                                            
+wordpress.jameskilby.cloud         (Self-Hosted Runner)       main branch            jameskilby.co.uk
+(Behind Cloudflare Access)         (published only)           public/ dir
+```
+
+**Staging Flow:**
+```
+WordPress CMS (Private)     →     Static Generator     →     GitHub Repo     →     Cloudflare Pages (Preview)
+wordpress.jameskilby.cloud         (Self-Hosted Runner)       staging branch         jkcoukblog.pages.dev
+(Behind Cloudflare Access)         (drafts + scheduled)       public-staging/ dir
 ```
 
 ### Data Flow
@@ -357,6 +372,7 @@ pip install requests beautifulsoup4
 ## Related Documentation
 
 - `README.md` - Comprehensive project documentation
+- `STAGING_WORKFLOW.md` - **Staging workflow guide (draft previews, testing)**
 - `automated_static_deployment_guide.md` - Deployment strategies and options
 - `SEARCH_IMPLEMENTATION.md` - Search functionality details
 - `PLAUSIBLE_ANALYTICS.md` - Analytics setup and automation
