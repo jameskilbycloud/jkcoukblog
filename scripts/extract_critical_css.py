@@ -273,6 +273,16 @@ class CriticalCSSExtractor:
             if link.get('rel') == 'preload':
                 continue
 
+            # IMPORTANT: Do NOT convert brutalist-theme.css or fonts.css to async
+            # These contain @import for custom fonts and need to load synchronously
+            if 'brutalist-theme' in href or 'fonts.css' in href:
+                # Keep as regular stylesheet, remove media="print" if present
+                if link.get('media') == 'print' and 'onload' in link.attrs:
+                    # This was set to async load, revert it
+                    link['media'] = 'all'
+                    del link['onload']
+                continue
+
             # Convert to preload
             link['rel'] = 'preload'
             link['as'] = 'style'

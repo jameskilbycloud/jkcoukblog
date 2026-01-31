@@ -1249,17 +1249,12 @@ class WordPressStaticGenerator:
             soup.head.append(preload)
             
             # Add main stylesheet link
+            # IMPORTANT: Load synchronously (not media="print" trick) because this CSS
+            # contains @import for custom fonts which must load before first paint
+            # to avoid Flash of Unstyled Text (FOUT)
             link = soup.new_tag('link', rel='stylesheet', href='/assets/css/brutalist-theme.css')
-            # Use media="print" trick for non-blocking CSS load, then switch to "all"
-            link['media'] = 'print'
-            link['onload'] = "this.media='all'"
+            link['media'] = 'all'
             soup.head.append(link)
-            
-            # Add noscript fallback for users without JS
-            noscript = soup.new_tag('noscript')
-            noscript_link = soup.new_tag('link', rel='stylesheet', href='/assets/css/brutalist-theme.css')
-            noscript.append(noscript_link)
-            soup.head.append(noscript)
             
             print(f"   🎨 Added brutalist theme CSS with non-blocking load")
         except Exception as e:
