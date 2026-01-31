@@ -16,7 +16,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        ref: staging
+        ref: main
         fetch-depth: 0
       
     - name: Setup Python
