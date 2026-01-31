@@ -502,6 +502,18 @@ img {
   margin: 0 !important;
 }
 
+/* Fix alignment for entry headers in grid/loop posts */
+.loop-entry .entry-header,
+.entry-list-item .entry-header {
+  padding: 1rem 1.5rem !important;
+}
+
+/* Ensure taxonomies in grid have proper spacing */
+.loop-entry .entry-taxonomies,
+.entry-list-item .entry-taxonomies {
+  margin-bottom: 0.75rem;
+}
+
 /* Entry content should have proper background */
 .entry-content,
 .single-content {
