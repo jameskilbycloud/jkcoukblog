@@ -219,3 +219,4 @@ Co-Authored-By: Warp <agent@warp.dev>"
               }
             ]
           }
+      continue-on-error: true
