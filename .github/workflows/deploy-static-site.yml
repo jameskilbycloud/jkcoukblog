@@ -206,6 +206,7 @@ jobs:
         node-version: '18'
     
     - name: Install image optimization tools
+      if: runner.os == 'Linux'
       run: |
         echo "🖼️  Checking image optimization tools..."
         
@@ -573,7 +574,7 @@ jobs:
         echo "🗁️  Compressing static files with Brotli..."
         
         # Run Brotli compression
-        python3 scripts/brotli_compress.py ./public || {
+        python3 scripts/brotli_compress.py ./static-output || {
           echo "⚠️  Brotli compression failed (non-blocking)"
           echo "BROTLI_COUNT=0" >> $GITHUB_ENV
           echo "BROTLI_SAVED_MB=0.0" >> $GITHUB_ENV
@@ -581,14 +582,14 @@ jobs:
         }
         
         # Count compressed files
-        BROTLI_COUNT=$(find ./public -name "*.br" -type f | wc -l | xargs)
+        BROTLI_COUNT=$(find ./static-output -name "*.br" -type f | wc -l | xargs)
         
         # Calculate total size of .br files
-        BROTLI_SIZE=$(find ./public -name "*.br" -type f -exec ls -l {} \; | awk '{sum+=$5} END {print sum}')
+        BROTLI_SIZE=$(find ./static-output -name "*.br" -type f -exec ls -l {} \; | awk '{sum+=$5} END {print sum}')
         BROTLI_SIZE_MB=$(echo "scale=2; $BROTLI_SIZE / 1024 / 1024" | bc)
         
         # Calculate original size for comparison
-        ORIGINAL_SIZE=$(find ./public -type f \( -name "*.html" -o -name "*.css" -o -name "*.js" -o -name "*.json" -o -name "*.xml" -o -name "*.svg" \) -exec ls -l {} \; | awk '{sum+=$5} END {print sum}')
+        ORIGINAL_SIZE=$(find ./static-output -type f \( -name "*.html" -o -name "*.css" -o -name "*.js" -o -name "*.json" -o -name "*.xml" -o -name "*.svg" \) -exec ls -l {} \; | awk '{sum+=$5} END {print sum}')
         ORIGINAL_SIZE_MB=$(echo "scale=2; $ORIGINAL_SIZE / 1024 / 1024" | bc)
         
         # Calculate savings
@@ -651,108 +652,6 @@ jobs:
         }
       continue-on-error: true
 
-    - name: Upload search index to Workers KV
-      if: success()
-      run: |
-        echo "🔍 Uploading search index to Workers KV..."
-        
-        # Check if search index exists
-        if [ ! -f "public/search-index.json" ]; then
-          echo "⚠️  Search index not found, skipping KV upload"
-          exit 0
-        fi
-        
-        # Install Wrangler if not already available
-        if ! command -v wrangler &> /dev/null; then
-          echo "Installing Wrangler..."
-          npm install -g wrangler
-        fi
-        
-        # Upload to KV (requires CLOUDFLARE_API_TOKEN and KV_SEARCH_INDEX_ID secrets)
-        if [ -n "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] && [ -n "${{ secrets.KV_SEARCH_INDEX_ID }}" ]; then
-          CURRENT_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-          
-          npx wrangler kv:key put \
-            --namespace-id="${{ secrets.KV_SEARCH_INDEX_ID }}" \
-            --binding=SEARCH_INDEX \
-            "current" public/search-index.json \
-            --metadata="{\"updated\":\"${CURRENT_TIME}\"}" || {
-            echo "⚠️  Failed to upload search index to KV (non-blocking)"
-          }
-          
-          echo "✅ Search index uploaded to Workers KV"
-          echo "   Updated: ${CURRENT_TIME}"
-          
-          # Add to summary
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## 🔍 Search Index Updated" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- **KV Namespace:** SEARCH_INDEX" >> $GITHUB_STEP_SUMMARY
-          echo "- **Updated:** ${CURRENT_TIME}" >> $GITHUB_STEP_SUMMARY
-        else
-          echo "ℹ️  Skipping KV upload (CLOUDFLARE_API_TOKEN or KV_SEARCH_INDEX_ID not set)"
-          echo "   To enable: Add secrets to repository settings"
-        fi
-      continue-on-error: true
-      env:
-        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-    
-    - name: Selective cache purge
-      if: success()
-      run: |
-        echo "🗑️ Purging changed pages from Workers KV cache..."
-        
-        # Get list of changed HTML files from this deploy
-        git fetch origin
-        CHANGED_FILES=$(git diff --name-only HEAD origin/main | grep "^public/.*\.html$" || true)
-        
-        if [ -z "$CHANGED_FILES" ]; then
-          echo "ℹ️  No HTML files changed, skipping cache purge"
-          exit 0
-        fi
-        
-        # Check if cache purge is configured
-        if [ -z "${{ secrets.CACHE_PURGE_TOKEN }}" ]; then
-          echo "ℹ️  CACHE_PURGE_TOKEN not set, skipping selective purge"
-          echo "   To enable: Add CACHE_PURGE_TOKEN to repository secrets"
-          exit 0
-        fi
-        
-        echo "Changed HTML files detected:"
-        echo "$CHANGED_FILES" | head -10
-        
-        PURGED_COUNT=0
-        
-        # Convert file paths to URL paths and purge from cache
-        echo "$CHANGED_FILES" | while read file; do
-          # Convert public/2026/01/post/index.html -> /2026/01/post/
-          URL_PATH=$(echo "$file" | sed 's|^public||' | sed 's|/index\.html$|/|')
-          
-          echo "Purging: $URL_PATH"
-          
-          # Call purge endpoint
-          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
-            -X GET "https://jameskilby.co.uk/.purge?path=${URL_PATH}" \
-            -H "X-Purge-Token: ${{ secrets.CACHE_PURGE_TOKEN }}")
-          
-          if [ "$HTTP_CODE" = "200" ]; then
-            PURGED_COUNT=$((PURGED_COUNT + 1))
-          else
-            echo "  ⚠️  Failed to purge (HTTP $HTTP_CODE)"
-          fi
-        done
-        
-        echo ""
-        echo "✅ Purged $PURGED_COUNT URLs from cache"
-        
-        # Add to summary
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "## 🗑️ Cache Purged" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "- **URLs Purged:** $PURGED_COUNT" >> $GITHUB_STEP_SUMMARY
-        echo "- **Method:** Selective (changed files only)" >> $GITHUB_STEP_SUMMARY
-      continue-on-error: true
-    
     - name: Commit and push static site
       timeout-minutes: 10  # Timeout for git operations
       run: |
@@ -896,6 +795,111 @@ jobs:
         echo "✅ Static site generated and committed successfully!"
         echo "🌐 Cloudflare Pages will auto-deploy from the 'public' directory"
         echo "📁 Generated files are now in the 'public' directory for Pages deployment"
+
+    - name: Upload search index to Workers KV
+      if: success()
+      run: |
+        echo "🔍 Uploading search index to Workers KV..."
+        
+        # Check if search index exists
+        if [ ! -f "public/search-index.json" ]; then
+          echo "⚠️  Search index not found, skipping KV upload"
+          exit 0
+        fi
+        
+        # Install Wrangler if not already available
+        if ! command -v wrangler &> /dev/null; then
+          echo "Installing Wrangler..."
+          npm install -g wrangler
+        fi
+        
+        # Upload to KV (requires CLOUDFLARE_API_TOKEN and KV_SEARCH_INDEX_ID secrets)
+        if [ -n "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] && [ -n "${{ secrets.KV_SEARCH_INDEX_ID }}" ]; then
+          CURRENT_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          
+          npx wrangler kv:key put \
+            --namespace-id="${{ secrets.KV_SEARCH_INDEX_ID }}" \
+            --binding=SEARCH_INDEX \
+            "current" public/search-index.json \
+            --metadata="{\"updated\":\"${CURRENT_TIME}\"}" || {
+            echo "⚠️  Failed to upload search index to KV (non-blocking)"
+          }
+          
+          echo "✅ Search index uploaded to Workers KV"
+          echo "   Updated: ${CURRENT_TIME}"
+          
+          # Add to summary
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 🔍 Search Index Updated" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **KV Namespace:** SEARCH_INDEX" >> $GITHUB_STEP_SUMMARY
+          echo "- **Updated:** ${CURRENT_TIME}" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "ℹ️  Skipping KV upload (CLOUDFLARE_API_TOKEN or KV_SEARCH_INDEX_ID not set)"
+          echo "   To enable: Add secrets to repository settings"
+        fi
+      continue-on-error: true
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    
+    - name: Selective cache purge
+      if: success()
+      run: |
+        echo "🗑️ Purging changed pages from Workers KV cache..."
+        
+        # Get list of changed HTML files from this deploy (previous commit -> current)
+        if git rev-parse --verify HEAD~1 >/dev/null 2>&1; then
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD | grep "^public/.*\.html$" || true)
+        else
+          CHANGED_FILES=""
+        fi
+        
+        if [ -z "$CHANGED_FILES" ]; then
+          echo "ℹ️  No HTML files changed, skipping cache purge"
+          exit 0
+        fi
+        
+        # Check if cache purge is configured
+        if [ -z "${{ secrets.CACHE_PURGE_TOKEN }}" ]; then
+          echo "ℹ️  CACHE_PURGE_TOKEN not set, skipping selective purge"
+          echo "   To enable: Add CACHE_PURGE_TOKEN to repository secrets"
+          exit 0
+        fi
+        
+        echo "Changed HTML files detected:"
+        echo "$CHANGED_FILES" | head -10
+        
+        PURGED_COUNT=0
+        
+        # Convert file paths to URL paths and purge from cache
+        while read -r file; do
+          # Convert public/2026/01/post/index.html -> /2026/01/post/
+          URL_PATH=$(echo "$file" | sed 's|^public||' | sed 's|/index\.html$|/|')
+          
+          echo "Purging: $URL_PATH"
+          
+          # Call purge endpoint
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X GET "https://jameskilby.co.uk/.purge?path=${URL_PATH}" \
+            -H "X-Purge-Token: ${{ secrets.CACHE_PURGE_TOKEN }}")
+          
+          if [ "$HTTP_CODE" = "200" ]; then
+            PURGED_COUNT=$((PURGED_COUNT + 1))
+          else
+            echo "  ⚠️  Failed to purge (HTTP $HTTP_CODE)"
+          fi
+        done <<< "$CHANGED_FILES"
+        
+        echo ""
+        echo "✅ Purged $PURGED_COUNT URLs from cache"
+        
+        # Add to summary
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## 🗑️ Cache Purged" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **URLs Purged:** $PURGED_COUNT" >> $GITHUB_STEP_SUMMARY
+        echo "- **Method:** Selective (changed files only)" >> $GITHUB_STEP_SUMMARY
+      continue-on-error: true
         
     - name: Notify Slack on Success
       if: success()
