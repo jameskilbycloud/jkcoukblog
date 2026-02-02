@@ -67,8 +67,8 @@ h1, h2, h3, h4, h5, h6,
   color: var(--text-light) !important;
 }
 
-h1, .site-title { font-size: 3rem !important; }
-h2, .entry-title { font-size: 2.25rem !important; }
+h1, .site-title { font-size: 2.6rem !important; }
+h2, .entry-title { font-size: 2rem !important; }
 h3 { font-size: 1.75rem !important; }
 h4 { font-size: 1.5rem !important; }
 
@@ -500,6 +500,89 @@ img {
   background-color: var(--bg-dark) !important;
   padding: 1.5rem !important;
   margin: 0 !important;
+}
+
+/* Post header layout tightening */
+.entry-header .entry-taxonomies {
+  margin-bottom: 0.5rem;
+}
+
+.entry-title {
+  letter-spacing: 0.015em;
+  line-height: 1.15;
+  margin-bottom: 0.6rem;
+}
+
+.entry-meta {
+  margin: 0.4rem 0 0 !important;
+  gap: 0.5rem 0.75rem;
+}
+
+.entry-meta > * {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.entry-meta.entry-meta-divider-dot > *:after {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  opacity: 0.5;
+}
+
+.entry-meta .meta-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+}
+
+.reading-time {
+  font-size: 0.8rem;
+}
+
+/* Hero image framing */
+.article-post-thumbnail {
+  border: 1px solid var(--gray-mid);
+  margin-bottom: 0.75rem !important;
+}
+
+.kadence-thumbnail-position-behind {
+  margin-bottom: -2.25em;
+}
+
+/* TOC block tightening */
+.entry-content .wp-block-rank-math-toc-block {
+  border: 1px solid var(--gray-mid);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1rem 1.25rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.entry-content .wp-block-rank-math-toc-block h2 {
+  font-size: 1rem !important;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.entry-content .wp-block-rank-math-toc-block ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+/* Category/tag chips tightening */
+.category-links a,
+.tag-links a {
+  padding: 0.35rem 0.65rem;
+  min-height: 36px;
+}
+
+/* Breadcrumb visual balance */
+.breadcrumb-navigation {
+  font-size: 0.78rem !important;
+  font-weight: 400 !important;
+}
+
+.breadcrumb-navigation span[aria-current="page"] {
+  font-weight: 500 !important;
 }
 
 /* Fix alignment for entry headers in grid/loop posts */
