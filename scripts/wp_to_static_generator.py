@@ -2358,12 +2358,12 @@ class WordPressStaticGenerator:
         
         # Create breadcrumb HTML
         breadcrumb_nav = soup.new_tag('nav')
-        breadcrumb_nav['class'] = 'breadcrumb-navigation'
+        breadcrumb_nav['class'] = 'breadcrumb-navigation site-container'
         breadcrumb_nav['aria-label'] = 'Breadcrumb'
-        breadcrumb_nav['style'] = '''margin: 20px 0; padding: 12px 0; font-size: 14px; color: #718096;'''
+        breadcrumb_nav['style'] = '''margin: 8px auto 12px; padding: 0; font-size: 13px; color: #9ca3af;'''
         
         breadcrumb_ol = soup.new_tag('ol')
-        breadcrumb_ol['style'] = 'list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px;'
+        breadcrumb_ol['style'] = 'list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px;'
         
         for i, item in enumerate(breadcrumb_items):
             li = soup.new_tag('li')
@@ -2372,21 +2372,21 @@ class WordPressStaticGenerator:
             # Add separator for non-first items
             if i > 0:
                 separator = soup.new_tag('span')
-                separator['style'] = 'margin-right: 8px; color: #a0aec0;'
+                separator['style'] = 'margin-right: 6px; color: #6b7280;'
                 separator.string = '/'
                 li.append(separator)
             
             # Last item is current page (no link)
             if i == len(breadcrumb_items) - 1:
                 current_span = soup.new_tag('span')
-                current_span['style'] = 'color: #2d3748; font-weight: 500;'
+                current_span['style'] = 'color: #e5e7eb; font-weight: 500;'
                 current_span['aria-current'] = 'page'
                 current_span.string = item['name']
                 li.append(current_span)
             else:
                 link = soup.new_tag('a')
                 link['href'] = item['url']
-                link['style'] = 'color: #4299e1; text-decoration: none; hover: text-decoration: underline;'
+                link['style'] = 'color: #f6821f; text-decoration: none;'
                 link.string = item['name']
                 li.append(link)
             

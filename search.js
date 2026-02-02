@@ -19,13 +19,13 @@ console.log('[Search] Script loaded');
         }
         
         const searchHTML = `
-            <div id="blog-search-container" style="padding: 16px; margin-bottom: 20px;">
-                <div style="max-width: 600px; margin: 0 auto;">
+            <div id="blog-search-container" class="site-container" style="padding: 8px 0 12px; margin-bottom: 8px;">
+                <div style="max-width: 520px;">
                     <div style="position: relative;">
                         <input type="text" 
                                id="blog-search-input" 
                                placeholder="🔍 Search posts..." 
-                               style="width: 100%; padding: 12px 40px 12px 16px; font-size: 15px; border: 1px solid #ddd; border-radius: 6px; outline: none; box-sizing: border-box; background: #fafafa; transition: all 0.2s ease; font-family: inherit;">
+                               style="width: 100%; padding: 10px 36px 10px 14px; font-size: 14px; border: 1px solid var(--gray-mid); border-radius: 0; outline: none; box-sizing: border-box; background: rgba(255,255,255,0.04); transition: all 0.2s ease; font-family: inherit; color: inherit;">
                         <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #999; pointer-events: none; font-size: 12px;">⌘K</span>
                     </div>
                 </div>
