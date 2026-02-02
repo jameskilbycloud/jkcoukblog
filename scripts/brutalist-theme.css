@@ -82,7 +82,7 @@ code, pre, .wp-block-code {
 }
 
 pre {
-  padding: 1.5rem !important;
+  padding: 3rem 1.5rem 1.5rem 1.5rem !important;
   overflow-x: auto;
   border: 1px solid var(--gray-mid);
   position: relative;
@@ -125,7 +125,7 @@ pre:not(:has(code)) {
   }
 
   pre {
-    padding: 1rem !important;
+    padding: 2.5rem 1rem 1rem 1rem !important;
     font-size: 0.85rem;
   }
 
