@@ -640,12 +640,21 @@ textarea:focus {
   max-width: var(--global-content-width, 900px);
 }
 
-#blog-search-container > div {
-  max-width: none !important;
-  margin: 0 !important;
+.blog-search-container {
+  padding: 0.5rem var(--global-content-edge-padding, 1.5rem) !important;
+  margin: 0.25rem auto 0.5rem !important;
+  max-width: var(--global-content-width, 900px);
 }
 
-#blog-search-input {
+.blog-search-inner {
+  max-width: 520px;
+}
+
+.blog-search-field {
+  position: relative;
+}
+
+.blog-search-input {
   width: 100% !important;
   max-width: 520px !important;
   border-radius: 0 !important;
@@ -656,10 +665,21 @@ textarea:focus {
   box-shadow: none !important;
 }
 
-#blog-search-input:focus {
+.blog-search-input.is-focused,
+.blog-search-input:focus {
   border-color: var(--accent-orange) !important;
   box-shadow: 0 0 0 3px rgba(246, 130, 31, 0.12) !important;
   background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.blog-search-shortcut {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  pointer-events: none;
+  font-size: 12px;
 }
 
 .breadcrumb-navigation {
@@ -669,16 +689,33 @@ textarea:focus {
   text-align: left !important;
 }
 
+.breadcrumb-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
 .breadcrumb-navigation ol {
   gap: 6px !important;
 }
 
-.breadcrumb-navigation a {
+.breadcrumb-link {
   color: var(--accent-orange) !important;
+  text-decoration: none;
 }
 
-.breadcrumb-navigation span[aria-current="page"] {
+.breadcrumb-current {
   color: var(--text-light) !important;
+  font-weight: 500;
+}
+
+.breadcrumb-separator {
+  margin-right: 6px;
+  color: #6b7280;
 }
 
 /* Mobile header */
@@ -1191,6 +1228,16 @@ th {
   border-radius: 0 !important;
   padding: 1rem 1.5rem !important;
   margin: 1.5rem 0 !important;
+}
+
+.content-freshness-indicator .freshness-icon {
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.content-freshness-indicator .freshness-separator {
+  margin: 0 8px;
+  color: #a0aec0;
 }
 
 .content-freshness-indicator strong {

@@ -19,14 +19,14 @@ console.log('[Search] Script loaded');
         }
         
         const searchHTML = `
-            <div id="blog-search-container" class="site-container" style="padding: 8px 0 12px; margin-bottom: 8px;">
-                <div style="max-width: 520px;">
-                    <div style="position: relative;">
+            <div id="blog-search-container" class="site-container blog-search-container">
+                <div class="blog-search-inner">
+                    <div class="blog-search-field">
                         <input type="text" 
                                id="blog-search-input" 
                                placeholder="🔍 Search posts..." 
-                               style="width: 100%; padding: 10px 36px 10px 14px; font-size: 14px; border: 1px solid var(--gray-mid); border-radius: 0; outline: none; box-sizing: border-box; background: rgba(255,255,255,0.04); transition: all 0.2s ease; font-family: inherit; color: inherit;">
-                        <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #999; pointer-events: none; font-size: 12px;">⌘K</span>
+                               class="blog-search-input">
+                        <span class="blog-search-shortcut">⌘K</span>
                     </div>
                 </div>
             </div>
@@ -45,14 +45,10 @@ console.log('[Search] Script loaded');
         if (input) {
             input.addEventListener('input', debounce(handleSearch, 300));
             input.addEventListener('focus', function() {
-                this.style.borderColor = '#f6821f';
-                this.style.background = '#fff';
-                this.style.boxShadow = '0 0 0 3px rgba(246, 130, 31, 0.1)';
+                this.classList.add('is-focused');
             });
             input.addEventListener('blur', function() {
-                this.style.borderColor = '#ddd';
-                this.style.background = '#fafafa';
-                this.style.boxShadow = 'none';
+                this.classList.remove('is-focused');
             });
         }
     }
@@ -220,9 +216,41 @@ console.log('[Search] Script loaded');
         }
     }
     
+    function lazyInitSearch() {
+        const init = () => createSearchBox();
+        let initialized = false;
+
+        const runOnce = () => {
+            if (initialized) return;
+            initialized = true;
+            init();
+        };
+
+        const main = document.querySelector('main');
+        if (main && 'IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                if (entries.some((entry) => entry.isIntersecting)) {
+                    observer.disconnect();
+                    runOnce();
+                }
+            }, { rootMargin: '200px 0px' });
+            observer.observe(main);
+        }
+
+        ['keydown', 'pointerdown', 'scroll'].forEach((eventName) => {
+            window.addEventListener(eventName, runOnce, { once: true, passive: true });
+        });
+
+        if (document.readyState === 'complete') {
+            setTimeout(runOnce, 1000);
+        } else {
+            window.addEventListener('load', () => setTimeout(runOnce, 1000), { once: true });
+        }
+    }
+
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', createSearchBox);
+        document.addEventListener('DOMContentLoaded', lazyInitSearch);
     } else {
-        createSearchBox();
+        lazyInitSearch();
     }
 })();

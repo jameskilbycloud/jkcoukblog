@@ -1647,13 +1647,10 @@ class WordPressStaticGenerator:
         # Create the freshness indicator
         freshness_div = soup.new_tag('div')
         freshness_div['class'] = 'content-freshness-indicator'
-        freshness_div['style'] = '''background: #f7fafc; border-left: 4px solid #4299e1; 
-            padding: 12px 16px; margin: 20px 0; border-radius: 4px; 
-            font-size: 14px; line-height: 1.6; color: #2d3748;'''
         
         # Icon and text
         icon_span = soup.new_tag('span')
-        icon_span['style'] = 'font-size: 16px; margin-right: 8px;'
+        icon_span['class'] = 'freshness-icon'
         icon_span.string = '📅'
         
         text_span = soup.new_tag('span')
@@ -1670,7 +1667,7 @@ class WordPressStaticGenerator:
         
         # Separator
         separator = soup.new_tag('span')
-        separator['style'] = 'margin: 0 8px; color: #a0aec0;'
+        separator['class'] = 'freshness-separator'
         separator.string = '•'
         text_span.append(separator)
         
@@ -2360,10 +2357,9 @@ class WordPressStaticGenerator:
         breadcrumb_nav = soup.new_tag('nav')
         breadcrumb_nav['class'] = 'breadcrumb-navigation site-container'
         breadcrumb_nav['aria-label'] = 'Breadcrumb'
-        breadcrumb_nav['style'] = '''margin: 8px auto 12px; padding: 0; font-size: 13px; color: #9ca3af;'''
         
         breadcrumb_ol = soup.new_tag('ol')
-        breadcrumb_ol['style'] = 'list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px;'
+        breadcrumb_ol['class'] = 'breadcrumb-list'
         
         for i, item in enumerate(breadcrumb_items):
             li = soup.new_tag('li')
@@ -2372,21 +2368,21 @@ class WordPressStaticGenerator:
             # Add separator for non-first items
             if i > 0:
                 separator = soup.new_tag('span')
-                separator['style'] = 'margin-right: 6px; color: #6b7280;'
+                separator['class'] = 'breadcrumb-separator'
                 separator.string = '/'
                 li.append(separator)
             
             # Last item is current page (no link)
             if i == len(breadcrumb_items) - 1:
                 current_span = soup.new_tag('span')
-                current_span['style'] = 'color: #e5e7eb; font-weight: 500;'
+                current_span['class'] = 'breadcrumb-current'
                 current_span['aria-current'] = 'page'
                 current_span.string = item['name']
                 li.append(current_span)
             else:
                 link = soup.new_tag('a')
                 link['href'] = item['url']
-                link['style'] = 'color: #f6821f; text-decoration: none;'
+                link['class'] = 'breadcrumb-link'
                 link.string = item['name']
                 li.append(link)
             

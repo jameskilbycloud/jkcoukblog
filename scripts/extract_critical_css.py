@@ -23,6 +23,7 @@ class CriticalCSSExtractor:
         self.public_dir = Path(public_dir)
         self.files_processed = 0
         self.css_inlined = 0
+        self.max_inline_critical = 12000
 
     def process_all_files(self):
         """Process all HTML files in the public directory"""
@@ -52,7 +53,7 @@ class CriticalCSSExtractor:
                 return False
 
             # Inline critical CSS
-            if self._inline_critical_css(soup, critical_css):
+            if self._inline_critical_css(soup, critical_css, file_path):
                 # Convert external CSS to async preload
                 self._convert_css_to_preload(soup)
 
@@ -244,10 +245,13 @@ class CriticalCSSExtractor:
 
         return css.strip()
 
-    def _inline_critical_css(self, soup, critical_css):
-        """Inline critical CSS in <head>"""
+    def _inline_critical_css(self, soup, critical_css, file_path):
+        """Inline critical CSS in <head>, or externalize if too large"""
         if not soup.head or not critical_css:
             return False
+
+        if len(critical_css) > self.max_inline_critical:
+            return self._externalize_critical_css(soup, critical_css, file_path)
 
         # Check if critical CSS already inlined
         existing = soup.find('style', id='critical-css')
@@ -263,6 +267,39 @@ class CriticalCSSExtractor:
             soup.head.insert(0, style_tag)
 
         return True
+
+    def _externalize_critical_css(self, soup, critical_css, file_path):
+        """Write critical CSS to external file and link it to reduce HTML size"""
+        try:
+            rel_path = file_path.relative_to(self.public_dir).as_posix()
+            safe_slug = re.sub(r'[^a-zA-Z0-9_-]+', '-', rel_path).strip('-')
+            css_dir = self.public_dir / 'assets' / 'css' / 'critical'
+            css_dir.mkdir(parents=True, exist_ok=True)
+            css_filename = f'critical-{safe_slug}.css'
+            css_path = css_dir / css_filename
+
+            css_path.write_text(critical_css, encoding='utf-8')
+
+            preload = soup.new_tag('link')
+            preload['rel'] = 'preload'
+            preload['as'] = 'style'
+            preload['href'] = f'/assets/css/critical/{css_filename}'
+            soup.head.insert(0, preload)
+
+            link = soup.new_tag('link')
+            link['rel'] = 'stylesheet'
+            link['href'] = f'/assets/css/critical/{css_filename}'
+            soup.head.insert(1, link)
+
+            # Remove any existing inline critical CSS
+            existing = soup.find('style', id='critical-css')
+            if existing:
+                existing.decompose()
+
+            return True
+        except Exception as e:
+            print(f"⚠️  Failed to externalize critical CSS: {e}")
+            return False
 
     def _convert_css_to_preload(self, soup):
         """Convert external CSS links to preload with async loading"""
