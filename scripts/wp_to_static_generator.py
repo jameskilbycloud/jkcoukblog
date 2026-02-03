@@ -2871,21 +2871,46 @@ class WordPressStaticGenerator:
     def copy_search_script(self):
         """Copy search script to public/js directory"""
         print("📋 Copying search script...")
-        
+
         # Create js directory
         js_dir = self.output_dir / 'js'
         js_dir.mkdir(exist_ok=True)
-        
+
         # Copy search.js from project root
         search_script_src = Path(__file__).parent / 'search.js'
         search_script_dest = js_dir / 'search.js'
-        
+
         if search_script_src.exists():
             shutil.copy(search_script_src, search_script_dest)
             print(f"   ✅ Copied search.js to public/js/search.js")
         else:
             print(f"   ⚠️  search.js not found at {search_script_src}")
-    
+
+    def copy_static_root_files(self):
+        """Copy static files (favicons, manifest) to public root"""
+        print("🎨 Copying favicon and manifest files...")
+
+        # Source directory for static root files
+        static_src = Path(__file__).parent / 'static-files'
+
+        if not static_src.exists():
+            print(f"   ℹ️  No static-files directory found at {static_src}")
+            return
+
+        # Copy all files from static-files to public root
+        file_count = 0
+        for file_path in static_src.iterdir():
+            if file_path.is_file():
+                dest_path = self.output_dir / file_path.name
+                shutil.copy(file_path, dest_path)
+                file_count += 1
+                print(f"   ✅ Copied {file_path.name} to public root")
+
+        if file_count > 0:
+            print(f"   📁 Total files copied: {file_count}")
+        else:
+            print(f"   ℹ️  No files to copy from {static_src}")
+
     def inject_search_script(self):
         """Inject search script into all HTML files"""
         print("📝 Injecting search script into HTML files...")
@@ -3129,6 +3154,7 @@ class WordPressStaticGenerator:
         self.generate_rss_feed()
         self.generate_search_index()
         self.copy_search_script()
+        self.copy_static_root_files()
         self.inject_search_script()
         
         # Summary
