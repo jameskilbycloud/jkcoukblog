@@ -908,7 +908,7 @@ jobs:
         
         echo ""
         echo "✅ Purged $PURGED_COUNT URLs from cache"
-        
+
         # Add to summary
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "## 🗑️ Cache Purged" >> $GITHUB_STEP_SUMMARY
@@ -916,7 +916,16 @@ jobs:
         echo "- **URLs Purged:** $PURGED_COUNT" >> $GITHUB_STEP_SUMMARY
         echo "- **Method:** Selective (changed files only)" >> $GITHUB_STEP_SUMMARY
       continue-on-error: true
-        
+
+    - name: Purge static assets from Cloudflare cache
+      if: success()
+      env:
+        CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      run: |
+        bash scripts/purge_static_cache.sh
+      continue-on-error: true
+
     - name: Notify Slack on Success
       if: success()
       uses: slackapi/slack-github-action@v2.0.0
