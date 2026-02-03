@@ -2681,8 +2681,8 @@ class WordPressStaticGenerator:
     def create_sitemap(self):
         """Generate a basic XML sitemap"""
         urls_for_sitemap = []
-        
-        # Collect all HTML files
+
+        # Collect all HTML files with their modification dates
         for html_file in self.output_dir.rglob('*.html'):
             relative_path = html_file.relative_to(self.output_dir)
             if relative_path.name == 'index.html':
@@ -2692,25 +2692,73 @@ class WordPressStaticGenerator:
                     url_path = f'/{relative_path.parent}/'
             else:
                 url_path = f'/{relative_path.with_suffix("")}/'
-            
-            urls_for_sitemap.append(f'{self.target_domain}{url_path}')
-        
+
+            # Extract modification date from HTML
+            lastmod_date = self._extract_modified_date(html_file)
+
+            urls_for_sitemap.append({
+                'url': f'{self.target_domain}{url_path}',
+                'lastmod': lastmod_date
+            })
+
         # Generate XML
         sitemap_content = ['<?xml version="1.0" encoding="UTF-8"?>']
         sitemap_content.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
-        
-        for url in sorted(set(urls_for_sitemap)):
-            sitemap_content.append('  <url>')
-            sitemap_content.append(f'    <loc>{url}</loc>')
-            sitemap_content.append(f'    <lastmod>{datetime.now().strftime("%Y-%m-%d")}</lastmod>')
-            sitemap_content.append('  </url>')
-        
+
+        # Sort by URL and remove duplicates
+        seen_urls = set()
+        for item in sorted(urls_for_sitemap, key=lambda x: x['url']):
+            if item['url'] not in seen_urls:
+                seen_urls.add(item['url'])
+                sitemap_content.append('  <url>')
+                sitemap_content.append(f'    <loc>{item["url"]}</loc>')
+                sitemap_content.append(f'    <lastmod>{item["lastmod"]}</lastmod>')
+                sitemap_content.append('  </url>')
+
         sitemap_content.append('</urlset>')
-        
+
         sitemap_file = self.output_dir / 'sitemap.xml'
         sitemap_file.write_text('\n'.join(sitemap_content))
-        print(f"✅ Created sitemap.xml with {len(urls_for_sitemap)} URLs")
-    
+        print(f"✅ Created sitemap.xml with {len(seen_urls)} URLs")
+
+    def _extract_modified_date(self, html_file):
+        """Extract modification date from HTML file's Schema.org JSON-LD"""
+        try:
+            with open(html_file, 'r', encoding='utf-8', errors='ignore') as f:
+                html_content = f.read()
+
+            soup = BeautifulSoup(html_content, 'html.parser')
+
+            # Look for Schema.org JSON-LD script
+            json_ld_scripts = soup.find_all('script', type='application/ld+json')
+
+            for script in json_ld_scripts:
+                try:
+                    data = json.loads(script.string)
+
+                    # Handle both single objects and @graph arrays
+                    items = data.get('@graph', [data]) if isinstance(data, dict) else [data]
+
+                    for item in items:
+                        if isinstance(item, dict):
+                            # Look for dateModified in Article, BlogPosting, or WebPage
+                            if item.get('@type') in ['Article', 'BlogPosting', 'WebPage']:
+                                date_modified = item.get('dateModified')
+                                if date_modified:
+                                    # Parse and format date (handle ISO8601 format)
+                                    parsed_date = datetime.fromisoformat(date_modified.replace('Z', '+00:00'))
+                                    return parsed_date.strftime('%Y-%m-%d')
+                except (json.JSONDecodeError, ValueError, AttributeError):
+                    continue
+
+            # Fallback: try to get file modification time
+            file_mtime = html_file.stat().st_mtime
+            return datetime.fromtimestamp(file_mtime).strftime('%Y-%m-%d')
+
+        except Exception as e:
+            # Ultimate fallback: use current date
+            return datetime.now().strftime('%Y-%m-%d')
+
     def generate_rss_feed(self):
         """Generate RSS feed from posts"""
         print("📡 Generating RSS feed...")
