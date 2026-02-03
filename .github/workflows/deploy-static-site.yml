@@ -652,6 +652,22 @@ jobs:
         }
       continue-on-error: true
 
+    - name: Minify CSS files
+      run: |
+        echo "✂️  Minifying CSS files..."
+        python3 scripts/optimize_css.py ./static-output --minify-only || {
+          echo "⚠️  CSS minification failed (non-blocking)"
+        }
+      continue-on-error: true
+
+    - name: Minify HTML files
+      run: |
+        echo "✂️  Minifying HTML files..."
+        python3 scripts/minify_html.py ./static-output || {
+          echo "⚠️  HTML minification failed (non-blocking)"
+        }
+      continue-on-error: true
+
     - name: Commit and push static site
       timeout-minutes: 10  # Timeout for git operations
       run: |

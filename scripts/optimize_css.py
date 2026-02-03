@@ -10,6 +10,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 import cssutils
 import logging
+import argparse
 
 # Suppress cssutils warnings
 cssutils.log.setLevel(logging.CRITICAL)
@@ -18,8 +19,9 @@ cssutils.log.setLevel(logging.CRITICAL)
 class CSSOptimizer:
     """Optimize CSS files by removing unused selectors"""
 
-    def __init__(self, public_dir='public'):
+    def __init__(self, public_dir='public', minify_only=False):
         self.public_dir = Path(public_dir)
+        self.minify_only = minify_only
         self.files_optimized = 0
         self.bytes_saved = 0
 
@@ -36,10 +38,12 @@ class CSSOptimizer:
 
         print(f"🎨 Optimizing {len(css_files)} CSS files...")
 
-        # Collect all HTML content to identify used selectors
-        print("📄 Scanning HTML files for used CSS selectors...")
-        used_selectors = self._collect_used_selectors()
-        print(f"   Found {len(used_selectors)} unique selectors in HTML")
+        used_selectors = set()
+        if not self.minify_only:
+            # Collect all HTML content to identify used selectors
+            print("📄 Scanning HTML files for used CSS selectors...")
+            used_selectors = self._collect_used_selectors()
+            print(f"   Found {len(used_selectors)} unique selectors in HTML")
 
         # Optimize each CSS file
         for css_file in css_files:
@@ -107,27 +111,30 @@ class CSSOptimizer:
 
             original_size = len(original_css.encode('utf-8'))
 
-            # Parse CSS
-            sheet = cssutils.parseString(original_css)
+            if self.minify_only:
+                optimized_css = original_css
+            else:
+                # Parse CSS
+                sheet = cssutils.parseString(original_css)
 
-            # Track removed rules
-            rules_to_remove = []
+                # Track removed rules
+                rules_to_remove = []
 
-            # Check each rule
-            for rule in sheet:
-                if rule.type == rule.STYLE_RULE:
-                    selector_text = rule.selectorText
+                # Check each rule
+                for rule in sheet:
+                    if rule.type == rule.STYLE_RULE:
+                        selector_text = rule.selectorText
 
-                    # Check if selector is used
-                    if not self._is_selector_used(selector_text, used_selectors):
-                        rules_to_remove.append(rule)
+                        # Check if selector is used
+                        if not self._is_selector_used(selector_text, used_selectors):
+                            rules_to_remove.append(rule)
 
-            # Remove unused rules
-            for rule in rules_to_remove:
-                sheet.deleteRule(rule)
+                # Remove unused rules
+                for rule in rules_to_remove:
+                    sheet.deleteRule(rule)
 
-            # Minify CSS (remove comments, whitespace)
-            optimized_css = sheet.cssText.decode('utf-8')
+                # Minify CSS (remove comments, whitespace)
+                optimized_css = sheet.cssText.decode('utf-8')
 
             # Additional minification
             optimized_css = self._minify_css(optimized_css)
@@ -217,10 +224,10 @@ class CSSOptimizer:
 
 def main():
     """Main entry point"""
-    if len(sys.argv) > 1:
-        public_dir = sys.argv[1]
-    else:
-        public_dir = 'public'
+    parser = argparse.ArgumentParser(description="Optimize CSS by removing unused selectors and minifying.")
+    parser.add_argument("public_dir", nargs="?", default="public", help="Directory containing HTML/CSS files")
+    parser.add_argument("--minify-only", action="store_true", help="Only minify CSS without removing selectors")
+    args = parser.parse_args()
 
     # Check if cssutils is installed
     try:
@@ -230,7 +237,7 @@ def main():
         print("   Install it with: pip install cssutils")
         sys.exit(1)
 
-    optimizer = CSSOptimizer(public_dir)
+    optimizer = CSSOptimizer(args.public_dir, minify_only=args.minify_only)
     optimizer.optimize_all_css()
 
     sys.exit(0)
