@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-01-30T18:57:44.133476Z",
-    "site_domain": "https://jameskilby.co.uk",
-    "results": {
-      "total_urls": 166,
-      "batches": 1,
-      "successful_batches": 1,
-      "failed_batches": 0,
-      "responses": [
-        {
-          "batch": 1,
-          "endpoint": "https://api.indexnow.org/indexnow",
-          "status_code": 403,
-          "success": false,
-          "message": "{\"code\":\"UserForbiddedToAccessSite\",\"message\":\"User is unauthorized to access the site. Please verify the site using the key and try again\"}"
-        },
-        {
-          "batch": 1,
-          "endpoint": "https://www.bing.com/indexnow",
-          "status_code": 403,
-          "success": false,
-          "message": "{\"code\":\"UserForbiddedToAccessSite\",\"message\":\"User is unauthorized to access the site. Please verify the site using the key and try again\"}"
-        },
-        {
-          "batch": 1,
-          "endpoint": "https://yandex.com/indexnow",
-          "status_code": 202,
-          "success": true
-        }
-      ]
-    }
-  },
-  {
     "timestamp": "2026-01-30T22:49:37.771253Z",
     "site_domain": "https://jameskilby.co.uk",
     "results": {
@@ -932,6 +900,38 @@
     "site_domain": "https://jameskilby.co.uk",
     "results": {
       "total_urls": 170,
+      "batches": 1,
+      "successful_batches": 1,
+      "failed_batches": 0,
+      "responses": [
+        {
+          "batch": 1,
+          "endpoint": "https://api.indexnow.org/indexnow",
+          "status_code": 403,
+          "success": false,
+          "message": "{\"code\":\"UserForbiddedToAccessSite\",\"message\":\"User is unauthorized to access the site. Please verify the site using the key and try again\"}"
+        },
+        {
+          "batch": 1,
+          "endpoint": "https://www.bing.com/indexnow",
+          "status_code": 403,
+          "success": false,
+          "message": "{\"code\":\"UserForbiddedToAccessSite\",\"message\":\"User is unauthorized to access the site. Please verify the site using the key and try again\"}"
+        },
+        {
+          "batch": 1,
+          "endpoint": "https://yandex.com/indexnow",
+          "status_code": 202,
+          "success": true
+        }
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-02-09T11:53:03.056803Z",
+    "site_domain": "https://jameskilby.co.uk",
+    "results": {
+      "total_urls": 166,
       "batches": 1,
       "successful_batches": 1,
       "failed_batches": 0,
