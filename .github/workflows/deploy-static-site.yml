@@ -277,10 +277,10 @@ jobs:
         echo "HTML_COUNT=$HTML_COUNT" >> $GITHUB_ENV
         echo "TOTAL_SIZE=$TOTAL_SIZE" >> $GITHUB_ENV
         
-        # Replace WordPress images with already-optimized versions from public/
-        # Also copy AVIF and WebP versions if they exist
+        # Copy already-optimized images and their modern formats from public/
+        # This includes ALL AVIF/WebP files regardless of whether original was optimized
         if [ -d "public/wp-content/uploads" ] && [ -d "./static-output/wp-content/uploads" ]; then
-          echo "📋 Checking for already-optimized images..."
+          echo "📋 Copying already-optimized images and modern formats..."
           REPLACED=0
           AVIF_COPIED=0
           WEBP_COPIED=0
@@ -290,35 +290,42 @@ jobs:
             # Get relative path
             rel_path="${new_img#./static-output/}"
             old_img="public/$rel_path"
-            base_name="${old_img%.*}"
+            new_base="${new_img%.*}"
+            old_base="${old_img%.*}"
             
-            # Only copy if optimized version AND AVIF version exist
-            # This ensures images without AVIF get re-optimized to create AVIF files
-            if [ -f "$old_img" ] && [ -f "${base_name}.avif" ]; then
+            # Copy AVIF version if it exists (regardless of whether original was optimized)
+            if [ -f "${old_base}.avif" ]; then
+              cp "${old_base}.avif" "${new_base}.avif"
+              AVIF_COPIED=$((AVIF_COPIED + 1))
+            fi
+            
+            # Copy WebP version if it exists
+            if [ -f "${old_base}.webp" ]; then
+              cp "${old_base}.webp" "${new_base}.webp"
+              WEBP_COPIED=$((WEBP_COPIED + 1))
+            fi
+            
+            # Replace original with optimized version if smaller
+            if [ -f "$old_img" ]; then
               new_size=$(stat -f%z "$new_img" 2>/dev/null || stat -c%s "$new_img" 2>/dev/null)
               old_size=$(stat -f%z "$old_img" 2>/dev/null || stat -c%s "$old_img" 2>/dev/null)
               
-              # If old is smaller (was optimized), use it instead of new WordPress version
               if [ "$old_size" -lt "$new_size" ]; then
                 cp "$old_img" "$new_img"
                 REPLACED=$((REPLACED + 1))
-                
-                # Copy AVIF version (we know it exists)
-                cp "${base_name}.avif" "${new_img%.*}.avif"
-                AVIF_COPIED=$((AVIF_COPIED + 1))
-                
-                # Also copy WebP version if it exists
-                if [ -f "${base_name}.webp" ]; then
-                  cp "${base_name}.webp" "${new_img%.*}.webp"
-                  WEBP_COPIED=$((WEBP_COPIED + 1))
-                fi
               fi
             fi
           done
           
-          echo "✅ Reused $REPLACED optimized images from previous build"
-          [ $AVIF_COPIED -gt 0 ] && echo "✅ Copied $AVIF_COPIED AVIF files"
-          [ $WEBP_COPIED -gt 0 ] && echo "✅ Copied $WEBP_COPIED WebP files"
+          echo "✅ Reused $REPLACED optimized original images from previous build"
+          echo "✅ Copied $AVIF_COPIED AVIF files from previous build"
+          echo "✅ Copied $WEBP_COPIED WebP files from previous build"
+          
+          # Count how many images still need modern formats
+          TOTAL_IMAGES=$(find ./static-output/wp-content/uploads -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) | wc -l | xargs)
+          EXISTING_AVIF=$(find ./static-output/wp-content/uploads -type f -name "*.avif" | wc -l | xargs)
+          NEED_CONVERSION=$((TOTAL_IMAGES - EXISTING_AVIF))
+          echo "📊 Images needing AVIF/WebP conversion: $NEED_CONVERSION of $TOTAL_IMAGES"
         fi
         
         # Add generation summary to GitHub Actions UI
@@ -408,6 +415,14 @@ jobs:
           echo "⚠️  No validation report generated" >> $GITHUB_STEP_SUMMARY
         fi
         
+    - name: Install Pillow dependencies
+      run: |
+        echo "📦 Installing image optimization dependencies..."
+        pip install Pillow pillow-avif-plugin || {
+          echo "⚠️  Failed to install Pillow dependencies"
+        }
+      continue-on-error: true
+    
     - name: Optimize images
       timeout-minutes: 20  # Timeout for image optimization
       shell: bash
@@ -416,7 +431,11 @@ jobs:
         
         # Run the Python-based optimizer with parallel processing
         # Uses 4 parallel workers, creates AVIF versions by default
-        python3 scripts/optimize_images.py ./static-output --workers 4 --json-output optimization-results.json || {
+        # Cache is stored in .image_optimization_cache/ for persistence
+        python3 scripts/optimize_images.py ./static-output \
+          --workers 4 \
+          --json-output optimization-results.json \
+          --cache-dir .image_optimization_cache || {
           echo "⚠️  Image optimization failed (non-blocking)"
           # Set defaults if optimization fails
           echo "PNG_COUNT=0" >> $GITHUB_ENV
