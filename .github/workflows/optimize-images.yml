@@ -109,12 +109,13 @@ jobs:
           echo "  Quality: $QUALITY"
           echo "  Workers: $WORKERS"
           echo "  Skip HTML: $SKIP_HTML"
+          echo "  Cache Dir: .image_optimization_cache"
           echo ""
 
           if [ "$SKIP_HTML" = "true" ]; then
-            python3 scripts/optimize_images.py ./public --quality $QUALITY --workers $WORKERS --skip-html
+            python3 scripts/optimize_images.py ./public --quality $QUALITY --workers $WORKERS --skip-html --cache-dir .image_optimization_cache
           else
-            python3 scripts/optimize_images.py ./public --quality $QUALITY --workers $WORKERS
+            python3 scripts/optimize_images.py ./public --quality $QUALITY --workers $WORKERS --cache-dir .image_optimization_cache
           fi
 
       - name: Count images after optimization
@@ -149,7 +150,7 @@ jobs:
           git add public/wp-content/uploads/**/*.webp 2>/dev/null || true
           git add public/wp-content/uploads/**/*.avif 2>/dev/null || true
           git add public/**/*.html 2>/dev/null || true
-          git add public/.image-optimization-cache.json 2>/dev/null || true
+          git add .image_optimization_cache/ 2>/dev/null || true
 
           # Check if there are changes to commit
           if git diff --staged --quiet; then

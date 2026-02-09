@@ -40,9 +40,17 @@ from bs4 import BeautifulSoup
 class ImageOptimizer:
     """Optimizes images for static site performance"""
 
-    def __init__(self, public_dir: str, wp_api_url: str = None):
+    def __init__(self, public_dir: str, wp_api_url: str = None, cache_dir: str = None):
         self.public_dir = Path(public_dir)
         self.wp_api_url = wp_api_url
+        # Use project root cache directory for consistency with GitHub Actions
+        if cache_dir:
+            self.cache_dir = Path(cache_dir)
+        else:
+            # Default to .image_optimization_cache in project root (parent of public_dir)
+            self.cache_dir = Path('.image_optimization_cache')
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
+        
         self.stats = {
             'total_images': 0,
             'optimized': 0,
@@ -53,12 +61,13 @@ class ImageOptimizer:
             'webp_generated': 0,
             'avif_generated': 0
         }
+        self.optimization_results = []  # For JSON output
         self.optimization_cache = {}
         self.load_optimization_cache()
 
     def load_optimization_cache(self):
         """Load cache of previously optimized images to avoid reprocessing"""
-        cache_file = self.public_dir / '.image-optimization-cache.json'
+        cache_file = self.cache_dir / 'optimization_cache.json'
         if cache_file.exists():
             try:
                 with open(cache_file, 'r') as f:
@@ -69,7 +78,7 @@ class ImageOptimizer:
 
     def save_optimization_cache(self):
         """Save optimization cache for future runs"""
-        cache_file = self.public_dir / '.image-optimization-cache.json'
+        cache_file = self.cache_dir / 'optimization_cache.json'
         try:
             with open(cache_file, 'w') as f:
                 json.dump(self.optimization_cache, f, indent=2)
@@ -86,7 +95,7 @@ class ImageOptimizer:
             return ""
 
     def should_optimize_image(self, image_path: Path) -> bool:
-        """Check if image should be optimized based on cache"""
+        """Check if image should be optimized based on cache and existing files"""
         if not image_path.exists():
             return False
 
@@ -94,14 +103,35 @@ class ImageOptimizer:
         if image_path.suffix.lower() in ['.webp', '.avif']:
             return False
 
-        # Check cache
+        # Check if AVIF and WebP already exist (even if not in cache)
+        avif_path = image_path.with_suffix('.avif')
+        webp_path = image_path.with_suffix('.webp')
+        
+        # If both modern formats exist, check cache to see if image changed
+        if avif_path.exists() and webp_path.exists():
+            cache_key = str(image_path.relative_to(self.public_dir))
+            if cache_key in self.optimization_cache:
+                cached_hash = self.optimization_cache[cache_key].get('hash', '')
+                current_hash = self.get_image_hash(image_path)
+                if cached_hash == current_hash:
+                    # Image unchanged and both formats exist, skip
+                    return False
+
+        # Check cache for unchanged images that need AVIF/WebP created
         cache_key = str(image_path.relative_to(self.public_dir))
         if cache_key in self.optimization_cache:
-            cached_hash = self.optimization_cache[cache_key].get('hash', '')
+            cached_data = self.optimization_cache[cache_key]
+            cached_hash = cached_data.get('hash', '')
             current_hash = self.get_image_hash(image_path)
+            
+            # If hash matches and cache says AVIF was created, verify file exists
             if cached_hash == current_hash:
-                # Image unchanged, skip
-                return False
+                avif_created = cached_data.get('avif_created', False)
+                webp_created = cached_data.get('webp_created', False)
+                
+                # Only skip if both formats were created AND files still exist
+                if avif_created and webp_created and avif_path.exists() and webp_path.exists():
+                    return False
 
         return True
 
@@ -116,6 +146,7 @@ class ImageOptimizer:
         Returns:
             Dictionary with optimization results
         """
+        start_time = time.time()
         result = {
             'original': str(image_path),
             'webp': None,
@@ -124,13 +155,29 @@ class ImageOptimizer:
             'webp_size': 0,
             'avif_size': 0,
             'success': False,
-            'error': None
+            'error': None,
+            'was_cached': False,
+            'avif_created': False,
+            'webp_created': False,
+            'saved_bytes': 0,
+            'duration_ms': 0,
+            'format_type': 'UNKNOWN'
         }
 
         try:
+            # Determine format type
+            suffix = image_path.suffix.lower()
+            if suffix in ['.jpg', '.jpeg']:
+                result['format_type'] = 'JPEG'
+            elif suffix == '.png':
+                result['format_type'] = 'PNG'
+
             # Check if should optimize
             if not self.should_optimize_image(image_path):
                 self.stats['skipped'] += 1
+                result['was_cached'] = True
+                result['duration_ms'] = int((time.time() - start_time) * 1000)
+                self.optimization_results.append(result)
                 return result
 
             # Get original size
@@ -161,10 +208,12 @@ class ImageOptimizer:
                 webp_size = webp_path.stat().st_size
                 result['webp'] = str(webp_path)
                 result['webp_size'] = webp_size
+                result['webp_created'] = True
                 self.stats['webp_generated'] += 1
                 self.stats['optimized_size'] += webp_size
 
                 # Generate AVIF version (best compression)
+                avif_created = False
                 try:
                     avif_path = image_path.with_suffix('.avif')
                     img.save(
@@ -176,6 +225,8 @@ class ImageOptimizer:
                     avif_size = avif_path.stat().st_size
                     result['avif'] = str(avif_path)
                     result['avif_size'] = avif_size
+                    result['avif_created'] = True
+                    avif_created = True
                     self.stats['avif_generated'] += 1
                     self.stats['optimized_size'] += avif_size
                 except Exception as e:
@@ -185,16 +236,24 @@ class ImageOptimizer:
                 result['success'] = True
                 self.stats['optimized'] += 1
 
-                # Update cache
+                # Calculate savings (use smallest modern format vs original)
+                smallest_size = min(webp_size, avif_size if avif_created else webp_size)
+                result['saved_bytes'] = original_size - smallest_size
+
+                # Update cache with new format tracking
                 cache_key = str(image_path.relative_to(self.public_dir))
                 self.optimization_cache[cache_key] = {
                     'hash': self.get_image_hash(image_path),
                     'optimized_at': datetime.now().isoformat(),
+                    'optimized_size': webp_size,
+                    'timestamp': time.time(),
+                    'webp_created': True,
+                    'avif_created': avif_created,
                     'webp': str(webp_path.relative_to(self.public_dir)),
-                    'avif': str(avif_path.relative_to(self.public_dir)) if result['avif'] else None
+                    'avif': str(avif_path.relative_to(self.public_dir)) if avif_created else None
                 }
 
-                # Calculate savings
+                # Calculate savings for display
                 savings = original_size - webp_size
                 savings_pct = (savings / original_size * 100) if original_size > 0 else 0
                 print(f"✅ {image_path.name}: {original_size/1024:.1f}KB → {webp_size/1024:.1f}KB ({savings_pct:.1f}% saved)")
@@ -204,6 +263,8 @@ class ImageOptimizer:
             self.stats['errors'] += 1
             print(f"❌ Error optimizing {image_path.name}: {e}")
 
+        result['duration_ms'] = int((time.time() - start_time) * 1000)
+        self.optimization_results.append(result)
         return result
 
     def find_all_images(self) -> List[Path]:
@@ -498,14 +559,27 @@ def main():
         action='store_true',
         help='Skip updating HTML files'
     )
+    parser.add_argument(
+        '--json-output',
+        type=str,
+        default=None,
+        help='Path to write JSON optimization results'
+    )
+    parser.add_argument(
+        '--cache-dir',
+        type=str,
+        default='.image_optimization_cache',
+        help='Directory for optimization cache (default: .image_optimization_cache)'
+    )
 
     args = parser.parse_args()
 
     print("🚀 WordPress Static Site Image Optimizer")
-    print(f"📁 Public directory: {args.public_dir}\n")
+    print(f"📁 Public directory: {args.public_dir}")
+    print(f"📦 Cache directory: {args.cache_dir}\n")
 
-    # Initialize optimizer
-    optimizer = ImageOptimizer(args.public_dir)
+    # Initialize optimizer with cache directory
+    optimizer = ImageOptimizer(args.public_dir, cache_dir=args.cache_dir)
 
     # Optimize images
     optimizer.optimize_all_images(
@@ -516,6 +590,15 @@ def main():
     # Update HTML files
     if not args.skip_html:
         optimizer.update_html_files()
+
+    # Write JSON output if requested
+    if args.json_output:
+        try:
+            with open(args.json_output, 'w') as f:
+                json.dump(optimizer.optimization_results, f, indent=2)
+            print(f"\n📄 Optimization results written to {args.json_output}")
+        except Exception as e:
+            print(f"⚠️  Could not write JSON output: {e}")
 
     print("\n✅ Image optimization complete!")
 
