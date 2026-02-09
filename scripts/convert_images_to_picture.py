@@ -62,9 +62,8 @@ class ImageToPictureConverter:
         
         if not full_path.exists():
             if self.debug_count <= 3:
-                print(f"   ⚠️  Original image not found!")
-            return False, False
-        
+                print(f"   ⚠️  Original image not found, checking for modern formats...")
+
         # Check for AVIF and WebP versions
         avif_path = full_path.with_suffix('.avif')
         webp_path = full_path.with_suffix('.webp')

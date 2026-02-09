@@ -106,16 +106,23 @@ class ImageOptimizer:
         # Check if AVIF and WebP already exist (even if not in cache)
         avif_path = image_path.with_suffix('.avif')
         webp_path = image_path.with_suffix('.webp')
-        
-        # If both modern formats exist, check cache to see if image changed
+
+        # If both modern formats exist on disk, skip (trust the files)
         if avif_path.exists() and webp_path.exists():
+            # Populate cache if missing so future runs are fast
             cache_key = str(image_path.relative_to(self.public_dir))
-            if cache_key in self.optimization_cache:
-                cached_hash = self.optimization_cache[cache_key].get('hash', '')
-                current_hash = self.get_image_hash(image_path)
-                if cached_hash == current_hash:
-                    # Image unchanged and both formats exist, skip
-                    return False
+            if cache_key not in self.optimization_cache:
+                self.optimization_cache[cache_key] = {
+                    'hash': self.get_image_hash(image_path),
+                    'optimized_at': '',
+                    'optimized_size': 0,
+                    'timestamp': 0,
+                    'webp_created': True,
+                    'avif_created': True,
+                    'webp': str(webp_path.relative_to(self.public_dir)),
+                    'avif': str(avif_path.relative_to(self.public_dir))
+                }
+            return False
 
         # Check cache for unchanged images that need AVIF/WebP created
         cache_key = str(image_path.relative_to(self.public_dir))
