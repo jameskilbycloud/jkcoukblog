@@ -409,7 +409,7 @@ jobs:
         fi
         
     - name: Optimize images
-      timeout-minutes: 20  # Timeout for image optimization
+      timeout-minutes: 40  # Timeout for image optimization
       shell: bash
       run: |
         echo "🖼️  Starting advanced image optimization with AVIF..."
