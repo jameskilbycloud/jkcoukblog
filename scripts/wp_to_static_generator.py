@@ -324,6 +324,9 @@ class WordPressStaticGenerator:
         # Add related posts section (only for single posts)
         self.add_related_posts(soup, current_url)
         
+        # Add social media links to bottom of posts
+        self.add_social_media_links(soup)
+        
         # Convert to string
         return str(soup)
     
@@ -2539,6 +2542,97 @@ class WordPressStaticGenerator:
         
         except Exception as e:
             print(f"   ⚠️  Error fetching related posts: {str(e)}")
+    
+    def add_social_media_links(self, soup):
+        """Add social media links (GitHub, Twitter, LinkedIn) to the bottom of each post"""
+        
+        # Only add to single post pages and regular pages
+        body = soup.find('body')
+        if not body:
+            return
+        
+        body_classes = body.get('class', [])
+        body_class_str = ' '.join(body_classes).lower()
+        
+        # Add to single posts and pages (not archive/list pages)
+        is_single_post = 'single-post' in body_class_str or 'single' in body_classes
+        is_page = 'page-template' in body_class_str or ('page' in body_classes and 'single' not in body_class_str)
+        
+        if not (is_single_post or is_page):
+            return  # Not a single post/page, skip social links
+        
+        # Find the entry-content div to add social links after it
+        entry_content = soup.find('div', class_=lambda x: x and 'entry-content' in x)
+        
+        if not entry_content:
+            return
+        
+        # Create social media section
+        social_section = soup.new_tag('div')
+        social_section['class'] = 'social-media-links'
+        social_section['style'] = '''margin: 40px 0 20px 0; padding: 20px 0; border-top: 2px solid #e2e8f0; text-align: center;'''
+        
+        # Heading
+        heading = soup.new_tag('p')
+        heading['style'] = 'margin: 0 0 15px 0; font-size: 16px; color: #4a5568; font-weight: 500;'
+        heading.string = 'Connect with me:'
+        social_section.append(heading)
+        
+        # Links container
+        links_container = soup.new_tag('div')
+        links_container['style'] = 'display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;'
+        
+        # Social media links data
+        social_links = [
+            {
+                'name': 'GitHub',
+                'url': 'https://github.com/jameskilbynet',
+                'icon': '🔗',
+                'color': '#333'
+            },
+            {
+                'name': 'Twitter',
+                'url': 'https://x.com/jameskilbynet',
+                'icon': '🐦',
+                'color': '#1da1f2'
+            },
+            {
+                'name': 'LinkedIn',
+                'url': 'https://www.linkedin.com/in/james-kilby-488a0313/',
+                'icon': '💼',
+                'color': '#0077b5'
+            }
+        ]
+        
+        # Create link for each platform
+        for platform in social_links:
+            link = soup.new_tag('a')
+            link['href'] = platform['url']
+            link['target'] = '_blank'
+            link['rel'] = 'noopener noreferrer'
+            link['style'] = f'''display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; 
+                background: #f7fafc; border: 2px solid {platform['color']}; border-radius: 6px; 
+                color: {platform['color']}; text-decoration: none; font-weight: 500; font-size: 14px;
+                transition: all 0.2s; hover: background: {platform['color']}; hover: color: white;'''
+            
+            # Icon span
+            icon_span = soup.new_tag('span')
+            icon_span.string = platform['icon']
+            link.append(icon_span)
+            
+            # Text span
+            text_span = soup.new_tag('span')
+            text_span.string = platform['name']
+            link.append(text_span)
+            
+            links_container.append(link)
+        
+        social_section.append(links_container)
+        
+        # Insert after the entry-content
+        entry_content.insert_after(social_section)
+        
+        print(f"   🔗 Added social media links (GitHub, Twitter, LinkedIn)")
     
     def create_security_headers(self):
         """Create _headers file with security headers for Cloudflare Pages"""
