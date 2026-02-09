@@ -2030,6 +2030,10 @@ class WordPressStaticGenerator:
                 # Build full CSS URL
                 if href.startswith('http'):
                     css_url = href
+                elif href.startswith('//'):
+                    # Protocol-relative URL (external CDN) - skip
+                    print(f"   ⏭️  Skipping external protocol-relative URL: {href}")
+                    continue
                 elif href.startswith('/'):
                     css_url = self.wp_url + href
                 else:
@@ -2058,6 +2062,9 @@ class WordPressStaticGenerator:
                                     if clean_url.startswith(self.wp_url):
                                         self.downloaded_assets.add(clean_url)
                                         print(f"   📦 Found CSS asset (absolute): {clean_url}")
+                                elif clean_url.startswith('//'):
+                                    # Protocol-relative URL (external CDN) - skip
+                                    continue
                                 elif clean_url.startswith('/'):
                                     full_asset_url = self.wp_url + clean_url
                                     self.downloaded_assets.add(full_asset_url)
@@ -2587,19 +2594,16 @@ class WordPressStaticGenerator:
             {
                 'name': 'GitHub',
                 'url': 'https://github.com/jameskilbynet',
-                'icon': '🔗',
                 'color': '#333'
             },
             {
                 'name': 'Twitter',
                 'url': 'https://x.com/jameskilbynet',
-                'icon': '🐦',
                 'color': '#1da1f2'
             },
             {
                 'name': 'LinkedIn',
-                'url': 'https://www.linkedin.com/in/james-kilby-488a0313/',
-                'icon': '💼',
+                'url': 'https://linkedin.com/in/jameskilbynet',
                 'color': '#0077b5'
             }
         ]
@@ -2610,20 +2614,11 @@ class WordPressStaticGenerator:
             link['href'] = platform['url']
             link['target'] = '_blank'
             link['rel'] = 'noopener noreferrer'
-            link['style'] = f'''display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; 
-                background: #f7fafc; border: 2px solid {platform['color']}; border-radius: 6px; 
+            link['style'] = f'''display: inline-block; padding: 8px 16px; 
+                background: transparent; border: 1px solid {platform['color']}; border-radius: 4px; 
                 color: {platform['color']}; text-decoration: none; font-weight: 500; font-size: 14px;
                 transition: all 0.2s; hover: background: {platform['color']}; hover: color: white;'''
-            
-            # Icon span
-            icon_span = soup.new_tag('span')
-            icon_span.string = platform['icon']
-            link.append(icon_span)
-            
-            # Text span
-            text_span = soup.new_tag('span')
-            text_span.string = platform['name']
-            link.append(text_span)
+            link.string = platform['name']
             
             links_container.append(link)
         
