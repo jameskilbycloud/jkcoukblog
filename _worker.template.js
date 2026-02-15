@@ -92,6 +92,7 @@ async function handleKVCache(request, env, path) {
           'X-Cache-Status': 'HIT',
           'X-Cache-Views': views.toString(),
           'X-Worker': 'advanced-worker-kv',
+          ...getSecurityHeaders()
         }
       });
     }
@@ -133,6 +134,7 @@ async function handleKVCache(request, env, path) {
         'X-Cache-Status': 'MISS',
         'X-Cache-TTL': ttl.toString(),
         'X-Worker': 'advanced-worker-kv',
+        ...getSecurityHeaders()
       }
     });
   } catch (error) {
@@ -156,6 +158,12 @@ async function handleCacheAPI(request, env, path) {
     newHeaders.set('X-Cache-Status', 'HIT');
     newHeaders.set('X-Worker', 'advanced-worker-cache-api');
     
+    // Add security headers
+    const securityHeaders = getSecurityHeaders();
+    Object.entries(securityHeaders).forEach(([key, value]) => {
+      newHeaders.set(key, value);
+    });
+    
     return new Response(response.body, {
       status: response.status,
       headers: newHeaders
@@ -175,6 +183,12 @@ async function handleCacheAPI(request, env, path) {
     newHeaders.set('X-Cache-Status', 'MISS');
     newHeaders.set('X-Worker', 'advanced-worker-cache-api');
     
+    // Add security headers
+    const securityHeaders = getSecurityHeaders();
+    Object.entries(securityHeaders).forEach(([key, value]) => {
+      newHeaders.set(key, value);
+    });
+    
     const cachedResponse = new Response(responseToCache.body, {
       status: responseToCache.status,
       headers: newHeaders
@@ -190,6 +204,20 @@ async function handleCacheAPI(request, env, path) {
   }
   
   return response;
+}
+
+/**
+ * Get security headers for all responses
+ */
+function getSecurityHeaders() {
+  return {
+    'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' plausible.io; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' plausible.io;",
+    'X-Frame-Options': 'SAMEORIGIN',
+    'X-Content-Type-Options': 'nosniff',
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+    'Permissions-Policy': 'geolocation=(), microphone=(), camera=()'
+  };
 }
 
 /**
