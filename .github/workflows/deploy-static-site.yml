@@ -235,27 +235,16 @@ jobs:
     - name: Install image optimization tools
       if: runner.os == 'Linux'
       run: |
-        echo "🖼️  Checking image optimization tools..."
+        echo "🖼️  Installing image optimization tools..."
+        sudo apt-get update -qq
+        sudo apt-get install -y libavif-bin optipng jpegoptim webp
         
-        # Check if avifenc is already installed
-        if command -v avifenc &> /dev/null; then
-          echo "✅ avifenc already installed"
-          avifenc --version 2>&1 | head -n 1 || echo "Version info not available"
-        else
-          echo "📦 Installing libavif-bin..."
-          sudo apt-get update -qq
-          sudo apt-get install -y libavif-bin
-          echo "✅ libavif-bin installed"
-          avifenc --version 2>&1 | head -n 1 || echo "Version info not available"
-        fi
-        
-        # Check for other optimization tools (optional)
         echo ""
-        echo "📊 Image optimization tools status:"
-        command -v optipng &> /dev/null && echo "  ✅ optipng" || echo "  ⚠️  optipng not found (optional)"
-        command -v jpegoptim &> /dev/null && echo "  ✅ jpegoptim" || echo "  ⚠️  jpegoptim not found (optional)"
-        command -v cwebp &> /dev/null && echo "  ✅ cwebp" || echo "  ⚠️  cwebp not found (optional)"
-        command -v avifenc &> /dev/null && echo "  ✅ avifenc" || echo "  ❌ avifenc not found"
+        echo "📊 Image optimization tools installed:"
+        command -v optipng &> /dev/null && echo "  ✅ optipng: $(optipng --version 2>&1 | head -n 1)" || echo "  ⚠️  optipng not found"
+        command -v jpegoptim &> /dev/null && echo "  ✅ jpegoptim: $(jpegoptim --version 2>&1 | head -n 1)" || echo "  ⚠️  jpegoptim not found"
+        command -v cwebp &> /dev/null && echo "  ✅ cwebp: $(cwebp -version 2>&1 | head -n 1)" || echo "  ⚠️  cwebp not found"
+        command -v avifenc &> /dev/null && echo "  ✅ avifenc: $(avifenc --version 2>&1 | head -n 1)" || echo "  ❌ avifenc not found"
         
         # Verify avifenc works by checking help
         if command -v avifenc &> /dev/null; then
