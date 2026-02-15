@@ -354,7 +354,7 @@ jobs:
     - name: Export to Markdown
       run: |
         echo "📝 Exporting content to markdown..."
-        python scripts/markdown_exporter.py \
+        python3 scripts/markdown_exporter.py \
           ./static-output \
           ./static-output/markdown \
           https://jameskilby.co.uk
@@ -362,7 +362,7 @@ jobs:
     - name: Generate Markdown API
       run: |
         echo "🔌 Generating markdown API..."
-        python scripts/markdown_api.py \
+        python3 scripts/markdown_api.py \
           ./static-output/markdown \
           ./static-output/api
         
@@ -765,11 +765,11 @@ jobs:
         
         # Convert absolute URLs to relative for better staging compatibility
         echo "🔄 Converting URLs for staging compatibility..."
-        python scripts/convert_to_staging.py
+        python3 scripts/convert_to_staging.py
         
         # Generate changelog page
         echo "📋 Generating changelog page..."
-        python scripts/generate_changelog.py || echo "⚠️  Changelog generation failed (non-blocking)"
+        python3 scripts/generate_changelog.py || echo "⚠️  Changelog generation failed (non-blocking)"
         
         # Generate stats page
         echo "📊 Generating stats page..."
@@ -809,7 +809,7 @@ jobs:
               git reset --hard origin/main
               echo "🔄 Regenerating static site after reset..."
               rm -rf public/ ./static-output
-              python scripts/wp_to_static_generator.py ./static-output
+              python3 scripts/wp_to_static_generator.py ./static-output
               mv ./static-output public/
               git add public/
               git commit -m "🚀 Auto-update static site - $(date '+%Y-%m-%d %H:%M:%S') [force-resolved]"
