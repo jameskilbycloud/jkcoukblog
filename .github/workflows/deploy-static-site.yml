@@ -65,6 +65,14 @@ jobs:
         python3 --version
         which python3
         echo "✅ Python is available"
+    
+    - name: Install pip
+      run: |
+        echo "📦 Installing pip..."
+        sudo apt-get update -qq
+        sudo apt-get install -y python3-pip python3-venv
+        python3 -m pip --version
+        echo "✅ pip installed"
         
     - name: Install dependencies
       run: |
@@ -201,6 +209,14 @@ jobs:
         python3 --version
         which python3
         echo "✅ Python is available"
+    
+    - name: Install pip
+      run: |
+        echo "📦 Installing pip..."
+        sudo apt-get update -qq
+        sudo apt-get install -y python3-pip python3-venv
+        python3 -m pip --version
+        echo "✅ pip installed"
         
     - name: Install dependencies
       run: |
