@@ -12,7 +12,7 @@ import requests
 import hashlib
 import uuid
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 
 class IndexNowSubmitter:
     """Submit URLs to search engines using IndexNow protocol"""
@@ -204,7 +204,7 @@ class IndexNowSubmitter:
         log_path = self.output_dir.parent / log_file
         
         log_entry = {
-            'timestamp': datetime.utcnow().isoformat() + 'Z',
+            'timestamp': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
             'site_domain': self.site_domain,
             'results': results
         }
