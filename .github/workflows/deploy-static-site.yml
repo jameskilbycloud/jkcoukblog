@@ -260,13 +260,13 @@ jobs:
         echo "📋 Files in current directory:"
         ls -la
         echo "📄 Looking for key files:"
-        ls -la wp_to_static_generator.py || echo "❌ File not found"
+        ls -la scripts/wp_to_static_generator.py || echo "❌ File not found"
         echo "🐍 Python version and path:"
-        python --version
-        which python
+        python3 --version
+        which python3
         echo "📦 Checking Python dependencies:"
-        python -c "import requests; print(f'✅ requests {requests.__version__}')" || echo "❌ requests not found"
-        python -c "import bs4; print(f'✅ beautifulsoup4 {bs4.__version__}')" || echo "❌ beautifulsoup4 not found"
+        python3 -c "import requests; print(f'✅ requests {requests.__version__}')" || echo "❌ requests not found"
+        python3 -c "import bs4; print(f'✅ beautifulsoup4 {bs4.__version__}')" || echo "❌ beautifulsoup4 not found"
         
     - name: Generate static site
       timeout-minutes: 30  # Timeout for site generation
@@ -282,7 +282,7 @@ jobs:
         fi
         
         # Generate static site
-        python scripts/wp_to_static_generator.py ./static-output
+        python3 scripts/wp_to_static_generator.py ./static-output
         
         # Count generated files for summary
         HTML_COUNT=$(find ./static-output -name "*.html" -type f 2>/dev/null | wc -l | xargs)
