@@ -185,6 +185,15 @@ jobs:
           echo "⚠️  Cache file not found (will be created on first run)"
         fi
       
+    - name: Install system prerequisites
+      run: |
+        echo "📦 Installing system prerequisites..."
+        sudo apt-get update -qq
+        sudo apt-get install -y jq bc
+        echo "✅ System prerequisites installed"
+        echo "  ✓ jq: $(jq --version)"
+        echo "  ✓ bc: $(bc --version | head -n 1)"
+    
     - name: Setup Python
       uses: actions/setup-python@v4
       with:
