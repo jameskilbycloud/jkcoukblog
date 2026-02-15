@@ -77,8 +77,8 @@ jobs:
     - name: Install dependencies
       run: |
         echo "🔧 Installing Python dependencies..."
-        python3 -m pip install --upgrade pip
-        python3 -m pip install -r requirements.txt
+        python3 -m pip install --upgrade pip --break-system-packages
+        python3 -m pip install -r requirements.txt --break-system-packages
     
     - name: Run spell check
       env:
@@ -221,8 +221,8 @@ jobs:
     - name: Install dependencies
       run: |
         echo "🔧 Installing Python dependencies..."
-        python3 -m pip install --upgrade pip
-        python3 -m pip install -r requirements.txt
+        python3 -m pip install --upgrade pip --break-system-packages
+        python3 -m pip install -r requirements.txt --break-system-packages
         echo "✅ Dependencies installed"
         echo "📋 Installed packages:"
         python3 -m pip list | grep -E "(requests|beautifulsoup4)"
@@ -445,7 +445,7 @@ jobs:
     - name: Install Pillow dependencies
       run: |
         echo "📦 Installing image optimization dependencies..."
-        pip install Pillow pillow-avif-plugin || {
+        python3 -m pip install Pillow pillow-avif-plugin --break-system-packages || {
           echo "⚠️  Failed to install Pillow dependencies"
         }
       continue-on-error: true
