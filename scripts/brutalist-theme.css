@@ -1142,3 +1142,4 @@ div, section, aside, nav {
   background-color: var(--bg-dark) !important;
   background: var(--bg-dark) !important;
 }
+.entry-hero .entry-hero-container-inner{padding-top:1rem !important}.entry-hero.page-hero-section .entry-header{min-height:auto !important}
