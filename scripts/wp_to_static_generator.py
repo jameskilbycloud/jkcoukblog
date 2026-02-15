@@ -1004,7 +1004,7 @@ class WordPressStaticGenerator:
         # Add static site generator meta tag
         generator_meta = soup.new_tag('meta')
         generator_meta['name'] = 'generator'
-        generator_meta['content'] = 'WordPress Static Generator 1.0'
+        generator_meta['content'] = 'Static Site Generator 1.0'
         soup.head.append(generator_meta)
         
         # Add theme-color meta tag for mobile browsers
@@ -2679,6 +2679,9 @@ class WordPressStaticGenerator:
             "  # XSS Protection for older browsers",
             "  X-XSS-Protection: 1; mode=block",
             "  ",
+            "  # Prevent MIME type sniffing",
+            "  X-Content-Type-Options: nosniff",
+            "  ",
             "  # Force HTTPS for 1 year (31536000 seconds)",
             "  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload",
             "  ",
@@ -2692,7 +2695,7 @@ class WordPressStaticGenerator:
         headers_file = self.output_dir / '_headers'
         headers_file.write_text('\n'.join(headers_content))
         print("   ✅ Created _headers file with security headers")
-        print("   🔒 Security headers: X-Frame-Options, CSP, HSTS, Permissions-Policy")
+        print("   🔒 Security headers: X-Frame-Options, X-Content-Type-Options, CSP, HSTS, Permissions-Policy")
     
     def create_redirects_file(self):
         """Create redirects for old URLs (Netlify/Cloudflare format)"""

@@ -335,8 +335,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     if: |
-      github.event_name == 'workflow_dispatch' &&
-      github.event.inputs.run_formatting == 'true'
+      github.event_name == 'schedule' ||
+      github.event_name == 'push' ||
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.run_formatting == 'true')
 
     steps:
     - name: Checkout repository
@@ -355,14 +357,25 @@ jobs:
         pip install -r requirements.txt
         echo "✅ Dependencies installed"
 
+    - name: Determine test URL
+      id: url
+      run: |
+        # Use input URL if provided, otherwise default to production
+        if [ -n "${{ github.event.inputs.test_url }}" ]; then
+          echo "url=${{ github.event.inputs.test_url }}" >> $GITHUB_OUTPUT
+        else
+          echo "url=https://jameskilby.co.uk" >> $GITHUB_OUTPUT
+        fi
+        echo "test_post=${{ github.event.inputs.test_post }}" >> $GITHUB_OUTPUT
+
     - name: Test live site (main URL)
       id: test_main
       run: |
-        echo "🚀 Testing ${{ github.event.inputs.test_url }}..."
+        echo "🚀 Testing ${{ steps.url.outputs.url }}..."
 
         # Run the test and capture output
         OUTPUT_FILE="test_output_main.txt"
-        python3 scripts/test_live_site_formatting.py --url "${{ github.event.inputs.test_url }}" > "$OUTPUT_FILE" 2>&1
+        python3 scripts/test_live_site_formatting.py --url "${{ steps.url.outputs.url }}" > "$OUTPUT_FILE" 2>&1
         TEST_EXIT_CODE=$?
 
         # Save output for later use
@@ -388,13 +401,13 @@ jobs:
 
     - name: Test post page (if specified)
       id: test_post
-      if: github.event.inputs.test_post != ''
+      if: steps.url.outputs.test_post != ''
       run: |
-        echo "🚀 Testing post page: ${{ github.event.inputs.test_post }}..."
+        echo "🚀 Testing post page: ${{ steps.url.outputs.test_post }}..."
 
         # Run the test and capture output
         OUTPUT_FILE="test_output_post.txt"
-        python3 scripts/test_live_site_formatting.py --url "${{ github.event.inputs.test_post }}" > "$OUTPUT_FILE" 2>&1
+        python3 scripts/test_live_site_formatting.py --url "${{ steps.url.outputs.test_post }}" > "$OUTPUT_FILE" 2>&1
         TEST_EXIT_CODE=$?
 
         # Save output for later use
@@ -419,7 +432,7 @@ jobs:
 
         # Main URL results
         echo "## 🌐 Main URL Test" >> $GITHUB_STEP_SUMMARY
-        echo "**URL:** ${{ github.event.inputs.test_url }}" >> $GITHUB_STEP_SUMMARY
+        echo "**URL:** ${{ steps.url.outputs.url }}" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "- **Tests Passed:** ${{ steps.test_main.outputs.PASSED }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Errors:** ${{ steps.test_main.outputs.ERRORS }}" >> $GITHUB_STEP_SUMMARY
@@ -432,10 +445,10 @@ jobs:
         fi
 
         # Post page results (if tested)
-        if [ -n "${{ github.event.inputs.test_post }}" ]; then
+        if [ -n "${{ steps.url.outputs.test_post }}" ]; then
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## 📄 Post Page Test" >> $GITHUB_STEP_SUMMARY
-          echo "**URL:** ${{ github.event.inputs.test_post }}" >> $GITHUB_STEP_SUMMARY
+          echo "**URL:** ${{ steps.url.outputs.test_post }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- **Tests Passed:** ${{ steps.test_post.outputs.PASSED }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Errors:** ${{ steps.test_post.outputs.ERRORS }}" >> $GITHUB_STEP_SUMMARY
@@ -487,7 +500,7 @@ jobs:
 
         # Add post page results if tested
         POST_SECTION=""
-        if [ -n "${{ github.event.inputs.test_post }}" ]; then
+        if [ -n "${{ steps.url.outputs.test_post }}" ]; then
           POST_STATUS="${{ steps.test_post.outputs.EXIT_CODE }}"
           if [ "$POST_STATUS" -eq 0 ]; then
             POST_ICON="✅"
@@ -501,7 +514,7 @@ jobs:
             \"type\": \"section\",
             \"text\": {
               \"type\": \"mrkdwn\",
-              \"text\": \"*📄 Post Page Test:* $POST_ICON\n${{ github.event.inputs.test_post }}\n• Tests: ${{ steps.test_post.outputs.PASSED }}\n• Errors: ${{ steps.test_post.outputs.ERRORS }}\n• Warnings: ${{ steps.test_post.outputs.WARNINGS }}\"
+              \"text\": \"*📄 Post Page Test:* $POST_ICON\n${{ steps.url.outputs.test_post }}\n• Tests: ${{ steps.test_post.outputs.PASSED }}\n• Errors: ${{ steps.test_post.outputs.ERRORS }}\n• Warnings: ${{ steps.test_post.outputs.WARNINGS }}\"
             }
           }"
         fi
@@ -528,7 +541,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*🌐 Main URL Test:*\n${{ github.event.inputs.test_url }}\n• Tests passed: ${{ steps.test_main.outputs.PASSED }}\n• Errors: ${{ steps.test_main.outputs.ERRORS }}\n• Warnings: ${{ steps.test_main.outputs.WARNINGS }}"
+                    "text": "*🌐 Main URL Test:*\n${{ steps.url.outputs.url }}\n• Tests passed: ${{ steps.test_main.outputs.PASSED }}\n• Errors: ${{ steps.test_main.outputs.ERRORS }}\n• Warnings: ${{ steps.test_main.outputs.WARNINGS }}"
                   }
                 }$POST_SECTION,
                 {
