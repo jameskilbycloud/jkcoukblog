@@ -544,58 +544,6 @@ jobs:
         
         echo "PICTURE_CONVERTED=1" >> $GITHUB_ENV
       continue-on-error: true
-    
-    - name: Brotli compress static files
-      timeout-minutes: 10
-      run: |
-        echo "🗁️  Compressing static files with Brotli..."
-        
-        # Run Brotli compression
-        python3 scripts/brotli_compress.py ./static-output || {
-          echo "⚠️  Brotli compression failed (non-blocking)"
-          echo "BROTLI_COUNT=0" >> $GITHUB_ENV
-          echo "BROTLI_SAVED_MB=0.0" >> $GITHUB_ENV
-          exit 0
-        }
-        
-        # Count compressed files
-        BROTLI_COUNT=$(find ./static-output -name "*.br" -type f | wc -l | xargs)
-        
-        # Calculate total size of .br files
-        BROTLI_SIZE=$(find ./static-output -name "*.br" -type f -exec ls -l {} \; | awk '{sum+=$5} END {print sum}')
-        BROTLI_SIZE_MB=$(echo "scale=2; $BROTLI_SIZE / 1024 / 1024" | bc)
-        
-        # Calculate original size for comparison
-        ORIGINAL_SIZE=$(find ./static-output -type f \( -name "*.html" -o -name "*.css" -o -name "*.js" -o -name "*.json" -o -name "*.xml" -o -name "*.svg" \) -exec ls -l {} \; | awk '{sum+=$5} END {print sum}')
-        ORIGINAL_SIZE_MB=$(echo "scale=2; $ORIGINAL_SIZE / 1024 / 1024" | bc)
-        
-        # Calculate savings
-        BROTLI_SAVED=$(echo "$ORIGINAL_SIZE - $BROTLI_SIZE" | bc)
-        BROTLI_SAVED_MB=$(echo "scale=2; $BROTLI_SAVED / 1024 / 1024" | bc)
-        BROTLI_RATIO=$(echo "scale=1; (1 - $BROTLI_SIZE / $ORIGINAL_SIZE) * 100" | bc)
-        
-        echo "📊 Brotli Compression Results:"
-        echo "   • Files compressed: $BROTLI_COUNT"
-        echo "   • Original size: ${ORIGINAL_SIZE_MB}MB"
-        echo "   • Compressed size: ${BROTLI_SIZE_MB}MB"
-        echo "   • Space saved: ${BROTLI_SAVED_MB}MB"
-        echo "   • Compression ratio: ${BROTLI_RATIO}%"
-        
-        # Save to environment
-        echo "BROTLI_COUNT=$BROTLI_COUNT" >> $GITHUB_ENV
-        echo "BROTLI_SAVED_MB=$BROTLI_SAVED_MB" >> $GITHUB_ENV
-        echo "BROTLI_RATIO=$BROTLI_RATIO" >> $GITHUB_ENV
-        
-        # Add to GitHub Actions summary
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "## 🗜️ Brotli Compression Summary" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "- **Files Compressed:** $BROTLI_COUNT" >> $GITHUB_STEP_SUMMARY
-        echo "- **Original Size:** ${ORIGINAL_SIZE_MB} MB" >> $GITHUB_STEP_SUMMARY
-        echo "- **Compressed Size:** ${BROTLI_SIZE_MB} MB" >> $GITHUB_STEP_SUMMARY
-        echo "- **Space Saved:** ${BROTLI_SAVED_MB} MB" >> $GITHUB_STEP_SUMMARY
-        echo "- **Compression Ratio:** ${BROTLI_RATIO}%" >> $GITHUB_STEP_SUMMARY
-      continue-on-error: true
 
     - name: Optimize CSS files
       run: |
@@ -643,6 +591,58 @@ jobs:
         python3 scripts/minify_html.py ./static-output || {
           echo "⚠️  HTML minification failed (non-blocking)"
         }
+      continue-on-error: true
+
+    - name: Brotli compress static files
+      timeout-minutes: 10
+      run: |
+        echo "🗜️  Compressing final optimized files with Brotli..."
+
+        # Run Brotli compression on final optimized files
+        python3 scripts/brotli_compress.py ./static-output || {
+          echo "⚠️  Brotli compression failed (non-blocking)"
+          echo "BROTLI_COUNT=0" >> $GITHUB_ENV
+          echo "BROTLI_SAVED_MB=0.0" >> $GITHUB_ENV
+          exit 0
+        }
+
+        # Count compressed files
+        BROTLI_COUNT=$(find ./static-output -name "*.br" -type f | wc -l | xargs)
+
+        # Calculate total size of .br files
+        BROTLI_SIZE=$(find ./static-output -name "*.br" -type f -exec ls -l {} \; | awk '{sum+=$5} END {print sum}')
+        BROTLI_SIZE_MB=$(echo "scale=2; $BROTLI_SIZE / 1024 / 1024" | bc)
+
+        # Calculate original size for comparison
+        ORIGINAL_SIZE=$(find ./static-output -type f \( -name "*.html" -o -name "*.css" -o -name "*.js" -o -name "*.json" -o -name "*.xml" -o -name "*.svg" \) -exec ls -l {} \; | awk '{sum+=$5} END {print sum}')
+        ORIGINAL_SIZE_MB=$(echo "scale=2; $ORIGINAL_SIZE / 1024 / 1024" | bc)
+
+        # Calculate savings
+        BROTLI_SAVED=$(echo "$ORIGINAL_SIZE - $BROTLI_SIZE" | bc)
+        BROTLI_SAVED_MB=$(echo "scale=2; $BROTLI_SAVED / 1024 / 1024" | bc)
+        BROTLI_RATIO=$(echo "scale=1; (1 - $BROTLI_SIZE / $ORIGINAL_SIZE) * 100" | bc)
+
+        echo "📊 Brotli Compression Results:"
+        echo "   • Files compressed: $BROTLI_COUNT"
+        echo "   • Original size: ${ORIGINAL_SIZE_MB}MB"
+        echo "   • Compressed size: ${BROTLI_SIZE_MB}MB"
+        echo "   • Space saved: ${BROTLI_SAVED_MB}MB"
+        echo "   • Compression ratio: ${BROTLI_RATIO}%"
+
+        # Save to environment
+        echo "BROTLI_COUNT=$BROTLI_COUNT" >> $GITHUB_ENV
+        echo "BROTLI_SAVED_MB=$BROTLI_SAVED_MB" >> $GITHUB_ENV
+        echo "BROTLI_RATIO=$BROTLI_RATIO" >> $GITHUB_ENV
+
+        # Add to GitHub Actions summary
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## 🗜️ Brotli Compression Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Files Compressed:** $BROTLI_COUNT" >> $GITHUB_STEP_SUMMARY
+        echo "- **Original Size:** ${ORIGINAL_SIZE_MB} MB" >> $GITHUB_STEP_SUMMARY
+        echo "- **Compressed Size:** ${BROTLI_SIZE_MB} MB" >> $GITHUB_STEP_SUMMARY
+        echo "- **Space Saved:** ${BROTLI_SAVED_MB} MB" >> $GITHUB_STEP_SUMMARY
+        echo "- **Compression Ratio:** ${BROTLI_RATIO}%" >> $GITHUB_STEP_SUMMARY
       continue-on-error: true
 
     - name: Validate final HTML build
