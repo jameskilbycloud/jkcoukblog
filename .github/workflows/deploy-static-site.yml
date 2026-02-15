@@ -59,17 +59,18 @@ jobs:
         restore-keys: |
           spell-check-
       
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
-        cache: 'pip'
-        cache-dependency-path: 'requirements.txt'
+    - name: Verify Python installation
+      run: |
+        echo "🐍 Verifying Python installation..."
+        python3 --version
+        which python3
+        echo "✅ Python is available"
         
     - name: Install dependencies
       run: |
         echo "🔧 Installing Python dependencies..."
-        pip install -r requirements.txt
+        python3 -m pip install --upgrade pip
+        python3 -m pip install -r requirements.txt
     
     - name: Run spell check
       env:
@@ -194,20 +195,21 @@ jobs:
         echo "  ✓ jq: $(jq --version)"
         echo "  ✓ bc: $(bc --version | head -n 1)"
     
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
-        cache: 'pip'
-        cache-dependency-path: 'requirements.txt'
+    - name: Verify Python installation
+      run: |
+        echo "🐍 Verifying Python installation..."
+        python3 --version
+        which python3
+        echo "✅ Python is available"
         
     - name: Install dependencies
       run: |
         echo "🔧 Installing Python dependencies..."
-        pip install -r requirements.txt
+        python3 -m pip install --upgrade pip
+        python3 -m pip install -r requirements.txt
         echo "✅ Dependencies installed"
         echo "📋 Installed packages:"
-        pip list | grep -E "(requests|beautifulsoup4)"
+        python3 -m pip list | grep -E "(requests|beautifulsoup4)"
         
     - name: Setup Node.js (for Wrangler)
       uses: actions/setup-node@v4
