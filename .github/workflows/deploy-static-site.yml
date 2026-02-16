@@ -253,7 +253,40 @@ jobs:
         echo "📦 Checking Python dependencies:"
         python3 -c "import requests; print(f'✅ requests {requests.__version__}')" || echo "❌ requests not found"
         python3 -c "import bs4; print(f'✅ beautifulsoup4 {bs4.__version__}')" || echo "❌ beautifulsoup4 not found"
-        
+
+    - name: Validate WordPress Source Health
+      env:
+        WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+      run: |
+        echo "🔍 Validating WordPress source before generation..."
+        echo ""
+
+        # Run WordPress source validator
+        python3 scripts/validate_wordpress_source.py
+
+        # Check exit code
+        if [ $? -ne 0 ]; then
+          echo ""
+          echo "❌ WordPress source validation failed"
+          echo "📋 See wordpress-source-validation.json for details"
+          echo ""
+          echo "Fix the issues in WordPress before deploying:"
+          echo "  - Check broken media references"
+          echo "  - Fix missing categories/tags"
+          echo "  - Verify SEO metadata (titles, descriptions)"
+          exit 1
+        fi
+
+        echo ""
+        echo "✅ WordPress source is healthy - proceeding with generation"
+
+    - name: Upload WordPress validation report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: wordpress-validation-report
+        path: wordpress-source-validation.json
+
     - name: Generate static site
       timeout-minutes: 30  # Timeout for site generation
       env:
