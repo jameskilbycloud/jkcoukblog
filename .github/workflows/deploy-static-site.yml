@@ -666,6 +666,45 @@ jobs:
         echo "- **Status:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
         echo "- **Checks:** Post-optimization validation (after minification, compression)" >> $GITHUB_STEP_SUMMARY
 
+    - name: Comprehensive post-optimization validation
+      timeout-minutes: 10
+      run: |
+        echo "🔍 Running comprehensive deployment validation..."
+        echo ""
+        echo "This validates:"
+        echo "  ✓ Brotli compression integrity (.br files match originals)"
+        echo "  ✓ Modern image formats (AVIF/WebP exist and are valid)"
+        echo "  ✓ Picture elements (correct structure and fallback order)"
+        echo "  ✓ Minification (no broken HTML/CSS/JS)"
+        echo "  ✓ Critical CSS inlining"
+        echo ""
+
+        python3 scripts/validate_deployment.py ./static-output || {
+          echo ""
+          echo "❌ Deployment validation failed!"
+          echo "⚠️  The optimized site has issues that need to be fixed before deployment."
+          echo ""
+          echo "Common issues:"
+          echo "  - Missing .br files (check Brotli compression step)"
+          echo "  - Missing AVIF/WebP files (check image optimization step)"
+          echo "  - Invalid picture elements (check conversion step)"
+          echo ""
+          exit 1
+        }
+
+        echo ""
+        echo "✅ Comprehensive deployment validation passed!"
+
+        # Add to GitHub Actions summary
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## ✅ Deployment Validation" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Brotli Compression:** ✅ Validated" >> $GITHUB_STEP_SUMMARY
+        echo "- **Image Formats:** ✅ AVIF/WebP present and valid" >> $GITHUB_STEP_SUMMARY
+        echo "- **Picture Elements:** ✅ Correctly structured" >> $GITHUB_STEP_SUMMARY
+        echo "- **Minification:** ✅ No broken code" >> $GITHUB_STEP_SUMMARY
+        echo "- **Critical CSS:** ✅ Properly inlined" >> $GITHUB_STEP_SUMMARY
+
     - name: Commit and push static site
       timeout-minutes: 10  # Timeout for git operations
       run: |
