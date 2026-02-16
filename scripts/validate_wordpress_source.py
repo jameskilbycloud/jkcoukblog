@@ -123,16 +123,27 @@ class WordPressSourceValidator:
             return False
         self._log("   ✅ WordPress site accessible")
 
-        # Check REST API discovery endpoint
+        # Check REST API discovery endpoint (accept 200-399, some WP configs redirect)
         response, error = self._make_api_request('/wp-json/')
-        if error or not response or response.status_code != 200:
+        if error or not response:
             self.errors.append({
                 'type': 'api_not_available',
                 'message': 'REST API endpoint not available',
-                'details': error or f'Status code: {response.status_code if response else "N/A"}'
+                'details': error or 'No response received'
             })
             self._log("   ❌ REST API endpoint not available")
             return False
+
+        # Accept 2xx and 3xx status codes (some WordPress configs use redirects)
+        if response.status_code >= 400:
+            self.errors.append({
+                'type': 'api_not_available',
+                'message': 'REST API endpoint not available',
+                'details': f'Status code: {response.status_code}'
+            })
+            self._log("   ❌ REST API endpoint not available")
+            return False
+
         self._log("   ✅ REST API endpoint available")
 
         # Test authentication with minimal posts request
@@ -582,7 +593,7 @@ class WordPressSourceValidator:
         duration = time.time() - self.start_time
 
         report = {
-            'timestamp': datetime.utcnow().isoformat() + 'Z',
+            'timestamp': datetime.now(datetime.UTC).isoformat().replace('+00:00', 'Z'),
             'wordpress_url': self.wp_url,
             'summary': {
                 'status': 'FAIL' if self.errors else 'PASS',
