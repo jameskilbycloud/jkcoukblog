@@ -15,7 +15,7 @@ import sys
 import json
 import time
 import argparse
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Set, Optional, Tuple
 from urllib.parse import urljoin, urlparse
@@ -123,39 +123,17 @@ class WordPressSourceValidator:
             return False
         self._log("   ✅ WordPress site accessible")
 
-        # Check REST API discovery endpoint (accept 200-399, some WP configs redirect)
-        response, error = self._make_api_request('/wp-json/')
-        if error or not response:
-            self.errors.append({
-                'type': 'api_not_available',
-                'message': 'REST API endpoint not available',
-                'details': error or 'No response received'
-            })
-            self._log("   ❌ REST API endpoint not available")
-            return False
-
-        # Accept 2xx and 3xx status codes (some WordPress configs use redirects)
-        if response.status_code >= 400:
-            self.errors.append({
-                'type': 'api_not_available',
-                'message': 'REST API endpoint not available',
-                'details': f'Status code: {response.status_code}'
-            })
-            self._log("   ❌ REST API endpoint not available")
-            return False
-
-        self._log("   ✅ REST API endpoint available")
-
-        # Test authentication with minimal posts request
+        # Test authentication and API availability with posts endpoint
+        # (Skip /wp-json/ discovery check - not all WordPress configs support it)
         response, error = self._make_api_request('/wp-json/wp/v2/posts', {'per_page': 1})
         if error:
             self.errors.append({
                 'type': 'api_request_failed',
                 'endpoint': 'posts',
-                'message': 'Failed to connect to Posts endpoint',
+                'message': 'Failed to connect to WordPress REST API',
                 'details': error
             })
-            self._log("   ❌ Posts endpoint connection failed")
+            self._log(f"   ❌ WordPress REST API connection failed: {error}")
             return False
 
         if response.status_code == 401:
@@ -178,12 +156,13 @@ class WordPressSourceValidator:
             self.errors.append({
                 'type': 'api_error',
                 'endpoint': 'posts',
-                'message': f'Posts endpoint returned status {response.status_code}',
+                'message': f'WordPress REST API returned status {response.status_code}',
                 'details': response.text[:200] if response.text else ''
             })
-            self._log(f"   ❌ Posts endpoint error ({response.status_code})")
+            self._log(f"   ❌ WordPress REST API error ({response.status_code})")
             return False
 
+        self._log("   ✅ WordPress REST API accessible")
         self._log("   ✅ Authentication successful")
 
         # Check all critical endpoints
@@ -593,7 +572,7 @@ class WordPressSourceValidator:
         duration = time.time() - self.start_time
 
         report = {
-            'timestamp': datetime.now(datetime.UTC).isoformat().replace('+00:00', 'Z'),
+            'timestamp': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
             'wordpress_url': self.wp_url,
             'summary': {
                 'status': 'FAIL' if self.errors else 'PASS',
