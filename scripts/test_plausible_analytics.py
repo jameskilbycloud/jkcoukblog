@@ -32,7 +32,7 @@ def test_worker_csp_plausible():
 
     errors = []
 
-    # Check script-src includes plausible.io
+    # Check script-src includes both plausible.io and plausible.jameskilby.cloud
     if 'script-src' in csp:
         script_src = re.search(r'script-src\s+([^;]+)', csp)
         if script_src:
@@ -41,12 +41,17 @@ def test_worker_csp_plausible():
                 errors.append("script-src missing 'plausible.io'")
             else:
                 print("✅ script-src allows plausible.io")
+
+            if 'plausible.jameskilby.cloud' not in directives:
+                errors.append("script-src missing 'plausible.jameskilby.cloud' (self-hosted)")
+            else:
+                print("✅ script-src allows plausible.jameskilby.cloud (self-hosted)")
         else:
             errors.append("Could not parse script-src directive")
     else:
         errors.append("No script-src directive found")
 
-    # Check connect-src includes plausible.io
+    # Check connect-src includes both plausible.io and plausible.jameskilby.cloud
     if 'connect-src' in csp:
         connect_src = re.search(r'connect-src\s+([^;]+)', csp)
         if connect_src:
@@ -55,10 +60,29 @@ def test_worker_csp_plausible():
                 errors.append("connect-src missing 'plausible.io'")
             else:
                 print("✅ connect-src allows plausible.io")
+
+            if 'plausible.jameskilby.cloud' not in directives:
+                errors.append("connect-src missing 'plausible.jameskilby.cloud' (self-hosted)")
+            else:
+                print("✅ connect-src allows plausible.jameskilby.cloud (self-hosted)")
         else:
             errors.append("Could not parse connect-src directive")
     else:
         errors.append("No connect-src directive found")
+
+    # Check frame-src includes plausible.jameskilby.cloud (for stats page embed)
+    if 'frame-src' in csp:
+        frame_src = re.search(r'frame-src\s+([^;]+)', csp)
+        if frame_src:
+            directives = frame_src.group(1)
+            if 'plausible.jameskilby.cloud' not in directives:
+                errors.append("frame-src missing 'plausible.jameskilby.cloud' (stats page embed)")
+            else:
+                print("✅ frame-src allows plausible.jameskilby.cloud (stats page embed)")
+        else:
+            errors.append("Could not parse frame-src directive")
+    else:
+        errors.append("No frame-src directive found")
 
     # Print results
     if errors:
@@ -66,11 +90,12 @@ def test_worker_csp_plausible():
         for error in errors:
             print(f"  - {error}")
         print("\n⚠️  Plausible Analytics will be blocked by CSP!")
-        print("   Analytics tracking will not work.")
+        print("   Analytics tracking and stats page embed will not work.")
         return False
     else:
         print("\n✅ CSP correctly configured for Plausible Analytics!")
-        print("   Plausible script and API connections are allowed.")
+        print("   Both hosted (plausible.io) and self-hosted (plausible.jameskilby.cloud) are allowed.")
+        print("   Analytics tracking, API connections, and stats page iframe will work.")
         return True
 
 
