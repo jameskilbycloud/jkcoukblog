@@ -352,6 +352,19 @@ jobs:
           ./static-output/markdown \
           ./static-output/api
 
+    - name: Test Utterances CSP configuration
+      run: |
+        echo "🔒 Validating CSP allows Utterances..."
+        python3 scripts/test_csp_utterances.py || {
+          echo ""
+          echo "❌ CSP validation failed!"
+          echo "⚠️  Worker CSP headers will block Utterances from loading"
+          echo "   Check _worker.template.js Content-Security-Policy header"
+          echo ""
+          exit 1
+        }
+        echo "✅ CSP validation passed - Utterances will load correctly!"
+
     - name: Content quality validation
       timeout-minutes: 5
       continue-on-error: true  # Non-blocking: warnings won't fail the build

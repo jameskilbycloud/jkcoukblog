@@ -382,6 +382,88 @@ class DeploymentValidator:
         print(f"  ✓ {files_with_inline} files with inlined critical CSS")
         print(f"  ✓ {files_with_async_css} files with async CSS loading")
 
+    def validate_utterances_comments(self):
+        """
+        Verify Utterances comments are injected in blog posts.
+
+        Checks:
+        1. Blog post HTML files have Utterances section
+        2. Script tag has correct attributes
+        3. Repository is correct
+        4. Reports coverage percentage
+        """
+        print("\n💬 Validating Utterances comments...")
+
+        # Find blog post HTML files (yyyy/mm/post-slug/index.html pattern)
+        post_files = []
+        for year_dir in self.site_dir.glob('20*/'):
+            for month_dir in year_dir.glob('*/'):
+                for post_dir in month_dir.glob('*/'):
+                    index_file = post_dir / 'index.html'
+                    if index_file.exists():
+                        post_files.append(index_file)
+
+        if not post_files:
+            print("  ⚠️  No blog posts found to validate")
+            return
+
+        missing_comments = 0
+        posts_with_comments = 0
+        malformed_comments = 0
+
+        for post_file in post_files:
+            try:
+                with open(post_file, 'r', encoding='utf-8') as f:
+                    soup = BeautifulSoup(f.read(), 'html.parser')
+
+                utterances_section = soup.find('section', id='utterances-comments')
+
+                if not utterances_section:
+                    missing_comments += 1
+                    if missing_comments <= 5:  # Only log first 5
+                        self.warnings.append(
+                            f"Missing Utterances: {post_file.relative_to(self.site_dir)}"
+                        )
+                else:
+                    # Verify script attributes
+                    script = utterances_section.find('script', src=lambda x: x and 'utteranc.es' in x)
+                    if script:
+                        repo = script.get('data-repo')
+                        if repo == 'jameskilbynet/jkcoukblog':
+                            posts_with_comments += 1
+                        else:
+                            malformed_comments += 1
+                            self.errors.append(
+                                f"Wrong repo in Utterances: {post_file.relative_to(self.site_dir)} (found: {repo})"
+                            )
+                    else:
+                        malformed_comments += 1
+                        self.errors.append(
+                            f"Malformed Utterances script: {post_file.relative_to(self.site_dir)}"
+                        )
+
+            except Exception as e:
+                self.errors.append(f"Failed to parse {post_file.relative_to(self.site_dir)}: {e}")
+
+        total = len(post_files)
+        coverage = (posts_with_comments / total * 100) if total > 0 else 0
+
+        self.stats['blog_posts'] = total
+        self.stats['posts_with_comments'] = posts_with_comments
+        self.stats['posts_missing_comments'] = missing_comments
+        self.stats['utterances_coverage'] = f"{coverage:.1f}%"
+
+        print(f"  ✓ Total blog posts: {total}")
+        print(f"  ✓ Posts with comments: {posts_with_comments} ({coverage:.1f}%)")
+        print(f"  ✓ Posts missing comments: {missing_comments}")
+        if malformed_comments > 0:
+            print(f"  ⚠️  Malformed comments: {malformed_comments}")
+
+        if coverage < 90 and total > 0:
+            self.warnings.append(
+                f"Low Utterances coverage: {coverage:.1f}% (expected >90%)"
+            )
+
     def validate_all(self):
         """Run all validation checks."""
         print("🔍 Running comprehensive deployment validation...\n")
@@ -392,6 +474,7 @@ class DeploymentValidator:
         self.validate_picture_elements()
         self.validate_minification()
         self.validate_critical_css()
+        self.validate_utterances_comments()
 
         self.print_summary()
 
