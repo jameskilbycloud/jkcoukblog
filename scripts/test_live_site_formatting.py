@@ -1,6 +1,22 @@
 #!/usr/bin/env python3
 """
-Test script to validate the formatting and structure of jameskilby.co.uk live site.
+Live Site Formatting Tests - MANUAL USE
+
+Manual testing utility for comprehensive live site validation.
+NOT used in automated CI/CD workflow.
+
+Use this script to:
+- Debug issues on the live site
+- Verify deployment success manually
+- Test specific functionality after changes
+
+For automated validation during deployment, see:
+- validate_deployment.py (pre-deployment validation)
+- validate_html.py (HTML structure validation)
+- content_validator.py (content quality checks)
+
+Usage:
+    python3 scripts/test_live_site_formatting.py
 
 This script performs comprehensive checks on the live site to ensure:
 - Proper HTML structure and validity
