@@ -2,18 +2,23 @@
 """
 Convert <img> tags to <picture> elements with AVIF and WebP sources
 Processes HTML files to add modern image format support
+
+Features:
+- Creates <picture> elements with AVIF/WebP sources
+- Generates responsive srcsets for modern formats based on img srcset
+- Properly orders sources (AVIF > WebP > fallback img)
 """
 
 import os
 import sys
 import re
 from pathlib import Path
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 from bs4 import BeautifulSoup
 
 
 class ImageToPictureConverter:
-    """Converts img tags to picture elements with AVIF/WebP sources"""
+    """Converts img tags to picture elements with AVIF/WebP sources and responsive srcsets"""
     
     def __init__(self, directory: str):
         self.directory = Path(directory)
@@ -21,8 +26,47 @@ class ImageToPictureConverter:
             'files_processed': 0,
             'images_converted': 0,
             'images_skipped': 0,
+            'responsive_srcsets_added': 0,
         }
         self.debug_count = 0  # For debugging first few images
+    
+    def _get_responsive_srcset(self, img_srcset: str, format_ext: str) -> Optional[str]:
+        """
+        Generate responsive srcset for modern formats based on original img srcset.
+        
+        Args:
+            img_srcset: Original srcset from img tag (e.g., "img-300.jpg 300w, img-768.jpg 768w")
+            format_ext: File extension for modern format (.webp or .avif)
+        
+        Returns:
+            Responsive srcset string for the modern format, or None if no matches
+        """
+        if not img_srcset:
+            return None
+        
+        srcset_parts = []
+        for part in img_srcset.split(','):
+            part = part.strip()
+            if not part:
+                continue
+            
+            # Parse "path/to/image.jpg 300w" format
+            components = part.split()
+            if len(components) >= 2:
+                img_url = components[0]
+                width_descriptor = components[1]  # e.g., "300w"
+                
+                # Convert the image URL to modern format path
+                img_path_str = img_url.lstrip('/')
+                img_path = self.directory / img_path_str
+                
+                # Check if modern format exists
+                modern_path = img_path.with_suffix(format_ext)
+                if modern_path.exists():
+                    modern_url = '/' + str(modern_path.relative_to(self.directory))
+                    srcset_parts.append(f"{modern_url} {width_descriptor}")
+        
+        return ', '.join(srcset_parts) if srcset_parts else None
     
     def _has_modern_format(self, img_src: str, base_path: Path) -> Tuple[bool, bool]:
         """Check if AVIF and WebP versions exist for an image"""
@@ -103,26 +147,52 @@ class ImageToPictureConverter:
         return True
     
     def _create_picture_element(self, img, has_avif: bool, has_webp: bool) -> BeautifulSoup:
-        """Create a picture element with AVIF/WebP sources"""
+        """Create a picture element with AVIF/WebP sources and responsive srcsets"""
         soup = BeautifulSoup('', 'html.parser')
         picture = soup.new_tag('picture')
         
         src = img.get('src', '')
+        img_srcset = img.get('srcset', '')
         base_src = re.sub(r'\.(png|jpg|jpeg)($|\?)', '', src, flags=re.IGNORECASE)
+        
+        # Track if we added responsive srcsets
+        added_responsive = False
         
         # Add AVIF source if available
         if has_avif:
             source_avif = soup.new_tag('source')
-            source_avif['srcset'] = f"{base_src}.avif"
             source_avif['type'] = 'image/avif'
+            
+            # Try to build responsive srcset from img's srcset
+            avif_srcset = self._get_responsive_srcset(img_srcset, '.avif')
+            if avif_srcset:
+                source_avif['srcset'] = avif_srcset
+                added_responsive = True
+            else:
+                # Fall back to single file
+                source_avif['srcset'] = f"{base_src}.avif"
+            
             picture.append(source_avif)
         
         # Add WebP source if available
         if has_webp:
             source_webp = soup.new_tag('source')
-            source_webp['srcset'] = f"{base_src}.webp"
             source_webp['type'] = 'image/webp'
+            
+            # Try to build responsive srcset from img's srcset
+            webp_srcset = self._get_responsive_srcset(img_srcset, '.webp')
+            if webp_srcset:
+                source_webp['srcset'] = webp_srcset
+                added_responsive = True
+            else:
+                # Fall back to single file
+                source_webp['srcset'] = f"{base_src}.webp"
+            
             picture.append(source_webp)
+        
+        # Track stats
+        if added_responsive:
+            self.stats['responsive_srcsets_added'] += 1
         
         # Add original img as fallback (clone all attributes)
         img_clone = soup.new_tag('img')
@@ -133,14 +203,68 @@ class ImageToPictureConverter:
         
         return picture
     
+    def _update_existing_picture_srcsets(self, soup) -> int:
+        """
+        Update existing picture elements that have single-file srcsets
+        to use responsive srcsets based on the img's srcset.
+        
+        Returns:
+            Number of picture elements updated
+        """
+        updated_count = 0
+        
+        for picture in soup.find_all('picture'):
+            img = picture.find('img')
+            if not img:
+                continue
+            
+            img_srcset = img.get('srcset', '')
+            if not img_srcset:
+                continue  # No srcset to derive responsive versions from
+            
+            modified = False
+            
+            for source in picture.find_all('source'):
+                srcset = source.get('srcset', '')
+                source_type = source.get('type', '')
+                
+                # Skip if already has multiple srcset entries (responsive)
+                if ',' in srcset:
+                    continue
+                
+                # Determine format extension from type
+                if source_type == 'image/avif':
+                    format_ext = '.avif'
+                elif source_type == 'image/webp':
+                    format_ext = '.webp'
+                else:
+                    continue
+                
+                # Generate responsive srcset
+                responsive_srcset = self._get_responsive_srcset(img_srcset, format_ext)
+                
+                if responsive_srcset and ',' in responsive_srcset:
+                    source['srcset'] = responsive_srcset
+                    modified = True
+                    self.stats['responsive_srcsets_added'] += 1
+            
+            if modified:
+                updated_count += 1
+        
+        return updated_count
+    
     def _process_html_file(self, html_file: Path) -> int:
-        """Process a single HTML file and convert img tags"""
+        """Process a single HTML file - convert img tags and update existing picture elements"""
         try:
             with open(html_file, 'r', encoding='utf-8') as f:
                 content = f.read()
             
             soup = BeautifulSoup(content, 'html.parser')
             images_converted = 0
+            pictures_updated = 0
+            
+            # First, update existing picture elements with responsive srcsets
+            pictures_updated = self._update_existing_picture_srcsets(soup)
             
             # Find all img tags
             img_tags = soup.find_all('img')
@@ -149,6 +273,7 @@ class ImageToPictureConverter:
             if self.debug_count == 0 and img_tags:
                 print(f"\n🔍 DEBUG: First HTML file: {html_file}")
                 print(f"   Total img tags found: {len(img_tags)}")
+                print(f"   Picture elements updated: {pictures_updated}")
                 if img_tags:
                     first_img = img_tags[0]
                     print(f"   First img src: {first_img.get('src', 'NO SRC')}")
@@ -177,12 +302,12 @@ class ImageToPictureConverter:
                 images_converted += 1
                 self.stats['images_converted'] += 1
             
-            # Save modified HTML if any images were converted
-            if images_converted > 0:
+            # Save modified HTML if any changes were made
+            if images_converted > 0 or pictures_updated > 0:
                 with open(html_file, 'w', encoding='utf-8') as f:
                     f.write(str(soup))
             
-            return images_converted
+            return images_converted + pictures_updated
             
         except Exception as e:
             print(f"⚠️  Error processing {html_file}: {e}")
@@ -224,8 +349,11 @@ class ImageToPictureConverter:
         print("="*60)
         print(f"📄 Files Modified:      {self.stats['files_processed']}")
         print(f"✅ Images Converted:    {self.stats['images_converted']}")
+        print(f"📱 Responsive Srcsets:  {self.stats['responsive_srcsets_added']}")
         print(f"⏭️  Images Skipped:      {self.stats['images_skipped']}")
         print("="*60)
+        if self.stats['responsive_srcsets_added'] > 0:
+            print("📱 Mobile users will now receive smaller images based on screen size!")
 
 
 def main():
