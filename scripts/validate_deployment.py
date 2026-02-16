@@ -464,6 +464,105 @@ class DeploymentValidator:
                 f"Low Utterances coverage: {coverage:.1f}% (expected >90%)"
             )
 
+    def validate_plausible_analytics(self):
+        """Verify Plausible Analytics script is properly injected in all HTML pages."""
+        print("\n📊 Validating Plausible Analytics...")
+
+        # Find all HTML files
+        html_files = list(self.site_dir.glob('**/*.html'))
+
+        if not html_files:
+            self.errors.append("No HTML files found to validate")
+            return
+
+        missing_plausible = 0
+        malformed_plausible = 0
+        pages_with_plausible = 0
+        missing_dns_prefetch = 0
+        missing_preconnect = 0
+
+        for html_file in html_files:
+            try:
+                soup = BeautifulSoup(html_file.read_text(), 'html.parser')
+
+                # Check for Plausible script
+                plausible_script = soup.find('script', src=lambda x: x and 'plausible' in x and 'script.js' in x)
+
+                if not plausible_script:
+                    missing_plausible += 1
+                    self.warnings.append(
+                        f"Missing Plausible: {html_file.relative_to(self.site_dir)}"
+                    )
+                    continue
+
+                # Verify script attributes
+                data_domain = plausible_script.get('data-domain')
+                defer = plausible_script.get('defer')
+                data_cfasync = plausible_script.get('data-cfasync')
+                src = plausible_script.get('src')
+
+                is_valid = True
+                issues = []
+
+                if data_domain != 'jameskilby.co.uk':
+                    issues.append(f"wrong data-domain: {data_domain}")
+                    is_valid = False
+
+                if defer is None:
+                    issues.append("missing defer attribute")
+                    is_valid = False
+
+                if data_cfasync != 'false':
+                    issues.append(f"wrong data-cfasync: {data_cfasync}")
+                    is_valid = False
+
+                if not src or 'plausible.jameskilby.cloud/js/script.js' not in src:
+                    issues.append(f"wrong src: {src}")
+                    is_valid = False
+
+                if not is_valid:
+                    malformed_plausible += 1
+                    self.errors.append(
+                        f"Malformed Plausible in {html_file.relative_to(self.site_dir)}: {', '.join(issues)}"
+                    )
+                else:
+                    pages_with_plausible += 1
+
+                # Check for DNS prefetch and preconnect (warnings only, not critical)
+                if not soup.find('link', rel='dns-prefetch', href='//plausible.jameskilby.cloud'):
+                    missing_dns_prefetch += 1
+
+                if not soup.find('link', rel='preconnect', href='https://plausible.jameskilby.cloud'):
+                    missing_preconnect += 1
+
+            except Exception as e:
+                self.errors.append(f"Failed to parse {html_file}: {e}")
+
+        total = len(html_files)
+        coverage = (pages_with_plausible / total * 100) if total > 0 else 0
+
+        self.stats['total_html_files'] = total
+        self.stats['pages_with_plausible'] = pages_with_plausible
+        self.stats['plausible_coverage'] = f"{coverage:.1f}%"
+
+        print(f"  ✓ Pages with Plausible: {pages_with_plausible}/{total} ({coverage:.1f}%)")
+
+        if missing_dns_prefetch > 0:
+            print(f"  ⚠ Pages missing DNS prefetch: {missing_dns_prefetch} (performance issue)")
+
+        if missing_preconnect > 0:
+            print(f"  ⚠ Pages missing preconnect: {missing_preconnect} (performance issue)")
+
+        if coverage < 95 and total > 0:
+            self.errors.append(
+                f"Low Plausible coverage: {coverage:.1f}% (expected >95%)"
+            )
+
+        if missing_plausible > 0:
+            self.warnings.append(
+                f"{missing_plausible} pages missing Plausible script"
+            )
+
     def validate_all(self):
         """Run all validation checks."""
         print("🔍 Running comprehensive deployment validation...\n")
@@ -475,6 +574,7 @@ class DeploymentValidator:
         self.validate_minification()
         self.validate_critical_css()
         self.validate_utterances_comments()
+        self.validate_plausible_analytics()
 
         self.print_summary()
 

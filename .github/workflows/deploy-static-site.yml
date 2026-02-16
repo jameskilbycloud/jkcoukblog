@@ -365,6 +365,19 @@ jobs:
         }
         echo "✅ CSP validation passed - Utterances will load correctly!"
 
+    - name: Test Plausible Analytics CSP configuration
+      run: |
+        echo "🔒 Validating CSP allows Plausible Analytics..."
+        python3 scripts/test_plausible_analytics.py || {
+          echo ""
+          echo "❌ CSP validation failed!"
+          echo "⚠️  Worker CSP headers will block Plausible Analytics"
+          echo "   Check _worker.template.js Content-Security-Policy header"
+          echo ""
+          exit 1
+        }
+        echo "✅ Plausible CSP validation passed - Analytics will track correctly!"
+
     - name: Content quality validation
       timeout-minutes: 5
       continue-on-error: true  # Non-blocking: warnings won't fail the build
