@@ -1,6 +1,23 @@
 #!/usr/bin/env python3
 """
-WordPress Spell Check and Fix
+WordPress Spell Check and Fix - MANUAL USE
+
+Alternative spell checker with AUTO-FIX capability.
+For automated spell checking in CI/CD, use ollama_spell_checker.py instead.
+
+This script:
+- Uses pyspellchecker for traditional spell checking
+- Can automatically FIX misspellings in WordPress (writes back to source)
+- Runs manually when you want to quickly correct common errors
+
+Key difference from ollama_spell_checker.py:
+- This script: Auto-fix capability (modifies WordPress posts)
+- ollama_spell_checker.py: Report-only + AI-powered (used in automated workflow)
+
+Usage:
+    export WP_AUTH_TOKEN="your_token"
+    python3 scripts/wp_spell_check_and_fix.py --auto-fix
+
 Two-stage spell checking:
 1. Fast traditional spell checker (pyspellchecker) for initial scan
 2. Ollama AI for ambiguous cases with full context

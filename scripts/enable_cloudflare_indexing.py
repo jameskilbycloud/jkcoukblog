@@ -1,6 +1,21 @@
 #!/usr/bin/env python3
 """
-Enable search engine indexing for Cloudflare Pages project.
+Enable Search Engine Indexing - ONE-TIME SETUP SCRIPT
+
+This is a configuration script for initial blog setup.
+NOT used in regular CI/CD workflow.
+
+Purpose:
+- Run ONCE during initial blog deployment
+- Configures Cloudflare to allow search engine crawling
+- Disables "Disable Indexing" setting that blocks search engines
+
+Status: One-time setup (likely already complete)
+
+Usage:
+    export CLOUDFLARE_API_TOKEN="your_token"
+    export CLOUDFLARE_ACCOUNT_ID="your_account_id"
+    python3 scripts/enable_cloudflare_indexing.py
 
 This script uses the Cloudflare API to disable the "Disable Indexing" setting
 which adds X-Robots-Tag: noindex headers that block search engines.

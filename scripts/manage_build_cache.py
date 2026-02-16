@@ -1,6 +1,26 @@
 #!/usr/bin/env python3
 """
-Build Cache Management Tool
+Build Cache Management Tool - MANUAL USE
+
+Development utility for managing the incremental build cache.
+NOT used in automated CI/CD workflow.
+
+Use this script to:
+- Debug incremental build issues
+- Force a full rebuild by clearing cache
+- View what's currently cached
+- Get cache statistics
+
+Usage:
+    python3 scripts/manage_build_cache.py view   # View cache contents
+    python3 scripts/manage_build_cache.py clear  # Clear cache (forces full rebuild)
+    python3 scripts/manage_build_cache.py stats  # Show cache statistics
+
+The cache is stored in .build-cache.json and tracks:
+- Content hashes (to detect changes)
+- Modified timestamps
+- Post/page/media metadata
+
 Manage the incremental build cache
 """
 
