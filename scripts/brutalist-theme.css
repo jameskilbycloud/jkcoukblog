@@ -412,8 +412,11 @@ img {
   height: 100%;
 }
 
-/* Base thumbnail images - fill container with object-fit */
-.post-thumbnail-inner img {
+/* Base thumbnail images - fill container with object-fit
+   Use two-class selector (0,2,1) to override Kadence's .post-thumbnail:not(...) img (0,2,1)
+   since brutalist-theme.css loads after Kadence CSS, same specificity = last wins */
+.post-thumbnail .post-thumbnail-inner img,
+.article-post-thumbnail .post-thumbnail-inner img {
   width: 100%;
   height: 100%;
   object-fit: cover;

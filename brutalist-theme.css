@@ -412,8 +412,11 @@ img {
   height: 100%;
 }
 
-/* Base thumbnail images - fill container with object-fit */
-.post-thumbnail-inner img {
+/* Base thumbnail images - fill container with object-fit
+   Use .post-thumbnail-inner .post-thumbnail-inner prefix trick to raise specificity
+   to (0,2,1), overriding Kadence's .post-thumbnail:not(...) img (0,2,1) since we load after */
+.post-thumbnail .post-thumbnail-inner img,
+.article-post-thumbnail .post-thumbnail-inner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
