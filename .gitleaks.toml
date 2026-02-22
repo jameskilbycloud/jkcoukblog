@@ -44,6 +44,7 @@ commits = [
     # Old commits with example/placeholder code (not real secrets)
     "df684bc8eab0da7cc57ad8c975ac980b7f9b5aa1",  # Initial example code
     "3cda9950e41bcd69ff321701dfa8efed878f8587",  # Initial example code
+    "ea1e4ac145bfbe3d4765cf6ba758035d1c039a3f",  # test-secret-config.env (test data, file removed)
 ]
 
 # Stopwords - strings that if found will stop the scan
