@@ -393,6 +393,15 @@ class WordPressStaticGenerator:
                     meta['content'] = content.replace(self.wp_url, self.target_domain)
                     print(f"   🔧 Fixed meta property: {prop}")
         
+        # Explicit pass: ensure URL-bearing OG properties are always absolute
+        OG_URL_PROPS = {'og:image', 'og:url', 'og:image:secure_url'}
+        for meta in soup.find_all('meta', property=lambda p: p in OG_URL_PROPS):
+            content = meta.get('content', '')
+            if content.startswith('/'):
+                meta['content'] = f"{self.target_domain}{content}"
+            elif self.wp_url in content:
+                meta['content'] = content.replace(self.wp_url, self.target_domain)
+
         # Check if og:image exists, add default if missing
         og_image = soup.find('meta', property='og:image')
         if not og_image and soup.head:
