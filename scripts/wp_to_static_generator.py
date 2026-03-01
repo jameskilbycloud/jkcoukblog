@@ -326,7 +326,10 @@ class WordPressStaticGenerator:
         
         # Add social media links to bottom of posts
         self.add_social_media_links(soup)
-        
+
+        # Add BlogPosting JSON-LD schema to article pages
+        self.add_blogposting_schema(soup, current_url)
+
         # Convert to string
         return str(soup)
     
@@ -613,7 +616,154 @@ class WordPressStaticGenerator:
                     return text
         
         return None
-    
+
+    def add_blogposting_schema(self, soup, current_url):
+        """Generate and inject a BlogPosting JSON-LD schema for single article pages"""
+
+        # Only run on single post pages
+        body = soup.find('body')
+        if not body:
+            return
+        body_class_str = ' '.join(body.get('class', [])).lower()
+        if 'single-post' not in body_class_str:
+            return
+
+        # Skip if a BlogPosting schema already exists (e.g. supplied by Rank Math)
+        for script in soup.find_all('script', type='application/ld+json'):
+            try:
+                data = json.loads(script.string or '')
+                items = data.get('@graph', [data])
+                if any(
+                    isinstance(i, dict) and i.get('@type') == 'BlogPosting'
+                    for i in items
+                ):
+                    return  # Already present – nothing to do
+            except (json.JSONDecodeError, TypeError):
+                pass
+
+        # ── Metadata extraction ───────────────────────────────────────────────
+
+        def _meta(attr, value):
+            tag = soup.find('meta', attrs={attr: value})
+            return tag.get('content', '').strip() if tag else ''
+
+        # Title
+        h1 = soup.find('h1', class_='entry-title')
+        title = h1.get_text(strip=True) if h1 else _meta('property', 'og:title')
+
+        # Description
+        description = _meta('name', 'description') or _meta('property', 'og:description')
+
+        # Dates
+        date_published = _meta('property', 'article:published_time')
+        date_modified  = _meta('property', 'article:modified_time') or date_published
+        if not date_published:
+            time_tag = soup.find('time', class_='entry-date')
+            if time_tag:
+                date_published = time_tag.get('datetime', '')
+            updated_tag = soup.find('time', class_='updated')
+            date_modified = updated_tag.get('datetime', '') if updated_tag else date_published
+
+        # Canonical URL
+        canonical_tag = soup.find('link', rel='canonical')
+        canonical_url = canonical_tag['href'] if canonical_tag and canonical_tag.get('href') else \
+            f"{self.target_domain}{current_url}"
+        if canonical_url.startswith('/'):
+            canonical_url = f"{self.target_domain}{canonical_url}"
+
+        # Featured image
+        og_image = _meta('property', 'og:image')
+        og_image_w = _meta('property', 'og:image:width')
+        og_image_h = _meta('property', 'og:image:height')
+        if og_image and og_image.startswith('/'):
+            og_image = f"{self.target_domain}{og_image}"
+
+        # Author
+        author_tag = (
+            soup.find('a', rel='author') or
+            soup.find('span', class_='author') or
+            soup.find('a', class_='author')
+        )
+        author_name = author_tag.get_text(strip=True) if author_tag else 'James Kilby'
+
+        # Categories (article section = first category)
+        category_links = soup.find_all(
+            'a', href=lambda x: x and '/category/' in x
+        )
+        categories = list(dict.fromkeys(
+            lnk.get('href', '').split('/category/')[1].strip('/').replace('-', ' ').title()
+            for lnk in category_links
+        ))
+        article_section = categories[0] if categories else ''
+
+        # Tags / keywords
+        tag_links = soup.find_all(
+            'a', href=lambda x: x and '/tag/' in x
+        )
+        keywords = list(dict.fromkeys(
+            lnk.get_text(strip=True)
+            for lnk in tag_links
+            if lnk.get_text(strip=True)
+        ))
+
+        # Word count & reading time
+        article_text = self._extract_article_text(soup)
+        word_count = len(article_text.split()) if article_text else 0
+        reading_minutes = max(1, round(word_count / 200)) if word_count else 1
+
+        # ── Build schema ─────────────────────────────────────────────────────
+
+        schema: dict = {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": title,
+            "url": canonical_url,
+            "publisher": {
+                "@type": "Person",
+                "@id": f"{self.target_domain}/#person",
+                "name": "Jameskilbycouk",
+                "url": self.target_domain,
+            },
+        }
+
+        if description:
+            schema["description"] = description
+        if date_published:
+            schema["datePublished"] = date_published
+        if date_modified:
+            schema["dateModified"] = date_modified
+        if author_name:
+            schema["author"] = {
+                "@type": "Person",
+                "name": author_name,
+                "url": self.target_domain,
+            }
+        if og_image:
+            image_obj: dict = {"@type": "ImageObject", "url": og_image}
+            if og_image_w:
+                image_obj["width"] = int(og_image_w)
+            if og_image_h:
+                image_obj["height"] = int(og_image_h)
+            schema["image"] = image_obj
+        if article_section:
+            schema["articleSection"] = article_section
+        if keywords:
+            schema["keywords"] = keywords
+        if word_count:
+            schema["wordCount"] = word_count
+            schema["timeRequired"] = f"PT{reading_minutes}M"
+        if article_text and len(article_text) > 100:
+            schema["articleBody"] = article_text[:5000]
+
+        # ── Inject into <head> ────────────────────────────────────────────────
+
+        if soup.head:
+            script_tag = soup.new_tag('script')
+            script_tag['type'] = 'application/ld+json'
+            script_tag.string = json.dumps(schema, ensure_ascii=False, separators=(',', ':'))
+            soup.head.append(script_tag)
+            print(f"   📋 Added BlogPosting schema: {title[:60]}")
+
     def remove_wordpress_elements(self, soup):
         """Remove WordPress-specific dynamic elements and artifacts"""
         # Remove admin bar
@@ -2976,7 +3126,7 @@ class WordPressStaticGenerator:
         feed_html = feed_dir / 'index.html'
         feed_html.write_text(
             '<!DOCTYPE html>\n'
-            '<html><head>\n'
+            '<html lang="en"><head>\n'
             '<meta http-equiv="refresh" content="0; url=index.xml" />\n'
             '<link rel="alternate" type="application/rss+xml" href="index.xml" />\n'
             '</head><body>\n'
