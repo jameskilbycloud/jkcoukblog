@@ -123,8 +123,17 @@ class SEOFixer:
 
         # Too short (<120 chars) - try to expand from page content
         elif len(desc) < 120:
-            # Get first paragraph text
-            first_p = soup.find('p')
+            # #2: scope to article/main so we don't accidentally grab nav,
+            # footer, sidebar, or cookie-banner text as the description.
+            content_area = (
+                soup.find('article') or
+                soup.find('main') or
+                soup.find(class_=re.compile(
+                    r'entry.?content|post.?content|article.?body', re.I
+                )) or
+                soup
+            )
+            first_p = content_area.find('p')
             if first_p:
                 p_text = first_p.get_text().strip()
                 if len(p_text) >= 120:

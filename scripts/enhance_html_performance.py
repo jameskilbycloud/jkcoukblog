@@ -276,22 +276,31 @@ class HTMLPerformanceEnhancer:
                 except (ValueError, AttributeError):
                     pass
 
-        # Preload critical CSS files
+        # Preload the primary stylesheet — but only if its *filename* exactly
+        # matches a known critical/main pattern.  The previous check used
+        # `'style' in href` which matched every stylesheet (e.g. bootstrap.css,
+        # theme-styles.css), preloading the entire stylesheet list.
+        # H: restrict to exact stems: critical, main, styles (with optional .min)
+        _CSS_NAME_RE = re.compile(
+            r'(?:^|/)(?:critical|main|styles)(?:\.min)?\.css(?:[?#]|$)',
+            re.IGNORECASE
+        )
         for link in soup.find_all('link', rel='stylesheet'):
             href = link.get('href', '')
-            # Only preload critical CSS (indicated by filename)
-            if any(keyword in href for keyword in ['critical', 'main', 'style']) and 'print' not in href:
-                # Check if it's not already preloaded
-                existing = soup.find('link', rel='preload', href=href)
-                if not existing and len(href) > 0:
-                    preload = soup.new_tag('link')
-                    preload['rel'] = 'preload'
-                    preload['href'] = href
-                    preload['as'] = 'style'
-                    soup.head.insert(0, preload)
-                    modified = True
-                    self.optimizations_applied += 1
-                    break  # Only preload one critical CSS file
+            if not href or 'print' in href:
+                continue
+            if not _CSS_NAME_RE.search(href):
+                continue
+            existing = soup.find('link', rel='preload', href=href)
+            if not existing:
+                preload = soup.new_tag('link')
+                preload['rel'] = 'preload'
+                preload['href'] = href
+                preload['as'] = 'style'
+                soup.head.insert(0, preload)
+                modified = True
+                self.optimizations_applied += 1
+                break  # Only preload one critical CSS file
 
         return modified
 

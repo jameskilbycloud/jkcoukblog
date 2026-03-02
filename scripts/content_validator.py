@@ -11,6 +11,12 @@ from bs4 import BeautifulSoup
 import re
 from urllib.parse import urlparse
 
+# JSON-LD types that require specific fields to be eligible for Google rich results
+_ARTICLE_TYPES = frozenset({
+    'Article', 'BlogPosting', 'NewsArticle', 'TechArticle', 'ScholarlyArticle'
+})
+_ARTICLE_REQUIRED_FIELDS = ('headline', 'datePublished', 'author')
+
 
 class ContentValidator:
     def __init__(self):
@@ -37,6 +43,7 @@ class ContentValidator:
         self._check_broken_links(soup, file_path)
         self._check_missing_alt_text(soup, file_path)
         self._check_seo_basics(soup, file_path)
+        self._check_structured_data(soup, file_path)
         self._check_performance_issues(soup, file_path)
         self._check_security_headers(html, file_path)
         self._check_accessibility(soup, file_path)
@@ -184,6 +191,84 @@ class ContentValidator:
                 'message': f'og:image must be an absolute HTTPS URL, got: {og_image.get("content", "")}'
             })
     
+    def _check_structured_data(self, soup, file_path):
+        """Validate JSON-LD structured data blocks"""
+        ld_scripts = soup.find_all('script', type='application/ld+json')
+
+        if not ld_scripts:
+            # Only warn for pages that have meaningful article content — skip
+            # utility pages (search, 404, archives) that rarely need rich results.
+            if soup.find('article') or soup.find('main'):
+                self.warnings.append({
+                    'type': 'seo_no_structured_data',
+                    'file': str(file_path),
+                    'message': (
+                        'No JSON-LD structured data found — '
+                        'page is ineligible for Google rich results'
+                    )
+                })
+            return
+
+        for idx, script in enumerate(ld_scripts, 1):
+            raw = (script.string or '').strip()
+            if not raw:
+                self.warnings.append({
+                    'type': 'structured_data_empty',
+                    'file': str(file_path),
+                    'message': f'Empty JSON-LD block (script #{idx})'
+                })
+                continue
+
+            try:
+                data = json.loads(raw)
+            except json.JSONDecodeError as exc:
+                self.errors.append({
+                    'type': 'structured_data_invalid_json',
+                    'file': str(file_path),
+                    'message': f'JSON-LD parse error in block #{idx}: {exc}'
+                })
+                continue
+
+            # Support both single objects and @graph arrays
+            if isinstance(data, dict):
+                items = data.get('@graph', [data])
+            elif isinstance(data, list):
+                items = data
+            else:
+                items = []
+
+            for item in items:
+                if not isinstance(item, dict):
+                    continue
+
+                # @context must reference schema.org
+                context = str(item.get('@context', ''))
+                if context and 'schema.org' not in context:
+                    self.warnings.append({
+                        'type': 'structured_data_bad_context',
+                        'file': str(file_path),
+                        'message': (
+                            f'JSON-LD @context should reference schema.org, '
+                            f'got: {context}'
+                        )
+                    })
+
+                # Article types must have headline, datePublished, and author
+                schema_type = item.get('@type', '')
+                if schema_type in _ARTICLE_TYPES:
+                    for field in _ARTICLE_REQUIRED_FIELDS:
+                        if not item.get(field):
+                            self.warnings.append({
+                                'type': 'structured_data_missing_field',
+                                'file': str(file_path),
+                                'schema_type': schema_type,
+                                'field': field,
+                                'message': (
+                                    f'JSON-LD {schema_type} missing '
+                                    f'required field: {field}'
+                                )
+                            })
+
     def _check_performance_issues(self, soup, file_path):
         """Check for performance issues"""
         # Large images without lazy loading
