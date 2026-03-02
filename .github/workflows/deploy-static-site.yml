@@ -100,20 +100,28 @@ jobs:
         fi
         
         # Run spell checker (only checks posts modified since SINCE_TIMESTAMP if set)
+        SPELL_EXIT=0
         if [ -n "$SINCE_TIMESTAMP" ]; then
-          python3 scripts/ollama_spell_checker.py || echo "⚠️  Spelling issues detected (non-blocking)"
+          python3 scripts/ollama_spell_checker.py || SPELL_EXIT=$?
         else
-          python3 scripts/ollama_spell_checker.py 3 || echo "⚠️  Spelling issues detected (non-blocking)"
+          python3 scripts/ollama_spell_checker.py 3 || SPELL_EXIT=$?
         fi
-        
+
+        if [ "$SPELL_EXIT" -ne 0 ]; then
+          echo "⚠️  Spelling issues detected (non-blocking)"
+          SPELL_STATUS="⚠️ Issues detected"
+        else
+          SPELL_STATUS="✅ No issues found"
+        fi
+
         # Save current timestamp for next run
         date -u +"%Y-%m-%dT%H:%M:%SZ" > "$TIMESTAMP_FILE"
         echo "💾 Saved timestamp for next check"
-        
+
         # Save spell check summary
         echo "## 📝 Spell Check Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "- **Status:** ✅ Completed" >> $GITHUB_STEP_SUMMARY
+        echo "- **Status:** $SPELL_STATUS" >> $GITHUB_STEP_SUMMARY
         echo "- **Last Check:** $(cat $TIMESTAMP_FILE)" >> $GITHUB_STEP_SUMMARY
 
   build-and-deploy:

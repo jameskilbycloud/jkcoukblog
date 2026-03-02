@@ -296,39 +296,41 @@ class HTMLPerformanceEnhancer:
         return modified
 
     def optimize_images(self, soup):
-        """Add lazy loading, fetchpriority, and responsive attributes to images"""
+        """Add lazy loading, fetchpriority, and responsive attributes to images.
+
+        fetchpriority="high" is applied only to the first image found inside
+        <main> or <article> — the most likely LCP candidate. Images outside
+        that scope (logos, nav icons, sidebar thumbnails) are never given high
+        priority and always receive loading="lazy" instead.
+        """
         if not soup.body:
             return False
 
         modified = False
-        images = soup.find_all('img')
 
-        for idx, img in enumerate(images):
-            # First 2 images (likely hero/LCP candidates) get high priority
-            if idx < 2:
+        # Identify the first content image (LCP candidate).
+        content_root = soup.find(['main', 'article'])
+        lcp_img = content_root.find('img') if content_root else None
+
+        for img in soup.find_all('img'):
+            if img is lcp_img:
+                # Likely LCP element — hint the browser to fetch it early.
                 if not img.get('fetchpriority'):
                     img['fetchpriority'] = 'high'
                     modified = True
                     self.optimizations_applied += 1
             else:
-                # All other images: lazy load
+                # Everything else: defer loading until near the viewport.
                 if not img.get('loading'):
                     img['loading'] = 'lazy'
                     modified = True
                     self.optimizations_applied += 1
 
-            # Add async decoding hint for all images
+            # Async decoding for all images — prevents blocking the main thread.
             if not img.get('decoding'):
                 img['decoding'] = 'async'
                 modified = True
                 self.optimizations_applied += 1
-
-            # Ensure width/height attributes (prevent CLS)
-            if img.get('src') and not (img.get('width') and img.get('height')):
-                # If we can determine dimensions, add them
-                # For now, we'll skip this as it requires image analysis
-                # But we track it for potential future enhancement
-                pass
 
         return modified
 

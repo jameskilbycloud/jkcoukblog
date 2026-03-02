@@ -88,7 +88,7 @@ async function handleKVCache(request, env, path) {
       return new Response(cached.value, {
         headers: {
           'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': 'public, max-age=300',
+          'Cache-Control': `public, max-age=${getTTL(path)}`,
           'X-Cache-Status': 'HIT',
           'X-Cache-Views': views.toString(),
           'X-Worker': 'advanced-worker-kv',
