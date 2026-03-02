@@ -1,68 +1,39 @@
-# Optimization Documentation
+# Optimisation Documentation
 
-This document covers all performance optimization features implemented in the static site generator.
+Performance optimisations applied by the static site build pipeline.
 
 ## Table of Contents
-- [Image Optimization](#image-optimization)
-- [Lazy Loading](#lazy-loading)
+- [Image Optimisation](#image-optimisation)
+- [Image Lazy Loading & LCP Priority](#image-lazy-loading--lcp-priority)
+- [Brotli + Gzip Compression](#brotli--gzip-compression)
+- [Critical CSS Inlining](#critical-css-inlining)
+- [CSS Preload Hints](#css-preload-hints)
 - [DNS Prefetch & Preconnect](#dns-prefetch--preconnect)
 - [Performance Monitoring](#performance-monitoring)
 
 ---
 
-## Image Optimization
+## Image Optimisation
 
 ### Overview
-Advanced image optimization system using Python-based parallel processing for 4x faster optimization with intelligent MD5-based caching.
+Advanced image optimisation using Python-based parallel processing with intelligent **BLAKE2b**-based caching.
 
 ### Features
 - **Parallel Processing**: 4 concurrent workers
-- **Intelligent Caching**: MD5-based cache prevents re-optimizing unchanged images
-- **WebP Support**: Optional WebP format generation for modern browsers
-- **Detailed Metrics**: JSON output with comprehensive optimization statistics
-- **Timeout Protection**: 60-second timeout per image to prevent hangs
-- **Graceful Degradation**: Continues processing even if tools are missing
+- **Intelligent Caching**: BLAKE2b (digest size 16) hashing — unchanged images are skipped across runs
+- **AVIF + WebP**: Modern formats generated alongside originals; `<picture>` elements inserted so browsers pick the best format
+- **`fetchpriority="high"`**: Applied to the first image inside `<main>`/`<article>` (the likely LCP element)
+- **Detailed Metrics**: JSON output with per-image statistics
+- **Graceful Degradation**: Build continues even if individual tools are missing
 
-### Usage
+### Tools Used
 
-#### Basic Optimization
-```bash
-python optimize_images.py ./static-output
-```
-
-#### With WebP Generation
-```bash
-python optimize_images.py ./static-output --webp
-```
-
-#### Custom Worker Count
-```bash
-python optimize_images.py ./static-output --workers 8
-```
-
-#### JSON Output for Integration
-```bash
-python optimize_images.py ./static-output --json-output results.json
-```
-
-### Optimization Strategy
-
-#### PNG Files
-- Tool: `optipng`
-- Settings: `-o2` (level 2 optimization)
-- Rationale: Balance between speed and compression
-
-#### JPEG Files
-- Tool: `jpegoptim`
-- Settings: `--max=85 --strip-all`
-- Rationale: Quality 85 maintains visual fidelity with significant size reduction
-- Strip metadata to reduce file size
-
-#### WebP Files (Optional)
-- Tool: `cwebp`
-- Settings: `-q 80`
-- Output: Creates `.webp` alongside original
-- Rationale: WebP provides ~30% better compression than JPEG/PNG
+| Format | Tool | Settings |
+|--------|------|----------|
+| PNG optimisation | `optipng` | `-o2` |
+| JPEG optimisation | `jpegoptim` | `--max=85 --strip-all` |
+| WebP conversion | `cwebp` | `-q 80` |
+| AVIF conversion | `avifenc` | default |
 
 ### Caching System
 
@@ -72,351 +43,232 @@ Cache directory: `.image_optimization_cache/optimization_cache.json`
 ```json
 {
   "/path/to/image.png": {
-    "hash": "abc123...",
+    "hash": "blake2b_hex...",
     "optimized_size": 12345,
     "timestamp": 1703012345.678
   }
 }
 ```
 
-**Cache Logic:**
-1. Calculate MD5 hash of image file
-2. Check if hash exists in cache
-3. If hash matches → skip optimization (cached)
-4. If hash differs → optimize and update cache
-5. Save cache after all optimizations complete
+> **Note:** The cache previously used MD5 hashing; it was migrated to BLAKE2b (`hashlib.blake2b(content, digest_size=16)`) for improved collision resistance. The build cache key was bumped (v2→v3) to force a clean rebuild after this change.
+
+### Cache Persistence
+
+The image optimisation cache is preserved across GitHub Actions runs via `actions/cache@v4`:
+
+```yaml
+- uses: actions/cache@v4
+  with:
+    path: |
+      .image_optimization_cache
+      .last_spell_check_timestamp
+      .build-cache.json
+    key: build-cache-avif-v3-${{ github.sha }}
+    restore-keys: |
+      build-cache-avif-v3-
+```
 
 ### Performance
 
-**Typical Performance** (based on ~150 images):
-- **First Run** (no cache): ~30-45 seconds
-- **Cached Run** (all cached): ~2-3 seconds
-- **Partial Cache** (50% cached): ~15-20 seconds
-- **Per Image** (uncached): ~150-300ms
+**Typical timings (≈150 images):**
 
-**Parallel Scaling:**
+| Workers | Time | Speedup |
+|---------|------|---------|
+| 1 | ~120 s | 1.0× |
+| 2 | ~65 s | 1.8× |
+| 4 | ~35 s | 3.4× |
+| 8 | ~30 s | ~4.0× |
 
-| Workers | Time (150 images) | Speedup |
-|---------|------------------|---------|
-| 1       | ~120s            | 1.0x    |
-| 2       | ~65s             | 1.8x    |
-| 4       | ~35s             | 3.4x    |
-| 8       | ~30s             | 4.0x    |
+*Diminishing returns above 4 workers due to I/O bottleneck.*
 
-*Note: Diminishing returns above 4 workers due to I/O bottleneck*
+---
 
-### GitHub Actions Integration
+## Image Lazy Loading & LCP Priority
 
-```yaml
-- name: Optimize images
-  timeout-minutes: 20
-  run: |
-    python optimize_images.py ./static-output --workers 4 --json-output optimization-results.json
-    
-    # Parse results with jq
-    PNG_COUNT=$(jq '[.[] | select(.format_type == "PNG")] | length' optimization-results.json)
-    SAVED_MB=$(jq '[.[] | .saved_bytes] | add / 1024 / 1024' optimization-results.json)
+**Script:** `scripts/enhance_html_performance.py` — `optimize_images()`
+
+### Strategy
+
+The enhancer identifies the **single most likely LCP element** rather than using a fixed count:
+
+1. Find the content root — `<main>` or `<article>` element.
+2. The **first `<img>`** inside that root gets `fetchpriority="high"` (and no `loading` attribute so the browser fetches it immediately).
+3. **All other images** throughout the page get `loading="lazy"` and `decoding="async"`.
+
+This prevents layout-irrelevant images (logos, nav icons, sidebar thumbnails) from receiving `fetchpriority="high"`.
+
+### Before / After
+
+```html
+<!-- Before -->
+<img src="hero.jpg" alt="Hero image">
+<img src="photo.jpg" alt="Photo">
+
+<!-- After -->
+<img src="hero.jpg" alt="Hero image" fetchpriority="high" decoding="async">
+<img src="photo.jpg" alt="Photo" loading="lazy" decoding="async">
 ```
 
 ---
 
-## Lazy Loading
+## Brotli + Gzip Compression
 
-### Overview
-Native browser lazy loading delays loading of below-fold images, improving initial page load performance and reducing bandwidth usage.
+**Script:** `scripts/brotli_compress.py`
 
-### Implementation
+Pre-compression runs at build time so Cloudflare Pages can serve `.br` or `.gz` files directly — zero runtime CPU cost.
 
-Add `loading="lazy"` attribute to `<img>` tags:
+### Compression Modes
 
-```html
-<!-- Before -->
-<img src="image.jpg" alt="Description">
+Brotli exposes two modes relevant to web assets:
 
-<!-- After -->
-<img src="image.jpg" alt="Description" loading="lazy">
+| Mode | Used for | Rationale |
+|------|----------|-----------|
+| `MODE_TEXT` | `.html`, `.css`, `.js`, `.md`, `.txt` | Optimised entropy model for UTF-8 prose and code |
+| `MODE_GENERIC` | `.json`, `.svg`, `.xml`, `.csv`, `.rss`, `.atom` | Structured/binary data; `MODE_TEXT` provides no benefit here |
+
+### Gzip Fallback
+
+A second compression pass produces `.gz` alongside every `.br` file, ensuring compatibility with clients that don't support Brotli (legacy browsers, some CDN edge nodes, curl without `--compressed-br`).
+
+```
+asset.html      ← original, served if neither encoding accepted
+asset.html.br   ← Brotli, primary (served to modern browsers)
+asset.html.gz   ← Gzip, fallback (served to legacy clients)
 ```
 
-### Smart Lazy Loading Strategy
+### Quality Settings
 
-The generator applies intelligent lazy loading:
-- **First 2 images**: Eager loading (above fold)
-- **Hero/featured images**: Eager loading (important content)
-- **Large images** (≥800px): Eager loading (likely important)
-- **Header images**: Eager loading (article headers)
-- **All other images**: Lazy loading (below fold)
+| Algorithm | Quality | Notes |
+|-----------|---------|-------|
+| Brotli | 11 (default) | Maximum compression; slower build but zero runtime cost |
+| Gzip | 9 | Maximum compression |
 
-### Implementation in Code
+Both passes skip files where compression saves less than **5%** of the original size.
 
-Location: `wp_to_static_generator.py` in `add_lazy_loading()` method
+### Minimum Size Threshold
 
-```python
-def add_smart_lazy_loading(self, soup):
-    """Smart lazy loading based on image context"""
-    images = soup.find_all('img')
-    
-    for idx, img in enumerate(images):
-        should_eager = False
-        
-        # Rule 1: First 2 images
-        if idx < 2:
-            should_eager = True
-        
-        # Rule 2: Hero images
-        elif img.get('class'):
-            classes = ' '.join(img.get('class', []))
-            hero_keywords = ['hero', 'banner', 'featured', 'thumbnail', 'logo']
-            if any(keyword in classes.lower() for keyword in hero_keywords):
-                should_eager = True
-        
-        # Rule 3: Large images
-        elif img.get('width') and int(img.get('width')) >= 800:
-            should_eager = True
-        
-        # Apply loading attribute
-        img['loading'] = 'eager' if should_eager else 'lazy'
-        if not should_eager:
-            img['decoding'] = 'async'
-```
+Files under **1 KB** are skipped — the header overhead of Brotli/Gzip outweighs any savings for tiny files.
 
-### Browser Support
-- Chrome/Edge 76+
-- Firefox 75+
-- Safari 15.4+
-- Support: 95%+ of users
-- Degrades gracefully in older browsers
+---
 
-### Additional Optimizations
+## Critical CSS Inlining
 
-**Async Decoding:**
-```html
-<img src="image.jpg" loading="lazy" decoding="async">
-```
+**Script:** `scripts/extract_critical_css.py`
 
-Allows browser to decode images asynchronously for better performance.
+### What it does
+
+1. Parses each page's external stylesheets.
+2. Identifies CSS rules that apply to elements in the **above-the-fold** viewport (approximately the first screenful of content).
+3. Inlines those rules directly into `<head>` as a `<style>` block.
+4. Changes the original `<link rel="stylesheet">` to load asynchronously via `media="print" onload="this.media='all'"` — a well-known non-blocking CSS pattern.
+
+### Result
+
+The browser renders the initial viewport immediately using the inlined CSS without waiting for external stylesheets to download, eliminating **render-blocking CSS** as a Lighthouse issue.
+
+### CSS Parser
+
+The rule parser uses a **brace-depth tokeniser** rather than a simple regex, correctly handling:
+- Nested at-rules (`@media`, `@supports`, `@layer`)
+- Comment stripping before parse
+- `@keyframes` and `@font-face` (skipped from critical extraction)
+- `@import` and `@charset` (semicolon-terminated, no brace block)
+
+---
+
+## CSS Preload Hints
+
+**Script:** `scripts/enhance_html_performance.py` — `add_preload_hints()`
+
+### What is preloaded
+
+A `<link rel="preload" as="style">` hint is added for the **primary stylesheet** — the one most likely to be render-critical. Only stylesheets whose **filename** exactly matches one of these patterns are preloaded:
+
+| Pattern | Examples matched |
+|---------|-----------------|
+| `critical.css` / `critical.min.css` | Explicit critical CSS files |
+| `main.css` / `main.min.css` | Primary theme stylesheet |
+| `styles.css` / `styles.min.css` | Common alternative naming |
+
+Any other stylesheet (e.g. `bootstrap-styles.css`, `theme-stylesheet.css`) is **not** preloaded. Preloading too many stylesheets defeats the purpose by competing for bandwidth.
+
+The match is applied to the filename portion of the href only (not the full path), so `/assets/css/main.css` is matched but `/assets/main-content.css` is not.
 
 ---
 
 ## DNS Prefetch & Preconnect
 
-### Overview
-Resource hints that improve page load performance by pre-resolving DNS and establishing connections before they're needed.
+**Script:** `scripts/enhance_html_performance.py` — `add_resource_hints()`
 
-### What Was Implemented
+Resource hints warm up connections to external domains before they are needed.
 
-**DNS Prefetch:**
+### What is added
+
+**DNS prefetch** (added for all detected external domains):
 ```html
 <link rel="dns-prefetch" href="//plausible.jameskilby.cloud">
 ```
 
-**Preconnect:**
+**Preconnect** (stronger; added only for critical domains that are actually used on the page):
 ```html
-<link rel="preconnect" href="https://plausible.jameskilby.cloud" crossorigin>
+<link rel="preconnect" href="https://plausible.jameskilby.cloud">
 ```
 
 ### Performance Impact
 
-**Without optimization:**
-1. DNS Resolution: ~20-120ms
-2. TCP Connection: ~50-200ms
-3. TLS Handshake: ~50-300ms
-4. HTTP Request: ~20-100ms
-5. Download: ~50-200ms
+Without resource hints, loading the Plausible script involves serial DNS → TCP → TLS → HTTP steps (~400–900 ms on cold connections). With preconnect, steps 1–3 happen in parallel with page parsing.
 
-**Total:** ~190-920ms
-
-**With resource hints:**
-Steps 1-3 happen in parallel during page load, before the script tag is encountered.
-
-**Time saved:** Up to 600ms on slow connections
-
-### How It Works
-
-```
-Page Load Starts
-    ↓
-DNS Prefetch (immediate)
-    ↓
-Preconnect (immediate)
-    ↓
-Browser continues parsing HTML
-    ↓
-[Other content loads]
-    ↓
-Plausible script tag encountered
-    ↓
-Connection already ready! ✅
-    ↓
-Script downloads immediately
-```
-
-### Before vs After
-
-**Before Optimization:**
-```
-DNS Lookup:        85ms
-Initial Connection: 120ms
-SSL/TLS:           180ms
-Request sent:      25ms
-Waiting (TTFB):    45ms
-Content Download:  30ms
-─────────────────────────
-Total:             485ms
-```
-
-**After Optimization:**
-```
-DNS Lookup:        0ms (already done)
-Initial Connection: 0ms (already done)
-SSL/TLS:           0ms (already done)
-Request sent:      25ms
-Waiting (TTFB):    45ms
-Content Download:  30ms
-─────────────────────────
-Total:             100ms
-```
-
-**Improvement:** 79% faster (385ms saved)
-
-### Implementation Details
-
-- **Location:** `wp_to_static_generator.py` in `add_plausible_analytics()` method
-- **Early Insertion:** Added at position 0 and 1 in `<head>` for maximum benefit
-- **Duplicate Prevention:** Checks if hints already exist before adding
-- **Crossorigin Attribute:** Added to preconnect for CORS preflight optimization
-- **Automatic:** Applied to every page during static generation
-
-### Verification
-
-```bash
-# Check in generated HTML
-curl -s https://jameskilby.co.uk/ | grep -o '<link[^>]*preconnect[^>]*>'
-```
-
-Expected output:
-```html
-<link href="//plausible.jameskilby.cloud" rel="dns-prefetch"/>
-<link crossorigin="" href="https://plausible.jameskilby.cloud" rel="preconnect"/>
-```
-
-### Browser Support
-
-**DNS Prefetch:**
-- Chrome/Edge: All versions
-- Firefox: 3.5+
-- Safari: 5+
-- **Support:** 99%+ of users
-
-**Preconnect:**
-- Chrome/Edge: 46+
-- Firefox: 39+
-- Safari: 11.1+
-- **Support:** 95%+ of users
-
-Browsers that don't support these hints simply ignore them (no negative impact).
+**Typical saving:** 200–600 ms on first load.
 
 ---
 
 ## Performance Monitoring
 
-### Overview
-Automated performance monitoring using Lighthouse CI tracks site speed, accessibility, SEO, and best practices metrics over time.
+### Lighthouse CI
 
-### What's Monitored
+**File:** `.github/workflows/quality-checks.yml`
 
-#### Core Web Vitals
-- **Largest Contentful Paint (LCP)** - Loading performance (target: <2.5s)
-- **First Input Delay (FID)** - Interactivity (target: <100ms)
-- **Cumulative Layout Shift (CLS)** - Visual stability (target: <0.1)
+Runs automatically on push to main and daily at 03:00 UTC.
 
-#### Performance Metrics
-- **First Contentful Paint (FCP)** - When first content appears
-- **Speed Index** - How quickly content is visually displayed
-- **Time to Interactive (TTI)** - When page becomes fully interactive
-- **Total Blocking Time (TBT)** - Time blocked by long tasks
+#### Pages tested
+1. Homepage — `https://jameskilby.co.uk`
+2. Category page — `https://jameskilby.co.uk/category/`
+3. Recent posts archive
 
-#### Category Scores (0-100)
-- **Performance** - Overall page speed
-- **Accessibility** - WCAG compliance and usability
-- **Best Practices** - Modern web standards
-- **SEO** - Search engine optimization
+#### Performance budgets
 
-### Monitoring Schedule
+| Metric | Budget |
+|--------|--------|
+| First Contentful Paint (FCP) | ≤ 2000 ms |
+| Largest Contentful Paint (LCP) | ≤ 2500 ms |
+| Time to Interactive (TTI) | ≤ 3500 ms |
+| Cumulative Layout Shift (CLS) | ≤ 0.1 |
+| Total Blocking Time (TBT) | ≤ 300 ms |
 
-**Automatic Scans:**
-- On every push to main/master branch (after 2-minute deployment delay)
-- On every pull request to catch regressions before merge
-- Daily at 3 AM UTC for trend tracking
+#### Resource budgets
 
-**Manual Scans:**
-```bash
-gh workflow run lighthouse-ci.yml
-```
-
-### Pages Tested
-
-Three key pages are monitored (3 runs each, median scores reported):
-
-1. **Homepage** - `https://jameskilby.co.uk`
-2. **Category Page** - `https://jameskilby.co.uk/category/`
-3. **Recent Posts** - `https://jameskilby.co.uk/2025/`
-
-### Performance Budgets
-
-#### Timing Budgets
-
-| Metric | Budget | Tolerance |
-|--------|--------|-----------|
-| First Contentful Paint (FCP) | 2000ms | ±200ms |
-| Largest Contentful Paint (LCP) | 2500ms | ±500ms |
-| Time to Interactive (TTI) | 3500ms | ±500ms |
-| Speed Index | 3000ms | ±300ms |
-| Total Blocking Time (TBT) | 300ms | ±100ms |
-| Cumulative Layout Shift (CLS) | 0.1 | ±0.05 |
-
-#### Resource Size Budgets
-
-| Resource Type | Budget |
-|---------------|--------|
-| Document (HTML) | 50 KB |
-| Stylesheets (CSS) | 100 KB |
-| Scripts (JS) | 200 KB |
+| Resource | Budget |
+|----------|--------|
+| HTML | 50 KB |
+| CSS | 100 KB |
+| JS | 200 KB |
 | Images | 500 KB |
 | Fonts | 100 KB |
-| **Total** | **1000 KB (1 MB)** |
+| **Total** | **1 MB** |
 
-**If any budget is exceeded**, the workflow will fail and alert via Slack.
+Budgets exceeded → Slack alert + workflow failure.
 
 ### Viewing Reports
 
-**GitHub Actions Artifacts:**
 ```bash
 # List recent Lighthouse runs
-gh run list --workflow=lighthouse-ci.yml
+gh run list --workflow=quality-checks.yml
 
-# View specific run
-gh run view <run-id>
-
-# Download reports
+# Download report artifacts
 gh run download <run-id>
 ```
 
-Reports are kept for **30 days**.
-
-### Configuration Files
-
-- **Lighthouse Config:** `.github/lighthouse/lighthouse-config.json`
-- **Budget Config:** `.github/lighthouse/budget.json`
-
-### Notifications
-
-**Performance Regressions:**
-- Slack alert sent when budgets are exceeded
-- Includes branch, commit info, and link to detailed report
-
-**Daily Status:**
-- Confirmation posted to Slack after successful scan
-- Shows all budgets within acceptable ranges
+Reports are retained for **30 days**.
 
 ---
 
@@ -425,3 +277,4 @@ Reports are kept for **30 days**.
 - [FEATURES.md](FEATURES.md)
 - [SEO.md](SEO.md)
 - [DEPLOYMENT.md](DEPLOYMENT.md)
+- [IMAGE_OPTIMIZATION.md](IMAGE_OPTIMIZATION.md)
