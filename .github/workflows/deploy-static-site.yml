@@ -463,6 +463,13 @@ jobs:
           echo "⚠️  No validation report generated" >> $GITHUB_STEP_SUMMARY
         fi
 
+    - name: Upload content validation report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: content-validation-report
+        path: validation-report.json
+
     - name: Optimize images
       timeout-minutes: 40  # Timeout for image optimization
       shell: bash
@@ -852,15 +859,17 @@ jobs:
         echo "📊 Generating stats page..."
         PLAUSIBLE_SHARE_LINK="${{ secrets.PLAUSIBLE_SHARE_LINK }}" python3 scripts/generate_stats_page.py || echo "⚠️  Stats page generation failed (non-blocking)"
 
-        # Submit URLs to IndexNow (creates verification file in public/)
-        echo "🔔 Submitting URLs to IndexNow..."
-        python3 scripts/submit_indexnow.py ./public || echo "⚠️  IndexNow submission failed (non-blocking)"
-
         # Check if there are changes to commit
         # Note: .br files are automatically included in public/
-        # Note: IndexNow key file (*.txt in root) must be committed so it's accessible at the site root
         # Note: functions/ directory must be at repo root for Cloudflare Pages to detect it
-        git add public/ functions/ .last_spell_check_timestamp .image_optimization_cache/ .indexnow_key *.txt indexnow-submission.json validation-report.json 2>/dev/null || true
+        git add public/ functions/ .last_spell_check_timestamp .image_optimization_cache/ .indexnow_key 2>/dev/null || true
+
+        # Add the IndexNow key verification file by its exact name.
+        # Using *.txt would risk committing any stray .txt file on the runner.
+        if [ -f ".indexnow_key" ]; then
+          INDEXNOW_KEY_NAME=$(cat .indexnow_key)
+          git add "${INDEXNOW_KEY_NAME}.txt" 2>/dev/null || true
+        fi
         
         if [ -n "$(git diff --cached)" ]; then
           echo "📝 Changes detected, committing..."
@@ -1042,6 +1051,14 @@ jobs:
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       run: |
         bash scripts/purge_static_cache.sh
+      continue-on-error: true
+
+    - name: Submit URLs to IndexNow
+      if: success()
+      run: |
+        echo "🔔 Submitting URLs to IndexNow..."
+        # Runs after the site is live and caches are purged so crawlers see fresh content
+        python3 scripts/submit_indexnow.py ./public || echo "⚠️  IndexNow submission failed (non-blocking)"
       continue-on-error: true
 
     - name: Notify Slack on Success

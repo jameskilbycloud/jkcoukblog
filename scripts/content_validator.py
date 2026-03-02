@@ -232,18 +232,28 @@ class ContentValidator:
     
     def _check_security_headers(self, html, file_path):
         """Check for security issues"""
-        # Inline scripts without nonce/hash (CSP violation)
-        if '<script>' in html and 'nonce=' not in html:
+        soup = BeautifulSoup(html, 'html.parser')
+
+        # Inline scripts without nonce/hash (CSP violation).
+        # Only flag <script> tags without a src attribute — genuine inline
+        # scripts. External <script src="..."> tags don't require a nonce and
+        # were causing false positives with the previous string-search approach.
+        inline_scripts = [
+            s for s in soup.find_all('script')
+            if not s.get('src') and s.string and s.string.strip()
+        ]
+        if inline_scripts and 'nonce=' not in html:
             self.warnings.append({
                 'type': 'security_inline_script',
                 'file': str(file_path),
-                'message': 'Inline script without CSP nonce'
+                'message': (
+                    f'Inline script without CSP nonce '
+                    f'({len(inline_scripts)} script block(s) found)'
+                )
             })
-        
+
         # Mixed content warnings
         if 'http://' in html and 'https://' in html:
-            # More refined check for mixed content
-            soup = BeautifulSoup(html, 'html.parser')
             for tag in soup.find_all(['img', 'script', 'link'], src=True):
                 if tag.get('src', '').startswith('http://'):
                     self.errors.append({
