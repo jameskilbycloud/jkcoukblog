@@ -231,7 +231,7 @@ function shouldCache(path) {
       path === '/diagnostic' ||
       path === '/trace' ||
       path === '/test' ||
-      path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|json|xml|txt|webp|avif|br)$/)) {
+      path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|json|xml|txt|webp|avif|br|gz)$/)) {
     return false;
   }
   

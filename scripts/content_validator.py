@@ -157,6 +157,7 @@ class ContentValidator:
         # Check for Open Graph tags
         og_title = soup.find('meta', attrs={'property': 'og:title'})
         og_desc = soup.find('meta', attrs={'property': 'og:description'})
+        og_image = soup.find('meta', attrs={'property': 'og:image'})
         if not og_title:
             self.warnings.append({
                 'type': 'seo_no_og_title',
@@ -168,6 +169,19 @@ class ContentValidator:
                 'type': 'seo_no_og_description',
                 'file': str(file_path),
                 'message': 'Missing Open Graph description'
+            })
+        if not og_image:
+            self.warnings.append({
+                'type': 'seo_no_og_image',
+                'file': str(file_path),
+                'message': 'Missing og:image - shared links on X/LinkedIn/Slack will show no preview image'
+            })
+        elif not og_image.get('content', '').startswith('https://'):
+            self.warnings.append({
+                'type': 'seo_og_image_not_absolute',
+                'file': str(file_path),
+                'content': og_image.get('content', ''),
+                'message': f'og:image must be an absolute HTTPS URL, got: {og_image.get("content", "")}'
             })
     
     def _check_performance_issues(self, soup, file_path):

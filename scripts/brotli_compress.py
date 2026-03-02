@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """
-Brotli Compression for Static Site
-Pre-compresses HTML, CSS, JS, JSON, SVG, and XML files with Brotli
+Brotli + Gzip Compression for Static Site
+Pre-compresses HTML, CSS, JS, JSON, SVG, and XML files with Brotli (primary)
+and Gzip (fallback for clients that don't support Brotli).
 """
 
+import gzip as _gzip
 import os
 import sys
 from pathlib import Path
@@ -38,6 +40,12 @@ class BrotliCompressor:
             'compressed_size': 0,
             'files_skipped': 0
         }
+        self.gzip_stats = {
+            'files_compressed': 0,
+            'original_size': 0,
+            'compressed_size': 0,
+            'files_skipped': 0
+        }
         
         # File extensions to compress
         self.compressible_extensions = {
@@ -52,7 +60,7 @@ class BrotliCompressor:
             return False
         
         # Skip already compressed files
-        if file_path.suffix == '.br':
+        if file_path.suffix in ('.br', '.gz'):
             return False
         
         # Check if .br file already exists and is newer
@@ -112,46 +120,111 @@ class BrotliCompressor:
             print(f"   ❌ Error compressing {file_path}: {e}")
             return False
     
+    def should_compress_gzip(self, file_path):
+        """Check if file should be gzip compressed"""
+        if file_path.suffix.lower() not in self.compressible_extensions:
+            return False
+        if file_path.suffix in ('.br', '.gz'):
+            return False
+        gz_file = file_path.with_suffix(file_path.suffix + '.gz')
+        if gz_file.exists():
+            if file_path.stat().st_mtime <= gz_file.stat().st_mtime:
+                return False
+        if file_path.stat().st_size < 1024:
+            return False
+        return True
+
+    def compress_file_gzip(self, file_path):
+        """Compress a single file with Gzip (level 9) as a Brotli fallback"""
+        gz_file = file_path.with_suffix(file_path.suffix + '.gz')
+        try:
+            original_data = file_path.read_bytes()
+            original_size = len(original_data)
+
+            with _gzip.open(gz_file, 'wb', compresslevel=9) as f:
+                f.write(original_data)
+
+            compressed_size = gz_file.stat().st_size
+
+            if compressed_size < original_size * 0.95:
+                ratio = (1 - compressed_size / original_size) * 100
+                self.gzip_stats['files_compressed'] += 1
+                self.gzip_stats['original_size'] += original_size
+                self.gzip_stats['compressed_size'] += compressed_size
+                return True
+            else:
+                gz_file.unlink()
+                self.gzip_stats['files_skipped'] += 1
+                return False
+
+        except Exception as e:
+            print(f"   ❌ Error gzip compressing {file_path}: {e}")
+            if gz_file.exists():
+                gz_file.unlink()
+            return False
+
     def compress_directory(self):
-        """Compress all eligible files in directory"""
-        print(f"🗜️  Compressing files with Brotli (quality={self.quality})...")
+        """Compress all eligible files in directory with Brotli and Gzip"""
+        print(f"🗜️  Compressing files with Brotli (quality={self.quality}) + Gzip fallback...")
         print(f"   Source: {self.public_dir}")
-        
-        # Find all files
+
+        # Find all files (once, reuse for both passes)
         all_files = [f for f in self.public_dir.rglob('*') if f.is_file()]
         print(f"   Found {len(all_files)} total files\n")
-        
-        # Filter compressible files
-        compressible_files = [f for f in all_files if self.should_compress(f)]
-        
-        if not compressible_files:
-            print("   ℹ️  No files need compression (all up to date)")
-            return
-        
-        print(f"   Processing {len(compressible_files)} files...\n")
-        
-        # Compress each file
-        for file_path in compressible_files:
-            self.stats['files_processed'] += 1
-            self.compress_file(file_path)
-        
+
+        # --- Brotli pass ---
+        brotli_files = [f for f in all_files if self.should_compress(f)]
+
+        if not brotli_files:
+            print("   ℹ️  No files need Brotli compression (all up to date)")
+        else:
+            print(f"   [Brotli] Processing {len(brotli_files)} files...")
+            for file_path in brotli_files:
+                self.stats['files_processed'] += 1
+                self.compress_file(file_path)
+
+        # --- Gzip pass ---
+        # Re-scan so newly created .br files are excluded automatically
+        all_files = [f for f in self.public_dir.rglob('*') if f.is_file()]
+        gzip_files = [f for f in all_files if self.should_compress_gzip(f)]
+
+        if not gzip_files:
+            print("   ℹ️  No files need Gzip compression (all up to date)")
+        else:
+            print(f"\n   [Gzip]   Processing {len(gzip_files)} files...")
+            for file_path in gzip_files:
+                self.compress_file_gzip(file_path)
+
         # Print summary
         print(f"\n📊 Compression Summary:")
-        print(f"   Files processed: {self.stats['files_processed']}")
-        print(f"   Files compressed: {self.stats['files_compressed']}")
-        print(f"   Files skipped (no benefit): {self.stats['files_skipped']}")
-        
+        print(f"   Brotli — compressed: {self.stats['files_compressed']}, "
+              f"skipped: {self.stats['files_skipped']}")
+        print(f"   Gzip   — compressed: {self.gzip_stats['files_compressed']}, "
+              f"skipped: {self.gzip_stats['files_skipped']}")
+
         if self.stats['compressed_size'] > 0:
             total_original = self.stats['original_size']
             total_compressed = self.stats['compressed_size']
             total_saved = total_original - total_compressed
             total_ratio = (1 - total_compressed / total_original) * 100
-            
-            print(f"\n💾 Space Savings:")
+
+            print(f"\n💾 Brotli Space Savings:")
             print(f"   Original size: {total_original:,} bytes ({total_original/1024/1024:.2f} MB)")
             print(f"   Compressed size: {total_compressed:,} bytes ({total_compressed/1024/1024:.2f} MB)")
             print(f"   Space saved: {total_saved:,} bytes ({total_saved/1024/1024:.2f} MB)")
             print(f"   Average compression: {total_ratio:.1f}%")
+
+        if self.gzip_stats['compressed_size'] > 0:
+            gz_original = self.gzip_stats['original_size']
+            gz_compressed = self.gzip_stats['compressed_size']
+            gz_saved = gz_original - gz_compressed
+            gz_ratio = (1 - gz_compressed / gz_original) * 100
+
+            print(f"\n💾 Gzip Space Savings:")
+            print(f"   Original size: {gz_original:,} bytes ({gz_original/1024/1024:.2f} MB)")
+            print(f"   Compressed size: {gz_compressed:,} bytes ({gz_compressed/1024/1024:.2f} MB)")
+            print(f"   Space saved: {gz_saved:,} bytes ({gz_saved/1024/1024:.2f} MB)")
+            print(f"   Average compression: {gz_ratio:.1f}%")
 
 def main():
     if len(sys.argv) < 2:
@@ -178,9 +251,9 @@ def main():
     compressor = BrotliCompressor(public_dir, quality)
     compressor.compress_directory()
     
-    print("\n✅ Brotli compression complete!")
-    print("\n📝 Note: Upload both original and .br files to your hosting.")
-    print("   Cloudflare Pages will automatically serve .br files when supported.")
+    print("\n✅ Brotli + Gzip compression complete!")
+    print("\n📝 Note: Upload the original, .br, and .gz files to your hosting.")
+    print("   Cloudflare Pages serves .br to Brotli-capable browsers and .gz as fallback.")
 
 if __name__ == '__main__':
     main()

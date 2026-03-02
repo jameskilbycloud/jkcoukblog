@@ -174,20 +174,83 @@ class CriticalCSSExtractor:
         return minified_css
 
     def _parse_css_rules(self, css_content, critical_selectors):
-        """Parse CSS and extract rules matching critical selectors"""
+        """Parse CSS and extract rules matching critical selectors.
+
+        Uses a brace-depth tokenizer rather than a regex so that nested
+        at-rules (@media, @supports) and minified CSS are handled correctly.
+
+        Strategy:
+          - @keyframes / @font-face blocks are skipped entirely (their inner
+            tokens are not selector-based and would produce false matches).
+          - @media / @supports / @layer blocks are recursed into; only the
+            matching inner rules are kept, wrapped in the at-rule header.
+          - @import / @charset / @namespace end with ';' before the next '{';
+            these are skipped by detecting the semicolon first.
+          - Regular rules are tested against critical_selectors and included
+            when they match.
+        """
+        # Strip comments before parsing so that '{' / '}' inside comments
+        # don't confuse the depth tracker.
+        css_content = re.sub(r'/\*.*?\*/', '', css_content, flags=re.DOTALL)
+
         rules = []
+        i = 0
+        n = len(css_content)
 
-        # Simple CSS rule extraction (regex-based)
-        # Matches: selector { properties }
-        rule_pattern = r'([^{]+)\{([^}]+)\}'
+        # At-rules whose blocks contain keyframe stops or font descriptors —
+        # not selector-based, so we must not recurse.
+        SKIP_AT_RULES = ('@keyframes', '@-webkit-keyframes', '@-moz-keyframes',
+                         '@-o-keyframes', '@font-face')
 
-        for match in re.finditer(rule_pattern, css_content):
-            selector = match.group(1).strip()
-            properties = match.group(2).strip()
+        while i < n:
+            # Skip whitespace
+            while i < n and css_content[i].isspace():
+                i += 1
+            if i >= n:
+                break
 
-            # Check if selector matches any critical selector
-            if self._is_critical_selector(selector, critical_selectors):
-                rules.append(f"{selector}{{{properties}}}")
+            brace_pos = css_content.find('{', i)
+            if brace_pos == -1:
+                break  # No more rules
+
+            # If a ';' comes before the next '{' this is an at-statement
+            # (@import, @charset, @namespace) with no block — skip it.
+            semi_pos = css_content.find(';', i)
+            if semi_pos != -1 and semi_pos < brace_pos:
+                i = semi_pos + 1
+                continue
+
+            selector = css_content[i:brace_pos].strip()
+
+            # Walk forward to find the matching closing brace, tracking depth.
+            depth = 1
+            j = brace_pos + 1
+            while j < n and depth > 0:
+                if css_content[j] == '{':
+                    depth += 1
+                elif css_content[j] == '}':
+                    depth -= 1
+                j += 1
+
+            block_content = css_content[brace_pos + 1:j - 1]
+            i = j  # Advance past the closing brace
+
+            if selector.startswith('@'):
+                # Normalise the at-keyword for comparison.
+                at_keyword = re.split(r'[\s(]', selector, maxsplit=1)[0].lower()
+
+                if at_keyword in SKIP_AT_RULES:
+                    # Keyframes / font-face: skip entirely.
+                    continue
+
+                # Conditional group rules (@media, @supports, @layer …):
+                # recurse and keep only the matching inner rules.
+                inner = self._parse_css_rules(block_content, critical_selectors)
+                if inner:
+                    rules.append(f"{selector}{{{''.join(inner)}}}")
+            else:
+                if self._is_critical_selector(selector, critical_selectors):
+                    rules.append(f"{selector}{{{block_content}}}")
 
         return rules
 
