@@ -75,20 +75,26 @@ async function handleKVCache(request, env, path) {
   try {
     const cacheKey = `html:${path}`;
     const cached = await env.HTML_CACHE.getWithMetadata(cacheKey, { type: 'text' });
-    
+
     if (cached && cached.value) {
       const views = parseInt(cached.metadata?.views || 0) + 1;
-      
+      const ttl = getTTL(path); // E: compute once, reuse below
+
+      // L: preserve the original absolute expiry so view-count updates don't
+      //    keep resetting the TTL — deleted/renamed pages expire naturally.
+      const absExpiry = cached.metadata?.abs_expiry
+        || Math.floor(Date.now() / 1000) + ttl;
+
       // Increment view count asynchronously (don't await)
       env.HTML_CACHE.put(cacheKey, cached.value, {
-        expirationTtl: getTTL(path),
+        expiration: absExpiry, // L: absolute, not relative
         metadata: { ...cached.metadata, views }
       });
-      
+
       return new Response(cached.value, {
         headers: {
           'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': `public, max-age=${getTTL(path)}`,
+          'Cache-Control': `public, max-age=${ttl}`, // E: reuse ttl
           'X-Cache-Status': 'HIT',
           'X-Cache-Views': views.toString(),
           'X-Worker': 'advanced-worker-kv',
@@ -96,35 +102,38 @@ async function handleKVCache(request, env, path) {
         }
       });
     }
-    
+
     // Fetch from Pages assets
     const response = await env.ASSETS.fetch(request);
-    
+
     // Don't cache non-successful responses
     if (!response.ok) {
       return response;
     }
-    
+
     // Only cache HTML
     const contentType = response.headers.get('content-type') || '';
     if (!contentType.includes('text/html')) {
       return response;
     }
-    
+
     // Clone before reading body
     const html = await response.text();
-    const ttl = getTTL(path);
-    
+    const ttl = getTTL(path); // E: compute once
+    const nowSec = Math.floor(Date.now() / 1000);
+    const absExpiry = nowSec + ttl; // L: fixed absolute expiry stored in metadata
+
     // Store in KV (don't await to avoid blocking response)
     env.HTML_CACHE.put(cacheKey, html, {
-      expirationTtl: ttl,
-      metadata: { 
+      expiration: absExpiry, // L: absolute expiry — KV evicts after ttl seconds
+      metadata: {
         views: 1,
-        cached_at: new Date().toISOString(),
+        cached_at: new Date(nowSec * 1000).toISOString(),
+        abs_expiry: absExpiry, // L: persisted so HIT path can reuse it
         path: path
       }
     });
-    
+
     // Return with our headers
     return new Response(html, {
       status: response.status,
@@ -246,20 +255,21 @@ function getTTL(path) {
   if (path === '/' || path === '/index.html') {
     return 300;
   }
-  
+
   // Recent posts - 15 minutes
-  const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth() + 1;
-  const pathMatch = path.match(/^\/(\d{4})\/(\d{2})\//);  
+  const now = new Date(); // F: create Date once
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth() + 1;
+  const pathMatch = path.match(/^\/(\d{4})\/(\d{2})\//);
   if (pathMatch) {
     const year = parseInt(pathMatch[1]);
     const month = parseInt(pathMatch[2]);
-    
+
     if (year === currentYear && month >= currentMonth - 1) {
       return 900; // 15 minutes
     }
   }
-  
+
   // Older content - 1 hour
   return 3600;
 }

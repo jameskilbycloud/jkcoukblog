@@ -185,9 +185,10 @@ jobs:
         path: |
           .image_optimization_cache
           .last_spell_check_timestamp
-        key: build-cache-avif-v2-${{ github.sha }}
+          .build-cache.json
+        key: build-cache-avif-v3-${{ github.sha }}
         restore-keys: |
-          build-cache-avif-v2-
+          build-cache-avif-v3-
     
     - name: Check cache status
       run: |
@@ -197,9 +198,17 @@ jobs:
         
         if [ -f ".image_optimization_cache/optimization_cache.json" ]; then
           ENTRIES=$(python3 -c "import json; print(len(json.load(open('.image_optimization_cache/optimization_cache.json'))))" 2>/dev/null || echo "0")
-          echo "✓ Cache file exists with $ENTRIES entries"
+          echo "✓ Image cache: $ENTRIES entries"
         else
-          echo "⚠️  Cache file not found (will be created on first run)"
+          echo "⚠️  Image cache not found (will be created on first run)"
+        fi
+
+        if [ -f ".build-cache.json" ]; then
+          POST_COUNT=$(python3 -c "import json; d=json.load(open('.build-cache.json')); print(len(d.get('posts',{})))" 2>/dev/null || echo "0")
+          PAGE_COUNT=$(python3 -c "import json; d=json.load(open('.build-cache.json')); print(len(d.get('pages',{})))" 2>/dev/null || echo "0")
+          echo "✓ Build cache: $POST_COUNT posts, $PAGE_COUNT pages cached"
+        else
+          echo "⚠️  Build cache not found (next build will be a full rebuild)"
         fi
       
     - name: Install system dependencies
@@ -1122,6 +1131,16 @@ jobs:
             ]
           }
         
+    - name: Clean up on failure
+      if: failure()
+      run: |
+        # Remove the partially-built static-output directory so stale files
+        # from a failed run don't bleed into the next build.
+        if [ -d "./static-output" ]; then
+          rm -rf ./static-output
+          echo "🧹 Removed ./static-output after failed build"
+        fi
+
     - name: Notify on failure
       if: failure()
       run: |

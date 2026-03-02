@@ -52,6 +52,10 @@ class BrotliCompressor:
             '.html', '.css', '.js', '.json', '.xml', '.svg',
             '.txt', '.md', '.csv', '.tsv', '.rss', '.atom'
         }
+
+        # Extensions that benefit from Brotli's text-aware entropy model.
+        # Everything else uses MODE_GENERIC (binary/structured data).
+        self._text_mode_extensions = {'.html', '.css', '.js', '.md', '.txt'}
     
     def should_compress(self, file_path):
         """Check if file should be compressed"""
@@ -83,13 +87,15 @@ class BrotliCompressor:
             original_data = file_path.read_bytes()
             original_size = len(original_data)
             
-            # Compress with Brotli
-            # Quality 11 = maximum compression (slower but best ratio)
-            # Quality 4 = default (good balance)
+            # K: use MODE_TEXT only for prose/code; MODE_GENERIC for structured
+            #    data formats (JSON, SVG, XML) where the text model adds no benefit.
+            mode = (brotli.MODE_TEXT
+                    if file_path.suffix.lower() in self._text_mode_extensions
+                    else brotli.MODE_GENERIC)
             compressed_data = brotli.compress(
                 original_data,
                 quality=self.quality,
-                mode=brotli.MODE_TEXT  # Optimized for text
+                mode=mode
             )
             compressed_size = len(compressed_data)
             

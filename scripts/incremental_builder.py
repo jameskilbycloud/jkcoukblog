@@ -42,10 +42,15 @@ class IncrementalBuilder:
             print(f"⚠️  Failed to save cache: {e}")
     
     def _hash_content(self, content):
-        """Create hash of content for change detection"""
+        """Create hash of content for change detection.
+
+        Uses BLAKE2b (16-byte digest) instead of MD5 — faster in CPython and
+        collision-resistant, which matters if the cache file is ever inspected
+        or compared across machines.
+        """
         if isinstance(content, str):
             content = content.encode('utf-8')
-        return hashlib.md5(content).hexdigest()
+        return hashlib.blake2b(content, digest_size=16).hexdigest()
     
     def has_changed(self, url, content_hash, modified_date):
         """Check if content needs regeneration"""
