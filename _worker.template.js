@@ -13,7 +13,7 @@
  */
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const path = url.pathname;
 
@@ -90,11 +90,12 @@ async function handleKVCache(request, env, path) {
       const absExpiry = cached.metadata?.abs_expiry
         || Math.floor(Date.now() / 1000) + ttl;
 
-      // Increment view count asynchronously (don't await)
-      env.HTML_CACHE.put(cacheKey, cached.value, {
+      // Increment view count asynchronously — ctx.waitUntil ensures the put
+      // completes even after the response is returned (#21)
+      ctx.waitUntil(env.HTML_CACHE.put(cacheKey, cached.value, {
         expiration: absExpiry, // L: absolute, not relative
         metadata: { ...cached.metadata, views }
-      });
+      }));
 
       return new Response(cached.value, {
         headers: {
