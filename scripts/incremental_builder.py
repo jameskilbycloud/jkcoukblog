@@ -6,8 +6,14 @@ Massive time savings by tracking what's already been built
 
 import json
 import hashlib
+import re
 from pathlib import Path
 from datetime import datetime
+
+# Matches individual post URLs: /YYYY/MM/slug/ or /YYYY/MM/slug (slug must be non-empty)
+# Distinguishes posts from monthly archives (/YYYY/MM/) and year archives (/YYYY/).
+# The trailing slash is optional so both canonical and non-canonical forms are handled.
+_POST_URL_RE = re.compile(r'^/\d{4}/\d{2}/[^/]+')
 
 class IncrementalBuilder:
     def __init__(self, cache_file='.build-cache.json'):
@@ -66,13 +72,18 @@ class IncrementalBuilder:
         )
     
     def _get_cache_type(self, url):
-        """Determine cache type based on URL"""
+        """Determine cache type based on URL.
+
+        WordPress post URLs follow /YYYY/MM/slug/ — they always end with '/'
+        so the old check ``not url.endswith('/')`` never matched them.  The
+        regex correctly identifies posts while leaving monthly archives
+        (/YYYY/MM/), year archives (/YYYY/), and other pages in 'pages'.
+        """
         if '/category/' in url or '/tag/' in url:
             return 'pages'  # Archive pages
-        elif url.count('/') >= 3 and not url.endswith('/'):
-            return 'posts'  # Individual posts
-        else:
-            return 'pages'  # Home, pages, etc.
+        if _POST_URL_RE.match(url):
+            return 'posts'  # Individual posts: /YYYY/MM/slug/
+        return 'pages'  # Home, WP pages, archives, etc.
     
     def get_changed_posts(self, session, wp_url):
         """Get only posts modified since last build"""

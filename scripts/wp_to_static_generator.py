@@ -239,10 +239,19 @@ class WordPressStaticGenerator:
                 if 'text/html' in content_type:
                     processed_content = self.process_html(response.text, url_path)
                     file_path.write_text(processed_content, encoding='utf-8')
+
+                    # Record content hash so the incremental cache reflects what
+                    # was actually generated.  Use Last-Modified from the server
+                    # as the modified_date; fall back to an empty string so the
+                    # hash alone still guards against content changes.
+                    if self.incremental_builder:
+                        content_hash = self.incremental_builder._hash_content(processed_content)
+                        modified_date = response.headers.get('Last-Modified', '')
+                        self.incremental_builder.mark_processed(url_path, content_hash, modified_date)
                 else:
                     # Binary content (images, etc.)
                     file_path.write_bytes(response.content)
-                
+
                 self.processed_urls.add(url_path)
                 return f"✅ {url_path}"
                 
@@ -3493,7 +3502,7 @@ class WordPressStaticGenerator:
             print(f"   Cached posts: {stats['posts_cached']}")
             print(f"   Cached pages: {stats['pages_cached']}")
             if not is_full_build:
-                print(f"   ⚡ Time saved vs full build: ~{100 - int((duration / 12) * 100)}%")
+                print(f"   ⚡ Incremental build — only changed content regenerated")
         
         return True
 
