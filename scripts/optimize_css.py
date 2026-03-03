@@ -54,7 +54,13 @@ class CSSOptimizer:
         print(f"   Saved {self._format_bytes(self.bytes_saved)}")
 
     def _collect_used_selectors(self):
-        """Collect all class and ID selectors used in HTML files"""
+        """Collect class and ID selectors used across all HTML files.
+
+        Only classes (.foo) and IDs (#bar) are collected here.  Element
+        selectors (div, p, a, …) are kept unconditionally by
+        _is_selector_used(), so there is no need to enumerate them from
+        the HTML or maintain a hard-coded allow-list.
+        """
         used_selectors = set()
 
         # Find all HTML files
@@ -65,14 +71,10 @@ class CSSOptimizer:
                 with open(html_file, 'r', encoding='utf-8') as f:
                     soup = BeautifulSoup(f.read(), 'html.parser')
 
-                # Collect classes
+                # Collect classes — BeautifulSoup always returns a list
                 for tag in soup.find_all(class_=True):
-                    classes = tag.get('class', [])
-                    if isinstance(classes, list):
-                        for cls in classes:
-                            used_selectors.add(f'.{cls}')
-                    else:
-                        used_selectors.add(f'.{classes}')
+                    for cls in tag.get('class', []):
+                        used_selectors.add(f'.{cls}')
 
                 # Collect IDs
                 for tag in soup.find_all(id=True):
@@ -80,25 +82,8 @@ class CSSOptimizer:
                     if tag_id:
                         used_selectors.add(f'#{tag_id}')
 
-                # Collect element selectors (always keep these)
-                for tag in soup.find_all():
-                    if tag.name:
-                        used_selectors.add(tag.name)
-
             except Exception as e:
                 print(f"   ⚠️  Error reading {html_file}: {e}")
-
-        # Always keep common pseudo-selectors and element selectors
-        always_keep = {
-            'html', 'body', 'head', 'meta', 'link', 'script', 'style',
-            'div', 'span', 'p', 'a', 'img', 'ul', 'ol', 'li',
-            'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-            'header', 'footer', 'main', 'article', 'section', 'nav', 'aside',
-            'table', 'tr', 'td', 'th', 'thead', 'tbody', 'tfoot',
-            'form', 'input', 'textarea', 'select', 'option', 'button', 'label',
-            'strong', 'em', 'b', 'i', 'u', 'code', 'pre', 'blockquote',
-        }
-        used_selectors.update(always_keep)
 
         return used_selectors
 

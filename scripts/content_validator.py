@@ -19,11 +19,12 @@ _ARTICLE_REQUIRED_FIELDS = ('headline', 'datePublished', 'author')
 
 
 class ContentValidator:
-    def __init__(self):
+    def __init__(self, public_dir='public'):
+        self.public_dir = Path(public_dir)
         self.errors = []
         self.warnings = []
         self.checks_run = 0
-    
+
     def validate_html_file(self, file_path, target_domain='jameskilby.co.uk'):
         """Run all validation checks on HTML file"""
         try:
@@ -62,7 +63,7 @@ class ContentValidator:
             # Check if internal link exists
             if href.startswith('/'):
                 # Try both with and without index.html
-                target_file = Path('public') / href.lstrip('/')
+                target_file = self.public_dir / href.lstrip('/')
                 target_index = target_file / 'index.html' if target_file.is_dir() else target_file.parent / target_file.name
                 
                 if not target_file.exists() and not target_index.exists() and not (target_file.parent / (target_file.name + '.html')).exists():
@@ -292,8 +293,10 @@ class ContentValidator:
             })
         
         # Render-blocking resources
+        # Note: <link> elements have no 'async' attribute (only <script> does),
+        # so we check only for 'media' to detect non-deferred stylesheets.
         for link in soup.find_all('link', rel='stylesheet'):
-            if not link.get('media') and not link.get('async'):
+            if not link.get('media'):
                 href = link.get('href', 'unknown')
                 # Skip if it's a critical CSS file
                 if 'critical' not in href.lower():
@@ -444,13 +447,16 @@ class ContentValidator:
 
 def main():
     """Main entry point"""
-    validator = ContentValidator()
-    
-    # Find all HTML files in public directory
-    public_dir = Path('public')
-    
+    # Accept directory as optional CLI arg so CI can pass 'static-output'
+    # instead of the committed 'public/' to validate the freshly-built site.
+    public_dir_arg = sys.argv[1] if len(sys.argv) > 1 else 'public'
+    validator = ContentValidator(public_dir=public_dir_arg)
+
+    # Find all HTML files in the specified directory
+    public_dir = Path(public_dir_arg)
+
     if not public_dir.exists():
-        print("❌ Error: 'public' directory not found")
+        print(f"❌ Error: directory '{public_dir}' not found")
         print("   Make sure you're running this from the project root")
         sys.exit(1)
     

@@ -5,6 +5,7 @@ Pre-compresses HTML, CSS, JS, JSON, SVG, and XML files with Brotli (primary)
 and Gzip (fallback for clients that don't support Brotli).
 """
 
+import concurrent.futures
 import gzip as _gzip
 import os
 import sys
@@ -80,50 +81,73 @@ class BrotliCompressor:
         
         return True
     
-    def compress_file(self, file_path):
-        """Compress a single file with Brotli"""
+    def _compress_one_brotli(self, file_path):
+        """Compress *file_path* with Brotli and return a result dict.
+
+        Pure function: no stat mutation, no printing.  Designed to be safe
+        for concurrent execution across many ThreadPoolExecutor workers.
+
+        Returns a dict with keys:
+            success  (True = compressed, False = skipped, None = error)
+            original_size, compressed_size  (ints, 0 on skip/error)
+            log  (str message for printing, or None)
+        """
         try:
-            # Read original file
             original_data = file_path.read_bytes()
             original_size = len(original_data)
-            
+
             # K: use MODE_TEXT only for prose/code; MODE_GENERIC for structured
             #    data formats (JSON, SVG, XML) where the text model adds no benefit.
             mode = (brotli.MODE_TEXT
                     if file_path.suffix.lower() in self._text_mode_extensions
                     else brotli.MODE_GENERIC)
             compressed_data = brotli.compress(
-                original_data,
-                quality=self.quality,
-                mode=mode
+                original_data, quality=self.quality, mode=mode
             )
             compressed_size = len(compressed_data)
-            
+
             # Only save if compression is beneficial (at least 5% reduction)
             if compressed_size < original_size * 0.95:
-                # Write compressed file
                 br_file = file_path.with_suffix(file_path.suffix + '.br')
                 br_file.write_bytes(compressed_data)
-                
-                # Calculate compression ratio
                 ratio = (1 - compressed_size / original_size) * 100
-                
-                self.stats['files_compressed'] += 1
-                self.stats['original_size'] += original_size
-                self.stats['compressed_size'] += compressed_size
-                
-                # Show compression info
                 relative_path = file_path.relative_to(self.public_dir)
-                print(f"   ✅ {relative_path}")
-                print(f"      {original_size:,} bytes → {compressed_size:,} bytes ({ratio:.1f}% reduction)")
-                
-                return True
+                log = (
+                    f"   ✅ {relative_path}\n"
+                    f"      {original_size:,} → {compressed_size:,} bytes "
+                    f"({ratio:.1f}% reduction)"
+                )
+                return {'success': True, 'original_size': original_size,
+                        'compressed_size': compressed_size, 'log': log}
             else:
-                self.stats['files_skipped'] += 1
-                return False
-                
+                return {'success': False, 'original_size': 0,
+                        'compressed_size': 0, 'log': None}
+
         except Exception as e:
-            print(f"   ❌ Error compressing {file_path}: {e}")
+            return {'success': None, 'original_size': 0, 'compressed_size': 0,
+                    'log': f"   ❌ Error compressing {file_path}: {e}"}
+
+    def compress_file(self, file_path):
+        """Compress a single file with Brotli (public sequential API).
+
+        Calls _compress_one_brotli, updates self.stats, and prints output.
+        Use compress_directory() for parallel batch compression.
+        """
+        result = self._compress_one_brotli(file_path)
+        self.stats['files_processed'] += 1
+        if result['success'] is True:
+            self.stats['files_compressed'] += 1
+            self.stats['original_size'] += result['original_size']
+            self.stats['compressed_size'] += result['compressed_size']
+            if result['log']:
+                print(result['log'])
+            return True
+        elif result['success'] is False:
+            self.stats['files_skipped'] += 1
+            return False
+        else:  # None = error
+            if result['log']:
+                print(result['log'])
             return False
     
     def should_compress_gzip(self, file_path):
@@ -140,8 +164,17 @@ class BrotliCompressor:
             return False
         return True
 
-    def compress_file_gzip(self, file_path):
-        """Compress a single file with Gzip (level 9) as a Brotli fallback"""
+    def _compress_one_gzip(self, file_path):
+        """Compress *file_path* with Gzip and return a result dict.
+
+        Pure function: no stat mutation, no printing.  Safe for concurrent
+        execution across ThreadPoolExecutor workers.
+
+        Returns a dict with keys:
+            success  (True = compressed, False = skipped, None = error)
+            original_size, compressed_size  (ints, 0 on skip/error)
+            log  (error string or None)
+        """
         gz_file = file_path.with_suffix(file_path.suffix + '.gz')
         try:
             original_data = file_path.read_bytes()
@@ -153,53 +186,115 @@ class BrotliCompressor:
             compressed_size = gz_file.stat().st_size
 
             if compressed_size < original_size * 0.95:
-                ratio = (1 - compressed_size / original_size) * 100
-                self.gzip_stats['files_compressed'] += 1
-                self.gzip_stats['original_size'] += original_size
-                self.gzip_stats['compressed_size'] += compressed_size
-                return True
+                return {'success': True, 'original_size': original_size,
+                        'compressed_size': compressed_size, 'log': None}
             else:
                 gz_file.unlink()
-                self.gzip_stats['files_skipped'] += 1
-                return False
+                return {'success': False, 'original_size': 0,
+                        'compressed_size': 0, 'log': None}
 
         except Exception as e:
-            print(f"   ❌ Error gzip compressing {file_path}: {e}")
             if gz_file.exists():
                 gz_file.unlink()
+            return {'success': None, 'original_size': 0, 'compressed_size': 0,
+                    'log': f"   ❌ Error gzip compressing {file_path}: {e}"}
+
+    def compress_file_gzip(self, file_path):
+        """Compress a single file with Gzip (public sequential API).
+
+        Calls _compress_one_gzip, updates self.gzip_stats, and prints errors.
+        Use compress_directory() for parallel batch compression.
+        """
+        result = self._compress_one_gzip(file_path)
+        if result['success'] is True:
+            self.gzip_stats['files_compressed'] += 1
+            self.gzip_stats['original_size'] += result['original_size']
+            self.gzip_stats['compressed_size'] += result['compressed_size']
+            return True
+        elif result['success'] is False:
+            self.gzip_stats['files_skipped'] += 1
+            return False
+        else:  # None = error
+            if result['log']:
+                print(result['log'])
             return False
 
     def compress_directory(self):
-        """Compress all eligible files in directory with Brotli and Gzip"""
+        """Compress all eligible files in directory with Brotli and Gzip.
+
+        Both passes run in parallel using a ThreadPoolExecutor.
+        brotli.compress() and gzip.open() both release the GIL, so threads
+        give genuine concurrency on multi-core runners.
+
+        The Gzip pass always starts after the Brotli pass completes so that
+        the re-scan correctly excludes freshly-written .br sidecar files.
+        Stats are accumulated from worker result dicts in the main thread
+        (via as_completed) — no locks needed.
+        """
         print(f"🗜️  Compressing files with Brotli (quality={self.quality}) + Gzip fallback...")
         print(f"   Source: {self.public_dir}")
 
-        # Find all files (once, reuse for both passes)
-        all_files = [f for f in self.public_dir.rglob('*') if f.is_file()]
-        print(f"   Found {len(all_files)} total files\n")
+        workers = os.cpu_count() or 4
 
-        # --- Brotli pass ---
+        # --- Initial scan (reused for Brotli pass) ---
+        all_files = [f for f in self.public_dir.rglob('*') if f.is_file()]
+        print(f"   Found {len(all_files)} total files")
+
+        # --- Brotli pass (parallel) ---
         brotli_files = [f for f in all_files if self.should_compress(f)]
 
         if not brotli_files:
             print("   ℹ️  No files need Brotli compression (all up to date)")
         else:
-            print(f"   [Brotli] Processing {len(brotli_files)} files...")
-            for file_path in brotli_files:
-                self.stats['files_processed'] += 1
-                self.compress_file(file_path)
+            print(f"\n   [Brotli] Processing {len(brotli_files)} files "
+                  f"({workers} workers)...")
+            logs = []
+            with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as ex:
+                futures = {ex.submit(self._compress_one_brotli, f): f
+                           for f in brotli_files}
+                for future in concurrent.futures.as_completed(futures):
+                    r = future.result()
+                    self.stats['files_processed'] += 1
+                    if r['success'] is True:
+                        self.stats['files_compressed'] += 1
+                        self.stats['original_size'] += r['original_size']
+                        self.stats['compressed_size'] += r['compressed_size']
+                        if r['log']:
+                            logs.append(r['log'])
+                    elif r['success'] is False:
+                        self.stats['files_skipped'] += 1
+                    else:  # None = error
+                        if r['log']:
+                            print(r['log'])
+            # Print file results together after all workers finish so output
+            # isn't interleaved.  Sort for reproducible ordering.
+            for log in sorted(logs):
+                print(log)
 
-        # --- Gzip pass ---
-        # Re-scan so newly created .br files are excluded automatically
+        # --- Gzip pass (parallel) ---
+        # Re-scan so newly created .br files are excluded automatically.
         all_files = [f for f in self.public_dir.rglob('*') if f.is_file()]
         gzip_files = [f for f in all_files if self.should_compress_gzip(f)]
 
         if not gzip_files:
             print("   ℹ️  No files need Gzip compression (all up to date)")
         else:
-            print(f"\n   [Gzip]   Processing {len(gzip_files)} files...")
-            for file_path in gzip_files:
-                self.compress_file_gzip(file_path)
+            print(f"\n   [Gzip]   Processing {len(gzip_files)} files "
+                  f"({workers} workers)...")
+            with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as ex:
+                futures = {ex.submit(self._compress_one_gzip, f): f
+                           for f in gzip_files}
+                for future in concurrent.futures.as_completed(futures):
+                    r = future.result()
+                    if r['success'] is True:
+                        self.gzip_stats['files_compressed'] += 1
+                        self.gzip_stats['original_size'] += r['original_size']
+                        self.gzip_stats['compressed_size'] += r['compressed_size']
+                    elif r['success'] is False:
+                        self.gzip_stats['files_skipped'] += 1
+                    else:  # None = error
+                        if r['log']:
+                            print(r['log'])
 
         # Print summary
         print(f"\n📊 Compression Summary:")

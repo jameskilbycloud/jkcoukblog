@@ -16,25 +16,30 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
-    
-    // Only cache GET requests
-    if (request.method !== 'GET') {
-      return env.ASSETS.fetch(request);
-    }
-    
-    // Handle purge requests
+
+    // ── Admin / diagnostic endpoints ────────────────────────────────────────
+    // These must be checked BEFORE the GET-only guard so POST purges work,
+    // and BEFORE shouldCache so they are never accidentally cached.
+
+    // Handle purge requests — requires POST + valid token (#18)
     if (path === '/.purge') {
       return handlePurge(request, env);
     }
-    
-    // Handle diagnostic endpoint
+
+    // Handle diagnostic endpoint — gated by PURGE_TOKEN (#17)
     if (path === '/diagnostic') {
       return handleDiagnostic(request, env);
     }
-    
-    // Handle trace endpoint
+
+    // Handle trace endpoint — gated by PURGE_TOKEN (#17)
     if (path === '/trace') {
       return handleTrace(request, env);
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
+    // Only cache GET requests
+    if (request.method !== 'GET') {
+      return env.ASSETS.fetch(request);
     }
     
     // Handle test endpoint
@@ -233,9 +238,10 @@ function getSecurityHeaders() {
  * Determine if path should be cached
  */
 function shouldCache(path) {
-  if (path.includes('/wp-admin') || 
+  if (path.includes('/wp-admin') ||
       path.includes('/preview') ||
-      path.startsWith('/api/') || 
+      path.startsWith('/api/') ||       // JSON post data for search
+      path.startsWith('/markdown/') ||  // Raw markdown source files (#19)
       path.startsWith('/.well-known/') ||
       path === '/diagnostic' ||
       path === '/trace' ||
@@ -243,7 +249,7 @@ function shouldCache(path) {
       path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|json|xml|txt|webp|avif|br|gz)$/)) {
     return false;
   }
-  
+
   return true;
 }
 
@@ -256,16 +262,21 @@ function getTTL(path) {
     return 300;
   }
 
-  // Recent posts - 15 minutes
+  // Recent posts - 15 minutes (this month or last month)
   const now = new Date(); // F: create Date once
   const currentYear = now.getFullYear();
-  const currentMonth = now.getMonth() + 1;
+  const currentMonth = now.getMonth() + 1; // 1-12
   const pathMatch = path.match(/^\/(\d{4})\/(\d{2})\//);
   if (pathMatch) {
     const year = parseInt(pathMatch[1]);
     const month = parseInt(pathMatch[2]);
 
-    if (year === currentYear && month >= currentMonth - 1) {
+    // Express "post age" in whole months to handle the January→December
+    // boundary correctly.  When currentMonth=1, currentMonth-1 would be 0,
+    // making month >= 0 always true (all posts "recent") — using the age
+    // formula avoids that bug.
+    const postAgeMonths = (currentYear - year) * 12 + (currentMonth - month);
+    if (postAgeMonths <= 1) {
       return 900; // 15 minutes
     }
   }
@@ -275,12 +286,20 @@ function getTTL(path) {
 }
 
 /**
- * Handle selective cache purge
+ * Handle selective cache purge — POST only (#18)
  */
 async function handlePurge(request, env) {
+  // Require POST — GET would be idempotent-safe but purge is destructive (#18)
+  if (request.method !== 'POST') {
+    return new Response('Method Not Allowed — use POST', {
+      status: 405,
+      headers: { Allow: 'POST' }
+    });
+  }
+
   const url = new URL(request.url);
   const purgeToken = request.headers.get('X-Purge-Token');
-  
+
   if (!env.PURGE_TOKEN || purgeToken !== env.PURGE_TOKEN) {
     return new Response('Unauthorized', { status: 401 });
   }
@@ -299,7 +318,7 @@ async function handlePurge(request, env) {
   
   // Also clear from Cache API
   const cache = caches.default;
-  const cacheKey = new Request(`https://jameskilby.co.uk${path}`);
+  const cacheKey = new Request(`${url.origin}${path}`); // use request origin, not hardcoded domain
   await cache.delete(cacheKey);
   
   return new Response(JSON.stringify({
@@ -312,9 +331,14 @@ async function handlePurge(request, env) {
 }
 
 /**
- * Handle diagnostic endpoint
+ * Handle diagnostic endpoint — gated by PURGE_TOKEN (#17)
  */
 async function handleDiagnostic(request, env) {
+  const token = request.headers.get('X-Purge-Token');
+  if (!env.PURGE_TOKEN || token !== env.PURGE_TOKEN) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+
   const diagnostics = {
     timestamp: new Date().toISOString(),
     url: request.url,
@@ -364,9 +388,14 @@ async function handleDiagnostic(request, env) {
 }
 
 /**
- * Handle trace endpoint
+ * Handle trace endpoint — gated by PURGE_TOKEN (#17)
  */
 async function handleTrace(request, env) {
+  const token = request.headers.get('X-Purge-Token');
+  if (!env.PURGE_TOKEN || token !== env.PURGE_TOKEN) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+
   const url = new URL(request.url);
   const testPath = url.searchParams.get('path') || '/';
   
@@ -381,7 +410,7 @@ async function handleTrace(request, env) {
       has_preview: testPath.includes('/preview'),
       starts_with_api: testPath.startsWith('/api/'),
       starts_with_well_known: testPath.startsWith('/.well-known/'),
-      has_file_extension: testPath.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|json|xml|txt|webp|avif|br)$/) !== null
+      has_file_extension: testPath.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|json|xml|txt|webp|avif|br|gz)$/) !== null
     },
     kv_status: env.HTML_CACHE ? 'BOUND' : 'NOT BOUND',
     middleware_decision: null

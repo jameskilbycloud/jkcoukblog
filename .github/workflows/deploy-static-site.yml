@@ -13,6 +13,7 @@ concurrency:
 jobs:
   spell-check:
     runs-on: self-hosted
+    needs: [build-and-deploy]  # Run after deploy so the heavy build doesn't share the runner (#11)
     timeout-minutes: 15  # Prevent hanging spell checks
     continue-on-error: true  # Don't fail the workflow if spell check fails
     steps:
@@ -59,27 +60,12 @@ jobs:
         restore-keys: |
           spell-check-
       
-    - name: Verify Python installation
-      run: |
-        echo "🐍 Verifying Python installation..."
-        python3 --version
-        which python3
-        echo "✅ Python is available"
-    
-    - name: Install pip
-      run: |
-        echo "📦 Installing pip..."
-        sudo apt-get update -qq
-        sudo apt-get install -y python3-pip python3-venv
-        python3 -m pip --version
-        echo "✅ pip installed"
-        
     - name: Install dependencies
       run: |
-        echo "🔧 Installing Python dependencies..."
-        python3 -m pip install --upgrade pip --break-system-packages
-        python3 -m pip install -r requirements.txt --break-system-packages
-    
+        # pip and system packages already installed by build-and-deploy on this runner (#14)
+        echo "🔧 Ensuring Python dependencies are installed..."
+        python3 -m pip install -r requirements.txt --break-system-packages --quiet
+
     - name: Run spell check
       env:
         WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
@@ -438,8 +424,8 @@ jobs:
         rm -rf public/
         cp -r ./static-output public/
         
-        # Run content validator (non-blocking)
-        python3 scripts/content_validator.py || {
+        # Run content validator against the freshly-built output (not the committed public/)
+        python3 scripts/content_validator.py static-output || {
           echo "⚠️  Content validation found issues (non-blocking)"
         }
         

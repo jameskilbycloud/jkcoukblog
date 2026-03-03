@@ -62,13 +62,11 @@ class IndexNowSubmitter:
         key_file = self.output_dir / f'{self.api_key}.txt'
         key_file.write_text(self.api_key)
         print(f"✅ Created key verification file: {key_file.name}")
-        print(f"   This file must be accessible at: {self.site_domain}/{self.api_key}.txt")
-
-        # Also copy to root for reference (so it gets committed to repo)
-        root_key_file = self.output_dir.parent / f'{self.api_key}.txt'
-        if not root_key_file.exists():
-            root_key_file.write_text(self.api_key)
-            print(f"   Also saved to repository root: {root_key_file.name}")
+        print(f"   Accessible at: {self.site_domain}/{self.api_key}.txt")
+        # Note: the key UUID secret is persisted in .indexnow_key (repo root).
+        # The verification *file* lives only in output_dir (static-output/) which
+        # is the Cloudflare Pages publish directory — it must NOT be in the repo
+        # root, which Cloudflare Pages does not serve.
 
         return key_file
     
@@ -216,7 +214,7 @@ class IndexNowSubmitter:
                     log_data = json.load(f)
                 if not isinstance(log_data, list):
                     log_data = [log_data]
-            except:
+            except (json.JSONDecodeError, ValueError, IOError):
                 log_data = []
         else:
             log_data = []
