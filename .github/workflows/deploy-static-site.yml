@@ -171,7 +171,6 @@ jobs:
         path: |
           .image_optimization_cache
           .last_spell_check_timestamp
-          .build-cache.json
         key: build-cache-avif-v3-${{ github.sha }}
         restore-keys: |
           build-cache-avif-v3-
@@ -303,9 +302,11 @@ jobs:
           exit 1
         fi
         
-        # Generate static site
-        python3 scripts/wp_to_static_generator.py ./static-output
-        
+        # Generate static site — always full build in CI because checkout cleans
+        # static-output on every run; incremental mode needs a persisted output
+        # dir which CI doesn't provide (#20)
+        python3 scripts/wp_to_static_generator.py ./static-output --no-incremental
+
         # Count generated files for summary
         HTML_COUNT=$(find ./static-output -name "*.html" -type f 2>/dev/null | wc -l | xargs)
         TOTAL_SIZE=$(du -sh ./static-output 2>/dev/null | cut -f1)
@@ -896,7 +897,7 @@ jobs:
               git reset --hard origin/main
               echo "🔄 Regenerating static site after reset..."
               rm -rf public/ ./static-output
-              python3 scripts/wp_to_static_generator.py ./static-output
+              python3 scripts/wp_to_static_generator.py ./static-output --no-incremental
               mv ./static-output public/
               git add public/
               git commit -m "🚀 Auto-update static site - $(date '+%Y-%m-%d %H:%M:%S') [force-resolved]"
