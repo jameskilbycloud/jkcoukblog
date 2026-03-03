@@ -310,7 +310,13 @@ jobs:
         HTML_COUNT=$(find ./static-output -name "*.html" -type f 2>/dev/null | wc -l | xargs)
         TOTAL_SIZE=$(du -sh ./static-output 2>/dev/null | cut -f1)
         echo "📊 Generated $HTML_COUNT HTML files, total size: $TOTAL_SIZE"
-        
+
+        # Guard: fail fast rather than running all optimisation steps on empty output
+        if [ "${HTML_COUNT:-0}" -eq 0 ]; then
+          echo "❌ ERROR: No HTML files generated — WordPress may be unreachable or returned empty"
+          exit 1
+        fi
+
         # Save to environment file for use in later steps
         echo "HTML_COUNT=$HTML_COUNT" >> $GITHUB_ENV
         echo "TOTAL_SIZE=$TOTAL_SIZE" >> $GITHUB_ENV
@@ -1018,7 +1024,7 @@ jobs:
           
           # Call purge endpoint
           HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
-            -X GET "https://jameskilby.co.uk/.purge?path=${URL_PATH}" \
+            -X POST "https://jameskilby.co.uk/.purge?path=${URL_PATH}" \
             -H "X-Purge-Token: ${{ secrets.CACHE_PURGE_TOKEN }}")
           
           if [ "$HTTP_CODE" = "200" ]; then
