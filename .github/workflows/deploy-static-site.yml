@@ -171,7 +171,7 @@ jobs:
         path: |
           .image_optimization_cache
           .last_spell_check_timestamp
-        key: build-cache-avif-v3-${{ github.sha }}
+        key: build-cache-avif-v3-${{ hashFiles('.image_optimization_cache/**') }}
         restore-keys: |
           build-cache-avif-v3-
     
@@ -186,14 +186,6 @@ jobs:
           echo "✓ Image cache: $ENTRIES entries"
         else
           echo "⚠️  Image cache not found (will be created on first run)"
-        fi
-
-        if [ -f ".build-cache.json" ]; then
-          POST_COUNT=$(python3 -c "import json; d=json.load(open('.build-cache.json')); print(len(d.get('posts',{})))" 2>/dev/null || echo "0")
-          PAGE_COUNT=$(python3 -c "import json; d=json.load(open('.build-cache.json')); print(len(d.get('pages',{})))" 2>/dev/null || echo "0")
-          echo "✓ Build cache: $POST_COUNT posts, $PAGE_COUNT pages cached"
-        else
-          echo "⚠️  Build cache not found (next build will be a full rebuild)"
         fi
       
     - name: Install system dependencies

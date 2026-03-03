@@ -88,8 +88,9 @@ class IncrementalBuilder:
     def get_changed_posts(self, session, wp_url):
         """Get only posts modified since last build"""
         last_build = self.cache.get('last_build_time')
-        
-        if not last_build:
+        cached_count = len(self.cache.get('posts', {})) + len(self.cache.get('pages', {}))
+
+        if not last_build or cached_count == 0:
             print("📦 First build - processing all posts")
             return self._get_all_posts(session, wp_url)
         
@@ -172,8 +173,9 @@ class IncrementalBuilder:
     def get_changed_pages(self, session, wp_url):
         """Get only pages modified since last build"""
         last_build = self.cache.get('last_build_time')
-        
-        if not last_build:
+        cached_count = len(self.cache.get('posts', {})) + len(self.cache.get('pages', {}))
+
+        if not last_build or cached_count == 0:
             return self._get_all_pages(session, wp_url)
         
         params = {

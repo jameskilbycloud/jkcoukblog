@@ -25,7 +25,7 @@ URLS_TO_PURGE='[
 ]'
 
 # Purge using Cloudflare API
-RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/v4/zones/${CLOUDFLARE_ZONE_ID}/purge_cache" \
+RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}/purge_cache" \
   -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
   -H "Content-Type: application/json" \
   --data "{\"files\": ${URLS_TO_PURGE}}")
