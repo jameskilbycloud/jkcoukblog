@@ -90,7 +90,7 @@ class ImageOptimizer:
         """Calculate hash of image file for cache checking"""
         try:
             with open(image_path, 'rb') as f:
-                return hashlib.md5(f.read()).hexdigest()
+                return hashlib.blake2b(f.read(), digest_size=16).hexdigest()
         except Exception:
             return ""
 

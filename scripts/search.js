@@ -128,7 +128,7 @@ console.log('[Search] Script loaded');
     function displayResults(results, query) {
         hideResults();
         
-        let html = `<div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px; overflow-y: auto; animation: fadeIn 0.2s ease;" onclick="if(event.target===this) this.remove()">
+        let html = `<div class="search-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px; overflow-y: auto; animation: fadeIn 0.2s ease;" onclick="if(event.target===this) this.remove()">
             <div style="background: white; border-radius: 12px; max-width: 650px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: slideUp 0.3s ease; margin-top: 20px;">
                 <div style="padding: 20px; border-bottom: 1px solid #e5e7eb; background: #f9fafb; position: sticky; top: 0; z-index: 10;">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;">
@@ -136,7 +136,7 @@ console.log('[Search] Script loaded');
                             <div style="font-size: 13px; color: #667eea; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Search Results</div>
                             <div style="font-size: 16px; font-weight: 700; color: #111; word-break: break-word;">` + results.length + ` result` + (results.length !== 1 ? 's' : '') + `</div>
                         </div>
-                        <button onclick="this.closest('[style*=\"position: fixed\"]').remove()" style="background: #f0f0f0; border: none; font-size: 20px; cursor: pointer; color: #333; padding: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 6px; transition: all 0.2s; flex-shrink: 0;" onmouseover="this.style.background='#e0e0e0'" onmouseout="this.style.background='#f0f0f0'">×</button>
+                        <button onclick="this.closest('.search-overlay').remove()" style="background: #f0f0f0; border: none; font-size: 20px; cursor: pointer; color: #333; padding: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 6px; transition: all 0.2s; flex-shrink: 0;" onmouseover="this.style.background='#e0e0e0'" onmouseout="this.style.background='#f0f0f0'">×</button>
                     </div>
                 </div>
                 <div style="overflow-y: auto; max-height: calc(75vh - 120px);">`;
@@ -152,8 +152,9 @@ console.log('[Search] Script loaded');
                 const item = r.item;
                 const highlightedTitle = highlightSearchTerms(item.title, query);
                 const highlightedDesc = highlightSearchTerms((item.description || '').substring(0, 150), query);
-                
-                html += `<a href="` + item.url + `" style="display: block; padding: 16px; border-bottom: 1px solid #f0f0f0; text-decoration: none; color: inherit; transition: all 0.15s;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
+                const safeUrl = /^https?:\/\//.test(item.url) ? item.url : '#';
+
+                html += `<a href="` + safeUrl + `" style="display: block; padding: 16px; border-bottom: 1px solid #f0f0f0; text-decoration: none; color: inherit; transition: all 0.15s;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
                     <div style="display: flex; align-items: flex-start; gap: 10px;">
                         <div style="flex-shrink: 0; width: 28px; height: 28px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 600;">` + (idx + 1) + `</div>
                         <div style="flex: 1; min-width: 0;">
@@ -180,7 +181,7 @@ console.log('[Search] Script loaded');
     }
     
     function hideResults() {
-        const overlay = document.querySelector('div[style*="position: fixed"][style*="rgba(0,0,0,0.6)"]');
+        const overlay = document.querySelector('.search-overlay');
         if (overlay) overlay.remove();
     }
     

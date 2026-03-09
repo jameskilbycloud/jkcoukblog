@@ -451,7 +451,7 @@ class MarkdownExporter:
                             'date': date_value,
                             'url': fm.get('url', '')
                         })
-                    except:
+                    except (yaml.YAMLError, KeyError, AttributeError, TypeError):
                         pass
         
         # Save index
@@ -485,7 +485,7 @@ class MarkdownExporter:
                         
                         sitemap_lines.append(f"- [{title}]({url}) - {date}")
                         sitemap_lines.append(f"  - Markdown: `/markdown/posts/{md_file.name}`\n")
-                    except:
+                    except (yaml.YAMLError, KeyError, AttributeError, TypeError):
                         sitemap_lines.append(f"- {md_file.name}\n")
         
         # Save sitemap

@@ -265,7 +265,7 @@ If no actual errors, return: {{"has_errors": false, "corrections": []}}
                 try:
                     error_body = response.text[:500]
                     print(f"   Response: {error_body}")
-                except:
+                except (AttributeError, TypeError):
                     pass
                 return {'has_errors': False, 'corrections': []}
                 

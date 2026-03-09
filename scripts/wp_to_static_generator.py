@@ -107,7 +107,11 @@ class WordPressStaticGenerator:
                     print(f"   ❌ Error: {posts_response.text[:200]}")
                 break
                 
-            posts = posts_response.json()
+            try:
+                posts = posts_response.json()
+            except (json.JSONDecodeError, ValueError):
+                print(f"   ⚠️  Invalid JSON on post page {page}, stopping")
+                break
             if not posts:
                 print(f"   ℹ️  No more posts on page {page}")
                 break
@@ -133,10 +137,13 @@ class WordPressStaticGenerator:
             if pages_response.status_code != 200:
                 break
                 
-            pages = pages_response.json()
+            try:
+                pages = pages_response.json()
+            except (json.JSONDecodeError, ValueError):
+                break
             if not pages:
                 break
-                
+
             for page_item in pages:
                 relative_url = page_item['link'].replace(self.wp_url, '')
                 urls.add(relative_url)
@@ -147,7 +154,10 @@ class WordPressStaticGenerator:
         # Get categories
         categories_response = self.session.get(f'{self.wp_url}/wp-json/wp/v2/categories?per_page=100')
         if categories_response.status_code == 200:
-            categories = categories_response.json()
+            try:
+                categories = categories_response.json()
+            except (json.JSONDecodeError, ValueError):
+                categories = []
             for category in categories:
                 if category['count'] > 0:  # Only categories with posts
                     relative_url = category['link'].replace(self.wp_url, '')
@@ -157,7 +167,10 @@ class WordPressStaticGenerator:
         # Get tags with posts
         tags_response = self.session.get(f'{self.wp_url}/wp-json/wp/v2/tags?per_page=100')
         if tags_response.status_code == 200:
-            tags = tags_response.json()
+            try:
+                tags = tags_response.json()
+            except (json.JSONDecodeError, ValueError):
+                tags = []
             for tag in tags:
                 if tag['count'] > 0:  # Only tags with posts
                     relative_url = tag['link'].replace(self.wp_url, '')
@@ -185,7 +198,10 @@ class WordPressStaticGenerator:
             if media_response.status_code != 200:
                 break
                 
-            media_items = media_response.json()
+            try:
+                media_items = media_response.json()
+            except (json.JSONDecodeError, ValueError):
+                break
             if not media_items:
                 break
                 
@@ -2651,8 +2667,11 @@ class WordPressStaticGenerator:
                     params={'slug': categories[0]}
                 )
                 if cat_response.status_code == 200:
-                    cat_data = cat_response.json()
-                    if cat_data:
+                    try:
+                        cat_data = cat_response.json()
+                    except (json.JSONDecodeError, ValueError):
+                        cat_data = []
+                    if isinstance(cat_data, list) and cat_data:
                         category_id = cat_data[0]['id']
                         
                         # Get posts from this category
@@ -2661,7 +2680,10 @@ class WordPressStaticGenerator:
                             params={'categories': category_id, 'per_page': 4, '_fields': 'id,title,link,featured_media'}
                         )
                         if posts_response.status_code == 200:
-                            related_posts = posts_response.json()
+                            try:
+                                related_posts = posts_response.json()
+                            except (json.JSONDecodeError, ValueError):
+                                related_posts = []
             
             # Filter out current post
             current_post_url = f"{self.wp_url}{current_url}"
@@ -3071,7 +3093,7 @@ class WordPressStaticGenerator:
                                             from datetime import datetime as dt
                                             dt_obj = dt.fromisoformat(datetime_str.replace('Z', '+00:00'))
                                             pub_date = format_datetime(dt_obj)
-                                        except:
+                                        except (ValueError, AttributeError, TypeError):
                                             pub_date = datetime_str
                                 
                                 # Extract author
