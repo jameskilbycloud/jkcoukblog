@@ -413,6 +413,19 @@ jobs:
         }
         echo "✅ Plausible CSP validation passed - Analytics will track correctly!"
 
+    - name: Test Credly badges CSP configuration
+      run: |
+        echo "🔒 Validating CSP allows Credly certification badges..."
+        python3 scripts/test_csp_credly.py || {
+          echo ""
+          echo "❌ CSP validation failed!"
+          echo "⚠️  Worker CSP headers will block Credly badges"
+          echo "   Check _worker.template.js Content-Security-Policy header"
+          echo ""
+          exit 1
+        }
+        echo "✅ Credly CSP validation passed - Certification badges will render correctly!"
+
     - name: Content quality validation
       timeout-minutes: 5
       continue-on-error: true  # Non-blocking: warnings won't fail the build

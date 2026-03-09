@@ -648,6 +648,24 @@ class LiveSiteFormattingTester:
         csp = headers.get('Content-Security-Policy', '')
         if csp:
             self.log_success(f"Content-Security-Policy header present")
+
+            # Validate Credly badge domains are allowed
+            credly_issues = []
+            if 'cdn.credly.com' not in csp:
+                credly_issues.append("script-src missing cdn.credly.com")
+            if 'cdn.youracclaim.com' not in csp:
+                credly_issues.append("script-src missing cdn.youracclaim.com")
+            if 'www.credly.com' not in csp:
+                credly_issues.append("frame-src missing www.credly.com")
+            if 'www.youracclaim.com' not in csp:
+                credly_issues.append("frame-src missing www.youracclaim.com")
+
+            if credly_issues:
+                for issue in credly_issues:
+                    self.log_error(f"CSP {issue} (Credly badges will be blocked)")
+                all_good = False
+            else:
+                self.log_success("CSP allows Credly/YourAcclaim badge embeds")
         else:
             self.log_warning("Content-Security-Policy header missing")
             all_good = False
