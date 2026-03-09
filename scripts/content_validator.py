@@ -87,7 +87,9 @@ class ContentValidator:
     
     def _check_seo_basics(self, soup, file_path):
         """Check basic SEO requirements"""
-        # Title length
+        # Title length (skip for RSS/Atom feed files — they have no <title> by design)
+        rel = str(file_path)
+        is_feed = 'feed' in rel.lower()
         title = soup.find('title')
         if title:
             title_text = title.get_text().strip()
@@ -105,7 +107,7 @@ class ContentValidator:
                     'length': len(title_text),
                     'message': f'Title too short ({len(title_text)} chars, recommended min 30)'
                 })
-        else:
+        elif not is_feed:
             self.errors.append({
                 'type': 'seo_no_title',
                 'file': str(file_path),
@@ -137,9 +139,11 @@ class ContentValidator:
                 'message': 'Missing meta description'
             })
         
-        # H1 tags
+        # H1 tags (skip for RSS/Atom feed files — they have no H1 by design)
+        rel = str(file_path)
+        is_feed = 'feed' in rel.lower()
         h1_tags = soup.find_all('h1')
-        if len(h1_tags) == 0:
+        if len(h1_tags) == 0 and not is_feed:
             self.errors.append({
                 'type': 'seo_no_h1',
                 'file': str(file_path),
@@ -255,7 +259,8 @@ class ContentValidator:
                     })
 
                 # Article types must have headline, datePublished, and author
-                schema_type = item.get('@type', '')
+                raw_type = item.get('@type', '')
+                schema_type = raw_type if isinstance(raw_type, str) else (raw_type[0] if raw_type else '')
                 if schema_type in _ARTICLE_TYPES:
                     for field in _ARTICLE_REQUIRED_FIELDS:
                         if not item.get(field):
