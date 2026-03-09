@@ -43,4 +43,4 @@
   X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
-  Content-Security-Policy: frame-ancestors 'self'; frame-src 'self' https://embed.acast.com https://www.youtube.com https://youtube.com https://utteranc.es;
+  Content-Security-Policy: frame-ancestors 'self'; frame-src 'self' https://embed.acast.com https://www.youtube.com https://youtube.com https://utteranc.es https://www.credly.com https://www.youracclaim.com; script-src 'self' 'unsafe-inline' cdn.credly.com cdn.youracclaim.com;
