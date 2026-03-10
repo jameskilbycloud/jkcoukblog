@@ -837,6 +837,15 @@ jobs:
         rm -rf public/
         mv ./static-output public/
         
+        # Copy IndexNow key file to public directory so search engines can verify ownership
+        if [ -f ".indexnow_key" ]; then
+          INDEXNOW_KEY=$(cat .indexnow_key)
+          cp .indexnow_key "public/${INDEXNOW_KEY}.txt"
+          echo "✅ IndexNow key file copied to public/${INDEXNOW_KEY}.txt"
+        else
+          echo "⚠️  WARNING: .indexnow_key not found — IndexNow verification file will be missing"
+        fi
+
         # Copy Advanced Mode worker to public directory
         echo "📦 Preparing Cloudflare Pages Advanced Mode Worker..."
         if [ -f "_worker.template.js" ]; then
