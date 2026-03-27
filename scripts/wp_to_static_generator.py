@@ -1125,15 +1125,8 @@ class WordPressStaticGenerator:
                 entry_content = article.find('div', class_=lambda x: x and 'entry-content' in x)
                 
                 if entry_content:
-                    # Find the entry-footer in the parent article
-                    entry_footer = article.find('footer', class_=lambda x: x and 'entry-footer' in x)
-                    
-                    if entry_footer:
-                        # Insert before the footer (between content and footer)
-                        insert_before = entry_footer
-                    else:
-                        # Fallback: insert after entry-content
-                        insertion_point = entry_content
+                    # Insert immediately after the article content
+                    insertion_point = entry_content
                 else:
                     # Fallback: insert after the article itself
                     insertion_point = article
@@ -1168,14 +1161,10 @@ class WordPressStaticGenerator:
                 # Replace existing comments
                 comments_area.replace_with(comments_div)
                 print(f"   💬 Replaced existing comments with Utterances")
-            elif insert_before:
-                # Insert before the entry-footer
-                insert_before.insert_before(comments_div)
-                print(f"   💬 Added Utterances comments section before footer")
             elif insertion_point:
-                # Insert immediately after the insertion point
+                # Insert immediately after the article content
                 insertion_point.insert_after(comments_div)
-                print(f"   💬 Added Utterances comments section after main content")
+                print(f"   💬 Added Utterances comments section after article content")
     
     def add_static_optimizations(self, soup):
         """Add optimizations for static site performance"""
