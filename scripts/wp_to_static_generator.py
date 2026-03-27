@@ -328,6 +328,12 @@ class WordPressStaticGenerator:
         # Clean up WordPress admin AJAX URLs
         self.clean_wordpress_ajax_urls(soup)
         
+        # Strip ?ver= query strings from asset URLs (CSS/JS)
+        self.strip_asset_version_queries(soup)
+
+        # Fix Splide carousel for Similar Posts section
+        self.fix_splide_carousel(soup)
+
         # Add Utterances comments to every page
         self.add_utterances_comments(soup)
         
@@ -1088,6 +1094,119 @@ class WordPressStaticGenerator:
             # Replace inline style with link tag
             style_tag.replace_with(link_tag)
     
+    def strip_asset_version_queries(self, soup):
+        """Strip ?ver= query strings from CSS/JS asset URLs.
+
+        WordPress appends ?ver=x.y.z to asset URLs for cache busting. When these
+        assets are downloaded to disk, the query string becomes part of the filename
+        which breaks static file serving (e.g. Cloudflare Pages strips query strings
+        from requests, so the file is never found).
+
+        This method:
+        1. Strips ?ver=... from all <link> href and <script> src attributes
+        2. Renames any files on disk that have ?ver= in their filename
+        """
+        import re
+
+        # Fix <link> stylesheet hrefs
+        for link in soup.find_all('link', href=True):
+            href = link['href']
+            if '?ver=' in href:
+                clean_href = re.sub(r'\?ver=[^&"\']+', '', href)
+                link['href'] = clean_href
+                # Rename the file on disk if it exists with the versioned name
+                versioned_path = self.output_dir / href.lstrip('/')
+                clean_path = self.output_dir / clean_href.lstrip('/')
+                if versioned_path.exists() and not clean_path.exists():
+                    clean_path.parent.mkdir(parents=True, exist_ok=True)
+                    versioned_path.rename(clean_path)
+                    print(f"   📦 Renamed asset: {href} → {clean_href}")
+
+        # Fix <script> srcs
+        for script in soup.find_all('script', src=True):
+            src = script['src']
+            if '?ver=' in src:
+                clean_src = re.sub(r'\?ver=[^&"\']+', '', src)
+                script['src'] = clean_src
+                versioned_path = self.output_dir / src.lstrip('/')
+                clean_path = self.output_dir / clean_src.lstrip('/')
+                if versioned_path.exists() and not clean_path.exists():
+                    clean_path.parent.mkdir(parents=True, exist_ok=True)
+                    versioned_path.rename(clean_path)
+                    print(f"   📦 Renamed asset: {src} → {clean_src}")
+
+    def fix_splide_carousel(self, soup):
+        """Fix the Kadence theme's Splide carousel for the Similar Posts section.
+
+        The WordPress Kadence theme uses Splide.js for the related/similar posts
+        carousel, but the JS was never included in the static export. This method
+        adds Splide JS from CDN and initialization code.
+        """
+        # Only add if there's a Splide carousel on the page
+        carousels = soup.find_all(class_=lambda x: x and 'kadence-slide-init' in x)
+        if not carousels:
+            return
+
+        # Strip pre-baked Splide state classes from static HTML.
+        # WordPress server-side rendering adds is-initialized/is-active/splide-initial
+        # but without the JS these cause broken display (e.g. display:block on the list).
+        # Splide will re-add them correctly when it mounts.
+        for carousel in carousels:
+            classes = carousel.get('class', [])
+            for cls in ['is-initialized', 'is-active', 'splide-initial', 'is-rendered']:
+                if cls in classes:
+                    classes.remove(cls)
+            carousel['class'] = classes
+
+        # Add Splide JS from CDN (before </body>)
+        body = soup.find('body')
+        if not body:
+            return
+
+        # Add Splide JS
+        splide_script = soup.new_tag('script')
+        splide_script['src'] = 'https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/splide.min.js'
+        splide_script['defer'] = ''
+        body.append(splide_script)
+
+        # Add initialization script that reads the data attributes
+        init_script = soup.new_tag('script')
+        init_script.string = """
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.kadence-slide-init.splide').forEach(function(el) {
+    var cols = parseInt(el.dataset.columnsXxl || el.dataset.columnsMd || 3);
+    var colsMd = parseInt(el.dataset.columnsMd || 3);
+    var colsSm = parseInt(el.dataset.columnsSm || 2);
+    var colsSs = parseInt(el.dataset.columnsSs || 1);
+    var gutter = parseInt(el.dataset.sliderGutter || 40);
+    var loop = el.dataset.sliderLoop === 'true';
+    var arrows = el.dataset.sliderArrows === 'true';
+    var dots = el.dataset.sliderDots === 'true';
+    var autoplay = el.dataset.sliderAuto === 'true';
+    var speed = parseInt(el.dataset.sliderAnimSpeed || 400);
+    var perMove = parseInt(el.dataset.sliderScroll || 1);
+
+    new Splide(el, {
+      type: loop ? 'loop' : 'slide',
+      perPage: cols,
+      perMove: perMove,
+      gap: gutter + 'px',
+      arrows: arrows,
+      pagination: dots,
+      autoplay: autoplay,
+      speed: speed,
+      breakpoints: {
+        1199: { perPage: colsMd },
+        767: { perPage: colsSm },
+        543: { perPage: colsSs }
+      }
+    }).mount();
+  });
+});
+"""
+        body.append(init_script)
+        print(f"   🎠 Added Splide carousel JS and initialization")
+
     def add_utterances_comments(self, soup):
         """Add Utterances comments section to the page"""
         # Only add comments to single post/page views, not archive/list pages
@@ -2374,8 +2493,12 @@ class WordPressStaticGenerator:
                     parsed = urlparse(asset_url)
                     relative_path = parsed.path.lstrip('/')
                     
+                # Strip query strings (e.g. ?ver=1.4.5) from file paths
+                import re as _re
+                relative_path = _re.sub(r'\?.*$', '', relative_path)
+
                 output_path = self.output_dir / relative_path
-                
+
                 # Skip if already downloaded
                 if output_path.exists():
                     return f"⏭️  {relative_path} (exists)"
@@ -2672,7 +2795,11 @@ class WordPressStaticGenerator:
         # Check if this is a single post (not a page or archive)
         if 'single-post' not in body_class_str and 'single' not in body_classes:
             return
-        
+
+        # Remove any existing related-posts sections to avoid duplicates
+        for existing in soup.find_all('section', class_='related-posts'):
+            existing.decompose()
+
         # Extract categories and tags from the current post
         categories = []
         tags = []
@@ -2762,18 +2889,18 @@ class WordPressStaticGenerator:
             
             related_section.append(posts_list)
             
-            # Find insertion point (after entry-content, before comments)
+            # Find insertion point (after comments if present, otherwise after entry-content)
             entry_content = soup.find('div', class_=lambda x: x and 'entry-content' in x)
             if entry_content:
                 # Find the parent article
                 article = entry_content.find_parent('article')
                 if article:
-                    # Insert before comments or at the end of article
+                    # Insert after comments (so order is: article → comments → related posts)
                     comments = article.find('div', id='comments')
                     if comments:
-                        comments.insert_before(related_section)
+                        comments.insert_after(related_section)
                     else:
-                        article.append(related_section)
+                        entry_content.insert_after(related_section)
                     
                     print(f"   📚 Added {len(related_posts)} related posts")
         
