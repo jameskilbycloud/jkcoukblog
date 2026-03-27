@@ -1106,43 +1106,39 @@ class WordPressStaticGenerator:
         if not (is_single_post or is_page):
             return  # Not a single post/page, skip comments
         
-        # Find the best insertion point - right after entry-content, before entry-footer
-        insertion_point = None
-        insert_before = None
-        
-        # Try to find existing comments area first
+        # Remove any existing comments area first (so we can re-insert in the correct position)
         comments_area = soup.find('div', id='comments')
         if comments_area:
-            # Replace existing comments with Utterances
-            insertion_point = comments_area
-        else:
-            # Find the main article element
-            articles = soup.find_all('article')
-            if articles and len(articles) >= 1:
-                article = articles[0]
-                
-                # Look for entry-content div inside the article - this is the main post content
-                entry_content = article.find('div', class_=lambda x: x and 'entry-content' in x)
-                
-                if entry_content:
-                    # Insert immediately after the article content
-                    insertion_point = entry_content
-                else:
-                    # Fallback: insert after the article itself
-                    insertion_point = article
-        
-        if insertion_point or insert_before:
+            comments_area.decompose()
+
+        # Find the entry-content div to insert comments immediately after it
+        insertion_point = None
+        articles = soup.find_all('article')
+        if articles and len(articles) >= 1:
+            article = articles[0]
+
+            # Look for entry-content div inside the article - this is the main post content
+            entry_content = article.find('div', class_=lambda x: x and 'entry-content' in x)
+
+            if entry_content:
+                # Insert immediately after the article content
+                insertion_point = entry_content
+            else:
+                # Fallback: insert after the article itself
+                insertion_point = article
+
+        if insertion_point:
             # Create the Utterances comments section
             comments_div = soup.new_tag('div')
             comments_div['id'] = 'comments'
             comments_div['class'] = 'comments-area'
-            
+
             inner_div = soup.new_tag('div')
             inner_div['class'] = 'pb-30'
-            
+
             section = soup.new_tag('section')
             section['id'] = 'utterances-comments'
-            
+
             script = soup.new_tag('script')
             script['src'] = 'https://utteranc.es/client.js'
             script['data-repo'] = 'jameskilbynet/jkcoukblog'
@@ -1151,20 +1147,14 @@ class WordPressStaticGenerator:
             script['crossorigin'] = 'anonymous'
             script['async'] = ''
             script['data-cfasync'] = 'false'  # Bypass Cloudflare Rocket Loader
-            
+
             section.append(script)
             inner_div.append(section)
             comments_div.append(inner_div)
-            
-            # Insert the comments section
-            if comments_area:
-                # Replace existing comments
-                comments_area.replace_with(comments_div)
-                print(f"   💬 Replaced existing comments with Utterances")
-            elif insertion_point:
-                # Insert immediately after the article content
-                insertion_point.insert_after(comments_div)
-                print(f"   💬 Added Utterances comments section after article content")
+
+            # Insert immediately after article content
+            insertion_point.insert_after(comments_div)
+            print(f"   💬 Added Utterances comments section after article content")
     
     def add_static_optimizations(self, soup):
         """Add optimizations for static site performance"""
