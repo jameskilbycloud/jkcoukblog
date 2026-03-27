@@ -33,18 +33,18 @@ wordpress.jameskilby.cloud  |                         |                      jam
 ## 📁 Repository Structure
 
 ```
-├── .github/workflows/
-│   ├── deploy-static-site.yml             # Main build + deploy pipeline (27 steps)
-│   ├── quality-checks.yml                 # Lighthouse + live site formatting tests
-│   ├── spell-check-consolidated.yml       # AI spell checking (Ollama/Llama)
-│   ├── spell-check-approval-handler.yml   # Spell check PR approval flow
-│   ├── apply-spell-corrections-manual.yml # Manual spell correction application
-│   ├── verify-spell-corrections.yml       # Spell correction verification
-│   ├── secret-scan.yml                    # Gitleaks secret scanning
-│   ├── rollback-site.yml                  # Deployment rollback
-│   ├── issue-to-slack-improved.yml        # GitHub issue → Slack notifications
-│   └── enable-cloudflare-indexing.yml     # Cloudflare indexing setup
-├── scripts/                               # Python & shell automation (32 files)
+├── .github/
+│   ├── workflows/
+│   │   ├── deploy-static-site.yml         # Main build + deploy pipeline
+│   │   ├── quality-checks.yml             # Lighthouse + live site formatting tests
+│   │   ├── spell-check-consolidated.yml   # AI spell checking (Ollama/Llama)
+│   │   ├── spell-check-approval-handler.yml # Spell check approval flow
+│   │   ├── secret-scan.yml                # Gitleaks secret scanning
+│   │   ├── rollback-site.yml              # Deployment rollback
+│   │   ├── issue-to-slack-improved.yml    # GitHub issue → Slack notifications
+│   │   └── enable-cloudflare-indexing.yml # Cloudflare indexing setup
+│   └── CODEOWNERS                         # Auto-assign PR reviewers
+├── scripts/                               # Python & shell automation
 │   ├── wp_to_static_generator.py          # Core WordPress → static converter
 │   ├── incremental_builder.py             # BLAKE2b incremental build cache
 │   ├── config.py                          # Centralised configuration
@@ -60,6 +60,8 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── validate_html.py                   # HTML structural validation
 │   ├── validate_deployment.py             # Post-optimisation deployment checks
 │   ├── validate_wordpress_source.py       # Pre-build WordPress health check
+│   ├── test_csp.py                        # CSP validation (Utterances, Credly, Plausible)
+│   ├── test_live_site_formatting.py       # Live site formatting + performance tests
 │   ├── markdown_exporter.py               # Exports content as Markdown
 │   ├── markdown_api.py                    # Generates /api/ JSON endpoints
 │   ├── submit_indexnow.py                 # Submits changed URLs to IndexNow
@@ -67,10 +69,6 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── generate_stats_page.py             # Generates Plausible stats embed page
 │   ├── generate_build_report.py           # Build metrics reporting
 │   ├── convert_to_staging.py              # Converts URLs for staging deployment
-│   ├── test_csp_utterances.py             # Validates CSP allows Utterances
-│   ├── test_csp_credly.py                 # Validates CSP allows Credly badges
-│   ├── test_plausible_analytics.py        # Validates CSP allows Plausible
-│   ├── test_live_site_formatting.py       # Live site formatting + performance tests
 │   ├── ollama_spell_checker.py            # AI spell checker (Ollama/Llama)
 │   ├── wp_spell_check_and_fix.py          # WordPress spell check + auto-fix
 │   ├── manage_build_cache.py              # Build cache management tool
@@ -101,8 +99,14 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── STREAMDECK_DEPLOY_SETUP.md         # Stream Deck integration
 │   └── archive/                           # Historical docs
 ├── public/                                # Generated static site (Cloudflare Pages)
-├── workers/                               # Cloudflare Workers (legacy + search API)
+├── workers/                               # Cloudflare Workers
+│   ├── html-cache-kv.js                   # Active KV-backed HTML cache worker
+│   ├── search-api.js                      # Search API endpoint
+│   ├── slack-notification-handler.js      # Slack webhook handler
+│   └── archive/                           # Superseded worker versions
 ├── assets/fonts/                          # Font assets
+├── Makefile                               # Build pipeline targets (make help)
+├── CONTRIBUTING.md                        # Contribution guidelines
 ├── wrangler.toml                          # Cloudflare Wrangler configuration
 ├── _headers                               # Cloudflare Pages HTTP header rules
 └── README.md                              # This file
@@ -136,6 +140,13 @@ wordpress.jameskilby.cloud  |                         |                      jam
 
 ```bash
 export WP_AUTH_TOKEN="your_wordpress_auth_token_here"
+
+# Using Make
+make build          # Full pipeline: generate + optimize + validate
+make generate       # Generate only
+make help           # Show all targets
+
+# Or directly
 python3 scripts/wp_to_static_generator.py ./static-output
 ```
 
@@ -153,7 +164,7 @@ The `deploy-static-site.yml` workflow runs these steps in order:
 | 6 | Generate static site | `wp_to_static_generator.py` — HTML, assets, sitemap, search index |
 | 7 | Export to Markdown | `markdown_exporter.py` |
 | 8 | Generate Markdown API | `markdown_api.py` |
-| 9 | Validate CSP (Utterances + Plausible) | Fails build if CSP would block them |
+| 9 | Validate CSP (Utterances, Plausible, Credly) | `test_csp.py` — fails build if CSP would block them |
 | 10 | Content quality validation | `content_validator.py` — non-blocking |
 | 11 | Optimise images | AVIF + WebP, 4 parallel workers, BLAKE2b cache |
 | 12 | Convert `<img>` → `<picture>` | Adds AVIF/WebP sources with fallbacks |

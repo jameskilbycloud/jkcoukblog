@@ -1,0 +1,10 @@
+# Code owners for jkcoukblog
+# These users will be automatically requested for review on PRs.
+
+# Default owner for all files
+* @jameskilbynet
+
+# Cloudflare Worker and deployment
+_worker.template.js @jameskilbynet
+wrangler.toml @jameskilbynet
+.github/workflows/ @jameskilbynet

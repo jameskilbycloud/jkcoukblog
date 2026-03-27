@@ -195,23 +195,14 @@ These scripts run automatically as part of the `.github/workflows/deploy-static-
 
 ### Security & Analytics Testing
 
-#### `test_csp_utterances.py` ✅
-**Purpose:** Validate CSP allows Utterances comments
-**What it does:** Tests that Content Security Policy headers allow Utterances to load
-**Usage:** `python3 scripts/test_csp_utterances.py`
-**Validates:**
-- `script-src` includes utteranc.es
-- `frame-src` includes utteranc.es
-- `connect-src` includes api.github.com
-
-#### `test_plausible_analytics.py` ✅
-**Purpose:** Validate CSP allows Plausible Analytics
-**What it does:** Tests that CSP allows both hosted and self-hosted Plausible
-**Usage:** `python3 scripts/test_plausible_analytics.py`
-**Validates:**
-- `script-src` includes plausible.io and plausible.jameskilby.cloud
-- `connect-src` includes both Plausible domains
-- `frame-src` includes plausible.jameskilby.cloud (for stats page embed)
+#### `test_csp.py` ✅
+**Purpose:** Consolidated CSP validation for all third-party services
+**What it does:** Tests that Content Security Policy headers allow Utterances, Credly, and Plausible
+**Usage:**
+- `python3 scripts/test_csp.py` — Test all providers
+- `python3 scripts/test_csp.py utterances` — Test one provider
+- `python3 scripts/test_csp.py credly plausible` — Test specific providers
+**Validates:** script-src, frame-src, and connect-src for each provider's required domains
 
 ---
 
@@ -406,8 +397,7 @@ All ✅ CI/CD scripts are called in `.github/workflows/deploy-static-site.yml` i
    - `markdown_api.py` - Generate JSON API
 
 3. **CSP Testing:**
-   - `test_csp_utterances.py` - Validate Utterances CSP
-   - `test_plausible_analytics.py` - Validate Plausible CSP
+   - `test_csp.py` - Validate CSP for all providers (Utterances, Credly, Plausible)
 
 4. **Content Validation:**
    - `content_validator.py` - Quality checks (non-blocking)
@@ -467,9 +457,10 @@ export WP_AUTH_TOKEN="your_token"
 python3 scripts/validate_wordpress_source.py
 ```
 
-### "I want to test Plausible Analytics integration"
+### "I want to test CSP for third-party services"
 ```bash
-python3 scripts/test_plausible_analytics.py
+python3 scripts/test_csp.py                # All providers
+python3 scripts/test_csp.py plausible      # Plausible only
 ```
 
 ### "I want to auto-fix spelling mistakes"

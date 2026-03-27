@@ -1,8 +1,11 @@
+# Core dependencies for static site generation
 requests
 beautifulsoup4
 brotli
-pyspellchecker
-html2text==2020.1.16
-pyyaml==6.0.1
 cssutils
 Pillow
+html2text==2020.1.16
+pyyaml==6.0.1
+
+# Dev/CI-only deps are in requirements-dev.txt
+# Image optimisation extras are in requirements-images.txt

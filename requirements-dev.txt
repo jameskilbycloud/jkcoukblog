@@ -1,0 +1,8 @@
+# Dev/CI-only dependencies — not needed for core site generation
+# Install with: pip install -r requirements-dev.txt
+#
+# Core dependencies are in requirements.txt
+# Image optimisation extras are in requirements-images.txt
+
+# Spell checking (CI spell-check workflow only)
+pyspellchecker
