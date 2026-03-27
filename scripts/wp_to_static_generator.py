@@ -3072,49 +3072,8 @@ document.addEventListener('DOMContentLoaded', function() {
         print("✅ Created _redirects file for URL corrections and www redirect")
     
     def create_robots_txt(self):
-        """
-        Download robots.txt from WordPress and update URLs for static site
-        """
+        """Generate a clean robots.txt for the static site"""
         print("🤖 Creating robots.txt...")
-        
-        try:
-            # Download robots.txt from WordPress
-            robots_url = f"{self.wp_url}/robots.txt"
-            response = self.session.get(robots_url, timeout=10)
-            
-            if response.status_code == 200 and 'text/plain' in response.headers.get('content-type', ''):
-                # Get robots.txt content
-                robots_content = response.text
-                
-                # Replace WordPress URLs with target domain URLs
-                robots_content = robots_content.replace(self.wp_url, self.target_domain)
-                
-                # Update sitemap reference to point to our generated sitemap
-                import re
-                robots_content = re.sub(
-                    r'Sitemap:\s*https?://[^\n]+',
-                    f'Sitemap: {self.target_domain}/sitemap.xml',
-                    robots_content,
-                    flags=re.IGNORECASE
-                )
-                
-                # Write to static output
-                robots_file = self.output_dir / 'robots.txt'
-                robots_file.write_text(robots_content)
-                print(f"   ✅ Downloaded and updated robots.txt from WordPress")
-                
-            else:
-                # WordPress doesn't have robots.txt, create a basic one
-                print(f"   ⚠️  WordPress robots.txt not found, creating default")
-                self._create_default_robots_txt()
-                
-        except Exception as e:
-            print(f"   ⚠️  Error downloading robots.txt: {str(e)}")
-            print(f"   🔧 Creating default robots.txt")
-            self._create_default_robots_txt()
-    
-    def _create_default_robots_txt(self):
-        """Create a default robots.txt file"""
         robots_content = [
             "User-agent: *",
             "Allow: /",
@@ -3122,10 +3081,9 @@ document.addEventListener('DOMContentLoaded', function() {
             f"Sitemap: {self.target_domain}/sitemap.xml",
             ""
         ]
-        
         robots_file = self.output_dir / 'robots.txt'
         robots_file.write_text('\n'.join(robots_content))
-        print(f"   ✅ Created default robots.txt")
+        print("   ✅ Created robots.txt")
     
     def create_sitemap(self):
         """Generate a basic XML sitemap"""
@@ -3149,6 +3107,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 'url': f'{self.target_domain}{url_path}',
                 'lastmod': lastmod_date
             })
+
+        # Fix lastmod for category/tag archive pages:
+        # Use the most recent post date linked from each archive page
+        # instead of the file modification time (which is always the build date)
+        post_dates = {item['url']: item['lastmod'] for item in urls_for_sitemap}
+        archive_fixes = 0
+        for item in urls_for_sitemap:
+            url_path = item['url'].replace(self.target_domain, '')
+            if '/category/' in url_path or '/tag/' in url_path:
+                html_file = self.output_dir / url_path.strip('/') / 'index.html'
+                if html_file.exists():
+                    most_recent = self._get_archive_latest_post_date(html_file, post_dates)
+                    if most_recent:
+                        item['lastmod'] = most_recent
+                        archive_fixes += 1
+        if archive_fixes:
+            print(f"   📅 Fixed lastmod dates for {archive_fixes} archive pages")
 
         # Generate XML
         sitemap_content = ['<?xml version="1.0" encoding="UTF-8"?>']
@@ -3207,6 +3182,44 @@ document.addEventListener('DOMContentLoaded', function() {
         except Exception as e:
             # Ultimate fallback: use current date
             return datetime.now().strftime('%Y-%m-%d')
+
+    def _get_archive_latest_post_date(self, html_file, post_dates):
+        """Get the most recent post date from an archive (category/tag) page.
+
+        Parses the archive HTML for internal links to blog posts,
+        looks up their dates from the already-collected sitemap data,
+        and returns the most recent one.
+        """
+        try:
+            with open(html_file, 'r', encoding='utf-8', errors='ignore') as f:
+                html_content = f.read()
+
+            soup = BeautifulSoup(html_content, 'html.parser')
+
+            # Find all internal links that look like blog post URLs (year/month/slug pattern)
+            post_link_pattern = re.compile(r'^(?:https?://[^/]+)?/\d{4}/\d{2}/[^/]+/?$')
+            latest_date = None
+
+            for link in soup.find_all('a', href=True):
+                href = link['href']
+                if post_link_pattern.match(href):
+                    # Normalise to full URL for lookup
+                    if href.startswith('/'):
+                        full_url = f"{self.target_domain}{href}"
+                    else:
+                        full_url = href
+                    # Ensure trailing slash for consistent lookup
+                    if not full_url.endswith('/'):
+                        full_url += '/'
+
+                    date = post_dates.get(full_url)
+                    if date and (latest_date is None or date > latest_date):
+                        latest_date = date
+
+            return latest_date
+
+        except Exception:
+            return None
 
     def generate_rss_feed(self):
         """Generate RSS feed from posts"""
