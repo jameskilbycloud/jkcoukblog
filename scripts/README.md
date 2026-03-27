@@ -13,7 +13,7 @@ This directory contains all automation scripts for the blog's static site genera
 | Optimize images (AVIF/WebP) | `optimize_images.py` | ✅ CI/CD |
 | Test live site manually | `test_live_site_formatting.py` | 🔧 Manual |
 | Manage build cache | `manage_build_cache.py` | 🔧 Manual |
-| Configure Cloudflare indexing | `enable_cloudflare_indexing.py` | 🔧 One-time |
+| Configure Cloudflare indexing | `archive/enable_cloudflare_indexing.py` | 🔧 One-time (archived) |
 | Purge Cloudflare cache | `purge_static_cache.sh` | ✅ CI/CD |
 
 ## Legend
@@ -369,12 +369,12 @@ These scripts are for manual use during development or debugging.
 
 ## One-Time Setup (1 script)
 
-#### `enable_cloudflare_indexing.py` 🔧
+#### `archive/enable_cloudflare_indexing.py` 🔧
 **Purpose:** Enable search engine indexing via Cloudflare
 **What it does:** Configures Cloudflare to allow search engine crawlers
-**Usage:** `CLOUDFLARE_API_TOKEN=<token> CLOUDFLARE_ZONE_ID=<id> python3 scripts/enable_cloudflare_indexing.py`
+**Usage:** `CLOUDFLARE_API_TOKEN=<token> CLOUDFLARE_ZONE_ID=<id> python3 scripts/archive/enable_cloudflare_indexing.py`
 **When to use:** Run once during initial blog setup
-**Status:** Configuration script, not part of regular workflow
+**Status:** Archived — one-time setup script, already executed
 
 ---
 

@@ -56,6 +56,10 @@ assertion-results.json
 # Image optimization results
 optimization-results.json
 
+# Build artifacts generated at repo root
+validation-report.json
+indexnow-submission.json
+
 # Build cache (optional - can be tracked for incremental CI/CD builds)
 # Comment out the line below to enable cache tracking in git
 .build-cache.json

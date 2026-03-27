@@ -28,7 +28,7 @@ jobs:
         CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       run: |
         echo "🔧 Enabling search engine indexing on Cloudflare Pages..."
-        python3 scripts/enable_cloudflare_indexing.py
+        python3 scripts/archive/enable_cloudflare_indexing.py
         
     - name: Verify indexing enabled
       run: |

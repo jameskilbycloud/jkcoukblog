@@ -74,9 +74,9 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── ollama_spell_checker.py            # AI spell checker (Ollama/Llama)
 │   ├── wp_spell_check_and_fix.py          # WordPress spell check + auto-fix
 │   ├── manage_build_cache.py              # Build cache management tool
-│   ├── enable_cloudflare_indexing.py      # One-time Cloudflare setup
 │   ├── purge_static_cache.sh              # Cloudflare edge cache purge
-│   └── streamdeck-deploy.sh               # Stream Deck deployment trigger
+│   ├── streamdeck-deploy.sh               # Stream Deck deployment trigger
+│   └── archive/                           # Archived one-time setup scripts
 ├── functions/                             # Cloudflare Pages Functions
 │   ├── _middleware.js                     # Request middleware (KV cache, view tracking)
 │   ├── diagnostic.js                      # Cache diagnostic endpoint
