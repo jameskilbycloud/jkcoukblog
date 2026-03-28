@@ -1176,52 +1176,8 @@ div, section, aside, nav {
   margin-top: 8px;
 }
 
-/* Larger, styled prev/next arrows */
-.splide__arrow {
-  background: var(--accent-orange) !important;
-  opacity: 1 !important;
-  width: 44px !important;
-  height: 44px !important;
-  border-radius: 4px !important;
-  border: 2px solid var(--accent-orange) !important;
-  transition: background 0.2s, border-color 0.2s !important;
-}
-
-.splide__arrow:hover {
-  background: transparent !important;
-  border-color: var(--accent-orange) !important;
-}
-
-.splide__arrow svg {
-  fill: var(--bg-dark) !important;
-  width: 20px !important;
-  height: 20px !important;
-}
-
-.splide__arrow:hover svg {
-  fill: var(--accent-orange) !important;
-}
-
-.splide__arrow--prev {
-  left: -22px !important;
-}
-
-.splide__arrow--next {
-  right: -22px !important;
-}
-
-/* Style pagination dots */
-.splide__pagination__page {
-  background: var(--gray-mid) !important;
-  opacity: 1 !important;
-  width: 10px !important;
-  height: 10px !important;
-}
-
-.splide__pagination__page.is-active {
-  background: var(--accent-orange) !important;
-  transform: scale(1.2);
-}
+/* Arrow/pagination styles are injected inline by fix_splide_carousel()
+   because the CSS optimizer strips selectors for JS-injected elements */
 
 /* Equal-height carousel cards */
 .splide .entry-content-wrap {

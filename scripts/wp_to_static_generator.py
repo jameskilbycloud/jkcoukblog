@@ -1286,6 +1286,23 @@ class WordPressStaticGenerator:
                     classes.remove(cls)
             carousel['class'] = classes
 
+        # Add Splide arrow/pagination styles inline (CSS optimizer strips
+        # them from the external stylesheet because JS-injected elements
+        # don't exist in the static HTML at build time)
+        if soup.head:
+            splide_style = soup.new_tag('style')
+            splide_style.string = """
+.splide__arrow{background:#f6821f!important;opacity:1!important;width:44px!important;height:44px!important;border-radius:4px!important;border:2px solid #f6821f!important;transition:background .2s,border-color .2s!important}
+.splide__arrow:hover{background:transparent!important;border-color:#f6821f!important}
+.splide__arrow svg{fill:#0a0a0a!important;width:20px!important;height:20px!important}
+.splide__arrow:hover svg{fill:#f6821f!important}
+.splide__arrow--prev{left:-22px!important}
+.splide__arrow--next{right:-22px!important}
+.splide__pagination__page{background:#555!important;opacity:1!important;width:10px!important;height:10px!important}
+.splide__pagination__page.is-active{background:#f6821f!important;transform:scale(1.2)}
+"""
+            soup.head.append(splide_style)
+
         # Add Splide JS from CDN (before </body>)
         body = soup.find('body')
         if not body:
