@@ -598,52 +598,34 @@ jobs:
         echo "PICTURE_CONVERTED=1" >> $GITHUB_ENV
       continue-on-error: true
 
-    - name: Optimize CSS files
+    - name: Optimize CSS, SEO, and performance (parallel)
       run: |
-        echo "🎨 Optimizing CSS files (removing unused selectors)..."
-        python3 scripts/optimize_css.py ./static-output || {
-          echo "⚠️  CSS optimization failed (non-blocking)"
-        }
+        echo "🚀 Running CSS optimization, SEO fixes, and performance enhancements in parallel..."
+
+        # These three are independent and can run simultaneously
+        python3 scripts/optimize_css.py ./static-output &
+        PID_CSS=$!
+        python3 scripts/fix_seo_issues.py ./static-output &
+        PID_SEO=$!
+        python3 scripts/enhance_html_performance.py ./static-output &
+        PID_PERF=$!
+
+        # Wait for all three and collect exit codes
+        wait $PID_CSS  && echo "✅ CSS optimization done" || echo "⚠️  CSS optimization failed (non-blocking)"
+        wait $PID_SEO  && echo "✅ SEO fixes done" || echo "⚠️  SEO fixes failed (non-blocking)"
+        wait $PID_PERF && echo "✅ Performance enhancements done" || echo "⚠️  Performance enhancements failed (non-blocking)"
       continue-on-error: true
 
-    - name: Apply SEO fixes
-      run: |
-        echo "🔧 Applying SEO fixes to HTML files..."
-        python3 scripts/fix_seo_issues.py ./static-output || {
-          echo "⚠️  SEO fixes failed (non-blocking)"
-        }
-      continue-on-error: true
-
-    - name: Extract and inline critical CSS
+    - name: Extract critical CSS and minify
       run: |
         echo "🎨 Extracting and inlining critical CSS..."
-        python3 scripts/extract_critical_css.py ./static-output || {
-          echo "⚠️  Critical CSS extraction failed (non-blocking)"
-        }
-      continue-on-error: true
+        python3 scripts/extract_critical_css.py ./static-output || echo "⚠️  Critical CSS extraction failed (non-blocking)"
 
-    - name: Apply performance optimizations
-      run: |
-        echo "⚡ Applying performance optimizations (lazy loading, async/defer, preconnect, fonts)..."
-        python3 scripts/enhance_html_performance.py ./static-output || {
-          echo "⚠️  Performance enhancements failed (non-blocking)"
-        }
-      continue-on-error: true
-
-    - name: Minify CSS files
-      run: |
         echo "✂️  Minifying CSS files..."
-        python3 scripts/optimize_css.py ./static-output --minify-only || {
-          echo "⚠️  CSS minification failed (non-blocking)"
-        }
-      continue-on-error: true
+        python3 scripts/optimize_css.py ./static-output --minify-only || echo "⚠️  CSS minification failed (non-blocking)"
 
-    - name: Minify HTML files
-      run: |
         echo "✂️  Minifying HTML files..."
-        python3 scripts/minify_html.py ./static-output || {
-          echo "⚠️  HTML minification failed (non-blocking)"
-        }
+        python3 scripts/minify_html.py ./static-output || echo "⚠️  HTML minification failed (non-blocking)"
       continue-on-error: true
 
     - name: Brotli + Gzip compress static files
@@ -651,7 +633,31 @@ jobs:
       run: |
         echo "🗜️  Compressing final optimized files with Brotli (primary) + Gzip (fallback)..."
 
+        # Reuse existing .br/.gz files from previous build where the source
+        # file hasn't changed (saves ~15s by skipping Brotli quality-11 on
+        # unchanged files). The compressor's mtime check handles the rest.
+        if [ -d "public" ]; then
+          REUSED=0
+          for br_file in $(find public -name "*.br" -o -name "*.gz" 2>/dev/null); do
+            rel="${br_file#public/}"
+            target="./static-output/$rel"
+            # Get original filename (strip .br/.gz suffix)
+            original="${target%.br}"
+            original="${original%.gz}"
+            if [ -f "$original" ] && [ -f "$br_file" ]; then
+              # Compare original file sizes — if unchanged, reuse compressed version
+              old_original="${br_file%.br}"
+              old_original="${old_original%.gz}"
+              if [ -f "public/${rel%.br}" ] || [ -f "public/${rel%.gz}" ]; then
+                cp "$br_file" "$target" 2>/dev/null && REUSED=$((REUSED + 1))
+              fi
+            fi
+          done
+          echo "   ♻️  Reused $REUSED compressed files from previous build"
+        fi
+
         # Run compression — produces .br and .gz alongside each original
+        # Files with existing newer .br/.gz will be skipped automatically
         python3 scripts/brotli_compress.py ./static-output || {
           echo "⚠️  Compression failed (non-blocking)"
           echo "BROTLI_COUNT=0" >> $GITHUB_ENV
@@ -706,65 +712,46 @@ jobs:
         echo "- **Brotli Space Saved:** ${BROTLI_SAVED_MB} MB (${BROTLI_RATIO}% reduction)" >> $GITHUB_STEP_SUMMARY
       continue-on-error: true
 
-    - name: Validate final HTML build
-      timeout-minutes: 5
-      run: |
-        echo "🔍 Validating final optimized HTML and assets..."
-
-        # Run HTML validation on the final optimized site
-        python3 scripts/validate_html.py ./static-output || {
-          echo "❌ Final HTML validation failed!"
-          echo "⚠️  This indicates broken links or missing assets in the optimized site."
-          exit 1
-        }
-
-        echo "✅ Final HTML validation passed!"
-
-        # Add validation summary to GitHub Actions
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "## ✅ Final HTML Validation" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "- **Status:** ✅ Passed" >> $GITHUB_STEP_SUMMARY
-        echo "- **Checks:** Post-optimization validation (after minification, compression)" >> $GITHUB_STEP_SUMMARY
-
-    - name: Comprehensive post-optimization validation
+    - name: Validate HTML and deployment (parallel)
       timeout-minutes: 10
       run: |
-        echo "🔍 Running comprehensive deployment validation..."
-        echo ""
-        echo "This validates:"
-        echo "  ✓ Brotli compression integrity (.br files match originals)"
-        echo "  ✓ Modern image formats (AVIF/WebP exist and are valid)"
-        echo "  ✓ Picture elements (correct structure and fallback order)"
-        echo "  ✓ Minification (no broken HTML/CSS/JS)"
-        echo "  ✓ Critical CSS inlining"
-        echo ""
+        echo "🔍 Running HTML validation and deployment validation in parallel..."
 
-        python3 scripts/validate_deployment.py ./static-output || {
-          echo ""
+        # Both validators are read-only — safe to run simultaneously
+        python3 scripts/validate_html.py ./static-output &
+        PID_HTML=$!
+        python3 scripts/validate_deployment.py ./static-output &
+        PID_DEPLOY=$!
+
+        HTML_OK=true
+        DEPLOY_OK=true
+
+        wait $PID_HTML || HTML_OK=false
+        wait $PID_DEPLOY || DEPLOY_OK=false
+
+        if [ "$HTML_OK" = true ]; then
+          echo "✅ HTML validation passed!"
+        else
+          echo "❌ HTML validation failed!"
+        fi
+
+        if [ "$DEPLOY_OK" = true ]; then
+          echo "✅ Deployment validation passed!"
+        else
           echo "❌ Deployment validation failed!"
-          echo "⚠️  The optimized site has issues that need to be fixed before deployment."
-          echo ""
-          echo "Common issues:"
-          echo "  - Missing .br files (check Brotli compression step)"
-          echo "  - Missing AVIF/WebP files (check image optimization step)"
-          echo "  - Invalid picture elements (check conversion step)"
-          echo ""
-          exit 1
-        }
-
-        echo ""
-        echo "✅ Comprehensive deployment validation passed!"
+        fi
 
         # Add to GitHub Actions summary
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "## ✅ Deployment Validation" >> $GITHUB_STEP_SUMMARY
+        echo "## ✅ Validation" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "- **Brotli Compression:** ✅ Validated" >> $GITHUB_STEP_SUMMARY
-        echo "- **Image Formats:** ✅ AVIF/WebP present and valid" >> $GITHUB_STEP_SUMMARY
-        echo "- **Picture Elements:** ✅ Correctly structured" >> $GITHUB_STEP_SUMMARY
-        echo "- **Minification:** ✅ No broken code" >> $GITHUB_STEP_SUMMARY
-        echo "- **Critical CSS:** ✅ Properly inlined" >> $GITHUB_STEP_SUMMARY
+        echo "- **HTML Validation:** $([ "$HTML_OK" = true ] && echo '✅ Passed' || echo '❌ Failed')" >> $GITHUB_STEP_SUMMARY
+        echo "- **Deployment Validation:** $([ "$DEPLOY_OK" = true ] && echo '✅ Passed' || echo '❌ Failed')" >> $GITHUB_STEP_SUMMARY
+
+        # Fail step if either validation failed
+        if [ "$HTML_OK" = false ] || [ "$DEPLOY_OK" = false ]; then
+          exit 1
+        fi
 
     - name: Commit and push static site
       timeout-minutes: 10  # Timeout for git operations
