@@ -9,7 +9,7 @@
 This repository contains a complete automation pipeline that:
 
 - ✅ **Connects to WordPress CMS** via REST API (supports Cloudflare Access protected sites)
-- ✅ **Generates a static site** with all content, assets, and metadata
+- ✅ **Generates a static site** with all content, assets, and metadata — **incrementally** (only posts modified since last build are re-fetched)
 - ✅ **Applies AI spell-checking** via Ollama (non-blocking, incremental)
 - ✅ **Optimises images** to AVIF/WebP with `<picture>` elements and intelligent caching
 - ✅ **Compresses assets** with Brotli (primary) + Gzip (fallback), pre-encoded at build time
@@ -157,11 +157,11 @@ The `deploy-static-site.yml` workflow runs these steps in order:
 | # | Step | Notes |
 |---|------|-------|
 | 1 | Validate environment variables | Fails fast on missing secrets |
-| 2 | Restore build cache | `actions/cache@v4` — image cache + build cache + spell-check timestamp |
+| 2 | Restore build caches | `actions/cache@v4` — image cache + incremental build cache + spell-check timestamp |
 | 3 | Install system dependencies | apt packages: `avifenc`, `optipng`, `jpegoptim`, `jq`, `bc` |
 | 4 | Install Python dependencies | `pip install -r requirements.txt` |
 | 5 | Validate WordPress source health | Pre-flight check before generation |
-| 6 | Generate static site | `wp_to_static_generator.py` — HTML, assets, sitemap, search index |
+| 6 | Generate static site | `wp_to_static_generator.py` — incremental (WP `modified_after`) or full build; HTML, assets, sitemap, search index |
 | 7 | Export to Markdown | `markdown_exporter.py` |
 | 8 | Generate Markdown API | `markdown_api.py` |
 | 9 | Validate CSP (Utterances, Plausible, Credly) | `test_csp.py` — fails build if CSP would block them |
