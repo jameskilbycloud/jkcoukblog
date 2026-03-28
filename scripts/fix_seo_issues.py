@@ -9,6 +9,14 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 import re
 
+# Import config for target domain
+sys.path.insert(0, str(Path(__file__).parent))
+try:
+    from config import config
+    TARGET_DOMAIN = config.TARGET_DOMAIN
+except ImportError:
+    TARGET_DOMAIN = 'https://jameskilby.co.uk'
+
 
 class SEOFixer:
     """Fix SEO issues in HTML files"""
@@ -56,6 +64,9 @@ class SEOFixer:
                 modified = True
 
             if self.ensure_image_alt_text(soup, file_path):
+                modified = True
+
+            if self.fix_og_absolute_urls(soup, file_path):
                 modified = True
 
             # Save if modified
@@ -192,6 +203,35 @@ class SEOFixer:
 
         if modified:
             print(f"   🖼️  Added alt text to images: {file_path.name}")
+
+        return modified
+
+    def fix_og_absolute_urls(self, soup, file_path):
+        """Ensure og:image, og:url, and twitter:image use absolute URLs.
+
+        Social platforms require absolute https:// URLs for link previews.
+        Relative paths like /wp-content/uploads/... produce broken previews
+        on Facebook, Twitter/X, LinkedIn, and Slack.
+        """
+        modified = False
+        # Open Graph meta tags with property attribute
+        OG_URL_PROPS = {'og:image', 'og:image:secure_url', 'og:url'}
+        for meta in soup.find_all('meta', property=lambda p: p in OG_URL_PROPS):
+            content = meta.get('content', '')
+            if content.startswith('/'):
+                meta['content'] = f"{TARGET_DOMAIN}{content}"
+                modified = True
+
+        # Twitter Card meta tags with name attribute
+        for meta in soup.find_all('meta', attrs={'name': 'twitter:image'}):
+            content = meta.get('content', '')
+            if content.startswith('/'):
+                meta['content'] = f"{TARGET_DOMAIN}{content}"
+                modified = True
+
+        if modified:
+            self.issues_fixed += 1
+            print(f"   🔗 Fixed relative og:image/og:url to absolute: {file_path.name}")
 
         return modified
 
