@@ -318,7 +318,8 @@ jobs:
         # Incremental build: if a previous build cache exists, seed ./static-output/
         # from public/ so unchanged posts stay in place, then let the generator
         # fetch only posts modified since the last run (WP REST API modified_after).
-        # On first run (no cache) we fall back to a full build.
+        # On first run (no cache) the generator detects an empty cache and fetches
+        # all posts automatically — no --no-incremental flag needed.
         if [ -f ".build-cache.json" ] && [ -d "public" ]; then
           echo "⚡ Incremental build cache found — seeding static-output from previous build..."
           mkdir -p ./static-output
@@ -329,11 +330,12 @@ jobs:
           echo "✅ Seeded $SEEDED_FILES files — last build: $LAST_BUILD"
           echo ""
           echo "🔄 Running incremental generation (only WordPress posts modified since $LAST_BUILD will be re-fetched)..."
-          python3 scripts/wp_to_static_generator.py ./static-output
         else
-          echo "🔨 No incremental cache found — running full build..."
-          python3 scripts/wp_to_static_generator.py ./static-output --no-incremental
+          echo "🔨 No incremental cache — first run will fetch all posts and create the cache..."
         fi
+        # Always run in incremental mode: the generator handles first-run (empty cache)
+        # by fetching all posts and saving .build-cache.json for future incremental runs.
+        python3 scripts/wp_to_static_generator.py ./static-output
 
         # Count generated files for summary
         HTML_COUNT=$(find ./static-output -name "*.html" -type f 2>/dev/null | wc -l | xargs)
