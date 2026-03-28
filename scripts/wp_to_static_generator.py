@@ -1292,14 +1292,15 @@ class WordPressStaticGenerator:
         if soup.head:
             splide_style = soup.new_tag('style')
             splide_style.string = """
-.splide__arrow{background:#f6821f!important;opacity:1!important;width:44px!important;height:44px!important;border-radius:4px!important;border:2px solid #f6821f!important;transition:background .2s,border-color .2s!important}
-.splide__arrow:hover{background:transparent!important;border-color:#f6821f!important}
-.splide__arrow svg{fill:#0a0a0a!important;width:20px!important;height:20px!important}
-.splide__arrow:hover svg{fill:#f6821f!important}
-.splide__arrow--prev{left:-22px!important}
-.splide__arrow--next{right:-22px!important}
-.splide__pagination__page{background:#555!important;opacity:1!important;width:10px!important;height:10px!important}
-.splide__pagination__page.is-active{background:#f6821f!important;transform:scale(1.2)}
+.splide__arrow{background:transparent!important;opacity:1!important;width:40px!important;height:40px!important;border-radius:50%!important;border:2px solid #f6821f!important;transition:all .2s!important}
+.splide__arrow:hover{background:#f6821f!important}
+.splide__arrow svg{fill:#f6821f!important;width:18px!important;height:18px!important;transition:fill .2s!important}
+.splide__arrow:hover svg{fill:#0a0a0a!important}
+.splide__arrow--prev{left:0.5em!important}
+.splide__arrow--next{right:0.5em!important}
+.splide__pagination{padding:1rem 0!important}
+.splide__pagination__page{background:#555!important;opacity:1!important;width:8px!important;height:8px!important;border-radius:50%!important;margin:0 4px!important;transition:all .2s!important}
+.splide__pagination__page.is-active{background:#f6821f!important;transform:scale(1.3)}
 """
             soup.head.append(splide_style)
 
