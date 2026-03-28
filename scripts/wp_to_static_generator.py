@@ -500,12 +500,17 @@ class WordPressStaticGenerator:
                     link['href'] = href.replace(self.wp_url, self.target_domain)
                     print(f"   🔧 Fixed canonical URL")
         
-        # Fix RSS feed links
+        # Fix RSS feed links: point to the generated XML feed and
+        # remove WordPress comments feed (doesn't exist on static site)
         for link in soup.find_all('link', type=['application/rss+xml', 'application/atom+xml']):
             href = link.get('href', '')
-            if href and self.wp_url in href:
-                link['href'] = href.replace(self.wp_url, self.target_domain)
-                print(f"   🔧 Fixed feed URL")
+            # Remove comments feed — not generated for static site
+            if 'comments/feed' in href:
+                link.decompose()
+                continue
+            # Fix main feed URL to point to the actual XML file
+            if href:
+                link['href'] = f"{self.target_domain}/feed/index.xml"
     
     def fix_jsonld_urls(self, soup):
         """Fix URLs in JSON-LD structured data for rich results"""
@@ -3178,7 +3183,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 'lastmod': lastmod_date
             })
 
-        # Fix lastmod for category/tag archive pages:
+        # Exclude noindex pages from sitemap (category/tag archives are
+        # marked noindex,follow — including them in the sitemap sends a
+        # mixed signal to search engines and wastes crawl budget)
+        before_count = len(urls_for_sitemap)
+        urls_for_sitemap = [
+            item for item in urls_for_sitemap
+            if not self._is_noindex_page(
+                self.output_dir / item['url'].replace(self.target_domain, '').strip('/') / 'index.html'
+                if item['url'] != f'{self.target_domain}/'
+                else self.output_dir / 'index.html'
+            )
+        ]
+        excluded = before_count - len(urls_for_sitemap)
+        if excluded:
+            print(f"   🚫 Excluded {excluded} noindex pages from sitemap")
+
+        # Fix lastmod for any remaining archive pages that aren't noindex:
         # Use the most recent post date linked from each archive page
         # instead of the file modification time (which is always the build date)
         post_dates = {item['url']: item['lastmod'] for item in urls_for_sitemap}
@@ -3290,6 +3311,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         except Exception:
             return None
+
+    def _is_noindex_page(self, html_file):
+        """Check if a page has a noindex robots meta tag."""
+        try:
+            if not html_file.exists():
+                return False
+            with open(html_file, 'r', encoding='utf-8', errors='ignore') as f:
+                # Only read the first 4KB — robots meta is always in <head>
+                head_content = f.read(4096)
+            return 'noindex' in head_content.lower() and 'name="robots"' in head_content.lower()
+        except Exception:
+            return False
 
     def generate_rss_feed(self):
         """Generate RSS feed from posts"""
