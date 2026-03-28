@@ -364,6 +364,9 @@ class WordPressStaticGenerator:
         # Add BlogPosting JSON-LD schema to article pages
         self.add_blogposting_schema(soup, current_url)
 
+        # Add site-level WebSite + Organization schema (all pages)
+        self.add_site_schema(soup)
+
         # Convert to string
         return str(soup)
     
@@ -761,6 +764,11 @@ class WordPressStaticGenerator:
             "@type": "BlogPosting",
             "headline": title,
             "url": canonical_url,
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": canonical_url
+            },
+            "inLanguage": "en-GB",
             "publisher": {
                 "@type": "Person",
                 "@id": f"{self.target_domain}/#person",
@@ -806,6 +814,68 @@ class WordPressStaticGenerator:
             script_tag.string = json.dumps(schema, ensure_ascii=False, separators=(',', ':'))
             soup.head.append(script_tag)
             print(f"   📋 Added BlogPosting schema: {title[:60]}")
+
+    def add_site_schema(self, soup):
+        """Inject WebSite and Organization JSON-LD schema on every page.
+
+        WebSite schema enables Google sitelinks search box.
+        Organization schema helps with brand knowledge panels.
+        Only injected once per page (skipped if already present).
+        """
+        if not soup.head:
+            return
+
+        # Skip if WebSite schema already exists
+        for script in soup.find_all('script', type='application/ld+json'):
+            try:
+                data = json.loads(script.string or '')
+                items = data.get('@graph', [data]) if isinstance(data, dict) else [data]
+                if any(isinstance(i, dict) and i.get('@type') == 'WebSite' for i in items):
+                    return
+            except (json.JSONDecodeError, TypeError):
+                pass
+
+        schema = {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "WebSite",
+                    "@id": f"{self.target_domain}/#website",
+                    "url": self.target_domain,
+                    "name": "James Kilby",
+                    "description": "Technical blog covering VMware, homelab, AI, and cloud computing",
+                    "inLanguage": "en-GB",
+                    "publisher": {"@id": f"{self.target_domain}/#organization"},
+                    "potentialAction": {
+                        "@type": "SearchAction",
+                        "target": {
+                            "@type": "EntryPoint",
+                            "urlTemplate": f"{self.target_domain}/?s={{search_term_string}}"
+                        },
+                        "query-input": "required name=search_term_string"
+                    }
+                },
+                {
+                    "@type": "Organization",
+                    "@id": f"{self.target_domain}/#organization",
+                    "name": "James Kilby",
+                    "url": self.target_domain,
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": f"{self.target_domain}/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png"
+                    },
+                    "sameAs": [
+                        "https://github.com/jameskilbynet",
+                        "https://www.linkedin.com/in/james-kilby/"
+                    ]
+                }
+            ]
+        }
+
+        script_tag = soup.new_tag('script')
+        script_tag['type'] = 'application/ld+json'
+        script_tag.string = json.dumps(schema, ensure_ascii=False, separators=(',', ':'))
+        soup.head.append(script_tag)
 
     def remove_wordpress_elements(self, soup):
         """Remove WordPress-specific dynamic elements and artifacts"""

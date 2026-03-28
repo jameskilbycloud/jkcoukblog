@@ -1146,3 +1146,104 @@ div, section, aside, nav {
   background: var(--bg-dark) !important;
 }
 .entry-hero .entry-hero-container-inner{padding-top:1rem !important}.entry-hero.page-hero-section .entry-header{min-height:auto !important}
+
+/* ── Print Stylesheet ─────────────────────────────────────────────── */
+@media print {
+  /* Reset to light background for printing */
+  :root {
+    --bg-dark: #fff;
+    --bg-darker: #fff;
+    --text-light: #000;
+    --text-muted: #333;
+    --accent-orange: #000;
+    --border-subtle: #ccc;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  /* Hide non-content elements */
+  header,
+  nav,
+  footer,
+  .site-header,
+  .site-footer,
+  .breadcrumb-navigation,
+  .blog-search-container,
+  .utterances,
+  .related-posts-section,
+  .social-share-section,
+  .copy-code-button,
+  .skip-link,
+  .mobile-toggle-open-container,
+  .entry-tags,
+  .entry-categories,
+  #colophon,
+  script,
+  .splide {
+    display: none !important;
+  }
+
+  /* Ensure content fills the page */
+  main, article, .entry-content, .site-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Make images print-friendly */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  /* Keep headings with their content */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    color: #000 !important;
+  }
+
+  /* Style links for print */
+  a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+
+  /* Show link URLs after the text */
+  .entry-content a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #666;
+  }
+
+  /* Don't show URL for internal anchors or images */
+  .entry-content a[href^="#"]::after,
+  .entry-content a:has(img)::after {
+    content: none;
+  }
+
+  /* Code blocks */
+  pre, code {
+    background: #f4f4f4 !important;
+    color: #000 !important;
+    border: 1px solid #ccc;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Tables */
+  table {
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #ccc !important;
+    color: #000 !important;
+    background: #fff !important;
+  }
+}
