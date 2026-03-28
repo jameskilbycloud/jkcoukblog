@@ -630,7 +630,22 @@ class WordPressStaticGenerator:
                         item['articleBody'] = article_content[:5000]
                         modified = True
                         print(f"      ➕ Added articleBody: {len(article_content[:5000])} chars")
-        
+
+                # Add inLanguage if missing
+                if 'inLanguage' not in item:
+                    item['inLanguage'] = 'en-GB'
+                    modified = True
+
+                # Add mainEntityOfPage if missing
+                if 'mainEntityOfPage' not in item:
+                    url = item.get('url') or item.get('mainEntityOfPage', '')
+                    if url:
+                        item['mainEntityOfPage'] = {
+                            '@type': 'WebPage',
+                            '@id': url
+                        }
+                        modified = True
+
         return modified
     
     def _extract_article_text(self, soup):
@@ -821,25 +836,76 @@ class WordPressStaticGenerator:
             print(f"   📋 Added BlogPosting schema: {title[:60]}")
 
     def add_site_schema(self, soup):
-        """Inject WebSite and Organization JSON-LD schema on every page.
+        """Enrich or inject WebSite and Organization JSON-LD schema.
 
-        WebSite schema enables Google sitelinks search box.
-        Organization schema helps with brand knowledge panels.
-        Only injected once per page (skipped if already present).
+        If WordPress already supplies a WebSite schema, enrich it with
+        SearchAction, inLanguage, and publisher reference. If Organization
+        is missing from the @graph, add it. If no WebSite schema exists
+        at all, inject the complete schema block.
         """
         if not soup.head:
             return
 
-        # Skip if WebSite schema already exists
+        org_schema = {
+            "@type": "Organization",
+            "@id": f"{self.target_domain}/#organization",
+            "name": "James Kilby",
+            "url": self.target_domain,
+            "logo": {
+                "@type": "ImageObject",
+                "url": f"{self.target_domain}/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png"
+            },
+            "sameAs": [
+                "https://github.com/jameskilbynet",
+                "https://www.linkedin.com/in/james-kilby/"
+            ]
+        }
+
+        # Try to enrich existing schema
         for script in soup.find_all('script', type='application/ld+json'):
             try:
                 data = json.loads(script.string or '')
-                items = data.get('@graph', [data]) if isinstance(data, dict) else [data]
-                if any(isinstance(i, dict) and i.get('@type') == 'WebSite' for i in items):
-                    return
-            except (json.JSONDecodeError, TypeError):
-                pass
+                if not isinstance(data, dict):
+                    continue
+                items = data.get('@graph', [])
+                if not items:
+                    continue
 
+                # Find and enrich existing WebSite
+                enriched = False
+                has_org = False
+                for item in items:
+                    if not isinstance(item, dict):
+                        continue
+                    if item.get('@type') == 'WebSite':
+                        if 'inLanguage' not in item:
+                            item['inLanguage'] = 'en-GB'
+                        if 'potentialAction' not in item:
+                            item['potentialAction'] = {
+                                "@type": "SearchAction",
+                                "target": {
+                                    "@type": "EntryPoint",
+                                    "urlTemplate": f"{self.target_domain}/?s={{search_term_string}}"
+                                },
+                                "query-input": "required name=search_term_string"
+                            }
+                        if 'publisher' not in item:
+                            item['publisher'] = {"@id": f"{self.target_domain}/#organization"}
+                        enriched = True
+                    if item.get('@type') == 'Organization':
+                        has_org = True
+
+                if enriched:
+                    # Add Organization to @graph if missing
+                    if not has_org:
+                        items.append(org_schema)
+                    script.string = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+                    return  # Done — enriched existing schema
+
+            except (json.JSONDecodeError, TypeError):
+                continue
+
+        # No existing WebSite schema found — inject complete block
         schema = {
             "@context": "https://schema.org",
             "@graph": [
@@ -860,20 +926,7 @@ class WordPressStaticGenerator:
                         "query-input": "required name=search_term_string"
                     }
                 },
-                {
-                    "@type": "Organization",
-                    "@id": f"{self.target_domain}/#organization",
-                    "name": "James Kilby",
-                    "url": self.target_domain,
-                    "logo": {
-                        "@type": "ImageObject",
-                        "url": f"{self.target_domain}/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png"
-                    },
-                    "sameAs": [
-                        "https://github.com/jameskilbynet",
-                        "https://www.linkedin.com/in/james-kilby/"
-                    ]
-                }
+                org_schema
             ]
         }
 

@@ -12,9 +12,9 @@ import re
 # Import config for target domain
 sys.path.insert(0, str(Path(__file__).parent))
 try:
-    from config import config
-    TARGET_DOMAIN = config.TARGET_DOMAIN
-except ImportError:
+    from config import Config
+    TARGET_DOMAIN = Config.TARGET_DOMAIN
+except (ImportError, AttributeError):
     TARGET_DOMAIN = 'https://jameskilby.co.uk'
 
 
