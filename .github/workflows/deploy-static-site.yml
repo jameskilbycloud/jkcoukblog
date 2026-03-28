@@ -329,6 +329,32 @@ jobs:
           LAST_BUILD=$(python3 -c "import json; d=json.load(open('.build-cache.json')); print(d.get('last_build_time','unknown'))" 2>/dev/null || echo "unknown")
           echo "✅ Seeded $SEEDED_FILES files — last build: $LAST_BUILD"
           echo ""
+          # Restore absolute URLs in seeded HTML so the HTML validator sees the same
+          # URL format as a full build (convert_to_staging.py runs AFTER validation,
+          # converting absolute → relative; seeded files already have relative URLs).
+          # Without this, old posts linking to deleted tags (e.g. /tag/storage/) would
+          # fail link validation when seeded — but pass in a full build (absolute URLs
+          # are treated as external and skipped by the validator).
+          python3 -c "
+import re
+from pathlib import Path
+domain = 'https://jameskilby.co.uk'
+# Paths that should stay relative (served directly, not site pages)
+keep_relative = ('wp-content/', 'wp-json/', 'feed/', 'api/', 'markdown/', 'sitemap', 'assets/')
+count = 0
+for f in Path('./static-output').rglob('*.html'):
+    t = f.read_text(encoding='utf-8', errors='replace')
+    def fix(m):
+        path = m.group(1)
+        if any(path.lstrip('/').startswith(e) for e in keep_relative):
+            return m.group(0)
+        return f'href=\"{domain}{path}\"'
+    new = re.sub(r'href=\"(/[^\"]*)\"', fix, t)
+    if new != t:
+        f.write_text(new, encoding='utf-8')
+        count += 1
+print(f'Restored absolute URLs in {count} seeded HTML files')
+"
           echo "🔄 Running incremental generation (only WordPress posts modified since $LAST_BUILD will be re-fetched)..."
         else
           echo "🔨 No incremental cache — first run will fetch all posts and create the cache..."
