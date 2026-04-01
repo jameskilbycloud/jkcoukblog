@@ -877,7 +877,14 @@ jobs:
         # Convert absolute URLs to relative for better staging compatibility
         echo "🔄 Converting URLs for staging compatibility..."
         python3 scripts/convert_to_staging.py
-        
+
+        # Re-run SEO URL fixes after staging conversion so that og:image,
+        # og:url, twitter:image, and JSON-LD @id values are restored to
+        # absolute URLs (convert_to_staging.py strips all domain prefixes,
+        # including inside <meta> and <script type="application/ld+json"> tags).
+        echo "🔧 Re-applying SEO absolute-URL fixes post-conversion..."
+        python3 scripts/fix_seo_issues.py public/ || echo "⚠️  Post-conversion SEO URL fix failed (non-blocking)"
+
         # Generate changelog page
         echo "📋 Generating changelog page..."
         python3 scripts/generate_changelog.py || echo "⚠️  Changelog generation failed (non-blocking)"

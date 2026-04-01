@@ -69,6 +69,9 @@ class SEOFixer:
             if self.fix_og_absolute_urls(soup, file_path):
                 modified = True
 
+            if self.fix_jsonld_absolute_ids(soup, file_path):
+                modified = True
+
             # Save if modified
             if modified:
                 with open(file_path, 'w', encoding='utf-8') as f:
@@ -203,6 +206,69 @@ class SEOFixer:
 
         if modified:
             print(f"   🖼️  Added alt text to images: {file_path.name}")
+
+        return modified
+
+    def fix_jsonld_absolute_ids(self, soup, file_path):
+        """Ensure JSON-LD @id and url values use absolute URLs.
+
+        convert_to_staging.py strips all domain prefixes including those inside
+        <script type="application/ld+json"> blocks, turning @id and url values
+        like 'https://jameskilby.co.uk/about/' into '/about/'.  Search engines
+        and validators require fully-qualified IRIs for @id.
+        """
+        import json as _json
+
+        modified = False
+        URL_KEYS = {'@id', 'url', 'logo', 'image', 'thumbnailUrl', 'contentUrl',
+                    'sameAs'}  # sameAs is a list, handled separately
+
+        def absolutify(value):
+            """Return absolute URL if value is a root-relative path."""
+            if isinstance(value, str) and value.startswith('/'):
+                return f"{TARGET_DOMAIN}{value}"
+            return value
+
+        def fix_node(obj):
+            """Recursively walk a JSON-LD node and absolutify URL fields."""
+            nonlocal modified
+            if isinstance(obj, dict):
+                for key, val in obj.items():
+                    if key == 'sameAs':
+                        if isinstance(val, list):
+                            new_list = [absolutify(v) for v in val]
+                            if new_list != val:
+                                obj[key] = new_list
+                                modified = True
+                        else:
+                            new_val = absolutify(val)
+                            if new_val != val:
+                                obj[key] = new_val
+                                modified = True
+                    elif key in URL_KEYS:
+                        new_val = absolutify(val)
+                        if new_val != val:
+                            obj[key] = new_val
+                            modified = True
+                    else:
+                        fix_node(val)
+            elif isinstance(obj, list):
+                for item in obj:
+                    fix_node(item)
+
+        for script in soup.find_all('script', type='application/ld+json'):
+            try:
+                data = _json.loads(script.string or '')
+                fix_node(data)
+                if modified:
+                    script.string = _json.dumps(data, ensure_ascii=False,
+                                                separators=(',', ':'))
+            except (_json.JSONDecodeError, TypeError):
+                continue  # malformed JSON-LD – skip silently
+
+        if modified:
+            self.issues_fixed += 1
+            print(f"   🔗 Fixed relative JSON-LD @id/url values: {file_path.name}")
 
         return modified
 
