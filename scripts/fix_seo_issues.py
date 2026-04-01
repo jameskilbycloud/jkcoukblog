@@ -220,8 +220,12 @@ class SEOFixer:
         import json as _json
 
         modified = False
+        # Keys whose string values should be made absolute.
+        # Note: values for these keys can also be nested objects (e.g. "image"
+        # can be an ImageObject dict), so we always recurse into dicts/lists
+        # regardless of the key name.
         URL_KEYS = {'@id', 'url', 'logo', 'image', 'thumbnailUrl', 'contentUrl',
-                    'sameAs'}  # sameAs is a list, handled separately
+                    'sameAs'}
 
         def absolutify(value):
             """Return absolute URL if value is a root-relative path."""
@@ -245,12 +249,15 @@ class SEOFixer:
                             if new_val != val:
                                 obj[key] = new_val
                                 modified = True
-                    elif key in URL_KEYS:
+                    elif key in URL_KEYS and isinstance(val, str):
+                        # String value — absolutify directly
                         new_val = absolutify(val)
                         if new_val != val:
                             obj[key] = new_val
                             modified = True
-                    else:
+                    # Always recurse into nested dicts/lists so that e.g.
+                    # "image": {"@id": "/#logo", "url": "/..."} gets fixed too.
+                    if isinstance(val, (dict, list)):
                         fix_node(val)
             elif isinstance(obj, list):
                 for item in obj:
