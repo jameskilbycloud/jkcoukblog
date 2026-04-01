@@ -66,6 +66,9 @@ class SEOFixer:
             if self.ensure_image_alt_text(soup, file_path):
                 modified = True
 
+            if self.fix_canonical_url(soup, file_path):
+                modified = True
+
             if self.fix_og_absolute_urls(soup, file_path):
                 modified = True
 
@@ -287,6 +290,26 @@ class SEOFixer:
             print(f"   🔗 Fixed relative JSON-LD @id/url values: {file_path.name}")
 
         return modified
+
+    def fix_canonical_url(self, soup, file_path):
+        """Ensure the canonical <link> uses an absolute URL.
+
+        Google requires canonical URLs to be fully-qualified (https://...).
+        convert_to_staging.py strips the domain, leaving href="/" or
+        href="/2022/10/post-slug/" which is ambiguous for crawlers.
+        """
+        canon = soup.find('link', rel='canonical')
+        if not canon:
+            return False
+
+        href = canon.get('href', '')
+        if href.startswith('/'):
+            canon['href'] = f"{TARGET_DOMAIN}{href}"
+            self.issues_fixed += 1
+            print(f"   🔗 Fixed relative canonical URL: {file_path.name}")
+            return True
+
+        return False
 
     def fix_blogposting_to_techarticle(self, soup, file_path):
         """Upgrade BlogPosting @type to TechArticle for technical posts.
