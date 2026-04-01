@@ -79,7 +79,23 @@ class WordPressStaticGenerator:
                             relative_url = tag['link'].replace(self.wp_url, '')
                             urls.add(relative_url)
                             print(f"   🏷️  Tag: {tag['name']}")
-            
+
+                # Discover homepage pagination pages (/page/2/, /page/3/, etc.)
+                pagination_page = 2
+                while True:
+                    pagination_url = f'/page/{pagination_page}/'
+                    check_url = f'{self.wp_url}{pagination_url}'
+                    try:
+                        resp = self.session.head(check_url, timeout=15, allow_redirects=False)
+                        if resp.status_code == 200:
+                            urls.add(pagination_url)
+                            print(f"   📄 Homepage page: {pagination_url}")
+                            pagination_page += 1
+                        else:
+                            break
+                    except Exception:
+                        break
+
             print(f"\n✅ Incremental build: {len(urls)} URLs to process")
             return sorted(list(urls))
         
@@ -180,7 +196,26 @@ class WordPressStaticGenerator:
         # Add essential pages
         essential_urls = ['/', '/category/', '/tag/']
         urls.update(essential_urls)
-        
+
+        # Discover homepage pagination pages (/page/2/, /page/3/, etc.)
+        print("   🔍 Discovering homepage pagination pages...")
+        pagination_page = 2
+        while True:
+            pagination_url = f'/page/{pagination_page}/'
+            check_url = f'{self.wp_url}{pagination_url}'
+            try:
+                resp = self.session.head(check_url, timeout=15, allow_redirects=False)
+                if resp.status_code == 200:
+                    urls.add(pagination_url)
+                    print(f"   📄 Homepage page: {pagination_url}")
+                    pagination_page += 1
+                else:
+                    break
+            except Exception:
+                break
+        if pagination_page > 2:
+            print(f"   ✅ Found {pagination_page - 2} homepage pagination pages")
+
         print(f"\n✅ Total URLs to process: {len(urls)}")
         return sorted(list(urls))
     
