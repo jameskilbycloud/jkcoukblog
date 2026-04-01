@@ -72,6 +72,15 @@ class SEOFixer:
             if self.fix_jsonld_absolute_ids(soup, file_path):
                 modified = True
 
+            if self.fix_blogposting_to_techarticle(soup, file_path):
+                modified = True
+
+            if self.fix_breadcrumb_positions(soup, file_path):
+                modified = True
+
+            if self.fix_person_name(soup, file_path):
+                modified = True
+
             # Save if modified
             if modified:
                 with open(file_path, 'w', encoding='utf-8') as f:
@@ -225,7 +234,7 @@ class SEOFixer:
         # can be an ImageObject dict), so we always recurse into dicts/lists
         # regardless of the key name.
         URL_KEYS = {'@id', 'url', 'logo', 'image', 'thumbnailUrl', 'contentUrl',
-                    'sameAs'}
+                    'sameAs', 'item'}
 
         def absolutify(value):
             """Return absolute URL if value is a root-relative path."""
@@ -276,6 +285,149 @@ class SEOFixer:
         if modified:
             self.issues_fixed += 1
             print(f"   🔗 Fixed relative JSON-LD @id/url values: {file_path.name}")
+
+        return modified
+
+    def fix_blogposting_to_techarticle(self, soup, file_path):
+        """Upgrade BlogPosting @type to TechArticle for technical posts.
+
+        TechArticle is a schema.org subtype of Article targeted at technical
+        documentation.  Upgrading from BlogPosting signals to Google that the
+        content is expert-level technical writing, which improves eligibility
+        for rich results in technical search queries.
+        """
+        import json as _json
+
+        modified = False
+
+        for script in soup.find_all('script', type='application/ld+json'):
+            try:
+                data = _json.loads(script.string or '')
+                script_modified = False
+
+                # Walk both flat docs and @graph arrays
+                nodes = (
+                    data.get('@graph', [data])
+                    if isinstance(data, dict) and '@graph' in data
+                    else ([data] if isinstance(data, dict) else data)
+                )
+
+                for node in nodes:
+                    if not isinstance(node, dict):
+                        continue
+                    schema_type = node.get('@type', '')
+                    is_blogpost = (
+                        schema_type == 'BlogPosting'
+                        or (isinstance(schema_type, list) and 'BlogPosting' in schema_type)
+                    )
+                    if is_blogpost:
+                        node['@type'] = 'TechArticle'
+                        if 'proficiencyLevel' not in node:
+                            node['proficiencyLevel'] = 'Expert'
+                        script_modified = True
+
+                if script_modified:
+                    modified = True
+                    script.string = _json.dumps(
+                        data, ensure_ascii=False, separators=(',', ':')
+                    )
+
+            except (_json.JSONDecodeError, TypeError):
+                continue
+
+        if modified:
+            self.issues_fixed += 1
+            print(f"   📄 Upgraded BlogPosting → TechArticle: {file_path.name}")
+
+        return modified
+
+    def fix_breadcrumb_positions(self, soup, file_path):
+        """Coerce BreadcrumbList position values from strings to integers.
+
+        The schema.org spec defines position as an Integer.  Rank Math sometimes
+        outputs it as a JSON string ("1") which causes warnings in Google's Rich
+        Results Test.
+        """
+        import json as _json
+
+        modified = False
+
+        def _coerce(obj):
+            nonlocal modified
+            if isinstance(obj, dict):
+                if obj.get('@type') == 'ListItem' and 'position' in obj:
+                    pos = obj['position']
+                    if isinstance(pos, str):
+                        try:
+                            obj['position'] = int(pos)
+                            modified = True
+                        except ValueError:
+                            pass
+                for val in obj.values():
+                    if isinstance(val, (dict, list)):
+                        _coerce(val)
+            elif isinstance(obj, list):
+                for item in obj:
+                    _coerce(item)
+
+        for script in soup.find_all('script', type='application/ld+json'):
+            try:
+                data = _json.loads(script.string or '')
+                before = modified
+                _coerce(data)
+                if modified != before:
+                    script.string = _json.dumps(
+                        data, ensure_ascii=False, separators=(',', ':')
+                    )
+            except (_json.JSONDecodeError, TypeError):
+                continue
+
+        if modified:
+            self.issues_fixed += 1
+            print(f"   🍞 Fixed BreadcrumbList position types: {file_path.name}")
+
+        return modified
+
+    def fix_person_name(self, soup, file_path):
+        """Fix incorrect Person/Organization name 'Jameskilbycouk' → 'James Kilby'.
+
+        Older posts were built before the Rank Math site-name fix and still carry
+        the concatenated slug as the name value in JSON-LD.
+        """
+        import json as _json
+
+        WRONG = 'Jameskilbycouk'
+        RIGHT = 'James Kilby'
+        modified = False
+
+        def _fix(obj):
+            nonlocal modified
+            if isinstance(obj, dict):
+                if obj.get('name') == WRONG:
+                    obj['name'] = RIGHT
+                    modified = True
+                for val in obj.values():
+                    if isinstance(val, (dict, list)):
+                        _fix(val)
+            elif isinstance(obj, list):
+                for item in obj:
+                    _fix(item)
+
+        for script in soup.find_all('script', type='application/ld+json'):
+            try:
+                data = _json.loads(script.string or '')
+                before = modified
+                _fix(data)
+                if modified != before:
+                    script.string = _json.dumps(
+                        data, ensure_ascii=False, separators=(',', ':')
+                    )
+            except (_json.JSONDecodeError, TypeError):
+                continue
+
+        if modified:
+            self.issues_fixed += 1
+            print(f"   👤 Fixed Person name (Jameskilbycouk → James Kilby): {file_path.name}")
 
         return modified
 
