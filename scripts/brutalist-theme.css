@@ -719,29 +719,65 @@ button.menu-toggle-open:focus .kadence-svg-icon,
   background-color: rgba(246, 130, 31, 0.1) !important;
 }
 
-/* Pagination */
-.pagination a,
-.page-numbers {
+/* Pagination (numbered page navigation) */
+nav.pagination {
   background-color: transparent !important;
-  border: 1px solid var(--gray-mid) !important;
-  color: var(--text-light) !important;
-  padding: 0.5rem 1rem;
-  margin: 0 0.25rem;
+  padding: 2rem 0 !important;
+  border-top: 1px solid var(--gray-mid) !important;
+  margin-top: 3rem !important;
 }
 
-.pagination a:hover,
-.page-numbers:hover,
-.page-numbers.current {
+nav.pagination .nav-links {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  flex-wrap: wrap !important;
+  padding: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+}
+
+nav.pagination .page-numbers {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 2.5rem !important;
+  height: 2.5rem !important;
+  padding: 0 0.75rem !important;
+  border-radius: 6px !important;
+  border: 1px solid var(--gray-mid) !important;
+  background-color: transparent !important;
+  color: var(--text-light) !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+}
+
+nav.pagination .page-numbers.current {
+  background-color: var(--accent-orange) !important;
+  border-color: var(--accent-orange) !important;
+  color: var(--bg-dark) !important;
+  font-weight: 700 !important;
+}
+
+nav.pagination .page-numbers.dots {
+  border: none !important;
+  min-width: auto !important;
+  padding: 0 0.25rem !important;
+  color: var(--gray-light) !important;
+  letter-spacing: 2px !important;
+}
+
+nav.pagination a.page-numbers:hover {
   background-color: var(--accent-orange) !important;
   border-color: var(--accent-orange) !important;
   color: var(--bg-dark) !important;
 }
 
-/* Pagination focus states */
-.pagination a:focus,
-.pagination a:focus-visible,
-.page-numbers:focus,
-.page-numbers:focus-visible {
+nav.pagination a.page-numbers:focus,
+nav.pagination a.page-numbers:focus-visible {
   outline: 2px solid var(--accent-orange);
   outline-offset: 2px;
   background-color: var(--accent-orange) !important;
@@ -749,18 +785,35 @@ button.menu-toggle-open:focus .kadence-svg-icon,
   color: var(--bg-dark) !important;
 }
 
-/* Post navigation (prev/next) */
+nav.pagination .page-numbers.next,
+nav.pagination .page-numbers.prev {
+  padding: 0 0.75rem !important;
+}
+
+nav.pagination .page-numbers.next svg,
+nav.pagination .page-numbers.prev svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* Post navigation (prev/next single post) */
 .post-navigation,
-.navigation,
-.nav-links {
+.navigation:not(.pagination) {
   background-color: transparent !important;
   padding: 2rem 0 !important;
   border-top: 1px solid var(--gray-mid) !important;
   margin-top: 3rem !important;
 }
 
+.post-navigation .nav-links,
+.navigation:not(.pagination) .nav-links {
+  padding: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+}
+
 .post-navigation a,
-.navigation a {
+.navigation:not(.pagination) a {
   background-color: rgba(255, 255, 255, 0.02) !important;
   border: 1px solid var(--gray-mid) !important;
   padding: 1.5rem !important;
@@ -769,7 +822,7 @@ button.menu-toggle-open:focus .kadence-svg-icon,
 }
 
 .post-navigation a:hover,
-.navigation a:hover {
+.navigation:not(.pagination) a:hover {
   background-color: rgba(255, 255, 255, 0.05) !important;
   border-color: var(--accent-orange) !important;
 }
@@ -777,8 +830,8 @@ button.menu-toggle-open:focus .kadence-svg-icon,
 /* Post navigation focus states */
 .post-navigation a:focus,
 .post-navigation a:focus-visible,
-.navigation a:focus,
-.navigation a:focus-visible {
+.navigation:not(.pagination) a:focus,
+.navigation:not(.pagination) a:focus-visible {
   outline: 2px solid var(--accent-orange);
   outline-offset: 2px;
   background-color: rgba(255, 255, 255, 0.05) !important;
