@@ -182,7 +182,7 @@ npx wrangler pages publish ./public --project-name=jameskilby-co-uk
 ### 3. Git Commit (What GitHub Actions does)
 
 ```bash
-git add public/ functions/
+git add public/
 git commit -m "🚀 Auto-update static site - $(date '+%Y-%m-%d %H:%M:%S')"
 git push origin main
 ```

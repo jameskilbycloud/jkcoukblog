@@ -81,5 +81,4 @@ Secrets are stored in GitHub Secrets (repository settings) and accessed via envi
 | `scripts/` | Python automation scripts |
 | `public/` | Generated static site (deployed by Cloudflare Pages) |
 | `docs/` | Project documentation |
-| `workers/` | Cloudflare Workers |
-| `functions/` | Cloudflare Pages Functions |
+| `workers/` | Cloudflare Workers (search API, Slack notifier) |

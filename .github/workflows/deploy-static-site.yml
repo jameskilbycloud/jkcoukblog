@@ -867,13 +867,7 @@ jobs:
           echo "⚠️  WARNING: _worker.template.js not found"
           echo "   Advanced Mode will not be enabled"
         fi
-        
-        # Note: functions directory is ignored when _worker.js exists
-        echo "📝 NOTE: When _worker.js exists, functions/ directory is ignored by Cloudflare Pages"
-        if [ -d "functions" ]; then
-          echo "   Functions directory exists but will be ignored: $(ls -1 functions/ | tr '\n' ', ' | sed 's/,$//')"
-        fi
-        
+
         # Convert absolute URLs to relative for better staging compatibility
         echo "🔄 Converting URLs for staging compatibility..."
         python3 scripts/convert_to_staging.py
@@ -895,8 +889,7 @@ jobs:
 
         # Check if there are changes to commit
         # Note: .br files are automatically included in public/
-        # Note: functions/ directory must be at repo root for Cloudflare Pages to detect it
-        git add public/ functions/ .last_spell_check_timestamp .image_optimization_cache/ .indexnow_key 2>/dev/null || true
+        git add public/ .last_spell_check_timestamp .image_optimization_cache/ .indexnow_key 2>/dev/null || true
 
         # Add the IndexNow key verification file by its exact name.
         # Using *.txt would risk committing any stray .txt file on the runner.

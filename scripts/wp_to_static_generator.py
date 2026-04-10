@@ -7,6 +7,7 @@ A complete solution for converting your WordPress CMS to a static site
 import os
 import sys
 import time
+import functools
 import requests
 import shutil
 import json
@@ -17,6 +18,10 @@ from bs4 import BeautifulSoup
 import concurrent.futures
 from datetime import datetime
 from incremental_builder import IncrementalBuilder
+
+# Default timeout (seconds) applied to every session HTTP call. Individual
+# calls can still pass an explicit `timeout=` to override this.
+DEFAULT_HTTP_TIMEOUT = 30
 
 class WordPressStaticGenerator:
     def __init__(self, wp_url, auth_token, output_dir, target_domain, use_incremental=True):
@@ -29,6 +34,12 @@ class WordPressStaticGenerator:
             'Authorization': f'Basic {auth_token}',
             'User-Agent': 'StaticSiteGenerator/1.0'
         })
+        # Ensure every request through this session has a timeout, so a hung
+        # WordPress instance can never block the build forever. Explicit
+        # `timeout=` kwargs at call sites still override this default.
+        self.session.request = functools.partial(
+            self.session.request, timeout=DEFAULT_HTTP_TIMEOUT
+        )
         self.downloaded_assets = set()
         self.processed_urls = set()
         self.extracted_css_files = {}  # Map CSS hash to filename

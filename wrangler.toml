@@ -1,16 +1,28 @@
 # =========================================
-# Cloudflare Workers Configuration
+# Cloudflare Wrangler Configuration
 # =========================================
+#
+# This file documents the KV namespace bindings used by the site.
+#
+# Caching/serving in production is handled by the Pages Advanced Mode
+# Worker at `_worker.template.js` (copied to `public/_worker.js` at deploy
+# time by .github/workflows/deploy-static-site.yml). There is no standalone
+# Worker deployed via `wrangler deploy` for this project — see the README.
+#
+# CI uses `wrangler kv:key put` with an explicit `--namespace-id` flag to
+# upload the search index, so it does not depend on the bindings below.
+# They are kept here for documentation and ad-hoc local `wrangler kv:*` use.
 
-# 1. Enhanced HTML Cache Worker with KV
-# Provides smart caching with view tracking
-name = "jkcoukblog-html-cache-kv"
-main = "workers/html-cache-kv.js"
 compatibility_date = "2024-10-03"
 
-# KV Namespaces (you'll need to create these)
-# Run: npx wrangler kv:namespace create HTML_CACHE
-# Run: npx wrangler kv:namespace create SEARCH_INDEX
+# KV Namespaces — kept here as documentation and so that ad-hoc local
+# `wrangler kv:key list --binding=HTML_CACHE` style commands work without
+# needing to remember the namespace IDs.
+#
+# At runtime the Pages Advanced Mode Worker reads `env.HTML_CACHE` and
+# `env.SEARCH_INDEX` from bindings configured in the Cloudflare Pages
+# dashboard (Settings → Functions → KV namespace bindings), NOT from this
+# file. Update the dashboard if you change the IDs below.
 [[kv_namespaces]]
 binding = "HTML_CACHE"
 id = "5528672ccf0644c9bd65e7de8b629189"
@@ -18,40 +30,3 @@ id = "5528672ccf0644c9bd65e7de8b629189"
 [[kv_namespaces]]
 binding = "SEARCH_INDEX"
 id = "da75861d372642d4979c8611b4856ab0"
-
-# Environment variables
-# IMPORTANT: PURGE_TOKEN should be set as a secret, not in this file
-# Run: wrangler secret put PURGE_TOKEN
-# For local development, create .dev.vars with: PURGE_TOKEN=your-token-here
-[vars]
-# Non-sensitive environment variables go here
-
-# Route configuration to intercept requests
-routes = [
-  { pattern = "jameskilby.co.uk/*", zone_name = "jameskilby.co.uk" }
-]
-
-# =========================================
-# Alternative: Search API Worker (separate)
-# Uncomment to deploy search API as separate worker
-# =========================================
-# [[workers]]
-# name = "jkcoukblog-search-api"
-# main = "workers/search-api.js"
-# compatibility_date = "2024-10-03"
-# 
-# [[workers.kv_namespaces]]
-# binding = "SEARCH_INDEX"
-# id = "REPLACE_WITH_YOUR_SEARCH_INDEX_KV_ID"
-# 
-# [[workers.routes]]
-# pattern = "jameskilby.co.uk/api/*"
-# zone_name = "jameskilby.co.uk"
-
-# =========================================
-# Legacy: Basic HTML Cache Worker
-# Keep this for rollback if needed
-# =========================================
-# name = "jkcoukblog-html-cache-basic"
-# main = "workers/html-cache.js"
-# compatibility_date = "2024-10-03"

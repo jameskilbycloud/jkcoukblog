@@ -75,15 +75,11 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── purge_static_cache.sh              # Cloudflare edge cache purge
 │   ├── streamdeck-deploy.sh               # Stream Deck deployment trigger
 │   └── archive/                           # Archived one-time setup scripts
-├── functions/                             # Cloudflare Pages Functions
-│   ├── _middleware.js                     # Request middleware (KV cache, view tracking)
-│   ├── diagnostic.js                      # Cache diagnostic endpoint
-│   ├── trace.js                           # Request tracing endpoint
-│   └── test.js                            # Health check endpoint
 ├── _worker.template.js                    # Cloudflare Pages Advanced Mode Worker
 │                                          #   → copied to public/_worker.js at deploy
 │                                          #   KV cache, smart TTL, view tracking,
-│                                          #   selective purge, security headers
+│                                          #   selective purge, security headers,
+│                                          #   /diagnostic, /trace, /test endpoints
 ├── docs/                                  # Documentation hub (20+ files)
 │   ├── README.md                          # Documentation index
 │   ├── DEPLOYMENT.md                      # Deployment guide
@@ -99,8 +95,7 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── STREAMDECK_DEPLOY_SETUP.md         # Stream Deck integration
 │   └── archive/                           # Historical docs
 ├── public/                                # Generated static site (Cloudflare Pages)
-├── workers/                               # Cloudflare Workers
-│   ├── html-cache-kv.js                   # Active KV-backed HTML cache worker
+├── workers/                               # Cloudflare Workers (deployed independently)
 │   ├── search-api.js                      # Search API endpoint
 │   ├── slack-notification-handler.js      # Slack webhook handler
 │   └── archive/                           # Superseded worker versions
