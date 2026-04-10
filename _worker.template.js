@@ -65,18 +65,22 @@ export default {
     
     // Try KV cache if available (with fallback to Cache API)
     if (env.HTML_CACHE) {
-      return handleKVCache(request, env, path);
+      return handleKVCache(request, env, ctx, path);
     }
-    
+
     // Fallback to Cache API if KV not bound
-    return handleCacheAPI(request, env, path);
+    return handleCacheAPI(request, env, ctx, path);
   }
 };
 
 /**
  * Handle caching with KV (preferred method)
+ *
+ * `ctx` MUST be passed in so we can use ctx.waitUntil() for KV writes.
+ * Referencing `ctx` from the enclosing scope would throw ReferenceError
+ * because this is a module-top-level function, not a closure inside fetch().
  */
-async function handleKVCache(request, env, path) {
+async function handleKVCache(request, env, ctx, path) {
   try {
     const cacheKey = `html:${path}`;
     const cached = await env.HTML_CACHE.getWithMetadata(cacheKey, { type: 'text' });
@@ -91,11 +95,14 @@ async function handleKVCache(request, env, path) {
         || Math.floor(Date.now() / 1000) + ttl;
 
       // Increment view count asynchronously — ctx.waitUntil ensures the put
-      // completes even after the response is returned (#21)
-      ctx.waitUntil(env.HTML_CACHE.put(cacheKey, cached.value, {
-        expiration: absExpiry, // L: absolute, not relative
-        metadata: { ...cached.metadata, views }
-      }));
+      // completes even after the response is returned. The .catch keeps async
+      // KV failures from being silently dropped on the floor.
+      ctx.waitUntil(
+        env.HTML_CACHE.put(cacheKey, cached.value, {
+          expiration: absExpiry, // L: absolute, not relative
+          metadata: { ...cached.metadata, views, abs_expiry: absExpiry }
+        }).catch(err => console.error('KV view-count update failed:', err))
+      );
 
       return new Response(cached.value, {
         headers: {
@@ -129,16 +136,20 @@ async function handleKVCache(request, env, path) {
     const nowSec = Math.floor(Date.now() / 1000);
     const absExpiry = nowSec + ttl; // L: fixed absolute expiry stored in metadata
 
-    // Store in KV (don't await to avoid blocking response)
-    env.HTML_CACHE.put(cacheKey, html, {
-      expiration: absExpiry, // L: absolute expiry — KV evicts after ttl seconds
-      metadata: {
-        views: 1,
-        cached_at: new Date(nowSec * 1000).toISOString(),
-        abs_expiry: absExpiry, // L: persisted so HIT path can reuse it
-        path: path
-      }
-    });
+    // Store in KV without blocking the response. ctx.waitUntil keeps the
+    // worker alive until the put completes — a bare fire-and-forget can be
+    // aborted by the runtime when the response is sent.
+    ctx.waitUntil(
+      env.HTML_CACHE.put(cacheKey, html, {
+        expiration: absExpiry, // L: absolute expiry — KV evicts after ttl seconds
+        metadata: {
+          views: 1,
+          cached_at: new Date(nowSec * 1000).toISOString(),
+          abs_expiry: absExpiry, // L: persisted so HIT path can reuse it
+          path: path
+        }
+      }).catch(err => console.error('KV cache write failed:', err))
+    );
 
     // Return with our headers
     return new Response(html, {
@@ -155,14 +166,17 @@ async function handleKVCache(request, env, path) {
   } catch (error) {
     // If KV fails, fall back to Cache API
     console.error('KV cache error:', error);
-    return handleCacheAPI(request, env, path);
+    return handleCacheAPI(request, env, ctx, path);
   }
 }
 
 /**
- * Fallback: Cache API (if KV unavailable)
+ * Fallback: Cache API (if KV unavailable, or if handleKVCache throws).
+ *
+ * `ctx` is required so the cache.put on a MISS can run via waitUntil
+ * instead of blocking the response.
  */
-async function handleCacheAPI(request, env, path) {
+async function handleCacheAPI(request, env, ctx, path) {
   const cache = caches.default;
   const cacheKey = new Request(request.url, request);
   
@@ -208,10 +222,15 @@ async function handleCacheAPI(request, env, path) {
       status: responseToCache.status,
       headers: newHeaders
     });
-    
-    // Cache asynchronously
-    await cache.put(cacheKey, cachedResponse);
-    
+
+    // Write to the edge cache without blocking the response. The previous
+    // `await cache.put(...)` made every MISS pay the put latency before the
+    // user got their HTML.
+    ctx.waitUntil(
+      cache.put(cacheKey, cachedResponse)
+        .catch(err => console.error('Cache API write failed:', err))
+    );
+
     return new Response(response.body, {
       status: response.status,
       headers: newHeaders
