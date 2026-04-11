@@ -17,6 +17,14 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
+    // ── www → non-www redirect (301 permanent) ───────────────────────────────
+    // Must be first — _redirects is ignored in Advanced Mode Worker deployments.
+    // Fixes Googlebot crawl errors on www.jameskilby.co.uk (GSC: "Problems last week").
+    if (url.hostname === 'www.jameskilby.co.uk') {
+      return Response.redirect(`https://jameskilby.co.uk${url.pathname}${url.search}`, 301);
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
     // ── Admin / diagnostic endpoints ────────────────────────────────────────
     // These must be checked BEFORE the GET-only guard so POST purges work,
     // and BEFORE shouldCache so they are never accidentally cached.
