@@ -11,7 +11,7 @@ STATIC_DIR ?= ./static-output
 WORKERS ?= 4
 
 .PHONY: help build generate optimize validate validate-source test-csp \
-        spell-check deploy-local clean install
+        spell-check deploy-local clean install purge-kv-cache
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -101,6 +101,12 @@ deploy-local: ## Start local preview server on port 8080
 	python3 -m http.server 8080 --directory $(OUTPUT_DIR)
 
 # ─── Cleanup ──────────────────────────────────────────────────────
+
+purge-kv-cache: ## Bulk-delete all html:* entries from HTML_CACHE KV (requires CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID)
+	python3 scripts/purge_html_kv_cache.py
+
+purge-kv-cache-dry-run: ## Preview what purge-kv-cache would delete (no changes)
+	python3 scripts/purge_html_kv_cache.py --dry-run
 
 clean: ## Remove temporary build artifacts
 	rm -rf $(STATIC_DIR)

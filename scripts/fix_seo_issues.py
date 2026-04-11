@@ -292,24 +292,74 @@ class SEOFixer:
         return modified
 
     def fix_canonical_url(self, soup, file_path):
-        """Ensure the canonical <link> uses an absolute URL.
+        """Ensure every page has an absolute canonical <link> in <head>.
 
-        Google requires canonical URLs to be fully-qualified (https://...).
-        convert_to_staging.py strips the domain, leaving href="/" or
-        href="/2022/10/post-slug/" which is ambiguous for crawlers.
+        Two failure modes are handled:
+        1. Canonical tag present but relative (href starts with "/") — fix it.
+        2. Canonical tag absent entirely — inject one.  This happens when
+           WordPress/Rank Math fails to emit a canonical tag, which causes
+           the static build to inherit that omission.  Without a canonical,
+           Google may treat jameskilby.co.uk and jkcoukblog.pages.dev as
+           separate duplicate sites and split index credit between them.
+
+        URL derivation priority (most→least reliable):
+          a) og:url meta tag — already fixed to absolute by fix_og_absolute_urls
+          b) File path relative to public_dir — always available as fallback
         """
-        canon = soup.find('link', rel='canonical')
-        if not canon:
+        head = soup.find('head')
+        if not head:
             return False
 
-        href = canon.get('href', '')
-        if href.startswith('/'):
-            canon['href'] = f"{TARGET_DOMAIN}{href}"
-            self.issues_fixed += 1
-            print(f"   🔗 Fixed relative canonical URL: {file_path.name}")
-            return True
+        canon = soup.find('link', rel='canonical')
 
-        return False
+        # ── Case 1: tag exists but href is relative ──────────────────────────
+        if canon:
+            href = canon.get('href', '')
+            if href.startswith('/'):
+                canon['href'] = f"{TARGET_DOMAIN}{href}"
+                self.issues_fixed += 1
+                print(f"   🔗 Fixed relative canonical URL: {file_path.name}")
+                return True
+            return False  # already absolute — nothing to do
+
+        # ── Case 2: tag is missing entirely — derive and inject ──────────────
+        canonical_url = self._derive_canonical_url(soup, file_path)
+        if not canonical_url:
+            return False
+
+        new_tag = soup.new_tag('link', rel='canonical', href=canonical_url)
+        head.append(new_tag)
+        self.issues_fixed += 1
+        print(f"   🔗 Injected missing canonical URL ({canonical_url}): {file_path.name}")
+        return True
+
+    def _derive_canonical_url(self, soup, file_path):
+        """Return the absolute canonical URL for this page.
+
+        Tries og:url first (most accurate), falls back to file-path derivation.
+        """
+        # Prefer og:url — it's set by WordPress/Rank Math and already
+        # absolutified by fix_og_absolute_urls earlier in the pipeline.
+        og_url = soup.find('meta', property='og:url')
+        if og_url:
+            content = og_url.get('content', '').strip()
+            if content.startswith('https://') or content.startswith('http://'):
+                return content
+
+        # Fallback: derive from file path relative to the public dir.
+        # e.g. .../public/2022/11/some-post/index.html → /2022/11/some-post/
+        try:
+            rel = file_path.relative_to(self.public_dir)
+            parts = rel.parts
+            # Strip trailing index.html
+            if parts and parts[-1] == 'index.html':
+                parts = parts[:-1]
+            url_path = '/' + '/'.join(parts)
+            if url_path != '/' and not url_path.endswith('/'):
+                url_path += '/'
+            return f"{TARGET_DOMAIN}{url_path}"
+        except ValueError:
+            return None
 
     def fix_blogposting_to_techarticle(self, soup, file_path):
         """Upgrade BlogPosting @type to TechArticle for technical posts.
