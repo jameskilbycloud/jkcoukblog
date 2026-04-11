@@ -3294,7 +3294,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try:
             from bs4 import BeautifulSoup
             with open(html_file, 'r', errors='ignore') as f:
-                soup = BeautifulSoup(f.read(), 'lxml')
+                soup = BeautifulSoup(f.read(), 'html.parser')
 
             # Only look at images inside the main article/post body
             content = soup.find('article') or soup.find('main') or soup.find('body')
