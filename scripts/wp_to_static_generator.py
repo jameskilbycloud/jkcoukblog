@@ -3298,7 +3298,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             urls_for_sitemap.append({
                 'url': f'{self.target_domain}{url_path}',
-                'lastmod': lastmod_date
+                'lastmod': lastmod_date,
+                'priority': self._get_sitemap_priority(url_path)
             })
 
         # Exclude noindex pages from sitemap (category/tag archives are
@@ -3346,6 +3347,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 sitemap_content.append('  <url>')
                 sitemap_content.append(f'    <loc>{item["url"]}</loc>')
                 sitemap_content.append(f'    <lastmod>{item["lastmod"]}</lastmod>')
+                if item.get('priority'):
+                    sitemap_content.append(f'    <priority>{item["priority"]}</priority>')
                 sitemap_content.append('  </url>')
 
         sitemap_content.append('</urlset>')
@@ -3429,6 +3432,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
         except Exception:
             return None
+
+    def _get_sitemap_priority(self, url_path):
+        """Determine <priority> for a sitemap entry based on URL pattern and post age.
+
+        - Homepage: 1.0
+        - Posts published in the last 6 months: 0.9
+        - Older posts: 0.7
+        - Category pages: 0.5
+        - Anything else: None (omit <priority>; crawlers default to 0.5)
+
+        Post age is derived from the /YYYY/MM/ segment of the URL, which matches
+        the permalink structure produced by wp_to_static_generator.
+        """
+        if url_path == '/':
+            return '1.0'
+
+        if '/category/' in url_path:
+            return '0.5'
+
+        post_match = re.match(r'^/(\d{4})/(\d{2})/', url_path)
+        if post_match:
+            year = int(post_match.group(1))
+            month = int(post_match.group(2))
+            now = datetime.now()
+            age_months = (now.year - year) * 12 + (now.month - month)
+            return '0.9' if age_months <= 6 else '0.7'
+
+        return None
 
     def _is_noindex_page(self, html_file):
         """Check if a page has a noindex robots meta tag."""

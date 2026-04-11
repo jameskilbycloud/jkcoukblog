@@ -74,3 +74,5 @@ worker-build/
 .dev.vars
 node_modules/
 AGENTS.md
+migrate-to-vmware-cloud-veeam-sobr.md
+seo-audit-april-2026.md

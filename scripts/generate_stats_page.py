@@ -144,13 +144,13 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Statistics - Jameskilbycouk</title>
+    <title>Site Statistics - James Kilby</title>
     <meta name="description" content="Public statistics and metrics for James Kilby's technical blog including performance scores, traffic data, and build information.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://jameskilby.co.uk/stats/">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="Site Statistics - Jameskilbycouk">
+    <meta property="og:title" content="Site Statistics - James Kilby">
     <meta property="og:description" content="Public statistics and metrics for James Kilby's technical blog.">
     <meta property="og:url" content="https://jameskilby.co.uk/stats/">
     <meta property="og:type" content="website">

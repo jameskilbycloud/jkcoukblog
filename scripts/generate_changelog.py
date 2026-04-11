@@ -215,7 +215,7 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Changelog - Jameskilbycouk</title>
+    <title>Changelog - James Kilby</title>
     <meta name="description" content="Site improvements, deployments, and performance metrics for James Kilby's technical blog.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://jameskilby.co.uk/changelog/">

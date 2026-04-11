@@ -35,6 +35,20 @@ export default {
     if (path === '/trace') {
       return handleTrace(request, env);
     }
+
+    // Block indexing of the Cloudflare Pages preview domain. Serve a
+    // disallow-all robots.txt so crawlers that honour robots.txt never fetch
+    // any URL on pages.dev. HTML responses on this host also get
+    // X-Robots-Tag: noindex via getSecurityHeaders() below.
+    if (url.hostname === 'jkcoukblog.pages.dev' && path === '/robots.txt') {
+      return new Response('User-agent: *\nDisallow: /\n', {
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Cache-Control': 'public, max-age=3600',
+          'X-Robots-Tag': 'noindex, nofollow'
+        }
+      });
+    }
     // ────────────────────────────────────────────────────────────────────────
 
     // Only cache GET requests
@@ -65,11 +79,11 @@ export default {
     
     // Try KV cache if available (with fallback to Cache API)
     if (env.HTML_CACHE) {
-      return handleKVCache(request, env, ctx, path);
+      return handleKVCache(request, env, ctx, path, url.hostname);
     }
 
     // Fallback to Cache API if KV not bound
-    return handleCacheAPI(request, env, ctx, path);
+    return handleCacheAPI(request, env, ctx, path, url.hostname);
   }
 };
 
@@ -80,7 +94,7 @@ export default {
  * Referencing `ctx` from the enclosing scope would throw ReferenceError
  * because this is a module-top-level function, not a closure inside fetch().
  */
-async function handleKVCache(request, env, ctx, path) {
+async function handleKVCache(request, env, ctx, path, hostname) {
   try {
     const cacheKey = `html:${path}`;
     const cached = await env.HTML_CACHE.getWithMetadata(cacheKey, { type: 'text' });
@@ -111,7 +125,7 @@ async function handleKVCache(request, env, ctx, path) {
           'X-Cache-Status': 'HIT',
           'X-Cache-Views': views.toString(),
           'X-Worker': 'advanced-worker-kv',
-          ...getSecurityHeaders()
+          ...getSecurityHeaders(hostname)
         }
       });
     }
@@ -160,13 +174,13 @@ async function handleKVCache(request, env, ctx, path) {
         'X-Cache-Status': 'MISS',
         'X-Cache-TTL': ttl.toString(),
         'X-Worker': 'advanced-worker-kv',
-        ...getSecurityHeaders()
+        ...getSecurityHeaders(hostname)
       }
     });
   } catch (error) {
     // If KV fails, fall back to Cache API
     console.error('KV cache error:', error);
-    return handleCacheAPI(request, env, ctx, path);
+    return handleCacheAPI(request, env, ctx, path, hostname);
   }
 }
 
@@ -176,44 +190,44 @@ async function handleKVCache(request, env, ctx, path) {
  * `ctx` is required so the cache.put on a MISS can run via waitUntil
  * instead of blocking the response.
  */
-async function handleCacheAPI(request, env, ctx, path) {
+async function handleCacheAPI(request, env, ctx, path, hostname = '') {
   const cache = caches.default;
   const cacheKey = new Request(request.url, request);
-  
+
   let response = await cache.match(cacheKey);
-  
+
   if (response) {
     const newHeaders = new Headers(response.headers);
     newHeaders.set('X-Cache-Status', 'HIT');
     newHeaders.set('X-Worker', 'advanced-worker-cache-api');
-    
+
     // Add security headers
-    const securityHeaders = getSecurityHeaders();
+    const securityHeaders = getSecurityHeaders(hostname);
     Object.entries(securityHeaders).forEach(([key, value]) => {
       newHeaders.set(key, value);
     });
-    
+
     return new Response(response.body, {
       status: response.status,
       headers: newHeaders
     });
   }
-  
+
   response = await env.ASSETS.fetch(request);
-  
+
   if (response.ok && response.headers.get('content-type')?.includes('text/html')) {
     const responseToCache = response.clone();
     const newHeaders = new Headers(responseToCache.headers);
-    
+
     if (!newHeaders.has('Cache-Control')) {
       newHeaders.set('Cache-Control', `public, max-age=${getTTL(path)}`);
     }
-    
+
     newHeaders.set('X-Cache-Status', 'MISS');
     newHeaders.set('X-Worker', 'advanced-worker-cache-api');
-    
+
     // Add security headers
-    const securityHeaders = getSecurityHeaders();
+    const securityHeaders = getSecurityHeaders(hostname);
     Object.entries(securityHeaders).forEach(([key, value]) => {
       newHeaders.set(key, value);
     });
@@ -241,10 +255,11 @@ async function handleCacheAPI(request, env, ctx, path) {
 }
 
 /**
- * Get security headers for all responses
+ * Get security headers for all responses.
+ * Pass hostname to automatically add X-Robots-Tag: noindex on the Pages preview domain.
  */
-function getSecurityHeaders() {
-  return {
+function getSecurityHeaders(hostname = '') {
+  const headers = {
     'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' plausible.io plausible.jameskilby.cloud https://utteranc.es cdn.credly.com cdn.youracclaim.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' plausible.io plausible.jameskilby.cloud https://api.github.com; frame-src 'self' plausible.jameskilby.cloud https://utteranc.es https://www.youtube.com https://youtube.com https://embed.acast.com https://www.credly.com https://www.youracclaim.com;",
     'X-Frame-Options': 'SAMEORIGIN',
     'X-Content-Type-Options': 'nosniff',
@@ -252,6 +267,13 @@ function getSecurityHeaders() {
     'Referrer-Policy': 'strict-origin-when-cross-origin',
     'Permissions-Policy': 'geolocation=(), microphone=(), camera=()'
   };
+
+  // Prevent the Cloudflare Pages preview domain from appearing in search results
+  if (hostname === 'jkcoukblog.pages.dev') {
+    headers['X-Robots-Tag'] = 'noindex, nofollow';
+  }
+
+  return headers;
 }
 
 /**
