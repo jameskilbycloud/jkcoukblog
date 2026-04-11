@@ -3278,8 +3278,78 @@ document.addEventListener('DOMContentLoaded', function() {
         robots_file.write_text('\n'.join(robots_content))
         print("   ✅ Created robots.txt")
     
+    def _extract_page_images(self, html_file):
+        """Return a list of image dicts for the image sitemap.
+
+        Each dict has:
+          - loc:     absolute URL of the image (required by Google)
+          - title:   image title attribute or filename stem (optional)
+          - caption: alt text (optional but recommended)
+
+        Only images served from the same domain are included; external CDN
+        images (e.g. third-party embeds) are skipped.  AVIF/WebP <source>
+        elements inside <picture> are ignored — only the <img> src (the
+        canonical fallback) is used to avoid duplicate entries.
+        """
+        try:
+            from bs4 import BeautifulSoup
+            with open(html_file, 'r', errors='ignore') as f:
+                soup = BeautifulSoup(f.read(), 'lxml')
+
+            # Only look at images inside the main article/post body
+            content = soup.find('article') or soup.find('main') or soup.find('body')
+            if not content:
+                return []
+
+            images = []
+            seen_locs = set()
+
+            for img in content.find_all('img'):
+                src = img.get('src', '').strip()
+                if not src:
+                    continue
+
+                # Convert to absolute URL
+                if src.startswith('/'):
+                    abs_src = f'{self.target_domain}{src}'
+                elif src.startswith('http'):
+                    # Skip external images
+                    if self.target_domain not in src:
+                        continue
+                    abs_src = src
+                else:
+                    continue  # relative path without leading slash — skip
+
+                # Skip duplicates (e.g. responsive srcset variations already seen)
+                loc_key = abs_src.split('?')[0]
+                if loc_key in seen_locs:
+                    continue
+                seen_locs.add(loc_key)
+
+                alt   = img.get('alt', '').strip()
+                title = img.get('title', '').strip()
+
+                # Derive a title from alt text, explicit title, or filename
+                if not title and alt:
+                    title = alt
+                if not title:
+                    from pathlib import Path as _Path
+                    title = _Path(src).stem.replace('-', ' ').replace('_', ' ').title()
+
+                images.append({
+                    'loc':     abs_src,
+                    'title':   title[:200],          # Google recommends ≤200 chars
+                    'caption': alt[:200] if alt else '',
+                })
+
+            return images
+
+        except Exception as e:
+            print(f"   ⚠️  Image extraction failed for {html_file.name}: {e}")
+            return []
+
     def create_sitemap(self):
-        """Generate a basic XML sitemap"""
+        """Generate an XML sitemap with image extensions (Google Image Sitemap)."""
         urls_for_sitemap = []
 
         # Collect all HTML files with their modification dates
@@ -3297,9 +3367,10 @@ document.addEventListener('DOMContentLoaded', function() {
             lastmod_date = self._extract_modified_date(html_file)
 
             urls_for_sitemap.append({
-                'url': f'{self.target_domain}{url_path}',
-                'lastmod': lastmod_date,
-                'priority': self._get_sitemap_priority(url_path)
+                'url':      f'{self.target_domain}{url_path}',
+                'lastmod':  lastmod_date,
+                'priority': self._get_sitemap_priority(url_path),
+                'html_file': html_file,   # kept for image extraction below
             })
 
         # Exclude noindex pages from sitemap (category/tag archives are
@@ -3335,12 +3406,23 @@ document.addEventListener('DOMContentLoaded', function() {
         if archive_fixes:
             print(f"   📅 Fixed lastmod dates for {archive_fixes} archive pages")
 
-        # Generate XML
+        # Generate XML — include Google Image Sitemap namespace
         sitemap_content = ['<?xml version="1.0" encoding="UTF-8"?>']
-        sitemap_content.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+        sitemap_content.append(
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
+            '\n        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'
+        )
 
         # Sort by URL and remove duplicates
         seen_urls = set()
+        total_images = 0
+
+        def _xml_escape(s):
+            return (s.replace('&', '&amp;')
+                     .replace('<', '&lt;')
+                     .replace('>', '&gt;')
+                     .replace('"', '&quot;'))
+
         for item in sorted(urls_for_sitemap, key=lambda x: x['url']):
             if item['url'] not in seen_urls:
                 seen_urls.add(item['url'])
@@ -3349,13 +3431,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 sitemap_content.append(f'    <lastmod>{item["lastmod"]}</lastmod>')
                 if item.get('priority'):
                     sitemap_content.append(f'    <priority>{item["priority"]}</priority>')
+
+                # Add image entries for post/page URLs (skip feeds, api, assets, etc.)
+                url_path = item['url'].replace(self.target_domain, '')
+                is_content_page = (
+                    html_file := item.get('html_file')
+                ) and html_file is not None and any(
+                    url_path.startswith(f'/{y}/') for y in range(2010, 2035)
+                ) or url_path in ('/', '/about-me/', '/lab/', '/homelab-software/')
+
+                if is_content_page and item.get('html_file'):
+                    images = self._extract_page_images(item['html_file'])
+                    for img in images[:20]:   # Google recommends ≤1000 per URL; 20 is generous
+                        sitemap_content.append('    <image:image>')
+                        sitemap_content.append(f'      <image:loc>{_xml_escape(img["loc"])}</image:loc>')
+                        if img.get('title'):
+                            sitemap_content.append(f'      <image:title>{_xml_escape(img["title"])}</image:title>')
+                        if img.get('caption'):
+                            sitemap_content.append(f'      <image:caption>{_xml_escape(img["caption"])}</image:caption>')
+                        sitemap_content.append('    </image:image>')
+                        total_images += 1
+
                 sitemap_content.append('  </url>')
 
         sitemap_content.append('</urlset>')
 
         sitemap_file = self.output_dir / 'sitemap.xml'
         sitemap_file.write_text('\n'.join(sitemap_content))
-        print(f"✅ Created sitemap.xml with {len(seen_urls)} URLs")
+        print(f"✅ Created sitemap.xml with {len(seen_urls)} URLs and {total_images} image entries")
 
     def _extract_modified_date(self, html_file):
         """Extract modification date from HTML file's Schema.org JSON-LD"""
