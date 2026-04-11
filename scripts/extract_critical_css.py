@@ -343,16 +343,22 @@ class CriticalCSSExtractor:
 
             css_path.write_text(critical_css, encoding='utf-8')
 
-            preload = soup.new_tag('link')
-            preload['rel'] = 'preload'
-            preload['as'] = 'style'
-            preload['href'] = f'/assets/css/critical/{css_filename}'
-            soup.head.insert(0, preload)
+            css_href = f'/assets/css/critical/{css_filename}'
 
-            link = soup.new_tag('link')
-            link['rel'] = 'stylesheet'
-            link['href'] = f'/assets/css/critical/{css_filename}'
-            soup.head.insert(1, link)
+            # Only insert the preload + stylesheet tags if they aren't already
+            # present — prevents duplication on repeated pipeline runs.
+            existing_preload = soup.find('link', attrs={'href': css_href, 'rel': True})
+            if not existing_preload:
+                preload = soup.new_tag('link')
+                preload['rel'] = 'preload'
+                preload['as'] = 'style'
+                preload['href'] = css_href
+                soup.head.insert(0, preload)
+
+                link = soup.new_tag('link')
+                link['rel'] = 'stylesheet'
+                link['href'] = css_href
+                soup.head.insert(1, link)
 
             # Remove any existing inline critical CSS
             existing = soup.find('style', id='critical-css')
@@ -369,8 +375,16 @@ class CriticalCSSExtractor:
         for link in soup.find_all('link', rel='stylesheet'):
             href = link.get('href', '')
 
-            # Skip if already preloaded
-            if link.get('rel') == 'preload':
+            # Skip links that live inside a <noscript> fallback — these are the
+            # non-JS fallback copies we already inserted on a previous run.
+            # Without this guard BeautifulSoup's transparent <noscript> parsing
+            # causes every pipeline run to nest another layer of <noscript> tags.
+            if link.find_parent('noscript'):
+                continue
+
+            # Skip if already preloaded (belt-and-suspenders; find_all with
+            # rel='stylesheet' shouldn't match rel='preload', but be safe)
+            if 'preload' in (link.get('rel') or []):
                 continue
 
             # IMPORTANT: Do NOT convert brutalist-theme.css or fonts.css to async
