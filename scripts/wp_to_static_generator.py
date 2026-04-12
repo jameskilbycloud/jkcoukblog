@@ -2274,9 +2274,11 @@ document.addEventListener('DOMContentLoaded', function() {
         title_tag = soup.find('title')
         if title_tag:
             title = title_tag.get_text().strip()
-            # Extract taxonomy name from title (e.g., "VMware Archives - jameskilbycouk" -> "VMware")
+            # Extract taxonomy name from title (e.g., "Docker Archives - James Kilby" -> "Docker")
             import re
-            match = re.match(r'^([^-|]+)(?:\s+Archives)?\s+[-|]', title)
+            match = re.match(r'^(.+?)\s+Archives\s+[-|]', title)
+            if not match:
+                match = re.match(r'^([^-|]+)\s+[-|]', title)
             if match:
                 taxonomy_name = match.group(1).strip()
             else:
