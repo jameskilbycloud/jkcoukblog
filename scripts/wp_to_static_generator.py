@@ -386,6 +386,9 @@ class WordPressStaticGenerator:
         # Add meta descriptions for taxonomy pages (tags/categories)
         self.add_taxonomy_meta_description(soup, current_url)
 
+        # Deduplicate meta descriptions on paginated archive pages
+        self.fix_pagination_meta_description(soup, current_url)
+
         # Add noindex to thin archive/taxonomy pages (tags, categories)
         self.add_noindex_to_thin_pages(soup, current_url)
 
@@ -2321,6 +2324,36 @@ document.addEventListener('DOMContentLoaded', function() {
             twitter_desc['content'] = description
             soup.head.append(twitter_desc)
     
+    def fix_pagination_meta_description(self, soup, current_url):
+        """Append page number to meta descriptions on paginated archive pages.
+
+        WordPress/Rank Math outputs the same meta description for /page/2/,
+        /page/3/, etc. as for the parent archive.  Duplicate descriptions
+        hurt SEO, so we make each one unique by appending "- Page N".
+        """
+        import re
+        match = re.search(r'/page/(\d+)/?$', current_url)
+        if not match:
+            return
+
+        page_num = match.group(1)
+        suffix = f" - Page {page_num}"
+
+        for tag_spec in [
+            {'attrs': {'name': 'description'}},
+            {'attrs': {'property': 'og:description'}},
+            {'attrs': {'name': 'twitter:description'}},
+        ]:
+            tag = soup.find('meta', **tag_spec)
+            if tag and tag.get('content'):
+                content = tag['content'].rstrip('.')
+                # Truncate if adding suffix would exceed 160 chars
+                max_len = 160 - len(suffix)
+                if len(content) > max_len:
+                    content = content[:max_len - 3].rstrip() + '...'
+                tag['content'] = content + suffix
+                print(f"   📄 Deduplicated meta description for page {page_num}")
+
     def add_noindex_to_thin_pages(self, soup, current_url):
         """Add noindex, follow to tag and category archive pages.
 
