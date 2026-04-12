@@ -3997,10 +3997,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         # Print results summary
         success_count = len([r for r in results if r.startswith('✅')])
-        error_count = len(results) - success_count
+        failed_results = [r for r in results if not r.startswith('✅') and not r.startswith('⏭️')]
+        error_count = len(failed_results)
         print(f"\\n📊 Processing Results:")
         print(f"   ✅ Success: {success_count}")
         print(f"   ❌ Failed: {error_count}")
+        for fail in failed_results:
+            print(f"      {fail}")
         
         # Download assets
         print(f"\\n📁 Asset Processing:")

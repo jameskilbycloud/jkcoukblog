@@ -18,6 +18,16 @@ _ARTICLE_TYPES = frozenset({
 _ARTICLE_REQUIRED_FIELDS = ('headline', 'datePublished', 'author')
 
 
+# Substrings that, when found inside a warning's 'message', mark it as
+# known-intentional noise.  Each entry should include a short comment so
+# future readers know *why* it is suppressed.
+_SUPPRESSED_WARNING_SUBSTRINGS = (
+    'plausible',          # Plausible analytics loads synchronously by design
+    'utteranc.es',        # Utterances comment widget — intentionally blocking
+    'fonts.googleapis',   # Google Fonts stylesheet — render-blocking is acceptable
+)
+
+
 class ContentValidator:
     def __init__(self, public_dir='public'):
         self.public_dir = Path(public_dir)
@@ -403,15 +413,26 @@ class ContentValidator:
     
     def generate_report(self, output_format='console'):
         """Generate validation report"""
+        # Partition warnings into actionable vs known-noise
+        suppressed = []
+        actionable = []
+        for w in self.warnings:
+            msg = w.get('message', '').lower()
+            if any(s in msg for s in _SUPPRESSED_WARNING_SUBSTRINGS):
+                suppressed.append(w)
+            else:
+                actionable.append(w)
+
         report = {
             'summary': {
                 'checks_run': self.checks_run,
                 'errors': len(self.errors),
-                'warnings': len(self.warnings),
+                'warnings': len(actionable),
+                'suppressed_warnings': len(suppressed),
                 'status': 'FAIL' if self.errors else 'PASS'
             },
             'errors': self.errors,
-            'warnings': self.warnings
+            'warnings': actionable
         }
         
         # Save to file
@@ -424,7 +445,9 @@ class ContentValidator:
         print(f"Files checked: {self.checks_run}")
         print(f"Status: {'✅ PASS' if report['summary']['status'] == 'PASS' else '❌ FAIL'}")
         print(f"Errors: {len(self.errors)}")
-        print(f"Warnings: {len(self.warnings)}")
+        print(f"Warnings: {len(actionable)}")
+        if suppressed:
+            print(f"Suppressed (known-intentional): {len(suppressed)}")
         print(f"{'=' * 50}\n")
         
         if self.errors:
@@ -436,14 +459,14 @@ class ContentValidator:
             if len(self.errors) > 10:
                 print(f"   ... and {len(self.errors) - 10} more errors\n")
         
-        if self.warnings:
-            print(f"\n⚠️  Warnings ({len(self.warnings)}):")
-            for i, warning in enumerate(self.warnings[:10], 1):
+        if actionable:
+            print(f"\n⚠️  Warnings ({len(actionable)}):")
+            for i, warning in enumerate(actionable[:10], 1):
                 print(f"   {i}. {warning['message']}")
                 print(f"      File: {warning['file']}")
-            
-            if len(self.warnings) > 10:
-                print(f"   ... and {len(self.warnings) - 10} more warnings\n")
+
+            if len(actionable) > 10:
+                print(f"   ... and {len(actionable) - 10} more warnings\n")
         
         print(f"\n📄 Full report saved to: validation-report.json\n")
         

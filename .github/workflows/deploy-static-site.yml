@@ -359,50 +359,39 @@ jobs:
         echo "HTML_COUNT=$HTML_COUNT" >> $GITHUB_ENV
         echo "TOTAL_SIZE=$TOTAL_SIZE" >> $GITHUB_ENV
         
-        # Copy already-optimized images and their modern formats from public/
-        # This includes ALL AVIF/WebP files regardless of whether original was optimized
+        # Reuse already-optimized AVIF/WebP from the previous build in public/
+        # rsync --ignore-existing skips files that already exist in static-output
+        # so freshly generated conversions are never overwritten.
         if [ -d "public/wp-content/uploads" ] && [ -d "./static-output/wp-content/uploads" ]; then
-          echo "📋 Copying already-optimized images and modern formats..."
+          echo "📋 Copying already-optimized modern formats via rsync..."
+          AVIF_BEFORE=$(find ./static-output/wp-content/uploads -type f -name "*.avif" | wc -l | xargs)
+          WEBP_BEFORE=$(find ./static-output/wp-content/uploads -type f -name "*.webp" | wc -l | xargs)
+
+          rsync -a --ignore-existing \
+            --include='*/' --include='*.avif' --include='*.webp' \
+            --exclude='*' \
+            public/wp-content/uploads/ ./static-output/wp-content/uploads/
+
+          AVIF_AFTER=$(find ./static-output/wp-content/uploads -type f -name "*.avif" | wc -l | xargs)
+          WEBP_AFTER=$(find ./static-output/wp-content/uploads -type f -name "*.webp" | wc -l | xargs)
+          echo "✅ Copied $((AVIF_AFTER - AVIF_BEFORE)) AVIF and $((WEBP_AFTER - WEBP_BEFORE)) WebP files from previous build"
+
+          # Replace originals with previously-optimized versions if they are smaller
           REPLACED=0
-          AVIF_COPIED=0
-          WEBP_COPIED=0
-          
-          # For each image in static-output, check if optimized version exists in public/
           find ./static-output/wp-content/uploads -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) | while read new_img; do
-            # Get relative path
             rel_path="${new_img#./static-output/}"
             old_img="public/$rel_path"
-            new_base="${new_img%.*}"
-            old_base="${old_img%.*}"
-            
-            # Copy AVIF version if it exists (regardless of whether original was optimized)
-            if [ -f "${old_base}.avif" ]; then
-              cp "${old_base}.avif" "${new_base}.avif"
-              AVIF_COPIED=$((AVIF_COPIED + 1))
-            fi
-            
-            # Copy WebP version if it exists
-            if [ -f "${old_base}.webp" ]; then
-              cp "${old_base}.webp" "${new_base}.webp"
-              WEBP_COPIED=$((WEBP_COPIED + 1))
-            fi
-            
-            # Replace original with optimized version if smaller
             if [ -f "$old_img" ]; then
               new_size=$(stat -f%z "$new_img" 2>/dev/null || stat -c%s "$new_img" 2>/dev/null)
               old_size=$(stat -f%z "$old_img" 2>/dev/null || stat -c%s "$old_img" 2>/dev/null)
-              
               if [ "$old_size" -lt "$new_size" ]; then
                 cp "$old_img" "$new_img"
                 REPLACED=$((REPLACED + 1))
               fi
             fi
           done
-          
           echo "✅ Reused $REPLACED optimized original images from previous build"
-          echo "✅ Copied $AVIF_COPIED AVIF files from previous build"
-          echo "✅ Copied $WEBP_COPIED WebP files from previous build"
-          
+
           # Count how many images still need modern formats
           TOTAL_IMAGES=$(find ./static-output/wp-content/uploads -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) | wc -l | xargs)
           EXISTING_AVIF=$(find ./static-output/wp-content/uploads -type f -name "*.avif" | wc -l | xargs)
@@ -455,11 +444,7 @@ jobs:
       continue-on-error: true  # Non-blocking: warnings won't fail the build
       run: |
         echo "📋 Running content quality checks..."
-        
-        # Copy to public directory for validation (uses relative paths)
-        rm -rf public/
-        cp -r ./static-output public/
-        
+
         # Run content validator against the freshly-built output (not the committed public/)
         python3 scripts/content_validator.py static-output || {
           echo "⚠️  Content validation found issues (non-blocking)"
@@ -686,26 +671,33 @@ jobs:
         echo "🗜️  Compressing final optimized files with Brotli (primary) + Gzip (fallback)..."
 
         # Reuse existing .br/.gz files from previous build where the source
-        # file hasn't changed (saves ~15s by skipping Brotli quality-11 on
-        # unchanged files). The compressor's mtime check handles the rest.
+        # file content is unchanged. Only copy when the source file in
+        # static-output matches the one in public/ (by size) — pipeline steps
+        # (minify, SEO, etc.) may have rewritten files, so stale compressed
+        # data must not be carried forward.
         if [ -d "public" ]; then
           REUSED=0
-          for br_file in $(find public -name "*.br" -o -name "*.gz" 2>/dev/null); do
+          STALE=0
+          while IFS= read -r br_file; do
             rel="${br_file#public/}"
             target="./static-output/$rel"
-            # Get original filename (strip .br/.gz suffix)
+            # Derive the uncompressed original path
             original="${target%.br}"
             original="${original%.gz}"
-            if [ -f "$original" ] && [ -f "$br_file" ]; then
-              # Compare original file sizes — if unchanged, reuse compressed version
-              old_original="${br_file%.br}"
-              old_original="${old_original%.gz}"
-              if [ -f "public/${rel%.br}" ] || [ -f "public/${rel%.gz}" ]; then
-                cp "$br_file" "$target" 2>/dev/null && REUSED=$((REUSED + 1))
+            old_original="public/${rel%.br}"
+            old_original="${old_original%.gz}"
+            if [ -f "$original" ] && [ -f "$old_original" ]; then
+              # Compare source sizes — cheap proxy for content equality
+              new_size=$(stat -c%s "$original" 2>/dev/null || stat -f%z "$original" 2>/dev/null)
+              old_size=$(stat -c%s "$old_original" 2>/dev/null || stat -f%z "$old_original" 2>/dev/null)
+              if [ "$new_size" = "$old_size" ]; then
+                cp -p "$br_file" "$target" 2>/dev/null && REUSED=$((REUSED + 1))
+              else
+                STALE=$((STALE + 1))
               fi
             fi
-          done
-          echo "   ♻️  Reused $REUSED compressed files from previous build"
+          done < <(find public \( -name "*.br" -o -name "*.gz" \) -type f 2>/dev/null)
+          echo "   ♻️  Reused $REUSED compressed files from previous build (skipped $STALE stale)"
         fi
 
         # Run compression — produces .br and .gz alongside each original
