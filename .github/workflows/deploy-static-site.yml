@@ -687,10 +687,9 @@ jobs:
             old_original="public/${rel%.br}"
             old_original="${old_original%.gz}"
             if [ -f "$original" ] && [ -f "$old_original" ]; then
-              # Compare source sizes — cheap proxy for content equality
-              new_size=$(stat -c%s "$original" 2>/dev/null || stat -f%z "$original" 2>/dev/null)
-              old_size=$(stat -c%s "$old_original" 2>/dev/null || stat -f%z "$old_original" 2>/dev/null)
-              if [ "$new_size" = "$old_size" ]; then
+              # Byte-for-byte comparison — catches same-size files with
+              # different content (e.g. JSON with updated timestamps)
+              if cmp -s "$original" "$old_original"; then
                 cp -p "$br_file" "$target" 2>/dev/null && REUSED=$((REUSED + 1))
               else
                 STALE=$((STALE + 1))
@@ -878,6 +877,15 @@ jobs:
         # Generate stats page
         echo "📊 Generating stats page..."
         PLAUSIBLE_SHARE_LINK="${{ secrets.PLAUSIBLE_SHARE_LINK }}" python3 scripts/generate_stats_page.py || echo "⚠️  Stats page generation failed (non-blocking)"
+
+        # Recompress files created/modified after the main Brotli pass.
+        # generate_changelog.py and generate_stats_page.py write into public/
+        # AFTER the Brotli step, so their .br/.gz sidecars are stale. The mtime
+        # check in brotli_compress.py detects the newer source and recompresses.
+        echo "🗜️  Recompressing post-deploy generated files..."
+        for dir in public/changelog public/stats; do
+          [ -d "$dir" ] && python3 scripts/brotli_compress.py "$dir" 2>/dev/null || true
+        done
 
         # Check if there are changes to commit
         # Note: .br files are automatically included in public/
