@@ -1019,63 +1019,37 @@ jobs:
       env:
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     
-    - name: Selective cache purge
+    - name: Purge all HTML from KV cache
       if: success()
       run: |
-        echo "🗑️ Purging changed pages from Workers KV cache..."
-        
-        # Get list of changed HTML files from this deploy (previous commit -> current)
-        if git rev-parse --verify HEAD~1 >/dev/null 2>&1; then
-          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD | grep "^public/.*\.html$" || true)
-        else
-          CHANGED_FILES=""
-        fi
-        
-        if [ -z "$CHANGED_FILES" ]; then
-          echo "ℹ️  No HTML files changed, skipping cache purge"
-          exit 0
-        fi
-        
-        # Check if cache purge is configured
+        echo "🗑️ Purging all HTML entries from Workers KV cache..."
+
         if [ -z "${{ secrets.CACHE_PURGE_TOKEN }}" ]; then
-          echo "ℹ️  CACHE_PURGE_TOKEN not set, skipping selective purge"
+          echo "ℹ️  CACHE_PURGE_TOKEN not set, skipping KV cache purge"
           echo "   To enable: Add CACHE_PURGE_TOKEN to repository secrets"
           exit 0
         fi
-        
-        echo "Changed HTML files detected:"
-        echo "$CHANGED_FILES" | head -10
-        
-        PURGED_COUNT=0
-        
-        # Convert file paths to URL paths and purge from cache
-        while read -r file; do
-          # Convert public/2026/01/post/index.html -> /2026/01/post/
-          URL_PATH=$(echo "$file" | sed 's|^public||' | sed 's|/index\.html$|/|')
-          
-          echo "Purging: $URL_PATH"
-          
-          # Call purge endpoint
-          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
-            -X POST "https://jameskilby.co.uk/.purge?path=${URL_PATH}" \
-            -H "X-Purge-Token: ${{ secrets.CACHE_PURGE_TOKEN }}")
-          
-          if [ "$HTTP_CODE" = "200" ]; then
-            PURGED_COUNT=$((PURGED_COUNT + 1))
-          else
-            echo "  ⚠️  Failed to purge (HTTP $HTTP_CODE)"
-          fi
-        done <<< "$CHANGED_FILES"
-        
-        echo ""
-        echo "✅ Purged $PURGED_COUNT URLs from cache"
+
+        RESPONSE=$(curl -s -w "\n%{http_code}" \
+          -X POST "https://jameskilby.co.uk/.purge?all=true" \
+          -H "X-Purge-Token: ${{ secrets.CACHE_PURGE_TOKEN }}")
+
+        HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+        BODY=$(echo "$RESPONSE" | sed '$d')
+
+        if [ "$HTTP_CODE" = "200" ]; then
+          PURGED_COUNT=$(echo "$BODY" | jq -r '.count // 0')
+          echo "✅ Purged $PURGED_COUNT entries from KV cache"
+        else
+          echo "⚠️  Purge-all failed (HTTP $HTTP_CODE): $BODY"
+        fi
 
         # Add to summary
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "## 🗑️ Cache Purged" >> $GITHUB_STEP_SUMMARY
+        echo "## 🗑️ KV Cache Purged" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "- **URLs Purged:** $PURGED_COUNT" >> $GITHUB_STEP_SUMMARY
-        echo "- **Method:** Selective (changed files only)" >> $GITHUB_STEP_SUMMARY
+        echo "- **Entries Purged:** ${PURGED_COUNT:-unknown}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Method:** Purge all" >> $GITHUB_STEP_SUMMARY
       continue-on-error: true
 
     - name: Purge changed HTML from Cloudflare CDN cache

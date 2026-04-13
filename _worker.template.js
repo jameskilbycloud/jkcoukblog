@@ -353,24 +353,58 @@ async function handlePurge(request, env) {
   if (!env.PURGE_TOKEN || purgeToken !== env.PURGE_TOKEN) {
     return new Response('Unauthorized', { status: 401 });
   }
-  
+
+  const all = url.searchParams.get('all');
   const path = url.searchParams.get('path');
-  
-  if (!path) {
-    return new Response('Missing path parameter', { status: 400 });
+
+  // Purge all: iterate the KV namespace and delete every cached HTML entry
+  if (all === 'true') {
+    let purgedCount = 0;
+    const cache = caches.default;
+
+    if (env.HTML_CACHE) {
+      let cursor = undefined;
+      do {
+        const list = await env.HTML_CACHE.list({ cursor });
+        const deletes = list.keys.map(async (key) => {
+          await env.HTML_CACHE.delete(key.name);
+          // Also clear corresponding Cache API entry
+          if (key.name.startsWith('html:')) {
+            const cachePath = key.name.slice(5); // strip "html:" prefix
+            await cache.delete(new Request(`${url.origin}${cachePath}`));
+          }
+        });
+        await Promise.all(deletes);
+        purgedCount += list.keys.length;
+        cursor = list.list_complete ? undefined : list.cursor;
+      } while (cursor);
+    }
+
+    return new Response(JSON.stringify({
+      success: true,
+      purged: 'all',
+      count: purgedCount,
+      timestamp: new Date().toISOString()
+    }), {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
-  
+
+  if (!path) {
+    return new Response('Missing path or all parameter', { status: 400 });
+  }
+
   // Delete from KV if available
   if (env.HTML_CACHE) {
     const cacheKey = `html:${path}`;
     await env.HTML_CACHE.delete(cacheKey);
   }
-  
+
   // Also clear from Cache API
   const cache = caches.default;
   const cacheKey = new Request(`${url.origin}${path}`); // use request origin, not hardcoded domain
   await cache.delete(cacheKey);
-  
+
   return new Response(JSON.stringify({
     success: true,
     purged: path,
