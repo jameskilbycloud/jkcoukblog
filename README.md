@@ -72,6 +72,9 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── ollama_spell_checker.py            # AI spell checker (Ollama/Llama)
 │   ├── wp_spell_check_and_fix.py          # WordPress spell check + auto-fix
 │   ├── manage_build_cache.py              # Build cache management tool
+│   ├── purge_html_kv_cache.py             # Bulk-delete html:* entries from KV
+│   ├── restore_seeded_urls.py             # Restore seeded URLs after build
+│   ├── fix_duplicate_resource_hints.py    # Deduplicate preconnect/prefetch hints
 │   ├── purge_static_cache.sh              # Cloudflare edge cache purge
 │   ├── streamdeck-deploy.sh               # Stream Deck deployment trigger
 │   └── archive/                           # Archived one-time setup scripts
@@ -93,6 +96,9 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── PAGES_KV_SETUP.md                  # Cloudflare KV setup
 │   ├── BUILD_AND_DEPLOY_DOCUMENTATION.md  # Build system reference
 │   ├── STREAMDECK_DEPLOY_SETUP.md         # Stream Deck integration
+│   ├── STREAMDECK_QUICK_REFERENCE.md      # Stream Deck quick reference card
+│   ├── STREAMDECK_README.md               # Stream Deck overview
+│   ├── ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md  # Extra performance tips
 │   └── archive/                           # Historical docs
 ├── public/                                # Generated static site (Cloudflare Pages)
 ├── workers/                               # Cloudflare Workers (deployed independently)
@@ -294,6 +300,9 @@ gh run rerun <run-id> --failed
 | [docs/PAGES_KV_SETUP.md](docs/PAGES_KV_SETUP.md) | Cloudflare KV setup |
 | [docs/BUILD_AND_DEPLOY_DOCUMENTATION.md](docs/BUILD_AND_DEPLOY_DOCUMENTATION.md) | Build system reference |
 | [docs/STREAMDECK_DEPLOY_SETUP.md](docs/STREAMDECK_DEPLOY_SETUP.md) | Stream Deck integration |
+| [docs/STREAMDECK_QUICK_REFERENCE.md](docs/STREAMDECK_QUICK_REFERENCE.md) | Stream Deck quick reference |
+| [docs/STREAMDECK_README.md](docs/STREAMDECK_README.md) | Stream Deck overview |
+| [docs/ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md](docs/ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md) | Additional performance recommendations |
 
 ---
 

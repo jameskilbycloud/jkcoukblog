@@ -21,6 +21,15 @@ Welcome to the jkcoukblog documentation! This site automatically converts a Word
 - [CHANGELOG.md](CHANGELOG.md) - Version history and improvements
 - [BUILD_AND_DEPLOY_DOCUMENTATION.md](BUILD_AND_DEPLOY_DOCUMENTATION.md) - Comprehensive build and deployment guide
 - [IMAGE_OPTIMIZATION.md](IMAGE_OPTIMIZATION.md) - Image optimization strategy and implementation
+- [PAGES_KV_SETUP.md](PAGES_KV_SETUP.md) - Cloudflare KV namespace setup
+- [ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md](ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md) - Extra performance tips
+
+### Stream Deck Integration
+- [STREAMDECK_DEPLOY_SETUP.md](STREAMDECK_DEPLOY_SETUP.md) - Stream Deck deployment setup
+- [STREAMDECK_QUICK_REFERENCE.md](STREAMDECK_QUICK_REFERENCE.md) - Quick reference card
+- [STREAMDECK_README.md](STREAMDECK_README.md) - Stream Deck overview
+
+### Archive
 - [archive/](archive/) - Historical implementation docs and archived guides
 
 ## 🚀 Quick Links
@@ -35,7 +44,7 @@ python3 scripts/wp_to_static_generator.py ./public
 
 **Test Locally:**
 ```bash
-python3 scripts/deploy_static_site.py server ./public 8080
+python3 -m http.server 8080 --directory ./public
 ```
 
 **Deploy via GitHub Actions:**
@@ -53,8 +62,8 @@ python3 scripts/test_live_site_formatting.py
 | Script | Purpose |
 |--------|---------|
 | `wp_to_static_generator.py` | Core static site generator |
-| `deploy_static_site.py` | Multi-platform deployment tool |
-| `generate_search_index.py` | Search index generator |
+| `incremental_builder.py` | BLAKE2b incremental build cache |
+| `optimize_images.py` | AVIF/WebP generation (parallel, cached) |
 | `test_live_site_formatting.py` | Live site validation tests |
 | `ollama_spell_checker.py` | AI-powered spell checker |
 | `submit_indexnow.py` | IndexNow search engine submission |
@@ -73,6 +82,11 @@ docs/
 ├── BUILD_AND_DEPLOY_DOCUMENTATION.md          # Build system guide
 ├── TESTING.md                                 # Testing procedures
 ├── CHANGELOG.md                               # Version history
+├── PAGES_KV_SETUP.md                          # Cloudflare KV setup
+├── STREAMDECK_DEPLOY_SETUP.md                 # Stream Deck deployment setup
+├── STREAMDECK_QUICK_REFERENCE.md              # Stream Deck quick reference
+├── STREAMDECK_README.md                       # Stream Deck overview
+├── ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md  # Extra performance tips
 └── archive/                                   # Historical implementation docs
     ├── Implementation-specific docs (CLS, CSS, fonts, etc.)
     ├── Build & validation docs (HTML cache, incremental build)
