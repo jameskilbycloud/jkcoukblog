@@ -89,8 +89,11 @@ class HTMLTransformer:
         original_html = file_path.read_text(encoding='utf-8')
         original_size = len(original_html.encode('utf-8'))
 
-        # Pre-parse cleanup: dedup head links (string-level, from critical CSS)
-        html = CriticalCSSExtractor._dedup_head_links(original_html)
+        # ── Phase 0: Aggressive string-level cleanup ────────────────────
+        # Seeded files from public/ may carry accumulated corruption from
+        # prior pipeline runs (orphaned </noscript> tags, preload links
+        # missing onload handlers).  Fix this before BS4 parses.
+        html = self._deep_clean_head(original_html)
 
         # Parse once
         soup = BeautifulSoup(html, 'html.parser')
@@ -134,6 +137,78 @@ class HTMLTransformer:
         return True
 
     # ── Per-phase wrappers that call existing class methods on soup ──────
+
+    @staticmethod
+    def _deep_clean_head(html):
+        """Aggressive string-level cleanup of <head> before BS4 parsing.
+
+        Seeded files from public/ may carry accumulated corruption from prior
+        pipeline runs:
+        - Dozens of orphaned </noscript> closing tags
+        - Preload links missing onload handlers (CSS never applies)
+        - Duplicate <link> tags
+
+        This method resets the <head> to a clean state so subsequent transforms
+        (critical CSS, preload conversion) can work from a known baseline.
+        """
+        head_match = re.search(
+            r'(<head\b[^>]*>)(.*?)(</head>)',
+            html,
+            re.IGNORECASE | re.DOTALL,
+        )
+        if not head_match:
+            return html
+
+        head_open = head_match.group(1)
+        head_body = head_match.group(2)
+        head_close = head_match.group(3)
+
+        # 1. Strip ALL <noscript> blocks and orphaned </noscript> tags
+        head_body = re.sub(
+            r'<noscript\b[^>]*>.*?</noscript>',
+            '',
+            head_body,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+        head_body = re.sub(r'</noscript>', '', head_body, flags=re.IGNORECASE)
+
+        # 2. Revert preload-as-style back to stylesheet so critical CSS phase
+        #    can redo the conversion cleanly with proper onload handlers.
+        #    Match: <link ... rel="preload" ... as="style" ...>
+        def _revert_preload(m):
+            tag = m.group(0)
+            # Only revert CSS preloads (as="style"), not font/image/script preloads
+            if not re.search(r'\bas=["\']style["\']', tag, re.IGNORECASE):
+                return tag
+            # Remove as="style" and onload attributes
+            tag = re.sub(r'\s*as=["\']style["\']', '', tag, flags=re.IGNORECASE)
+            tag = re.sub(r'\s*onload=["\'][^"\']*["\']', '', tag, flags=re.IGNORECASE)
+            # Change rel="preload" to rel="stylesheet"
+            tag = re.sub(r'rel=["\']preload["\']', 'rel="stylesheet"', tag, flags=re.IGNORECASE)
+            return tag
+
+        head_body = re.sub(r'<link\b[^>]*/?\s*>', _revert_preload, head_body, flags=re.IGNORECASE)
+
+        # 3. Deduplicate <link> tags by href
+        seen_hrefs = set()
+
+        def _dedup(m):
+            tag = m.group(0)
+            href_m = re.search(r'\bhref=["\']([^"\']+)["\']', tag, re.IGNORECASE)
+            if not href_m:
+                return tag
+            href = href_m.group(1)
+            if href in seen_hrefs:
+                return ''
+            seen_hrefs.add(href)
+            return tag
+
+        head_body = re.sub(r'<link\b[^>]*/?\s*>', _dedup, head_body, flags=re.IGNORECASE)
+
+        # 4. Collapse blank lines
+        head_body = re.sub(r'\n{3,}', '\n\n', head_body)
+
+        return html[:head_match.start()] + head_open + head_body + head_close + html[head_match.end():]
 
     def _apply_seo_fixes(self, soup, file_path):
         """Apply all SEO transforms from SEOFixer on the soup object."""
