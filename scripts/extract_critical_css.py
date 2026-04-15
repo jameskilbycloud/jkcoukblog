@@ -446,7 +446,7 @@ class CriticalCSSExtractor:
         the double-counting that occurred when noscripts were added in step 2
         *and* again in a former "step 3".
         """
-        EXCLUDED = ('brutalist-theme', 'fonts.css')
+        EXCLUDED = ('brutalist-theme', 'fonts.css', 'consolidated-inline-styles')
 
         # ── Step 1: strip residual noscript blocks ───────────────────────
         # _dedup_head_links already removed them from the raw string, but
