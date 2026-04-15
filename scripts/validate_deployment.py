@@ -30,11 +30,18 @@ class DeploymentValidator:
         self.warnings = []
         self.stats = {}
 
+    # Directories that are regenerated post-validation (by generate_changelog.py
+    # and generate_stats_page.py), so their seeded content may be stale.
+    EXCLUDE_DIRS = ('changelog', 'stats')
+
     def find_files(self, extensions):
-        """Find all files with given extensions."""
+        """Find all files with given extensions, excluding post-deploy dirs."""
         files = []
         for ext in extensions:
-            files.extend(self.site_dir.glob(f'**/*{ext}'))
+            for f in self.site_dir.glob(f'**/*{ext}'):
+                rel = f.relative_to(self.site_dir)
+                if not any(rel.parts[0] == d for d in self.EXCLUDE_DIRS if rel.parts):
+                    files.append(f)
         return sorted(files)
 
     def validate_brotli_files(self):
