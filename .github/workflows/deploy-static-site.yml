@@ -269,6 +269,18 @@ jobs:
         python3 -c "import requests; print(f'✅ requests {requests.__version__}')" || echo "❌ requests not found"
         python3 -c "import bs4; print(f'✅ beautifulsoup4 {bs4.__version__}')" || echo "❌ beautifulsoup4 not found"
 
+    - name: Validate CSP configuration (Utterances, Plausible, Credly)
+      run: |
+        echo "🔒 Validating CSP allows all third-party services..."
+        echo "   (runs early — only reads _worker.template.js, no WP access needed)"
+        python3 scripts/test_csp.py || {
+          echo ""
+          echo "❌ CSP validation failed!"
+          echo "   Check _worker.template.js Content-Security-Policy header"
+          echo ""
+          exit 1
+        }
+
     - name: Validate WordPress Source Health
       env:
         WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
@@ -427,17 +439,6 @@ jobs:
         python3 scripts/markdown_api.py \
           ./static-output/markdown \
           ./static-output/api
-
-    - name: Validate CSP configuration (Utterances, Plausible, Credly)
-      run: |
-        echo "🔒 Validating CSP allows all third-party services..."
-        python3 scripts/test_csp.py || {
-          echo ""
-          echo "❌ CSP validation failed!"
-          echo "   Check _worker.template.js Content-Security-Policy header"
-          echo ""
-          exit 1
-        }
 
     - name: Content quality validation
       timeout-minutes: 5
@@ -635,32 +636,39 @@ jobs:
         echo "PICTURE_CONVERTED=1" >> $GITHUB_ENV
       continue-on-error: true
 
-    - name: Optimize CSS, SEO, and performance (parallel)
+    - name: SEO fixes and performance enhancements (parallel)
       run: |
-        echo "🚀 Running CSS optimization, SEO fixes, and performance enhancements in parallel..."
+        echo "🚀 Running SEO fixes and performance enhancements in parallel..."
 
-        # These three are independent and can run simultaneously
-        python3 scripts/optimize_css.py ./static-output &
-        PID_CSS=$!
+        # These two are independent HTML transforms and can run simultaneously
         python3 scripts/fix_seo_issues.py ./static-output &
         PID_SEO=$!
         python3 scripts/enhance_html_performance.py ./static-output &
         PID_PERF=$!
 
-        # Wait for all three and collect exit codes
-        wait $PID_CSS  && echo "✅ CSS optimization done" || echo "⚠️  CSS optimization failed (non-blocking)"
         wait $PID_SEO  && echo "✅ SEO fixes done" || echo "⚠️  SEO fixes failed (non-blocking)"
         wait $PID_PERF && echo "✅ Performance enhancements done" || echo "⚠️  Performance enhancements failed (non-blocking)"
       continue-on-error: true
 
-    - name: Extract critical CSS and minify
+    - name: CSS pipeline (unused removal + critical extraction + minify)
       run: |
-        echo "🎨 Extracting and inlining critical CSS..."
+        echo "🎨 Running full CSS pipeline..."
+
+        # Step 1: Remove unused CSS selectors (must complete before critical extraction)
+        echo "  1/3 Removing unused CSS selectors..."
+        python3 scripts/optimize_css.py ./static-output || echo "⚠️  CSS optimization failed (non-blocking)"
+
+        # Step 2: Extract and inline critical CSS (depends on step 1)
+        echo "  2/3 Extracting and inlining critical CSS..."
         python3 scripts/extract_critical_css.py ./static-output || echo "⚠️  Critical CSS extraction failed (non-blocking)"
 
-        echo "✂️  Minifying CSS files..."
+        # Step 3: Minify remaining CSS (depends on step 2)
+        echo "  3/3 Minifying CSS files..."
         python3 scripts/optimize_css.py ./static-output --minify-only || echo "⚠️  CSS minification failed (non-blocking)"
+      continue-on-error: true
 
+    - name: Minify HTML
+      run: |
         echo "✂️  Minifying HTML files..."
         python3 scripts/minify_html.py ./static-output || echo "⚠️  HTML minification failed (non-blocking)"
       continue-on-error: true
@@ -803,21 +811,13 @@ jobs:
           exit 1
         fi
 
-    - name: Commit and push static site
-      timeout-minutes: 10  # Timeout for git operations
+    - name: Prepare output for deployment
       run: |
         # Configure git
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        
-        # Debug: Show current state
-        echo "📋 Initial state:"
-        echo "Working directory: $(pwd)"
-        echo "Current branch: $(git branch --show-current)"
-        echo "Local HEAD: $(git rev-parse HEAD)"
-        echo "Remote HEAD: $(git ls-remote origin main | cut -f1)"
-        
-        # IMPORTANT: Preserve the populated cache before reset
+
+        # Preserve the populated cache before reset
         echo "💾 Preserving optimization cache before reset..."
         if [ -f ".image_optimization_cache/optimization_cache.json" ]; then
           CACHE_ENTRIES=$(python3 -c "import json; print(len(json.load(open('.image_optimization_cache/optimization_cache.json'))))" 2>/dev/null || echo "0")
@@ -825,141 +825,104 @@ jobs:
           cp -r .image_optimization_cache /tmp/preserved_cache_$$
           echo "  ✓ Cache backed up to /tmp/preserved_cache_$$"
         fi
-        
+
         # Ensure we're on the latest version of main
         echo "🔄 Syncing with remote repository..."
         git fetch origin
-        echo "After fetch - Remote HEAD: $(git rev-parse origin/main)"
         git reset --hard origin/main
-        echo "After reset - Local HEAD: $(git rev-parse HEAD)"
-        
+
         # Restore the cache after reset
-        echo "♻️  Restoring optimization cache after reset..."
         if [ -d "/tmp/preserved_cache_$$" ]; then
           cp -r /tmp/preserved_cache_$$/optimization_cache.json .image_optimization_cache/
-          RESTORED_ENTRIES=$(python3 -c "import json; print(len(json.load(open('.image_optimization_cache/optimization_cache.json'))))" 2>/dev/null || echo "0")
-          echo "  ✓ Cache restored with $RESTORED_ENTRIES entries"
+          echo "  ✓ Cache restored"
           rm -rf /tmp/preserved_cache_$$
         fi
-        
-        # Add static files
+
+        # Move static output to public/
         rm -rf public/
         mv ./static-output public/
-        
-        # Copy IndexNow key file to public directory so search engines can verify ownership
+
+        # Copy IndexNow key file
         if [ -f ".indexnow_key" ]; then
           INDEXNOW_KEY=$(cat .indexnow_key)
           cp .indexnow_key "public/${INDEXNOW_KEY}.txt"
           echo "✅ IndexNow key file copied to public/${INDEXNOW_KEY}.txt"
-        else
-          echo "⚠️  WARNING: .indexnow_key not found — IndexNow verification file will be missing"
         fi
 
-        # Copy Advanced Mode worker to public directory
-        echo "📦 Preparing Cloudflare Pages Advanced Mode Worker..."
+        # Copy Advanced Mode worker
         if [ -f "_worker.template.js" ]; then
           cp _worker.template.js public/_worker.js
-          echo "✅ _worker.js copied to public/ directory"
-          echo "   This enables Advanced Mode for full request interception"
+          echo "✅ _worker.js copied to public/"
         else
-          echo "⚠️  WARNING: _worker.template.js not found"
-          echo "   Advanced Mode will not be enabled"
+          echo "⚠️  WARNING: _worker.template.js not found — Advanced Mode will not be enabled"
         fi
 
-        # Convert absolute URLs to relative for better staging compatibility
+        # Convert absolute URLs to relative for staging compatibility
+        # (preserves absolute URLs in canonical, OG/Twitter meta, and JSON-LD)
         echo "🔄 Converting URLs for staging compatibility..."
         python3 scripts/convert_to_staging.py
 
-        # Re-run SEO URL fixes after staging conversion so that og:image,
-        # og:url, twitter:image, and JSON-LD @id values are restored to
-        # absolute URLs (convert_to_staging.py strips all domain prefixes,
-        # including inside <meta> and <script type="application/ld+json"> tags).
-        echo "🔧 Re-applying SEO absolute-URL fixes post-conversion..."
-        python3 scripts/fix_seo_issues.py public/ || echo "⚠️  Post-conversion SEO URL fix failed (non-blocking)"
-
-        # Generate changelog page
+    - name: Generate changelog, stats, and recompress
+      run: |
         echo "📋 Generating changelog page..."
         python3 scripts/generate_changelog.py || echo "⚠️  Changelog generation failed (non-blocking)"
-        
-        # Generate stats page
+
         echo "📊 Generating stats page..."
         PLAUSIBLE_SHARE_LINK="${{ secrets.PLAUSIBLE_SHARE_LINK }}" python3 scripts/generate_stats_page.py || echo "⚠️  Stats page generation failed (non-blocking)"
 
-        # Recompress files created/modified after the main Brotli pass.
-        # generate_changelog.py and generate_stats_page.py write into public/
-        # AFTER the Brotli step, so their .br/.gz sidecars are stale. The mtime
-        # check in brotli_compress.py detects the newer source and recompresses.
+        # Recompress files created after the main Brotli pass
         echo "🗜️  Recompressing post-deploy generated files..."
         for dir in public/changelog public/stats; do
           [ -d "$dir" ] && python3 scripts/brotli_compress.py "$dir" 2>/dev/null || true
         done
+      continue-on-error: true
 
-        # Check if there are changes to commit
-        # Note: .br files are automatically included in public/
+    - name: Commit and push static site
+      timeout-minutes: 5
+      run: |
         git add public/ .last_spell_check_timestamp .image_optimization_cache/ .indexnow_key 2>/dev/null || true
 
-        # Add the IndexNow key verification file by its exact name.
-        # Using *.txt would risk committing any stray .txt file on the runner.
+        # Add the IndexNow key verification file by its exact name
         if [ -f ".indexnow_key" ]; then
           INDEXNOW_KEY_NAME=$(cat .indexnow_key)
           git add "${INDEXNOW_KEY_NAME}.txt" 2>/dev/null || true
         fi
-        
-        if [ -n "$(git diff --cached)" ]; then
-          echo "📝 Changes detected, committing..."
-          git commit -m "🚀 Auto-update static site - $(date '+%Y-%m-%d %H:%M:%S')"
-          
-          # Simple push with built-in retry
-          echo "📤 Pushing to remote..."
-          if git push origin main; then
-            echo "✅ Push successful"
-          else
-            echo "⚠️  Push failed, trying sync and retry..."
-            git fetch origin
-            
-            # Try rebase first
-            if git rebase origin/main; then
-              echo "📥 Rebase successful, pushing again..."
-              git push origin main
-            else
-              echo "⚠️  Rebase failed, using force push to resolve conflicts..."
-              git rebase --abort 2>/dev/null || true
-              
-              # Reset to origin, regenerate, and force push
-              git reset --hard origin/main
-              echo "🔄 Regenerating static site after reset..."
-              rm -rf public/ ./static-output
-              python3 scripts/wp_to_static_generator.py ./static-output --no-incremental
-              mv ./static-output public/
-              git add public/
-              git commit -m "🚀 Auto-update static site - $(date '+%Y-%m-%d %H:%M:%S') [force-resolved]"
-              
-              # Force push to resolve any conflicts definitively
-              echo "💪 Force pushing to resolve all conflicts..."
-              git push --force-with-lease origin main
-            fi
-          fi
-          
-          echo "✅ Static site updated successfully"
-          
-          # Add deployment summary to GitHub Actions UI
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- **Status:** ✅ Successfully deployed" >> $GITHUB_STEP_SUMMARY
-          echo "- **Target:** `public/` directory" >> $GITHUB_STEP_SUMMARY
-          echo "- **Commit:** $(git rev-parse --short HEAD)" >> $GITHUB_STEP_SUMMARY
-          echo "- **Cloudflare Pages:** Will auto-deploy from repository" >> $GITHUB_STEP_SUMMARY
-        else
+
+        if [ -z "$(git diff --cached)" ]; then
           echo "ℹ️  No changes to commit"
-          
-          # Add no-changes summary
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## ℹ️ Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- **Status:** No changes detected" >> $GITHUB_STEP_SUMMARY
           echo "- **Note:** Site is already up to date" >> $GITHUB_STEP_SUMMARY
+          exit 0
         fi
+
+        echo "📝 Changes detected, committing..."
+        git commit -m "🚀 Auto-update static site - $(date '+%Y-%m-%d %H:%M:%S')"
+
+        echo "📤 Pushing to remote..."
+        if git push origin main; then
+          echo "✅ Push successful"
+        else
+          echo "⚠️  Push failed, trying rebase and retry..."
+          git fetch origin
+          if git rebase origin/main; then
+            git push origin main
+          else
+            git rebase --abort 2>/dev/null || true
+            echo "❌ Push failed after rebase attempt — failing build for manual review"
+            exit 1
+          fi
+        fi
+
+        echo "✅ Static site updated successfully"
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Status:** ✅ Successfully deployed" >> $GITHUB_STEP_SUMMARY
+        echo "- **Commit:** $(git rev-parse --short HEAD)" >> $GITHUB_STEP_SUMMARY
+        echo "- **Cloudflare Pages:** Will auto-deploy from repository" >> $GITHUB_STEP_SUMMARY
     - name: Notify on success
       if: success()
       run: |

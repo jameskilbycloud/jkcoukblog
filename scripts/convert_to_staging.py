@@ -8,24 +8,66 @@ from pathlib import Path
 from config import Config
 
 def convert_html_to_relative_urls(html_content):
-    """Convert absolute URLs to relative URLs for staging"""
+    """Convert absolute URLs to relative URLs for staging.
+
+    Preserves absolute URLs in elements that require them for correctness:
+    - <meta property="og:*"> and <meta name="twitter:image"> (social previews)
+    - <link rel="canonical"> (SEO deduplication)
+    - <script type="application/ld+json"> blocks (structured data)
+    """
     # Get domain from config
     target_domain = Config.TARGET_DOMAIN.replace('https://', '').replace('http://', '')
-    
-    # Replace absolute URLs with relative URLs
+
+    # Protect elements that must keep absolute URLs by replacing them with
+    # placeholders before the global regex runs, then restoring them after.
+    preserved = []
+
+    def _preserve(match):
+        idx = len(preserved)
+        preserved.append(match.group(0))
+        return f'__PRESERVE_{idx}__'
+
+    # Preserve canonical links
+    html_content = re.sub(
+        r'<link\s[^>]*rel=["\']canonical["\'][^>]*/?>',
+        _preserve,
+        html_content,
+        flags=re.IGNORECASE,
+    )
+
+    # Preserve OG and Twitter meta tags with URL values
+    html_content = re.sub(
+        r'<meta\s[^>]*(?:property=["\']og:|name=["\']twitter:image)[^>]*/?>',
+        _preserve,
+        html_content,
+        flags=re.IGNORECASE,
+    )
+
+    # Preserve JSON-LD script blocks
+    html_content = re.sub(
+        r'<script\s[^>]*type=["\']application/ld\+json["\'][^>]*>.*?</script>',
+        _preserve,
+        html_content,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+
+    # Apply the domain-stripping replacements
     html_content = re.sub(
         rf'https://{re.escape(target_domain)}/wp-content/',
         '/wp-content/',
         html_content
     )
-    
-    # Also replace any other absolute references to the domain
+
     html_content = re.sub(
         rf'https://{re.escape(target_domain)}/',
         '/',
         html_content
     )
-    
+
+    # Restore preserved elements
+    for idx, original in enumerate(preserved):
+        html_content = html_content.replace(f'__PRESERVE_{idx}__', original)
+
     return html_content
 
 def convert_css_urls(css_content):

@@ -63,10 +63,11 @@ optimize-images: ## Optimise images (AVIF/WebP)
 	python3 scripts/optimize_images.py $(OUTPUT_DIR) --workers $(WORKERS)
 	python3 scripts/convert_images_to_picture.py $(OUTPUT_DIR)
 
-optimize-css: ## Optimise CSS (remove unused + minify)
+optimize-css: ## Optimise CSS (remove unused + critical extraction + minify)
 	python3 scripts/optimize_css.py $(OUTPUT_DIR)
 	python3 scripts/extract_critical_css.py $(OUTPUT_DIR)
 	python3 scripts/optimize_css.py $(OUTPUT_DIR) --minify-only
+	@echo "  CSS pipeline: unused removal → critical extraction → minify"
 
 optimize-html: ## Optimise HTML (SEO fixes, performance, minify)
 	python3 scripts/fix_seo_issues.py $(OUTPUT_DIR)
