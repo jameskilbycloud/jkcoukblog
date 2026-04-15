@@ -63,16 +63,12 @@ optimize-images: ## Optimise images (AVIF/WebP)
 	python3 scripts/optimize_images.py $(OUTPUT_DIR) --workers $(WORKERS)
 	python3 scripts/convert_images_to_picture.py $(OUTPUT_DIR)
 
-optimize-css: ## Optimise CSS (remove unused + critical extraction + minify)
+optimize-css: ## Optimise CSS files (remove unused + minify)
 	python3 scripts/optimize_css.py $(OUTPUT_DIR)
-	python3 scripts/extract_critical_css.py $(OUTPUT_DIR)
 	python3 scripts/optimize_css.py $(OUTPUT_DIR) --minify-only
-	@echo "  CSS pipeline: unused removal → critical extraction → minify"
 
-optimize-html: ## Optimise HTML (SEO fixes, performance, minify)
-	python3 scripts/fix_seo_issues.py $(OUTPUT_DIR)
-	python3 scripts/enhance_html_performance.py $(OUTPUT_DIR)
-	python3 scripts/minify_html.py $(OUTPUT_DIR)
+optimize-html: ## Optimise HTML (single-pass: SEO + pictures + perf + critical CSS + minify)
+	python3 scripts/html_transformer.py $(OUTPUT_DIR)
 
 compress: ## Brotli + Gzip pre-compression
 	python3 scripts/brotli_compress.py $(OUTPUT_DIR)
