@@ -13,6 +13,7 @@ import subprocess
 import json
 import os
 from datetime import datetime
+from html import escape as html_escape
 from pathlib import Path
 import requests
 
@@ -560,9 +561,12 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
                 html += "            <br>\n"
             current_date = change['date']
         
-        # Clean up the subject and body
+        # Clean up the subject and body, and HTML-escape to prevent
+        # commit messages containing <tags> from being parsed as real elements
         subject = change['subject'].replace('Co-Authored-By: Warp <agent@warp.dev>', '').strip()
+        subject = html_escape(subject)
         body = change['body'].replace('Co-Authored-By: Warp <agent@warp.dev>', '').strip()
+        body = html_escape(body)
         
         # Get category badge
         category = change.get('category', 'other')
