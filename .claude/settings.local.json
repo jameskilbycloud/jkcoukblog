@@ -16,7 +16,9 @@
       "Bash(grep -n \"pull_request_target\\\\|checkout.*ref\\\\|secrets\\\\.\\\\|GITHUB_TOKEN\" /Users/w20kilja/Github/jkcoukblog/.github/workflows/*.yml)",
       "Bash(gh run:*)",
       "Bash(gh api:*)",
-      "WebFetch(domain:www.indexnow.org)"
+      "WebFetch(domain:www.indexnow.org)",
+      "Bash(xxd)",
+      "WebFetch(domain:www.bing.com)"
     ]
   }
 }
