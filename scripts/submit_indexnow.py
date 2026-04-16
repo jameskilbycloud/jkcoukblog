@@ -131,6 +131,7 @@ class IndexNowSubmitter:
             payload = {
                 'host': self.site_domain.replace('https://', '').replace('http://', ''),
                 'key': self.api_key,
+                'keyLocation': f'{self.site_domain}/{self.api_key}.txt',
                 'urlList': batch
             }
             
