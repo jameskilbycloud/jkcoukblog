@@ -13,7 +13,9 @@
       "Bash(grep -r \"entry-content\" /Users/w20kilja/Github/jkcoukblog/scripts/*.py)",
       "Bash(python3:*)",
       "WebFetch(domain:jameskilby.co.uk)",
-      "Bash(grep -n \"pull_request_target\\\\|checkout.*ref\\\\|secrets\\\\.\\\\|GITHUB_TOKEN\" /Users/w20kilja/Github/jkcoukblog/.github/workflows/*.yml)"
+      "Bash(grep -n \"pull_request_target\\\\|checkout.*ref\\\\|secrets\\\\.\\\\|GITHUB_TOKEN\" /Users/w20kilja/Github/jkcoukblog/.github/workflows/*.yml)",
+      "Bash(gh run:*)",
+      "Bash(gh api:*)"
     ]
   }
 }

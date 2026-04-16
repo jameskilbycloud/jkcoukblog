@@ -191,7 +191,7 @@ jobs:
 
       - name: Notify Slack with metrics (on push/PR)
         if: always() && steps.lighthouse_results.outputs.has_results == 'true' && (github.event_name == 'push' || github.event_name == 'pull_request')
-        uses: slackapi/slack-github-action@v2.0.0
+        uses: slackapi/slack-github-action@v3.0.1
         with:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
@@ -274,7 +274,7 @@ jobs:
 
       - name: Notify Slack with daily metrics
         if: github.event_name == 'schedule' && steps.lighthouse_results.outputs.has_results == 'true'
-        uses: slackapi/slack-github-action@v2.0.0
+        uses: slackapi/slack-github-action@v3.0.1
         with:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook

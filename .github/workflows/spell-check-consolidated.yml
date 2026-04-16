@@ -103,7 +103,7 @@ jobs:
         
     - name: Upload spell check report (report-only mode)
       if: always() && github.event.inputs.mode == 'report-only'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: spelling-report-${{ github.run_id }}
         path: |
@@ -113,7 +113,7 @@ jobs:
         
     - name: Upload corrections (create-corrections mode)
       if: steps.spell-check.outputs.status == 'errors_found' && github.event.inputs.mode == 'create-corrections'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: spelling-corrections-${{ github.run_id }}
         path: |
@@ -178,7 +178,7 @@ jobs:
         
     - name: Notify Slack - Clean
       if: steps.spell-check.outputs.status == 'clean'
-      uses: slackapi/slack-github-action@v2.0.0
+      uses: slackapi/slack-github-action@v3.0.1
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
@@ -210,7 +210,7 @@ jobs:
         
     - name: Notify Slack - Errors (report-only)
       if: steps.spell-check.outputs.status == 'errors_found' && github.event.inputs.mode == 'report-only'
-      uses: slackapi/slack-github-action@v2.0.0
+      uses: slackapi/slack-github-action@v3.0.1
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
@@ -244,7 +244,7 @@ jobs:
         
     - name: Notify Slack - Corrections Pending
       if: steps.spell-check.outputs.status == 'errors_found' && github.event.inputs.mode == 'create-corrections'
-      uses: slackapi/slack-github-action@v2.0.0
+      uses: slackapi/slack-github-action@v3.0.1
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
@@ -300,7 +300,7 @@ jobs:
         pip install requests beautifulsoup4 pyspellchecker
         
     - name: Download corrections artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: spelling-corrections-${{ github.event.client_payload.run_id }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -343,7 +343,7 @@ jobs:
           });
         
     - name: Notify Slack
-      uses: slackapi/slack-github-action@v2.0.0
+      uses: slackapi/slack-github-action@v3.0.1
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
@@ -387,7 +387,7 @@ jobs:
         pip install requests beautifulsoup4
         
     - name: Download corrections artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: spelling-corrections-${{ github.event.client_payload.run_id }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -407,7 +407,7 @@ jobs:
         
     - name: Upload verification report
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: verification-report-${{ github.run_id }}
         path: verification_report.txt
@@ -415,7 +415,7 @@ jobs:
         
     - name: Notify Slack
       if: always()
-      uses: slackapi/slack-github-action@v2.0.0
+      uses: slackapi/slack-github-action@v3.0.1
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook

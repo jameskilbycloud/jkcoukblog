@@ -53,7 +53,7 @@ jobs:
         fetch-depth: 0  # Fetch full history
       
     - name: Restore spell check cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: .last_spell_check_timestamp
         key: spell-check-${{ github.sha }}
@@ -166,7 +166,7 @@ jobs:
       
     - name: Restore build cache
       id: cache-restore
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: |
           .image_optimization_cache
@@ -177,7 +177,7 @@ jobs:
 
     - name: Restore incremental build cache
       id: incremental-cache-restore
-      uses: actions/cache/restore@v4
+      uses: actions/cache/restore@v5
       with:
         path: .build-cache.json
         key: incremental-build-cache-${{ github.run_id }}
@@ -314,7 +314,7 @@ jobs:
 
     - name: Upload WordPress validation report
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: wordpress-validation-report
         path: wordpress-source-validation.json
@@ -425,7 +425,7 @@ jobs:
 
     - name: Save incremental build cache
       if: success()
-      uses: actions/cache/save@v4
+      uses: actions/cache/save@v5
       with:
         path: .build-cache.json
         key: incremental-build-cache-${{ github.run_id }}
@@ -487,7 +487,7 @@ jobs:
 
     - name: Upload content validation report
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: content-validation-report
         path: validation-report.json
@@ -883,7 +883,7 @@ jobs:
 
     - name: Setup Node.js (for Wrangler)
       if: success()
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
         node-version: '18'
 
@@ -1057,7 +1057,7 @@ jobs:
 
     - name: Notify Slack on Success
       if: success()
-      uses: slackapi/slack-github-action@v2.0.0
+      uses: slackapi/slack-github-action@v3.0.1
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
@@ -1133,7 +1133,7 @@ jobs:
         
     - name: Notify Slack on Failure  
       if: failure()
-      uses: slackapi/slack-github-action@v2.0.0
+      uses: slackapi/slack-github-action@v3.0.1
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
