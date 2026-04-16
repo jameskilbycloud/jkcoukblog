@@ -211,19 +211,31 @@ jobs:
       
     - name: Install system dependencies
       run: |
-        echo "📦 Installing system dependencies..."
+        echo "📦 Checking system dependencies..."
 
-        # Wait for any running unattended-upgrades / dpkg to finish
-        # (common on self-hosted Ubuntu runners after boot)
-        echo "⏳ Waiting for dpkg lock..."
-        sudo apt-get -o DPkg::Lock::Timeout=120 update -qq
+        # Check for each required binary up front; only touch apt if something
+        # is actually missing. On a long-lived self-hosted runner everything is
+        # already installed, and hitting apt just to re-confirm costs a dpkg
+        # lock wait (up to 120s) behind unattended-upgrades.
+        MISSING_PKGS=()
+        command -v jq       >/dev/null 2>&1 || MISSING_PKGS+=(jq)
+        command -v bc       >/dev/null 2>&1 || MISSING_PKGS+=(bc)
+        command -v avifenc  >/dev/null 2>&1 || MISSING_PKGS+=(libavif-bin)
+        command -v optipng  >/dev/null 2>&1 || MISSING_PKGS+=(optipng)
+        command -v jpegoptim >/dev/null 2>&1 || MISSING_PKGS+=(jpegoptim)
+        command -v cwebp    >/dev/null 2>&1 || MISSING_PKGS+=(webp)
+        python3 -m pip --version >/dev/null 2>&1 || MISSING_PKGS+=(python3-pip)
+        python3 -c 'import venv' >/dev/null 2>&1 || MISSING_PKGS+=(python3-venv)
 
-        sudo apt-get -o DPkg::Lock::Timeout=120 install -y \
-          python3-pip python3-venv \
-          jq bc \
-          libavif-bin optipng jpegoptim webp
-
-        echo "✅ System dependencies installed"
+        if [ ${#MISSING_PKGS[@]} -eq 0 ]; then
+          echo "✅ All system dependencies already installed — skipping apt"
+        else
+          echo "⚠️  Missing packages: ${MISSING_PKGS[*]}"
+          echo "⏳ Waiting for dpkg lock..."
+          sudo apt-get -o DPkg::Lock::Timeout=120 update -qq
+          sudo apt-get -o DPkg::Lock::Timeout=120 install -y "${MISSING_PKGS[@]}"
+          echo "✅ System dependencies installed"
+        fi
         echo "  ✓ pip: $(python3 -m pip --version)"
         echo "  ✓ jq: $(jq --version)"
         echo "  ✓ bc: $(bc --version | head -n 1)"
