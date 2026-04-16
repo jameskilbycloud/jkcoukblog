@@ -48,7 +48,7 @@ jobs:
         fi
     
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0  # Fetch full history
       
@@ -160,7 +160,7 @@ jobs:
         fi
     
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0  # Fetch full history for accurate git stats in changelog
       
