@@ -820,6 +820,18 @@ jobs:
           echo "⚠️  WARNING: _worker.template.js not found — Advanced Mode will not be enabled"
         fi
 
+        # Generate security.txt (RFC 9116) with a rolling 1-year expiry
+        mkdir -p public/.well-known
+        SECURITY_TXT_EXPIRES=$(date -u -d '+365 days' '+%Y-%m-%dT%H:%M:%SZ' 2>/dev/null || date -u -v+365d '+%Y-%m-%dT%H:%M:%SZ')
+        cat > public/.well-known/security.txt <<EOF
+        Contact: mailto:security@jameskilby.cloud
+        Expires: ${SECURITY_TXT_EXPIRES}
+        Preferred-Languages: en
+        Canonical: https://jameskilby.co.uk/.well-known/security.txt
+        EOF
+        cp public/.well-known/security.txt public/security.txt
+        echo "✅ security.txt written (expires ${SECURITY_TXT_EXPIRES})"
+
         # Convert absolute URLs to relative for staging compatibility
         # (preserves absolute URLs in canonical, OG/Twitter meta, and JSON-LD)
         echo "🔄 Converting URLs for staging compatibility..."
