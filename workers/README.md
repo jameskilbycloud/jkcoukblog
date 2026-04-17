@@ -1,102 +1,58 @@
 # Cloudflare Workers
 
-This directory contains Cloudflare Workers for the jkcoukblog static site.
+This directory contains the standalone Cloudflare Workers used alongside the
+main site. Edge HTML caching is **not** in here — it's handled by the Pages
+Advanced Mode Worker at [`../_worker.template.js`](../_worker.template.js),
+which is copied to `public/_worker.js` during deploy. Do not reintroduce a
+standalone HTML cache worker here; Cloudflare Pages ignores anything that
+would conflict with `public/_worker.js`.
 
-## Workers
+## Active workers
 
-### 1. `html-cache.js` - HTML Caching Worker
+### `search-api.js`
 
-**Purpose:** Caches HTML pages at Cloudflare's edge to dramatically improve TTFB.
+Edge search API backed by the `SEARCH_INDEX` KV namespace. Serves the
+compressed search index and a search endpoint so the browser doesn't have to
+download `search-index.json` in full.
 
-**Impact:**
-- TTFB: 320ms → ~50ms (85% improvement)
-- Total load: 665ms → ~200ms (70% improvement)
+KV binding: `SEARCH_INDEX` (namespace ID in [`../wrangler.toml`](../wrangler.toml)).
 
-**Features:**
-- ✅ Caches HTML for 5 minutes
-- ✅ Adds debug headers (X-Worker-Cache, X-Cache-Age)
-- ✅ Supports manual cache purging
-- ✅ Excludes admin/preview URLs
+### `slack-notification-handler.js`
 
-**Quick Deploy:**
-```bash
-# Option 1: Pages Function (recommended)
-./deploy-cache-worker.sh pages
+Receives Cloudflare Pages deployment webhooks and forwards formatted
+notifications to Slack. Deployed as a standalone Worker whose URL is
+registered as the Pages notification endpoint.
 
-# Option 2: Standalone Worker
-./deploy-cache-worker.sh worker
-```
+## Archived
 
-**Full Documentation:** [`docs/HTML_CACHE_WORKER.md`](../docs/HTML_CACHE_WORKER.md)
+[`archive/`](archive/) contains superseded workers kept only for reference —
+do not edit or redeploy them.
 
----
-
-### 2. `slack-notification-handler.js` - Slack Webhook Handler
-
-**Purpose:** Handles Slack notifications from GitHub Actions workflows.
-
-**Status:** Already deployed
-
-**Configuration:** See `wrangler.toml`
-
----
-
-### 3. `slack-notification-handler-improved.js` - Enhanced Slack Handler
-
-**Purpose:** Improved version of Slack notification handler with better formatting.
-
-**Status:** Development/testing
-
----
-
-## Quick Reference
-
-| Worker | Purpose | Status | Docs |
-|--------|---------|--------|------|
-| html-cache.js | Edge HTML caching | ✅ Ready | [HTML_CACHE_WORKER.md](../docs/HTML_CACHE_WORKER.md) |
-| slack-notification-handler.js | Slack alerts | ✅ Deployed | - |
-| slack-notification-handler-improved.js | Enhanced Slack | 🚧 Testing | - |
+- `html-cache.js` — original edge HTML cache. Replaced by the Advanced Mode
+  Worker in [`../_worker.template.js`](../_worker.template.js), which adds
+  KV-backed caching, smart TTLs, view tracking, and security headers.
+- `slack-notification-handler-improved.js` — experimental rewrite, never
+  promoted.
 
 ## Deployment
 
-All workers are configured in `wrangler.toml` and can be deployed via:
+Active workers are deployed manually with Wrangler when their source changes:
 
 ```bash
-# Deploy specific worker
-npx wrangler deploy workers/<worker-name>.js --name <worker-name>
-
-# Or use the helper script
-./deploy-cache-worker.sh [pages|worker]
+npx wrangler deploy workers/search-api.js --name <worker-name>
+npx wrangler deploy workers/slack-notification-handler.js --name <worker-name>
 ```
 
-## Testing
-
-Test the HTML cache worker after deployment:
-
-```bash
-# Test cache miss (first request)
-curl -I https://jameskilby.co.uk/ | grep X-Worker-Cache
-
-# Test cache hit (second request)
-curl -I https://jameskilby.co.uk/ | grep X-Worker-Cache
-
-# Verify performance
-curl -w "\nTTFB: %{time_starttransfer}s\n" -o /dev/null -s https://jameskilby.co.uk/
-```
+They are **not** part of the `deploy-static-site.yml` pipeline — that
+workflow only builds the static site, uploads the search index to KV, and
+purges caches.
 
 ## Monitoring
 
-View worker metrics in Cloudflare Dashboard:
-- Workers & Pages → [worker-name] → Metrics
-- Analytics → Traffic (for cache hit ratio)
+Cloudflare Dashboard → Workers & Pages → `<worker>` → Metrics.
 
-Tail logs in real-time:
+Tail live logs:
+
 ```bash
 npx wrangler tail <worker-name>
 ```
-
-## Related Documentation
-
-- [`wrangler.toml`](../wrangler.toml) - Worker configurations
-- [`docs/HTML_CACHE_WORKER.md`](../docs/HTML_CACHE_WORKER.md) - HTML cache documentation
-- [`deploy-cache-worker.sh`](../deploy-cache-worker.sh) - Deployment script
