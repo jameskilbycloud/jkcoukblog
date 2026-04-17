@@ -932,9 +932,8 @@ jobs:
         if [ -n "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] && [ -n "${{ secrets.KV_SEARCH_INDEX_ID }}" ]; then
           CURRENT_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           
-          if npx wrangler kv:key put \
+          if npx wrangler kv key put \
             --namespace-id="${{ secrets.KV_SEARCH_INDEX_ID }}" \
-            --binding=SEARCH_INDEX \
             "current" public/search-index.json \
             --metadata="{\"updated\":\"${CURRENT_TIME}\"}"; then
             echo "✅ Search index uploaded to Workers KV"
