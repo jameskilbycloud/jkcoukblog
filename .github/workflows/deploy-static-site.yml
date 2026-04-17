@@ -909,7 +909,7 @@ jobs:
       if: success()
       uses: actions/setup-node@v6
       with:
-        node-version: '18'
+        node-version: '20'
 
     - name: Upload search index to Workers KV
       if: success()
@@ -932,23 +932,23 @@ jobs:
         if [ -n "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] && [ -n "${{ secrets.KV_SEARCH_INDEX_ID }}" ]; then
           CURRENT_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           
-          npx wrangler kv:key put \
+          if npx wrangler kv:key put \
             --namespace-id="${{ secrets.KV_SEARCH_INDEX_ID }}" \
             --binding=SEARCH_INDEX \
             "current" public/search-index.json \
-            --metadata="{\"updated\":\"${CURRENT_TIME}\"}" || {
+            --metadata="{\"updated\":\"${CURRENT_TIME}\"}"; then
+            echo "✅ Search index uploaded to Workers KV"
+            echo "   Updated: ${CURRENT_TIME}"
+
+            # Add to summary
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "## 🔍 Search Index Updated" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "- **KV Namespace:** SEARCH_INDEX" >> $GITHUB_STEP_SUMMARY
+            echo "- **Updated:** ${CURRENT_TIME}" >> $GITHUB_STEP_SUMMARY
+          else
             echo "⚠️  Failed to upload search index to KV (non-blocking)"
-          }
-          
-          echo "✅ Search index uploaded to Workers KV"
-          echo "   Updated: ${CURRENT_TIME}"
-          
-          # Add to summary
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## 🔍 Search Index Updated" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- **KV Namespace:** SEARCH_INDEX" >> $GITHUB_STEP_SUMMARY
-          echo "- **Updated:** ${CURRENT_TIME}" >> $GITHUB_STEP_SUMMARY
+          fi
         else
           echo "ℹ️  Skipping KV upload (CLOUDFLARE_API_TOKEN or KV_SEARCH_INDEX_ID not set)"
           echo "   To enable: Add secrets to repository settings"
