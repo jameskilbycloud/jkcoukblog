@@ -2,11 +2,10 @@
  * Cloudflare Pages Advanced Mode Worker
  * 
  * This worker runs on ALL requests (including static files) to jameskilby.co.uk
- * Provides smart HTML caching with KV storage, view tracking, and selective purge
- * 
+ * Provides smart HTML caching with KV storage and selective purge
+ *
  * Features:
  * - Smart TTL: 5min homepage, 15min recent posts, 1hr old posts
- * - View count tracking in KV metadata
  * - Selective cache purge via /.purge endpoint
  * - Falls back to Cache API if KV unavailable
  * - Serves static assets from Pages
@@ -105,33 +104,16 @@ export default {
 async function handleKVCache(request, env, ctx, path, hostname) {
   try {
     const cacheKey = `html:${path}`;
-    const cached = await env.HTML_CACHE.getWithMetadata(cacheKey, { type: 'text' });
+    const cached = await env.HTML_CACHE.get(cacheKey, { type: 'text' });
 
-    if (cached && cached.value) {
-      const views = parseInt(cached.metadata?.views || 0) + 1;
-      const ttl = getTTL(path); // E: compute once, reuse below
+    if (cached) {
+      const ttl = getTTL(path);
 
-      // L: preserve the original absolute expiry so view-count updates don't
-      //    keep resetting the TTL — deleted/renamed pages expire naturally.
-      const absExpiry = cached.metadata?.abs_expiry
-        || Math.floor(Date.now() / 1000) + ttl;
-
-      // Increment view count asynchronously — ctx.waitUntil ensures the put
-      // completes even after the response is returned. The .catch keeps async
-      // KV failures from being silently dropped on the floor.
-      ctx.waitUntil(
-        env.HTML_CACHE.put(cacheKey, cached.value, {
-          expiration: absExpiry, // L: absolute, not relative
-          metadata: { ...cached.metadata, views, abs_expiry: absExpiry }
-        }).catch(err => console.error('KV view-count update failed:', err))
-      );
-
-      return new Response(cached.value, {
+      return new Response(cached, {
         headers: {
           'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': `public, max-age=${ttl}`, // E: reuse ttl
+          'Cache-Control': `public, max-age=${ttl}`,
           'X-Cache-Status': 'HIT',
-          'X-Cache-Views': views.toString(),
           'X-Worker': 'advanced-worker-kv',
           ...getSecurityHeaders(hostname)
         }
@@ -165,9 +147,7 @@ async function handleKVCache(request, env, ctx, path, hostname) {
       env.HTML_CACHE.put(cacheKey, html, {
         expiration: absExpiry, // L: absolute expiry — KV evicts after ttl seconds
         metadata: {
-          views: 1,
           cached_at: new Date(nowSec * 1000).toISOString(),
-          abs_expiry: absExpiry, // L: persisted so HIT path can reuse it
           path: path
         }
       }).catch(err => console.error('KV cache write failed:', err))
