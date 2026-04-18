@@ -636,6 +636,23 @@ jobs:
         }
       continue-on-error: true
 
+    - name: Generate soft-404 artefacts and stamp Advanced Mode Worker
+      run: |
+        # Must run BEFORE Brotli compression so _worker.js and
+        # path-manifest.json get compressed + validated in lockstep with
+        # their .br/.gz sidecars. Running this AFTER the mv to public/
+        # lets stale committed .br files get reused, producing a mismatch
+        # at the validation step.
+        echo "🛡️  Generating soft-404 artefacts into static-output..."
+        python3 scripts/generate_soft404_artefacts.py ./static-output
+
+        if [ -f "_worker.template.js" ]; then
+          python3 scripts/stamp_worker_manifest.py ./static-output
+          echo "✅ _worker.js stamped with path manifest"
+        else
+          echo "⚠️  WARNING: _worker.template.js not found — Advanced Mode will not be enabled"
+        fi
+
     - name: Brotli + Gzip compress static files
       timeout-minutes: 10
       run: |
@@ -812,19 +829,10 @@ jobs:
           echo "✅ IndexNow key file copied to public/${INDEXNOW_KEY}.txt"
         fi
 
-        # Generate soft-404 artefacts: path manifest, 404.html, and legacy
-        # /slug/ → /YYYY/MM/slug/ redirects. Must run BEFORE the worker copy
-        # so the manifest is available for stamp_worker_manifest.py.
-        echo "🛡️  Generating soft-404 artefacts..."
-        python3 scripts/generate_soft404_artefacts.py public
-
-        # Copy Advanced Mode worker (with path manifest inlined)
-        if [ -f "_worker.template.js" ]; then
-          python3 scripts/stamp_worker_manifest.py public
-          echo "✅ _worker.js stamped with path manifest"
-        else
-          echo "⚠️  WARNING: _worker.template.js not found — Advanced Mode will not be enabled"
-        fi
+        # soft-404 artefacts and the stamped _worker.js are generated in the
+        # "Generate soft-404 artefacts and stamp Advanced Mode Worker" step
+        # above (before Brotli compression + validation), so they already live
+        # inside public/ at this point alongside their .br/.gz sidecars.
 
         # Generate security.txt (RFC 9116) with a rolling 1-year expiry
         mkdir -p public/.well-known
@@ -962,6 +970,39 @@ jobs:
       env:
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     
+    - name: Purge soft-404 poisoned KV entries
+      if: success()
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      run: |
+        echo "🛡️  Evicting poisoned soft-404 entries from HTML_CACHE..."
+
+        if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+          echo "ℹ️  CLOUDFLARE_API_TOKEN or CLOUDFLARE_ACCOUNT_ID not set — skipping"
+          echo "   Add them to repository secrets to auto-clean ghost URLs after deploy"
+          exit 0
+        fi
+
+        if [ ! -f public/path-manifest.json ]; then
+          echo "⚠️  public/path-manifest.json missing — soft-404 guard was not stamped this run"
+          exit 0
+        fi
+
+        # Script exits 0 on success; captures the ghost count from stderr/stdout.
+        python3 scripts/purge_soft404_kv_cache.py \
+          --manifest public/path-manifest.json \
+          | tee /tmp/soft404-purge.log
+
+        GHOSTS=$(grep -oE 'Purged [0-9]+ poisoned' /tmp/soft404-purge.log | grep -oE '[0-9]+' | head -1)
+        GHOSTS="${GHOSTS:-0}"
+
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## 🛡️ Soft-404 KV Purge" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Ghost entries evicted:** $GHOSTS" >> $GITHUB_STEP_SUMMARY
+      continue-on-error: true
+
     - name: Purge all HTML from KV cache
       if: success()
       run: |
