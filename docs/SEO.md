@@ -51,12 +51,13 @@ soft-404 sanity check.
 ### Manual steps that must accompany a code deploy
 These cannot be automated from the repo:
 
-- **Cloudflare Pages dashboard** → `jkcoukblog` project → Settings →
-  Builds & deployments → Configuration → **Not Found Behavior** →
-  change from "Single-page application" to **"404 page"**. This flips
-  `env.ASSETS.fetch()` to return a real 404 for missing paths, so the
-  Worker's guard stops having to compensate. The guard is defence in
-  depth either way.
+- **No dashboard setting to change.** Classic Cloudflare Pages has no
+  "Not Found Behavior" toggle — 404 handling is driven entirely by
+  whether `404.html` is present in the project output. The build now
+  emits `public/404.html`, so once the deploy lands, `env.ASSETS.fetch()`
+  will return that page with a real 404 status for missing paths. The
+  Worker's `isKnownContentPath` guard is defence in depth on top of
+  that.
 - **Bing Webmaster Tools** (bing.com/webmasters):
   1. Open the `jameskilby.co.uk` property.
   2. Site Explorer → find any `/nutanix-ce`-style URL → **Submit URL
