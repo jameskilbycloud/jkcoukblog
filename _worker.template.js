@@ -1,6 +1,6 @@
 /**
  * Cloudflare Pages Advanced Mode Worker
- * 
+ *
  * This worker runs on ALL requests (including static files) to jameskilby.co.uk
  * Provides smart HTML caching with KV storage and selective purge
  *
@@ -9,7 +9,75 @@
  * - Selective cache purge via /.purge endpoint
  * - Falls back to Cache API if KV unavailable
  * - Serves static assets from Pages
+ * - Soft-404 guard: when the Pages project is in SPA mode, ASSETS returns
+ *   index.html (200) for missing paths. We gate on a build-time manifest of
+ *   real content paths and convert unknown paths into a real 404 so Bing /
+ *   Google don't index ghost URLs.
  */
+
+// Build-time substitution: scripts/generate_path_manifest.py replaces the
+// placeholder below with an Array literal of all legitimate HTML paths
+// before `cp _worker.template.js public/_worker.js` in the deploy workflow.
+// If the placeholder is still present (local dev / template unchanged) the
+// soft-404 guard is disabled — the worker behaves exactly as before.
+const PATH_MANIFEST_RAW = /*__PATH_MANIFEST_START__*/null/*__PATH_MANIFEST_END__*/;
+const PATH_MANIFEST = PATH_MANIFEST_RAW ? new Set(PATH_MANIFEST_RAW) : null;
+
+/**
+ * Is this path a known content URL?
+ *
+ * Returns true if the manifest is missing (fail-open during local dev), or
+ * if the path matches one of the valid HTML paths baked at build time. A
+ * path is normalised by stripping the trailing slash except for '/' itself
+ * so '/about-me' and '/about-me/' both resolve.
+ */
+function isKnownContentPath(path) {
+  if (!PATH_MANIFEST) return true;
+  if (path === '/' || path === '/index.html') return true;
+  const normalised = path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
+  return PATH_MANIFEST.has(normalised) || PATH_MANIFEST.has(normalised + '/');
+}
+
+/**
+ * Build a 404 response. Tries to serve /404.html from ASSETS; falls back to
+ * a tiny inline body if that file isn't present.
+ */
+async function buildNotFoundResponse(env, hostname) {
+  try {
+    const notFoundReq = new Request('https://internal/404.html');
+    const r = await env.ASSETS.fetch(notFoundReq);
+    if (r.ok) {
+      const body = await r.text();
+      return new Response(body, {
+        status: 404,
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'public, max-age=60, must-revalidate',
+          'X-Cache-Status': 'SOFT404-FIXED',
+          'X-Worker': 'advanced-worker',
+          'X-Robots-Tag': 'noindex',
+          ...getSecurityHeaders(hostname)
+        }
+      });
+    }
+  } catch (_) {
+    // fall through to inline body
+  }
+  return new Response(
+    '<!doctype html><meta charset=utf-8><title>Not Found</title><h1>404 Not Found</h1>',
+    {
+      status: 404,
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'public, max-age=60, must-revalidate',
+        'X-Cache-Status': 'SOFT404-FIXED',
+        'X-Worker': 'advanced-worker',
+        'X-Robots-Tag': 'noindex',
+        ...getSecurityHeaders(hostname)
+      }
+    }
+  );
+}
 
 export default {
   async fetch(request, env, ctx) {
@@ -103,6 +171,15 @@ export default {
  */
 async function handleKVCache(request, env, ctx, path, hostname) {
   try {
+    // Soft-404 guard: unknown content paths must never be cached or served
+    // as 200. Runs BEFORE the KV lookup so poisoned historical entries
+    // (written before this guard existed) stop bleeding through. See
+    // scripts/purge_soft404_kv_cache.py for a one-shot cleanup of the
+    // existing poisoned keys.
+    if (!isKnownContentPath(path)) {
+      return buildNotFoundResponse(env, hostname);
+    }
+
     const cacheKey = `html:${path}`;
     const cached = await env.HTML_CACHE.get(cacheKey, { type: 'text' });
 
@@ -179,6 +256,12 @@ async function handleKVCache(request, env, ctx, path, hostname) {
  * instead of blocking the response.
  */
 async function handleCacheAPI(request, env, ctx, path, hostname = '') {
+  // Mirror the KV-path soft-404 guard so the Cache-API fallback path (when
+  // HTML_CACHE binding is missing) also refuses to serve ghost URLs.
+  if (!isKnownContentPath(path)) {
+    return buildNotFoundResponse(env, hostname);
+  }
+
   const cache = caches.default;
   const cacheKey = new Request(request.url, request);
 

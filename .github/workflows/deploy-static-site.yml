@@ -812,10 +812,16 @@ jobs:
           echo "✅ IndexNow key file copied to public/${INDEXNOW_KEY}.txt"
         fi
 
-        # Copy Advanced Mode worker
+        # Generate soft-404 artefacts: path manifest, 404.html, and legacy
+        # /slug/ → /YYYY/MM/slug/ redirects. Must run BEFORE the worker copy
+        # so the manifest is available for stamp_worker_manifest.py.
+        echo "🛡️  Generating soft-404 artefacts..."
+        python3 scripts/generate_soft404_artefacts.py public
+
+        # Copy Advanced Mode worker (with path manifest inlined)
         if [ -f "_worker.template.js" ]; then
-          cp _worker.template.js public/_worker.js
-          echo "✅ _worker.js copied to public/"
+          python3 scripts/stamp_worker_manifest.py public
+          echo "✅ _worker.js stamped with path manifest"
         else
           echo "⚠️  WARNING: _worker.template.js not found — Advanced Mode will not be enabled"
         fi
