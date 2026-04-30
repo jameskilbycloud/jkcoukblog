@@ -280,13 +280,13 @@
         <div class="metrics">
             <div class="metric-card">
                 <h3>Total Deployments</h3>
-                <div class="metric-value">1169</div>
+                <div class="metric-value">732</div>
                 <div class="metric-label">Git commits</div>
             </div>
             
             <div class="metric-card">
                 <h3>Repository Age</h3>
-                <div class="metric-value">198</div>
+                <div class="metric-value">209</div>
                 <div class="metric-label">Days active</div>
             </div>
             
@@ -298,8 +298,8 @@
             
             <div class="metric-card">
                 <h3>Last Deployment</h3>
-                <div class="metric-value">2026-04-18</div>
-                <div class="metric-label">19:22:30</div>
+                <div class="metric-value">2026-04-30</div>
+                <div class="metric-label">11:58:29</div>
             </div>
         </div>
         
@@ -340,160 +340,189 @@
             <h2>Recent Changes</h2>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-18 <span class="change-hash">d54fdd3</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-date">2026-04-30 <span class="change-hash">f046ae2</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix: skip post-validation paths in HTML link checker</div>
+                <div class="change-details">/changelog/ and /stats/ are generated after validate_html.py runs,</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-04-30 <span class="change-hash">042a943</span><span class="category-badge badge-removal">Removal</span></div>
+                <div class="change-title">chore: restore build artifacts after history rewrite; remove dead code</div>
+                <div class="change-details">History rewritten with git filter-repo to strip public/ and</div>
+            </div>
+            <br>
+
+            <div class="change-entry">
+                <div class="change-date">2026-04-18 <span class="change-hash">eb86271</span><span class="category-badge badge-fix">Fix</span></div>
                 <div class="change-title">fix: stamp worker and manifest before brotli compression</div>
                 <div class="change-details">Run generate_soft404_artefacts.py and stamp_worker_manifest.py against</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-18 <span class="change-hash">c94b6f0</span><span class="category-badge badge-improvement">Improvement</span></div>
+                <div class="change-date">2026-04-18 <span class="change-hash">aec8d46</span><span class="category-badge badge-improvement">Improvement</span></div>
                 <div class="change-title">Update SEO.md</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-18 <span class="change-hash">251c3ae</span><span class="category-badge badge-feature">Feature</span></div>
+                <div class="change-date">2026-04-18 <span class="change-hash">cc2f575</span><span class="category-badge badge-feature">Feature</span></div>
                 <div class="change-title">Add soft-404 guard and manifest tooling</div>
                 <div class="change-details">Introduce a soft-404 protection system to prevent SPA fallbacks from being indexed as real pages. Adds scripts to generate artefacts (scripts/generate_soft404_artefacts.py), stamp the worker with a build-time path manifest (scripts/stamp_worker_manifest.py), and perform a targeted KV purge (scripts/purge_soft404_kv_cache.py). The deploy workflow now runs generation and stamping before publishing the worker. Adds public/path-manifest.json, a minimal public/404.html, and appends idempotent legacy `/slug/ -&gt; /YYYY/MM/slug/` redirects to public/_redirects. _worker.template.js and the staged public/_worker.js are updated to consult the manifest and refuse to serve or cache unknown paths (returning a real 404 with noindex headers). Docs (docs/SEO.md) were updated with rationale and a manual runbook (including a one-shot KV purge) to complete the rollout.</div>
             </div>
             <br>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-17 <span class="change-hash">6cbde77</span><span class="category-badge badge-improvement">Improvement</span></div>
+                <div class="change-date">2026-04-17 <span class="change-hash">7905391</span><span class="category-badge badge-improvement">Improvement</span></div>
                 <div class="change-title">refactor: remove view counting from Advanced Mode Worker</div>
                 <div class="change-details">Analytics are handled by Plausible, so the KV-metadata view counter had no</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-17 <span class="change-hash">d8385c3</span><span class="category-badge badge-docs">Docs</span></div>
+                <div class="change-date">2026-04-17 <span class="change-hash">98e9e4a</span><span class="category-badge badge-docs">Docs</span></div>
                 <div class="change-title">docs: rewrite workers/README to match current state</div>
                 <div class="change-details">The old README described the html-cache worker and a now-missing</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-17 <span class="change-hash">3273384</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-date">2026-04-17 <span class="change-hash">9f24734</span><span class="category-badge badge-fix">Fix</span></div>
                 <div class="change-title">fix: use Wrangler v4 kv key syntax for search index upload</div>
                 <div class="change-details">Wrangler v4 removed the colon form `kv:key put` in favour of `kv key put`.</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-17 <span class="change-hash">a291f50</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-date">2026-04-17 <span class="change-hash">563dff0</span><span class="category-badge badge-fix">Fix</span></div>
                 <div class="change-title">fix: bump Node to 20 for Wrangler and correct KV upload success reporting</div>
                 <div class="change-details">Wrangler requires Node 20+, so the Node 18 pin caused the KV search index</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-17 <span class="change-hash">6f31482</span><span class="category-badge badge-improvement">Improvement</span></div>
+                <div class="change-date">2026-04-17 <span class="change-hash">406245a</span><span class="category-badge badge-improvement">Improvement</span></div>
                 <div class="change-title">Update deploy-static-site.yml</div>
             </div>
             <br>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-16 <span class="change-hash">ba60ef5</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-date">2026-04-16 <span class="change-hash">07ffecd</span><span class="category-badge badge-other">Other</span></div>
                 <div class="change-title">Only install missing system dependencies</div>
                 <div class="change-details">Change the workflow to probe for required system binaries and Python modules first, accumulating any missing packages into MISSING_PKGS. If nothing is missing, skip apt entirely; otherwise run apt-get update/install only for the missing items. This avoids unnecessary dpkg lock waits on long-lived self-hosted runners and speeds up the job startup. The script checks jq, bc, avifenc, optipng, jpegoptim, cwebp, python3-pip and python3-venv and still prints versions after installation.</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-16 <span class="change-hash">b4dc9dd</span><span class="category-badge badge-improvement">Improvement</span></div>
+                <div class="change-date">2026-04-16 <span class="change-hash">cbc3ac8</span><span class="category-badge badge-improvement">Improvement</span></div>
                 <div class="change-title">Update Claude settings and rotate indexnow key</div>
                 <div class="change-details">Add new probes to .claude/settings.local.json (Bash(xxd) and WebFetch for www.bing.com) and update the stored IndexNow key in .indexnow_key (key rotated). These changes enable additional local checks and refresh the indexing key without altering other configuration.</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-16 <span class="change-hash">3a9b5ca</span><span class="category-badge badge-feature">Feature</span></div>
+                <div class="change-date">2026-04-16 <span class="change-hash">68ff088</span><span class="category-badge badge-feature">Feature</span></div>
                 <div class="change-title">Add IndexNow keyLocation and WebFetch entry</div>
                 <div class="change-details">Include a keyLocation field in IndexNow submission payload so the API knows where the verification key is hosted (scripts/submit_indexnow.py). Also add WebFetch(domain:www.indexnow.org) to local Claude settings to allow fetching IndexNow resources during analysis (.claude/settings.local.json).</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-16 <span class="change-hash">ba1761c</span><span class="category-badge badge-other">Other</span></div>
-                <div class="change-title">Merge branch &#x27;main&#x27; of https://github.com/jameskilbynet/jkcoukblog</div>
-            </div>
-
-            <div class="change-entry">
-                <div class="change-date">2026-04-16 <span class="change-hash">35fe94d</span><span class="category-badge badge-feature">Feature</span></div>
+                <div class="change-date">2026-04-16 <span class="change-hash">11b8890</span><span class="category-badge badge-feature">Feature</span></div>
                 <div class="change-title">Bump GitHub Action versions and add gh checks</div>
                 <div class="change-details">Upgrade action usages across workflows to newer releases (actions/cache -&gt; v5, actions/cache/restore/save -&gt; v5, actions/upload-artifact/download-artifact -&gt; v7, actions/setup-node -&gt; v6, slackapi/slack-github-action -&gt; v3.0.1) to keep CI tooling up-to-date and compatible. Also add Bash patterns for gh run/api to .claude/settings.local.json to include gh CLI checks in local scans.</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-16 <span class="change-hash">8c89ec4</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-date">2026-04-16 <span class="change-hash">5eec354</span><span class="category-badge badge-other">Other</span></div>
                 <div class="change-title">Bump Actions checkout and setup-python versions</div>
                 <div class="change-details">Upgrade GitHub Actions used in workflow files: actions/checkout@v4 -&gt; actions/checkout@v5 across all workflows, and actions/setup-python@v4/@v5 -&gt; actions/setup-python@v6 where present. Updated workflows: deploy-static-site.yml, enable-cloudflare-indexing.yml, quality-checks.yml, rollback-site.yml, secret-scan.yml, spell-check-consolidated.yml. No behavioral changes aside from using newer action releases; existing fetch-depth and Python version settings are preserved.</div>
             </div>
             <br>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-15 <span class="change-hash">5ea7e91</span><span class="category-badge badge-other">Other</span></div>
-                <div class="change-title">Merge branch &#x27;main&#x27; of https://github.com/jameskilbynet/jkcoukblog</div>
-            </div>
-
-            <div class="change-entry">
-                <div class="change-date">2026-04-15 <span class="change-hash">864fb0d</span><span class="category-badge badge-improvement">Improvement</span></div>
+                <div class="change-date">2026-04-15 <span class="change-hash">9c50f5b</span><span class="category-badge badge-improvement">Improvement</span></div>
                 <div class="change-title">Update html_transformer.py</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-15 <span class="change-hash">7e61095</span><span class="category-badge badge-improvement">Improvement</span></div>
+                <div class="change-date">2026-04-15 <span class="change-hash">a9f7afe</span><span class="category-badge badge-improvement">Improvement</span></div>
                 <div class="change-title">Update validate_deployment.py</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-15 <span class="change-hash">6b0c3df</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-date">2026-04-15 <span class="change-hash">69c1bdb</span><span class="category-badge badge-other">Other</span></div>
                 <div class="change-title">Escape HTML in changelog commit messages</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-15 <span class="change-hash">2af65f3</span><span class="category-badge badge-other">Other</span></div>
-                <div class="change-title">Merge branch &#x27;main&#x27; of https://github.com/jameskilbynet/jkcoukblog</div>
-            </div>
-
-            <div class="change-entry">
-                <div class="change-date">2026-04-15 <span class="change-hash">9b6dcf3</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-date">2026-04-15 <span class="change-hash">8218ee2</span><span class="category-badge badge-other">Other</span></div>
                 <div class="change-title">Exclude consolidated-inline-styles from critical CSS</div>
                 <div class="change-details">Add &#x27;consolidated-inline-styles&#x27; to the EXCLUDED tuple in scripts/extract_critical_css.py to prevent double-counting of inline noscript styles during critical CSS extraction, matching the handling of other excluded assets like &#x27;brutalist-theme&#x27; and &#x27;fonts.css&#x27;.</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-15 <span class="change-hash">51da4e0</span><span class="category-badge badge-improvement">Improvement</span></div>
+                <div class="change-date">2026-04-15 <span class="change-hash">84c366b</span><span class="category-badge badge-improvement">Improvement</span></div>
                 <div class="change-title">Use single-pass HTML transformer; update CI &amp; Makefile</div>
                 <div class="change-details">Add a new scripts/html_transformer.py that performs SEO fixes, image-to-&lt;picture&gt; conversion, performance hints, critical CSS extraction/inlining, head deduplication and HTML minification in a single parse cycle per file. Update .github/workflows/deploy-static-site.yml to wait for dpkg locks during apt operations and to replace the previous multi-step image/SEO/perf/CSS/HTML pipeline with a streamlined CSS optimization step and a single-pass HTML transformer step. Simplify Makefile targets to call the new transformer and to consolidate the CSS pipeline (remove separate critical extraction step). These changes reduce repeated HTML parsing, simplify CI steps, and add robustness to runner package installs.</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-15 <span class="change-hash">1e365ca</span><span class="category-badge badge-improvement">Improvement</span></div>
+                <div class="change-date">2026-04-15 <span class="change-hash">56393a0</span><span class="category-badge badge-improvement">Improvement</span></div>
                 <div class="change-title">Refactor deploy workflow and staging URL handling</div>
                 <div class="change-details">Rework the GitHub Actions deploy flow and staging URL conversion:</div>
             </div>
             <br>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-14 <span class="change-hash">a3debda</span><span class="category-badge badge-docs">Docs</span></div>
+                <div class="change-date">2026-04-14 <span class="change-hash">68d4346</span><span class="category-badge badge-docs">Docs</span></div>
                 <div class="change-title">Updated Readme</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-14 <span class="change-hash">cf71416</span><span class="category-badge badge-feature">Feature</span></div>
+                <div class="change-date">2026-04-14 <span class="change-hash">8082bdf</span><span class="category-badge badge-feature">Feature</span></div>
                 <div class="change-title">Add &#x27;purge all&#x27; KV cache support</div>
                 <div class="change-details">Replace selective file-based purge with a purge-all workflow step that POSTs /.purge?all=true and requires CACHE_PURGE_TOKEN; step name and GitHub summary fields updated and response count parsed with jq. Update worker handler to support the all=true query: iterate HTML_CACHE.list to delete KV keys and corresponding Cache API entries, return JSON with purged count and timestamp, and improve missing-parameter error and cache request origin handling.</div>
             </div>
             <br>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-12 <span class="change-hash">f405ac7</span><span class="category-badge badge-other">Other</span></div>
-                <div class="change-title">Merge branch &#x27;main&#x27; of https://github.com/jameskilbynet/jkcoukblog</div>
+                <div class="change-date">2026-04-12 <span class="change-hash">93c5c25</span><span class="category-badge badge-docs">Docs</span></div>
+                <div class="change-title">Improve taxonomy name extraction from title</div>
+                <div class="change-details">Refine the regex used to extract taxonomy names from page titles. Use a non-greedy match for patterns like &quot;Docker Archives - James Kilby&quot; and add a fallback to the previous pattern when the &#x27;Archives&#x27; token isn&#x27;t present. Also update the comment/example. This prevents incorrect captures for taxonomy names that include hyphens or other characters.</div>
             </div>
 
             <div class="change-entry">
-                <div class="change-date">2026-04-12 <span class="change-hash">ef66c3e</span><span class="category-badge badge-docs">Docs</span></div>
-                <div class="change-title">Improve taxonomy name extraction from title</div>
-                <div class="change-details">Refine the regex used to extract taxonomy names from page titles. Use a non-greedy match for patterns like &quot;Docker Archives - James Kilby&quot; and add a fallback to the previous pattern when the &#x27;Archives&#x27; token isn&#x27;t present. Also update the comment/example. This prevents incorrect captures for taxonomy names that include hyphens or other characters.</div>
+                <div class="change-date">2026-04-12 <span class="change-hash">bdfd455</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">Deduplicate meta descriptions on paginated pages</div>
+                <div class="change-details">Add fix_pagination_meta_description to detect /page/N/ URLs and append &quot; - Page N&quot; to meta description, og:description and twitter:description to avoid duplicate SEO content. The method strips trailing periods, truncates content to keep it within ~160 characters (adding ellipses if needed), and logs a brief message per modified page. Also call this new method during page processing so paginated archive pages get unique descriptions.</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-04-12 <span class="change-hash">0042adf</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix: exclude changelog/stats from Brotli reuse loop</div>
+                <div class="change-details">These directories are regenerated by post-deploy scripts every build,</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-04-12 <span class="change-hash">f1215c0</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix: resolve Brotli mismatch for post-deploy generated files</div>
+                <div class="change-details">The Brotli reuse loop was copying stale .br files for</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-04-12 <span class="change-hash">11b7fe3</span><span class="category-badge badge-improvement">Improvement</span></div>
+                <div class="change-title">Reuse optimized assets, refine validation output</div>
+                <div class="change-details">Workflow: improve reuse of previously-optimized assets by rsync-ing AVIF/WebP from public/ into static-output with --ignore-existing, count copied files, and replace originals only when the previous version is smaller. Preserve and reuse .br/.gz only when the static-output source matches the public source (compare sizes) and report how many compressed files were reused vs skipped as stale. Also remove redundant copy to public before validation.</div>
+            </div>
+            <br>
+
+            <div class="change-entry">
+                <div class="change-date">2026-04-11 <span class="change-hash">232203b</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">Deduplicate head links and robust CSS preload</div>
+                <div class="change-details">Add a pre-parse cleanup that strips accumulated &lt;noscript&gt; fallbacks and deduplicates &lt;link&gt; tags in &lt;head&gt; (_dedup_head_links), preventing runaway duplication on repeated pipeline runs. Make CSS externalization idempotent and self-healing: convert stylesheets to preload+onload safely, skip critical files (brutalist-theme, fonts.css), and add exactly one noscript fallback per preload link. Also adjust insertion order for the generated stylesheet link. Finally, switch BeautifulSoup usage in wp_to_static_generator.py from &#x27;lxml&#x27; to &#x27;html.parser&#x27; to improve parsing robustness.</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-04-11 <span class="change-hash">fdf26e8</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix: eliminate noscript accumulation and fix image sitemap parser</div>
             </div>
 
         </div>
         
         <div class="timestamp">
-            Page generated: 2026-04-19 11:47:11 UTC<br>
+            Page generated: 2026-04-30 11:03:10 UTC<br>
             Changelog powered by Git history and Lighthouse CI
         </div>
     </div>

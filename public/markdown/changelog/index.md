@@ -13,13 +13,13 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-1168
+1169
 
 Git commits
 
 ### Repository Age
 
-197
+198
 
 Days active
 
@@ -33,7 +33,7 @@ Active contributors
 
 2026-04-18
 
-20:18:12
+19:22:30
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -203,5 +203,5 @@ Improve taxonomy name extraction from title
 
 Refine the regex used to extract taxonomy names from page titles. Use a non-greedy match for patterns like "Docker Archives - James Kilby" and add a fallback to the previous pattern when the 'Archives' token isn't present. Also update the comment/example. This prevents incorrect captures for taxonomy names that include hyphens or other characters.
 
-Page generated: 2026-04-18 19:22:26 UTC  
+Page generated: 2026-04-19 11:47:11 UTC  
 Changelog powered by Git history and Lighthouse CI

@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://jameskilby.co.uk/</loc>
-    <lastmod>2026-04-19</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png</image:loc>
@@ -1168,7 +1168,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/404/</loc>
-    <lastmod>2026-04-19</lastmod>
+    <lastmod>2026-04-30</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/about-me/</loc>
@@ -1180,8 +1180,178 @@
     </image:image>
   </url>
   <url>
-    <loc>https://jameskilby.co.uk/changelog/</loc>
+    <loc>https://jameskilby.co.uk/category/ansible/</loc>
     <lastmod>2026-04-19</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/apple/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/artificial-intelligence/</loc>
+    <lastmod>2026-04-18</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/automation/</loc>
+    <lastmod>2026-04-19</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/aws/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/cloudflare/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/consulting/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/containers/</loc>
+    <lastmod>2026-04-18</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/devops/</loc>
+    <lastmod>2026-04-18</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/docker/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/github/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/homelab/</loc>
+    <lastmod>2026-04-18</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/hosting/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/kubernetes/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/mikrotik/</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/money/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/networking/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/nutanix/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/nvidia/</loc>
+    <lastmod>2026-04-18</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/personal/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/runecast/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/storage/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/synology/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/traefik/</loc>
+    <lastmod>2026-04-18</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/truenas-scale/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/ubuntu/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/veeam/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/vexpert/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/vmware/</loc>
+    <lastmod>2026-04-18</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/vmware/vcf/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/vmware/vsan-vmware/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/vsphere/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/category/wordpress/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/changelog/</loc>
+    <lastmod>2026-04-30</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/evs/</loc>
@@ -1189,7 +1359,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/feed/</loc>
-    <lastmod>2026-04-18</lastmod>
+    <lastmod>2026-04-19</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/homelab-software/</loc>
@@ -1215,23 +1385,23 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/2/</loc>
-    <lastmod>2026-04-19</lastmod>
+    <lastmod>2026-04-30</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/3/</loc>
-    <lastmod>2026-04-19</lastmod>
+    <lastmod>2026-04-30</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/4/</loc>
-    <lastmod>2026-04-19</lastmod>
+    <lastmod>2026-04-30</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/5/</loc>
-    <lastmod>2026-04-19</lastmod>
+    <lastmod>2026-04-30</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/6/</loc>
-    <lastmod>2026-04-19</lastmod>
+    <lastmod>2026-04-30</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/privacy-policy-2/</loc>
@@ -1239,7 +1409,247 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/stats/</loc>
+    <lastmod>2026-04-30</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/account-setup/</loc>
+    <lastmod>2026-04-11</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/ai/</loc>
+    <lastmod>2026-04-18</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/analytics/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/ansible/</loc>
     <lastmod>2026-04-19</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/apple/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/architecture/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/artificial-intelligence/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/automation/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/aws/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/bash/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/blog/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/blogging/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/brew/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/cache/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/certification/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/certifications/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/charity/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/city-fibre/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/cli/</loc>
+    <lastmod>2026-03-10</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/clickhouse/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/cloudflare-pages/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/cloudflare/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/comfyui/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/containers/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/content-library/</loc>
+    <lastmod>2026-03-12</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/cpu/</loc>
+    <lastmod>2026-04-11</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/desired-state/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/dhcp/</loc>
+    <lastmod>2026-03-10</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/disk-expand/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/docker/</loc>
+    <lastmod>2026-04-18</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/energy/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/epic/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/failure/</loc>
+    <lastmod>2026-04-11</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/free/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/git/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/github/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/hashicorp/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/hoarder/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/holodeck/</loc>
+    <lastmod>2026-04-11</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/homebrew/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/homelab/</loc>
+    <lastmod>2026-04-19</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/homeoffice/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/hosting/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/https/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/i7i/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/iac/</loc>
+    <lastmod>2026-03-10</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/infrastructure/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/ingress/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/intel/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/lambda/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/langfuse/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/lets-encrypt/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/macbook-air/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/mikrotik/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/minio/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/multihost/</loc>
+    <lastmod>2026-04-11</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/n8n/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/nas/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/networking/</loc>
+    <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/tag/nginx/</loc>
+    <lastmod>2026-04-16</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/vmc/</loc>
