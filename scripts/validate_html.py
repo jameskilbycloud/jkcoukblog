@@ -164,6 +164,10 @@ class HTMLValidator:
                 # Skip external links, mailto, tel, and fragments
                 if href.startswith(('http://', 'https://', 'mailto:', 'tel:', '#')):
                     continue
+
+                # Skip paths generated after validation runs (changelog, stats)
+                if href.startswith(('/changelog/', '/stats/')):
+                    continue
                     
                 target_path = self.normalize_path(href, html_file)
                 if target_path is None:
