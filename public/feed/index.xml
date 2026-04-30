@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jameskilbycouk</title>
+    <link>https://jameskilby.co.uk/</link>
+    <description>VMware and cloud infrastructure tutorials, homelab guides, and DevOps insights</description>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 19 Apr 2026 11:43:53 +0000</lastBuildDate>
+    <atom:link href="https://jameskilby.co.uk/feed/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)</title>
+      <link>https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/</link>
+      <description>Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/</guid>
+      <pubDate>Sat, 04 Apr 2026 21:39:21 +0000</pubDate>
+    </item>
+    <item>
+      <title>Automating vSphere Power Management driven by Ansible and SemaphoreUI</title>
+      <link>https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/</link>
+      <description>Learn how to automate vSphere power management using Ansible and SemaphoreUI, scheduling ESXi host shutdowns based on Octopus Agile energy tariffs to cut costs.</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/</guid>
+      <pubDate>Wed, 15 Apr 2026 21:36:41 +0000</pubDate>
+    </item>
+    <item>
+      <title>New VMware Cloud on AWS Host: i7i.metal-24xl</title>
+      <link>https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/</link>
+      <description>We’ve expanded the VMC fleet with the new i7i (i7i.24xlarge) host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it delivers t...</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/</guid>
+      <pubDate>Wed, 01 Apr 2026 08:06:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Automated VCF 9 Offline Depot</title>
+      <link>https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/</link>
+      <description>One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let's Encrypt wildcard certs via Cloudflare DNS.</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/</guid>
+      <pubDate>Fri, 10 Apr 2026 11:36:03 +0000</pubDate>
+    </item>
+    <item>
+      <title>Free Octopus Agile Battery &amp; Solar Calculator: 5 Batteries Tested</title>
+      <link>https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/</link>
+      <description>I am quite a heavy consumer of electricity at home. This is primarily driven by my lab but having a young son and two golden retrievers means more washing an...</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/</guid>
+      <pubDate>Mon, 09 Mar 2026 23:39:37 +0000</pubDate>
+    </item>
+    <item>
+      <title>My Self-Hosted AI Stack: Architecture Overview (Part 1)</title>
+      <link>https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/</link>
+      <description>Build a fully private AI stack on your own hardware with Ollama, Open WebUI, n8n, ComfyUI, Qdrant &amp; SearxNG on Docker Compose. Full technical deep dive with ...</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/</guid>
+      <pubDate>Fri, 27 Mar 2026 11:56:33 +0000</pubDate>
+    </item>
+    <item>
+      <title>Automating the Deployment of my Homelab AI Infrastructure</title>
+      <link>https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/</link>
+      <description>Build a complete homelab AI infrastructure using Ansible to automate Ubuntu with NVIDIA GPU passthrough, Docker, Traefik, and an end-to-end AI stack via Sema...</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/</guid>
+      <pubDate>Mon, 09 Feb 2026 11:54:54 +0000</pubDate>
+    </item>
+    <item>
+      <title>Blog Performance &amp; SEO Improvements: Cloudflare, Privacy &amp; More</title>
+      <link>https://jameskilby.co.uk/2026/01/web-development-improvements/</link>
+      <description>I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend” These help improve the performance, Privacy, SEO,...</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2026/01/web-development-improvements/</guid>
+      <pubDate>Thu, 15 Jan 2026 15:12:16 +0000</pubDate>
+    </item>
+    <item>
+      <title>Using Content Libraries in VMC to deploy software faster</title>
+      <link>https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/</link>
+      <description>Learn how to use VMware Content Libraries in VMware Cloud on AWS (VMC) to speed up template and VM deployments, reducing manual steps and improving consistency.</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/</guid>
+      <pubDate>Tue, 27 Jan 2026 22:19:39 +0000</pubDate>
+    </item>
+    <item>
+      <title>vSAN Cluster Shutdown – Orchestration</title>
+      <link>https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/</link>
+      <description>Step-by-step guide to safely shutting down a vSAN cluster: the correct orchestration order for powering off VMs, hosts, and witness appliances without data l...</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/</guid>
+      <pubDate>Sat, 06 Dec 2025 10:59:14 +0000</pubDate>
+    </item>
+    <item>
+      <title>VMware Cloud on AWS Time Sync &amp; NTP Configuration</title>
+      <link>https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/</link>
+      <description>How VMware Cloud on AWS handles time sync NTP via the Amazon Time Sync Service. Configure NSX firewall rules for UDP port 123 on VMC guest workloads.</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/</guid>
+      <pubDate>Mon, 08 Dec 2025 14:03:44 +0000</pubDate>
+    </item>
+    <item>
+      <title>How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step</title>
+      <link>https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/</link>
+      <description>How to expand disks from the command line in Ubuntu. This is something I do fairly frequently, and I can never remember the steps.</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/</guid>
+      <pubDate>Mon, 15 Dec 2025 20:56:40 +0000</pubDate>
+    </item>
+    <item>
+      <title>How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare</title>
+      <link>https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/</link>
+      <description>I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/</guid>
+      <pubDate>Mon, 06 Oct 2025 15:57:06 +0000</pubDate>
+    </item>
+    <item>
+      <title>Managing my Homelab with SemaphoreUI</title>
+      <link>https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/</link>
+      <description>Learn to manage your homelab using SemaphoreUI with Docker. Follow our guide to streamline your DevOps tools like Ansible and Terraform today!</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/</guid>
+      <pubDate>Tue, 02 Sep 2025 16:01:48 +0000</pubDate>
+    </item>
+    <item>
+      <title>An in-depth look at VMware Cloud on AWS hosts</title>
+      <link>https://jameskilby.co.uk/2025/08/vmc-host-deepdive/</link>
+      <description>This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison.</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2025/08/vmc-host-deepdive/</guid>
+      <pubDate>Thu, 14 Aug 2025 12:32:01 +0000</pubDate>
+    </item>
+    <item>
+      <title>VMware Cloud on AWS Storage Sizing Quick Reference Guide</title>
+      <link>https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/</link>
+      <description>Get essential insights on storage resources in VMware Cloud on AWS. Use our quick sizing guide for efficient planning and management.</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/</guid>
+      <pubDate>Wed, 21 May 2025 09:33:04 +0000</pubDate>
+    </item>
+    <item>
+      <title>Warp – The intelligent terminal</title>
+      <link>https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/</link>
+      <description>Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and theref...</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/</guid>
+      <pubDate>Fri, 11 Apr 2025 15:46:23 +0000</pubDate>
+    </item>
+    <item>
+      <title>How I Migrated from Pocket to Hoarder with AI Integration</title>
+      <link>https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/</link>
+      <description>Update: Hoarder has now been renamed to Karakeep due to a trademark issue I've been on a mission recently to regain control of my data.</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/</guid>
+      <pubDate>Wed, 29 Jan 2025 23:31:56 +0000</pubDate>
+    </item>
+    <item>
+      <title>How to Run ZFS on VMware vSphere: Setup Guide and Best Practices</title>
+      <link>https://jameskilby.co.uk/2024/12/zfs-on-vmware/</link>
+      <description>Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2024/12/zfs-on-vmware/</guid>
+      <pubDate>Wed, 18 Dec 2024 17:47:57 +0000</pubDate>
+    </item>
+    <item>
+      <title>Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU</title>
+      <link>https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/</link>
+      <description>Artificial intelligence is all the rage at the moment, It’s getting included in every product announcement from pretty much every vendor under the su</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/</guid>
+      <pubDate>Fri, 11 Oct 2024 15:03:26 +0000</pubDate>
+    </item>
+  </channel>
+</rss>

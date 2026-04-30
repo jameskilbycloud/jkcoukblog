@@ -1,0 +1,24 @@
+{
+  "year": 2019,
+  "month": 1,
+  "month_name": "January",
+  "posts": [
+    {
+      "slug": "whats-in-my-backpack",
+      "title": "What’s In My Tech Bag? Everyday Carry for IT Consultants",
+      "description": "I have seen a few posts online recently about the tools and technology people use on a day to day basis. A few components that I have no one seems to have ...",
+      "date": "2019-01-10T21:48:41Z",
+      "modified": "2026-04-16T22:02:02Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2019/01/whats-in-my-backpack/",
+      "markdown_url": "/markdown/posts/whats-in-my-backpack.md",
+      "api_url": "/api/posts/whats-in-my-backpack.json",
+      "categories": [
+        "Consulting",
+        "Personal"
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png",
+      "excerpt": "![Picture1](https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png)\n\n[Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# What’s In My Tech Bag? Everyday Carry for IT Consultants\n\nBy[James](https://jameskilby.co.uk)January 10, 2019April 16, 2026 • 📖1 min read(250 words)\n\n📅 **Publ..."
+    }
+  ]
+}

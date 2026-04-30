@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Statistics - James Kilby</title>
+    <meta name="description" content="Public statistics and metrics for James Kilby's technical blog including performance scores, traffic data, and build information.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://jameskilby.co.uk/stats/">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Site Statistics - James Kilby">
+    <meta property="og:description" content="Public statistics and metrics for James Kilby's technical blog.">
+    <meta property="og:url" content="https://jameskilby.co.uk/stats/">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Site Statistics">
+    <meta name="twitter:description" content="Public statistics and metrics for jameskilby.co.uk">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+        
+        :root {
+            --bg-dark: #0a0a0a;
+            --text-light: #fafafa;
+            --accent-orange: #f6821f;
+            --gray-mid: #404040;
+            --gray-light: #666666;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background: var(--bg-dark);
+            padding: 20px;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 40px;
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-family: 'Anton', sans-serif;
+            color: var(--text-light);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+        
+        .subtitle {
+            color: var(--gray-light);
+            font-size: 1.1em;
+        }
+        
+        .back-link {
+            display: inline-block;
+            color: var(--accent-orange);
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.9rem;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+            opacity: 0.8;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 30px;
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
+            text-align: center;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        
+        .stat-card:hover {
+            border-color: var(--accent-orange);
+            transform: translateY(-2px);
+        }
+        
+        .stat-value {
+            font-size: 3em;
+            font-weight: bold;
+            color: var(--accent-orange);
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            color: var(--gray-light);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .stat-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 40px;
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
+            margin-bottom: 30px;
+        }
+        
+        .section h2 {
+            font-family: 'Anton', sans-serif;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gray-mid);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+        
+        .section p {
+            color: var(--gray-light);
+        }
+        
+        .section ul {
+            color: var(--gray-light);
+        }
+        
+        .section a {
+            color: var(--accent-orange);
+            text-decoration: none;
+        }
+        
+        .section a:hover {
+            text-decoration: underline;
+            opacity: 0.8;
+        }
+        
+        .lighthouse-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .score-card {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
+        }
+        
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--bg-dark);
+        }
+        
+        .score-excellent { background: var(--accent-orange); }
+        .score-good { background: var(--gray-light); }
+        .score-poor { background: var(--gray-mid); }
+        
+        .score-label {
+            color: var(--gray-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.85rem;
+        }
+        
+        .metrics-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border: 1px solid var(--gray-mid);
+        }
+        
+        .metrics-table th,
+        .metrics-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-mid);
+        }
+        
+        .metrics-table th {
+            background: rgba(255, 255, 255, 0.05);
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.85rem;
+        }
+        
+        .metrics-table td {
+            color: var(--gray-light);
+        }
+        
+        .metrics-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .plausible-embed {
+            width: 100%;
+            height: 1600px;
+            border: none;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .info-box {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 4px solid var(--accent-orange);
+            padding: 15px 20px;
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
+            border-left-width: 4px;
+            border-left-color: var(--accent-orange);
+            margin-top: 20px;
+        }
+        
+        .info-box p {
+            margin: 5px 0;
+            color: var(--gray-light);
+        }
+        
+        .info-box a {
+            color: var(--accent-orange);
+            text-decoration: none;
+        }
+        
+        .info-box a:hover {
+            text-decoration: underline;
+            opacity: 0.8;
+        }
+        
+        .timestamp {
+            text-align: center;
+            color: var(--gray-light);
+            font-size: 0.85em;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-mid);
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .stat-value {
+                font-size: 2em;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .plausible-embed {
+                height: 2000px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="/" class="back-link">← Back to Home</a>
+            <h1>📊 Site Statistics</h1>
+            <p class="subtitle">Public metrics, performance scores, and analytics for jameskilby.co.uk</p>
+        </header>
+        
+        <!-- Quick Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📄</div>
+                <div class="stat-value">188</div>
+                <div class="stat-label">Total Pages</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">📝</div>
+                <div class="stat-value">72</div>
+                <div class="stat-label">Blog Posts</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">🖼️</div>
+                <div class="stat-value">3194</div>
+                <div class="stat-label">Images</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">💾</div>
+                <div class="stat-value">178.98</div>
+                <div class="stat-label">Total Size (MB)</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">🚀</div>
+                <div class="stat-value">1169</div>
+                <div class="stat-label">Deployments</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">📅</div>
+                <div class="stat-value">159</div>
+                <div class="stat-label">Updates This Month</div>
+            </div>
+        </div>
+        
+        <!-- Lighthouse Scores -->
+        <div class="section">
+            <h2>🚀 Lighthouse Performance Scores</h2>
+            <p>Latest scores from 2026-04-19 deployment</p>
+            
+            <div class="lighthouse-grid">
+                <div class="score-card">
+                    <div class="score-circle score-excellent">
+                        95
+                    </div>
+                    <div class="score-label">Performance</div>
+                </div>
+                
+                <div class="score-card">
+                    <div class="score-circle score-excellent">
+                        95
+                    </div>
+                    <div class="score-label">Accessibility</div>
+                </div>
+                
+                <div class="score-card">
+                    <div class="score-circle score-excellent">
+                        100
+                    </div>
+                    <div class="score-label">Best Practices</div>
+                </div>
+                
+                <div class="score-card">
+                    <div class="score-circle score-excellent">
+                        100
+                    </div>
+                    <div class="score-label">SEO</div>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <p><strong>📈 Performance Tracking:</strong> Scores are automatically measured on every deployment and stored in the changelog history.</p>
+                <p><strong>🎯 Target:</strong> Maintaining 90+ scores across all categories for optimal user experience.</p>
+            </div>
+        </div>
+        
+        <!-- Build Metrics -->
+        <div class="section">
+            <h2>🔧 Build Metrics</h2>
+            <table class="metrics-table">
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                    <th>Notes</th>
+                </tr>
+                <tr>
+                    <td>Total HTML Pages</td>
+                    <td>188</td>
+                    <td>All generated pages including posts, archives, and pages</td>
+                </tr>
+                <tr>
+                    <td>Blog Posts</td>
+                    <td>72</td>
+                    <td>Articles in dated directories (YYYY/MM/slug)</td>
+                </tr>
+                <tr>
+                    <td>Total Images</td>
+                    <td>3194</td>
+                    <td>Optimized images (PNG, JPG, WebP, SVG)</td>
+                </tr>
+                <tr>
+                    <td>Total Site Size</td>
+                    <td>178.98 MB</td>
+                    <td>All files in public directory</td>
+                </tr>
+                <tr>
+                    <td>Average Page Size</td>
+                    <td>0.95 KB</td>
+                    <td>Total size / number of pages</td>
+                </tr>
+                <tr>
+                    <td>Images per Post</td>
+                    <td>44.4</td>
+                    <td>Average images per blog post</td>
+                </tr>
+                <tr>
+                    <td>Last Deployment</td>
+                    <td>2026-04-18 19:22:30</td>
+                    <td>Most recent static site generation</td>
+                </tr>
+                <tr>
+                    <td>Total Deployments</td>
+                    <td>1169</td>
+                    <td>Git commits to main branch</td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- Traffic Analytics -->
+        <div class="section">
+            <h2>📊 Traffic Analytics (Plausible)</h2>
+            <p>Privacy-friendly analytics with no cookies or tracking. Data is aggregated and anonymous.</p>
+            
+            <div class="info-box">
+                <p><strong>🔒 Privacy First:</strong> This site uses <a href="https://plausible.io" target="_blank">Plausible Analytics</a> - a privacy-friendly alternative to Google Analytics.</p>
+                <p><strong>✅ No cookies, no tracking, no personal data collection</strong></p>
+                <p><strong>📊 Transparent:</strong> All data is publicly shared below with full transparency</p>
+            </div>
+            
+            <!-- Plausible Embed -->
+            <iframe class="plausible-embed" 
+                    src="https://plausible.jameskilby.cloud/share/jameskilby.co.uk?auth=byGFDmUkBLettStHbgpQ4&embed=true&theme=light"
+                    scrolling="yes"
+                    frameborder="0"
+                    loading="lazy"></iframe>
+        </div>
+        
+        <!-- About This Page -->
+        <div class="section">
+            <h2>ℹ️ About This Page</h2>
+            <p>This statistics page is automatically generated on every deployment and includes:</p>
+            <ul style="margin-top: 15px; margin-left: 20px;">
+                <li><strong>Lighthouse Scores:</strong> Performance metrics from Google's Lighthouse CI</li>
+                <li><strong>Build Metrics:</strong> Statistics about the static site generation process</li>
+                <li><strong>Git Statistics:</strong> Deployment frequency and commit history</li>
+                <li><strong>Traffic Data:</strong> Visitor analytics from Plausible (privacy-friendly)</li>
+            </ul>
+            
+            <div class="info-box" style="margin-top: 20px;">
+                <p><strong>🔄 Auto-Updated:</strong> This page regenerates with every site deployment</p>
+                <p><strong>🌐 Public:</strong> All metrics are openly shared for transparency</p>
+                <p><strong>💻 Open Source:</strong> Check the <a href="https://github.com/jameskilbynet/jkcoukblog" target="_blank">GitHub repository</a> to see how this works</p>
+            </div>
+        </div>
+        
+        <div class="timestamp">
+            Page generated: 2026-04-19 11:47:12 UTC<br>
+            Stats powered by Plausible Analytics, Google Lighthouse, and Git
+        </div>
+    </div>
+</body>
+</html>

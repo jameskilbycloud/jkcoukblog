@@ -1,0 +1,47 @@
+{
+  "name": "Apple",
+  "slug": "apple",
+  "posts": [
+    {
+      "slug": "new-laptop",
+      "title": "MacBook Air 2018 Retina Review: My Setup & Build Scripts",
+      "description": "I decided it was about time I replaced my trusted MacBook Air that I purchased back in 2011. After waiting and watching the Apple announcements over the la...",
+      "date": "2018-12-04T21:44:30Z",
+      "modified": "2026-04-16T22:02:02Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2018/12/new-laptop/",
+      "markdown_url": "/markdown/posts/new-laptop.md",
+      "api_url": "/api/posts/new-laptop.json",
+      "categories": [
+        "Apple"
+      ],
+      "tags": [
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2018/12/colorware.jpg",
+      "excerpt": "![Colorware](https://jameskilby.co.uk/wp-content/uploads/2018/12/colorware.jpg)\n\n[Apple](https://jameskilby.co.uk/category/apple/)\n\n# MacBook Air 2018 Retina Review: My Setup & Build Scripts\n\nBy[James](https://jameskilby.co.uk)December 4, 2018April 16, 2026 • 📖1 min read(138 words)\n\n📅 **Published:**..."
+    },
+    {
+      "slug": "apple-content-caching",
+      "title": "How Apple Content Caching Works: Speed Up iOS & Mac Updates",
+      "description": "I have slowly morphed into an Apple fanboy over the last decade or so collecting a large number of devices ever since my first MacBook Air back in 2011.",
+      "date": "2021-02-08T14:12:23Z",
+      "modified": "2026-04-16T22:01:57Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2021/02/apple-content-caching/",
+      "markdown_url": "/markdown/posts/apple-content-caching.md",
+      "api_url": "/api/posts/apple-content-caching.json",
+      "categories": [
+        "Apple"
+      ],
+      "tags": [
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2021/02/iu.png",
+      "excerpt": "![Iu](https://jameskilby.co.uk/wp-content/uploads/2021/02/iu.png)\n\n[Apple](https://jameskilby.co.uk/category/apple/)\n\n# How Apple Content Caching Works: Speed Up iOS & Mac Updates\n\nBy[James](https://jameskilby.co.uk)February 8, 2021April 16, 2026 • 📖2 min read(313 words)\n\n📅 **Published:** February 0..."
+    }
+  ]
+}

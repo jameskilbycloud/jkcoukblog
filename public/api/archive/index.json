@@ -1,0 +1,289 @@
+[
+  {
+    "year_month": "2026-04",
+    "year": 2026,
+    "month": 4,
+    "month_name": "April",
+    "count": 4
+  },
+  {
+    "year_month": "2026-03",
+    "year": 2026,
+    "month": 3,
+    "month_name": "March",
+    "count": 2
+  },
+  {
+    "year_month": "2026-02",
+    "year": 2026,
+    "month": 2,
+    "month_name": "February",
+    "count": 1
+  },
+  {
+    "year_month": "2026-01",
+    "year": 2026,
+    "month": 1,
+    "month_name": "January",
+    "count": 2
+  },
+  {
+    "year_month": "2025-12",
+    "year": 2025,
+    "month": 12,
+    "month_name": "December",
+    "count": 3
+  },
+  {
+    "year_month": "2025-10",
+    "year": 2025,
+    "month": 10,
+    "month_name": "October",
+    "count": 1
+  },
+  {
+    "year_month": "2025-09",
+    "year": 2025,
+    "month": 9,
+    "month_name": "September",
+    "count": 1
+  },
+  {
+    "year_month": "2025-08",
+    "year": 2025,
+    "month": 8,
+    "month_name": "August",
+    "count": 1
+  },
+  {
+    "year_month": "2025-05",
+    "year": 2025,
+    "month": 5,
+    "month_name": "May",
+    "count": 1
+  },
+  {
+    "year_month": "2025-04",
+    "year": 2025,
+    "month": 4,
+    "month_name": "April",
+    "count": 1
+  },
+  {
+    "year_month": "2025-01",
+    "year": 2025,
+    "month": 1,
+    "month_name": "January",
+    "count": 1
+  },
+  {
+    "year_month": "2024-12",
+    "year": 2024,
+    "month": 12,
+    "month_name": "December",
+    "count": 1
+  },
+  {
+    "year_month": "2024-10",
+    "year": 2024,
+    "month": 10,
+    "month_name": "October",
+    "count": 1
+  },
+  {
+    "year_month": "2024-09",
+    "year": 2024,
+    "month": 9,
+    "month_name": "September",
+    "count": 2
+  },
+  {
+    "year_month": "2024-07",
+    "year": 2024,
+    "month": 7,
+    "month_name": "July",
+    "count": 1
+  },
+  {
+    "year_month": "2024-06",
+    "year": 2024,
+    "month": 6,
+    "month_name": "June",
+    "count": 1
+  },
+  {
+    "year_month": "2024-01",
+    "year": 2024,
+    "month": 1,
+    "month_name": "January",
+    "count": 2
+  },
+  {
+    "year_month": "2023-11",
+    "year": 2023,
+    "month": 11,
+    "month_name": "November",
+    "count": 5
+  },
+  {
+    "year_month": "2023-10",
+    "year": 2023,
+    "month": 10,
+    "month_name": "October",
+    "count": 2
+  },
+  {
+    "year_month": "2023-05",
+    "year": 2023,
+    "month": 5,
+    "month_name": "May",
+    "count": 3
+  },
+  {
+    "year_month": "2023-04",
+    "year": 2023,
+    "month": 4,
+    "month_name": "April",
+    "count": 1
+  },
+  {
+    "year_month": "2022-12",
+    "year": 2022,
+    "month": 12,
+    "month_name": "December",
+    "count": 3
+  },
+  {
+    "year_month": "2022-11",
+    "year": 2022,
+    "month": 11,
+    "month_name": "November",
+    "count": 1
+  },
+  {
+    "year_month": "2022-10",
+    "year": 2022,
+    "month": 10,
+    "month_name": "October",
+    "count": 2
+  },
+  {
+    "year_month": "2022-01",
+    "year": 2022,
+    "month": 1,
+    "month_name": "January",
+    "count": 7
+  },
+  {
+    "year_month": "2021-02",
+    "year": 2021,
+    "month": 2,
+    "month_name": "February",
+    "count": 1
+  },
+  {
+    "year_month": "2021-01",
+    "year": 2021,
+    "month": 1,
+    "month_name": "January",
+    "count": 2
+  },
+  {
+    "year_month": "2020-12",
+    "year": 2020,
+    "month": 12,
+    "month_name": "December",
+    "count": 1
+  },
+  {
+    "year_month": "2020-09",
+    "year": 2020,
+    "month": 9,
+    "month_name": "September",
+    "count": 2
+  },
+  {
+    "year_month": "2020-07",
+    "year": 2020,
+    "month": 7,
+    "month_name": "July",
+    "count": 2
+  },
+  {
+    "year_month": "2020-06",
+    "year": 2020,
+    "month": 6,
+    "month_name": "June",
+    "count": 1
+  },
+  {
+    "year_month": "2019-12",
+    "year": 2019,
+    "month": 12,
+    "month_name": "December",
+    "count": 2
+  },
+  {
+    "year_month": "2019-02",
+    "year": 2019,
+    "month": 2,
+    "month_name": "February",
+    "count": 1
+  },
+  {
+    "year_month": "2019-01",
+    "year": 2019,
+    "month": 1,
+    "month_name": "January",
+    "count": 1
+  },
+  {
+    "year_month": "2018-12",
+    "year": 2018,
+    "month": 12,
+    "month_name": "December",
+    "count": 1
+  },
+  {
+    "year_month": "2018-10",
+    "year": 2018,
+    "month": 10,
+    "month_name": "October",
+    "count": 1
+  },
+  {
+    "year_month": "2018-06",
+    "year": 2018,
+    "month": 6,
+    "month_name": "June",
+    "count": 1
+  },
+  {
+    "year_month": "2018-05",
+    "year": 2018,
+    "month": 5,
+    "month_name": "May",
+    "count": 1
+  },
+  {
+    "year_month": "2018-03",
+    "year": 2018,
+    "month": 3,
+    "month_name": "March",
+    "count": 2
+  },
+  {
+    "year_month": "2018-01",
+    "year": 2018,
+    "month": 1,
+    "month_name": "January",
+    "count": 2
+  },
+  {
+    "year_month": "2017-05",
+    "year": 2017,
+    "month": 5,
+    "month_name": "May",
+    "count": 1
+  }
+]

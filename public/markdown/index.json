@@ -1,0 +1,439 @@
+{
+  "generated": "2026-04-19T11:45:01Z",
+  "total_files": 83,
+  "posts": [
+    {
+      "file": "posts/100gb-s-in-my-homelab-sort-of.md",
+      "title": "MikroTik CRS504 Review: 100Gb/s Networking in My Homelab",
+      "date": "2022-12-19T10:09:58Z",
+      "url": "https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/"
+    },
+    {
+      "file": "posts/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n.md",
+      "title": "Advanced Deploy VMware vSphere 7.x 3V0-22.21N",
+      "date": "2023-11-10T11:34:42Z",
+      "url": "https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/"
+    },
+    {
+      "file": "posts/analytics-in-a-privacy-focused-world.md",
+      "title": "Analytics in a privacy focused world",
+      "date": "2023-11-10T16:45:03Z",
+      "url": "https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/"
+    },
+    {
+      "file": "posts/and-now-for-something-completely-different.md",
+      "title": "And now for something completely different",
+      "date": "2018-10-16T08:22:45Z",
+      "url": "https://jameskilby.co.uk/2018/10/and-now-for-something-completely-different/"
+    },
+    {
+      "file": "posts/apple-content-caching.md",
+      "title": "How Apple Content Caching Works: Speed Up iOS & Mac Updates",
+      "date": "2021-02-08T14:12:23Z",
+      "url": "https://jameskilby.co.uk/2021/02/apple-content-caching/"
+    },
+    {
+      "file": "posts/automated-vcf-9-offline-depot.md",
+      "title": "Automated VCF 9 Offline Depot",
+      "date": "2026-04-10T11:36:03Z",
+      "url": "https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/"
+    },
+    {
+      "file": "posts/automating-the-deployment-of-my-ai-homelab-and-other-improvements.md",
+      "title": "Automating the Deployment of my Homelab AI Infrastructure",
+      "date": "2026-02-09T11:54:54Z",
+      "url": "https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/"
+    },
+    {
+      "file": "posts/aws-for-beginners1.md",
+      "title": "AWS For Beginners: IAM Setup, Root Security & Billing Alerts",
+      "date": "2018-03-30T23:13:21Z",
+      "url": "https://jameskilby.co.uk/2018/03/aws-for-beginners1/"
+    },
+    {
+      "file": "posts/aws-solution-architect-associate.md",
+      "title": "AWS Solution Architect – Associate",
+      "date": "2019-12-16T23:46:22Z",
+      "url": "https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/"
+    },
+    {
+      "file": "posts/aws-status-page-monitoring-included.md",
+      "title": "AWS Status Page – Monitoring Included",
+      "date": "2018-05-15T21:41:14Z",
+      "url": "https://jameskilby.co.uk/2018/05/aws-status-page-monitoring-included/"
+    },
+    {
+      "file": "posts/can-you-really-squeeze-96tb-in-1u.md",
+      "title": "Can you really squeeze 96TB in 1U ?",
+      "date": "2024-09-12T12:39:16Z",
+      "url": "https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/"
+    },
+    {
+      "file": "posts/cloudflare-workers-limits-of-the-free-tier.md",
+      "title": "Cloudflare Workers – Limits of the free tier",
+      "date": "2022-01-04T21:11:23Z",
+      "url": "https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/"
+    },
+    {
+      "file": "posts/cloudflare.md",
+      "title": "What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained",
+      "date": "2018-03-27T12:30:48Z",
+      "url": "https://jameskilby.co.uk/2018/03/cloudflare/"
+    },
+    {
+      "file": "posts/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router.md",
+      "title": "Configuring a Zen Internet and City Fibre connection with a 3rd party router",
+      "date": "2023-11-15T19:27:48Z",
+      "url": "https://jameskilby.co.uk/2023/11/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router/"
+    },
+    {
+      "file": "posts/forcing-an-upgrade-to-vsphere-8.md",
+      "title": "Forcing an Upgrade to vSphere 8",
+      "date": "2022-12-14T21:43:39Z",
+      "url": "https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/"
+    },
+    {
+      "file": "posts/going-out-with-a-bang.md",
+      "title": "VMware – Going out with a Bang!",
+      "date": "2023-10-07T12:37:14Z",
+      "url": "https://jameskilby.co.uk/2023/10/going-out-with-a-bang/"
+    },
+    {
+      "file": "posts/hashicorp-packer.md",
+      "title": "Template Deployment with Packer",
+      "date": "2021-01-21T22:26:10Z",
+      "url": "https://jameskilby.co.uk/2021/01/hashicorp-packer/"
+    },
+    {
+      "file": "posts/holodeck-cpu-fixes.md",
+      "title": "VMware Holodeck on Older CPUs: Fixing Compatibility Issues",
+      "date": "2024-01-18T14:37:04Z",
+      "url": "https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/"
+    },
+    {
+      "file": "posts/home-network-upgrade.md",
+      "title": "Home Network Upgrade to 25Gb/s with MikroTik Switching",
+      "date": "2024-09-09T08:25:08Z",
+      "url": "https://jameskilby.co.uk/2024/09/home-network-upgrade/"
+    },
+    {
+      "file": "posts/homelab-bad-days-almost.md",
+      "title": "Homelab SSD Failure: How Synology RAID Saved My Data",
+      "date": "2022-11-21T15:46:53Z",
+      "url": "https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/"
+    },
+    {
+      "file": "posts/homelab-storage-refresh-part-1.md",
+      "title": "Homelab Storage Refresh (Part 1)",
+      "date": "2023-05-23T12:07:09Z",
+      "url": "https://jameskilby.co.uk/2023/05/homelab-storage-refresh-part-1/"
+    },
+    {
+      "file": "posts/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare.md",
+      "title": "How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare",
+      "date": "2025-10-06T15:57:06Z",
+      "url": "https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/"
+    },
+    {
+      "file": "posts/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way.md",
+      "title": "How I Migrated from Pocket to Hoarder with AI Integration",
+      "date": "2025-01-29T23:31:56Z",
+      "url": "https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/"
+    },
+    {
+      "file": "posts/how-i-moved-my-wordpress-site-to-cloudflare-pages.md",
+      "title": "Static WordPress hosting using Cloudflare",
+      "date": "2022-10-20T15:26:08Z",
+      "url": "https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/"
+    },
+    {
+      "file": "posts/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages.md",
+      "title": "WordPress Hosting with Cloudflare Pages",
+      "date": "2023-05-14T07:00:35Z",
+      "url": "https://jameskilby.co.uk/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages/"
+    },
+    {
+      "file": "posts/i3en.md",
+      "title": "VMware Cloud on AWS i3en Host: Specs, Storage & Performance",
+      "date": "2020-07-02T22:01:39Z",
+      "url": "https://jameskilby.co.uk/2020/07/i3en/"
+    },
+    {
+      "file": "posts/intel-optane.md",
+      "title": "Using Intel Optane NVMe in a VMware Homelab: Setup & Results",
+      "date": "2023-04-17T12:20:04Z",
+      "url": "https://jameskilby.co.uk/2023/04/intel-optane/"
+    },
+    {
+      "file": "posts/lab-storage-2.md",
+      "title": "Homelab Storage Upgrade: Synology DS918 for VMware & NFS",
+      "date": "2019-02-10T23:59:20Z",
+      "url": "https://jameskilby.co.uk/2019/02/lab-storage-2/"
+    },
+    {
+      "file": "posts/lab-storage.md",
+      "title": "My First Homelab Storage Setup: HP Gen8 & Xpenology",
+      "date": "2018-01-06T17:39:20Z",
+      "url": "https://jameskilby.co.uk/2018/01/lab-storage/"
+    },
+    {
+      "file": "posts/lab-update-part-1-compute.md",
+      "title": "Lab Update – Compute",
+      "date": "2022-01-06T11:12:00Z",
+      "url": "https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/"
+    },
+    {
+      "file": "posts/lab-update-part-2-storage.md",
+      "title": "Lab Update – Part 2 Storage Truenas Scale",
+      "date": "2022-01-11T22:35:02Z",
+      "url": "https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/"
+    },
+    {
+      "file": "posts/lab-update-part-3-network.md",
+      "title": "Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense",
+      "date": "2022-01-06T19:25:40Z",
+      "url": "https://jameskilby.co.uk/2022/01/lab-update-part-3-network/"
+    },
+    {
+      "file": "posts/lab-update-part-5-desired-workloads.md",
+      "title": "Lab Update – Desired Workloads",
+      "date": "2022-01-06T19:23:11Z",
+      "url": "https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/"
+    },
+    {
+      "file": "posts/managing-my-homelab-with-semaphoreui.md",
+      "title": "Managing my Homelab with SemaphoreUI",
+      "date": "2025-09-02T16:01:48Z",
+      "url": "https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/"
+    },
+    {
+      "file": "posts/money-saving-uk-version.md",
+      "title": "UK Money Saving Tips: Banking, Rewards & Travel Cards",
+      "date": "2017-05-29T11:49:16Z",
+      "url": "https://jameskilby.co.uk/2017/05/money-saving-uk-version/"
+    },
+    {
+      "file": "posts/monitoring-vmc-part-1.md",
+      "title": "Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1)",
+      "date": "2019-12-17T23:01:27Z",
+      "url": "https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/"
+    },
+    {
+      "file": "posts/multihost-holodeck-vcf.md",
+      "title": "VMware Holodeck Multi-Host VCF: Lab Setup & Configuration",
+      "date": "2024-01-17T17:29:38Z",
+      "url": "https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/"
+    },
+    {
+      "file": "posts/my-first-pull.md",
+      "title": "My First GitHub Pull Request: Contributing to Open Source",
+      "date": "2020-12-22T16:38:11Z",
+      "url": "https://jameskilby.co.uk/2020/12/my-first-pull/"
+    },
+    {
+      "file": "posts/my-home-office-setup-upgrades.md",
+      "title": "My Home Office Setup & Upgrades",
+      "date": "2021-01-05T12:17:13Z",
+      "url": "https://jameskilby.co.uk/2021/01/my-home-office-setup-upgrades/"
+    },
+    {
+      "file": "posts/my-self-hosted-ai-stack-a-technical-deep-dive.md",
+      "title": "My Self-Hosted AI Stack: Architecture Overview (Part 1)",
+      "date": "2026-03-27T11:56:33Z",
+      "url": "https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/"
+    },
+    {
+      "file": "posts/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2.md",
+      "title": "My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)",
+      "date": "2026-04-04T21:39:21Z",
+      "url": "https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/"
+    },
+    {
+      "file": "posts/new-laptop.md",
+      "title": "MacBook Air 2018 Retina Review: My Setup & Build Scripts",
+      "date": "2018-12-04T21:44:30Z",
+      "url": "https://jameskilby.co.uk/2018/12/new-laptop/"
+    },
+    {
+      "file": "posts/new-nodes.md",
+      "title": "New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix",
+      "date": "2024-07-02T08:01:04Z",
+      "url": "https://jameskilby.co.uk/2024/07/new-nodes/"
+    },
+    {
+      "file": "posts/new-vmc-host-i7i-metal-24xl.md",
+      "title": "New VMware Cloud on AWS Host: i7i.metal-24xl",
+      "date": "2026-04-01T08:06:00Z",
+      "url": "https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/"
+    },
+    {
+      "file": "posts/nutanix-ce.md",
+      "title": "Running Nutanix CE at Home: AHV Setup & First Impressions",
+      "date": "2018-01-06T17:28:56Z",
+      "url": "https://jameskilby.co.uk/2018/01/nutanix-ce/"
+    },
+    {
+      "file": "posts/nutanix-command-reference-guide.md",
+      "title": "Nutanix Command Reference Guide",
+      "date": "2018-06-05T20:59:24Z",
+      "url": "https://jameskilby.co.uk/2018/06/nutanix-command-reference-guide/"
+    },
+    {
+      "file": "posts/nutanix-ncp.md",
+      "title": "Passing the Nutanix NCP Exam: Free Training & My Experience",
+      "date": "2020-07-02T15:20:30Z",
+      "url": "https://jameskilby.co.uk/2020/07/nutanix-ncp/"
+    },
+    {
+      "file": "posts/octopus-agile-battery-solar-calculator.md",
+      "title": "Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested",
+      "date": "2026-03-09T23:39:37Z",
+      "url": "https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/"
+    },
+    {
+      "file": "posts/runecast-remediation-scripts.md",
+      "title": "Runecast Remediation Scripts: Auto-Fix VMware Storage Issues",
+      "date": "2023-05-16T10:38:45Z",
+      "url": "https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/"
+    },
+    {
+      "file": "posts/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu.md",
+      "title": "Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU",
+      "date": "2024-10-11T15:03:26Z",
+      "url": "https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/"
+    },
+    {
+      "file": "posts/starlink.md",
+      "title": "Starlink Satellite Internet Review: Rural Broadband Solution",
+      "date": "2022-10-11T21:40:50Z",
+      "url": "https://jameskilby.co.uk/2022/10/starlink/"
+    },
+    {
+      "file": "posts/time-in-a-vmc-environment.md",
+      "title": "VMware Cloud on AWS Time Sync & NTP Configuration",
+      "date": "2025-12-08T14:03:44Z",
+      "url": "https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/"
+    },
+    {
+      "file": "posts/truenas-scale-useful-commands.md",
+      "title": "TrueNAS Scale CLI Reference: Storage & Kubernetes Commands",
+      "date": "2023-11-13T14:34:17Z",
+      "url": "https://jameskilby.co.uk/2023/11/truenas-scale-useful-commands/"
+    },
+    {
+      "file": "posts/ubuntu-disk-expansion-steps.md",
+      "title": "How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step",
+      "date": "2025-12-15T20:56:40Z",
+      "url": "https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/"
+    },
+    {
+      "file": "posts/unifi-dhcp-option-43.md",
+      "title": "Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets",
+      "date": "2024-06-26T10:50:17Z",
+      "url": "https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/"
+    },
+    {
+      "file": "posts/use-portainer-in-a-homelab-with-github.md",
+      "title": "Use Portainer in a Homelab with GitHub",
+      "date": "2022-12-09T09:06:37Z",
+      "url": "https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/"
+    },
+    {
+      "file": "posts/using-content-libraries-in-vmc-to-deploy-software-faster.md",
+      "title": "Using Content Libraries in VMC to deploy software faster",
+      "date": "2026-01-27T22:19:39Z",
+      "url": "https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/"
+    },
+    {
+      "file": "posts/veeamon2020.md",
+      "title": "VeeamON 2020: Highlights From Veeam’s Virtual Conference",
+      "date": "2020-06-18T14:42:45Z",
+      "url": "https://jameskilby.co.uk/2020/06/veeamon2020/"
+    },
+    {
+      "file": "posts/vgpu-setup-in-my-homelab.md",
+      "title": "Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide",
+      "date": "2023-10-23T14:56:58Z",
+      "url": "https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/"
+    },
+    {
+      "file": "posts/vmc-host-deepdive.md",
+      "title": "An in-depth look at VMware Cloud on AWS hosts",
+      "date": "2025-08-14T12:32:01Z",
+      "url": "https://jameskilby.co.uk/2025/08/vmc-host-deepdive/"
+    },
+    {
+      "file": "posts/vmc-host-errors.md",
+      "title": "How VMware Cloud on AWS Handles Host Failures Automatically",
+      "date": "2020-09-15T10:56:32Z",
+      "url": "https://jameskilby.co.uk/2020/09/vmc-host-errors/"
+    },
+    {
+      "file": "posts/vmc-quick-sizing-guide.md",
+      "title": "VMware Cloud on AWS Storage Sizing Quick Reference Guide",
+      "date": "2025-05-21T09:33:04Z",
+      "url": "https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/"
+    },
+    {
+      "file": "posts/vmware-certified-master-specialist-hci-2020.md",
+      "title": "VMware Certified Master Specialist HCI 2020",
+      "date": "2020-09-13T21:38:48Z",
+      "url": "https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/"
+    },
+    {
+      "file": "posts/vsan-cluster-shutdown.md",
+      "title": "vSAN Cluster Shutdown – Orchestration",
+      "date": "2025-12-06T10:59:14Z",
+      "url": "https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/"
+    },
+    {
+      "file": "posts/vsan-esa-and-the-improvements-it-brings-to-vmc.md",
+      "title": "vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24",
+      "date": "2023-11-17T11:29:42Z",
+      "url": "https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/"
+    },
+    {
+      "file": "posts/vsphere-power-management-driven-by-ansible.md",
+      "title": "Automating vSphere Power Management driven by Ansible and SemaphoreUI",
+      "date": "2026-04-15T21:36:41Z",
+      "url": "https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/"
+    },
+    {
+      "file": "posts/warp-the-intelligent-terminal.md",
+      "title": "Warp – The intelligent terminal",
+      "date": "2025-04-11T15:46:23Z",
+      "url": "https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/"
+    },
+    {
+      "file": "posts/web-development-improvements.md",
+      "title": "Blog Performance & SEO Improvements: Cloudflare, Privacy & More",
+      "date": "2026-01-15T15:12:16Z",
+      "url": "https://jameskilby.co.uk/2026/01/web-development-improvements/"
+    },
+    {
+      "file": "posts/web-development.md",
+      "title": "Hosting This Blog on Cloudflare Workers: Why & How I Did It",
+      "date": "2022-01-04T11:27:12Z",
+      "url": "https://jameskilby.co.uk/2022/01/web-development/"
+    },
+    {
+      "file": "posts/whats-in-my-backpack.md",
+      "title": "What’s In My Tech Bag? Everyday Carry for IT Consultants",
+      "date": "2019-01-10T21:48:41Z",
+      "url": "https://jameskilby.co.uk/2019/01/whats-in-my-backpack/"
+    },
+    {
+      "file": "posts/wrangler-and-node-versions.md",
+      "title": "Fixing Wrangler Node.js Version Conflicts After Brew Upgrade",
+      "date": "2022-01-15T08:42:36Z",
+      "url": "https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/"
+    },
+    {
+      "file": "posts/zfs-on-vmware.md",
+      "title": "How to Run ZFS on VMware vSphere: Setup Guide and Best Practices",
+      "date": "2024-12-18T17:47:57Z",
+      "url": "https://jameskilby.co.uk/2024/12/zfs-on-vmware/"
+    }
+  ],
+  "pages": []
+}

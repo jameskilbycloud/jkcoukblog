@@ -1,0 +1,24 @@
+{
+  "slug": "nutanix-command-reference-guide",
+  "title": "Nutanix Command Reference Guide",
+  "description": "Access a comprehensive list of useful Nutanix commands. Enhance your skills and streamline your operations with our handy reference guide.",
+  "date": "2018-06-05T20:59:24Z",
+  "modified": "2026-03-10T20:35:15Z",
+  "author": "James Kilby",
+  "url": "https://jameskilby.co.uk/2018/06/nutanix-command-reference-guide/",
+  "markdown_url": "/markdown/posts/nutanix-command-reference-guide.md",
+  "api_url": "/api/posts/nutanix-command-reference-guide.json",
+  "categories": [
+    "Nutanix",
+    "Homelab",
+    "VMware",
+    "Personal"
+  ],
+  "tags": [
+    null,
+    null
+  ],
+  "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
+  "content": "![Nutanix Logo Hi Rez Reverse W Carrier](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Nutanix Command Reference Guide\n\nBy[James](https://jameskilby.co.uk)June 5, 2018March 10, 2026 • 📖1 min read(105 words)\n\n📅 **Published:** June 05, 2018• **Updated:** March 10, 2026\n\n## Nutanix Command List\n\nThis is a list of Nutanix commands I have found useful. Its here as a reference and if i need a command more than a few times ill generally add it here.\n\n#### CLI\n\n  * ncli cluster get-domain-fault-tolerance-status type=node (Checks if all of the storage components meet the desired replication factor)\n  * cvm_shutdown -P now ( Correct way to shutdown a CVM)\n  * ncc health_checks run_all –parallel=4 . ( 4 is the max number)\n  * curator_cli get_under_replication_info summary=true Checks if any objects are not at the desired replication factor\n  * curl localhost:2019/prism/leader . Find the leader\n\n#### WEB\n\n  * http://{curator-master-cvm-ip}:2010/master/control ( If you want to invoke a curator scan manually)\n\n## 📚 Related Posts\n\n  * [New Nodes](https://jameskilby.co.uk/2024/07/new-nodes/)\n  * [Nutanix NCP](https://jameskilby.co.uk/2020/07/nutanix-ncp/)\n  * [Nutanix CE](https://jameskilby.co.uk/2018/01/nutanix-ce/)\n\n## Similar Posts\n\n  * [![New Nodes](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg)](https://jameskilby.co.uk/2024/07/new-nodes/)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n### [New Nodes](https://jameskilby.co.uk/2024/07/new-nodes/)\n\nBy[James](https://jameskilby.co.uk)July 2, 2024March 10, 2026\n\nI recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul. The below post describes what I bought why and how I have configured it. Table of Contents Node Choice Bill of Materials Rescue IPMI…\n\n  * [![Nutanix NCP](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg)](https://jameskilby.co.uk/2020/07/nutanix-ncp/)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n### [Nutanix NCP](https://jameskilby.co.uk/2020/07/nutanix-ncp/)\n\nBy[James](https://jameskilby.co.uk)July 2, 2020July 10, 2024\n\nI saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam. They are also offering free on-demand training to go with it. In my current role, I haven’t used Nutanix however I have good experience using it as the storage platform with vSphere…\n\n  * [![Nutanix CE](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg)](https://jameskilby.co.uk/2018/01/nutanix-ce/)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n### [Nutanix CE](https://jameskilby.co.uk/2018/01/nutanix-ce/)\n\nBy[James](https://jameskilby.co.uk)January 6, 2018July 10, 2024\n\nI ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to continue running it at home. This was compounded by the fact that I have many clusters to play with at work. These all run my…",
+  "excerpt": "![Nutanix Logo Hi Rez Reverse W Carrier](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Nutanix Command Reference Guide\n\nBy[James](https://jameskilby.co.uk)June 5, 2018March 10, 2026 • 📖1 min re..."
+}

@@ -1,0 +1,30 @@
+{
+  "year": 2020,
+  "month": 6,
+  "month_name": "June",
+  "posts": [
+    {
+      "slug": "veeamon2020",
+      "title": "VeeamON 2020: Highlights From Veeam’s Virtual Conference",
+      "description": "As everyone knows by now the world has changed possibly forever. Due to Covid19 working from home has become the new normal.",
+      "date": "2020-06-18T14:42:45Z",
+      "modified": "2026-04-16T22:02:00Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2020/06/veeamon2020/",
+      "markdown_url": "/markdown/posts/veeamon2020.md",
+      "api_url": "/api/posts/veeamon2020.json",
+      "categories": [
+        "Veeam",
+        "Homelab",
+        "VMware",
+        "AWS"
+      ],
+      "tags": [
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png",
+      "excerpt": "![Veeam Logo New Large 1934042827](https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png)\n\n[Veeam](https://jameskilby.co.uk/category/veeam/)\n\n# VeeamON 2020: Highlights From Veeam’s Virtual Conference\n\nBy[James](https://jameskilby.co.uk)June 18, 2020April 16, 2026 •..."
+    }
+  ]
+}

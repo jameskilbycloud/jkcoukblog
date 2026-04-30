@@ -1,0 +1,33 @@
+{
+  "name": "Ubuntu",
+  "slug": "ubuntu",
+  "posts": [
+    {
+      "slug": "ubuntu-disk-expansion-steps",
+      "title": "How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step",
+      "description": "How to expand disks from the command line in Ubuntu. This is something I do fairly frequently, and I can never remember the steps.",
+      "date": "2025-12-15T20:56:40Z",
+      "modified": "2026-04-16T22:01:40Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/",
+      "markdown_url": "/markdown/posts/ubuntu-disk-expansion-steps.md",
+      "api_url": "/api/posts/ubuntu-disk-expansion-steps.json",
+      "categories": [
+        "Ubuntu",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Homelab",
+        "Traefik",
+        "VCF",
+        "VMware"
+      ],
+      "tags": [
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png",
+      "excerpt": "![Ubuntuexpand](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)\n\n[Ubuntu](https://jameskilby.co.uk/category/ubuntu/)\n\n# How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step\n\nBy[James](https://jameskilby.co.uk)December 15, 2025April 16, 2026 • 📖1 min read(91 words)\n\n📅 **Pu..."
+    }
+  ]
+}

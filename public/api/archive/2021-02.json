@@ -1,0 +1,27 @@
+{
+  "year": 2021,
+  "month": 2,
+  "month_name": "February",
+  "posts": [
+    {
+      "slug": "apple-content-caching",
+      "title": "How Apple Content Caching Works: Speed Up iOS & Mac Updates",
+      "description": "I have slowly morphed into an Apple fanboy over the last decade or so collecting a large number of devices ever since my first MacBook Air back in 2011.",
+      "date": "2021-02-08T14:12:23Z",
+      "modified": "2026-04-16T22:01:57Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2021/02/apple-content-caching/",
+      "markdown_url": "/markdown/posts/apple-content-caching.md",
+      "api_url": "/api/posts/apple-content-caching.json",
+      "categories": [
+        "Apple"
+      ],
+      "tags": [
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2021/02/iu.png",
+      "excerpt": "![Iu](https://jameskilby.co.uk/wp-content/uploads/2021/02/iu.png)\n\n[Apple](https://jameskilby.co.uk/category/apple/)\n\n# How Apple Content Caching Works: Speed Up iOS & Mac Updates\n\nBy[James](https://jameskilby.co.uk)February 8, 2021April 16, 2026 • 📖2 min read(313 words)\n\n📅 **Published:** February 0..."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "version": "1.0",
+  "generated": "2026-04-19T11:45:02.820471",
+  "base_url": "/api",
+  "endpoints": {
+    "posts": {
+      "all": "/api/posts.json",
+      "paginated": "/api/posts-page-{page}.json",
+      "single": "/api/posts/{slug}.json",
+      "description": "All blog posts with metadata and content"
+    },
+    "categories": {
+      "index": "/api/categories/index.json",
+      "single": "/api/categories/{slug}.json",
+      "description": "Posts grouped by category"
+    },
+    "tags": {
+      "index": "/api/tags/index.json",
+      "single": "/api/tags/{slug}.json",
+      "description": "Posts grouped by tag"
+    },
+    "archive": {
+      "index": "/api/archive/index.json",
+      "single": "/api/archive/{year}-{month}.json",
+      "description": "Posts grouped by month/year"
+    }
+  },
+  "content_format": {
+    "markdown": {
+      "raw": "/markdown/posts/{slug}.md",
+      "description": "Raw markdown with frontmatter"
+    },
+    "html": {
+      "url": "/{year}/{month}/{slug}/",
+      "description": "Rendered HTML page"
+    }
+  }
+}
