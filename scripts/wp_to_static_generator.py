@@ -3309,6 +3309,14 @@ document.addEventListener('DOMContentLoaded', function() {
             "User-agent: *",
             "Allow: /",
             "",
+            "# Stop crawlers from wasting crawl budget on feed URLs and",
+            "# the JSON API directory — these are never indexed anyway.",
+            "Disallow: /*/feed/",
+            "Disallow: /api/",
+            "",
+            "# Tag archive pages are noindex thin content — skip crawling them.",
+            "Disallow: /tag/",
+            "",
             f"Sitemap: {self.target_domain}/sitemap.xml",
             ""
         ]
