@@ -1005,6 +1005,9 @@ jobs:
 
     - name: Purge all HTML from KV cache
       if: success()
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       run: |
         echo "🗑️ Purging all HTML entries from Workers KV cache..."
 
@@ -1012,6 +1015,38 @@ jobs:
           echo "ℹ️  CACHE_PURGE_TOKEN not set, skipping KV cache purge"
           echo "   To enable: Add CACHE_PURGE_TOKEN to repository secrets"
           exit 0
+        fi
+
+        # Wait for the new Cloudflare Pages deployment to propagate before purging.
+        # Without this, the purge hits the OLD deployment (which may not have the
+        # PURGE_TOKEN env var yet) and gets a 401. Poll the CF Pages API until the
+        # latest deployment reaches "success", then add a short buffer.
+        if [ -n "$CLOUDFLARE_API_TOKEN" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
+          echo "⏳ Waiting for Cloudflare Pages deployment to complete..."
+          MAX_ATTEMPTS=18   # 18 × 10s = 180s max
+          ATTEMPT=0
+          DEPLOY_STATUS=""
+          while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
+            DEPLOY_RESP=$(curl -s \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/jkcoukblog/deployments?per_page=1")
+            DEPLOY_STATUS=$(echo "$DEPLOY_RESP" | jq -r '.result[0].latest_stage.status // "unknown"' 2>/dev/null || echo "unknown")
+            echo "   Deployment status: $DEPLOY_STATUS (attempt $((ATTEMPT+1))/$MAX_ATTEMPTS)"
+            if [ "$DEPLOY_STATUS" = "success" ]; then
+              echo "✅ Deployment complete — waiting 15s for global propagation..."
+              sleep 15
+              break
+            fi
+            ATTEMPT=$((ATTEMPT+1))
+            sleep 10
+          done
+          if [ "$DEPLOY_STATUS" != "success" ]; then
+            echo "⚠️  Deployment did not reach 'success' within timeout — sleeping 90s as fallback..."
+            sleep 90
+          fi
+        else
+          echo "⚠️  CF API credentials not set — sleeping 90s to allow deployment propagation..."
+          sleep 90
         fi
 
         RESPONSE=$(curl -s -w "\n%{http_code}" \
@@ -1121,7 +1156,37 @@ jobs:
       if: success()
       run: |
         echo "🔔 Submitting URLs to IndexNow..."
-        # Runs after the site is live and caches are purged so crawlers see fresh content
+
+        # The key file must be live on jameskilby.co.uk before we submit.
+        # Verify it's accessible with up to 12 retries (120s) before submitting.
+        # This is an independent guard — it doesn't rely on the KV purge step
+        # having waited (that step exits early when CACHE_PURGE_TOKEN isn't set).
+        INDEXNOW_KEY=$(cat .indexnow_key 2>/dev/null || true)
+        if [ -n "$INDEXNOW_KEY" ]; then
+          KEY_URL="https://jameskilby.co.uk/${INDEXNOW_KEY}.txt"
+          echo "🔑 Verifying key file is live: $KEY_URL"
+          MAX_ATTEMPTS=12
+          ATTEMPT=0
+          KEY_LIVE=false
+          while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$KEY_URL" 2>/dev/null || echo "000")
+            if [ "$HTTP_CODE" = "200" ]; then
+              echo "✅ Key file accessible (HTTP 200) — proceeding with submission"
+              KEY_LIVE=true
+              break
+            fi
+            echo "   Key file returned HTTP $HTTP_CODE (attempt $((ATTEMPT+1))/$MAX_ATTEMPTS) — waiting 10s..."
+            ATTEMPT=$((ATTEMPT+1))
+            sleep 10
+          done
+          if [ "$KEY_LIVE" = "false" ]; then
+            echo "⚠️  Key file not accessible after ${MAX_ATTEMPTS} attempts — skipping IndexNow submission"
+            exit 0
+          fi
+        else
+          echo "ℹ️  No .indexnow_key found — skipping key verification"
+        fi
+
         python3 scripts/submit_indexnow.py ./public || echo "⚠️  IndexNow submission failed (non-blocking)"
       continue-on-error: true
 
