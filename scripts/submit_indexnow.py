@@ -19,9 +19,9 @@ class IndexNowSubmitter:
     
     # IndexNow endpoint (can be any participating search engine)
     INDEXNOW_ENDPOINTS = [
-        'https://api.indexnow.org/indexnow',  # General endpoint
-        'https://www.bing.com/indexnow',      # Bing
-        'https://yandex.com/indexnow',         # Yandex
+        'https://yandex.com/indexnow',         # Yandex — open spec, works without extra verification
+        'https://api.indexnow.org/indexnow',  # Microsoft/Bing general endpoint (requires Bing Webmaster Tools verification)
+        'https://www.bing.com/indexnow',      # Bing direct (same requirement as above)
     ]
     
     def __init__(self, site_domain, output_dir, key_location=None):

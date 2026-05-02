@@ -1190,6 +1190,44 @@ jobs:
         python3 scripts/submit_indexnow.py ./public || echo "⚠️  IndexNow submission failed (non-blocking)"
       continue-on-error: true
 
+    - name: Ping Google sitemap on new post
+      if: success()
+      run: |
+        # Only ping Google when a genuinely new post page was added this build.
+        # New posts appear as added files matching public/YYYY/MM/<slug>/index.html.
+        # Updates to existing posts, CSS, images etc. don't warrant a sitemap ping.
+        NEW_POSTS=$(git diff --name-only HEAD~1 HEAD 2>/dev/null \
+          | grep -E '^public/[0-9]{4}/[0-9]{2}/.+/index\.html$' || true)
+
+        if [ -z "$NEW_POSTS" ]; then
+          echo "ℹ️  No new posts in this build — skipping Google sitemap ping"
+          exit 0
+        fi
+
+        echo "🆕 New post(s) detected:"
+        echo "$NEW_POSTS" | sed 's|public/||;s|/index\.html||' | while read -r slug; do
+          echo "   • /$slug/"
+        done
+
+        SITEMAP_URL="https://jameskilby.co.uk/sitemap.xml"
+        echo "📡 Pinging Google sitemap: $SITEMAP_URL"
+        HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+          --max-time 15 \
+          "https://www.google.com/ping?sitemap=${SITEMAP_URL}" 2>/dev/null || echo "000")
+
+        if [ "$HTTP_CODE" = "200" ]; then
+          echo "✅ Google sitemap ping accepted (HTTP 200)"
+        else
+          echo "⚠️  Google sitemap ping returned HTTP $HTTP_CODE (non-blocking)"
+        fi
+
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## 📡 Google Sitemap Ping" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Status:** HTTP $HTTP_CODE" >> $GITHUB_STEP_SUMMARY
+        echo "- **Triggered by:** $(echo "$NEW_POSTS" | wc -l | tr -d ' ') new post(s)" >> $GITHUB_STEP_SUMMARY
+      continue-on-error: true
+
     - name: Notify Slack on Success
       if: success()
       uses: slackapi/slack-github-action@v3.0.1
