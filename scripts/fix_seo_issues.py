@@ -84,6 +84,15 @@ class SEOFixer:
             if self.fix_person_name(soup, file_path):
                 modified = True
 
+            if self.fix_og_site_name(soup, file_path):
+                modified = True
+
+            if self.fix_malformed_stylesheet_attr(soup, file_path):
+                modified = True
+
+            if self.fix_archive_robots(soup, file_path):
+                modified = True
+
             # Save if modified
             if modified:
                 with open(file_path, 'w', encoding='utf-8') as f:
@@ -503,6 +512,99 @@ class SEOFixer:
             print(f"   👤 Fixed Person name (Jameskilbycouk → James Kilby): {file_path.name}")
 
         return modified
+
+    def fix_og_site_name(self, soup, file_path):
+        """Fix og:site_name when it contains the old concatenated slug 'Jameskilbycouk'.
+
+        Some older posts were built before the Rank Math site-name fix and still
+        carry the concatenated slug as the og:site_name content value.  This
+        parallels fix_person_name() which already fixes the same value inside
+        JSON-LD blocks.
+        """
+        WRONG = 'Jameskilbycouk'
+        RIGHT = 'James Kilby'
+        modified = False
+
+        tag = soup.find('meta', property='og:site_name')
+        if tag and tag.get('content', '') == WRONG:
+            tag['content'] = RIGHT
+            modified = True
+
+        if modified:
+            self.issues_fixed += 1
+            print(f"   🏷️  Fixed og:site_name (Jameskilbycouk → James Kilby): {file_path.name}")
+
+        return modified
+
+    def fix_malformed_stylesheet_attr(self, soup, file_path):
+        """Remove the bogus stylesheet'\"=\"\" attribute injected by WPO-Minify.
+
+        The WPO-Minify WordPress plugin emits CSS preload <link> tags with an
+        onload handler that uses single quotes inside a double-quoted attribute
+        value:
+
+            <link … onload="this.onload=null;this.rel='stylesheet'" rel="preload">
+
+        When BeautifulSoup's html.parser encounters this it sometimes serialises
+        a spurious attribute literal  stylesheet'"=""  into the output.  That
+        bogus attribute makes the <link> invalid HTML and can confuse Googlebot's
+        renderer, preventing correct CSS application during crawl.
+
+        This method strips any attribute whose name matches that pattern from
+        every <link> tag in the page.
+        """
+        import re as _re
+        # The actual attribute key BeautifulSoup stores is  stylesheet'"
+        # (literal single-quote + double-quote suffix).  Match any key that
+        # starts with "stylesheet" and contains at least one quote character.
+        BOGUS_PATTERN = _re.compile(r"^stylesheet['\"]", _re.IGNORECASE)
+        modified = False
+
+        for tag in soup.find_all('link'):
+            # tag.attrs is a dict; iterate over a copy so we can mutate safely
+            bogus_keys = [k for k in list(tag.attrs.keys()) if BOGUS_PATTERN.match(str(k))]
+            for k in bogus_keys:
+                del tag.attrs[k]
+                modified = True
+
+        if modified:
+            self.issues_fixed += 1
+            print(f"   🔗 Removed bogus stylesheet attribute from <link> tags: {file_path.name}")
+
+        return modified
+
+    def fix_archive_robots(self, soup, file_path):
+        """Enable indexing on category archive pages; keep tags noindex.
+
+        WordPress Rank Math sets noindex on all taxonomy archive pages by
+        default.  Category pages (e.g. /category/vmware/) provide genuine
+        topical-authority signals to Google and should be indexed.  Tag pages
+        (/tag/...) are often thin content with only 1–3 posts and should stay
+        noindex to avoid quality dilution.
+
+        This method upgrades 'noindex, follow' → 'index, follow' only when the
+        file path is inside a category/ directory (not tag/).
+        """
+        # Only act on category archive pages
+        path_str = str(file_path)
+        is_category = '/category/' in path_str and '/tag/' not in path_str
+        if not is_category:
+            return False
+
+        robots_tag = soup.find('meta', attrs={'name': 'robots'})
+        if not robots_tag:
+            return False
+
+        content = robots_tag.get('content', '')
+        if 'noindex' not in content:
+            return False  # already indexable or not set
+
+        # Replace noindex with index, preserve follow and other directives
+        new_content = content.replace('noindex', 'index')
+        robots_tag['content'] = new_content
+        self.issues_fixed += 1
+        print(f"   🔍 Enabled indexing for category page: {file_path.name}")
+        return True
 
     def fix_og_absolute_urls(self, soup, file_path):
         """Ensure og:image, og:url, and twitter:image use absolute URLs.

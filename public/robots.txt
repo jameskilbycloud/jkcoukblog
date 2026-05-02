@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
 
+# Stop crawlers from wasting crawl budget on feed URLs and
+# the JSON API directory — these are never indexed anyway.
+Disallow: /*/feed/
+Disallow: /api/
+
+# Tag archive pages are noindex thin content — skip crawling them.
+Disallow: /tag/
+
 Sitemap: https://jameskilby.co.uk/sitemap.xml
