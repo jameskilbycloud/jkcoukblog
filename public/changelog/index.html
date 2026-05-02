@@ -280,7 +280,7 @@
         <div class="metrics">
             <div class="metric-card">
                 <h3>Total Deployments</h3>
-                <div class="metric-value">741</div>
+                <div class="metric-value">743</div>
                 <div class="metric-label">Git commits</div>
             </div>
             
@@ -299,7 +299,7 @@
             <div class="metric-card">
                 <h3>Last Deployment</h3>
                 <div class="metric-value">2026-05-02</div>
-                <div class="metric-label">10:54:28</div>
+                <div class="metric-label">20:54:02</div>
             </div>
         </div>
         
@@ -338,6 +338,11 @@
         
         <div class="changelog-section">
             <h2>Recent Changes</h2>
+
+            <div class="change-entry">
+                <div class="change-date">2026-05-02 <span class="change-hash">9990e9a</span><span class="category-badge badge-feature">Feature</span></div>
+                <div class="change-title">ADD Google Ping</div>
+            </div>
 
             <div class="change-entry">
                 <div class="change-date">2026-05-02 <span class="change-hash">509c002</span><span class="category-badge badge-fix">Fix</span></div>
@@ -511,16 +516,10 @@
                 <div class="change-details">Refine the regex used to extract taxonomy names from page titles. Use a non-greedy match for patterns like &quot;Docker Archives - James Kilby&quot; and add a fallback to the previous pattern when the &#x27;Archives&#x27; token isn&#x27;t present. Also update the comment/example. This prevents incorrect captures for taxonomy names that include hyphens or other characters.</div>
             </div>
 
-            <div class="change-entry">
-                <div class="change-date">2026-04-12 <span class="change-hash">bdfd455</span><span class="category-badge badge-other">Other</span></div>
-                <div class="change-title">Deduplicate meta descriptions on paginated pages</div>
-                <div class="change-details">Add fix_pagination_meta_description to detect /page/N/ URLs and append &quot; - Page N&quot; to meta description, og:description and twitter:description to avoid duplicate SEO content. The method strips trailing periods, truncates content to keep it within ~160 characters (adding ellipses if needed), and logs a brief message per modified page. Also call this new method during page processing so paginated archive pages get unique descriptions.</div>
-            </div>
-
         </div>
         
         <div class="timestamp">
-            Page generated: 2026-05-02 09:58:58 UTC<br>
+            Page generated: 2026-05-02 21:41:25 UTC<br>
             Changelog powered by Git history and Lighthouse CI
         </div>
     </div>
