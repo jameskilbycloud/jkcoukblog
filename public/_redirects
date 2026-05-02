@@ -22,6 +22,8 @@ www.jameskilby.co.uk/* jameskilby.co.uk/:splat 301
 /and-now-for-something-completely-different/ /2018/10/and-now-for-something-completely-different/ 301
 /apple-content-caching /2021/02/apple-content-caching/ 301
 /apple-content-caching/ /2021/02/apple-content-caching/ 301
+/auto-documenting-mikrotik-switch-ports-with-ansible-and-lldp-neighbours /2026/05/auto-documenting-mikrotik-switch-ports-with-ansible-and-lldp-neighbours/ 301
+/auto-documenting-mikrotik-switch-ports-with-ansible-and-lldp-neighbours/ /2026/05/auto-documenting-mikrotik-switch-ports-with-ansible-and-lldp-neighbours/ 301
 /automated-vcf-9-offline-depot /2026/04/automated-vcf-9-offline-depot/ 301
 /automated-vcf-9-offline-depot/ /2026/04/automated-vcf-9-offline-depot/ 301
 /automating-the-deployment-of-my-ai-homelab-and-other-improvements /2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/ 301
@@ -108,6 +110,8 @@ www.jameskilby.co.uk/* jameskilby.co.uk/:splat 301
 /nutanix-ncp/ /2020/07/nutanix-ncp/ 301
 /octopus-agile-battery-solar-calculator /2026/03/octopus-agile-battery-solar-calculator/ 301
 /octopus-agile-battery-solar-calculator/ /2026/03/octopus-agile-battery-solar-calculator/ 301
+/packer-vsphere-golden-images /2026/04/packer-vsphere-golden-images/ 301
+/packer-vsphere-golden-images/ /2026/04/packer-vsphere-golden-images/ 301
 /runecast-remediation-scripts /2023/05/runecast-remediation-scripts/ 301
 /runecast-remediation-scripts/ /2023/05/runecast-remediation-scripts/ 301
 /self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu /2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/ 301

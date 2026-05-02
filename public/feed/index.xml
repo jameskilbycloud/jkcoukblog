@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Jameskilbycouk</title>
+    <title>James Kilby</title>
     <link>https://jameskilby.co.uk/</link>
     <description>VMware and cloud infrastructure tutorials, homelab guides, and DevOps insights</description>
     <language>en-gb</language>
-    <lastBuildDate>Thu, 30 Apr 2026 10:59:56 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 02 May 2026 08:45:28 +0000</lastBuildDate>
     <atom:link href="https://jameskilby.co.uk/feed/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Auto-Documenting MikroTik Switch Ports with Ansible and LLDP Neighbours</title>
+      <link>https://jameskilby.co.uk/2026/05/auto-documenting-mikrotik-switch-ports-with-ansible-and-lldp-neighbours/</link>
+      <description>One of the small but persistent annoyances of managing network switches is keeping port labels up to date. You cable something up, then six months later</description>
+      <author>claude</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2026/05/auto-documenting-mikrotik-switch-ports-with-ansible-and-lldp-neighbours/</guid>
+      <pubDate>Fri, 01 May 2026 17:55:33 +0000</pubDate>
+    </item>
     <item>
       <title>My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)</title>
       <link>https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/</link>
@@ -22,6 +30,14 @@
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/</guid>
       <pubDate>Wed, 15 Apr 2026 21:36:41 +0000</pubDate>
+    </item>
+    <item>
+      <title>Automating vSphere Golden Images with Packer and GitHub Actions</title>
+      <link>https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/</link>
+      <description>Automate your Packer vSphere golden-image pipeline: build 6 Ubuntu LTS templates (22.04, 24.04, 26.04) server &amp; desktop flavours with GitHub Actions.</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/</guid>
+      <pubDate>Thu, 30 Apr 2026 17:22:19 +0000</pubDate>
     </item>
     <item>
       <title>New VMware Cloud on AWS Host: i7i.metal-24xl</title>
@@ -150,22 +166,6 @@
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/</guid>
       <pubDate>Wed, 29 Jan 2025 23:31:56 +0000</pubDate>
-    </item>
-    <item>
-      <title>How to Run ZFS on VMware vSphere: Setup Guide and Best Practices</title>
-      <link>https://jameskilby.co.uk/2024/12/zfs-on-vmware/</link>
-      <description>Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the</description>
-      <author>James</author>
-      <guid isPermaLink="true">https://jameskilby.co.uk/2024/12/zfs-on-vmware/</guid>
-      <pubDate>Wed, 18 Dec 2024 17:47:57 +0000</pubDate>
-    </item>
-    <item>
-      <title>Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU</title>
-      <link>https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/</link>
-      <description>Artificial intelligence is all the rage at the moment, It’s getting included in every product announcement from pretty much every vendor under the su</description>
-      <author>James</author>
-      <guid isPermaLink="true">https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/</guid>
-      <pubDate>Fri, 11 Oct 2024 15:03:26 +0000</pubDate>
     </item>
   </channel>
 </rss>
