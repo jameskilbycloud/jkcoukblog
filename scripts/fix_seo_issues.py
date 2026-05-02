@@ -90,9 +90,6 @@ class SEOFixer:
             if self.fix_malformed_stylesheet_attr(soup, file_path):
                 modified = True
 
-            if self.fix_archive_robots(soup, file_path):
-                modified = True
-
             # Save if modified
             if modified:
                 with open(file_path, 'w', encoding='utf-8') as f:
@@ -572,39 +569,6 @@ class SEOFixer:
             print(f"   🔗 Removed bogus stylesheet attribute from <link> tags: {file_path.name}")
 
         return modified
-
-    def fix_archive_robots(self, soup, file_path):
-        """Enable indexing on category archive pages; keep tags noindex.
-
-        WordPress Rank Math sets noindex on all taxonomy archive pages by
-        default.  Category pages (e.g. /category/vmware/) provide genuine
-        topical-authority signals to Google and should be indexed.  Tag pages
-        (/tag/...) are often thin content with only 1–3 posts and should stay
-        noindex to avoid quality dilution.
-
-        This method upgrades 'noindex, follow' → 'index, follow' only when the
-        file path is inside a category/ directory (not tag/).
-        """
-        # Only act on category archive pages
-        path_str = str(file_path)
-        is_category = '/category/' in path_str and '/tag/' not in path_str
-        if not is_category:
-            return False
-
-        robots_tag = soup.find('meta', attrs={'name': 'robots'})
-        if not robots_tag:
-            return False
-
-        content = robots_tag.get('content', '')
-        if 'noindex' not in content:
-            return False  # already indexable or not set
-
-        # Replace noindex with index, preserve follow and other directives
-        new_content = content.replace('noindex', 'index')
-        robots_tag['content'] = new_content
-        self.issues_fixed += 1
-        print(f"   🔍 Enabled indexing for category page: {file_path.name}")
-        return True
 
     def fix_og_absolute_urls(self, soup, file_path):
         """Ensure og:image, og:url, and twitter:image use absolute URLs.
