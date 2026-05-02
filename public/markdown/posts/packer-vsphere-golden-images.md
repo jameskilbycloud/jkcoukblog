@@ -32,13 +32,13 @@ url: https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/
 image: https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png)
+![Packer Github Actions Vsphere Pipeline](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png)
 
 [Automation](https://jameskilby.co.uk/category/automation/) | [Github](https://jameskilby.co.uk/category/github/)
 
 # Automating vSphere Golden Images with Packer and GitHub Actions
 
-By[James](https://jameskilby.co.uk) April 30, 2026May 1, 2026 • 📖9 min read(1,819 words)
+By[James](https://jameskilby.co.uk)April 30, 2026May 1, 2026 • 📖9 min read(1,819 words)
 
 📅 **Published:** April 30, 2026• **Updated:** May 01, 2026
 
@@ -88,8 +88,8 @@ The network configuration in the autoinstall user-data uses a `vmxnet3` driver m
 
 Two shell scripts run after the OS install completes:
 
-  * **setup.sh** — full `apt upgrade`, installs common utilities, disables swap, removes SSH host keys, appends SSH hardening config (`PermitRootLogin no` etc.), and zeroes free disk space to minimise template storage footprint, and optionally creates a named admin account and imports its SSH public keys from GitHub via `ssh-import-id-gh` (controlled by the `admin_username` and `admin_github_user` variables).
-  * **vmtools.sh** — verifies or installs open-vm-tools (and the desktop variant if a display manager is detected), enables the service, and reports the running version.
+  *  **setup.sh** — full `apt upgrade`, installs common utilities, disables swap, removes SSH host keys, appends SSH hardening config (`PermitRootLogin no` etc.), and zeroes free disk space to minimise template storage footprint, and optionally creates a named admin account and imports its SSH public keys from GitHub via `ssh-import-id-gh` (controlled by the `admin_username` and `admin_github_user` variables).
+  *  **vmtools.sh** — verifies or installs open-vm-tools (and the desktop variant if a display manager is detected), enables the service, and reports the running version.
 
 ### 4\. Template Conversion
 
@@ -122,11 +122,11 @@ Three workflows cover the full pipeline. The only step that runs locally is the 
 
 ### Workflow 1: Validate
 
-**Trigger:** Every pull request touching `.pkr.hcl` files, templates, or provisioner scripts. Also runs on push to `main`.
+ **Trigger:** Every pull request touching `.pkr.hcl` files, templates, or provisioner scripts. Also runs on push to `main`.
 
-**Runner:** `ubuntu-latest` (GitHub-hosted) — no self-hosted runner or real secrets needed, because `packer validate` checks syntax and variable references only; it never contacts vSphere. Placeholder values are passed for required variables.
+ **Runner:** `ubuntu-latest` (GitHub-hosted) — no self-hosted runner or real secrets needed, because `packer validate` checks syntax and variable references only; it never contacts vSphere. Placeholder values are passed for required variables.
 
-**What it does:**
+ **What it does:**
 
   1. Installs Packer via direct binary download (avoids APT codename issues with pre-release Ubuntu versions on the runner)
   2. Downloads the vSphere plugin via `packer init`
@@ -137,31 +137,31 @@ Fast feedback in under two minutes with zero infrastructure cost.
 
 ### Workflow 2: Build Templates
 
-**Trigger:** Push to `main` (when `.pkr.hcl` files or scripts change), weekly cron (every Sunday at 02:00 UTC to pick up security updates), or manual dispatch.
+ **Trigger:** Push to `main` (when `.pkr.hcl` files or scripts change), weekly cron (every Sunday at 02:00 UTC to pick up security updates), or manual dispatch.
 
-**Runner:** Self-hosted — required because GitHub-hosted runners live on the public internet and cannot reach a private vCenter. A self-hosted runner installed on a VM inside the vSphere network dials out to GitHub on port 443 to pick up jobs, so no inbound firewall rules are needed.
+ **Runner:** Self-hosted — required because GitHub-hosted runners live on the public internet and cannot reach a private vCenter. A self-hosted runner installed on a VM inside the vSphere network dials out to GitHub on port 443 to pick up jobs, so no inbound firewall rules are needed.
 
-**Matrix strategy:** A `resolve-targets` job converts the trigger input (e.g. `all-servers`, `2404-desktop`, or `all`) into a build matrix, then each template runs as a parallel job — up to six simultaneous builds.
+ **Matrix strategy:** A `resolve-targets` job converts the trigger input (e.g. `all-servers`, `2404-desktop`, or `all`) into a build matrix, then each template runs as a parallel job — up to six simultaneous builds.
 
-**Key steps in each matrix job:**
+ **Key steps in each matrix job:**
 
-  1. **Pre-flight secrets check** — fails immediately with a clear list of any missing secrets before any tools are installed, rather than letting Packer produce cryptic connection errors
-  2. **Install Packer** — fetches the latest binary directly from HashiCorp releases (codename-independent, works on any Ubuntu version)
-  3. **Install xorriso** — required for Packer to create the cloud-init CD image
-  4. **Install govc & resolve ISO paths** — queries the Content Library via the vSphere SDK to get the exact datastore path for each ISO (Content Library items live under `contentlib-{lib-uuid}/{item-uuid}/` — not guessable without the API)
-  5. **Write variables file** — assembles a temporary `runner.pkrvars.hcl` from GitHub Secrets, so no secret values appear in command-line arguments
-  6. **Packer validate → Packer build** — with `PACKER_LOG=1` for full debug output and `-on-error=cleanup` to destroy VMs on failure
-  7. **Upload artifacts** — Packer log and build manifest uploaded as workflow artifacts (retained 30 and 90 days respectively)
-  8. **Orphan VM cleanup** — runs on cancellation or failure; finds any VM matching the build name pattern that was not converted to a template and destroys it, keeping vSphere clean
-  9. **Always delete credentials file** — `runner.pkrvars.hcl` is removed even on failure
+  1.  **Pre-flight secrets check** — fails immediately with a clear list of any missing secrets before any tools are installed, rather than letting Packer produce cryptic connection errors
+  2.  **Install Packer** — fetches the latest binary directly from HashiCorp releases (codename-independent, works on any Ubuntu version)
+  3.  **Install xorriso** — required for Packer to create the cloud-init CD image
+  4.  **Install govc & resolve ISO paths** — queries the Content Library via the vSphere SDK to get the exact datastore path for each ISO (Content Library items live under `contentlib-{lib-uuid}/{item-uuid}/` — not guessable without the API)
+  5.  **Write variables file** — assembles a temporary `runner.pkrvars.hcl` from GitHub Secrets, so no secret values appear in command-line arguments
+  6.  **Packer validate → Packer build** — with `PACKER_LOG=1` for full debug output and `-on-error=cleanup` to destroy VMs on failure
+  7.  **Upload artifacts** — Packer log and build manifest uploaded as workflow artifacts (retained 30 and 90 days respectively)
+  8.  **Orphan VM cleanup** — runs on cancellation or failure; finds any VM matching the build name pattern that was not converted to a template and destroys it, keeping vSphere clean
+  9.  **Always delete credentials file** — `runner.pkrvars.hcl` is removed even on failure
 
 The workflow also supports a **dry-run mode** (validate only, no build) triggerable from the Actions UI — useful for testing workflow changes without waiting 60-90 minutes for a full build.
 
 ### Workflow 3: Upload ISOs
 
-**Trigger:** Manual only — run once during initial setup or when Ubuntu releases a new point version.
+ **Trigger:** Manual only — run once during initial setup or when Ubuntu releases a new point version.
 
-**What it does:** Runs `scripts/upload-isos.sh` on the self-hosted runner, downloading ISOs from `releases.ubuntu.com` with SHA256 verification and importing them into the vSphere Content Library via govc. Installs govc automatically if not present. Configurable via workflow inputs: versions to upload, library name, whether to keep local downloads, and whether to skip checksum verification.
+ **What it does:** Runs `scripts/upload-isos.sh` on the self-hosted runner, downloading ISOs from `releases.ubuntu.com` with SHA256 verification and importing them into the vSphere Content Library via govc. Installs govc automatically if not present. Configurable via workflow inputs: versions to upload, library name, whether to keep local downloads, and whether to skip checksum verification.
 
 * * *
 
@@ -244,11 +244,11 @@ The glob prefix (`*.`) is required because Packer’s full source reference form
 
 A few things this pipeline gives you that manual template builds don’t:
 
-  * **Reproducibility** — every template is built from the same HCL source, the same provisioner scripts, and the same Ubuntu ISO. No “I think I installed that manually last time.”
-  * **Up-to-date templates** — the weekly cron rebuild means templates always include the latest security patches from `apt upgrade`, without any manual effort.
-  * **Auditability** — every build is tied to a git commit. The Packer log and manifest are retained as workflow artifacts. You can see exactly what changed and when.
-  * **PR validation** — format and syntax checks on every pull request mean broken HCL never reaches `main`.
-  * **No local tooling required day-to-day** — after the one-time `make secrets` setup, builds run entirely in the cloud. Useful if you work across multiple machines.
+  *  **Reproducibility** — every template is built from the same HCL source, the same provisioner scripts, and the same Ubuntu ISO. No “I think I installed that manually last time.”
+  *  **Up-to-date templates** — the weekly cron rebuild means templates always include the latest security patches from `apt upgrade`, without any manual effort.
+  *  **Auditability** — every build is tied to a git commit. The Packer log and manifest are retained as workflow artifacts. You can see exactly what changed and when.
+  *  **PR validation** — format and syntax checks on every pull request mean broken HCL never reaches `main`.
+  *  **No local tooling required day-to-day** — after the one-time `make secrets` setup, builds run entirely in the cloud. Useful if you work across multiple machines.
 
 * * *
 
@@ -262,62 +262,62 @@ The full source is available on [GitHub](https://github.com/w20kilja/packer). Fe
 
 ## Similar Posts
 
-  * [ ![Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png) ](https://jameskilby.co.uk/2023/04/intel-optane/)
+  * [![Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png)](https://jameskilby.co.uk/2023/04/intel-optane/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://jameskilby.co.uk/category/vexpert/)
 
 ### [Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/2023/04/intel-optane/)
 
-By[James](https://jameskilby.co.uk) April 17, 2023April 16, 2026
+By[James](https://jameskilby.co.uk)April 17, 2023April 16, 2026
 
 I have been a VMware vExpert for many years and it has brought me many many benefits over the years.
 
-  * [ ![VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743-768x737.jpg) ](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
+  * [![VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743-768x737.jpg)](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
 
 [VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
 
-By[James](https://jameskilby.co.uk) January 18, 2024April 11, 2026
+By[James](https://jameskilby.co.uk)January 18, 2024April 11, 2026
 
 How to deploy Holodeck with Legacy CPU’s
 
-  * [ ![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png) ](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
+  * [![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
-By[James](https://jameskilby.co.uk) April 4, 2026April 16, 2026
+By[James](https://jameskilby.co.uk)April 4, 2026April 16, 2026
 
 Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each.
 
-  * [ ![Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png) ](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
+  * [![Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
 
 [Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
 
-By[James](https://jameskilby.co.uk) May 16, 2023April 16, 2026
+By[James](https://jameskilby.co.uk)May 16, 2023April 16, 2026
 
 I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.
 
-  * [ ![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png) ](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
+  * [![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png)](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)
 
 ### [Automating vSphere Power Management driven by Ansible and SemaphoreUI](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
-By[James](https://jameskilby.co.uk) April 15, 2026April 19, 2026
+By[James](https://jameskilby.co.uk)April 15, 2026April 19, 2026
 
 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introudction One of the larger costs of running my homelab is the electricity….
 
-  * [ ![Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png) ](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
+  * [![Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png)](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
 
 [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernetes/)
 
 ### [Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
 
-By[James](https://jameskilby.co.uk) December 9, 2022April 16, 2026
+By[James](https://jameskilby.co.uk)December 9, 2022April 16, 2026
 
 Late to the party or not, I have been using containers in my lab more and more and that has led me to Portainer ….

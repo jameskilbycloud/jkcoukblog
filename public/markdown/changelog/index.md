@@ -13,13 +13,13 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-732
+735
 
 Git commits
 
 ### Repository Age
 
-209
+211
 
 Days active
 
@@ -31,9 +31,9 @@ Active contributors
 
 ### Last Deployment
 
-2026-04-30
+2026-05-02
 
-11:58:29
+09:43:46
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -56,6 +56,20 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-05-02 8635d80Fix
+
+fix: source-level SEO fixes in generator and post-processor
+
+wp_to_static_generator.py:
+
+2026-05-02 5732865Fix
+
+fix: SEO pipeline — og:site_name, stylesheet artefact, category indexing, crawl budget
+
+scripts/fix_seo_issues.py (pipeline post-processor):
+
+  
 
 2026-04-30 f046ae2Fix
 
@@ -225,17 +239,5 @@ Reuse optimized assets, refine validation output
 
 Workflow: improve reuse of previously-optimized assets by rsync-ing AVIF/WebP from public/ into static-output with --ignore-existing, count copied files, and replace originals only when the previous version is smaller. Preserve and reuse .br/.gz only when the static-output source matches the public source (compare sizes) and report how many compressed files were reused vs skipped as stale. Also remove redundant copy to public before validation.
 
-  
-
-2026-04-11 232203bOther
-
-Deduplicate head links and robust CSS preload
-
-Add a pre-parse cleanup that strips accumulated <noscript> fallbacks and deduplicates <link> tags in <head> (_dedup_head_links), preventing runaway duplication on repeated pipeline runs. Make CSS externalization idempotent and self-healing: convert stylesheets to preload+onload safely, skip critical files (brutalist-theme, fonts.css), and add exactly one noscript fallback per preload link. Also adjust insertion order for the generated stylesheet link. Finally, switch BeautifulSoup usage in wp_to_static_generator.py from 'lxml' to 'html.parser' to improve parsing robustness.
-
-2026-04-11 fdf26e8Fix
-
-fix: eliminate noscript accumulation and fix image sitemap parser
-
-Page generated: 2026-04-30 11:03:10 UTC  
+Page generated: 2026-05-02 08:48:58 UTC  
 Changelog powered by Git history and Lighthouse CI
