@@ -12,14 +12,12 @@
     "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions.",
     "url": "https://jameskilby.co.uk/",
     "description": "Expert guides on VMware vSphere, homelab infrastructure, AI setup, and cloud computing. Real-world technical tutorials by a VMware vExpert.",
-    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu Automation | Homelab | Networking Auto-Documenting MikroTik Switch Ports with Ansible and LLDP Neighbours Byclaude May 1, 2026May 1, 2026 One of the small but persistent annoyances of managing network switches is keeping port labels up to date. You cable something up, then six months later you’re staring at a list of qsfp28-1-2 entries wondering what’s plugged into what. This post covers a short Ansible playbook I wrote to solve that problem on my MikroTik… Automation | Github Automating vSphere Golden Images with Packer and GitHub Actions ByJames April 30, 2026May 1, 2026 A walk-through of an automated golden-image pipeline for vSphere: HashiCorp Packer builds six Ubuntu LTS templates (22.04, 24.04, 26.04 — server and desktop) driven by three GitHub Actions workflows covering PR valida",
+    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu Ansible | Automation Automating vSphere Power Management driven by Ansible and SemaphoreUI ByJames April 15, 2026April 19, 2026 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introudction One of the larger costs of running my homelab is the electricity…. Ansible | Automation | Docker | Homelab | Traefik | VCF | VMware Automated VCF 9 Offline Depot ByJames April 10, 2026April 16, 2026 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS. Artificial Intelligence | Automation | Docke",
     "categories": [
-      "Automation",
-      "Homelab",
-      "Networking",
-      "Github",
       "Ansible",
+      "Automation",
       "Docker",
+      "Homelab",
       "Traefik",
       "VCF",
       "VMware",
@@ -31,10 +29,11 @@
       "Cloudflare",
       "Hosting",
       "Wordpress",
-      "Ubuntu"
+      "Ubuntu",
+      "vSAN"
     ],
     "tags": [],
-    "date": "2026-05-01T17:55:33+00:00"
+    "date": "2026-04-15T21:36:41+00:00"
   },
   {
     "title": "VMware Cloud on AWS (VMC) – Links & Resources - James Kilby",
@@ -78,7 +77,7 @@
     "title": "Site Statistics - James Kilby",
     "url": "https://jameskilby.co.uk/stats/",
     "description": "Public statistics and metrics for James Kilby's technical blog including performance scores, traffic data, and build information.",
-    "content": "Site Statistics - James Kilby ← Back to Home 📊 Site Statistics Public metrics, performance scores, and analytics for jameskilby.co.uk 📄 194 Total Pages 📝 74 Blog Posts 🖼️ 3214 Images 💾 181.0 Total Size (MB) 🚀 735 Deployments 📅 40 Updates This Month 🚀 Lighthouse Performance Scores Latest scores from 2026-05-02 deployment 95 Performance 95 Accessibility 100 Best Practices 100 SEO 📈 Performance Tracking: Scores are automatically measured on every deployment and stored in the changelog history. 🎯 Target: Maintaining 90+ scores across all categories for optimal user experience. 🔧 Build Metrics Metric Value Notes Total HTML Pages 194 All generated pages including posts, archives, and pages Blog Posts 74 Articles in dated directories (YYYY/MM/slug) Total Images 3214 Optimized images (PNG, JPG, WebP, SVG) Total Site Size 181.0 MB All files in public directory Average Page Size 0.93 KB Total size / number of pages Images per Post 43.4 Average images per blog post Last Deployment 2026-05-02 09:4",
+    "content": "Site Statistics - James Kilby ← Back to Home 📊 Site Statistics Public metrics, performance scores, and analytics for jameskilby.co.uk 📄 194 Total Pages 📝 74 Blog Posts 🖼️ 3214 Images 💾 181.02 Total Size (MB) 🚀 738 Deployments 📅 43 Updates This Month 🚀 Lighthouse Performance Scores Latest scores from 2026-05-02 deployment 95 Performance 95 Accessibility 100 Best Practices 100 SEO 📈 Performance Tracking: Scores are automatically measured on every deployment and stored in the changelog history. 🎯 Target: Maintaining 90+ scores across all categories for optimal user experience. 🔧 Build Metrics Metric Value Notes Total HTML Pages 194 All generated pages including posts, archives, and pages Blog Posts 74 Articles in dated directories (YYYY/MM/slug) Total Images 3214 Optimized images (PNG, JPG, WebP, SVG) Total Site Size 181.02 MB All files in public directory Average Page Size 0.93 KB Total size / number of pages Images per Post 43.4 Average images per blog post Last Deployment 2026-05-02 09",
     "categories": [],
     "tags": [],
     "date": ""
@@ -98,7 +97,7 @@
     "title": "Changelog - James Kilby",
     "url": "https://jameskilby.co.uk/changelog/",
     "description": "Site improvements, deployments, and performance metrics for James Kilby's technical blog.",
-    "content": "Changelog - James Kilby ← Back to Home 📋 Changelog Site improvements, deployments, and performance metrics Total Deployments 735 Git commits Repository Age 211 Days active Contributors 3 Active contributors Last Deployment 2026-05-02 09:43:46 🚀 Lighthouse Performance Scores Last checked: Estimated 95 Performance 95 Accessibility 100 Best Practices 100 SEO Recent Changes 2026-05-02 8635d80Fix fix: source-level SEO fixes in generator and post-processor wp_to_static_generator.py: 2026-05-02 5732865Fix fix: SEO pipeline — og:site_name, stylesheet artefact, category indexing, crawl budget scripts/fix_seo_issues.py (pipeline post-processor): 2026-04-30 f046ae2Fix fix: skip post-validation paths in HTML link checker /changelog/ and /stats/ are generated after validate_html.py runs, 2026-04-30 042a943Removal chore: restore build artifacts after history rewrite; remove dead code History rewritten with git filter-repo to strip public/ and 2026-04-18 eb86271Fix fix: stamp worker and manifest befo",
+    "content": "Changelog - James Kilby ← Back to Home 📋 Changelog Site improvements, deployments, and performance metrics Total Deployments 738 Git commits Repository Age 211 Days active Contributors 3 Active contributors Last Deployment 2026-05-02 09:53:44 🚀 Lighthouse Performance Scores Last checked: Estimated 95 Performance 95 Accessibility 100 Best Practices 100 SEO Recent Changes 2026-05-02 46b7ff8Other Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog 2026-05-02 b38b2afImprovement Update Robots 2026-05-02 8635d80Fix fix: source-level SEO fixes in generator and post-processor wp_to_static_generator.py: 2026-05-02 5732865Fix fix: SEO pipeline — og:site_name, stylesheet artefact, category indexing, crawl budget scripts/fix_seo_issues.py (pipeline post-processor): 2026-04-30 f046ae2Fix fix: skip post-validation paths in HTML link checker /changelog/ and /stats/ are generated after validate_html.py runs, 2026-04-30 042a943Removal chore: restore build artifacts after history rewrite;",
     "categories": [],
     "tags": [],
     "date": ""
@@ -748,14 +747,12 @@
     "title": "Automation Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/automation/",
     "description": "Browse all Automation articles. In-depth technical content covering Automation topics, best practices, and real-world solutions.",
-    "content": "Automation Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Automation Automation | Homelab | Networking Auto-Documenting MikroTik Switch Ports with Ansible and LLDP Neighbours Byclaude May 1, 2026May 1, 2026 One of the small but persistent annoyances of managing network switches is keeping port labels up to date. You cable something up, then six months later you’re staring at a list of qsfp28-1-2 entries wondering what’s plugged into what. This post covers a short Ansible playbook I wrote to solve that problem on my MikroTik… Automation | Github Automating vSphere Golden Images with Packer and GitHub Actions ByJames April 30, 2026May 1, 2026 A walk-through of an automated golden-image pipeline for vSphere: HashiCorp Packer builds six Ubuntu LTS templates (22.04, 24.04, 26.04 — server and desktop) driven by three GitHub Actions workflows covering PR validation, parallel template builds, and ISO management via a self-hosted runner. Ansible | Automation Automati",
+    "content": "Automation Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Automation Ansible | Automation Automating vSphere Power Management driven by Ansible and SemaphoreUI ByJames April 15, 2026April 19, 2026 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introudction One of the larger costs of running my homelab is the electricity…. Ansible | Automation | Docker | Homelab | Traefik | VCF | VMware Automated VCF 9 Offline Depot ByJames April 10, 2026April 16, 2026 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS. Artificial Intelligence | Automation | Docker | Homelab | NVIDIA | Traefik | VMware My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2) ByJames",
     "categories": [
-      "Automation",
-      "Homelab",
-      "Networking",
-      "Github",
       "Ansible",
+      "Automation",
       "Docker",
+      "Homelab",
       "Traefik",
       "VCF",
       "VMware",
@@ -763,7 +760,7 @@
       "NVIDIA"
     ],
     "tags": [],
-    "date": "2026-05-01T17:55:33+00:00"
+    "date": "2026-04-15T21:36:41+00:00"
   },
   {
     "title": "vExpert Archives - James Kilby",
@@ -921,16 +918,15 @@
     "title": "Github Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/github/",
     "description": "Browse all Github articles. In-depth technical content covering Github topics, best practices, and real-world solutions.",
-    "content": "Github Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Github Automation | Github Automating vSphere Golden Images with Packer and GitHub Actions ByJames April 30, 2026May 1, 2026 A walk-through of an automated golden-image pipeline for vSphere: HashiCorp Packer builds six Ubuntu LTS templates (22.04, 24.04, 26.04 — server and desktop) driven by three GitHub Actions workflows covering PR validation, parallel template builds, and ISO management via a self-hosted runner. Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025April 16, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.",
+    "content": "Github Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Github Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025April 16, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.",
     "categories": [
-      "Automation",
-      "Github",
       "Cloudflare",
       "Devops",
+      "Github",
       "Wordpress"
     ],
     "tags": [],
-    "date": "2026-04-30T17:22:19+00:00"
+    "date": "2025-10-06T15:57:06+00:00"
   },
   {
     "title": "Nutanix Archives - James Kilby",
@@ -1051,13 +1047,12 @@
     "title": "Homelab Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/homelab/",
     "description": "Browse all Homelab articles. In-depth technical content covering Homelab topics, best practices, and real-world solutions.",
-    "content": "Homelab Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Homelab Automation | Homelab | Networking Auto-Documenting MikroTik Switch Ports with Ansible and LLDP Neighbours Byclaude May 1, 2026May 1, 2026 One of the small but persistent annoyances of managing network switches is keeping port labels up to date. You cable something up, then six months later you’re staring at a list of qsfp28-1-2 entries wondering what’s plugged into what. This post covers a short Ansible playbook I wrote to solve that problem on my MikroTik… Ansible | Automation | Docker | Homelab | Traefik | VCF | VMware Automated VCF 9 Offline Depot ByJames April 10, 2026April 16, 2026 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS. Artificial Intelligence | Automation | Docker | Homelab | NVIDIA | Traefik | VMware My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2) ByJames April 4, 2026Ap",
+    "content": "Homelab Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Homelab Ansible | Automation | Docker | Homelab | Traefik | VCF | VMware Automated VCF 9 Offline Depot ByJames April 10, 2026April 16, 2026 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS. Artificial Intelligence | Automation | Docker | Homelab | NVIDIA | Traefik | VMware My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2) ByJames April 4, 2026April 16, 2026 Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each. Artificial Intelligence | Automation | Docker | Homelab | NVIDIA | Traefik | VMware My Self-Hosted AI Stack: Architecture Overview (Part 1) ByJames Ma",
     "categories": [
-      "Automation",
-      "Homelab",
-      "Networking",
       "Ansible",
+      "Automation",
       "Docker",
+      "Homelab",
       "Traefik",
       "VCF",
       "VMware",
@@ -1068,28 +1063,28 @@
       "Storage",
       "TrueNAS Scale",
       "Nutanix",
+      "Networking",
       "2",
       "3",
       "Next PageNext"
     ],
     "tags": [],
-    "date": "2026-05-01T17:55:33+00:00"
+    "date": "2026-04-10T11:36:03+00:00"
   },
   {
     "title": "Networking Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/networking/",
     "description": "Browse all Networking articles. In-depth technical content covering Networking topics, best practices, and real-world solutions.",
-    "content": "Networking Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Networking Automation | Homelab | Networking Auto-Documenting MikroTik Switch Ports with Ansible and LLDP Neighbours Byclaude May 1, 2026May 1, 2026 One of the small but persistent annoyances of managing network switches is keeping port labels up to date. You cable something up, then six months later you’re staring at a list of qsfp28-1-2 entries wondering what’s plugged into what. This post covers a short Ansible playbook I wrote to solve that problem on my MikroTik… Mikrotik | Networking Home Network Upgrade to 25Gb/s with MikroTik Switching ByJames September 9, 2024April 11, 2026 My journey to superfast networking in my homelab Homelab | Networking Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets ByJames June 26, 2024March 10, 2026 How to configure DHCP Option 43 for UniFi devices Networking Configuring a Zen Internet and City Fibre connection with a 3rd party rou",
+    "content": "Networking Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Networking Mikrotik | Networking Home Network Upgrade to 25Gb/s with MikroTik Switching ByJames September 9, 2024April 11, 2026 My journey to superfast networking in my homelab Homelab | Networking Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets ByJames June 26, 2024March 10, 2026 How to configure DHCP Option 43 for UniFi devices Networking Configuring a Zen Internet and City Fibre connection with a 3rd party router ByJames November 15, 2023April 16, 2026 Back in July I bought a new house and one of the best things about the property was that it was already in a City Fibre location. Homelab | Networking | Storage | VMware MikroTik CRS504 Review: 100Gb/s Networking in My Homelab ByJames December 19, 2022April 16, 2026 For a while, I’ve been looking to update the networking at the core of my homelab. Homelab | Networking Homelab Network Upgrade: DACs, 40Gb/s vMotion &",
     "categories": [
-      "Automation",
-      "Homelab",
-      "Networking",
       "Mikrotik",
+      "Networking",
+      "Homelab",
       "Storage",
       "VMware"
     ],
     "tags": [],
-    "date": "2026-05-01T17:55:33+00:00"
+    "date": "2024-09-09T08:25:08+00:00"
   },
   {
     "title": "TrueNAS Scale Archives - James Kilby",
@@ -1330,10 +1325,10 @@
     "date": "2018-05-15T21:41:14+00:00"
   },
   {
-    "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions.",
+    "title": "James Kilby - James Kilby's technical blog covering VMwar...",
     "url": "https://jameskilby.co.uk/page/7/",
     "description": "Expert guides on VMware vSphere, homelab infrastructure, AI setup, and cloud computing. Real-world technical tutorials by a VMware vExpert - Page 7",
-    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu Homelab | Nutanix Running Nutanix CE at Home: AHV Setup & First Impressions ByJames January 6, 2018April 16, 2026 I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to continue running it at home. Money UK Money Saving Tips: Banking, Rewards & Travel Cards ByJames May 29, 2017April 16, 2026 I recently got back from an amazing conference in New Orleans. This was the VeeamON conference and I was invited as part of the Veeam Vanguard program that I am part of.",
+    "content": "James Kilby - James Kilby's technical blog covering VMwar... Skip to contentJames KilbyJames KilbyToggle MenuHomelab | NutanixRunning Nutanix CE at Home: AHV Setup & First ImpressionsByJamesJanuary 6, 2018April 16, 2026I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to continue running it at home.MoneyUK Money Saving Tips: Banking, Rewards & Travel CardsByJamesMay 29, 2017April 16, 2026I recently got back from an amazing conference in New Orleans. This was the VeeamON conference and I was invited as part of the Veeam Vanguard program that I am part of.",
     "categories": [
       "Homelab",
       "Nutanix",
@@ -1346,10 +1341,8 @@
     "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions.",
     "url": "https://jameskilby.co.uk/page/6/",
     "description": "Expert guides on VMware vSphere, homelab infrastructure, AI setup, and cloud computing. Real-world technical tutorials by a VMware vExpert - Page 6",
-    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu Veeam VeeamON 2020: Highlights From Veeam’s Virtual Conference ByJames June 18, 2020April 16, 2026 As everyone knows by now the world has changed possibly forever. Due to Covid19 working from home has become the new normal. VMware | AWS | Veeam Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1) ByJames December 17, 2019April 16, 2026 As previously mentioned I have been working a lot with VMware Cloud on AWS and one of the questions that often crops up is around an approach to monitoring. AWS | Personal AWS Solution Architect – Associate ByJames December 16, 2019April 16, 2026 I renewed my AWS Solution Architect certification. Homelab Homelab Storage Upgrade: Synology DS918 for VMware & NFS ByJames February 10, 2019April 16, 2026 Since starting my new role with Xtravirt my Homel",
+    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu AWS | Personal AWS Solution Architect – Associate ByJames December 16, 2019April 16, 2026 I renewed my AWS Solution Architect certification. Homelab Homelab Storage Upgrade: Synology DS918 for VMware & NFS ByJames February 10, 2019April 16, 2026 Since starting my new role with Xtravirt my Homelab has gone through several fairly significant changes. Consulting What’s In My Tech Bag? Everyday Carry for IT Consultants ByJames January 10, 2019April 16, 2026 I have seen a few posts online recently about the tools and technology people use on a day to day basis. Apple MacBook Air 2018 Retina Review: My Setup & Build Scripts ByJames December 4, 2018April 16, 2026 I decided it was about time I replaced my trusted MacBook Air that I purchased back in 2011. Personal And now for something complete",
     "categories": [
-      "Veeam",
-      "VMware",
       "AWS",
       "Personal",
       "Homelab",
@@ -1358,106 +1351,111 @@
       "Nutanix",
       "Hosting",
       "Storage",
-      "Synology"
+      "Synology",
+      "Money"
     ],
     "tags": [],
-    "date": "2020-06-18T14:42:45+00:00"
+    "date": "2019-12-16T23:46:22+00:00"
   },
   {
     "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions.",
     "url": "https://jameskilby.co.uk/page/3/",
     "description": "Expert guides on VMware vSphere, homelab infrastructure, AI setup, and cloud computing. Real-world technical tutorials by a VMware vExpert - Page 3",
-    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu Homelab | Nutanix | VMware New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix ByJames July 2, 2024April 16, 2026 I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul . Homelab | Networking Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets ByJames June 26, 2024March 10, 2026 How to configure DHCP Option 43 for UniFi devices VCF | VMware VMware Holodeck on Older CPUs: Fixing Compatibility Issues ByJames January 18, 2024April 11, 2026 How to deploy Holodeck with Legacy CPU’s VMware | VCF VMware Holodeck Multi-Host VCF: Lab Setup & Configuration ByJames January 17, 2024April 11, 2026 How to Deploy VMware Holodeck on multiple hosts VMware | VM",
+    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu VCF | VMware VMware Holodeck on Older CPUs: Fixing Compatibility Issues ByJames January 18, 2024April 11, 2026 How to deploy Holodeck with Legacy CPU’s VMware | VCF VMware Holodeck Multi-Host VCF: Lab Setup & Configuration ByJames January 17, 2024April 11, 2026 How to Deploy VMware Holodeck on multiple hosts VMware | VMware Cloud on AWS | vSAN vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24 ByJames November 17, 2023April 11, 2026 An Overview of vSAN ESA in VMC Networking Configuring a Zen Internet and City Fibre connection with a 3rd party router ByJames November 15, 2023April 16, 2026 Back in July I bought a new house and one of the best things about the property was that it was already in a City Fibre location. Kubernetes | TrueNAS Scale TrueNAS Scale CLI Reference: Storage &",
     "categories": [
-      "Homelab",
-      "Nutanix",
-      "VMware",
-      "Networking",
       "VCF",
+      "VMware",
       "VMware Cloud on AWS",
       "vSAN",
+      "Networking",
       "Kubernetes",
       "TrueNAS Scale",
       "Hosting",
       "Personal",
       "vSphere",
-      "Storage"
+      "Homelab",
+      "Storage",
+      "Runecast",
+      "Cloudflare",
+      "Wordpress"
     ],
     "tags": [],
-    "date": "2024-07-02T08:01:04+00:00"
+    "date": "2024-01-18T14:37:04+00:00"
   },
   {
     "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions.",
     "url": "https://jameskilby.co.uk/page/4/",
     "description": "Expert guides on VMware vSphere, homelab infrastructure, AI setup, and cloud computing. Real-world technical tutorials by a VMware vExpert - Page 4",
-    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu Runecast | VMware Runecast Remediation Scripts: Auto-Fix VMware Storage Issues ByJames May 16, 2023April 16, 2026 I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab. Cloudflare | Hosting | Wordpress WordPress Hosting with Cloudflare Pages ByJames May 14, 2023April 16, 2026 Table of Contents The Tooling The Process WordPress Plugin Install GitHub setup Cloudflare setup I have been using Cloudflare to protect my web assets for a really long time. Homelab | Storage | vExpert Using Intel Optane NVMe in a VMware Homelab: Setup & Results ByJames April 17, 2023April 16, 2026 I have been a VMware vExpert for many years and it has brought me many many benefits over the years. Homelab | Networking | Storage | VMware MikroTik CRS504 Review: 100Gb",
+    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu Homelab | Storage | vExpert Using Intel Optane NVMe in a VMware Homelab: Setup & Results ByJames April 17, 2023April 16, 2026 I have been a VMware vExpert for many years and it has brought me many many benefits over the years. Homelab | Networking | Storage | VMware MikroTik CRS504 Review: 100Gb/s Networking in My Homelab ByJames December 19, 2022April 16, 2026 For a while, I’ve been looking to update the networking at the core of my homelab. Homelab | VMware | vSphere Forcing an Upgrade to vSphere 8 ByJames December 14, 2022April 16, 2026 I run a reasonably extensive homelab that is of course built around the VMware ecosystem. Docker | Homelab | Hosting | Kubernetes Use Portainer in a Homelab with GitHub ByJames December 9, 2022April 16, 2026 Late to the party or not, I have been using",
     "categories": [
-      "Runecast",
-      "VMware",
-      "Cloudflare",
-      "Hosting",
-      "Wordpress",
       "Homelab",
       "Storage",
       "vExpert",
       "Networking",
+      "VMware",
       "vSphere",
       "Docker",
+      "Hosting",
       "Kubernetes",
-      "Synology"
+      "Synology",
+      "Cloudflare",
+      "Wordpress",
+      "Veeam"
     ],
     "tags": [],
-    "date": "2023-05-16T10:38:45+00:00"
+    "date": "2023-04-17T12:20:04+00:00"
   },
   {
     "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions.",
     "url": "https://jameskilby.co.uk/page/2/",
     "description": "Expert guides on VMware vSphere, homelab infrastructure, AI setup, and cloud computing. Real-world technical tutorials by a VMware vExpert - Page 2",
-    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu VMware Cloud on AWS VMware Cloud on AWS Time Sync & NTP Configuration ByJames December 8, 2025April 11, 2026 How to use the Amazon Time Sync Service in a VMC environment VMware | vSAN vSAN Cluster Shutdown – Orchestration ByJames December 6, 2025March 10, 2026 How to safety shutdown a vSAN Environment Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025April 16, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Ansible | Homelab Managing my Homelab with SemaphoreUI ByJames September 2, 2025March 10, 2026 An intro on how I use SemaphoreUI to manage my Homelab VMware | VMware Cloud on AWS An in-depth look at VMwa",
+    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025April 16, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Ansible | Homelab Managing my Homelab with SemaphoreUI ByJames September 2, 2025March 10, 2026 An intro on how I use SemaphoreUI to manage my Homelab VMware | VMware Cloud on AWS An in-depth look at VMware Cloud on AWS hosts ByJames August 14, 2025April 16, 2026 This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison. VMware | VMware Cloud on AWS VMware Cloud on AWS Storage Sizing Quick Reference Guide ByJames May 21, 2025April 11, 2026",
     "categories": [
-      "VMware Cloud on AWS",
-      "VMware",
-      "vSAN",
       "Cloudflare",
       "Devops",
       "Github",
       "Wordpress",
       "Ansible",
       "Homelab",
+      "VMware",
+      "VMware Cloud on AWS",
       "Artificial Intelligence",
       "Docker",
       "Hosting",
       "TrueNAS Scale",
+      "vSAN",
       "vSphere",
       "Storage",
       "Mikrotik",
-      "Networking"
+      "Networking",
+      "Nutanix"
     ],
     "tags": [],
-    "date": "2025-12-08T14:03:44+00:00"
+    "date": "2025-10-06T15:57:06+00:00"
   },
   {
     "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions.",
     "url": "https://jameskilby.co.uk/page/5/",
     "description": "Expert guides on VMware vSphere, homelab infrastructure, AI setup, and cloud computing. Real-world technical tutorials by a VMware vExpert - Page 5",
-    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu Homelab | Veeam | VMware Lab Update – Desired Workloads ByJames January 6, 2022April 16, 2026 My lab is always undergoing change. Partially as I want to try new things or new ways of doing things. Homelab | VMware Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup ByJames January 6, 2022February 16, 2026 Quite a few changes have happened in the lab recently. I decided to do a multipart blog on the changes. Hosting | Wordpress Cloudflare Workers – Limits of the free tier ByJames January 4, 2022April 16, 2026 I have been making several changes (mainly cosmetic to this site over the last day or so) On most changes I have been doing an export and then uploading the site to Cloudflare using Wrangler. Hosting | Cloudflare | Personal | Wordpress Hosting This Blog on Cloudflare Workers",
+    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu Hosting | Wordpress Cloudflare Workers – Limits of the free tier ByJames January 4, 2022April 16, 2026 I have been making several changes (mainly cosmetic to this site over the last day or so) On most changes I have been doing an export and then uploading the site to Cloudflare using Wrangler. Hosting | Cloudflare | Personal | Wordpress Hosting This Blog on Cloudflare Workers: Why & How I Did It ByJames January 4, 2022April 16, 2026 A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them. Apple How Apple Content Caching Works: Speed Up iOS & Mac Updates ByJames February 8, 2021April 16, 2026 I have slowly morphed into an Apple fanboy over the last decade or so collecting a large number of devices ever since my first MacBook Air back in ",
     "categories": [
-      "Homelab",
-      "Veeam",
-      "VMware",
       "Hosting",
       "Wordpress",
       "Cloudflare",
       "Personal",
       "Apple",
       "Automation",
+      "Homelab",
+      "VMware",
       "Consulting",
       "Devops",
       "VMware Cloud on AWS",
-      "Nutanix"
+      "Nutanix",
+      "Veeam",
+      "AWS"
     ],
     "tags": [],
-    "date": "2022-01-06T19:23:11+00:00"
+    "date": "2022-01-04T21:11:23+00:00"
   },
   {
     "title": "Passing the Nutanix NCP Exam: Free Training & My Experien...",
@@ -1700,19 +1698,18 @@
     "title": "Mikrotik Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/mikrotik/",
     "description": "Articles tagged with Mikrotik. Explore technical guides, tutorials, and insights about Mikrotik from James Kilby's blog.",
-    "content": "Mikrotik Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Mikrotik Automation | Homelab | Networking Auto-Documenting MikroTik Switch Ports with Ansible and LLDP Neighbours Byclaude May 1, 2026May 1, 2026 One of the small but persistent annoyances of managing network switches is keeping port labels up to date. You cable something up, then six months later you’re staring at a list of qsfp28-1-2 entries wondering what’s plugged into what. This post covers a short Ansible playbook I wrote to solve that problem on my MikroTik… Mikrotik | Networking Home Network Upgrade to 25Gb/s with MikroTik Switching ByJames September 9, 2024April 11, 2026 My journey to superfast networking in my homelab Homelab | Networking | Storage | VMware MikroTik CRS504 Review: 100Gb/s Networking in My Homelab ByJames December 19, 2022April 16, 2026 For a while, I’ve been looking to update the networking at the core of my homelab.",
+    "content": "Mikrotik Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Mikrotik Mikrotik | Networking Home Network Upgrade to 25Gb/s with MikroTik Switching ByJames September 9, 2024April 11, 2026 My journey to superfast networking in my homelab Homelab | Networking | Storage | VMware MikroTik CRS504 Review: 100Gb/s Networking in My Homelab ByJames December 19, 2022April 16, 2026 For a while, I’ve been looking to update the networking at the core of my homelab.",
     "categories": [
-      "Automation",
-      "Homelab",
-      "Networking",
       "Mikrotik",
+      "Networking",
+      "Homelab",
       "Storage",
       "VMware"
     ],
     "tags": [
       "Tags"
     ],
-    "date": "2026-05-01T17:55:33+00:00"
+    "date": "2024-09-09T08:25:08+00:00"
   },
   {
     "title": "Blog Archives - James Kilby",
@@ -1954,8 +1951,8 @@
   {
     "title": "lldp Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/lldp/",
-    "description": "Articles tagged with lldp. Explore technical guides, tutorials, and insights about lldp from James Kilby's blog.",
-    "content": "lldp Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu lldp Automation | Homelab | Networking Auto-Documenting MikroTik Switch Ports with Ansible and LLDP Neighbours Byclaude May 1, 2026May 1, 2026 One of the small but persistent annoyances of managing network switches is keeping port labels up to date. You cable something up, then six months later you’re staring at a list of qsfp28-1-2 entries wondering what’s plugged into what. This post covers a short Ansible playbook I wrote to solve that problem on my MikroTik…",
+    "description": "One of the small but persistent annoyances of managing network switches is keeping port labels up to date. You cable something up, then six months later you’...",
+    "content": "lldp Archives - James Kilby Skip to contentJames KilbyJames KilbyToggle MenulldpAutomation | Homelab | NetworkingAuto-Documenting MikroTik Switch Ports with Ansible and LLDP NeighboursByclaudeMay 1, 2026May 1, 2026One of the small but persistent annoyances of managing network switches is keeping port labels up to date. You cable something up, then six months later you’re staring at a list of qsfp28-1-2 entries wondering what’s plugged into what. This post covers a short Ansible playbook I wrote to solve that problem on my MikroTik…",
     "categories": [
       "Automation",
       "Homelab",
@@ -1970,14 +1967,12 @@
     "title": "Automation Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/automation/",
     "description": "Articles tagged with Automation. Explore technical guides, tutorials, and insights about Automation from James Kilby's blog.",
-    "content": "Automation Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Automation Automation | Homelab | Networking Auto-Documenting MikroTik Switch Ports with Ansible and LLDP Neighbours Byclaude May 1, 2026May 1, 2026 One of the small but persistent annoyances of managing network switches is keeping port labels up to date. You cable something up, then six months later you’re staring at a list of qsfp28-1-2 entries wondering what’s plugged into what. This post covers a short Ansible playbook I wrote to solve that problem on my MikroTik… Automation | Github Automating vSphere Golden Images with Packer and GitHub Actions ByJames April 30, 2026May 1, 2026 A walk-through of an automated golden-image pipeline for vSphere: HashiCorp Packer builds six Ubuntu LTS templates (22.04, 24.04, 26.04 — server and desktop) driven by three GitHub Actions workflows covering PR validation, parallel template builds, and ISO management via a self-hosted runner. Ansible | Automation | Docker",
+    "content": "Automation Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Automation Ansible | Automation | Docker | Homelab | Traefik | VCF | VMware Automated VCF 9 Offline Depot ByJames April 10, 2026April 16, 2026 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS. Automation | Homelab | VMware Template Deployment with Packer ByJames January 21, 2021April 16, 2026 Packer is one of those tools I have heard about, and some of the cool people on Twitter that I follow have been using it for a while.",
     "categories": [
-      "Automation",
-      "Homelab",
-      "Networking",
-      "Github",
       "Ansible",
+      "Automation",
       "Docker",
+      "Homelab",
       "Traefik",
       "VCF",
       "VMware"
@@ -1985,7 +1980,7 @@
     "tags": [
       "Tags"
     ],
-    "date": "2026-05-01T17:55:33+00:00"
+    "date": "2026-04-10T11:36:03+00:00"
   },
   {
     "title": "Analytics Archives - James Kilby",
@@ -2004,8 +1999,8 @@
   {
     "title": "Devops Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/devops/",
-    "description": "Articles tagged with Devops. Explore technical guides, tutorials, and insights about Devops from James Kilby's blog.",
-    "content": "Devops Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Devops Automation | Github Automating vSphere Golden Images with Packer and GitHub Actions ByJames April 30, 2026May 1, 2026 A walk-through of an automated golden-image pipeline for vSphere: HashiCorp Packer builds six Ubuntu LTS templates (22.04, 24.04, 26.04 — server and desktop) driven by three GitHub Actions workflows covering PR validation, parallel template builds, and ISO management via a self-hosted runner.",
+    "description": "A walk-through of an automated golden-image pipeline for vSphere: HashiCorp Packer builds six Ubuntu LTS templates (22.04, 24.04, 26.04 — server and desktop)...",
+    "content": "Devops Archives - James Kilby Skip to contentJames KilbyJames KilbyToggle MenuDevopsAutomation | GithubAutomating vSphere Golden Images with Packer and GitHub ActionsByJamesApril 30, 2026May 1, 2026A walk-through of an automated golden-image pipeline for vSphere: HashiCorp Packer builds six Ubuntu LTS templates (22.04, 24.04, 26.04 — server and desktop) driven by three GitHub Actions workflows covering PR validation, parallel template builds, and ISO management via a self-hosted runner.",
     "categories": [
       "Automation",
       "Github"
@@ -2274,13 +2269,12 @@
     "title": "Ansible Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/ansible/",
     "description": "Articles tagged with Ansible. Explore technical guides, tutorials, and insights about Ansible from James Kilby's blog.",
-    "content": "Ansible Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Ansible Automation | Homelab | Networking Auto-Documenting MikroTik Switch Ports with Ansible and LLDP Neighbours Byclaude May 1, 2026May 1, 2026 One of the small but persistent annoyances of managing network switches is keeping port labels up to date. You cable something up, then six months later you’re staring at a list of qsfp28-1-2 entries wondering what’s plugged into what. This post covers a short Ansible playbook I wrote to solve that problem on my MikroTik… Ansible | Automation Automating vSphere Power Management driven by Ansible and SemaphoreUI ByJames April 15, 2026April 19, 2026 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introudction One of the larger costs of running my home",
+    "content": "Ansible Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Ansible Ansible | Automation Automating vSphere Power Management driven by Ansible and SemaphoreUI ByJames April 15, 2026April 19, 2026 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introudction One of the larger costs of running my homelab is the electricity…. Ansible | Automation | Docker | Homelab | Traefik | VCF | VMware Automated VCF 9 Offline Depot ByJames April 10, 2026April 16, 2026 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS. Ansible | Homelab Managing my Homelab with SemaphoreUI ByJames September 2, 2025March 10, 2026 An intro on how I use SemaphoreUI to manage my Homelab",
     "categories": [
-      "Automation",
-      "Homelab",
-      "Networking",
       "Ansible",
+      "Automation",
       "Docker",
+      "Homelab",
       "Traefik",
       "VCF",
       "VMware"
@@ -2288,7 +2282,7 @@
     "tags": [
       "Tags"
     ],
-    "date": "2026-05-01T17:55:33+00:00"
+    "date": "2026-04-15T21:36:41+00:00"
   },
   {
     "title": "Charity Archives - James Kilby",
@@ -2398,14 +2392,12 @@
     "title": "Homelab Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/homelab/",
     "description": "Articles tagged with Homelab. Explore technical guides, tutorials, and insights about Homelab from James Kilby's blog.",
-    "content": "Homelab Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Homelab Automation | Homelab | Networking Auto-Documenting MikroTik Switch Ports with Ansible and LLDP Neighbours Byclaude May 1, 2026May 1, 2026 One of the small but persistent annoyances of managing network switches is keeping port labels up to date. You cable something up, then six months later you’re staring at a list of qsfp28-1-2 entries wondering what’s plugged into what. This post covers a short Ansible playbook I wrote to solve that problem on my MikroTik… Automation | Github Automating vSphere Golden Images with Packer and GitHub Actions ByJames April 30, 2026May 1, 2026 A walk-through of an automated golden-image pipeline for vSphere: HashiCorp Packer builds six Ubuntu LTS templates (22.04, 24.04, 26.04 — server and desktop) driven by three GitHub Actions workflows covering PR validation, parallel template builds, and ISO management via a self-hosted runner. Ansible | Automation Automating vSp",
+    "content": "Homelab Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Homelab Ansible | Automation Automating vSphere Power Management driven by Ansible and SemaphoreUI ByJames April 15, 2026April 19, 2026 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introudction One of the larger costs of running my homelab is the electricity…. Ansible | Automation | Docker | Homelab | Traefik | VCF | VMware Automated VCF 9 Offline Depot ByJames April 10, 2026April 16, 2026 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS. Ansible | Artificial Intelligence | Containers | Devops | Homelab | NVIDIA | Traefik | VMware Automating the Deployment of my Homelab AI Infrastructure ByJa",
     "categories": [
-      "Automation",
-      "Homelab",
-      "Networking",
-      "Github",
       "Ansible",
+      "Automation",
       "Docker",
+      "Homelab",
       "Traefik",
       "VCF",
       "VMware",
@@ -2418,7 +2410,9 @@
       "vSAN",
       "vSphere",
       "Storage",
-      "Mikrotik"
+      "Mikrotik",
+      "Networking",
+      "Nutanix"
     ],
     "tags": [
       "Tags",
@@ -2426,7 +2420,7 @@
       "3",
       "Next PageNext"
     ],
-    "date": "2026-05-01T17:55:33+00:00"
+    "date": "2026-04-15T21:36:41+00:00"
   },
   {
     "title": "Homebrew Archives - James Kilby",
@@ -2458,22 +2452,22 @@
     "title": "Networking Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/networking/",
     "description": "Articles tagged with Networking. Explore technical guides, tutorials, and insights about Networking from James Kilby's blog.",
-    "content": "Networking Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Networking Automation | Homelab | Networking Auto-Documenting MikroTik Switch Ports with Ansible and LLDP Neighbours Byclaude May 1, 2026May 1, 2026 One of the small but persistent annoyances of managing network switches is keeping port labels up to date. You cable something up, then six months later you’re staring at a list of qsfp28-1-2 entries wondering what’s plugged into what. This post covers a short Ansible playbook I wrote to solve that problem on my MikroTik… Artificial Intelligence | Automation | Docker | Homelab | NVIDIA | Traefik | VMware My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2) ByJames April 4, 2026April 16, 2026 Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger ",
+    "content": "Networking Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Networking Artificial Intelligence | Automation | Docker | Homelab | NVIDIA | Traefik | VMware My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2) ByJames April 4, 2026April 16, 2026 Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each. Mikrotik | Networking Home Network Upgrade to 25Gb/s with MikroTik Switching ByJames September 9, 2024April 11, 2026 My journey to superfast networking in my homelab Homelab | Networking Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense ByJames January 6, 2022April 16, 2026 I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes.",
     "categories": [
-      "Automation",
-      "Homelab",
-      "Networking",
       "Artificial Intelligence",
+      "Automation",
       "Docker",
+      "Homelab",
       "NVIDIA",
       "Traefik",
       "VMware",
-      "Mikrotik"
+      "Mikrotik",
+      "Networking"
     ],
     "tags": [
       "Tags"
     ],
-    "date": "2026-05-01T17:55:33+00:00"
+    "date": "2026-04-04T21:39:21+00:00"
   },
   {
     "title": "Bash Archives - James Kilby",
@@ -2540,7 +2534,7 @@
     "title": "github-actions Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/github-actions/",
     "description": "Articles tagged with github-actions. Explore technical guides, tutorials, and insights about github-actions from James Kilby's blog.",
-    "content": "github-actions Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu github-actions Automation | Github Automating vSphere Golden Images with Packer and GitHub Actions ByJames April 30, 2026May 1, 2026 A walk-through of an automated golden-image pipeline for vSphere: HashiCorp Packer builds six Ubuntu LTS templates (22.04, 24.04, 26.04 — server and desktop) driven by three GitHub Actions workflows covering PR validation, parallel template builds, and ISO management via a self-hosted runner.",
+    "content": "github-actions Archives - James Kilby Skip to contentJames KilbyJames KilbyToggle Menugithub-actionsAutomation | GithubAutomating vSphere Golden Images with Packer and GitHub ActionsByJamesApril 30, 2026May 1, 2026A walk-through of an automated golden-image pipeline for vSphere: HashiCorp Packer builds six Ubuntu LTS templates (22.04, 24.04, 26.04 — server and desktop) driven by three GitHub Actions workflows covering PR validation, parallel template builds, and ISO management via a self-hosted runner.",
     "categories": [
       "Automation",
       "Github"
