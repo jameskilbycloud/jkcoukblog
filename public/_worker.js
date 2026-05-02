@@ -331,7 +331,7 @@ async function handleCacheAPI(request, env, ctx, path, hostname = '') {
  */
 function getSecurityHeaders(hostname = '') {
   const headers = {
-    'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' plausible.io plausible.jameskilby.cloud https://utteranc.es cdn.credly.com cdn.youracclaim.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' plausible.io plausible.jameskilby.cloud https://api.github.com; frame-src 'self' plausible.jameskilby.cloud https://utteranc.es https://www.youtube.com https://youtube.com https://embed.acast.com https://www.credly.com https://www.youracclaim.com;",
+    'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' plausible.io plausible.jameskilby.cloud https://utteranc.es cdn.credly.com cdn.youracclaim.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' plausible.io plausible.jameskilby.cloud https://api.github.com https://cloudflareinsights.com; frame-src 'self' plausible.jameskilby.cloud https://utteranc.es https://www.youtube.com https://youtube.com https://embed.acast.com https://www.credly.com https://www.youracclaim.com;",
     'X-Frame-Options': 'SAMEORIGIN',
     'X-Content-Type-Options': 'nosniff',
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
@@ -359,7 +359,7 @@ function shouldCache(path) {
       path === '/diagnostic' ||
       path === '/trace' ||
       path === '/test' ||
-      path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|json|xml|txt|webp|avif|br|gz)$/)) {
+      path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|json|xml|txt|webp|avif|br|gz|webmanifest)$/)) {
     return false;
   }
 

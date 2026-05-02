@@ -13,7 +13,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-741
+743
 
 Git commits
 
@@ -33,7 +33,7 @@ Active contributors
 
 2026-05-02
 
-10:54:28
+20:54:02
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -56,6 +56,10 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-05-02 9990e9aFeature
+
+ADD Google Ping
 
 2026-05-02 509c002Fix
 
@@ -227,11 +231,5 @@ Improve taxonomy name extraction from title
 
 Refine the regex used to extract taxonomy names from page titles. Use a non-greedy match for patterns like "Docker Archives - James Kilby" and add a fallback to the previous pattern when the 'Archives' token isn't present. Also update the comment/example. This prevents incorrect captures for taxonomy names that include hyphens or other characters.
 
-2026-04-12 bdfd455Other
-
-Deduplicate meta descriptions on paginated pages
-
-Add fix_pagination_meta_description to detect /page/N/ URLs and append " - Page N" to meta description, og:description and twitter:description to avoid duplicate SEO content. The method strips trailing periods, truncates content to keep it within ~160 characters (adding ellipses if needed), and logs a brief message per modified page. Also call this new method during page processing so paginated archive pages get unique descriptions.
-
-Page generated: 2026-05-02 09:58:58 UTC  
+Page generated: 2026-05-02 21:41:25 UTC  
 Changelog powered by Git history and Lighthouse CI

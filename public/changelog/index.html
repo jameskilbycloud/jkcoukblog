@@ -280,7 +280,7 @@
         <div class="metrics">
             <div class="metric-card">
                 <h3>Total Deployments</h3>
-                <div class="metric-value">743</div>
+                <div class="metric-value">746</div>
                 <div class="metric-label">Git commits</div>
             </div>
             
@@ -299,7 +299,7 @@
             <div class="metric-card">
                 <h3>Last Deployment</h3>
                 <div class="metric-value">2026-05-02</div>
-                <div class="metric-label">20:54:02</div>
+                <div class="metric-label">22:44:02</div>
             </div>
         </div>
         
@@ -338,6 +338,16 @@
         
         <div class="changelog-section">
             <h2>Recent Changes</h2>
+
+            <div class="change-entry">
+                <div class="change-date">2026-05-02 <span class="change-hash">b18967f</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">Merge branch &#x27;main&#x27; of https://github.com/jameskilbynet/jkcoukblog</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-05-02 <span class="change-hash">b123552</span><span class="category-badge badge-improvement">Improvement</span></div>
+                <div class="change-title">update CSP</div>
+            </div>
 
             <div class="change-entry">
                 <div class="change-date">2026-05-02 <span class="change-hash">9990e9a</span><span class="category-badge badge-feature">Feature</span></div>
@@ -503,23 +513,10 @@
                 <div class="change-title">Updated Readme</div>
             </div>
 
-            <div class="change-entry">
-                <div class="change-date">2026-04-14 <span class="change-hash">8082bdf</span><span class="category-badge badge-feature">Feature</span></div>
-                <div class="change-title">Add &#x27;purge all&#x27; KV cache support</div>
-                <div class="change-details">Replace selective file-based purge with a purge-all workflow step that POSTs /.purge?all=true and requires CACHE_PURGE_TOKEN; step name and GitHub summary fields updated and response count parsed with jq. Update worker handler to support the all=true query: iterate HTML_CACHE.list to delete KV keys and corresponding Cache API entries, return JSON with purged count and timestamp, and improve missing-parameter error and cache request origin handling.</div>
-            </div>
-            <br>
-
-            <div class="change-entry">
-                <div class="change-date">2026-04-12 <span class="change-hash">93c5c25</span><span class="category-badge badge-docs">Docs</span></div>
-                <div class="change-title">Improve taxonomy name extraction from title</div>
-                <div class="change-details">Refine the regex used to extract taxonomy names from page titles. Use a non-greedy match for patterns like &quot;Docker Archives - James Kilby&quot; and add a fallback to the previous pattern when the &#x27;Archives&#x27; token isn&#x27;t present. Also update the comment/example. This prevents incorrect captures for taxonomy names that include hyphens or other characters.</div>
-            </div>
-
         </div>
         
         <div class="timestamp">
-            Page generated: 2026-05-02 21:41:25 UTC<br>
+            Page generated: 2026-05-02 21:50:45 UTC<br>
             Changelog powered by Git history and Lighthouse CI
         </div>
     </div>
