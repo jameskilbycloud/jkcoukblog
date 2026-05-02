@@ -1,8 +1,8 @@
 # Markdown Content Sitemap
 
-Generated: 2026-04-30 11:01:02
+Generated: 2026-05-02 08:46:37
 
-Total Files: 83
+Total Files: 85
 
 ## Blog Posts
 
@@ -77,6 +77,9 @@ Total Files: 83
 
 - [Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/) - 2023-05-16 10:38:45+00:00
   - Markdown: `/markdown/posts/runecast-remediation-scripts.md`
+
+- [Automating vSphere Golden Images with Packer and GitHub Actions](https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/) - 2026-04-30 17:22:19+00:00
+  - Markdown: `/markdown/posts/packer-vsphere-golden-images.md`
 
 - [Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested](https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/) - 2026-03-09 23:39:37+00:00
   - Markdown: `/markdown/posts/octopus-agile-battery-solar-calculator.md`
@@ -206,6 +209,9 @@ Total Files: 83
 
 - [Automated VCF 9 Offline Depot](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/) - 2026-04-10 11:36:03+00:00
   - Markdown: `/markdown/posts/automated-vcf-9-offline-depot.md`
+
+- [Auto-Documenting MikroTik Switch Ports with Ansible and LLDP Neighbours](https://jameskilby.co.uk/2026/05/auto-documenting-mikrotik-switch-ports-with-ansible-and-lldp-neighbours/) - 2026-05-01 17:55:33+00:00
+  - Markdown: `/markdown/posts/auto-documenting-mikrotik-switch-ports-with-ansible-and-lldp-neighbours.md`
 
 - [How Apple Content Caching Works: Speed Up iOS & Mac Updates](https://jameskilby.co.uk/2021/02/apple-content-caching/) - 2021-02-08 14:12:23+00:00
   - Markdown: `/markdown/posts/apple-content-caching.md`

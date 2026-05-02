@@ -13,13 +13,13 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-1169
+732
 
 Git commits
 
 ### Repository Age
 
-198
+209
 
 Days active
 
@@ -31,9 +31,9 @@ Active contributors
 
 ### Last Deployment
 
-2026-04-18
+2026-04-30
 
-19:22:30
+11:58:29
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -57,17 +57,31 @@ SEO
 
 ## Recent Changes
 
-2026-04-18 d54fdd3Fix
+2026-04-30 f046ae2Fix
+
+fix: skip post-validation paths in HTML link checker
+
+/changelog/ and /stats/ are generated after validate_html.py runs,
+
+2026-04-30 042a943Removal
+
+chore: restore build artifacts after history rewrite; remove dead code
+
+History rewritten with git filter-repo to strip public/ and
+
+  
+
+2026-04-18 eb86271Fix
 
 fix: stamp worker and manifest before brotli compression
 
 Run generate_soft404_artefacts.py and stamp_worker_manifest.py against
 
-2026-04-18 c94b6f0Improvement
+2026-04-18 aec8d46Improvement
 
 Update SEO.md
 
-2026-04-18 251c3aeFeature
+2026-04-18 cc2f575Feature
 
 Add soft-404 guard and manifest tooling
 
@@ -75,65 +89,61 @@ Introduce a soft-404 protection system to prevent SPA fallbacks from being index
 
   
 
-2026-04-17 6cbde77Improvement
+2026-04-17 7905391Improvement
 
 refactor: remove view counting from Advanced Mode Worker
 
 Analytics are handled by Plausible, so the KV-metadata view counter had no
 
-2026-04-17 d8385c3Docs
+2026-04-17 98e9e4aDocs
 
 docs: rewrite workers/README to match current state
 
 The old README described the html-cache worker and a now-missing
 
-2026-04-17 3273384Fix
+2026-04-17 9f24734Fix
 
 fix: use Wrangler v4 kv key syntax for search index upload
 
 Wrangler v4 removed the colon form `kv:key put` in favour of `kv key put`.
 
-2026-04-17 a291f50Fix
+2026-04-17 563dff0Fix
 
 fix: bump Node to 20 for Wrangler and correct KV upload success reporting
 
 Wrangler requires Node 20+, so the Node 18 pin caused the KV search index
 
-2026-04-17 6f31482Improvement
+2026-04-17 406245aImprovement
 
 Update deploy-static-site.yml
 
   
 
-2026-04-16 ba60ef5Other
+2026-04-16 07ffecdOther
 
 Only install missing system dependencies
 
 Change the workflow to probe for required system binaries and Python modules first, accumulating any missing packages into MISSING_PKGS. If nothing is missing, skip apt entirely; otherwise run apt-get update/install only for the missing items. This avoids unnecessary dpkg lock waits on long-lived self-hosted runners and speeds up the job startup. The script checks jq, bc, avifenc, optipng, jpegoptim, cwebp, python3-pip and python3-venv and still prints versions after installation.
 
-2026-04-16 b4dc9ddImprovement
+2026-04-16 cbc3ac8Improvement
 
 Update Claude settings and rotate indexnow key
 
 Add new probes to .claude/settings.local.json (Bash(xxd) and WebFetch for www.bing.com) and update the stored IndexNow key in .indexnow_key (key rotated). These changes enable additional local checks and refresh the indexing key without altering other configuration.
 
-2026-04-16 3a9b5caFeature
+2026-04-16 68ff088Feature
 
 Add IndexNow keyLocation and WebFetch entry
 
 Include a keyLocation field in IndexNow submission payload so the API knows where the verification key is hosted (scripts/submit_indexnow.py). Also add WebFetch(domain:www.indexnow.org) to local Claude settings to allow fetching IndexNow resources during analysis (.claude/settings.local.json).
 
-2026-04-16 ba1761cOther
-
-Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog
-
-2026-04-16 35fe94dFeature
+2026-04-16 11b8890Feature
 
 Bump GitHub Action versions and add gh checks
 
 Upgrade action usages across workflows to newer releases (actions/cache -> v5, actions/cache/restore/save -> v5, actions/upload-artifact/download-artifact -> v7, actions/setup-node -> v6, slackapi/slack-github-action -> v3.0.1) to keep CI tooling up-to-date and compatible. Also add Bash patterns for gh run/api to .claude/settings.local.json to include gh CLI checks in local scans.
 
-2026-04-16 8c89ec4Other
+2026-04-16 5eec354Other
 
 Bump Actions checkout and setup-python versions
 
@@ -141,39 +151,31 @@ Upgrade GitHub Actions used in workflow files: actions/checkout@v4 -> actions/ch
 
   
 
-2026-04-15 5ea7e91Other
-
-Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog
-
-2026-04-15 864fb0dImprovement
+2026-04-15 9c50f5bImprovement
 
 Update html_transformer.py
 
-2026-04-15 7e61095Improvement
+2026-04-15 a9f7afeImprovement
 
 Update validate_deployment.py
 
-2026-04-15 6b0c3dfOther
+2026-04-15 69c1bdbOther
 
 Escape HTML in changelog commit messages
 
-2026-04-15 2af65f3Other
-
-Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog
-
-2026-04-15 9b6dcf3Other
+2026-04-15 8218ee2Other
 
 Exclude consolidated-inline-styles from critical CSS
 
 Add 'consolidated-inline-styles' to the EXCLUDED tuple in scripts/extract_critical_css.py to prevent double-counting of inline noscript styles during critical CSS extraction, matching the handling of other excluded assets like 'brutalist-theme' and 'fonts.css'.
 
-2026-04-15 51da4e0Improvement
+2026-04-15 84c366bImprovement
 
 Use single-pass HTML transformer; update CI & Makefile
 
 Add a new scripts/html_transformer.py that performs SEO fixes, image-to-<picture> conversion, performance hints, critical CSS extraction/inlining, head deduplication and HTML minification in a single parse cycle per file. Update .github/workflows/deploy-static-site.yml to wait for dpkg locks during apt operations and to replace the previous multi-step image/SEO/perf/CSS/HTML pipeline with a streamlined CSS optimization step and a single-pass HTML transformer step. Simplify Makefile targets to call the new transformer and to consolidate the CSS pipeline (remove separate critical extraction step). These changes reduce repeated HTML parsing, simplify CI steps, and add robustness to runner package installs.
 
-2026-04-15 1e365caImprovement
+2026-04-15 56393a0Improvement
 
 Refactor deploy workflow and staging URL handling
 
@@ -181,11 +183,11 @@ Rework the GitHub Actions deploy flow and staging URL conversion:
 
   
 
-2026-04-14 a3debdaDocs
+2026-04-14 68d4346Docs
 
 Updated Readme
 
-2026-04-14 cf71416Feature
+2026-04-14 8082bdfFeature
 
 Add 'purge all' KV cache support
 
@@ -193,15 +195,47 @@ Replace selective file-based purge with a purge-all workflow step that POSTs /.p
 
   
 
-2026-04-12 f405ac7Other
-
-Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog
-
-2026-04-12 ef66c3eDocs
+2026-04-12 93c5c25Docs
 
 Improve taxonomy name extraction from title
 
 Refine the regex used to extract taxonomy names from page titles. Use a non-greedy match for patterns like "Docker Archives - James Kilby" and add a fallback to the previous pattern when the 'Archives' token isn't present. Also update the comment/example. This prevents incorrect captures for taxonomy names that include hyphens or other characters.
 
-Page generated: 2026-04-19 11:47:11 UTC  
+2026-04-12 bdfd455Other
+
+Deduplicate meta descriptions on paginated pages
+
+Add fix_pagination_meta_description to detect /page/N/ URLs and append " - Page N" to meta description, og:description and twitter:description to avoid duplicate SEO content. The method strips trailing periods, truncates content to keep it within ~160 characters (adding ellipses if needed), and logs a brief message per modified page. Also call this new method during page processing so paginated archive pages get unique descriptions.
+
+2026-04-12 0042adfFix
+
+fix: exclude changelog/stats from Brotli reuse loop
+
+These directories are regenerated by post-deploy scripts every build,
+
+2026-04-12 f1215c0Fix
+
+fix: resolve Brotli mismatch for post-deploy generated files
+
+The Brotli reuse loop was copying stale .br files for
+
+2026-04-12 11b7fe3Improvement
+
+Reuse optimized assets, refine validation output
+
+Workflow: improve reuse of previously-optimized assets by rsync-ing AVIF/WebP from public/ into static-output with --ignore-existing, count copied files, and replace originals only when the previous version is smaller. Preserve and reuse .br/.gz only when the static-output source matches the public source (compare sizes) and report how many compressed files were reused vs skipped as stale. Also remove redundant copy to public before validation.
+
+  
+
+2026-04-11 232203bOther
+
+Deduplicate head links and robust CSS preload
+
+Add a pre-parse cleanup that strips accumulated <noscript> fallbacks and deduplicates <link> tags in <head> (_dedup_head_links), preventing runaway duplication on repeated pipeline runs. Make CSS externalization idempotent and self-healing: convert stylesheets to preload+onload safely, skip critical files (brutalist-theme, fonts.css), and add exactly one noscript fallback per preload link. Also adjust insertion order for the generated stylesheet link. Finally, switch BeautifulSoup usage in wp_to_static_generator.py from 'lxml' to 'html.parser' to improve parsing robustness.
+
+2026-04-11 fdf26e8Fix
+
+fix: eliminate noscript accumulation and fix image sitemap parser
+
+Page generated: 2026-04-30 11:03:10 UTC  
 Changelog powered by Git history and Lighthouse CI

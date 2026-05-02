@@ -27,14 +27,13 @@
   Access-Control-Allow-Origin: *
   Access-Control-Allow-Methods: GET, HEAD, OPTIONS
 
-# API endpoints - JSON with CORS (noindex: not intended for Google's index)
+# API endpoints - JSON with CORS
 /api/*
   Content-Type: application/json; charset=utf-8
   Cache-Control: public, max-age=600
   Access-Control-Allow-Origin: *
   Access-Control-Allow-Methods: GET, HEAD, OPTIONS
   Access-Control-Allow-Headers: Content-Type
-  X-Robots-Tag: noindex, nofollow
 
 # Global security headers
 /*

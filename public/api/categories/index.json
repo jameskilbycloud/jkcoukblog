@@ -7,7 +7,7 @@
   {
     "name": "Hosting",
     "slug": "hosting",
-    "count": 31
+    "count": 32
   },
   {
     "name": "Wordpress",
@@ -17,17 +17,17 @@
   {
     "name": "Docker",
     "slug": "docker",
-    "count": 40
+    "count": 42
   },
   {
     "name": "Homelab",
     "slug": "homelab",
-    "count": 59
+    "count": 61
   },
   {
     "name": "Kubernetes",
     "slug": "kubernetes",
-    "count": 14
+    "count": 15
   },
   {
     "name": "AWS",
@@ -37,7 +37,7 @@
   {
     "name": "Artificial Intelligence",
     "slug": "artificial-intelligence",
-    "count": 37
+    "count": 39
   },
   {
     "name": "Personal",
@@ -47,7 +47,7 @@
   {
     "name": "VMware",
     "slug": "vmware",
-    "count": 65
+    "count": 67
   },
   {
     "name": "Consulting",
@@ -57,12 +57,12 @@
   {
     "name": "vSphere",
     "slug": "vsphere",
-    "count": 23
+    "count": 24
   },
   {
     "name": "Ansible",
     "slug": "ansible",
-    "count": 29
+    "count": 31
   },
   {
     "name": "Containers",
@@ -77,22 +77,22 @@
   {
     "name": "NVIDIA",
     "slug": "nvidia",
-    "count": 28
+    "count": 29
   },
   {
     "name": "Traefik",
     "slug": "traefik",
-    "count": 34
+    "count": 36
   },
   {
     "name": "Networking",
     "slug": "networking",
-    "count": 23
+    "count": 24
   },
   {
     "name": "Storage",
     "slug": "storage",
-    "count": 36
+    "count": 37
   },
   {
     "name": "VMware Cloud on AWS",
@@ -102,17 +102,32 @@
   {
     "name": "vSAN",
     "slug": "vsan",
-    "count": 20
+    "count": 21
+  },
+  {
+    "name": "Automation",
+    "slug": "automation",
+    "count": 35
   },
   {
     "name": "Nutanix",
     "slug": "nutanix",
-    "count": 21
+    "count": 22
   },
   {
     "name": "TrueNAS Scale",
     "slug": "truenas-scale",
-    "count": 17
+    "count": 18
+  },
+  {
+    "name": "Runecast",
+    "slug": "runecast",
+    "count": 7
+  },
+  {
+    "name": "VCF",
+    "slug": "vcf",
+    "count": 25
   },
   {
     "name": "Apple",
@@ -125,34 +140,19 @@
     "count": 14
   },
   {
-    "name": "Automation",
-    "slug": "automation",
-    "count": 33
-  },
-  {
     "name": "Veeam",
     "slug": "veeam",
     "count": 18
   },
   {
-    "name": "VCF",
-    "slug": "vcf",
-    "count": 23
-  },
-  {
-    "name": "Runecast",
-    "slug": "runecast",
-    "count": 5
-  },
-  {
     "name": "Github",
     "slug": "github",
-    "count": 3
+    "count": 4
   },
   {
     "name": "vExpert",
     "slug": "vexpert",
-    "count": 10
+    "count": 11
   },
   {
     "name": "Mikrotik",
