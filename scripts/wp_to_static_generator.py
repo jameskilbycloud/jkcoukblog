@@ -2747,19 +2747,7 @@ document.addEventListener('DOMContentLoaded', function() {
         strap_left.append(meta)
         strap_left.append(strap_h2)
 
-        strap_right = soup.new_tag('div', attrs={'class': 'jkr-strap-right'})
-        for n, label in (('247', 'Posts'), ('09', 'Years'), ('06', 'vExpert')):
-            stat = soup.new_tag('div', attrs={'class': 'jkr-stat'})
-            num = soup.new_tag('div', attrs={'class': 'jkr-stat-n'})
-            num.string = n
-            lbl = soup.new_tag('div', attrs={'class': 'jkr-stat-l'})
-            lbl.string = label
-            stat.append(num)
-            stat.append(lbl)
-            strap_right.append(stat)
-
         strap_inner.append(strap_left)
-        strap_inner.append(strap_right)
         strap.append(strap_inner)
 
         # ── 2. terminal stats block ─────────────────────────────────────

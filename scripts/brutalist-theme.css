@@ -1258,10 +1258,6 @@ div, section, aside, nav {
   max-width: 1280px;
   margin: 0 auto;
   padding: 4.5rem 2.5rem 4rem;
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 2.5rem;
-  align-items: end;
 }
 .jkr-strap-meta {
   font-family: 'JetBrains Mono', monospace;
@@ -1279,27 +1275,6 @@ div, section, aside, nav {
   letter-spacing: 0.01em !important;
   text-transform: uppercase;
   color: var(--text-light) !important;
-}
-.jkr-strap-right {
-  display: flex;
-  gap: 2rem;
-  justify-content: flex-end;
-}
-.jkr-stat { text-align: right; }
-.jkr-stat-n {
-  font-family: 'Anton', sans-serif;
-  font-size: 3.5rem;
-  line-height: 1;
-  color: var(--text-light);
-  font-weight: 400;
-}
-.jkr-stat-l {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6875rem;
-  letter-spacing: 0.16em;
-  color: #7a766c;
-  margin-top: 0.375rem;
-  text-transform: uppercase;
 }
 
 /* Terminal stats ----------------------------------------------------- */
@@ -1536,13 +1511,9 @@ div, section, aside, nav {
 /* Mobile adjustments for redesign sections --------------------------- */
 @media (max-width: 768px) {
   .jkr-strap-inner {
-    grid-template-columns: 1fr;
     padding: 2.5rem 1.25rem 2rem;
-    gap: 1.5rem;
   }
   .jkr-strap-h { font-size: 2.5rem !important; }
-  .jkr-strap-right { justify-content: flex-start; gap: 1.5rem; }
-  .jkr-stat-n { font-size: 2.25rem; }
   .jkr-term-inner { padding: 1.25rem 1.25rem 0.5rem; }
   .jkr-term-body {
     grid-template-columns: 1fr;
