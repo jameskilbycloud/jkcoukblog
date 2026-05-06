@@ -13,7 +13,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-743
+746
 
 Git commits
 
@@ -33,7 +33,7 @@ Active contributors
 
 2026-05-02
 
-20:54:02
+22:44:02
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -56,6 +56,14 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-05-02 b18967fOther
+
+Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog
+
+2026-05-02 b123552Improvement
+
+update CSP
 
 2026-05-02 9990e9aFeature
 
@@ -217,19 +225,5 @@ Rework the GitHub Actions deploy flow and staging URL conversion:
 
 Updated Readme
 
-2026-04-14 8082bdfFeature
-
-Add 'purge all' KV cache support
-
-Replace selective file-based purge with a purge-all workflow step that POSTs /.purge?all=true and requires CACHE_PURGE_TOKEN; step name and GitHub summary fields updated and response count parsed with jq. Update worker handler to support the all=true query: iterate HTML_CACHE.list to delete KV keys and corresponding Cache API entries, return JSON with purged count and timestamp, and improve missing-parameter error and cache request origin handling.
-
-  
-
-2026-04-12 93c5c25Docs
-
-Improve taxonomy name extraction from title
-
-Refine the regex used to extract taxonomy names from page titles. Use a non-greedy match for patterns like "Docker Archives - James Kilby" and add a fallback to the previous pattern when the 'Archives' token isn't present. Also update the comment/example. This prevents incorrect captures for taxonomy names that include hyphens or other characters.
-
-Page generated: 2026-05-02 21:41:25 UTC  
+Page generated: 2026-05-02 21:50:45 UTC  
 Changelog powered by Git history and Lighthouse CI
