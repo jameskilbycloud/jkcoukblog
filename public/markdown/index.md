@@ -3,13 +3,14 @@ title: "James Kilby - James Kilby's technical blog covering VMware, homelab proj
 description: "Expert guides on VMware vSphere, homelab infrastructure, AI setup, and cloud computing. Real-world technical tutorials by a VMware vExpert."
 author: James Kilby
 categories:
-  - Ansible
-  - Automation
-  - Docker
+  - VMware
   - Homelab
+  - Automation
+  - AI
+  - Ansible
+  - Docker
   - Traefik
   - VCF
-  - VMware
   - Artificial Intelligence
   - NVIDIA
   - VMware Cloud on AWS
@@ -20,11 +21,63 @@ categories:
   - Wordpress
   - Ubuntu
   - vSAN
+  - VMware27
+  - Homelab26
+  - Hosting11
+  - Personal10
+  - VMware Cloud on AWS8
+  - Artificial Intelligence7
+  - Storage7
+  - Automation6
+  - Cloudflare6
 url: https://jameskilby.co.uk/
 image: https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png
 ---
 
-* [ ![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png) ](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
+VMWARE VEXPERT · HOMELAB · INFRASTRUCTURE-AS-CODE
+
+Field notes from a homelab that costs  
+real money to run.
+
+247
+
+Posts
+
+09
+
+Years
+
+06
+
+vExpert
+
+jameskilby@blog ~ % cat blog.stats live
+
+posts.count.............72
+
+words.total............46k
+
+last_post..........20d ago
+
+categories..............34
+
+tags...................125
+
+vexpert.years...........11
+
+deploys.month...........17
+
+last_deploy..........today
+
+lighthouse..........95/100
+
+$_
+
+FILTER
+
+[All](/)[VMware](https://jameskilby.co.uk/category/vmware/)[Homelab](https://jameskilby.co.uk/category/homelab/)[Automation](https://jameskilby.co.uk/category/automation/)[AI](https://jameskilby.co.uk/category/artificial-intelligence/)
+
+  * [ ![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png) ](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)
 
@@ -143,3 +196,9 @@ How to use the Amazon Time Sync Service in a VMC environment
 By[James](https://jameskilby.co.uk) December 6, 2025March 10, 2026
 
 How to safety shutdown a vSAN Environment
+
+EXPLORE BY TOPIC
+
+## Browse the archive
+
+[VMware27](https://jameskilby.co.uk/category/vmware/)[Homelab26](https://jameskilby.co.uk/category/homelab/)[Hosting11](https://jameskilby.co.uk/category/hosting/)[Personal10](https://jameskilby.co.uk/category/personal/)[VMware Cloud on AWS8](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)[Artificial Intelligence7](https://jameskilby.co.uk/category/artificial-intelligence/)[Storage7](https://jameskilby.co.uk/category/storage/)[Automation6](https://jameskilby.co.uk/category/automation/)[Cloudflare6](https://jameskilby.co.uk/category/cloudflare/)
