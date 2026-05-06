@@ -13,7 +13,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-750
+753
 
 Git commits
 
@@ -33,7 +33,7 @@ Active contributors
 
 2026-05-06
 
-12:31:29
+13:08:31
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -56,6 +56,14 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-05-06 3f49588Other
+
+Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog
+
+2026-05-06 02279bbOther
+
+Tidy Up
 
 2026-05-06 d510762Improvement
 
@@ -211,15 +219,5 @@ Update html_transformer.py
 
 Update validate_deployment.py
 
-2026-04-15 69c1bdbOther
-
-Escape HTML in changelog commit messages
-
-2026-04-15 8218ee2Other
-
-Exclude consolidated-inline-styles from critical CSS
-
-Add 'consolidated-inline-styles' to the EXCLUDED tuple in scripts/extract_critical_css.py to prevent double-counting of inline noscript styles during critical CSS extraction, matching the handling of other excluded assets like 'brutalist-theme' and 'fonts.css'.
-
-Page generated: 2026-05-06 11:35:55 UTC  
+Page generated: 2026-05-06 17:09:47 UTC  
 Changelog powered by Git history and Lighthouse CI
