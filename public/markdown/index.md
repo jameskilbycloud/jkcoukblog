@@ -39,18 +39,6 @@ VMWARE VEXPERT · HOMELAB · INFRASTRUCTURE-AS-CODE
 Field notes from a homelab that costs  
 real money to run.
 
-247
-
-Posts
-
-09
-
-Years
-
-06
-
-vExpert
-
 jameskilby@blog ~ % cat blog.stats live
 
 posts.count.............72
@@ -65,7 +53,7 @@ tags...................125
 
 vexpert.years...........11
 
-deploys.month...........17
+deploys.month...........20
 
 last_deploy..........today
 

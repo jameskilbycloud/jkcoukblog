@@ -13,13 +13,13 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-746
+750
 
 Git commits
 
 ### Repository Age
 
-211
+215
 
 Days active
 
@@ -31,9 +31,9 @@ Active contributors
 
 ### Last Deployment
 
-2026-05-02
+2026-05-06
 
-22:44:02
+12:31:29
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -56,6 +56,20 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-05-06 d510762Improvement
+
+Update wp_to_static_generator.py
+
+2026-05-06 a3c67dcImprovement
+
+Update Validation
+
+2026-05-06 ccbf4a6Other
+
+Theme Tweak
+
+  
 
 2026-05-02 b18967fOther
 
@@ -207,23 +221,5 @@ Exclude consolidated-inline-styles from critical CSS
 
 Add 'consolidated-inline-styles' to the EXCLUDED tuple in scripts/extract_critical_css.py to prevent double-counting of inline noscript styles during critical CSS extraction, matching the handling of other excluded assets like 'brutalist-theme' and 'fonts.css'.
 
-2026-04-15 84c366bImprovement
-
-Use single-pass HTML transformer; update CI & Makefile
-
-Add a new scripts/html_transformer.py that performs SEO fixes, image-to-<picture> conversion, performance hints, critical CSS extraction/inlining, head deduplication and HTML minification in a single parse cycle per file. Update .github/workflows/deploy-static-site.yml to wait for dpkg locks during apt operations and to replace the previous multi-step image/SEO/perf/CSS/HTML pipeline with a streamlined CSS optimization step and a single-pass HTML transformer step. Simplify Makefile targets to call the new transformer and to consolidate the CSS pipeline (remove separate critical extraction step). These changes reduce repeated HTML parsing, simplify CI steps, and add robustness to runner package installs.
-
-2026-04-15 56393a0Improvement
-
-Refactor deploy workflow and staging URL handling
-
-Rework the GitHub Actions deploy flow and staging URL conversion:
-
-  
-
-2026-04-14 68d4346Docs
-
-Updated Readme
-
-Page generated: 2026-05-02 21:50:45 UTC  
+Page generated: 2026-05-06 11:35:55 UTC  
 Changelog powered by Git history and Lighthouse CI
