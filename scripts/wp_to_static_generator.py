@@ -2641,11 +2641,15 @@ document.addEventListener('DOMContentLoaded', function() {
         return '—'
 
     def _fetch_top_categories(self, limit=9):
-        """Return the top categories by post count: list of (name, slug, count_str).
+        """Return the top categories by post count: list of (name, href, count_str).
 
-        Pulls live from the WP REST API and sorts by count desc. Cached on the
-        instance. Falls back to an empty list if the API is unreachable —
-        callers should provide their own curated fallback in that case.
+        href is the relative permalink (with parent prefix when nested), taken
+        directly from WP's `link` field — this matters for child categories
+        like `vmware-cloud-on-aws` whose real archive lives at
+        `/category/vmware/vmware-cloud-on-aws/`, not `/category/vmware-cloud-on-aws/`.
+
+        Pulls live from the WP REST API, sorts by count desc, caches on the
+        instance. Returns [] on failure so callers can fall back.
         """
         if hasattr(self, '_cached_top_cats'):
             return self._cached_top_cats[:limit]
@@ -2657,7 +2661,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     f'{self.wp_url}/wp-json/wp/v2/categories',
                     params={
                         'per_page': 100, 'page': page, 'hide_empty': 'true',
-                        '_fields': 'name,slug,count',
+                        '_fields': 'name,slug,count,link',
                     },
                     timeout=15,
                 )
@@ -2671,10 +2675,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     break
                 page += 1
             cats.sort(key=lambda c: -int(c.get('count') or 0))
-            result = [
-                (c.get('name', ''), c.get('slug', ''), str(c.get('count') or 0))
-                for c in cats if c.get('slug') and c.get('name')
-            ]
+            result = []
+            for c in cats:
+                name = c.get('name')
+                link = c.get('link') or ''
+                count = str(c.get('count') or 0)
+                if not name or not link:
+                    continue
+                # Strip WP URL prefix to get a relative path the static site
+                # serves. Same approach as get_all_content_urls() so we stay
+                # consistent with what was actually generated on disk.
+                href = link.replace(self.wp_url, '')
+                if not href.startswith('/'):
+                    href = '/' + href.lstrip('/')
+                result.append((name, href, count))
             self._cached_top_cats = result
             return result[:limit]
         except Exception as e:
@@ -2836,24 +2850,24 @@ document.addEventListener('DOMContentLoaded', function() {
         topics.append(topics_head)
 
         topics_grid = soup.new_tag('div', attrs={'class': 'jkr-topics-grid'})
-        # Live list from WP API ensures slugs always resolve to a real archive
-        # (the API filters by hide_empty=true so it only returns categories WP
-        # itself will generate a page for). The curated fallback below is used
-        # when the API is unreachable — every slug in it has been verified
-        # against the existing public/category/ tree.
+        # Live list from WP API uses the API's permalink directly so nested
+        # categories (e.g. /category/vmware/vmware-cloud-on-aws/) resolve to
+        # the right archive. The curated fallback below is used when the API
+        # is unreachable — entries are pre-resolved hrefs verified against
+        # the existing public/category/ tree.
         topic_list = self._fetch_top_categories(limit=9) or (
-            ('VMware', 'vmware', '—'),
-            ('Homelab', 'homelab', '—'),
-            ('Automation', 'automation', '—'),
-            ('Artificial Intelligence', 'artificial-intelligence', '—'),
-            ('Ansible', 'ansible', '—'),
-            ('NVIDIA', 'nvidia', '—'),
-            ('Cloudflare', 'cloudflare', '—'),
-            ('Docker', 'docker', '—'),
-            ('Containers', 'containers', '—'),
+            ('VMware', '/category/vmware/', '—'),
+            ('Homelab', '/category/homelab/', '—'),
+            ('Automation', '/category/automation/', '—'),
+            ('Artificial Intelligence', '/category/artificial-intelligence/', '—'),
+            ('Ansible', '/category/ansible/', '—'),
+            ('NVIDIA', '/category/nvidia/', '—'),
+            ('Cloudflare', '/category/cloudflare/', '—'),
+            ('Docker', '/category/docker/', '—'),
+            ('Containers', '/category/containers/', '—'),
         )
-        for name, slug, count in topic_list:
-            t = soup.new_tag('a', href=f'/category/{slug}/', attrs={'class': 'jkr-topic'})
+        for name, href, count in topic_list:
+            t = soup.new_tag('a', href=href, attrs={'class': 'jkr-topic'})
             t_name = soup.new_tag('span', attrs={'class': 'jkr-topic-name'})
             t_name.string = name
             t_count = soup.new_tag('span', attrs={'class': 'jkr-topic-count'})
