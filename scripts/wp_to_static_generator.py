@@ -394,7 +394,11 @@ class WordPressStaticGenerator:
 
         # Fix missing H1 on homepage
         self.fix_homepage_h1(soup, current_url)
-        
+
+        # Inject Direction A redesign sections on the homepage (hero strap,
+        # terminal stats block, filter bar, topic index). Skips paginated pages.
+        self.inject_homepage_redesign(soup, current_url)
+
         # Fix table structure (add proper header rows)
         self.fix_table_headers(soup)
         
@@ -2434,9 +2438,397 @@ document.addEventListener('DOMContentLoaded', function() {
             
             # Replace old tag with H1
             title_elem.replace_with(h1_tag)
-            
+
             print(f"   ✅ Converted {old_tag_name}.site-title to H1 on homepage")
-    
+
+    def _compute_homepage_stats(self):
+        """Return three columns of (key, value) pairs for the terminal block.
+
+        Each stat is computed in isolation; if a source is unreachable the
+        stat falls back to '—' rather than breaking the rest of the build.
+        Cached on the instance so it only runs once per build even if the
+        homepage gets reprocessed.
+        """
+        if hasattr(self, '_cached_homepage_stats'):
+            return self._cached_homepage_stats
+
+        print("   📊 Computing homepage stats...")
+
+        posts_count = self._stat_posts_count()
+        last_post = self._stat_last_post_age()
+        cats_count = self._stat_taxonomy_total('categories')
+        tags_count = self._stat_taxonomy_total('tags')
+        words_total = self._stat_words_total()
+        deploys_month = self._stat_deploys_this_month()
+        last_deploy = self._stat_last_deploy_age()
+        lighthouse_perf = self._stat_lighthouse_performance()
+
+        from datetime import datetime
+        try:
+            from config import Config
+            vexpert_start = Config.VEXPERT_START_YEAR
+        except (ImportError, AttributeError):
+            vexpert_start = 2020
+        vexpert_years = str(max(0, datetime.now().year - vexpert_start))
+
+        columns = (
+            (('posts.count', posts_count),
+             ('words.total', words_total),
+             ('last_post', last_post)),
+            (('categories', cats_count),
+             ('tags', tags_count),
+             ('vexpert.years', vexpert_years)),
+            (('deploys.month', deploys_month),
+             ('last_deploy', last_deploy),
+             ('lighthouse', lighthouse_perf)),
+        )
+        self._cached_homepage_stats = columns
+        print(
+            f"   📊 Stats: posts={posts_count} words={words_total} last={last_post} "
+            f"cats={cats_count} tags={tags_count} vexpert={vexpert_years}y "
+            f"deploys={deploys_month} last-deploy={last_deploy} LH={lighthouse_perf}"
+        )
+        return columns
+
+    def _stat_posts_count(self):
+        try:
+            r = self.session.get(
+                f'{self.wp_url}/wp-json/wp/v2/posts',
+                params={'per_page': 1, 'status': 'publish', '_fields': 'id'},
+                timeout=15,
+            )
+            if r.status_code == 200:
+                return r.headers.get('X-WP-Total') or '—'
+        except Exception as e:
+            print(f"   ⚠️  posts.count: {e}")
+        return '—'
+
+    def _stat_last_post_age(self):
+        try:
+            r = self.session.get(
+                f'{self.wp_url}/wp-json/wp/v2/posts',
+                params={
+                    'per_page': 1, 'orderby': 'date', 'order': 'desc',
+                    'status': 'publish', '_fields': 'date_gmt',
+                },
+                timeout=15,
+            )
+            if r.status_code == 200:
+                data = r.json()
+                if data and data[0].get('date_gmt'):
+                    from datetime import datetime, timezone
+                    d = datetime.fromisoformat(data[0]['date_gmt'])
+                    if d.tzinfo is None:
+                        d = d.replace(tzinfo=timezone.utc)
+                    days = max(0, (datetime.now(timezone.utc) - d).days)
+                    return 'today' if days == 0 else f'{days}d ago'
+        except Exception as e:
+            print(f"   ⚠️  last_post: {e}")
+        return '—'
+
+    def _stat_taxonomy_total(self, taxonomy):
+        """Count of categories/tags with at least one post."""
+        try:
+            r = self.session.get(
+                f'{self.wp_url}/wp-json/wp/v2/{taxonomy}',
+                params={'per_page': 1, 'hide_empty': 'true'},
+                timeout=15,
+            )
+            if r.status_code == 200:
+                return r.headers.get('X-WP-Total') or '—'
+        except Exception as e:
+            print(f"   ⚠️  {taxonomy}: {e}")
+        return '—'
+
+    def _stat_words_total(self):
+        """Sum of words across all published posts (paginated).
+
+        Cached to .image_optimization_cache/words_total.json for 24 h so we
+        don't refetch hundreds of post bodies on every build.
+        """
+        from pathlib import Path
+        cache = Path('.image_optimization_cache') / 'words_total.json'
+        try:
+            if cache.exists():
+                payload = json.loads(cache.read_text(encoding='utf-8'))
+                if time.time() - payload.get('computed_at', 0) < 24 * 3600:
+                    return payload.get('formatted', '—')
+        except Exception:
+            pass  # fall through to live compute
+
+        try:
+            total = 0
+            page = 1
+            while True:
+                r = self.session.get(
+                    f'{self.wp_url}/wp-json/wp/v2/posts',
+                    params={
+                        'per_page': 100, 'page': page, 'status': 'publish',
+                        '_fields': 'content',
+                    },
+                    timeout=60,
+                )
+                if r.status_code != 200:
+                    if r.status_code == 400:
+                        break  # past last page
+                    print(f"   ⚠️  words.total: page {page} → {r.status_code}")
+                    return '—'
+                data = r.json()
+                if not data:
+                    break
+                for post in data:
+                    html = (post.get('content') or {}).get('rendered', '')
+                    if html:
+                        text = BeautifulSoup(html, 'html.parser').get_text(separator=' ')
+                        total += len(text.split())
+                if len(data) < 100:
+                    break
+                page += 1
+
+            formatted = self._format_word_count(total)
+            try:
+                cache.parent.mkdir(parents=True, exist_ok=True)
+                cache.write_text(json.dumps({
+                    'computed_at': time.time(),
+                    'total': total,
+                    'formatted': formatted,
+                }))
+            except Exception:
+                pass
+            return formatted
+        except Exception as e:
+            print(f"   ⚠️  words.total: {e}")
+            return '—'
+
+    @staticmethod
+    def _format_word_count(n):
+        if n >= 1_000_000:
+            return f'{n/1_000_000:.1f}M'
+        if n >= 1_000:
+            return f'{round(n/1000)}k'
+        return str(n) if n > 0 else '—'
+
+    def _stat_deploys_this_month(self):
+        try:
+            import subprocess
+            from datetime import date
+            first = date.today().replace(day=1).isoformat()
+            result = subprocess.run(
+                ['git', 'log', f'--since={first}', '--oneline'],
+                capture_output=True, text=True, timeout=10,
+            )
+            if result.returncode == 0:
+                return str(sum(1 for line in result.stdout.splitlines() if line))
+        except Exception as e:
+            print(f"   ⚠️  deploys.month: {e}")
+        return '—'
+
+    def _stat_last_deploy_age(self):
+        try:
+            import subprocess
+            from datetime import date
+            result = subprocess.run(
+                ['git', 'log', '-1', '--format=%cs'],
+                capture_output=True, text=True, timeout=10,
+            )
+            if result.returncode == 0 and result.stdout.strip():
+                iso = result.stdout.strip()
+                y, m, d = (int(x) for x in iso.split('-'))
+                days = max(0, (date.today() - date(y, m, d)).days)
+                return 'today' if days == 0 else f'{days}d ago'
+        except Exception as e:
+            print(f"   ⚠️  last_deploy: {e}")
+        return '—'
+
+    def _stat_lighthouse_performance(self):
+        try:
+            history = self.output_dir / 'changelog' / 'lighthouse-history.json'
+            if history.exists():
+                data = json.loads(history.read_text(encoding='utf-8'))
+                if isinstance(data, list) and data:
+                    perf = data[-1].get('performance')
+                    if isinstance(perf, (int, float)):
+                        return f'{int(perf)}/100'
+        except Exception as e:
+            print(f"   ⚠️  lighthouse: {e}")
+        return '—'
+
+    def inject_homepage_redesign(self, soup, current_url):
+        """Inject Direction A (Refined Brutalist + terminal stats) sections on the homepage.
+
+        Adds, between the existing entry-hero and the post grid:
+          - hero strap (editorial headline + stat row)
+          - terminal stats block (mac-style window, three columns, blinking prompt)
+          - filter bar (chips that link to /category/<slug>/)
+        And appends a topic index after the post grid.
+
+        Skips paginated homepage pages (/page/2/, /page/3/, ...).
+        """
+        if current_url not in ('/', ''):
+            return
+
+        # Idempotency guard — don't double-inject if process_html runs twice
+        if soup.find(class_='jkr-strap'):
+            return
+
+        # Kadence renders the loop as a <ul class="kadence-posts-list ...">,
+        # but use a tag-agnostic lookup in case the markup shifts.
+        posts_list = soup.find(class_='kadence-posts-list')
+        if not posts_list:
+            print("   ⚠️  Homepage redesign: no .kadence-posts-list found — skipping")
+            return
+
+        # ── 1. hero strap ───────────────────────────────────────────────
+        strap = soup.new_tag('section', attrs={'class': 'jkr-strap'})
+        strap_inner = soup.new_tag('div', attrs={'class': 'jkr-strap-inner'})
+
+        strap_left = soup.new_tag('div', attrs={'class': 'jkr-strap-left'})
+        meta = soup.new_tag('div', attrs={'class': 'jkr-strap-meta'})
+        meta.string = 'VMWARE VEXPERT · HOMELAB · INFRASTRUCTURE-AS-CODE'
+        strap_h2 = soup.new_tag('p', attrs={'class': 'jkr-strap-h'})
+        strap_h2.append(soup.new_string('Field notes from a homelab that costs'))
+        strap_h2.append(soup.new_tag('br'))
+        strap_h2.append(soup.new_string('real money to run.'))
+        strap_left.append(meta)
+        strap_left.append(strap_h2)
+
+        strap_right = soup.new_tag('div', attrs={'class': 'jkr-strap-right'})
+        for n, label in (('247', 'Posts'), ('09', 'Years'), ('06', 'vExpert')):
+            stat = soup.new_tag('div', attrs={'class': 'jkr-stat'})
+            num = soup.new_tag('div', attrs={'class': 'jkr-stat-n'})
+            num.string = n
+            lbl = soup.new_tag('div', attrs={'class': 'jkr-stat-l'})
+            lbl.string = label
+            stat.append(num)
+            stat.append(lbl)
+            strap_right.append(stat)
+
+        strap_inner.append(strap_left)
+        strap_inner.append(strap_right)
+        strap.append(strap_inner)
+
+        # ── 2. terminal stats block ─────────────────────────────────────
+        term_section = soup.new_tag('section', attrs={'class': 'jkr-term-wrap'})
+        term_inner = soup.new_tag('div', attrs={'class': 'jkr-term-inner'})
+        term = soup.new_tag('div', attrs={'class': 'jkr-term'})
+
+        term_head = soup.new_tag('div', attrs={'class': 'jkr-term-head'})
+        for _ in range(3):
+            term_head.append(soup.new_tag('span', attrs={'class': 'jkr-term-dot'}))
+        term_path = soup.new_tag('span', attrs={'class': 'jkr-term-path'})
+        term_path.string = 'jameskilby@blog ~ % cat blog.stats'
+        term_head.append(term_path)
+        term_live = soup.new_tag('span', attrs={'class': 'jkr-term-live'})
+        term_live.append(soup.new_tag('span', attrs={'class': 'jkr-term-live-dot'}))
+        term_live.append(soup.new_string(' live'))
+        term_head.append(term_live)
+        term.append(term_head)
+
+        term_body = soup.new_tag('div', attrs={'class': 'jkr-term-body'})
+        columns = self._compute_homepage_stats()
+        for col in columns:
+            col_div = soup.new_tag('div', attrs={'class': 'jkr-term-col'})
+            for k, v in col:
+                row = soup.new_tag('div', attrs={'class': 'jkr-term-row'})
+                k_el = soup.new_tag('span', attrs={'class': 'jkr-term-k'})
+                k_el.string = k
+                # Dot leaders are cosmetic; CSS draws them via flex+border, but we
+                # also keep an inline dot string for terminals/no-CSS fallback.
+                dots = soup.new_tag('span', attrs={'class': 'jkr-term-dots'})
+                dots.string = '.' * max(2, 26 - len(k) - len(v))
+                v_el = soup.new_tag('span', attrs={'class': 'jkr-term-v'})
+                v_el.string = v
+                row.append(k_el)
+                row.append(dots)
+                row.append(v_el)
+                col_div.append(row)
+            term_body.append(col_div)
+        term.append(term_body)
+
+        term_prompt = soup.new_tag('div', attrs={'class': 'jkr-term-prompt'})
+        arrow = soup.new_tag('span', attrs={'class': 'jkr-term-arrow'})
+        arrow.string = '$'
+        cursor = soup.new_tag('span', attrs={'class': 'jkr-term-cursor'})
+        cursor.string = '_'
+        term_prompt.append(arrow)
+        term_prompt.append(cursor)
+        term.append(term_prompt)
+
+        term_inner.append(term)
+        term_section.append(term_inner)
+
+        # ── 3. filter bar ───────────────────────────────────────────────
+        filter_bar = soup.new_tag('div', attrs={'class': 'jkr-filter'})
+        filter_inner = soup.new_tag('div', attrs={'class': 'jkr-filter-inner'})
+        filter_label = soup.new_tag('span', attrs={'class': 'jkr-filter-label'})
+        filter_label.string = 'FILTER'
+        filter_inner.append(filter_label)
+
+        filter_chips = soup.new_tag('div', attrs={'class': 'jkr-filter-chips'})
+        # "All" lands the user back on the homepage; the rest go to category archives.
+        chips = (
+            ('All', '/'),
+            ('VMware', '/category/vmware/'),
+            ('Homelab', '/category/homelab/'),
+            ('Automation', '/category/automation/'),
+            ('AI', '/category/artificial-intelligence/'),
+        )
+        for label, href in chips:
+            cls = 'jkr-filter-chip jkr-filter-chip-active' if label == 'All' else 'jkr-filter-chip'
+            chip = soup.new_tag('a', href=href, attrs={'class': cls})
+            chip.string = label
+            filter_chips.append(chip)
+        filter_inner.append(filter_chips)
+
+        filter_inner.append(soup.new_tag('span', attrs={'class': 'jkr-filter-spacer'}))
+        filter_bar.append(filter_inner)
+
+        # ── 4. topic index ──────────────────────────────────────────────
+        topics = soup.new_tag('section', attrs={'class': 'jkr-topics'})
+        topics_head = soup.new_tag('div', attrs={'class': 'jkr-topics-head'})
+        eyebrow = soup.new_tag('span', attrs={'class': 'jkr-eyebrow'})
+        eyebrow.string = 'EXPLORE BY TOPIC'
+        topics_h2 = soup.new_tag('h2', attrs={'class': 'jkr-topics-h2'})
+        topics_h2.string = 'Browse the archive'
+        topics_head.append(eyebrow)
+        topics_head.append(topics_h2)
+        topics.append(topics_head)
+
+        topics_grid = soup.new_tag('div', attrs={'class': 'jkr-topics-grid'})
+        topic_list = (
+            ('VMware', 'vmware', '84'),
+            ('Homelab', 'homelab', '52'),
+            ('Automation', 'automation', '38'),
+            ('AI / NVIDIA', 'artificial-intelligence', '21'),
+            ('Ansible', 'ansible', '19'),
+            ('VMware Cloud on AWS', 'vmware-cloud-on-aws', '17'),
+            ('Cloudflare', 'cloudflare', '14'),
+            ('Docker', 'docker', '12'),
+            ('Containers', 'containers', '9'),
+        )
+        for name, slug, count in topic_list:
+            t = soup.new_tag('a', href=f'/category/{slug}/', attrs={'class': 'jkr-topic'})
+            t_name = soup.new_tag('span', attrs={'class': 'jkr-topic-name'})
+            t_name.string = name
+            t_count = soup.new_tag('span', attrs={'class': 'jkr-topic-count'})
+            t_count.string = count
+            t.append(t_name)
+            t.append(t_count)
+            topics_grid.append(t)
+        topics.append(topics_grid)
+
+        # ── insert ──────────────────────────────────────────────────────
+        # Strap → terminal → filter bar all sit above the post grid.
+        # Each insert_before lands the node directly adjacent to posts_list,
+        # so insert in the desired final order: the last one inserted ends
+        # up closest to the grid.
+        posts_list.insert_before(strap)
+        posts_list.insert_before(term_section)
+        posts_list.insert_before(filter_bar)
+        posts_list.insert_after(topics)
+
+        print("   ✨ Injected homepage redesign sections (strap, terminal, filter, topics)")
+
     def add_markdown_api_links(self, soup):
         """Add links to markdown and API versions in footer"""
         import re
