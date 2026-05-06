@@ -2640,6 +2640,47 @@ document.addEventListener('DOMContentLoaded', function() {
             print(f"   ⚠️  last_deploy: {e}")
         return '—'
 
+    def _fetch_top_categories(self, limit=9):
+        """Return the top categories by post count: list of (name, slug, count_str).
+
+        Pulls live from the WP REST API and sorts by count desc. Cached on the
+        instance. Falls back to an empty list if the API is unreachable —
+        callers should provide their own curated fallback in that case.
+        """
+        if hasattr(self, '_cached_top_cats'):
+            return self._cached_top_cats[:limit]
+        try:
+            cats = []
+            page = 1
+            while True:
+                r = self.session.get(
+                    f'{self.wp_url}/wp-json/wp/v2/categories',
+                    params={
+                        'per_page': 100, 'page': page, 'hide_empty': 'true',
+                        '_fields': 'name,slug,count',
+                    },
+                    timeout=15,
+                )
+                if r.status_code != 200:
+                    break
+                data = r.json()
+                if not data:
+                    break
+                cats.extend(data)
+                if len(data) < 100:
+                    break
+                page += 1
+            cats.sort(key=lambda c: -int(c.get('count') or 0))
+            result = [
+                (c.get('name', ''), c.get('slug', ''), str(c.get('count') or 0))
+                for c in cats if c.get('slug') and c.get('name')
+            ]
+            self._cached_top_cats = result
+            return result[:limit]
+        except Exception as e:
+            print(f"   ⚠️  top categories: {e}")
+            return []
+
     def _stat_lighthouse_performance(self):
         try:
             history = self.output_dir / 'changelog' / 'lighthouse-history.json'
@@ -2795,16 +2836,21 @@ document.addEventListener('DOMContentLoaded', function() {
         topics.append(topics_head)
 
         topics_grid = soup.new_tag('div', attrs={'class': 'jkr-topics-grid'})
-        topic_list = (
-            ('VMware', 'vmware', '84'),
-            ('Homelab', 'homelab', '52'),
-            ('Automation', 'automation', '38'),
-            ('AI / NVIDIA', 'artificial-intelligence', '21'),
-            ('Ansible', 'ansible', '19'),
-            ('VMware Cloud on AWS', 'vmware-cloud-on-aws', '17'),
-            ('Cloudflare', 'cloudflare', '14'),
-            ('Docker', 'docker', '12'),
-            ('Containers', 'containers', '9'),
+        # Live list from WP API ensures slugs always resolve to a real archive
+        # (the API filters by hide_empty=true so it only returns categories WP
+        # itself will generate a page for). The curated fallback below is used
+        # when the API is unreachable — every slug in it has been verified
+        # against the existing public/category/ tree.
+        topic_list = self._fetch_top_categories(limit=9) or (
+            ('VMware', 'vmware', '—'),
+            ('Homelab', 'homelab', '—'),
+            ('Automation', 'automation', '—'),
+            ('Artificial Intelligence', 'artificial-intelligence', '—'),
+            ('Ansible', 'ansible', '—'),
+            ('NVIDIA', 'nvidia', '—'),
+            ('Cloudflare', 'cloudflare', '—'),
+            ('Docker', 'docker', '—'),
+            ('Containers', 'containers', '—'),
         )
         for name, slug, count in topic_list:
             t = soup.new_tag('a', href=f'/category/{slug}/', attrs={'class': 'jkr-topic'})
