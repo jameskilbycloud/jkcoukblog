@@ -33,6 +33,11 @@ class Config:
     # Processing Configuration
     MAX_WORKERS = 3
     REQUEST_TIMEOUT = 30
+
+    # Homepage stats — feeds the terminal stats block on the homepage.
+    # vExpert membership year used to compute years.vexpert; update if the
+    # source-of-truth changes.
+    VEXPERT_START_YEAR = 2015
     
     @classmethod
     def get_plausible_script_url(cls):
