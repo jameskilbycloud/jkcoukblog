@@ -970,38 +970,11 @@ jobs:
       env:
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     
-    - name: Purge soft-404 poisoned KV entries
-      if: success()
-      env:
-        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      run: |
-        echo "🛡️  Evicting poisoned soft-404 entries from HTML_CACHE..."
-
-        if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
-          echo "ℹ️  CLOUDFLARE_API_TOKEN or CLOUDFLARE_ACCOUNT_ID not set — skipping"
-          echo "   Add them to repository secrets to auto-clean ghost URLs after deploy"
-          exit 0
-        fi
-
-        if [ ! -f public/path-manifest.json ]; then
-          echo "⚠️  public/path-manifest.json missing — soft-404 guard was not stamped this run"
-          exit 0
-        fi
-
-        # Script exits 0 on success; captures the ghost count from stderr/stdout.
-        python3 scripts/purge_soft404_kv_cache.py \
-          --manifest public/path-manifest.json \
-          | tee /tmp/soft404-purge.log
-
-        GHOSTS=$(grep -oE 'Purged [0-9]+ poisoned' /tmp/soft404-purge.log | grep -oE '[0-9]+' | head -1)
-        GHOSTS="${GHOSTS:-0}"
-
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "## 🛡️ Soft-404 KV Purge" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "- **Ghost entries evicted:** $GHOSTS" >> $GITHUB_STEP_SUMMARY
-      continue-on-error: true
+    # Soft-404 KV cleanup step removed — the worker's isKnownContentPath
+    # guard (see _worker.template.js) prevents new ghost entries at write
+    # time, and the "Purge all HTML from KV cache" step below already wipes
+    # everything on each deploy. scripts/purge_soft404_kv_cache.py is kept
+    # in the repo for emergency ad-hoc use.
 
     - name: Purge all HTML from KV cache
       if: success()
@@ -1071,77 +1044,12 @@ jobs:
         echo "- **Method:** Purge all" >> $GITHUB_STEP_SUMMARY
       continue-on-error: true
 
-    - name: Purge changed HTML from Cloudflare CDN cache
-      if: success()
-      env:
-        CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
-        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      run: |
-        echo "🗑️ Purging changed HTML pages from Cloudflare CDN edge cache..."
-
-        if [ -z "$CLOUDFLARE_ZONE_ID" ] || [ -z "$CLOUDFLARE_API_TOKEN" ]; then
-          echo "ℹ️  CLOUDFLARE_ZONE_ID or CLOUDFLARE_API_TOKEN not set, skipping CDN purge"
-          exit 0
-        fi
-
-        # Get list of changed HTML files from this deploy
-        if git rev-parse --verify HEAD~1 >/dev/null 2>&1; then
-          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD | grep "^public/.*\.html$" || true)
-        else
-          CHANGED_FILES=""
-        fi
-
-        if [ -z "$CHANGED_FILES" ]; then
-          echo "ℹ️  No HTML files changed, skipping CDN purge"
-          exit 0
-        fi
-
-        FILE_COUNT=$(echo "$CHANGED_FILES" | wc -l | tr -d ' ')
-        echo "Found $FILE_COUNT changed HTML files"
-
-        # Convert file paths to full URLs
-        URLS=()
-        while read -r file; do
-          URL_PATH=$(echo "$file" | sed 's|^public||' | sed 's|/index\.html$|/|')
-          URLS+=("https://jameskilby.co.uk${URL_PATH}")
-        done <<< "$CHANGED_FILES"
-
-        # Cloudflare API accepts up to 30 URLs per request — batch accordingly
-        BATCH_SIZE=30
-        TOTAL=${#URLS[@]}
-        PURGED=0
-
-        for ((i=0; i<TOTAL; i+=BATCH_SIZE)); do
-          BATCH=("${URLS[@]:i:BATCH_SIZE}")
-
-          # Build JSON array of URLs for this batch
-          JSON_URLS=$(printf '%s\n' "${BATCH[@]}" | jq -R . | jq -s .)
-
-          RESPONSE=$(curl -s -X POST \
-            "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}/purge_cache" \
-            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
-            -H "Content-Type: application/json" \
-            --data "{\"files\": ${JSON_URLS}}")
-
-          if echo "$RESPONSE" | grep -q '"success":true'; then
-            BATCH_COUNT=${#BATCH[@]}
-            PURGED=$((PURGED + BATCH_COUNT))
-            echo "  ✅ Purged batch: $BATCH_COUNT URLs"
-          else
-            echo "  ❌ Batch purge failed:"
-            echo "$RESPONSE" | head -5
-          fi
-        done
-
-        echo ""
-        echo "✅ Purged $PURGED/$TOTAL changed HTML pages from Cloudflare CDN"
-
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "## 🗑️ Cloudflare CDN Cache Purged" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "- **HTML Pages Purged:** $PURGED/$TOTAL" >> $GITHUB_STEP_SUMMARY
-        echo "- **Method:** Cloudflare API (changed files only)" >> $GITHUB_STEP_SUMMARY
-      continue-on-error: true
+    # Cloudflare zone HTTP cache purge for HTML removed — verified via live
+    # response headers that worker HTML responses are always
+    # `cf-cache-status: DYNAMIC`, so the Pages Advanced Mode worker bypasses
+    # Cloudflare's edge HTTP cache entirely for HTML. There is nothing at
+    # the zone HTTP cache layer to invalidate. The "Purge all HTML from KV
+    # cache" step above is the actual cache invalidation for HTML.
 
     - name: Purge static assets from Cloudflare cache
       if: success()
@@ -1149,6 +1057,30 @@ jobs:
         CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       run: |
+        # Only fire when one of the favicon / manifest files this script
+        # actually purges changed in this deploy. The script's URL list is
+        # hardcoded — keep this pattern in sync with scripts/purge_static_cache.sh.
+        STATIC_ASSET_PATTERN='^public/(favicon\.ico|favicon-16x16\.png|favicon-32x32\.png|apple-touch-icon\.png|site\.webmanifest)$'
+
+        if git rev-parse --verify HEAD~1 >/dev/null 2>&1; then
+          CHANGED=$(git diff --name-only HEAD~1 HEAD | grep -E "$STATIC_ASSET_PATTERN" || true)
+        else
+          # First commit on the branch — no previous deploy to diff against.
+          # Run the purge once to be safe.
+          CHANGED="initial-deploy"
+        fi
+
+        if [ -z "$CHANGED" ]; then
+          echo "ℹ️  No favicon / webmanifest files changed — skipping static asset purge"
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 🗑️ Static Asset Purge" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status:** Skipped (no matching files changed)" >> $GITHUB_STEP_SUMMARY
+          exit 0
+        fi
+
+        echo "Changed static assets:"
+        echo "$CHANGED"
         bash scripts/purge_static_cache.sh
       continue-on-error: true
 
