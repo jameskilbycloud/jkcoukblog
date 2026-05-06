@@ -1642,3 +1642,108 @@ div, section, aside, nav {
     background: #fff !important;
   }
 }
+
+/* ============================================================
+   HANDOFF — Direction A homepage target
+   See HANDOFF.md (Claude Design handoff bundle).
+   Two clusters: nav search affordance + archive-card chrome.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   Cluster 1 — Search affordance in primary header.
+   Pseudo-element so it ships without template changes; a real
+   <button> wired to scripts/search.js is the cleaner follow-up.
+   ------------------------------------------------------------ */
+.site-main-header-inner-wrap .site-header-section-right::after {
+  content: "Search  ⌘K";
+  margin-left: 1.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--gray-mid);
+  color: var(--gray-light);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* ============================================================
+   ARCHIVE CARDS — quiet chrome
+   Targets the homepage / category / tag list views only.
+   Single-post pages are scoped out via :not(.single).
+   ============================================================ */
+
+/* 1. Sentence-case Inter titles on archive cards (NOT on single post). */
+body:not(.single) .loop-entry .entry-title,
+body:not(.single) .loop-entry .entry-title a,
+body:not(.single) .entry-list-item .entry-title,
+body:not(.single) .entry-list-item .entry-title a {
+  font-family: "Inter", -apple-system, "Segoe UI", sans-serif !important;
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.25 !important;
+  color: var(--text-light) !important;
+}
+
+/* 2. Hide author chip on archive cards. */
+body:not(.single) .loop-entry .entry-meta .posted-by,
+body:not(.single) .entry-list-item .entry-meta .posted-by {
+  display: none !important;
+}
+
+/* 3. Hide modified-date on archive cards (keep posted-date). */
+body:not(.single) .loop-entry .entry-meta time.updated,
+body:not(.single) .entry-list-item .entry-meta time.updated {
+  display: none !important;
+}
+
+/* 4. Drop "Read More →" button on archive cards. */
+body:not(.single) .loop-entry .entry-footer,
+body:not(.single) .entry-list-item .entry-footer {
+  display: none !important;
+}
+
+/* 5. Trim category strip to 2 — hide everything after the second link. */
+body:not(.single) .loop-entry .category-links a:nth-of-type(n+3),
+body:not(.single) .entry-list-item .category-links a:nth-of-type(n+3),
+body:not(.single) .loop-entry .category-links a:nth-of-type(n+3) + *,
+body:not(.single) .entry-list-item .category-links a:nth-of-type(n+3) + * {
+  display: none !important;
+}
+
+/* Quiet the surviving 2 categories — monospace, no chip border. */
+body:not(.single) .loop-entry .category-links a,
+body:not(.single) .entry-list-item .category-links a {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  min-height: auto !important;
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.12em !important;
+  color: var(--gray-light) !important;
+  text-transform: uppercase;
+}
+body:not(.single) .loop-entry .category-links a:hover,
+body:not(.single) .entry-list-item .category-links a:hover {
+  background: transparent !important;
+  color: var(--accent-orange) !important;
+}
+
+/* 6. Card-wide offset-shadow hover — replaces the explicit "Read More" affordance. */
+body:not(.single) .loop-entry,
+body:not(.single) .entry-list-item {
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+body:not(.single) .loop-entry:hover,
+body:not(.single) .entry-list-item:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 4px 4px 0 var(--accent-orange);
+  border-color: var(--accent-orange) !important;
+}
+
+/* 7. Tighter excerpt clamp on archive (from 4 lines → 3). */
+body:not(.single) .loop-entry .entry-summary p,
+body:not(.single) .entry-list-item .entry-summary p {
+  -webkit-line-clamp: 3 !important;
+}
