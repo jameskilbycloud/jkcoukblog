@@ -84,7 +84,6 @@ jobs:
         with:
           urls: |
             https://jameskilby.co.uk
-            https://jameskilby.co.uk/2025/
           runs: 3
           uploadArtifacts: true
           temporaryPublicStorage: true
