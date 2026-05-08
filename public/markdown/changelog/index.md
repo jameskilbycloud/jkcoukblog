@@ -11,15 +11,17 @@ url: https://jameskilby.co.uk/changelog/
 
 Site improvements, deployments, and performance metrics
 
+[ ![Quality Checks workflow status](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml/badge.svg) ](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml)
+
 ### Total Deployments
 
-758
+763
 
 Git commits
 
 ### Repository Age
 
-215
+217
 
 Days active
 
@@ -31,9 +33,9 @@ Active contributors
 
 ### Last Deployment
 
-2026-05-06
+2026-05-08
 
-22:15:22
+09:21:49
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -56,6 +58,24 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-05-08 3072236Feature
+
+Update Generate to add quality checks
+
+2026-05-08 c658884Improvement
+
+Update Quality Checks
+
+2026-05-08 dab649fOther
+
+Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog
+
+2026-05-08 9dcfce7Improvement
+
+update quality check URL
+
+  
 
 2026-05-06 50f9025Other
 
@@ -189,31 +209,5 @@ Wrangler requires Node 20+, so the Node 18 pin caused the KV search index
 
 Update deploy-static-site.yml
 
-  
-
-2026-04-16 07ffecdOther
-
-Only install missing system dependencies
-
-Change the workflow to probe for required system binaries and Python modules first, accumulating any missing packages into MISSING_PKGS. If nothing is missing, skip apt entirely; otherwise run apt-get update/install only for the missing items. This avoids unnecessary dpkg lock waits on long-lived self-hosted runners and speeds up the job startup. The script checks jq, bc, avifenc, optipng, jpegoptim, cwebp, python3-pip and python3-venv and still prints versions after installation.
-
-2026-04-16 cbc3ac8Improvement
-
-Update Claude settings and rotate indexnow key
-
-Add new probes to .claude/settings.local.json (Bash(xxd) and WebFetch for www.bing.com) and update the stored IndexNow key in .indexnow_key (key rotated). These changes enable additional local checks and refresh the indexing key without altering other configuration.
-
-2026-04-16 68ff088Feature
-
-Add IndexNow keyLocation and WebFetch entry
-
-Include a keyLocation field in IndexNow submission payload so the API knows where the verification key is hosted (scripts/submit_indexnow.py). Also add WebFetch(domain:www.indexnow.org) to local Claude settings to allow fetching IndexNow resources during analysis (.claude/settings.local.json).
-
-2026-04-16 11b8890Feature
-
-Bump GitHub Action versions and add gh checks
-
-Upgrade action usages across workflows to newer releases (actions/cache -> v5, actions/cache/restore/save -> v5, actions/upload-artifact/download-artifact -> v7, actions/setup-node -> v6, slackapi/slack-github-action -> v3.0.1) to keep CI tooling up-to-date and compatible. Also add Bash patterns for gh run/api to .claude/settings.local.json to include gh CLI checks in local scans.
-
-Page generated: 2026-05-06 21:19:48 UTC  
+Page generated: 2026-05-08 08:23:13 UTC  
 Changelog powered by Git history and Lighthouse CI
