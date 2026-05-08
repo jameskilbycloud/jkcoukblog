@@ -287,8 +287,22 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
         
         .subtitle {{
             color: var(--gray-light);
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             font-size: 1.1em;
+        }}
+
+        .build-status {{
+            margin-bottom: 30px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }}
+
+        .build-status img {{
+            display: block;
+            height: 20px;
+            width: auto;
         }}
         
         .metrics {{
@@ -489,7 +503,17 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
         
         <h1>📋 Changelog</h1>
         <p class="subtitle">Site improvements, deployments, and performance metrics</p>
-        
+
+        <div class="build-status">
+            <a href="https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="View Quality Checks workflow on GitHub">
+                <img src="https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml/badge.svg"
+                     alt="Quality Checks workflow status"
+                     loading="lazy" decoding="async" width="148" height="20">
+            </a>
+        </div>
+
         <div class="metrics">
             <div class="metric-card">
                 <h3>Total Deployments</h3>
