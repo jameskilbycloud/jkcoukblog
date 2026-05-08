@@ -74,8 +74,22 @@
         
         .subtitle {
             color: var(--gray-light);
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             font-size: 1.1em;
+        }
+
+        .build-status {
+            margin-bottom: 30px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .build-status img {
+            display: block;
+            height: 20px;
+            width: auto;
         }
         
         .metrics {
@@ -276,17 +290,27 @@
         
         <h1>📋 Changelog</h1>
         <p class="subtitle">Site improvements, deployments, and performance metrics</p>
-        
+
+        <div class="build-status">
+            <a href="https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="View Quality Checks workflow on GitHub">
+                <img src="https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml/badge.svg"
+                     alt="Quality Checks workflow status"
+                     loading="lazy" decoding="async" width="148" height="20">
+            </a>
+        </div>
+
         <div class="metrics">
             <div class="metric-card">
                 <h3>Total Deployments</h3>
-                <div class="metric-value">758</div>
+                <div class="metric-value">763</div>
                 <div class="metric-label">Git commits</div>
             </div>
             
             <div class="metric-card">
                 <h3>Repository Age</h3>
-                <div class="metric-value">215</div>
+                <div class="metric-value">217</div>
                 <div class="metric-label">Days active</div>
             </div>
             
@@ -298,8 +322,8 @@
             
             <div class="metric-card">
                 <h3>Last Deployment</h3>
-                <div class="metric-value">2026-05-06</div>
-                <div class="metric-label">22:15:22</div>
+                <div class="metric-value">2026-05-08</div>
+                <div class="metric-label">09:21:49</div>
             </div>
         </div>
         
@@ -338,6 +362,27 @@
         
         <div class="changelog-section">
             <h2>Recent Changes</h2>
+
+            <div class="change-entry">
+                <div class="change-date">2026-05-08 <span class="change-hash">3072236</span><span class="category-badge badge-feature">Feature</span></div>
+                <div class="change-title">Update Generate to add quality checks</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-05-08 <span class="change-hash">c658884</span><span class="category-badge badge-improvement">Improvement</span></div>
+                <div class="change-title">Update Quality Checks</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-05-08 <span class="change-hash">dab649f</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">Merge branch &#x27;main&#x27; of https://github.com/jameskilbynet/jkcoukblog</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-05-08 <span class="change-hash">9dcfce7</span><span class="category-badge badge-improvement">Improvement</span></div>
+                <div class="change-title">update quality check URL</div>
+            </div>
+            <br>
 
             <div class="change-entry">
                 <div class="change-date">2026-05-06 <span class="change-hash">50f9025</span><span class="category-badge badge-other">Other</span></div>
@@ -482,36 +527,11 @@
                 <div class="change-date">2026-04-17 <span class="change-hash">406245a</span><span class="category-badge badge-improvement">Improvement</span></div>
                 <div class="change-title">Update deploy-static-site.yml</div>
             </div>
-            <br>
-
-            <div class="change-entry">
-                <div class="change-date">2026-04-16 <span class="change-hash">07ffecd</span><span class="category-badge badge-other">Other</span></div>
-                <div class="change-title">Only install missing system dependencies</div>
-                <div class="change-details">Change the workflow to probe for required system binaries and Python modules first, accumulating any missing packages into MISSING_PKGS. If nothing is missing, skip apt entirely; otherwise run apt-get update/install only for the missing items. This avoids unnecessary dpkg lock waits on long-lived self-hosted runners and speeds up the job startup. The script checks jq, bc, avifenc, optipng, jpegoptim, cwebp, python3-pip and python3-venv and still prints versions after installation.</div>
-            </div>
-
-            <div class="change-entry">
-                <div class="change-date">2026-04-16 <span class="change-hash">cbc3ac8</span><span class="category-badge badge-improvement">Improvement</span></div>
-                <div class="change-title">Update Claude settings and rotate indexnow key</div>
-                <div class="change-details">Add new probes to .claude/settings.local.json (Bash(xxd) and WebFetch for www.bing.com) and update the stored IndexNow key in .indexnow_key (key rotated). These changes enable additional local checks and refresh the indexing key without altering other configuration.</div>
-            </div>
-
-            <div class="change-entry">
-                <div class="change-date">2026-04-16 <span class="change-hash">68ff088</span><span class="category-badge badge-feature">Feature</span></div>
-                <div class="change-title">Add IndexNow keyLocation and WebFetch entry</div>
-                <div class="change-details">Include a keyLocation field in IndexNow submission payload so the API knows where the verification key is hosted (scripts/submit_indexnow.py). Also add WebFetch(domain:www.indexnow.org) to local Claude settings to allow fetching IndexNow resources during analysis (.claude/settings.local.json).</div>
-            </div>
-
-            <div class="change-entry">
-                <div class="change-date">2026-04-16 <span class="change-hash">11b8890</span><span class="category-badge badge-feature">Feature</span></div>
-                <div class="change-title">Bump GitHub Action versions and add gh checks</div>
-                <div class="change-details">Upgrade action usages across workflows to newer releases (actions/cache -&gt; v5, actions/cache/restore/save -&gt; v5, actions/upload-artifact/download-artifact -&gt; v7, actions/setup-node -&gt; v6, slackapi/slack-github-action -&gt; v3.0.1) to keep CI tooling up-to-date and compatible. Also add Bash patterns for gh run/api to .claude/settings.local.json to include gh CLI checks in local scans.</div>
-            </div>
 
         </div>
         
         <div class="timestamp">
-            Page generated: 2026-05-06 21:19:48 UTC<br>
+            Page generated: 2026-05-08 08:23:13 UTC<br>
             Changelog powered by Git history and Lighthouse CI
         </div>
     </div>

@@ -13,7 +13,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-755
+758
 
 Git commits
 
@@ -33,7 +33,7 @@ Active contributors
 
 2026-05-06
 
-21:24:06
+22:15:22
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -56,6 +56,14 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-05-06 50f9025Other
+
+Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog
+
+2026-05-06 e856596Other
+
+Tweaked the cache mechanisms
 
 2026-05-06 93ff447Improvement
 
@@ -207,17 +215,5 @@ Bump GitHub Action versions and add gh checks
 
 Upgrade action usages across workflows to newer releases (actions/cache -> v5, actions/cache/restore/save -> v5, actions/upload-artifact/download-artifact -> v7, actions/setup-node -> v6, slackapi/slack-github-action -> v3.0.1) to keep CI tooling up-to-date and compatible. Also add Bash patterns for gh run/api to .claude/settings.local.json to include gh CLI checks in local scans.
 
-2026-04-16 5eec354Other
-
-Bump Actions checkout and setup-python versions
-
-Upgrade GitHub Actions used in workflow files: actions/checkout@v4 -> actions/checkout@v5 across all workflows, and actions/setup-python@v4/@v5 -> actions/setup-python@v6 where present. Updated workflows: deploy-static-site.yml, enable-cloudflare-indexing.yml, quality-checks.yml, rollback-site.yml, secret-scan.yml, spell-check-consolidated.yml. No behavioral changes aside from using newer action releases; existing fetch-depth and Python version settings are preserved.
-
-  
-
-2026-04-15 9c50f5bImprovement
-
-Update html_transformer.py
-
-Page generated: 2026-05-06 20:28:43 UTC  
+Page generated: 2026-05-06 21:19:48 UTC  
 Changelog powered by Git history and Lighthouse CI
