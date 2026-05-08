@@ -84,7 +84,6 @@ jobs:
         with:
           urls: |
             https://jameskilby.co.uk
-            https://jameskilby.co.uk/category/
             https://jameskilby.co.uk/2025/
           runs: 3
           uploadArtifacts: true
@@ -98,7 +97,6 @@ jobs:
         with:
           urls: |
             https://jameskilby.co.uk
-            https://jameskilby.co.uk/category/
             https://jameskilby.co.uk/2025/
           runs: 3
           uploadArtifacts: true
@@ -111,7 +109,6 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Performance metrics have been collected for:" >> $GITHUB_STEP_SUMMARY
           echo "- Homepage: https://jameskilby.co.uk" >> $GITHUB_STEP_SUMMARY
-          echo "- Category page: https://jameskilby.co.uk/category/" >> $GITHUB_STEP_SUMMARY
           echo "- Recent posts: https://jameskilby.co.uk/2025/" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "📊 **Metrics tracked:**" >> $GITHUB_STEP_SUMMARY
