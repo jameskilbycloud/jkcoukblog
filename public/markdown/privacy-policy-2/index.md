@@ -1,6 +1,6 @@
 ---
 title: "Privacy Policy"
-description: "Learn about our privacy practices, data collection, and cookie usage to protect your personal information on our site. # Privacy Policy"
+description: "Learn about our privacy practices, data collection, and cookie usage to protect your personal information on our site."
 date: 2021-01-06T12:13:08+00:00
 modified: 2025-10-22T20:39:37+00:00
 author: James Kilby

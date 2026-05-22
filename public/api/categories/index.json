@@ -7,37 +7,12 @@
   {
     "name": "Hosting",
     "slug": "hosting",
-    "count": 32
+    "count": 30
   },
   {
     "name": "Wordpress",
     "slug": "wordpress",
-    "count": 17
-  },
-  {
-    "name": "Docker",
-    "slug": "docker",
-    "count": 42
-  },
-  {
-    "name": "Homelab",
-    "slug": "homelab",
-    "count": 61
-  },
-  {
-    "name": "Kubernetes",
-    "slug": "kubernetes",
-    "count": 15
-  },
-  {
-    "name": "AWS",
-    "slug": "aws",
-    "count": 24
-  },
-  {
-    "name": "Artificial Intelligence",
-    "slug": "artificial-intelligence",
-    "count": 39
+    "count": 18
   },
   {
     "name": "Personal",
@@ -45,69 +20,54 @@
     "count": 32
   },
   {
-    "name": "VMware",
-    "slug": "vmware",
-    "count": 67
-  },
-  {
-    "name": "Consulting",
-    "slug": "consulting",
-    "count": 7
-  },
-  {
-    "name": "vSphere",
-    "slug": "vsphere",
-    "count": 24
-  },
-  {
-    "name": "Ansible",
-    "slug": "ansible",
-    "count": 31
-  },
-  {
-    "name": "Containers",
-    "slug": "containers",
-    "count": 15
+    "name": "AWS",
+    "slug": "aws",
+    "count": 16
   },
   {
     "name": "Devops",
     "slug": "devops",
-    "count": 19
+    "count": 22
   },
   {
-    "name": "NVIDIA",
-    "slug": "nvidia",
-    "count": 29
+    "name": "Github",
+    "slug": "github",
+    "count": 7
   },
   {
-    "name": "Traefik",
-    "slug": "traefik",
-    "count": 36
-  },
-  {
-    "name": "Networking",
-    "slug": "networking",
-    "count": 24
-  },
-  {
-    "name": "Storage",
-    "slug": "storage",
-    "count": 37
-  },
-  {
-    "name": "VMware Cloud on AWS",
-    "slug": "vmware-cloud-on-aws",
-    "count": 25
-  },
-  {
-    "name": "vSAN",
-    "slug": "vsan",
-    "count": 21
+    "name": "Ansible",
+    "slug": "ansible",
+    "count": 34
   },
   {
     "name": "Automation",
     "slug": "automation",
-    "count": 35
+    "count": 43
+  },
+  {
+    "name": "Docker",
+    "slug": "docker",
+    "count": 44
+  },
+  {
+    "name": "Homelab",
+    "slug": "homelab",
+    "count": 63
+  },
+  {
+    "name": "Traefik",
+    "slug": "traefik",
+    "count": 42
+  },
+  {
+    "name": "VCF",
+    "slug": "vcf",
+    "count": 29
+  },
+  {
+    "name": "VMware",
+    "slug": "vmware",
+    "count": 66
   },
   {
     "name": "Nutanix",
@@ -115,19 +75,44 @@
     "count": 22
   },
   {
-    "name": "TrueNAS Scale",
-    "slug": "truenas-scale",
-    "count": 18
+    "name": "Consulting",
+    "slug": "consulting",
+    "count": 5
   },
   {
-    "name": "Runecast",
-    "slug": "runecast",
-    "count": 7
+    "name": "vSphere",
+    "slug": "vsphere",
+    "count": 29
   },
   {
-    "name": "VCF",
-    "slug": "vcf",
-    "count": 25
+    "name": "Networking",
+    "slug": "networking",
+    "count": 19
+  },
+  {
+    "name": "Artificial Intelligence",
+    "slug": "artificial-intelligence",
+    "count": 46
+  },
+  {
+    "name": "NVIDIA",
+    "slug": "nvidia",
+    "count": 37
+  },
+  {
+    "name": "Veeam",
+    "slug": "veeam",
+    "count": 19
+  },
+  {
+    "name": "VMware Cloud on AWS",
+    "slug": "vmware-cloud-on-aws",
+    "count": 27
+  },
+  {
+    "name": "vSAN",
+    "slug": "vsan",
+    "count": 21
   },
   {
     "name": "Apple",
@@ -135,34 +120,49 @@
     "count": 2
   },
   {
+    "name": "Storage",
+    "slug": "storage",
+    "count": 31
+  },
+  {
     "name": "Synology",
     "slug": "synology",
-    "count": 14
+    "count": 12
   },
   {
-    "name": "Veeam",
-    "slug": "veeam",
-    "count": 18
+    "name": "Kubernetes",
+    "slug": "kubernetes",
+    "count": 12
   },
   {
-    "name": "Github",
-    "slug": "github",
-    "count": 4
+    "name": "Runecast",
+    "slug": "runecast",
+    "count": 8
+  },
+  {
+    "name": "Containers",
+    "slug": "containers",
+    "count": 15
+  },
+  {
+    "name": "TrueNAS Scale",
+    "slug": "truenas-scale",
+    "count": 12
   },
   {
     "name": "vExpert",
     "slug": "vexpert",
-    "count": 11
-  },
-  {
-    "name": "Mikrotik",
-    "slug": "mikrotik",
     "count": 6
   },
   {
     "name": "Money",
     "slug": "money",
     "count": 1
+  },
+  {
+    "name": "Mikrotik",
+    "slug": "mikrotik",
+    "count": 3
   },
   {
     "name": "Ubuntu",

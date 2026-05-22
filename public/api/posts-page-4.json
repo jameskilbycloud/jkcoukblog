@@ -1,37 +1,9 @@
 {
   "posts": [
     {
-      "slug": "new-nodes",
-      "title": "New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix",
-      "description": "I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExper",
-      "date": "2024-07-02T08:01:04Z",
-      "modified": "2026-04-16T22:01:46Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2024/07/new-nodes/",
-      "markdown_url": "/markdown/posts/new-nodes.md",
-      "api_url": "/api/posts/new-nodes.json",
-      "categories": [
-        "Homelab",
-        "Nutanix",
-        "VMware",
-        "VMware Cloud on AWS",
-        "Ansible",
-        "Storage",
-        "TrueNAS Scale",
-        "vSphere"
-      ],
-      "tags": [
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/04/Screenshot-2024-04-06-at-22.50.57.png",
-      "excerpt": "![Img 6629 Scaled](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-scaled.jpeg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# New Homelab Nodes: SuperMicro BigTwin f..."
-    },
-    {
       "slug": "new-laptop",
       "title": "MacBook Air 2018 Retina Review: My Setup & Build Scripts",
-      "description": "I decided it was about time I replaced my trusted MacBook Air that I purchased back in 2011. After waiting and watching the Apple announcements over the la...",
+      "description": "I decided it was about time I replaced my trusted MacBook Air that I purchased back in 2011.",
       "date": "2018-12-04T21:44:30Z",
       "modified": "2026-04-16T22:02:02Z",
       "author": "James Kilby",
@@ -47,7 +19,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2018/12/colorware.jpg",
-      "excerpt": "![Colorware](https://jameskilby.co.uk/wp-content/uploads/2018/12/colorware.jpg)\n\n[Apple](https://jameskilby.co.uk/category/apple/)\n\n# MacBook Air 2018 Retina Review: My Setup & Build Scripts\n\nBy[James](https://jameskilby.co.uk)December 4, 2018April 16, 2026 • 📖1 min read(138 words)\n\n📅 **Published:**..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/12/colorware.jpg)\n\n[Apple](https://jameskilby.co.uk/category/apple/)\n\n# MacBook Air 2018 Retina Review: My Setup & Build Scripts\n\nBy[James](https://jameskilby.co.uk) December 4, 2018April 16, 2026 • 📖1 min read(138 words)\n\n📅 **Published:** Decembe..."
     },
     {
       "slug": "my-self-hosted-ai-stack-infrastructure-deep-dive-part-2",
@@ -67,15 +39,15 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Ansible",
-        "Containers",
+        "Cloudflare",
         "Devops",
-        "Networking",
-        "Storage",
+        "Github",
+        "Wordpress",
         "Hosting",
-        "vSAN",
-        "VCF",
-        "VMware Cloud on AWS"
+        "Personal",
+        "vSphere",
+        "AWS",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -100,7 +72,7 @@
     {
       "slug": "my-self-hosted-ai-stack-a-technical-deep-dive",
       "title": "My Self-Hosted AI Stack: Architecture Overview (Part 1)",
-      "description": "Build a fully private AI stack on your own hardware with Ollama, Open WebUI, n8n, ComfyUI, Qdrant & SearxNG on Docker Compose. Full technical deep dive with ...",
+      "description": "Build a fully private AI stack on your own hardware with Ollama, Open WebUI, n8n, ComfyUI, Qdrant & SearxNG on Docker Compose. Full technical deep dive with configs and observability.",
       "date": "2026-03-27T11:56:33Z",
       "modified": "2026-04-16T21:48:23Z",
       "author": "James Kilby",
@@ -115,10 +87,12 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VCF",
-        "AWS",
-        "Veeam",
-        "VMware Cloud on AWS"
+        "VMware Cloud on AWS",
+        "Storage",
+        "Hosting",
+        "Ansible",
+        "Containers",
+        "Devops"
       ],
       "tags": [
         null,
@@ -151,9 +125,11 @@
       "categories": [
         "Personal",
         "Consulting",
+        "AWS",
         "Hosting",
-        "Nutanix",
         "VMware",
+        "vSphere",
+        "Nutanix",
         "Cloudflare",
         "Wordpress"
       ],
@@ -163,7 +139,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1-1024x768.jpeg",
-      "excerpt": "![Img 7017 Scaled 1](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1.jpeg)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# My Home Office Setup & Upgrades\n\nBy[James](https://jameskilby.co.uk)January 5, 20..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1.jpeg)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# My Home Office Setup & Upgrades\n\nBy[James](https://jameskilby.co.uk) January 5, 2021April 16, 2026..."
     },
     {
       "slug": "my-first-pull",
@@ -178,13 +154,18 @@
       "categories": [
         "Devops",
         "Personal",
-        "VMware",
-        "vSphere",
         "Cloudflare",
-        "Github",
+        "Hosting",
         "Wordpress",
-        "Nutanix",
-        "Hosting"
+        "VMware",
+        "Automation",
+        "Homelab",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "NVIDIA",
+        "Traefik",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -192,12 +173,12 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg",
-      "excerpt": "![175Jvbleoqfazjc3Sgtspqa](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg)\n\n[Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# My First GitHub Pull Request: Contributing to Open Source\n\nBy[James](https://j..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg)\n\n[Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# My First GitHub Pull Request: Contributing to Open Source\n\nBy[James](https://jameskilby.co.uk) Decemb..."
     },
     {
       "slug": "multihost-holodeck-vcf",
       "title": "VMware Holodeck Multi-Host VCF: Lab Setup & Configuration",
-      "description": "MultiHost Holodeck VCF offers insights on deploying VMware Holodeck across multiple hosts. Learn more about the setup and specifications today!",
+      "description": "Disclaimer: This is not a supported configuration by the Holodeck team please don’t reach out to them for help.",
       "date": "2024-01-17T17:29:38Z",
       "modified": "2026-04-11T09:00:47Z",
       "author": "James Kilby",
@@ -207,21 +188,18 @@
       "categories": [
         "VMware",
         "VCF",
+        "vSAN",
         "Homelab",
-        "Networking",
-        "Storage",
+        "Nutanix",
+        "Runecast",
+        "TrueNAS Scale",
+        "vSphere",
+        "VMware Cloud on AWS",
         "Artificial Intelligence",
         "Automation",
         "Docker",
         "NVIDIA",
-        "Traefik",
-        "Nutanix",
-        "Ansible",
-        "Containers",
-        "Devops",
-        "Personal",
-        "vSphere",
-        "Veeam"
+        "Traefik"
       ],
       "tags": [
         null,
@@ -230,7 +208,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png",
-      "excerpt": "![Holodeck Overview](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/)\n\n# VMware Holodeck Multi-Host VCF: Lab Setup & Configuration\n\nBy[James](https://jameskilby.co.uk..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/)\n\n# VMware Holodeck Multi-Host VCF: Lab Setup & Configuration\n\nBy[James](https://jameskilby.co.uk) January 17, 202..."
     },
     {
       "slug": "monitoring-vmc-part-1",
@@ -246,13 +224,15 @@
         "VMware",
         "AWS",
         "Veeam",
-        "Hosting",
+        "Runecast",
         "Homelab",
-        "Networking",
-        "Storage",
-        "Personal",
         "vSphere",
-        "VCF",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "VMware Cloud on AWS",
         "vSAN"
       ],
       "tags": [
@@ -261,12 +241,12 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp",
-      "excerpt": "![Vmconaws.Png](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [AWS](https://jameskilby.co.uk/category/aws/) | [Veeam](https://jameskilby.co.uk/category/veeam/)\n\n# Monitoring VMware Cloud on AWS: Tools & Approaches (Part ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [AWS](https://jameskilby.co.uk/category/aws/) | [Veeam](https://jameskilby.co.uk/category/veeam/)\n\n# Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1)\n\nBy[James..."
     },
     {
       "slug": "money-saving-uk-version",
       "title": "UK Money Saving Tips: Banking, Rewards & Travel Cards",
-      "description": "I recently got back from an amazing conference in New Orleans. This was the VeeamON conference and I was invited as part of the Veeam Vanguard program that I...",
+      "description": "I recently got back from an amazing conference in New Orleans.",
       "date": "2017-05-29T11:49:16Z",
       "modified": "2026-04-16T22:02:05Z",
       "author": "James Kilby",
@@ -277,12 +257,12 @@
         "Money"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
-      "excerpt": "[Money](https://jameskilby.co.uk/category/money/)\n\n# UK Money Saving Tips: Banking, Rewards & Travel Cards\n\nBy[James](https://jameskilby.co.uk)May 29, 2017April 16, 2026 • 📖4 min read(779 words)\n\n📅 **Published:** May 29, 2017• **Updated:** April 16, 2026\n\nI recently got back from an amazing conferen..."
+      "excerpt": "[Money](https://jameskilby.co.uk/category/money/)\n\n# UK Money Saving Tips: Banking, Rewards & Travel Cards\n\nBy[James](https://jameskilby.co.uk) May 29, 2017April 16, 2026 • 📖4 min read(779 words)\n\n📅 **Published:** May 29, 2017• **Updated:** April 16, 2026\n\nI recently got back from an amazing confere..."
     },
     {
       "slug": "managing-my-homelab-with-semaphoreui",
       "title": "Managing my Homelab with SemaphoreUI",
-      "description": "Learn to manage your homelab using SemaphoreUI with Docker. Follow our guide to streamline your DevOps tools like Ansible and Terraform today!",
+      "description": "An intro on how I use SemaphoreUI to manage my Homelab",
       "date": "2025-09-02T16:01:48Z",
       "modified": "2026-03-10T20:35:11Z",
       "author": "James Kilby",
@@ -292,16 +272,14 @@
       "categories": [
         "Ansible",
         "Homelab",
+        "Veeam",
         "VMware",
-        "vSphere",
-        "Nutanix",
-        "TrueNAS Scale",
-        "vSAN",
+        "Mikrotik",
+        "Networking",
         "Storage",
-        "Automation",
-        "Docker",
-        "Hosting",
-        "Kubernetes"
+        "Synology",
+        "Nutanix",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -310,11 +288,38 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png",
-      "excerpt": "![Semaphore](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Managing my Homelab with SemaphoreUI\n\nBy[James](https://jameskilby.co.uk)September 2, 2025March 10, 2026 •..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Managing my Homelab with SemaphoreUI\n\nBy[James](https://jameskilby.co.uk) September 2, 2025March 10, 2026 • 📖8 min ..."
+    },
+    {
+      "slug": "lab-update-part-5-desired-workloads",
+      "title": "Lab Update – Desired Workloads",
+      "description": "My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.",
+      "date": "2022-01-06T19:23:11Z",
+      "modified": "2026-04-16T22:01:55Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/",
+      "markdown_url": "/markdown/posts/lab-update-part-5-desired-workloads.md",
+      "api_url": "/api/posts/lab-update-part-5-desired-workloads.json",
+      "categories": [
+        "Homelab",
+        "Veeam",
+        "VMware",
+        "Automation",
+        "Networking",
+        "Storage",
+        "Personal"
+      ],
+      "tags": [
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
+      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Lab Update – Desired Workloads\n\nBy[James](https://jameskilby.co.uk) January 6, 2022April 16, 2026 • 📖1 min read(139 words)\n\n📅 **Published..."
     }
   ],
   "page": 4,
   "per_page": 10,
-  "total": 74,
+  "total": 72,
   "total_pages": 8
 }
