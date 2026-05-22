@@ -178,7 +178,7 @@ jobs:
         
     - name: Notify Slack - Clean
       if: steps.spell-check.outputs.status == 'clean'
-      uses: slackapi/slack-github-action@v3.0.1
+      uses: slackapi/slack-github-action@v3.0.3
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
@@ -210,7 +210,7 @@ jobs:
         
     - name: Notify Slack - Errors (report-only)
       if: steps.spell-check.outputs.status == 'errors_found' && github.event.inputs.mode == 'report-only'
-      uses: slackapi/slack-github-action@v3.0.1
+      uses: slackapi/slack-github-action@v3.0.3
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
@@ -244,7 +244,7 @@ jobs:
         
     - name: Notify Slack - Corrections Pending
       if: steps.spell-check.outputs.status == 'errors_found' && github.event.inputs.mode == 'create-corrections'
-      uses: slackapi/slack-github-action@v3.0.1
+      uses: slackapi/slack-github-action@v3.0.3
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
@@ -343,7 +343,7 @@ jobs:
           });
         
     - name: Notify Slack
-      uses: slackapi/slack-github-action@v3.0.1
+      uses: slackapi/slack-github-action@v3.0.3
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
@@ -415,7 +415,7 @@ jobs:
         
     - name: Notify Slack
       if: always()
-      uses: slackapi/slack-github-action@v3.0.1
+      uses: slackapi/slack-github-action@v3.0.3
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
