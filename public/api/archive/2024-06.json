@@ -6,7 +6,7 @@
     {
       "slug": "unifi-dhcp-option-43",
       "title": "Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets",
-      "description": "I have recently juggled some of my homelab services around, which involved moving my UniFi server to a different subnet. This meant that new UniFi devices co...",
+      "description": "Table of Contents Intro Layer 3 Adoption Options Intro I have recently juggled some of my homelab services around, which involved moving my UniFi server to",
       "date": "2024-06-26T10:50:17Z",
       "modified": "2026-03-10T20:35:12Z",
       "author": "James Kilby",
@@ -16,19 +16,14 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Storage",
-        "Synology",
-        "vExpert",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
-        "Ansible",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "Nutanix",
+        "VMware",
+        "vSphere",
+        "Automation",
+        "Docker",
         "NVIDIA",
-        "Traefik",
-        "VMware"
+        "Traefik"
       ],
       "tags": [
         null,
@@ -36,7 +31,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_-1024x683.png",
-      "excerpt": "![Ubiquiti Networks Logo.Wine ](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Configure DHCP Option 43 for UniFi devices to enable remote ad..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets\n\nBy[Ja..."
     }
   ]
 }

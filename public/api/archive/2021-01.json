@@ -16,9 +16,11 @@
       "categories": [
         "Personal",
         "Consulting",
+        "AWS",
         "Hosting",
-        "Nutanix",
         "VMware",
+        "vSphere",
+        "Nutanix",
         "Cloudflare",
         "Wordpress"
       ],
@@ -28,7 +30,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1-1024x768.jpeg",
-      "excerpt": "![Img 7017 Scaled 1](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1.jpeg)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# My Home Office Setup & Upgrades\n\nBy[James](https://jameskilby.co.uk)January 5, 20..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1.jpeg)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# My Home Office Setup & Upgrades\n\nBy[James](https://jameskilby.co.uk) January 5, 2021April 16, 2026..."
     },
     {
       "slug": "hashicorp-packer",
@@ -44,12 +46,11 @@
         "Automation",
         "Homelab",
         "VMware",
+        "VMware Cloud on AWS",
+        "vSAN",
         "Storage",
-        "Synology",
-        "Networking",
-        "Mikrotik",
-        "Personal",
-        "Nutanix"
+        "vExpert",
+        "VCF"
       ],
       "tags": [
         null,
@@ -58,7 +59,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2021/01/logo_packer.png",
-      "excerpt": "![Logo Packer](https://jameskilby.co.uk/wp-content/uploads/2021/01/logo_packer.png)\n\n[Automation](https://jameskilby.co.uk/category/automation/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Template Deployment with Packer\n\nBy[James]..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2021/01/logo_packer.png)\n\n[Automation](https://jameskilby.co.uk/category/automation/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Template Deployment with Packer\n\nBy[James](https://ja..."
     }
   ]
 }

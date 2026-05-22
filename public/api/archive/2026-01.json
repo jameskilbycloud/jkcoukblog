@@ -6,7 +6,7 @@
     {
       "slug": "web-development-improvements",
       "title": "Blog Performance & SEO Improvements: Cloudflare, Privacy & More",
-      "description": "I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend” These help improve the performance, Privacy, SEO,...",
+      "description": "I have spent the Christmas break making some improvements to this blog.",
       "date": "2026-01-15T15:12:16Z",
       "modified": "2026-04-16T22:01:39Z",
       "author": "James Kilby",
@@ -17,12 +17,17 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
+        "Personal",
+        "AWS",
+        "Devops",
+        "Github",
+        "Ansible",
+        "Automation",
         "Docker",
         "Homelab",
-        "Kubernetes",
-        "AWS",
-        "Artificial Intelligence",
-        "Personal"
+        "Traefik",
+        "VCF",
+        "VMware"
       ],
       "tags": [
         null,
@@ -31,12 +36,12 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/01/Website-Optimisations.png",
-      "excerpt": "![Website Optimisations](https://jameskilby.co.uk/wp-content/uploads/2026/01/Website-Optimisations.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Blog Performance..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/01/Website-Optimisations.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Blog Performance & SEO Improvements: ..."
     },
     {
       "slug": "using-content-libraries-in-vmc-to-deploy-software-faster",
       "title": "Using Content Libraries in VMC to deploy software faster",
-      "description": "Learn how to use VMware Content Libraries in VMware Cloud on AWS (VMC) to speed up template and VM deployments, reducing manual steps and improving consistency.",
+      "description": "How to leverage Content Libraries to deploy into VMware Cloud on AWS faster.",
       "date": "2026-01-27T22:19:39Z",
       "modified": "2026-03-12T21:52:11Z",
       "author": "James Kilby",
@@ -46,18 +51,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "Personal",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "Storage",
-        "vExpert",
+        "Veeam",
+        "Ansible",
         "Automation",
-        "Docker",
-        "Personal"
+        "vSAN"
       ],
       "tags": [
         null,
@@ -66,7 +65,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash.png",
-      "excerpt": "![Firefly Gemini Flash](https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# Using Content Libraries in VMC to deploy software faste..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# Using Content Libraries in VMC to deploy software faster\n\nBy[James](https:/..."
     }
   ]
 }

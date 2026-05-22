@@ -6,7 +6,7 @@
     {
       "slug": "vmware-certified-master-specialist-hci-2020",
       "title": "VMware Certified Master Specialist HCI 2020",
-      "description": "I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.20). I won’t go into any details of the contents but I will comment that I felt the ...",
+      "description": "I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.",
       "date": "2020-09-13T21:38:48Z",
       "modified": "2026-04-16T22:01:59Z",
       "author": "James Kilby",
@@ -16,13 +16,19 @@
       "categories": [
         "Personal",
         "VMware",
-        "VMware Cloud on AWS",
-        "Nutanix",
         "Homelab",
-        "Storage",
-        "vExpert",
-        "AWS",
-        "Veeam"
+        "Veeam",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "vSphere",
+        "Runecast",
+        "VMware Cloud on AWS",
+        "Automation",
+        "Docker"
       ],
       "tags": [
         null,
@@ -30,12 +36,12 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png",
-      "excerpt": "![Vmware Sp Hci20](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# VMware Certified Master Specialist HCI 2020\n\nBy[James](https://jameskilby.co.uk)September 13, ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# VMware Certified Master Specialist HCI 2020\n\nBy[James](https://jameskilby.co.uk) September 13, 2020April 16, ..."
     },
     {
       "slug": "vmc-host-errors",
       "title": "How VMware Cloud on AWS Handles Host Failures Automatically",
-      "description": "Learn how VMware Cloud on AWS handles host errors seamlessly. Ensure your infrastructure remains resilient and efficient. Get started today!",
+      "description": "When you run a large enough Infrastructure failure is inevitable. How you handle that can be a big differentiator.",
       "date": "2020-09-15T10:56:32Z",
       "modified": "2026-04-11T09:00:44Z",
       "author": "James Kilby",
@@ -45,12 +51,14 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "AWS",
-        "Veeam",
+        "Personal",
+        "vSphere",
+        "vSAN",
         "Homelab",
         "Storage",
         "vExpert",
-        "VCF"
+        "AWS",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -61,7 +69,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-1024x526.png",
-      "excerpt": "![Iu 1](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# How VMware Cloud on AWS Handles Host Failures Automatically\n\nBy[James](https://jameskil..."
+      "excerpt": "![VMware Cloud on AWS \\(VMC\\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# How VMware Cloud on AWS Handles Host Failures Autom..."
     }
   ]
 }

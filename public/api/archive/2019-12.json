@@ -6,7 +6,7 @@
     {
       "slug": "aws-solution-architect-associate",
       "title": "AWS Solution Architect – Associate",
-      "description": "Today was a good day. I renewed my AWS Solution Architect certification. Although my work is primarily in and around the VMware ecosystem I have been wor...",
+      "description": "I renewed my AWS Solution Architect certification.",
       "date": "2019-12-16T23:46:22Z",
       "modified": "2026-04-16T22:02:01Z",
       "author": "James Kilby",
@@ -16,18 +16,20 @@
       "categories": [
         "AWS",
         "Personal",
-        "Hosting",
         "VMware",
-        "Veeam",
         "Consulting",
-        "Devops"
+        "Devops",
+        "Nutanix",
+        "Hosting",
+        "Cloudflare",
+        "Wordpress"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png",
-      "excerpt": "![Amazonwebservices Logo.Svg ](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png)\n\n[AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# AWS Solution Architect – Associate\n\nBy[James](https://jameskilby.co.uk)Decem..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png)\n\n[AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# AWS Solution Architect – Associate\n\nBy[James](https://jameskilby.co.uk) December 16, 2019April 16, 2026..."
     },
     {
       "slug": "monitoring-vmc-part-1",
@@ -43,13 +45,15 @@
         "VMware",
         "AWS",
         "Veeam",
-        "Hosting",
+        "Runecast",
         "Homelab",
-        "Networking",
-        "Storage",
-        "Personal",
         "vSphere",
-        "VCF",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "VMware Cloud on AWS",
         "vSAN"
       ],
       "tags": [
@@ -58,7 +62,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp",
-      "excerpt": "![Vmconaws.Png](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [AWS](https://jameskilby.co.uk/category/aws/) | [Veeam](https://jameskilby.co.uk/category/veeam/)\n\n# Monitoring VMware Cloud on AWS: Tools & Approaches (Part ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [AWS](https://jameskilby.co.uk/category/aws/) | [Veeam](https://jameskilby.co.uk/category/veeam/)\n\n# Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1)\n\nBy[James..."
     }
   ]
 }
