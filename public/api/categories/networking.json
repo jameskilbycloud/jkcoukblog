@@ -388,7 +388,7 @@
       "title": "Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets",
       "description": "Configure DHCP Option 43 so UniFi APs and switches auto-adopt across subnets. Includes the hex converter, OPNsense + Mikrotik examples, and a UDM guide.",
       "date": "2024-06-26T10:50:17Z",
-      "modified": "2026-05-23T08:59:12Z",
+      "modified": "2026-05-23T09:46:27Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/",
       "markdown_url": "/markdown/posts/unifi-dhcp-option-43.md",
@@ -397,15 +397,10 @@
         "Homelab",
         "Networking",
         "Storage",
-        "Synology",
-        "Nutanix",
+        "TrueNAS Scale",
         "VMware",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik"
+        "Veeam",
+        "vExpert"
       ],
       "tags": [
         null,
@@ -590,7 +585,7 @@
     {
       "slug": "warp-the-intelligent-terminal",
       "title": "Warp – The intelligent terminal",
-      "description": "Warp is helping me run my homelab.",
+      "description": "Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and theref...",
       "date": "2025-04-11T15:46:23Z",
       "modified": "2026-05-23T08:41:03Z",
       "author": "James Kilby",

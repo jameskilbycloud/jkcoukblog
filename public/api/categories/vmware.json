@@ -1132,7 +1132,7 @@
       "title": "Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets",
       "description": "Configure DHCP Option 43 so UniFi APs and switches auto-adopt across subnets. Includes the hex converter, OPNsense + Mikrotik examples, and a UDM guide.",
       "date": "2024-06-26T10:50:17Z",
-      "modified": "2026-05-23T08:59:12Z",
+      "modified": "2026-05-23T09:46:27Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/",
       "markdown_url": "/markdown/posts/unifi-dhcp-option-43.md",
@@ -1141,15 +1141,10 @@
         "Homelab",
         "Networking",
         "Storage",
-        "Synology",
-        "Nutanix",
+        "TrueNAS Scale",
         "VMware",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik"
+        "Veeam",
+        "vExpert"
       ],
       "tags": [
         null,
@@ -1483,9 +1478,9 @@
     {
       "slug": "my-self-hosted-ai-stack-a-technical-deep-dive",
       "title": "My Self-Hosted AI Stack: Architecture Overview (Part 1)",
-      "description": "Build a fully private AI stack on your own hardware with Ollama, Open WebUI, n8n, ComfyUI, Qdrant & SearxNG on Docker Compose. Full technical deep dive with ...",
+      "description": "How I built a fully self-hosted AI stack with Ollama, Open WebUI, n8n, ComfyUI, Qdrant and SearxNG on Docker Compose. Configs, costs, observability.",
       "date": "2026-03-27T11:56:33Z",
-      "modified": "2026-04-16T21:48:23Z",
+      "modified": "2026-05-23T11:22:20Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/",
       "markdown_url": "/markdown/posts/my-self-hosted-ai-stack-a-technical-deep-dive.md",
@@ -1498,12 +1493,13 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VMware Cloud on AWS",
-        "Storage",
-        "Hosting",
         "Ansible",
         "Containers",
-        "Devops"
+        "Devops",
+        "Runecast",
+        "vSAN",
+        "Personal",
+        "VCF"
       ],
       "tags": [
         null,
@@ -1994,7 +1990,7 @@
     {
       "slug": "warp-the-intelligent-terminal",
       "title": "Warp – The intelligent terminal",
-      "description": "Warp is helping me run my homelab.",
+      "description": "Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and theref...",
       "date": "2025-04-11T15:46:23Z",
       "modified": "2026-05-23T08:41:03Z",
       "author": "James Kilby",

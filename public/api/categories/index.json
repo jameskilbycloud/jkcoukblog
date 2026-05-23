@@ -7,7 +7,7 @@
   {
     "name": "Hosting",
     "slug": "hosting",
-    "count": 31
+    "count": 30
   },
   {
     "name": "Wordpress",
@@ -17,7 +17,7 @@
   {
     "name": "Personal",
     "slug": "personal",
-    "count": 32
+    "count": 33
   },
   {
     "name": "AWS",
@@ -27,7 +27,7 @@
   {
     "name": "Devops",
     "slug": "devops",
-    "count": 24
+    "count": 23
   },
   {
     "name": "Github",
@@ -37,7 +37,7 @@
   {
     "name": "Ansible",
     "slug": "ansible",
-    "count": 35
+    "count": 34
   },
   {
     "name": "Automation",
@@ -57,12 +57,12 @@
   {
     "name": "Traefik",
     "slug": "traefik",
-    "count": 42
+    "count": 41
   },
   {
     "name": "VCF",
     "slug": "vcf",
-    "count": 29
+    "count": 30
   },
   {
     "name": "VMware",
@@ -72,7 +72,7 @@
   {
     "name": "Nutanix",
     "slug": "nutanix",
-    "count": 23
+    "count": 22
   },
   {
     "name": "Consulting",
@@ -92,27 +92,27 @@
   {
     "name": "Artificial Intelligence",
     "slug": "artificial-intelligence",
-    "count": 46
+    "count": 45
   },
   {
     "name": "NVIDIA",
     "slug": "nvidia",
-    "count": 37
+    "count": 36
   },
   {
     "name": "Veeam",
     "slug": "veeam",
-    "count": 19
+    "count": 20
   },
   {
     "name": "VMware Cloud on AWS",
     "slug": "vmware-cloud-on-aws",
-    "count": 27
+    "count": 26
   },
   {
     "name": "vSAN",
     "slug": "vsan",
-    "count": 20
+    "count": 21
   },
   {
     "name": "Apple",
@@ -122,12 +122,12 @@
   {
     "name": "Storage",
     "slug": "storage",
-    "count": 32
+    "count": 31
   },
   {
     "name": "Synology",
     "slug": "synology",
-    "count": 14
+    "count": 13
   },
   {
     "name": "Kubernetes",
@@ -137,22 +137,22 @@
   {
     "name": "Runecast",
     "slug": "runecast",
-    "count": 8
+    "count": 9
   },
   {
     "name": "Containers",
     "slug": "containers",
-    "count": 17
+    "count": 16
   },
   {
     "name": "TrueNAS Scale",
     "slug": "truenas-scale",
-    "count": 11
+    "count": 12
   },
   {
     "name": "vExpert",
     "slug": "vexpert",
-    "count": 6
+    "count": 7
   },
   {
     "name": "Money",
