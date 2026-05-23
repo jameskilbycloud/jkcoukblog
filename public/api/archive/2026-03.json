@@ -37,9 +37,9 @@
     {
       "slug": "my-self-hosted-ai-stack-a-technical-deep-dive",
       "title": "My Self-Hosted AI Stack: Architecture Overview (Part 1)",
-      "description": "Build a fully private AI stack on your own hardware with Ollama, Open WebUI, n8n, ComfyUI, Qdrant & SearxNG on Docker Compose. Full technical deep dive with ...",
+      "description": "How I built a fully self-hosted AI stack with Ollama, Open WebUI, n8n, ComfyUI, Qdrant and SearxNG on Docker Compose. Configs, costs, observability.",
       "date": "2026-03-27T11:56:33Z",
-      "modified": "2026-04-16T21:48:23Z",
+      "modified": "2026-05-23T11:22:20Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/",
       "markdown_url": "/markdown/posts/my-self-hosted-ai-stack-a-technical-deep-dive.md",
@@ -52,12 +52,13 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VMware Cloud on AWS",
-        "Storage",
-        "Hosting",
         "Ansible",
         "Containers",
-        "Devops"
+        "Devops",
+        "Runecast",
+        "vSAN",
+        "Personal",
+        "VCF"
       ],
       "tags": [
         null,

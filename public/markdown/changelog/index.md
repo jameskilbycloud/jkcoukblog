@@ -15,13 +15,13 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-766
+767
 
 Git commits
 
 ### Repository Age
 
-231
+232
 
 Days active
 
@@ -33,9 +33,9 @@ Active contributors
 
 ### Last Deployment
 
-2026-05-15
+2026-05-22
 
-23:22:03
+14:29:28
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -211,5 +211,5 @@ fix: bump Node to 20 for Wrangler and correct KV upload success reporting
 
 Wrangler requires Node 20+, so the Node 18 pin caused the KV search index
 
-Page generated: 2026-05-22 14:29:22 UTC  
+Page generated: 2026-05-23 09:08:31 UTC  
 Changelog powered by Git history and Lighthouse CI

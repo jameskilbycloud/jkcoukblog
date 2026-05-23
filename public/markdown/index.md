@@ -53,9 +53,9 @@ tags...................125
 
 vexpert.years...........11
 
-deploys.month...........34
+deploys.month...........35
 
-last_deploy.........1d ago
+last_deploy..........today
 
 lighthouse..........95/100
 
@@ -111,7 +111,7 @@ We’ve expanded the VMC fleet with the new i7i (i7i.
 
 ## [My Self-Hosted AI Stack: Architecture Overview (Part 1)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
 
-By[James](https://jameskilby.co.uk) March 27, 2026April 16, 2026
+By[James](https://jameskilby.co.uk) March 27, 2026May 23, 2026
 
 A walkthrough of my self-hosted AI stack: Ollama, Open WebUI, ComfyUI, Whishper, n8n, Qdrant, SearxNG, and a full observability layer — all running on my own hardware with Docker Compose.
 

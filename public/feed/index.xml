@@ -5,7 +5,7 @@
     <link>https://jameskilby.co.uk/</link>
     <description>VMware and cloud infrastructure tutorials, homelab guides, and DevOps insights</description>
     <language>en-gb</language>
-    <lastBuildDate>Sat, 23 May 2026 09:05:20 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 23 May 2026 11:25:50 +0000</lastBuildDate>
     <atom:link href="https://jameskilby.co.uk/feed/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)</title>
@@ -50,7 +50,7 @@
     <item>
       <title>My Self-Hosted AI Stack: Architecture Overview (Part 1)</title>
       <link>https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/</link>
-      <description>Build a fully private AI stack on your own hardware with Ollama, Open WebUI, n8n, ComfyUI, Qdrant &amp; SearxNG on Docker Compose. Full technical deep dive with ...</description>
+      <description>How I built a fully self-hosted AI stack with Ollama, Open WebUI, n8n, ComfyUI, Qdrant and SearxNG on Docker Compose. Configs, costs, observability.</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/</guid>
       <pubDate>Fri, 27 Mar 2026 11:56:33 +0000</pubDate>
@@ -138,7 +138,7 @@
     <item>
       <title>Warp – The intelligent terminal</title>
       <link>https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/</link>
-      <description>Warp is helping me run my homelab.</description>
+      <description>Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and theref...</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/</guid>
       <pubDate>Fri, 11 Apr 2025 15:46:23 +0000</pubDate>
