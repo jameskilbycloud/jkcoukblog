@@ -1,6 +1,6 @@
 ---
 title: "Media"
-description: "Tune into the Xtravirt CloudInsiders Podcast for insights on VMware Cloud on AWS and Data Availability."
+description: "I’m a Solution Architect in Broadcom’s EMEA Hyperscalers team, a twelve-year VMware vExpert, and co-founder of the UK Veeam User Group. Alongside my day-to-d..."
 date: 2021-01-15T10:17:00+00:00
 modified: 2026-03-29T09:22:53+00:00
 author: James Kilby

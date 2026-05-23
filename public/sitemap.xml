@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://jameskilby.co.uk/</loc>
-    <lastmod>2026-05-22</lastmod>
+    <lastmod>2026-05-23</lastmod>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png</image:loc>
@@ -608,7 +608,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/</loc>
-    <lastmod>2026-03-10</lastmod>
+    <lastmod>2026-05-23</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -778,7 +778,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-23</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/04/Screenshot-2025-04-11-at-14.12.14-1024x95.png</image:loc>
@@ -1167,11 +1167,16 @@
     </image:image>
   </url>
   <url>
+    <loc>https://jameskilby.co.uk/404/</loc>
+    <lastmod>2026-05-23</lastmod>
+  </url>
+  <url>
     <loc>https://jameskilby.co.uk/about-me/</loc>
     <lastmod>2026-02-20</lastmod>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/02/55f91c39-f0dd-42e1-939a-cdffc92c0b52-1024x768.jpeg</image:loc>
       <image:title>55F91C39 F0Dd 42E1 939A Cdffc92C0B52 1024X768</image:title>
+      <image:caption>55F91C39 F0Dd 42E1 939A Cdffc92C0B52 1024X768</image:caption>
     </image:image>
   </url>
   <url>
@@ -1186,7 +1191,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/artificial-intelligence/</loc>
-    <lastmod>2026-04-18</lastmod>
+    <lastmod>2026-05-23</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
@@ -1231,7 +1236,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/homelab/</loc>
-    <lastmod>2026-04-18</lastmod>
+    <lastmod>2026-05-23</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
@@ -1256,7 +1261,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/networking/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-23</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
@@ -1345,8 +1350,16 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://jameskilby.co.uk/changelog/</loc>
+    <lastmod>2026-05-23</lastmod>
+  </url>
+  <url>
     <loc>https://jameskilby.co.uk/evs/</loc>
     <lastmod>2026-04-16</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/feed/</loc>
+    <lastmod>2026-05-22</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/homelab-software/</loc>
@@ -1358,10 +1371,12 @@
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/vSphere-Overview-1024x530.png</image:loc>
       <image:title>Vsphere Overview 1024X530</image:title>
+      <image:caption>Vsphere Overview 1024X530</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/02/HouseNetworkOverview-1024x634.png</image:loc>
       <image:title>Housenetworkoverview 1024X634</image:title>
+      <image:caption>Housenetworkoverview 1024X634</image:caption>
     </image:image>
   </url>
   <url>
@@ -1370,27 +1385,31 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/2/</loc>
-    <lastmod>2026-05-22</lastmod>
+    <lastmod>2026-05-23</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/3/</loc>
-    <lastmod>2026-05-22</lastmod>
+    <lastmod>2026-05-23</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/4/</loc>
-    <lastmod>2026-05-22</lastmod>
+    <lastmod>2026-05-23</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/5/</loc>
-    <lastmod>2026-05-22</lastmod>
+    <lastmod>2026-05-23</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/6/</loc>
-    <lastmod>2026-05-22</lastmod>
+    <lastmod>2026-05-23</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/privacy-policy-2/</loc>
     <lastmod>2025-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/stats/</loc>
+    <lastmod>2026-05-23</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/vmc/</loc>

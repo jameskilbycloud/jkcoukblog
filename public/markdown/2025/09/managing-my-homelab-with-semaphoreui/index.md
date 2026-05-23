@@ -1,6 +1,6 @@
 ---
 title: "Managing my Homelab with SemaphoreUI"
-description: "An intro on how I use SemaphoreUI to manage my Homelab"
+description: "I recently stumbled across Semaphore, which is essentially a frontend for managing DevOps tooling, including Ansible, Terraform, OpenTofu, and PowerShell...."
 date: 2025-09-02T16:01:48+00:00
 modified: 2026-03-10T20:35:11+00:00
 author: James Kilby
@@ -24,13 +24,13 @@ url: https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/
 image: https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)
+![Semaphore](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
 # Managing my Homelab with SemaphoreUI
 
-By[James](https://jameskilby.co.uk) September 2, 2025March 10, 2026 • 📖8 min read(1,592 words)
+By[James](https://jameskilby.co.uk)September 2, 2025March 10, 2026 • 📖8 min read(1,592 words)
 
 📅 **Published:** September 02, 2025• **Updated:** March 10, 2026
 
@@ -204,7 +204,7 @@ The next block ensures that the required packages are present on the system.
 
 📋 Copy
 
-# Semaphore Concepts
+## Semaphore Concepts
 
 So now that we understand the playbook, let’s go over some of the Semaphore concepts
 
@@ -425,56 +425,56 @@ I have been really impressed with Sempahore and am migrating more and more of my
 
 ### [Lab Update – Desired Workloads](https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/)
 
-By[James](https://jameskilby.co.uk) January 6, 2022April 16, 2026
+By[James](https://jameskilby.co.uk)January 6, 2022April 16, 2026
 
 My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.
 
-  * [ ![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600-768x427.jpg) ](https://jameskilby.co.uk/2024/09/home-network-upgrade/)
+  * [![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600-768x427.jpg)](https://jameskilby.co.uk/2024/09/home-network-upgrade/)
 
 [Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)
 
 ### [Home Network Upgrade to 25Gb/s with MikroTik Switching](https://jameskilby.co.uk/2024/09/home-network-upgrade/)
 
-By[James](https://jameskilby.co.uk) September 9, 2024April 11, 2026
+By[James](https://jameskilby.co.uk)September 9, 2024April 11, 2026
 
 My journey to superfast networking in my homelab
 
-  * [ ![Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1-768x403.jpg) ](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
+  * [![Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1-768x403.jpg)](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)
 
 ### [Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
 
-By[James](https://jameskilby.co.uk) November 21, 2022April 16, 2026
+By[James](https://jameskilby.co.uk)November 21, 2022April 16, 2026
 
 I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate.
 
-  * [ ![New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg) ](https://jameskilby.co.uk/2024/07/new-nodes/)
+  * [![New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg)](https://jameskilby.co.uk/2024/07/new-nodes/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/2024/07/new-nodes/)
 
-By[James](https://jameskilby.co.uk) July 2, 2024April 16, 2026
+By[James](https://jameskilby.co.uk)July 2, 2024April 16, 2026
 
 I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul .
 
-  * [ ![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png) ](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
+  * [![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png)](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
 
-By[James](https://jameskilby.co.uk) December 19, 2022April 16, 2026
+By[James](https://jameskilby.co.uk)December 19, 2022April 16, 2026
 
 For a while, I’ve been looking to update the networking at the core of my homelab.
 
-  * [ ![Forcing an Upgrade to vSphere 8](https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.45.23.png) ](https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/)
+  * [![Forcing an Upgrade to vSphere 8](https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.45.23.png)](https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
 
 ### [Forcing an Upgrade to vSphere 8](https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/)
 
-By[James](https://jameskilby.co.uk) December 14, 2022April 16, 2026
+By[James](https://jameskilby.co.uk)December 14, 2022April 16, 2026
 
 I run a reasonably extensive homelab that is of course built around the VMware ecosystem.

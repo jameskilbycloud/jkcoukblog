@@ -7,7 +7,7 @@
   {
     "name": "Hosting",
     "slug": "hosting",
-    "count": 30
+    "count": 31
   },
   {
     "name": "Wordpress",
@@ -27,7 +27,7 @@
   {
     "name": "Devops",
     "slug": "devops",
-    "count": 22
+    "count": 24
   },
   {
     "name": "Github",
@@ -37,17 +37,17 @@
   {
     "name": "Ansible",
     "slug": "ansible",
-    "count": 34
+    "count": 35
   },
   {
     "name": "Automation",
     "slug": "automation",
-    "count": 43
+    "count": 41
   },
   {
     "name": "Docker",
     "slug": "docker",
-    "count": 44
+    "count": 43
   },
   {
     "name": "Homelab",
@@ -72,7 +72,7 @@
   {
     "name": "Nutanix",
     "slug": "nutanix",
-    "count": 22
+    "count": 23
   },
   {
     "name": "Consulting",
@@ -82,7 +82,7 @@
   {
     "name": "vSphere",
     "slug": "vsphere",
-    "count": 29
+    "count": 27
   },
   {
     "name": "Networking",
@@ -112,7 +112,7 @@
   {
     "name": "vSAN",
     "slug": "vsan",
-    "count": 21
+    "count": 20
   },
   {
     "name": "Apple",
@@ -122,17 +122,17 @@
   {
     "name": "Storage",
     "slug": "storage",
-    "count": 31
+    "count": 32
   },
   {
     "name": "Synology",
     "slug": "synology",
-    "count": 12
+    "count": 14
   },
   {
     "name": "Kubernetes",
     "slug": "kubernetes",
-    "count": 12
+    "count": 13
   },
   {
     "name": "Runecast",
@@ -142,12 +142,12 @@
   {
     "name": "Containers",
     "slug": "containers",
-    "count": 15
+    "count": 17
   },
   {
     "name": "TrueNAS Scale",
     "slug": "truenas-scale",
-    "count": 12
+    "count": 11
   },
   {
     "name": "vExpert",
