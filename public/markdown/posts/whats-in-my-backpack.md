@@ -1,6 +1,6 @@
 ---
 title: "What’s In My Tech Bag? Everyday Carry for IT Consultants"
-description: "I have seen a few posts online recently about the tools and technology people use on a day to day basis."
+description: "I have seen a few posts online recently about the tools and technology people use on a day to day basis. A few components that I have no one seems to have ..."
 date: 2019-01-10T21:48:41+00:00
 modified: 2026-04-16T22:02:02+00:00
 author: James Kilby
@@ -11,13 +11,13 @@ url: https://jameskilby.co.uk/2019/01/whats-in-my-backpack/
 image: https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png)
+![Picture1](https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png)
 
 [Consulting](https://jameskilby.co.uk/category/consulting/)
 
 # What’s In My Tech Bag? Everyday Carry for IT Consultants
 
-By[James](https://jameskilby.co.uk) January 10, 2019April 16, 2026 • 📖1 min read(250 words)
+By[James](https://jameskilby.co.uk)January 10, 2019April 16, 2026 • 📖1 min read(250 words)
 
 📅 **Published:** January 10, 2019• **Updated:** April 16, 2026
 
@@ -50,12 +50,12 @@ Oh and a Tie……
 
 ## Similar Posts
 
-  * [ ![My Home Office Setup & Upgrades](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1-768x576.jpeg) ](https://jameskilby.co.uk/2021/01/my-home-office-setup-upgrades/)
+  * [![My Home Office Setup & Upgrades](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1-768x576.jpeg)](https://jameskilby.co.uk/2021/01/my-home-office-setup-upgrades/)
 
 [Personal](https://jameskilby.co.uk/category/personal/) | [Consulting](https://jameskilby.co.uk/category/consulting/)
 
 ### [My Home Office Setup & Upgrades](https://jameskilby.co.uk/2021/01/my-home-office-setup-upgrades/)
 
-By[James](https://jameskilby.co.uk) January 5, 2021April 16, 2026
+By[James](https://jameskilby.co.uk)January 5, 2021April 16, 2026
 
 Given the year that was 2020 and at the time of writing a distinct improvement appears a long way off I decided it was time to up my homeworking game.

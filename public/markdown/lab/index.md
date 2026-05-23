@@ -1,6 +1,6 @@
 ---
 title: "Homelab – Hardware"
-description: "An upto date inventory of the things running in my lab"
+description: "My homelab is a constantly evolving platform for learning, self-hosting, and running serious workloads — from VMware vSphere clusters and AI inference to net..."
 date: 2020-06-27T20:08:38+00:00
 modified: 2026-02-16T16:17:21+00:00
 author: James Kilby

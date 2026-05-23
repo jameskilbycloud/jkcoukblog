@@ -20,13 +20,13 @@ url: https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/
 image: https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)
+![Ubuntuexpand](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)
 
 [Ubuntu](https://jameskilby.co.uk/category/ubuntu/)
 
 # How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step
 
-By[James](https://jameskilby.co.uk) December 15, 2025April 16, 2026 • 📖1 min read(91 words)
+By[James](https://jameskilby.co.uk)December 15, 2025April 16, 2026 • 📖1 min read(91 words)
 
 📅 **Published:** December 15, 2025• **Updated:** April 16, 2026
 
@@ -62,12 +62,12 @@ df -h
 
 ## Similar Posts
 
-  * [ ![Automated VCF 9 Offline Depot architecture diagram showing Traefik reverse proxy and Nginx file server stack](https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png) ](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
+  * [![Automated VCF 9 Offline Depot architecture diagram showing Traefik reverse proxy and Nginx file server stack](https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png)](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Automated VCF 9 Offline Depot](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
 
-By[James](https://jameskilby.co.uk) April 10, 2026April 16, 2026
+By[James](https://jameskilby.co.uk)April 10, 2026April 16, 2026
 
 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS.
