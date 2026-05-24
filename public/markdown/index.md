@@ -45,7 +45,7 @@ posts.count.............72
 
 words.total............46k
 
-last_post..........37d ago
+last_post..........38d ago
 
 categories..............34
 
@@ -53,9 +53,9 @@ tags...................125
 
 vexpert.years...........11
 
-deploys.month...........36
+deploys.month...........37
 
-last_deploy..........today
+last_deploy.........1d ago
 
 lighthouse..........95/100
 
@@ -131,7 +131,7 @@ I am quite a heavy consumer of electricity at home. This is primarily driven by 
 
 ## [Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
 
-By[James](https://jameskilby.co.uk) February 9, 2026April 18, 2026
+By[James](https://jameskilby.co.uk) February 9, 2026May 24, 2026
 
 Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere
 
@@ -161,7 +161,7 @@ I have spent the Christmas break making some improvements to this blog.
 
 ## [How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step](https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/)
 
-By[James](https://jameskilby.co.uk) December 15, 2025April 16, 2026
+By[James](https://jameskilby.co.uk) December 15, 2025May 24, 2026
 
 How to expand disks from the command line in Ubuntu. This is something I do fairly frequently, and I can never remember the steps.
 

@@ -5,7 +5,7 @@
     <link>https://jameskilby.co.uk/</link>
     <description>VMware and cloud infrastructure tutorials, homelab guides, and DevOps insights</description>
     <language>en-gb</language>
-    <lastBuildDate>Sat, 23 May 2026 20:01:32 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 24 May 2026 07:04:43 +0000</lastBuildDate>
     <atom:link href="https://jameskilby.co.uk/feed/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)</title>
@@ -58,7 +58,7 @@
     <item>
       <title>Automating the Deployment of my Homelab AI Infrastructure</title>
       <link>https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/</link>
-      <description>Build a complete homelab AI infrastructure using Ansible to automate Ubuntu with NVIDIA GPU passthrough, Docker, Traefik, and an end-to-end AI stack via Sema...</description>
+      <description>Automate a complete AI homelab build with Ansible: Ubuntu, NVIDIA GPU passthrough, Docker, Traefik, and the full AI stack deployed via Semaphore.</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/</guid>
       <pubDate>Mon, 09 Feb 2026 11:54:54 +0000</pubDate>
@@ -98,7 +98,7 @@
     <item>
       <title>How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step</title>
       <link>https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/</link>
-      <description>How to expand disks from the command line in Ubuntu. This is something I do fairly frequently, and I can never remember the steps.</description>
+      <description>Step-by-step Ubuntu disk expansion with LVM: pvresize, vgextend, lvextend, resize2fs. Works after resizing the VM disk in vSphere/Hyper-V/KVM.</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/</guid>
       <pubDate>Mon, 15 Dec 2025 20:56:40 +0000</pubDate>
@@ -114,7 +114,7 @@
     <item>
       <title>Managing my Homelab with SemaphoreUI</title>
       <link>https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/</link>
-      <description>I recently stumbled across Semaphore, which is essentially a frontend for managing DevOps tooling, including Ansible, Terraform, OpenTofu, and PowerShell....</description>
+      <description>How I use SemaphoreUI as the web frontend for Ansible, Terraform and PowerShell in my homelab. Setup, screenshots, lessons learned in production use.</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/</guid>
       <pubDate>Tue, 02 Sep 2025 16:01:48 +0000</pubDate>
