@@ -12,7 +12,7 @@
     "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions.",
     "url": "https://jameskilby.co.uk/",
     "description": "Expert guides on VMware vSphere, homelab infrastructure, AI setup, and cloud computing. Real-world technical tutorials by a VMware vExpert.",
-    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu VMWARE VEXPERT · HOMELAB · INFRASTRUCTURE-AS-CODEField notes from a homelab that costsreal money to run.jameskilby@blog ~ % cat blog.stats liveposts.count.............72words.total............46klast_post..........37d agocategories..............34tags...................125vexpert.years...........11deploys.month...........36last_deploy..........todaylighthouse..........95/100$_FILTERAllVMwareHomelabAutomationAI Ansible | Automation Automating vSphere Power Management driven by Ansible and SemaphoreUI ByJames April 15, 2026April 19, 2026 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced p",
+    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu VMWARE VEXPERT · HOMELAB · INFRASTRUCTURE-AS-CODEField notes from a homelab that costsreal money to run.jameskilby@blog ~ % cat blog.stats liveposts.count.............72words.total............46klast_post..........38d agocategories..............34tags...................125vexpert.years...........11deploys.month...........37last_deploy.........1d agolighthouse..........95/100$_FILTERAllVMwareHomelabAutomationAI Ansible | Automation Automating vSphere Power Management driven by Ansible and SemaphoreUI ByJames April 15, 2026April 19, 2026 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced p",
     "categories": [
       "VMware",
       "Homelab",
@@ -87,7 +87,7 @@
     "title": "Site Statistics - James Kilby",
     "url": "https://jameskilby.co.uk/stats/",
     "description": "Public statistics and metrics for James Kilby's technical blog including performance scores, traffic data, and build information.",
-    "content": "Site Statistics - James Kilby ← Back to Home 📊 Site Statistics Public metrics, performance scores, and analytics for jameskilby.co.uk 📄 182 Total Pages 📝 72 Blog Posts 🖼️ 3214 Images 💾 176.35 Total Size (MB) 🚀 768 Deployments 📅 38 Updates This Month 🚀 Lighthouse Performance Scores Latest scores from 2026-05-23 deployment 95 Performance 95 Accessibility 100 Best Practices 100 SEO 📈 Performance Tracking: Scores are automatically measured on every deployment and stored in the changelog history. 🎯 Target: Maintaining 90+ scores across all categories for optimal user experience. 🔧 Build Metrics Metric Value Notes Total HTML Pages 182 All generated pages including posts, archives, and pages Blog Posts 72 Articles in dated directories (YYYY/MM/slug) Total Images 3214 Optimized images (PNG, JPG, WebP, SVG) Total Site Size 176.35 MB All files in public directory Average Page Size 0.97 KB Total size / number of pages Images per Post 44.6 Average images per blog post Last Deployment 2026-05-23 09",
+    "content": "Site Statistics - James Kilby ← Back to Home 📊 Site Statistics Public metrics, performance scores, and analytics for jameskilby.co.uk 📄 182 Total Pages 📝 72 Blog Posts 🖼️ 3214 Images 💾 176.37 Total Size (MB) 🚀 769 Deployments 📅 39 Updates This Month 🚀 Lighthouse Performance Scores Latest scores from 2026-05-23 deployment 95 Performance 95 Accessibility 100 Best Practices 100 SEO 📈 Performance Tracking: Scores are automatically measured on every deployment and stored in the changelog history. 🎯 Target: Maintaining 90+ scores across all categories for optimal user experience. 🔧 Build Metrics Metric Value Notes Total HTML Pages 182 All generated pages including posts, archives, and pages Blog Posts 72 Articles in dated directories (YYYY/MM/slug) Total Images 3214 Optimized images (PNG, JPG, WebP, SVG) Total Site Size 176.37 MB All files in public directory Average Page Size 0.97 KB Total size / number of pages Images per Post 44.6 Average images per blog post Last Deployment 2026-05-23 11",
     "categories": [],
     "tags": [],
     "date": ""
@@ -107,7 +107,7 @@
     "title": "Changelog - James Kilby",
     "url": "https://jameskilby.co.uk/changelog/",
     "description": "Site improvements, deployments, and performance metrics for James Kilby's technical blog.",
-    "content": "Changelog - James Kilby ← Back to Home 📋 Changelog Site improvements, deployments, and performance metrics Total Deployments 768 Git commits Repository Age 232 Days active Contributors 3 Active contributors Last Deployment 2026-05-23 09:08:36 🚀 Lighthouse Performance Scores Last checked: Estimated 95 Performance 95 Accessibility 100 Best Practices 100 SEO Recent Changes 2026-05-15 2183c69Improvement Repo Cleanup 2026-05-08 3072236Feature Update Generate to add quality checks 2026-05-08 c658884Improvement Update Quality Checks 2026-05-08 dab649fOther Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog 2026-05-08 9dcfce7Improvement update quality check URL 2026-05-06 50f9025Other Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog 2026-05-06 e856596Other Tweaked the cache mechanisms 2026-05-06 93ff447Improvement Theme Updates 2026-05-06 3f49588Other Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog 2026-05-06 02279bbOther Tidy Up 2026-05-06 ",
+    "content": "Changelog - James Kilby ← Back to Home 📋 Changelog Site improvements, deployments, and performance metrics Total Deployments 769 Git commits Repository Age 232 Days active Contributors 3 Active contributors Last Deployment 2026-05-23 11:29:07 🚀 Lighthouse Performance Scores Last checked: Estimated 95 Performance 95 Accessibility 100 Best Practices 100 SEO Recent Changes 2026-05-15 2183c69Improvement Repo Cleanup 2026-05-08 3072236Feature Update Generate to add quality checks 2026-05-08 c658884Improvement Update Quality Checks 2026-05-08 dab649fOther Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog 2026-05-08 9dcfce7Improvement update quality check URL 2026-05-06 50f9025Other Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog 2026-05-06 e856596Other Tweaked the cache mechanisms 2026-05-06 93ff447Improvement Theme Updates 2026-05-06 3f49588Other Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog 2026-05-06 02279bbOther Tidy Up 2026-05-06 ",
     "categories": [],
     "tags": [],
     "date": ""
@@ -486,23 +486,24 @@
     "date": "2023-10-07T12:37:14+00:00"
   },
   {
-    "title": "Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide ...",
+    "title": "Nvidia Tesla P4 vGPU on VMware ESXi: Homelab Guide",
     "url": "https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/",
-    "description": "A little while ago I decided to play with vGPU in my homelab. This was something I had dabbled with in the past but never really had the time or need to get...",
-    "content": "Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide ... Skip to contentJames KilbyJames KilbyToggle MenuHomelab | VMwareNvidia Tesla P4 vGPU Setup in VMware Homelab: Full GuideByJamesOctober 23, 2023April 16, 2026 • 📖4 min read(863 words)📅Published: October 23, 2023•Updated: April 16, 2026Table of ContentsA little while ago I decided to play with vGPU in my homelab. This was something I had dabbled with in the past but never really had the time or need to get working properly. The first thing that I needed was a GPU. I did have a Dell T20 with an iGPU built into the CPU but I wanted a more enterprise card for my testing. I therefore decided to pick up a Nvidia Tesla P4 from eBay for the princely sum of £185.The card stats are not impressive by modern standards but it was good enough for what I needed combined with the fact that it was a single-width PCIe 3.0 x16 card and didn’t require external power. An important note is that this is a passively cooled card so if it’s not located",
+    "description": "Step-by-step setup of Nvidia Tesla P4 vGPU on VMware ESXi for a homelab. Drivers, licence server, vGPU profiles, plus gotchas and performance notes.",
+    "content": "Nvidia Tesla P4 vGPU on VMware ESXi: Homelab Guide Skip to content James Kilby James Kilby Toggle Menu Homelab | VMware Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide ByJames October 23, 2023May 24, 2026 • 📖4 min read(863 words) 📅Published: October 23, 2023•Updated: May 24, 2026 Table of Contents A little while ago I decided to play with vGPU in my homelab. This was something I had dabbled with in the past but never really had the time or need to get working properly. The first thing that I needed was a GPU. I did have a Dell T20 with an iGPU built into the CPU but I wanted a more enterprise card for my testing. I therefore decided to pick up a Nvidia Tesla P4 from eBay for the princely sum of £185. The card stats are not impressive by modern standards but it was good enough for what I needed combined with the fact that it was a single-width PCIe 3.0 x16 card and didn’t require external power. An important note is that this is a passively cooled card so if it’s not located in",
     "categories": [
       "Homelab",
       "VMware",
       "VMware Cloud on AWS",
+      "Ansible",
       "Artificial Intelligence",
-      "Automation",
-      "Docker",
+      "Containers",
+      "Devops",
       "NVIDIA",
       "Traefik",
-      "vSAN",
-      "Nutanix",
-      "Personal",
-      "vSphere"
+      "Automation",
+      "Veeam",
+      "Docker",
+      "VCF"
     ],
     "tags": [
       "#Homelab",
@@ -840,7 +841,7 @@
     "title": "Devops Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/devops/",
     "description": "Browse all Devops articles. In-depth technical content covering Devops topics, best practices, and real-world solutions.",
-    "content": "Devops Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Devops Ansible | Artificial Intelligence | Containers | Devops | Homelab | NVIDIA | Traefik | VMware Automating the Deployment of my Homelab AI Infrastructure ByJames February 9, 2026April 18, 2026 Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025April 16, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Devops | Personal My First GitHub Pull Request: Contributing to Open Source ByJames December 22, 2020April 16, 2026 I was initially going to add in the contents of this post to one that I have been writing about my exploits with HashiCorp Packer but I decided it probably warranted being separated out.",
+    "content": "Devops Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Devops Ansible | Artificial Intelligence | Containers | Devops | Homelab | NVIDIA | Traefik | VMware Automating the Deployment of my Homelab AI Infrastructure ByJames February 9, 2026May 24, 2026 Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025April 16, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Devops | Personal My First GitHub Pull Request: Contributing to Open Source ByJames December 22, 2020April 16, 2026 I was initially going to add in the contents of this post to one that I have been writing about my exploits with HashiCorp Packer but I decided it probably warranted being separated out.",
     "categories": [
       "Ansible",
       "Artificial Intelligence",
@@ -862,7 +863,7 @@
     "title": "Containers Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/containers/",
     "description": "Browse all Containers articles. In-depth technical content covering Containers topics, best practices, and real-world solutions.",
-    "content": "Containers Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Containers Ansible | Artificial Intelligence | Containers | Devops | Homelab | NVIDIA | Traefik | VMware Automating the Deployment of my Homelab AI Infrastructure ByJames February 9, 2026April 18, 2026 Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere",
+    "content": "Containers Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Containers Ansible | Artificial Intelligence | Containers | Devops | Homelab | NVIDIA | Traefik | VMware Automating the Deployment of my Homelab AI Infrastructure ByJames February 9, 2026May 24, 2026 Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere",
     "categories": [
       "Ansible",
       "Artificial Intelligence",
@@ -880,7 +881,7 @@
     "title": "Ubuntu Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/ubuntu/",
     "description": "Browse all Ubuntu articles. In-depth technical content covering Ubuntu topics, best practices, and real-world solutions.",
-    "content": "Ubuntu Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Ubuntu Ubuntu How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step ByJames December 15, 2025April 16, 2026 How to expand disks from the command line in Ubuntu. This is something I do fairly frequently, and I can never remember the steps.",
+    "content": "Ubuntu Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Ubuntu Ubuntu How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step ByJames December 15, 2025May 24, 2026 How to expand disks from the command line in Ubuntu. This is something I do fairly frequently, and I can never remember the steps.",
     "categories": [
       "Ubuntu"
     ],
@@ -1423,7 +1424,7 @@
     "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions.",
     "url": "https://jameskilby.co.uk/page/2/",
     "description": "Expert guides on VMware vSphere, homelab infrastructure, AI setup, and cloud computing. Real-world technical tutorials by a VMware vExpert - Page 2",
-    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025April 16, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Ansible | Homelab Managing my Homelab with SemaphoreUI ByJames September 2, 2025March 10, 2026 An intro on how I use SemaphoreUI to manage my Homelab VMware | VMware Cloud on AWS An in-depth look at VMware Cloud on AWS hosts ByJames August 14, 2025April 16, 2026 This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison. VMware | VMware Cloud on AWS VMware Cloud on AWS Storage Sizing Quick Reference Guide ByJames May 21, 2025April 11, 2026",
+    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025April 16, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Ansible | Homelab Managing my Homelab with SemaphoreUI ByJames September 2, 2025May 24, 2026 An intro on how I use SemaphoreUI to manage my Homelab VMware | VMware Cloud on AWS An in-depth look at VMware Cloud on AWS hosts ByJames August 14, 2025April 16, 2026 This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison. VMware | VMware Cloud on AWS VMware Cloud on AWS Storage Sizing Quick Reference Guide ByJames May 21, 2025April 11, 2026 Q",
     "categories": [
       "Cloudflare",
       "Devops",
@@ -2215,7 +2216,7 @@
     "title": "Ansible Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/ansible/",
     "description": "Articles tagged with Ansible. Explore technical guides, tutorials, and insights about Ansible from James Kilby's blog.",
-    "content": "Ansible Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Ansible Ansible | Automation Automating vSphere Power Management driven by Ansible and SemaphoreUI ByJames April 15, 2026April 19, 2026 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introudction One of the larger costs of running my homelab is the electricity…. Ansible | Automation | Docker | Homelab | Traefik | VCF | VMware Automated VCF 9 Offline Depot ByJames April 10, 2026April 16, 2026 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS. Ansible | Homelab Managing my Homelab with SemaphoreUI ByJames September 2, 2025March 10, 2026 An intro on how I use SemaphoreUI to manage my Homelab",
+    "content": "Ansible Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Ansible Ansible | Automation Automating vSphere Power Management driven by Ansible and SemaphoreUI ByJames April 15, 2026April 19, 2026 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introudction One of the larger costs of running my homelab is the electricity…. Ansible | Automation | Docker | Homelab | Traefik | VCF | VMware Automated VCF 9 Offline Depot ByJames April 10, 2026April 16, 2026 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS. Ansible | Homelab Managing my Homelab with SemaphoreUI ByJames September 2, 2025May 24, 2026 An intro on how I use SemaphoreUI to manage my Homelab",
     "categories": [
       "Ansible",
       "Automation",
@@ -2352,7 +2353,7 @@
     "title": "Disk Expand Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/disk-expand/",
     "description": "Articles tagged with Disk Expand. Explore technical guides, tutorials, and insights about Disk Expand from James Kilby's blog.",
-    "content": "Disk Expand Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Disk Expand Ubuntu How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step ByJames December 15, 2025April 16, 2026 How to expand disks from the command line in Ubuntu. This is something I do fairly frequently, and I can never remember the steps.",
+    "content": "Disk Expand Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Disk Expand Ubuntu How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step ByJames December 15, 2025May 24, 2026 How to expand disks from the command line in Ubuntu. This is something I do fairly frequently, and I can never remember the steps.",
     "categories": [
       "Ubuntu"
     ],
@@ -2979,10 +2980,10 @@
     "date": "2026-01-27T22:19:39+00:00"
   },
   {
-    "title": "Homelab AI Infrastructure: Proven 4-Step Ansible & NVIDIA...",
+    "title": "Automating My AI Homelab: Ansible + NVIDIA Passthrough",
     "url": "https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/",
-    "description": "Build a complete homelab AI infrastructure using Ansible to automate Ubuntu with NVIDIA GPU passthrough, Docker, Traefik, and an end-to-end AI stack via Sema...",
-    "content": "Homelab AI Infrastructure: Proven 4-Step Ansible & NVIDIA... Skip to contentJames KilbyJames KilbyToggle MenuAnsible | Artificial Intelligence | Containers | Devops | Homelab | NVIDIA | Traefik | VMwareAutomating the Deployment of my Homelab AI InfrastructureByJamesFebruary 9, 2026April 18, 2026 • 📖17 min read(3,332 words)📅Published: February 09, 2026•Updated: April 18, 2026In a previous post, I wrote about using my VMware lab with an NVIDIA Tesla P4 for running some AI services. This deployment was done with the P4 GPU in passthrough mode where the entire PCI card was presented into the VM. (I will refer to this as GPU mode). I wanted to take this to the next level. I also wanted to automate most of the steps. This was for a few reasons; firstly, I wanted to get better at automation in general.Secondly, I found the setup brittle and wanted to improve the reliability of deployments. This post will be about using automation to deploy the VM infrastructure required to be able to run AI W",
+    "description": "Automate a complete AI homelab build with Ansible: Ubuntu, NVIDIA GPU passthrough, Docker, Traefik, and the full AI stack deployed via Semaphore.",
+    "content": "Automating My AI Homelab: Ansible + NVIDIA Passthrough Skip to content James Kilby James Kilby Toggle Menu Ansible | Artificial Intelligence | Containers | Devops | Homelab | NVIDIA | Traefik | VMware Automating the Deployment of my Homelab AI Infrastructure ByJames February 9, 2026May 24, 2026 • 📖17 min read(3,332 words) 📅Published: February 09, 2026•Updated: May 24, 2026 In a previous post, I wrote about using my VMware lab with an NVIDIA Tesla P4 for running some AI services. This deployment was done with the P4 GPU in passthrough mode where the entire PCI card was presented into the VM. (I will refer to this as GPU mode). I wanted to take this to the next level. I also wanted to automate most of the steps. This was for a few reasons; firstly, I wanted to get better at automation in general. Secondly, I found the setup brittle and wanted to improve the reliability of deployments. This post will be about using automation to deploy the VM infrastructure required to be able to run AI W",
     "categories": [
       "Ansible",
       "Artificial Intelligence",
@@ -2992,11 +2993,12 @@
       "NVIDIA",
       "Traefik",
       "VMware",
-      "Hosting",
-      "Storage",
       "Networking",
-      "VMware Cloud on AWS",
-      "Synology"
+      "Cloudflare",
+      "Github",
+      "Wordpress",
+      "Personal",
+      "vSphere"
     ],
     "tags": [
       "#AI",
@@ -3179,21 +3181,20 @@
     "date": "2025-01-29T23:31:56+00:00"
   },
   {
-    "title": "Managing my Homelab with SemaphoreUI - James Kilby",
+    "title": "Managing My Homelab with SemaphoreUI (Ansible Web UI)",
     "url": "https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/",
-    "description": "I recently stumbled across Semaphore, which is essentially a frontend for managing DevOps tooling, including Ansible, Terraform, OpenTofu, and PowerShell....",
-    "content": "Managing my Homelab with SemaphoreUI - James Kilby Skip to contentJames KilbyJames KilbyToggle MenuAnsible | HomelabManaging my Homelab with SemaphoreUIByJamesSeptember 2, 2025March 10, 2026 • 📖8 min read(1,592 words)📅Published: September 02, 2025•Updated: March 10, 2026I recently stumbled across Semaphore, which is essentially a frontend for managing DevOps tooling, including Ansible, Terraform, OpenTofu, and PowerShell.It’s easy to deploy in Docker, and I am slowly moving more of my homelab management over to it.IntroductionThis is a guide to show you how to get up and running easily with SemaphoreUI in Docker and use it to execute a basic Ansible playbook to deploy Docker onto an Ubuntu Server.Table of ContentsPre-reqsSomewhere to run your Semaphore server. I chose to use a Docker container on one of my existing hosts.Git Repo. I am using GitHub. My code is all stored in a public repo here so others can follow along.SSH Keys/Authentication into the server to be provisioned.Docker Co",
+    "description": "How I use SemaphoreUI as the web frontend for Ansible, Terraform and PowerShell in my homelab. Setup, screenshots, lessons learned in production use.",
+    "content": "Managing My Homelab with SemaphoreUI (Ansible Web UI) Skip to content James Kilby James Kilby Toggle Menu Ansible | Homelab Managing my Homelab with SemaphoreUI ByJames September 2, 2025May 24, 2026 • 📖8 min read(1,592 words) 📅Published: September 02, 2025•Updated: May 24, 2026 I recently stumbled across Semaphore, which is essentially a frontend for managing DevOps tooling, including Ansible, Terraform, OpenTofu, and PowerShell. It’s easy to deploy in Docker, and I am slowly moving more of my homelab management over to it. Introduction This is a guide to show you how to get up and running easily with SemaphoreUI in Docker and use it to execute a basic Ansible playbook to deploy Docker onto an Ubuntu Server. Table of Contents Pre-reqs Somewhere to run your Semaphore server. I chose to use a Docker container on one of my existing hosts. Git Repo. I am using GitHub. My code is all stored in a public repo here so others can follow along. SSH Keys/Authentication into the server to be provi",
     "categories": [
       "Ansible",
       "Homelab",
-      "Veeam",
-      "VMware",
-      "Mikrotik",
-      "Networking",
       "Storage",
-      "Synology",
       "Nutanix",
-      "vSphere"
+      "Synology",
+      "Hosting",
+      "Automation",
+      "VMware",
+      "vExpert"
     ],
     "tags": [
       "#Ansible",
@@ -3300,10 +3301,10 @@
     "date": "2025-12-08T14:03:44+00:00"
   },
   {
-    "title": "How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Ste...",
+    "title": "Expand Ubuntu Disk Space with LVM (pvresize, Step-by-Step)",
     "url": "https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/",
-    "description": "How to expand disks from the command line in Ubuntu. This is something I do fairly frequently, and I can never remember the steps.",
-    "content": "How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Ste... Skip to contentJames KilbyJames KilbyToggle MenuUbuntuHow to Expand Ubuntu Disk Space: LVM pvresize Step-by-StepByJamesDecember 15, 2025April 16, 2026 • 📖1 min read(91 words)📅Published: December 15, 2025•Updated: April 16, 2026How to expand disks from the command line in Ubuntu.This is something I do fairly frequently, and I can never remember the steps. So I decided to write them down.Table of Contents1. Rescan for disk size changessudo tee /sys/class/block/sda/device/rescan2. Extend the physical partition (if needed)sudo growpart /dev/sda 33. Resize the physical volumesudo pvresize /dev/sda34. Extend the logical volume to use all available spacesudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv5. Resize the filesystemsudo resize2fs /dev/ubuntu-vg/ubuntu-lv6. Verify the new sizedf -hConnect with me:GitHubTwitterLinkedInSimilar PostsAnsible | Automation | Docker | Homelab | Traefik | VCF | VMwareAutomated VCF 9 Offline Depot",
+    "description": "Step-by-step Ubuntu disk expansion with LVM: pvresize, vgextend, lvextend, resize2fs. Works after resizing the VM disk in vSphere/Hyper-V/KVM.",
+    "content": "Expand Ubuntu Disk Space with LVM (pvresize, Step-by-Step) Skip to content James Kilby James Kilby Toggle Menu Ubuntu How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step ByJames December 15, 2025May 24, 2026 • 📖1 min read(91 words) 📅Published: December 15, 2025•Updated: May 24, 2026 How to expand disks from the command line in Ubuntu. This is something I do fairly frequently, and I can never remember the steps. So I decided to write them down. Table of Contents 1. Rescan for disk size changes sudo tee /sys/class/block/sda/device/rescan 2. Extend the physical partition (if needed) sudo growpart /dev/sda 3 3. Resize the physical volume sudo pvresize /dev/sda3 4. Extend the logical volume to use all available space sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv 5. Resize the filesystem sudo resize2fs /dev/ubuntu-vg/ubuntu-lv 6. Verify the new size df -h Connect with me:GitHubTwitterLinkedIn Similar Posts Ansible | Automation | Docker | Homelab | Traefik | VCF | VMware Automate",
     "categories": [
       "Ubuntu",
       "Ansible",
