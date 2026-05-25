@@ -179,9 +179,9 @@
     {
       "slug": "multihost-holodeck-vcf",
       "title": "VMware Holodeck Multi-Host VCF: Lab Setup & Configuration",
-      "description": "Disclaimer: This is not a supported configuration by the Holodeck team please don’t reach out to them for help. As of today the only way to run Holodeck and ...",
+      "description": "Set up a multi-host VMware Holodeck lab with full VCF stack, networking and VSAN. Step-by-step config and the unsupported-but-it-works gotchas.",
       "date": "2024-01-17T17:29:38Z",
-      "modified": "2026-04-11T09:00:47Z",
+      "modified": "2026-05-24T07:38:49Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/",
       "markdown_url": "/markdown/posts/multihost-holodeck-vcf.md",
@@ -189,18 +189,16 @@
       "categories": [
         "VMware",
         "VCF",
-        "vSAN",
-        "Homelab",
-        "Nutanix",
-        "Runecast",
-        "TrueNAS Scale",
-        "vSphere",
-        "VMware Cloud on AWS",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
+        "VMware Cloud on AWS",
+        "Homelab",
+        "Storage",
+        "vExpert",
         "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Traefik",
+        "Artificial Intelligence",
+        "NVIDIA"
       ],
       "tags": [
         null,
@@ -209,7 +207,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png",
-      "excerpt": "![Holodeck Overview](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/)\n\n# VMware Holodeck Multi-Host VCF: Lab Setup & Configuration\n\nBy[James](https://jameskilby.co.uk..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/)\n\n# VMware Holodeck Multi-Host VCF: Lab Setup & Configuration\n\nBy[James](https://jameskilby.co.uk) January 17, 202..."
     },
     {
       "slug": "monitoring-vmc-part-1",
@@ -288,7 +286,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Managing my Homelab with SemaphoreUI\n\nBy[James](https://jameskilby.co.uk) September 2, 2025May 24, 2026 • 📖8 min re..."
+      "excerpt": "![Semaphore](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Managing my Homelab with SemaphoreUI\n\nBy[James](https://jameskilby.co.uk)September 2, 2025May 24, 2026 • 📖..."
     },
     {
       "slug": "lab-update-part-5-desired-workloads",

@@ -8,7 +8,7 @@
       "title": "How to Run ZFS on VMware vSphere: Setup Guide and Best Practices",
       "description": "Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the",
       "date": "2024-12-18T17:47:57Z",
-      "modified": "2026-04-16T22:01:43Z",
+      "modified": "2026-05-25T08:24:40Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/12/zfs-on-vmware/",
       "markdown_url": "/markdown/posts/zfs-on-vmware.md",
@@ -18,16 +18,16 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "Homelab",
+        "VMware Cloud on AWS",
+        "Mikrotik",
         "Networking",
-        "Storage",
-        "Personal",
-        "Nutanix",
-        "Ansible",
+        "Artificial Intelligence",
         "Automation",
         "Docker",
+        "Homelab",
+        "NVIDIA",
         "Traefik",
-        "VCF"
+        "Hosting"
       ],
       "tags": [
         null,
@@ -37,7 +37,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/12/IMG_20140330_210511-1024x845.jpeg",
-      "excerpt": "![Zfs](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg)\n\n[TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/) | [vSphere](https://jameskilby.co.uk/category/v..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg)\n\n[TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/) | [vSphere](https://jameskilby.co.uk/category/vsph..."
     }
   ]
 }

@@ -5,7 +5,7 @@
       "title": "How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare",
       "description": "I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.",
       "date": "2025-10-06T15:57:06Z",
-      "modified": "2026-04-16T22:01:41Z",
+      "modified": "2026-05-25T08:06:41Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/",
       "markdown_url": "/markdown/posts/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare.md",
@@ -15,18 +15,18 @@
         "Devops",
         "Github",
         "Wordpress",
-        "Hosting",
-        "Ansible",
         "Artificial Intelligence",
-        "Containers",
+        "Automation",
+        "Docker",
         "Homelab",
         "NVIDIA",
         "Traefik",
         "VMware",
+        "Hosting",
+        "Ansible",
+        "VCF",
         "Personal",
-        "Automation",
-        "Docker",
-        "VCF"
+        "Containers"
       ],
       "tags": [
         null,
@@ -37,7 +37,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp",
-      "excerpt": "![Github Actions](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/c..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpr..."
     },
     {
       "slug": "homelab-storage-refresh-part-1",
@@ -110,9 +110,9 @@
     {
       "slug": "home-network-upgrade",
       "title": "Home Network Upgrade to 25Gb/s with MikroTik Switching",
-      "description": "I have recently moved over to Mikrotik Switching for all of my Home environment as part of my home network upgrade. What started life as a move away from gig...",
+      "description": "How I rebuilt my home network around MikroTik CRS504 25Gb/s switching, DACs, optics, and the gotchas I hit going beyond 10Gb at home.",
       "date": "2024-09-09T08:25:08Z",
-      "modified": "2026-04-11T09:00:47Z",
+      "modified": "2026-05-24T07:31:36Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/09/home-network-upgrade/",
       "markdown_url": "/markdown/posts/home-network-upgrade.md",
@@ -120,15 +120,19 @@
       "categories": [
         "Mikrotik",
         "Networking",
+        "Ansible",
         "Homelab",
-        "Storage",
+        "Hosting",
         "VMware",
         "Artificial Intelligence",
+        "Automation",
         "Docker",
-        "Nutanix",
-        "Hosting",
-        "Kubernetes",
-        "TrueNAS Scale"
+        "NVIDIA",
+        "Traefik",
+        "Storage",
+        "Synology",
+        "Containers",
+        "Devops"
       ],
       "tags": [
         null,
@@ -136,7 +140,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg",
-      "excerpt": "![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg)\n\n[Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Home Network Upgrade to 25Gb/s with MikroTik Switching\n\nBy[James](https://jameskilby.co.uk)September 9..."
+      "excerpt": "![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg)\n\n[Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Home Network Upgrade to 25Gb/s with MikroTik Switching\n\nBy[James](https://jameskilby.co.uk) September ..."
     },
     {
       "slug": "holodeck-cpu-fixes",

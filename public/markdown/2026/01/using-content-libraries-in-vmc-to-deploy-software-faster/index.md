@@ -1,18 +1,17 @@
 ---
 title: "Using Content Libraries in VMC to deploy software faster"
-description: "As part of my role spinning up new SDDC’s to test things is quite a common occurrence. This is both a blessing and a curse. The new SDDC is 100% Vanilla and ..."
+description: "Using VMware Cloud on AWS Content Libraries to deploy ISOs and OVAs to new SDDCs in minutes instead of hours. Setup, layout, and a working example."
 date: 2026-01-27T22:19:39+00:00
-modified: 2026-03-12T21:52:11+00:00
+modified: 2026-05-25T08:44:12+00:00
 author: James Kilby
 categories:
   - VMware
   - VMware Cloud on AWS
-  - Personal
   - Homelab
-  - Veeam
-  - Ansible
-  - Automation
-  - vSAN
+  - vSphere
+  - Runecast
+  - Personal
+  - VCF
 tags:
   - #Content Library
   - #VMC
@@ -22,15 +21,15 @@ url: https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-s
 image: https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash.png
 ---
 
-![Firefly Gemini Flash](https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash.png)
+![](https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash.png)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
 # Using Content Libraries in VMC to deploy software faster
 
-By[James](https://jameskilby.co.uk)January 27, 2026March 12, 2026 • 📖5 min read(975 words)
+By[James](https://jameskilby.co.uk) January 27, 2026May 25, 2026 • 📖5 min read(975 words)
 
-📅 **Published:** January 27, 2026• **Updated:** March 12, 2026
+📅 **Published:** January 27, 2026• **Updated:** May 25, 2026
 
 As part of my role spinning up new SDDC’s to test things is quite a common occurrence. This is both a blessing and a curse. The new SDDC is 100% Vanilla and perfectly self contained. Therefore you can do the testing required, knowing that you won’t impact anything else and you’re not inheriting a legacy setting from previous testing.
 
@@ -42,12 +41,12 @@ William Lam has previously [written ](https://williamlam.com/2018/07/creating-a-
 
 ## Prerequisites
 
-  *  **On-premises vCenter** — a local vCenter instance to act as the publishing source. Any version supporting Content Library publish/subscribe (vSphere 6.0+) will work.
-  *  **VMware Cloud on AWS SDDC** — the destination environment. The subscribing Content Library is created here.
-  *  **Network connectivity between source and destination** — on-premises vCenter must be able to reach the VMC management network over HTTPS (TCP 443). Typically achieved via a Direct Connect or VPN connection to the VMC Management CIDR.
-  *  **Firewall rules** — outbound TCP 443 from on-prem vCenter to the VMC vCenter IP, and the reverse for subscription synchronisation. Check your NSX gateway firewall in the VMC SDDC.
-  *  **Storage capacity in VMC** — the Content Library occupies space on the VMC datastore. Factor in the size of your ISOs and OVF templates before enabling immediate sync.
-  *  **vCenter credentials** — a user account with the _Content Library > Create local library_ and _Content Library > Create subscribed library_ privileges on both vCenter instances.
+  * **On-premises vCenter** — a local vCenter instance to act as the publishing source. Any version supporting Content Library publish/subscribe (vSphere 6.0+) will work.
+  * **VMware Cloud on AWS SDDC** — the destination environment. The subscribing Content Library is created here.
+  * **Network connectivity between source and destination** — on-premises vCenter must be able to reach the VMC management network over HTTPS (TCP 443). Typically achieved via a Direct Connect or VPN connection to the VMC Management CIDR.
+  * **Firewall rules** — outbound TCP 443 from on-prem vCenter to the VMC vCenter IP, and the reverse for subscription synchronisation. Check your NSX gateway firewall in the VMC SDDC.
+  * **Storage capacity in VMC** — the Content Library occupies space on the VMC datastore. Factor in the size of your ISOs and OVF templates before enabling immediate sync.
+  * **vCenter credentials** — a user account with the _Content Library > Create local library_ and _Content Library > Create subscribed library_ privileges on both vCenter instances.
 
 ## Introduction
 
@@ -105,7 +104,7 @@ We need to repeat the procedure in VMC however now we need to create a Subscribe
 
 ## Download content option
 
-There are two options for how you want the Subscribed Content Library to behave on first connection/new content. The first is to synchronise the content as soon as possible. This is what I use. However if you have a large catalogue and not all items are required in the VMC vCentre an option to save storage would be to only download content on demand. The downside to this option is that deployed would take longer, waiting for the item to synchronise before it can be used. 
+There are two options for how you want the Subscribed Content Library to behave on first connection/new content. The first is to synchronise the content as soon as possible. This is what I use. However if you have a large catalogue and not all items are required in the VMC vCentre an option to save storage would be to only download content on demand. The downside to this option is that deployment would take longer, waiting for the item to synchronise before it can be used. 
 
 ## Conclusion
 
@@ -123,60 +122,62 @@ If you’re already using Content Libraries on-premises, adding VMC as a subscri
 
 ## Similar Posts
 
-  * [![VMware Cloud on AWS \(VMC\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-768x395.png)](https://jameskilby.co.uk/2020/07/i3en/)
+  * [ ![Forcing an Upgrade to vSphere 8](https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.45.23.png) ](https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/)
 
-[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
 
-### [VMware Cloud on AWS i3en Host: Specs, Storage & Performance](https://jameskilby.co.uk/2020/07/i3en/)
+### [Forcing an Upgrade to vSphere 8](https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/)
 
-By[James](https://jameskilby.co.uk)July 2, 2020April 16, 2026
+By[James](https://jameskilby.co.uk) December 14, 2022April 16, 2026
 
-VMware Cloud on AWS (VMC) has introduced a new host to its lineup the “i3en”. This is based on the i3en.
+I run a reasonably extensive homelab that is of course built around the VMware ecosystem.
 
-  * [![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
-
-[Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
-
-By[James](https://jameskilby.co.uk)September 13, 2020April 16, 2026
-
-I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.
-
-  * [![VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png)](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
+  * [ ![VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png) ](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
 
 [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
 ### [VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
 
-By[James](https://jameskilby.co.uk)December 8, 2025April 11, 2026
+By[James](https://jameskilby.co.uk) December 8, 2025April 11, 2026
 
 How to use the Amazon Time Sync Service in a VMC environment
 
-  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+  * [ ![Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png) ](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
 
-### [Lab Update – Desired Workloads](https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/)
+[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-By[James](https://jameskilby.co.uk)January 6, 2022April 16, 2026
+### [Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
 
-My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.
+By[James](https://jameskilby.co.uk) May 16, 2023April 16, 2026
 
-  * [![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png)](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
+I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.
 
-[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)
+  * [ ![VMware Cloud on AWS \(VMC\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-768x395.png) ](https://jameskilby.co.uk/2020/07/i3en/)
 
-### [Automating vSphere Power Management driven by Ansible and SemaphoreUI](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
-By[James](https://jameskilby.co.uk)April 15, 2026April 19, 2026
+### [VMware Cloud on AWS i3en Host: Specs, Storage & Performance](https://jameskilby.co.uk/2020/07/i3en/)
 
-In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introudction One of the larger costs of running my homelab is the electricity….
+By[James](https://jameskilby.co.uk) July 2, 2020April 16, 2026
 
-  * [![vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
+VMware Cloud on AWS (VMC) has introduced a new host to its lineup the “i3en”. This is based on the i3en.
 
-[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
+  * [ ![Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png) ](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
-### [vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
 
-By[James](https://jameskilby.co.uk)November 17, 2023April 11, 2026
+### [Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
-An Overview of vSAN ESA in VMC
+By[James](https://jameskilby.co.uk) November 10, 2023May 25, 2026
+
+Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal.
+
+  * [ ![VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png) ](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
+
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/)
+
+### [VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
+
+By[James](https://jameskilby.co.uk) January 17, 2024May 24, 2026
+
+How to Deploy VMware Holodeck on multiple hosts

@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://jameskilby.co.uk/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png</image:loc>
@@ -123,7 +123,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2020/09/vmc-host-errors/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2020-08-27-at-16.56.37-1536x182-2-1024x121.png</image:loc>
@@ -273,7 +273,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2022/01/web-development/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2021-12-19-at-19.30.43-2048x751-1-1024x376.png</image:loc>
@@ -503,12 +503,12 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/11/Screenshot-2023-11-10-at-16.42.39-1024x527.png</image:loc>
@@ -558,7 +558,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/10/Introducing-ESA-Figure01-1024x422.png</image:loc>
@@ -583,7 +583,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-05-24</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/01/IMG_5286-1-1024x996.jpeg</image:loc>
@@ -613,7 +613,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2024/07/new-nodes/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/04/Screenshot-2024-04-06-at-22.50.57.png</image:loc>
@@ -683,7 +683,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2024/09/home-network-upgrade/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-05-24</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/01/Home-Net-overview-1024x633.png</image:loc>
@@ -713,7 +713,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2024/12/zfs-on-vmware/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/IMG_20140330_210511-1024x845.jpeg</image:loc>
@@ -798,7 +798,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/08/vmc-host-deepdive/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -848,7 +848,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/10/Wordpress-Authoring-2-1024x677.png</image:loc>
@@ -873,7 +873,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/</loc>
-    <lastmod>2026-03-10</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/vSphere-Overview-1024x530.png</image:loc>
@@ -903,7 +903,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/</loc>
-    <lastmod>2026-03-12</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/ContentLibraryFlow-1024x358.png</image:loc>
@@ -948,7 +948,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2026/01/web-development-improvements/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/10/Wordpress-Authoring-2-1024x677.png</image:loc>
@@ -1168,7 +1168,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/404/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-25</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/about-me/</loc>
@@ -1206,7 +1206,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/cloudflare/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
@@ -1221,7 +1221,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/devops/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
@@ -1231,17 +1231,17 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/github/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/homelab/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/hosting/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
@@ -1251,7 +1251,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/mikrotik/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-05-24</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
@@ -1261,12 +1261,12 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/networking/</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-24</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/nutanix/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
@@ -1276,7 +1276,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/personal/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
@@ -1301,7 +1301,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/truenas-scale/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
@@ -1321,37 +1321,37 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/vmware/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/vmware/vcf/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-24</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/vmware/vsan-vmware/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/vsphere/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/wordpress/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/changelog/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-25</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/evs/</loc>
@@ -1359,7 +1359,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/feed/</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-24</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/homelab-software/</loc>
@@ -1385,23 +1385,23 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/2/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-25</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/3/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-25</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/4/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-25</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/5/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-25</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/6/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-25</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/privacy-policy-2/</loc>
@@ -1409,7 +1409,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/stats/</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-25</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/vmc/</loc>

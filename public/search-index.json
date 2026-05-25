@@ -12,7 +12,7 @@
     "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions.",
     "url": "https://jameskilby.co.uk/",
     "description": "Expert guides on VMware vSphere, homelab infrastructure, AI setup, and cloud computing. Real-world technical tutorials by a VMware vExpert.",
-    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu VMWARE VEXPERT · HOMELAB · INFRASTRUCTURE-AS-CODEField notes from a homelab that costsreal money to run.jameskilby@blog ~ % cat blog.stats liveposts.count.............72words.total............46klast_post..........38d agocategories..............34tags...................125vexpert.years...........11deploys.month...........37last_deploy.........1d agolighthouse..........95/100$_FILTERAllVMwareHomelabAutomationAI Ansible | Automation Automating vSphere Power Management driven by Ansible and SemaphoreUI ByJames April 15, 2026April 19, 2026 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced p",
+    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu VMWARE VEXPERT · HOMELAB · INFRASTRUCTURE-AS-CODEField notes from a homelab that costsreal money to run.jameskilby@blog ~ % cat blog.stats liveposts.count.............72words.total............46klast_post..........39d agocategories..............34tags...................125vexpert.years...........11deploys.month...........38last_deploy.........1d agolighthouse..........95/100$_FILTERAllVMwareHomelabAutomationAI Ansible | Automation Automating vSphere Power Management driven by Ansible and SemaphoreUI ByJames April 15, 2026April 19, 2026 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced p",
     "categories": [
       "VMware",
       "Homelab",
@@ -87,7 +87,7 @@
     "title": "Site Statistics - James Kilby",
     "url": "https://jameskilby.co.uk/stats/",
     "description": "Public statistics and metrics for James Kilby's technical blog including performance scores, traffic data, and build information.",
-    "content": "Site Statistics - James Kilby ← Back to Home 📊 Site Statistics Public metrics, performance scores, and analytics for jameskilby.co.uk 📄 182 Total Pages 📝 72 Blog Posts 🖼️ 3214 Images 💾 176.37 Total Size (MB) 🚀 769 Deployments 📅 39 Updates This Month 🚀 Lighthouse Performance Scores Latest scores from 2026-05-23 deployment 95 Performance 95 Accessibility 100 Best Practices 100 SEO 📈 Performance Tracking: Scores are automatically measured on every deployment and stored in the changelog history. 🎯 Target: Maintaining 90+ scores across all categories for optimal user experience. 🔧 Build Metrics Metric Value Notes Total HTML Pages 182 All generated pages including posts, archives, and pages Blog Posts 72 Articles in dated directories (YYYY/MM/slug) Total Images 3214 Optimized images (PNG, JPG, WebP, SVG) Total Site Size 176.37 MB All files in public directory Average Page Size 0.97 KB Total size / number of pages Images per Post 44.6 Average images per blog post Last Deployment 2026-05-23 11",
+    "content": "Site Statistics - James Kilby ← Back to Home 📊 Site Statistics Public metrics, performance scores, and analytics for jameskilby.co.uk 📄 182 Total Pages 📝 72 Blog Posts 🖼️ 3214 Images 💾 176.35 Total Size (MB) 🚀 770 Deployments 📅 40 Updates This Month 🚀 Lighthouse Performance Scores Latest scores from 2026-05-24 deployment 95 Performance 95 Accessibility 100 Best Practices 100 SEO 📈 Performance Tracking: Scores are automatically measured on every deployment and stored in the changelog history. 🎯 Target: Maintaining 90+ scores across all categories for optimal user experience. 🔧 Build Metrics Metric Value Notes Total HTML Pages 182 All generated pages including posts, archives, and pages Blog Posts 72 Articles in dated directories (YYYY/MM/slug) Total Images 3214 Optimized images (PNG, JPG, WebP, SVG) Total Site Size 176.35 MB All files in public directory Average Page Size 0.97 KB Total size / number of pages Images per Post 44.6 Average images per blog post Last Deployment 2026-05-23 20",
     "categories": [],
     "tags": [],
     "date": ""
@@ -107,7 +107,7 @@
     "title": "Changelog - James Kilby",
     "url": "https://jameskilby.co.uk/changelog/",
     "description": "Site improvements, deployments, and performance metrics for James Kilby's technical blog.",
-    "content": "Changelog - James Kilby ← Back to Home 📋 Changelog Site improvements, deployments, and performance metrics Total Deployments 769 Git commits Repository Age 232 Days active Contributors 3 Active contributors Last Deployment 2026-05-23 11:29:07 🚀 Lighthouse Performance Scores Last checked: Estimated 95 Performance 95 Accessibility 100 Best Practices 100 SEO Recent Changes 2026-05-15 2183c69Improvement Repo Cleanup 2026-05-08 3072236Feature Update Generate to add quality checks 2026-05-08 c658884Improvement Update Quality Checks 2026-05-08 dab649fOther Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog 2026-05-08 9dcfce7Improvement update quality check URL 2026-05-06 50f9025Other Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog 2026-05-06 e856596Other Tweaked the cache mechanisms 2026-05-06 93ff447Improvement Theme Updates 2026-05-06 3f49588Other Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog 2026-05-06 02279bbOther Tidy Up 2026-05-06 ",
+    "content": "Changelog - James Kilby ← Back to Home 📋 Changelog Site improvements, deployments, and performance metrics Total Deployments 770 Git commits Repository Age 233 Days active Contributors 3 Active contributors Last Deployment 2026-05-23 20:04:49 🚀 Lighthouse Performance Scores Last checked: Estimated 95 Performance 95 Accessibility 100 Best Practices 100 SEO Recent Changes 2026-05-15 2183c69Improvement Repo Cleanup 2026-05-08 3072236Feature Update Generate to add quality checks 2026-05-08 c658884Improvement Update Quality Checks 2026-05-08 dab649fOther Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog 2026-05-08 9dcfce7Improvement update quality check URL 2026-05-06 50f9025Other Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog 2026-05-06 e856596Other Tweaked the cache mechanisms 2026-05-06 93ff447Improvement Theme Updates 2026-05-06 3f49588Other Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog 2026-05-06 02279bbOther Tidy Up 2026-05-06 ",
     "categories": [],
     "tags": [],
     "date": ""
@@ -131,19 +131,20 @@
     "date": ""
   },
   {
-    "title": "New Homelab Nodes: SuperMicro BigTwin for VMware & Nutani...",
+    "title": "New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix - James Kilby",
     "url": "https://jameskilby.co.uk/2024/07/new-nodes/",
     "description": "I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExper",
-    "content": "New Homelab Nodes: SuperMicro BigTwin for VMware & Nutani... Skip to contentJames KilbyJames KilbyToggle MenuHomelab | Nutanix | VMwareNew Homelab Nodes: SuperMicro BigTwin for VMware & NutanixByJamesJuly 2, 2024April 16, 2026 • 📖7 min read(1,482 words)📅Published: July 02, 2024•Updated: April 16, 2026I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul. The below post describes what I bought why and how I have configured it.Table of ContentsNode ChoiceI have been very happy with the Supermicro Twin concept having run this for a few years. So I decided I would stick with it/ For anyone not familiar you get upto 4 compute nodes running in a 2U setup. It’s a very dense format and as a number of components are shared I believe it’s very power efficient. Looking at the available nodes on eBay and second hand marketplaces I spotted several Nutanix nodes at a decent price. I ended up b",
+    "content": "New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix - James Kilby Skip to content James Kilby James Kilby Toggle Menu Homelab | Nutanix | VMware New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix ByJames July 2, 2024May 25, 2026 • 📖7 min read(1,482 words) 📅Published: July 02, 2024•Updated: May 25, 2026 I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul. The below post describes what I bought why and how I have configured it. Table of Contents Node Choice I have been very happy with the Supermicro Twin concept having run this for a few years. So I decided I would stick with it. For anyone not familiar you get upto 4 compute nodes running in a 2U setup. It’s a very dense format and as a number of components are shared I believe it’s very power efficient. Looking at the available nodes on eBay and second hand marketplaces I spotted several Nutanix nodes at a decent",
     "categories": [
       "Homelab",
       "Nutanix",
       "VMware",
       "VMware Cloud on AWS",
-      "vSAN",
-      "Ansible",
-      "Artificial Intelligence",
-      "VCF"
+      "Docker",
+      "Hosting",
+      "Kubernetes",
+      "Runecast",
+      "Automation"
     ],
     "tags": [
       "#Homelab",
@@ -176,25 +177,23 @@
     "date": "2024-01-18T14:37:04+00:00"
   },
   {
-    "title": "VMware Holodeck Multi-Host VCF: Lab Setup & Configuration...",
+    "title": "VMware Holodeck Multi-Host VCF: Lab Setup Guide",
     "url": "https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/",
-    "description": "Disclaimer: This is not a supported configuration by the Holodeck team please don’t reach out to them for help. As of today the only way to run Holodeck and ...",
-    "content": "VMware Holodeck Multi-Host VCF: Lab Setup & Configuration... Skip to contentJames KilbyJames KilbyToggle MenuVMware | VCFVMware Holodeck Multi-Host VCF: Lab Setup & ConfigurationByJamesJanuary 17, 2024April 11, 2026 • 📖4 min read(891 words)📅Published: January 17, 2024•Updated: April 11, 2026Disclaimer: This is not a supported configuration by the Holodeck team please don’t reach out to them for help. As of today the only way to run Holodeck and receive support is to do it on a single compute node.Table of ContentsThe VCF Holodeck toolkit is an excellent tool for learning not just VCF but a lot of technology that can be run on top of it. e.g. HCX, Tanzu vRA etc. Several guides have been written to assist with that.However, the downside is that you need a single large fast vSphere host to run it on. The minimum specs are listed below for a few different configuration options. This shouldn’t be a challenge for a company or partner to provide but as a homelab enthusiast, this was always go",
+    "description": "Set up a multi-host VMware Holodeck lab with full VCF stack, networking and VSAN. Step-by-step config and the unsupported-but-it-works gotchas.",
+    "content": "VMware Holodeck Multi-Host VCF: Lab Setup Guide Skip to content James Kilby James Kilby Toggle Menu VMware | VCF VMware Holodeck Multi-Host VCF: Lab Setup & Configuration ByJames January 17, 2024May 24, 2026 • 📖4 min read(891 words) 📅Published: January 17, 2024•Updated: May 24, 2026 Disclaimer: This is not a supported configuration by the Holodeck team please don’t reach out to them for help. As of today the only way to run Holodeck and receive support is to do it on a single compute node. Table of Contents The VCF Holodeck toolkit is an excellent tool for learning not just VCF but a lot of technology that can be run on top of it. e.g. HCX, Tanzu vRA etc. Several guides have been written to assist with that. However, the downside is that you need a single large fast vSphere host to run it on. The minimum specs are listed below for a few different configuration options. This shouldn’t be a challenge for a company or partner to provide but as a homelab enthusiast, this was always going t",
     "categories": [
       "VMware",
       "VCF",
-      "vSAN",
-      "Homelab",
-      "Nutanix",
-      "Runecast",
-      "TrueNAS Scale",
-      "vSphere",
-      "VMware Cloud on AWS",
-      "Artificial Intelligence",
+      "Ansible",
       "Automation",
+      "VMware Cloud on AWS",
+      "Homelab",
+      "Storage",
+      "vExpert",
       "Docker",
-      "NVIDIA",
-      "Traefik"
+      "Traefik",
+      "Artificial Intelligence",
+      "NVIDIA"
     ],
     "tags": [
       "#Holodeck",
@@ -205,22 +204,26 @@
     "date": "2024-01-17T17:29:38+00:00"
   },
   {
-    "title": "Home Network Upgrade to 25Gb/s with MikroTik Switching - ...",
+    "title": "Home Network Upgrade: 25Gb/s with MikroTik Switching",
     "url": "https://jameskilby.co.uk/2024/09/home-network-upgrade/",
-    "description": "I have recently moved over to Mikrotik Switching for all of my Home environment as part of my home network upgrade. What started life as a move away from gig...",
-    "content": "Home Network Upgrade to 25Gb/s with MikroTik Switching - ... Skip to contentJames KilbyJames KilbyToggle MenuMikrotik | NetworkingHome Network Upgrade to 25Gb/s with MikroTik SwitchingByJamesSeptember 9, 2024April 11, 2026 • 📖2 min read(454 words)📅Published: September 09, 2024•Updated: April 11, 2026I have recently moved over to Mikrotik Switching for all of my Home environment as part of my home network upgrade. What started life as a move away from gigabit networking had some serious scope creep. As I needed new switches, network adaptors and cabling I evaluated the obvious choice of just upgrading to 10Gb/s. However, when looking at the price comparison to upgrade to 25Gb/s I felt the cost uplift was justified and certainly better future-proofed. This became the baseline for the majority of my server workloads. The Access switch layer has basically stayed gigabit but with 10Gb/s uplinks.Table of ContentsThe decision to go to Mikrotik was predominantly based on the huge performance a",
+    "description": "How I rebuilt my home network around MikroTik CRS504 25Gb/s switching, DACs, optics, and the gotchas I hit going beyond 10Gb at home.",
+    "content": "Home Network Upgrade: 25Gb/s with MikroTik Switching Skip to content James Kilby James Kilby Toggle Menu Mikrotik | Networking Home Network Upgrade to 25Gb/s with MikroTik Switching ByJames September 9, 2024May 24, 2026 • 📖2 min read(454 words) 📅Published: September 09, 2024•Updated: May 24, 2026 I have recently moved over to Mikrotik Switching for all of my Home environment as part of my home network upgrade. What started life as a move away from gigabit networking had some serious scope creep. As I needed new switches, network adaptors and cabling I evaluated the obvious choice of just upgrading to 10Gb/s. However, when looking at the price comparison to upgrade to 25Gb/s I felt the cost uplift was justified and certainly better future-proofed. This became the baseline for the majority of my server workloads. The Access switch layer has basically stayed gigabit but with 10Gb/s uplinks. Table of Contents The decision to go to Mikrotik was predominantly based on the huge performance av",
     "categories": [
       "Mikrotik",
       "Networking",
+      "Ansible",
       "Homelab",
-      "Storage",
+      "Hosting",
       "VMware",
       "Artificial Intelligence",
+      "Automation",
       "Docker",
-      "Nutanix",
-      "Hosting",
-      "Kubernetes",
-      "TrueNAS Scale"
+      "NVIDIA",
+      "Traefik",
+      "Storage",
+      "Synology",
+      "Containers",
+      "Devops"
     ],
     "tags": [
       "#Homelab",
@@ -299,25 +302,25 @@
     "date": "2024-06-26T10:50:17+00:00"
   },
   {
-    "title": "How to Run ZFS on VMware vSphere: Setup Guide and Best Pr...",
+    "title": "How to Run ZFS on VMware vSphere: Setup Guide and Best Practices - James Kilby",
     "url": "https://jameskilby.co.uk/2024/12/zfs-on-vmware/",
     "description": "Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the",
-    "content": "How to Run ZFS on VMware vSphere: Setup Guide and Best Pr... Skip to contentJames KilbyJames KilbyToggle MenuTrueNAS Scale | VMware | vSAN | vSphereHow to Run ZFS on VMware vSphere: Setup Guide and Best PracticesByJamesDecember 18, 2024April 16, 2026 • 📖3 min read(544 words)📅Published: December 18, 2024•Updated: April 16, 2026Table of ContentsIntroductionI have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the way back in 2010. The image below command is my lab at the time with an IBM head unit that I think had 18GB of RAM 6x450GB SAS drives and this was then connected to the Dell PowerVault SCSI Array above it with 14x146GB 10K SAS drives….Original Nexenta SetupThe number one rule is to ALWAYS give ZFS access to the underlying raw storage. You don’t want a raid controller or anything else interfering with the IO path. This is similar to how vSAN works with VMware.But rules are meant to be broken right….. I have virtualized a few copies of T",
+    "content": "How to Run ZFS on VMware vSphere: Setup Guide and Best Practices - James Kilby Skip to content James Kilby James Kilby Toggle Menu TrueNAS Scale | VMware | vSAN | vSphere How to Run ZFS on VMware vSphere: Setup Guide and Best Practices ByJames December 18, 2024May 25, 2026 • 📖3 min read(544 words) 📅Published: December 18, 2024•Updated: May 25, 2026 Table of Contents Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the way back in 2010. The image below command is my lab at the time with an IBM head unit that I think had 18GB of RAM 6x450GB SAS drives and this was then connected to the Dell PowerVault SCSI Array above it with 14x146GB 10K SAS drives…. Original Nexenta Setup The number one rule is to ALWAYS give ZFS access to the underlying raw storage. You don’t want a raid controller or anything else interfering with the IO path. This is similar to how vSAN works with VMware. But rules are meant to be broken right….. I have v",
     "categories": [
       "TrueNAS Scale",
       "VMware",
       "vSAN",
       "vSphere",
-      "Homelab",
+      "VMware Cloud on AWS",
+      "Mikrotik",
       "Networking",
-      "Storage",
-      "Personal",
-      "Nutanix",
-      "Ansible",
+      "Artificial Intelligence",
       "Automation",
       "Docker",
+      "Homelab",
+      "NVIDIA",
       "Traefik",
-      "VCF"
+      "Hosting"
     ],
     "tags": [
       "#Homelab",
@@ -352,25 +355,24 @@
     "date": "2023-11-13T14:34:17+00:00"
   },
   {
-    "title": "vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24 ...",
+    "title": "vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24 - James Kilby",
     "url": "https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/",
     "description": "vSAN ESA - Benefits Performance benefits Efficiency benefits Resilience Benefits Sizing vSAN Express Storage Architecture (ESA) was announced at VMware Exp",
-    "content": "vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24 ... Skip to contentJames KilbyJames KilbyToggle MenuVMware | VMware Cloud on AWS | vSANvSAN ESA in VMware Cloud on AWS: What Changed in VMC M24ByJamesNovember 17, 2023April 11, 2026 • 📖4 min read(851 words)📅Published: November 17, 2023•Updated: April 11, 2026Table of ContentsvSAN Express Storage Architecture (ESA) was announced at VMware Explore last year (2022) and while it’s been available for our on-premise customers for nearly a year it hasn’t been available in VMC until now…. With the release of the M24 version of VMC. It is now an option for newly provisioned SDDC’sSo why is this such an important change? to answer that we need a history lesson on vSANvSAN first came to market in 2014, and the typical hardware of the day from a storage perspective was dominated by spindles. Flash had arrived on the scene but was VERY expensive and datacenter networking was in the transition from 1Gb/s to 10Gb/s. As a result of this and othe",
+    "content": "vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24 - James Kilby Skip to content James Kilby James Kilby Toggle Menu VMware | VMware Cloud on AWS | vSAN vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24 ByJames November 17, 2023May 25, 2026 • 📖4 min read(851 words) 📅Published: November 17, 2023•Updated: May 25, 2026 Table of Contents vSAN Express Storage Architecture (ESA) was announced at VMware Explore last year (2022) and while it’s been available for our on-premise customers for nearly a year it hasn’t been available in VMC until now…. With the release of the M24 version of VMC, it is now an option for newly provisioned SDDC’s So why is this such an important change? to answer that we need a history lesson on vSAN vSAN first came to market in 2014, and the typical hardware of the day from a storage perspective was dominated by spindles. Flash had arrived on the scene but was VERY expensive and datacenter networking was in the transition from 1Gb/s to 10Gb/s. As a resul",
     "categories": [
       "VMware",
       "VMware Cloud on AWS",
       "vSAN",
-      "Homelab",
-      "Storage",
-      "Synology",
-      "Networking",
+      "Ansible",
       "Artificial Intelligence",
-      "Automation",
-      "Docker",
+      "Containers",
+      "Devops",
+      "Homelab",
       "NVIDIA",
       "Traefik",
-      "TrueNAS Scale",
-      "vSphere"
+      "vSphere",
+      "Nutanix",
+      "TrueNAS Scale"
     ],
     "tags": [
       "#Storage",
@@ -383,23 +385,20 @@
   {
     "title": "Advanced Deploy VMware vSphere 7.x 3V0-22.21N - James Kilby",
     "url": "https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/",
-    "description": "Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover dea...",
-    "content": "Advanced Deploy VMware vSphere 7.x 3V0-22.21N - James Kilby Skip to contentJames KilbyJames KilbyToggle MenuVMware | Personal | vSphereAdvanced Deploy VMware vSphere 7.x 3V0-22.21NByJamesNovember 10, 2023April 16, 2026 • 📖1 min read(140 words)📅Published: November 10, 2023•Updated: April 16, 2026 Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal. I had some downtime and decided to use one of the three exam vouchers VMware give me each year. This upgrades me to a a VMware Certified Advanced Professional.The VCAP Deploy exams are lab based and use a similar infrastructure to the hands on labs. In my experience the whole setup was quite slick. If you know your way around vSphere pretty comprehensively or have done the appropriate studying then I think it was a fair assessment. The blueprint covers everything you need. So whats stopping you…I have now scheduled the VCAP-Design exam a",
+    "description": "Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years.",
+    "content": "Advanced Deploy VMware vSphere 7.x 3V0-22.21N - James Kilby Skip to content James Kilby James Kilby Toggle Menu VMware | Personal | vSphere Advanced Deploy VMware vSphere 7.x 3V0-22.21N ByJames November 10, 2023May 25, 2026 • 📖1 min read(140 words) 📅Published: November 10, 2023•Updated: May 25, 2026 Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal. I had some downtime and decided to use one of the three exam vouchers VMware give me each year. This upgrades me to a a VMware Certified Advanced Professional. The VCAP Deploy exams are lab based and use a similar infrastructure to the hands on labs. In my experience the whole setup was quite slick. If you know your way around vSphere pretty comprehensively or have done the appropriate studying then I think it was a fair assessment. The blueprint covers everything you need. So what’s stopping you… I have now scheduled the VCAP-Design",
     "categories": [
       "VMware",
       "Personal",
       "vSphere",
-      "Artificial Intelligence",
-      "Automation",
-      "Docker",
-      "Homelab",
-      "NVIDIA",
-      "Traefik",
-      "Networking",
-      "Storage",
       "VMware Cloud on AWS",
-      "Veeam",
-      "AWS"
+      "Automation",
+      "Homelab",
+      "Ansible",
+      "Docker",
+      "Traefik",
+      "VCF",
+      "vSAN"
     ],
     "tags": [
       "#Certification",
@@ -431,25 +430,22 @@
   {
     "title": "Analytics in a privacy focused world - James Kilby",
     "url": "https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/",
-    "description": "I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance...",
-    "content": "Analytics in a privacy focused world - James Kilby Skip to contentJames KilbyJames KilbyToggle MenuHosting | PersonalAnalytics in a privacy focused worldByJamesNovember 10, 2023April 16, 2026 • 📖1 min read(254 words)📅Published: November 10, 2023•Updated: April 16, 2026I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance. He has been a pretty prolific blogger over the years pumping out an amazing amount of really good content. It also highlighted to me that I didn’t know if anyone was reading my blog as i removed Google Analytics years ago over privacy concerns. I had seen from Myles’s blog that he had done something similar as part of his blog revamp. Myles was using Plausible and seeing as they had a self hosted version of this I decided to give it a whirl.Install Luckily for me Truecharts has a prebuilt plausible container so i fired that up and set an ingress entry of plausible.j",
+    "description": "I recently helped my friend Dean Lewis @veducate with some hosting issues.",
+    "content": "Analytics in a privacy focused world - James Kilby Skip to content James Kilby James Kilby Toggle Menu Hosting | Personal Analytics in a privacy focused world ByJames November 10, 2023May 25, 2026 • 📖1 min read(254 words) 📅Published: November 10, 2023•Updated: May 25, 2026 I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance. He has been a pretty prolific blogger over the years pumping out an amazing amount of really good content. It also highlighted to me that I didn’t know if anyone was reading my blog as I removed Google Analytics years ago over privacy concerns. I had seen from Myles’s blog that he had done something similar as part of his blog revamp. Myles was using Plausible and seeing as they had a self hosted version of this I decided to give it a whirl. Install Luckily for me Truecharts has a prebuilt plausible container so I fired that up and set an ingress entry of plaus",
     "categories": [
       "Hosting",
       "Personal",
       "VMware",
-      "Artificial Intelligence",
+      "Homelab",
+      "Ansible",
+      "Automation",
       "Docker",
-      "Nutanix",
-      "vSphere",
+      "Traefik",
+      "VCF",
       "Cloudflare",
       "Devops",
       "Github",
-      "Wordpress",
-      "Ansible",
-      "Automation",
-      "Homelab",
-      "Traefik",
-      "VCF"
+      "Wordpress"
     ],
     "tags": [
       "#Analytics",
@@ -489,7 +485,7 @@
     "title": "Nvidia Tesla P4 vGPU on VMware ESXi: Homelab Guide",
     "url": "https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/",
     "description": "Step-by-step setup of Nvidia Tesla P4 vGPU on VMware ESXi for a homelab. Drivers, licence server, vGPU profiles, plus gotchas and performance notes.",
-    "content": "Nvidia Tesla P4 vGPU on VMware ESXi: Homelab Guide Skip to content James Kilby James Kilby Toggle Menu Homelab | VMware Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide ByJames October 23, 2023May 24, 2026 • 📖4 min read(863 words) 📅Published: October 23, 2023•Updated: May 24, 2026 Table of Contents A little while ago I decided to play with vGPU in my homelab. This was something I had dabbled with in the past but never really had the time or need to get working properly. The first thing that I needed was a GPU. I did have a Dell T20 with an iGPU built into the CPU but I wanted a more enterprise card for my testing. I therefore decided to pick up a Nvidia Tesla P4 from eBay for the princely sum of £185. The card stats are not impressive by modern standards but it was good enough for what I needed combined with the fact that it was a single-width PCIe 3.0 x16 card and didn’t require external power. An important note is that this is a passively cooled card so if it’s not located in",
+    "content": "Nvidia Tesla P4 vGPU on VMware ESXi: Homelab Guide Skip to contentJames KilbyJames KilbyToggle MenuHomelab | VMwareNvidia Tesla P4 vGPU Setup in VMware Homelab: Full GuideByJamesOctober 23, 2023May 24, 2026 • 📖4 min read(863 words)📅Published: October 23, 2023•Updated: May 24, 2026Table of ContentsA little while ago I decided to play with vGPU in my homelab. This was something I had dabbled with in the past but never really had the time or need to get working properly. The first thing that I needed was a GPU. I did have a Dell T20 with an iGPU built into the CPU but I wanted a more enterprise card for my testing. I therefore decided to pick up a Nvidia Tesla P4 from eBay for the princely sum of £185.The card stats are not impressive by modern standards but it was good enough for what I needed combined with the fact that it was a single-width PCIe 3.0 x16 card and didn’t require external power. An important note is that this is a passively cooled card so if it’s not located in a server w",
     "categories": [
       "Homelab",
       "VMware",
@@ -648,7 +644,7 @@
     "title": "Personal Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/personal/",
     "description": "Browse all Personal articles. In-depth technical content covering Personal topics, best practices, and real-world solutions.",
-    "content": "Personal Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Personal Hosting | Personal Analytics in a privacy focused world ByJames November 10, 2023April 16, 2026 I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance. VMware | Personal | vSphere Advanced Deploy VMware vSphere 7.x 3V0-22.21N ByJames November 10, 2023April 16, 2026 Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal. VMware | Personal VMware – Going out with a Bang! ByJames October 7, 2023April 16, 2026 There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom. Hosting | Cloudflare | Personal | Wordpress Hosting This Blog on Cloudflare Workers: Why & How I Did It ByJames January 4, 2022April 16, 2026 A while ago I started messing with ",
+    "content": "Personal Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Personal Hosting | Personal Analytics in a privacy focused world ByJames November 10, 2023May 25, 2026 I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance. VMware | Personal | vSphere Advanced Deploy VMware vSphere 7.x 3V0-22.21N ByJames November 10, 2023May 25, 2026 Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal. VMware | Personal VMware – Going out with a Bang! ByJames October 7, 2023April 16, 2026 There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom. Hosting | Cloudflare | Personal | Wordpress Hosting This Blog on Cloudflare Workers: Why & How I Did It ByJames January 4, 2022May 25, 2026 A while ago I started messing with Cloudf",
     "categories": [
       "Hosting",
       "Personal",
@@ -689,7 +685,7 @@
     "title": "Cloudflare Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/cloudflare/",
     "description": "Browse all Cloudflare articles. In-depth technical content covering Cloudflare topics, best practices, and real-world solutions.",
-    "content": "Cloudflare Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Cloudflare Cloudflare | Hosting | Wordpress Blog Performance & SEO Improvements: Cloudflare, Privacy & More ByJames January 15, 2026April 16, 2026 I have spent the Christmas break making some improvements to this blog. Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025April 16, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Cloudflare | Hosting | Wordpress WordPress Hosting with Cloudflare Pages ByJames May 14, 2023April 16, 2026 Table of Contents The Tooling The Process WordPress Plugin Install GitHub setup Cloudflare setup I have been using Cloudflare to protect my web assets for a really long time. Cloudflare | Hosting | Wordpress Static WordPress hosting using Cloudflare ByJames October 20, 2022April 16, 2026 For a w",
+    "content": "Cloudflare Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Cloudflare Cloudflare | Hosting | Wordpress Blog Performance & SEO Improvements: Cloudflare, Privacy & More ByJames January 15, 2026May 25, 2026 I have spent the Christmas break making some improvements to this blog. Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025May 25, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Cloudflare | Hosting | Wordpress WordPress Hosting with Cloudflare Pages ByJames May 14, 2023April 16, 2026 Table of Contents The Tooling The Process WordPress Plugin Install GitHub setup Cloudflare setup I have been using Cloudflare to protect my web assets for a really long time. Cloudflare | Hosting | Wordpress Static WordPress hosting using Cloudflare ByJames October 20, 2022April 16, 2026 For a while",
     "categories": [
       "Cloudflare",
       "Hosting",
@@ -841,7 +837,7 @@
     "title": "Devops Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/devops/",
     "description": "Browse all Devops articles. In-depth technical content covering Devops topics, best practices, and real-world solutions.",
-    "content": "Devops Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Devops Ansible | Artificial Intelligence | Containers | Devops | Homelab | NVIDIA | Traefik | VMware Automating the Deployment of my Homelab AI Infrastructure ByJames February 9, 2026May 24, 2026 Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025April 16, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Devops | Personal My First GitHub Pull Request: Contributing to Open Source ByJames December 22, 2020April 16, 2026 I was initially going to add in the contents of this post to one that I have been writing about my exploits with HashiCorp Packer but I decided it probably warranted being separated out.",
+    "content": "Devops Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Devops Ansible | Artificial Intelligence | Containers | Devops | Homelab | NVIDIA | Traefik | VMware Automating the Deployment of my Homelab AI Infrastructure ByJames February 9, 2026May 24, 2026 Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025May 25, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Devops | Personal My First GitHub Pull Request: Contributing to Open Source ByJames December 22, 2020April 16, 2026 I was initially going to add in the contents of this post to one that I have been writing about my exploits with HashiCorp Packer but I decided it probably warranted being separated out.",
     "categories": [
       "Ansible",
       "Artificial Intelligence",
@@ -904,7 +900,7 @@
     "title": "vSphere Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/vsphere/",
     "description": "Browse all vSphere articles. In-depth technical content covering vSphere topics, best practices, and real-world solutions.",
-    "content": "vSphere Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu vSphere TrueNAS Scale | VMware | vSAN | vSphere How to Run ZFS on VMware vSphere: Setup Guide and Best Practices ByJames December 18, 2024April 16, 2026 Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the way back in 2010. VMware | Personal | vSphere Advanced Deploy VMware vSphere 7.x 3V0-22.21N ByJames November 10, 2023April 16, 2026 Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal. Homelab | VMware | vSphere Forcing an Upgrade to vSphere 8 ByJames December 14, 2022April 16, 2026 I run a reasonably extensive homelab that is of course built around the VMware ecosystem.",
+    "content": "vSphere Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu vSphere TrueNAS Scale | VMware | vSAN | vSphere How to Run ZFS on VMware vSphere: Setup Guide and Best Practices ByJames December 18, 2024May 25, 2026 Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the way back in 2010. VMware | Personal | vSphere Advanced Deploy VMware vSphere 7.x 3V0-22.21N ByJames November 10, 2023May 25, 2026 Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal. Homelab | VMware | vSphere Forcing an Upgrade to vSphere 8 ByJames December 14, 2022April 16, 2026 I run a reasonably extensive homelab that is of course built around the VMware ecosystem.",
     "categories": [
       "TrueNAS Scale",
       "VMware",
@@ -937,7 +933,7 @@
     "title": "Github Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/github/",
     "description": "Browse all Github articles. In-depth technical content covering Github topics, best practices, and real-world solutions.",
-    "content": "Github Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Github Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025April 16, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.",
+    "content": "Github Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Github Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025May 25, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.",
     "categories": [
       "Cloudflare",
       "Devops",
@@ -951,7 +947,7 @@
     "title": "Nutanix Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/nutanix/",
     "description": "Browse all Nutanix articles. In-depth technical content covering Nutanix topics, best practices, and real-world solutions.",
-    "content": "Nutanix Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Nutanix Homelab | Nutanix | VMware New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix ByJames July 2, 2024April 16, 2026 I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul . Nutanix | Personal Passing the Nutanix NCP Exam: Free Training & My Experience ByJames July 2, 2020April 16, 2026 I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam. Nutanix Nutanix Command Reference Guide ByJames June 5, 2018March 10, 2026 A list of useful Nutanix Commands Homelab | Nutanix Running Nutanix CE at Home: AHV Setup & First Impressions ByJames January 6, 2018April 16, 2026 I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to contin",
+    "content": "Nutanix Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Nutanix Homelab | Nutanix | VMware New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix ByJames July 2, 2024May 25, 2026 I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul . Nutanix | Personal Passing the Nutanix NCP Exam: Free Training & My Experience ByJames July 2, 2020April 16, 2026 I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam. Nutanix Nutanix Command Reference Guide ByJames June 5, 2018March 10, 2026 A list of useful Nutanix Commands Homelab | Nutanix Running Nutanix CE at Home: AHV Setup & First Impressions ByJames January 6, 2018April 16, 2026 I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to continue",
     "categories": [
       "Homelab",
       "Nutanix",
@@ -978,7 +974,7 @@
     "title": "Hosting Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/hosting/",
     "description": "Browse all Hosting articles. In-depth technical content covering Hosting topics, best practices, and real-world solutions.",
-    "content": "Hosting Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Hosting Cloudflare | Hosting | Wordpress Blog Performance & SEO Improvements: Cloudflare, Privacy & More ByJames January 15, 2026April 16, 2026 I have spent the Christmas break making some improvements to this blog. Artificial Intelligence | Docker | Hosting How I Migrated from Pocket to Hoarder with AI Integration ByJames January 29, 2025April 16, 2026 Update: Hoarder has now been renamed to Karakeep due to a trademark issue I’ve been on a mission recently to regain control of my data. Hosting | Personal Analytics in a privacy focused world ByJames November 10, 2023April 16, 2026 I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance. Cloudflare | Hosting | Wordpress WordPress Hosting with Cloudflare Pages ByJames May 14, 2023April 16, 2026 Table of Contents The Tooling The Process WordPress Plugin Ins",
+    "content": "Hosting Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Hosting Cloudflare | Hosting | Wordpress Blog Performance & SEO Improvements: Cloudflare, Privacy & More ByJames January 15, 2026May 25, 2026 I have spent the Christmas break making some improvements to this blog. Artificial Intelligence | Docker | Hosting How I Migrated from Pocket to Hoarder with AI Integration ByJames January 29, 2025April 16, 2026 Update: Hoarder has now been renamed to Karakeep due to a trademark issue I’ve been on a mission recently to regain control of my data. Hosting | Personal Analytics in a privacy focused world ByJames November 10, 2023May 25, 2026 I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance. Cloudflare | Hosting | Wordpress WordPress Hosting with Cloudflare Pages ByJames May 14, 2023April 16, 2026 Table of Contents The Tooling The Process WordPress Plugin Install",
     "categories": [
       "Cloudflare",
       "Hosting",
@@ -1050,7 +1046,7 @@
     "title": "Wordpress Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/wordpress/",
     "description": "Browse all Wordpress articles. In-depth technical content covering Wordpress topics, best practices, and real-world solutions.",
-    "content": "Wordpress Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Wordpress Cloudflare | Hosting | Wordpress Blog Performance & SEO Improvements: Cloudflare, Privacy & More ByJames January 15, 2026April 16, 2026 I have spent the Christmas break making some improvements to this blog. Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025April 16, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Cloudflare | Hosting | Wordpress WordPress Hosting with Cloudflare Pages ByJames May 14, 2023April 16, 2026 Table of Contents The Tooling The Process WordPress Plugin Install GitHub setup Cloudflare setup I have been using Cloudflare to protect my web assets for a really long time. Cloudflare | Hosting | Wordpress Static WordPress hosting using Cloudflare ByJames October 20, 2022April 16, 2026 For a whi",
+    "content": "Wordpress Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Wordpress Cloudflare | Hosting | Wordpress Blog Performance & SEO Improvements: Cloudflare, Privacy & More ByJames January 15, 2026May 25, 2026 I have spent the Christmas break making some improvements to this blog. Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025May 25, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Cloudflare | Hosting | Wordpress WordPress Hosting with Cloudflare Pages ByJames May 14, 2023April 16, 2026 Table of Contents The Tooling The Process WordPress Plugin Install GitHub setup Cloudflare setup I have been using Cloudflare to protect my web assets for a really long time. Cloudflare | Hosting | Wordpress Static WordPress hosting using Cloudflare ByJames October 20, 2022April 16, 2026 For a while n",
     "categories": [
       "Cloudflare",
       "Hosting",
@@ -1094,7 +1090,7 @@
     "title": "Networking Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/networking/",
     "description": "Browse all Networking articles. In-depth technical content covering Networking topics, best practices, and real-world solutions.",
-    "content": "Networking Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Networking Mikrotik | Networking Home Network Upgrade to 25Gb/s with MikroTik Switching ByJames September 9, 2024April 11, 2026 My journey to superfast networking in my homelab Homelab | Networking Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets ByJames June 26, 2024May 23, 2026 How to configure DHCP Option 43 for UniFi devices Networking Configuring a Zen Internet and City Fibre connection with a 3rd party router ByJames November 15, 2023April 16, 2026 Back in July I bought a new house and one of the best things about the property was that it was already in a City Fibre location. Homelab | Networking | Storage | VMware MikroTik CRS504 Review: 100Gb/s Networking in My Homelab ByJames December 19, 2022April 16, 2026 For a while, I’ve been looking to update the networking at the core of my homelab. Homelab | Networking Homelab Network Upgrade: DACs, 40Gb/s vMotion & p",
+    "content": "Networking Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Networking Mikrotik | Networking Home Network Upgrade to 25Gb/s with MikroTik Switching ByJames September 9, 2024May 24, 2026 My journey to superfast networking in my homelab Homelab | Networking Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets ByJames June 26, 2024May 23, 2026 How to configure DHCP Option 43 for UniFi devices Networking Configuring a Zen Internet and City Fibre connection with a 3rd party router ByJames November 15, 2023April 16, 2026 Back in July I bought a new house and one of the best things about the property was that it was already in a City Fibre location. Homelab | Networking | Storage | VMware MikroTik CRS504 Review: 100Gb/s Networking in My Homelab ByJames December 19, 2022April 16, 2026 For a while, I’ve been looking to update the networking at the core of my homelab. Homelab | Networking Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfS",
     "categories": [
       "Mikrotik",
       "Networking",
@@ -1109,7 +1105,7 @@
     "title": "TrueNAS Scale Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/truenas-scale/",
     "description": "Browse all TrueNAS Scale articles. In-depth technical content covering TrueNAS Scale topics, best practices, and real-world solutions.",
-    "content": "TrueNAS Scale Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu TrueNAS Scale TrueNAS Scale | VMware | vSAN | vSphere How to Run ZFS on VMware vSphere: Setup Guide and Best Practices ByJames December 18, 2024April 16, 2026 Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the way back in 2010. Homelab | Storage | TrueNAS Scale Can you really squeeze 96TB in 1U ? ByJames September 12, 2024April 16, 2026 Yes, that’s a clickbait title. But technically it’s possible if I dropped all drive redundancy… I recently saw an advert for a server that was just too good to be true. Kubernetes | TrueNAS Scale TrueNAS Scale CLI Reference: Storage & Kubernetes Commands ByJames November 13, 2023April 11, 2026 A list of useful Truenas Scale commands",
+    "content": "TrueNAS Scale Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu TrueNAS Scale TrueNAS Scale | VMware | vSAN | vSphere How to Run ZFS on VMware vSphere: Setup Guide and Best Practices ByJames December 18, 2024May 25, 2026 Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the way back in 2010. Homelab | Storage | TrueNAS Scale Can you really squeeze 96TB in 1U ? ByJames September 12, 2024April 16, 2026 Yes, that’s a clickbait title. But technically it’s possible if I dropped all drive redundancy… I recently saw an advert for a server that was just too good to be true. Kubernetes | TrueNAS Scale TrueNAS Scale CLI Reference: Storage & Kubernetes Commands ByJames November 13, 2023April 11, 2026 A list of useful Truenas Scale commands",
     "categories": [
       "TrueNAS Scale",
       "VMware",
@@ -1147,7 +1143,7 @@
     "title": "VMware Cloud on AWS Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/",
     "description": "Browse all VMware Cloud on AWS articles. In-depth technical content covering VMware Cloud on AWS topics, best practices, and real-world solutions.",
-    "content": "VMware Cloud on AWS Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu VMware Cloud on AWS VMware | VMware Cloud on AWS New VMware Cloud on AWS Host: i7i.metal-24xl ByJames April 1, 2026April 16, 2026 We’ve expanded the VMC fleet with the new i7i (i7i. VMware | VMware Cloud on AWS Using Content Libraries in VMC to deploy software faster ByJames January 27, 2026March 12, 2026 How to leverage Content Libraries to deploy into VMware Cloud on AWS faster. VMware Cloud on AWS VMware Cloud on AWS Time Sync & NTP Configuration ByJames December 8, 2025April 11, 2026 How to use the Amazon Time Sync Service in a VMC environment VMware | VMware Cloud on AWS An in-depth look at VMware Cloud on AWS hosts ByJames August 14, 2025April 16, 2026 This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison. VMware | VMware Cloud on AWS VMware Cloud on AWS Storage Sizing Quick Reference Guide ByJames May 21, 2025April 11,",
+    "content": "VMware Cloud on AWS Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu VMware Cloud on AWS VMware | VMware Cloud on AWS New VMware Cloud on AWS Host: i7i.metal-24xl ByJames April 1, 2026April 16, 2026 We’ve expanded the VMC fleet with the new i7i (i7i. VMware | VMware Cloud on AWS Using Content Libraries in VMC to deploy software faster ByJames January 27, 2026May 25, 2026 How to leverage Content Libraries to deploy into VMware Cloud on AWS faster. VMware Cloud on AWS VMware Cloud on AWS Time Sync & NTP Configuration ByJames December 8, 2025April 11, 2026 How to use the Amazon Time Sync Service in a VMC environment VMware | VMware Cloud on AWS An in-depth look at VMware Cloud on AWS hosts ByJames August 14, 2025May 25, 2026 This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison. VMware | VMware Cloud on AWS VMware Cloud on AWS Storage Sizing Quick Reference Guide ByJames May 21, 2025April 11, 202",
     "categories": [
       "VMware",
       "VMware Cloud on AWS",
@@ -1160,7 +1156,7 @@
     "title": "VCF Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/vmware/vcf/",
     "description": "Browse all VCF articles. In-depth technical content covering VCF topics, best practices, and real-world solutions.",
-    "content": "VCF Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu VCF Ansible | Automation | Docker | Homelab | Traefik | VCF | VMware Automated VCF 9 Offline Depot ByJames April 10, 2026April 16, 2026 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS. VCF | VMware VMware Holodeck on Older CPUs: Fixing Compatibility Issues ByJames January 18, 2024April 11, 2026 How to deploy Holodeck with Legacy CPU’s VMware | VCF VMware Holodeck Multi-Host VCF: Lab Setup & Configuration ByJames January 17, 2024April 11, 2026 How to Deploy VMware Holodeck on multiple hosts",
+    "content": "VCF Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu VCF Ansible | Automation | Docker | Homelab | Traefik | VCF | VMware Automated VCF 9 Offline Depot ByJames April 10, 2026April 16, 2026 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS. VCF | VMware VMware Holodeck on Older CPUs: Fixing Compatibility Issues ByJames January 18, 2024April 11, 2026 How to deploy Holodeck with Legacy CPU’s VMware | VCF VMware Holodeck Multi-Host VCF: Lab Setup & Configuration ByJames January 17, 2024May 24, 2026 How to Deploy VMware Holodeck on multiple hosts",
     "categories": [
       "Ansible",
       "Automation",
@@ -1177,7 +1173,7 @@
     "title": "vSAN Archives - James Kilby",
     "url": "https://jameskilby.co.uk/category/vmware/vsan-vmware/",
     "description": "Browse all vSAN articles. In-depth technical content covering vSAN topics, best practices, and real-world solutions.",
-    "content": "vSAN Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu vSAN VMware | vSAN vSAN Cluster Shutdown – Orchestration ByJames December 6, 2025March 10, 2026 How to safety shutdown a vSAN Environment TrueNAS Scale | VMware | vSAN | vSphere How to Run ZFS on VMware vSphere: Setup Guide and Best Practices ByJames December 18, 2024April 16, 2026 Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the way back in 2010. VMware | VMware Cloud on AWS | vSAN vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24 ByJames November 17, 2023April 11, 2026 An Overview of vSAN ESA in VMC",
+    "content": "vSAN Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu vSAN VMware | vSAN vSAN Cluster Shutdown – Orchestration ByJames December 6, 2025May 25, 2026 How to safety shutdown a vSAN Environment TrueNAS Scale | VMware | vSAN | vSphere How to Run ZFS on VMware vSphere: Setup Guide and Best Practices ByJames December 18, 2024May 25, 2026 Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the way back in 2010. VMware | VMware Cloud on AWS | vSAN vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24 ByJames November 17, 2023May 25, 2026 An Overview of vSAN ESA in VMC",
     "categories": [
       "VMware",
       "vSAN",
@@ -1376,7 +1372,7 @@
     "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions.",
     "url": "https://jameskilby.co.uk/page/3/",
     "description": "Expert guides on VMware vSphere, homelab infrastructure, AI setup, and cloud computing. Real-world technical tutorials by a VMware vExpert - Page 3",
-    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu VCF | VMware VMware Holodeck on Older CPUs: Fixing Compatibility Issues ByJames January 18, 2024April 11, 2026 How to deploy Holodeck with Legacy CPU’s VMware | VCF VMware Holodeck Multi-Host VCF: Lab Setup & Configuration ByJames January 17, 2024April 11, 2026 How to Deploy VMware Holodeck on multiple hosts VMware | VMware Cloud on AWS | vSAN vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24 ByJames November 17, 2023April 11, 2026 An Overview of vSAN ESA in VMC Networking Configuring a Zen Internet and City Fibre connection with a 3rd party router ByJames November 15, 2023April 16, 2026 Back in July I bought a new house and one of the best things about the property was that it was already in a City Fibre location. Kubernetes | TrueNAS Scale TrueNAS Scale CLI Reference: Storage &",
+    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu VCF | VMware VMware Holodeck on Older CPUs: Fixing Compatibility Issues ByJames January 18, 2024April 11, 2026 How to deploy Holodeck with Legacy CPU’s VMware | VCF VMware Holodeck Multi-Host VCF: Lab Setup & Configuration ByJames January 17, 2024May 24, 2026 How to Deploy VMware Holodeck on multiple hosts VMware | VMware Cloud on AWS | vSAN vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24 ByJames November 17, 2023May 25, 2026 An Overview of vSAN ESA in VMC Networking Configuring a Zen Internet and City Fibre connection with a 3rd party router ByJames November 15, 2023April 16, 2026 Back in July I bought a new house and one of the best things about the property was that it was already in a City Fibre location. Kubernetes | TrueNAS Scale TrueNAS Scale CLI Reference: Storage & Kub",
     "categories": [
       "VCF",
       "VMware",
@@ -1424,7 +1420,7 @@
     "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions.",
     "url": "https://jameskilby.co.uk/page/2/",
     "description": "Expert guides on VMware vSphere, homelab infrastructure, AI setup, and cloud computing. Real-world technical tutorials by a VMware vExpert - Page 2",
-    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025April 16, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Ansible | Homelab Managing my Homelab with SemaphoreUI ByJames September 2, 2025May 24, 2026 An intro on how I use SemaphoreUI to manage my Homelab VMware | VMware Cloud on AWS An in-depth look at VMware Cloud on AWS hosts ByJames August 14, 2025April 16, 2026 This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison. VMware | VMware Cloud on AWS VMware Cloud on AWS Storage Sizing Quick Reference Guide ByJames May 21, 2025April 11, 2026 Q",
+    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025May 25, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Ansible | Homelab Managing my Homelab with SemaphoreUI ByJames September 2, 2025May 24, 2026 An intro on how I use SemaphoreUI to manage my Homelab VMware | VMware Cloud on AWS An in-depth look at VMware Cloud on AWS hosts ByJames August 14, 2025May 25, 2026 This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison. VMware | VMware Cloud on AWS VMware Cloud on AWS Storage Sizing Quick Reference Guide ByJames May 21, 2025April 11, 2026 Quick",
     "categories": [
       "Cloudflare",
       "Devops",
@@ -1452,7 +1448,7 @@
     "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions.",
     "url": "https://jameskilby.co.uk/page/5/",
     "description": "Expert guides on VMware vSphere, homelab infrastructure, AI setup, and cloud computing. Real-world technical tutorials by a VMware vExpert - Page 5",
-    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu Hosting | Wordpress Cloudflare Workers – Limits of the free tier ByJames January 4, 2022April 16, 2026 I have been making several changes (mainly cosmetic to this site over the last day or so) On most changes I have been doing an export and then uploading the site to Cloudflare using Wrangler. Hosting | Cloudflare | Personal | Wordpress Hosting This Blog on Cloudflare Workers: Why & How I Did It ByJames January 4, 2022April 16, 2026 A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them. Apple How Apple Content Caching Works: Speed Up iOS & Mac Updates ByJames February 8, 2021April 16, 2026 I have slowly morphed into an Apple fanboy over the last decade or so collecting a large number of devices ever since my first MacBook Air back in ",
+    "content": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions. Skip to content James Kilby James Kilby Toggle Menu Hosting | Wordpress Cloudflare Workers – Limits of the free tier ByJames January 4, 2022April 16, 2026 I have been making several changes (mainly cosmetic to this site over the last day or so) On most changes I have been doing an export and then uploading the site to Cloudflare using Wrangler. Hosting | Cloudflare | Personal | Wordpress Hosting This Blog on Cloudflare Workers: Why & How I Did It ByJames January 4, 2022May 25, 2026 A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them. Apple How Apple Content Caching Works: Speed Up iOS & Mac Updates ByJames February 8, 2021April 16, 2026 I have slowly morphed into an Apple fanboy over the last decade or so collecting a large number of devices ever since my first MacBook Air back in 20",
     "categories": [
       "Hosting",
       "Wordpress",
@@ -1547,21 +1543,21 @@
     "date": "2020-09-13T21:38:48+00:00"
   },
   {
-    "title": "How VMware Cloud on AWS Handles Host Failures Automatical...",
+    "title": "How VMware Cloud on AWS Handles Host Failures Automatically - James Kilby",
     "url": "https://jameskilby.co.uk/2020/09/vmc-host-errors/",
-    "description": "When you run a large enough Infrastructure failure is inevitable. How you handle that can be a big differentiator. With VMware Cloud on AWS, the hosts are mo...",
-    "content": "How VMware Cloud on AWS Handles Host Failures Automatical... Skip to contentJames KilbyJames KilbyToggle MenuVMware | VMware Cloud on AWSHow VMware Cloud on AWS Handles Host Failures AutomaticallyByJamesSeptember 15, 2020April 11, 2026 • 📖1 min read(174 words)📅Published: September 15, 2020•Updated: April 11, 2026When you run a large enough Infrastructure failure is inevitable. How you handle that can be a big differentiator. With VMware Cloud on AWS, the hosts are monitored 24×7 by VMware/AWS Support all as part of the service. If you pay for X number of hosts you should have X. That includes during maintenance and failure operations.I’m not sure lucky is the right word but I did witness a host issue with a customer I was working with. True to the marketing It was picked up and automatically remediated.Looking at the log extract above a new host was being provisioned the same minute the issue was identified. Obviously, this needed to boot and join the VMware/vSAN cluster before a full ",
+    "description": "When you run a large enough Infrastructure failure is inevitable. How you handle that can be a big differentiator.",
+    "content": "How VMware Cloud on AWS Handles Host Failures Automatically - James Kilby Skip to content James Kilby James Kilby Toggle Menu VMware | VMware Cloud on AWS How VMware Cloud on AWS Handles Host Failures Automatically ByJames September 15, 2020May 25, 2026 • 📖1 min read(174 words) 📅Published: September 15, 2020•Updated: May 25, 2026 When you run a large enough infrastructure, failure is inevitable. How you handle that can be a big differentiator. With VMware Cloud on AWS, the hosts are monitored 24×7 by VMware/AWS Support all as part of the service. If you pay for X number of hosts you should have X. That includes during maintenance and failure operations. I’m not sure lucky is the right word but I did witness a host issue with a customer I was working with. True to the marketing It was picked up and automatically remediated. Looking at the log extract above a new host was being provisioned the same minute the issue was identified. Obviously, this needed to boot and join the VMware/vSAN c",
     "categories": [
       "VMware",
       "VMware Cloud on AWS",
-      "Personal",
-      "vSphere",
-      "vSAN",
-      "Homelab",
-      "Storage",
-      "vExpert",
       "AWS",
-      "Veeam"
+      "Ansible",
+      "Automation",
+      "TrueNAS Scale",
+      "vSAN",
+      "vSphere",
+      "Hosting",
+      "Personal"
     ],
     "tags": [
       "#AWS",
@@ -1725,7 +1721,7 @@
     "title": "Mikrotik Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/mikrotik/",
     "description": "Articles tagged with Mikrotik. Explore technical guides, tutorials, and insights about Mikrotik from James Kilby's blog.",
-    "content": "Mikrotik Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Mikrotik Mikrotik | Networking Home Network Upgrade to 25Gb/s with MikroTik Switching ByJames September 9, 2024April 11, 2026 My journey to superfast networking in my homelab Homelab | Networking | Storage | VMware MikroTik CRS504 Review: 100Gb/s Networking in My Homelab ByJames December 19, 2022April 16, 2026 For a while, I’ve been looking to update the networking at the core of my homelab.",
+    "content": "Mikrotik Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Mikrotik Mikrotik | Networking Home Network Upgrade to 25Gb/s with MikroTik Switching ByJames September 9, 2024May 24, 2026 My journey to superfast networking in my homelab Homelab | Networking | Storage | VMware MikroTik CRS504 Review: 100Gb/s Networking in My Homelab ByJames December 19, 2022April 16, 2026 For a while, I’ve been looking to update the networking at the core of my homelab.",
     "categories": [
       "Mikrotik",
       "Networking",
@@ -1742,7 +1738,7 @@
     "title": "Blog Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/blog/",
     "description": "Articles tagged with Blog. Explore technical guides, tutorials, and insights about Blog from James Kilby's blog.",
-    "content": "Blog Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Blog Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025April 16, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.",
+    "content": "Blog Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Blog Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025May 25, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.",
     "categories": [
       "Cloudflare",
       "Devops",
@@ -1771,7 +1767,7 @@
     "title": "Cloudflare Pages Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/cloudflare-pages/",
     "description": "Articles tagged with Cloudflare Pages. Explore technical guides, tutorials, and insights about Cloudflare Pages from James Kilby's blog.",
-    "content": "Cloudflare Pages Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Cloudflare Pages Cloudflare | Hosting | Wordpress Blog Performance & SEO Improvements: Cloudflare, Privacy & More ByJames January 15, 2026April 16, 2026 I have spent the Christmas break making some improvements to this blog. Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025April 16, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Cloudflare | Hosting | Wordpress WordPress Hosting with Cloudflare Pages ByJames May 14, 2023April 16, 2026 Table of Contents The Tooling The Process WordPress Plugin Install GitHub setup Cloudflare setup I have been using Cloudflare to protect my web assets for a really long time.",
+    "content": "Cloudflare Pages Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Cloudflare Pages Cloudflare | Hosting | Wordpress Blog Performance & SEO Improvements: Cloudflare, Privacy & More ByJames January 15, 2026May 25, 2026 I have spent the Christmas break making some improvements to this blog. Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025May 25, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Cloudflare | Hosting | Wordpress WordPress Hosting with Cloudflare Pages ByJames May 14, 2023April 16, 2026 Table of Contents The Tooling The Process WordPress Plugin Install GitHub setup Cloudflare setup I have been using Cloudflare to protect my web assets for a really long time.",
     "categories": [
       "Cloudflare",
       "Hosting",
@@ -1807,7 +1803,7 @@
     "title": "Holodeck Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/holodeck/",
     "description": "Articles tagged with Holodeck. Explore technical guides, tutorials, and insights about Holodeck from James Kilby's blog.",
-    "content": "Holodeck Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Holodeck VCF | VMware VMware Holodeck on Older CPUs: Fixing Compatibility Issues ByJames January 18, 2024April 11, 2026 How to deploy Holodeck with Legacy CPU’s VMware | VCF VMware Holodeck Multi-Host VCF: Lab Setup & Configuration ByJames January 17, 2024April 11, 2026 How to Deploy VMware Holodeck on multiple hosts",
+    "content": "Holodeck Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Holodeck VCF | VMware VMware Holodeck on Older CPUs: Fixing Compatibility Issues ByJames January 18, 2024April 11, 2026 How to deploy Holodeck with Legacy CPU’s VMware | VCF VMware Holodeck Multi-Host VCF: Lab Setup & Configuration ByJames January 17, 2024May 24, 2026 How to Deploy VMware Holodeck on multiple hosts",
     "categories": [
       "VCF",
       "VMware"
@@ -1836,7 +1832,7 @@
     "title": "Cloudflare Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/cloudflare/",
     "description": "Articles tagged with Cloudflare. Explore technical guides, tutorials, and insights about Cloudflare from James Kilby's blog.",
-    "content": "Cloudflare Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Cloudflare Ansible | Automation | Docker | Homelab | Traefik | VCF | VMware Automated VCF 9 Offline Depot ByJames April 10, 2026April 16, 2026 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS. Artificial Intelligence | Automation | Docker | Homelab | NVIDIA | Traefik | VMware My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2) ByJames April 4, 2026April 16, 2026 Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each. Cloudflare | Hosting | Wordpress Blog Performance & SEO Improvements: Cloudflare, Privacy & More ByJames January 15, 2026April 16, 2026 I have s",
+    "content": "Cloudflare Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Cloudflare Ansible | Automation | Docker | Homelab | Traefik | VCF | VMware Automated VCF 9 Offline Depot ByJames April 10, 2026April 16, 2026 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS. Artificial Intelligence | Automation | Docker | Homelab | NVIDIA | Traefik | VMware My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2) ByJames April 4, 2026April 16, 2026 Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each. Cloudflare | Hosting | Wordpress Blog Performance & SEO Improvements: Cloudflare, Privacy & More ByJames January 15, 2026May 25, 2026 I have spe",
     "categories": [
       "Ansible",
       "Automation",
@@ -1896,7 +1892,7 @@
     "title": "AWS Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/aws/",
     "description": "Articles tagged with AWS. Explore technical guides, tutorials, and insights about AWS from James Kilby's blog.",
-    "content": "AWS Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu AWS VMware | VMware Cloud on AWS How VMware Cloud on AWS Handles Host Failures Automatically ByJames September 15, 2020April 11, 2026 Learn how host failures are handled within VMC VMware | AWS | Veeam Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1) ByJames December 17, 2019April 16, 2026 As previously mentioned I have been working a lot with VMware Cloud on AWS and one of the questions that often crops up is around an approach to monitoring. AWS | Personal AWS Solution Architect – Associate ByJames December 16, 2019April 16, 2026 I renewed my AWS Solution Architect certification. AWS | Hosting AWS Status Page – Monitoring Included ByJames May 15, 2018April 16, 2026 AWS Status Page – Enhancements The tool I deployed lambstatus supports pulling metrics from AWS Cloudwatch and displaying them. AWS AWS For Beginners: IAM Setup, Root Security & Billing Alerts ByJames March 30, 2018April 11, 2026 AWS ",
+    "content": "AWS Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu AWS VMware | VMware Cloud on AWS How VMware Cloud on AWS Handles Host Failures Automatically ByJames September 15, 2020May 25, 2026 Learn how host failures are handled within VMC VMware | AWS | Veeam Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1) ByJames December 17, 2019April 16, 2026 As previously mentioned I have been working a lot with VMware Cloud on AWS and one of the questions that often crops up is around an approach to monitoring. AWS | Personal AWS Solution Architect – Associate ByJames December 16, 2019April 16, 2026 I renewed my AWS Solution Architect certification. AWS | Hosting AWS Status Page – Monitoring Included ByJames May 15, 2018April 16, 2026 AWS Status Page – Enhancements The tool I deployed lambstatus supports pulling metrics from AWS Cloudwatch and displaying them. AWS AWS For Beginners: IAM Setup, Root Security & Billing Alerts ByJames March 30, 2018April 11, 2026 AWS Fo",
     "categories": [
       "VMware",
       "VMware Cloud on AWS",
@@ -1963,7 +1959,7 @@
     "title": "Analytics Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/analytics/",
     "description": "Articles tagged with Analytics. Explore technical guides, tutorials, and insights about Analytics from James Kilby's blog.",
-    "content": "Analytics Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Analytics Hosting | Personal Analytics in a privacy focused world ByJames November 10, 2023April 16, 2026 I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance.",
+    "content": "Analytics Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Analytics Hosting | Personal Analytics in a privacy focused world ByJames November 10, 2023May 25, 2026 I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance.",
     "categories": [
       "Hosting",
       "Personal"
@@ -2022,7 +2018,7 @@
     "title": "github Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/github/",
     "description": "Articles tagged with github. Explore technical guides, tutorials, and insights about github from James Kilby's blog.",
-    "content": "github Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu github Cloudflare | Hosting | Wordpress Blog Performance & SEO Improvements: Cloudflare, Privacy & More ByJames January 15, 2026April 16, 2026 I have spent the Christmas break making some improvements to this blog. Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025April 16, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Devops | Personal My First GitHub Pull Request: Contributing to Open Source ByJames December 22, 2020April 16, 2026 I was initially going to add in the contents of this post to one that I have been writing about my exploits with HashiCorp Packer but I decided it probably warranted being separated out.",
+    "content": "github Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu github Cloudflare | Hosting | Wordpress Blog Performance & SEO Improvements: Cloudflare, Privacy & More ByJames January 15, 2026May 25, 2026 I have spent the Christmas break making some improvements to this blog. Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025May 25, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Devops | Personal My First GitHub Pull Request: Contributing to Open Source ByJames December 22, 2020April 16, 2026 I was initially going to add in the contents of this post to one that I have been writing about my exploits with HashiCorp Packer but I decided it probably warranted being separated out.",
     "categories": [
       "Cloudflare",
       "Hosting",
@@ -2054,7 +2050,7 @@
     "title": "Ingress Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/ingress/",
     "description": "Articles tagged with Ingress. Explore technical guides, tutorials, and insights about Ingress from James Kilby's blog.",
-    "content": "Ingress Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Ingress Hosting | Personal Analytics in a privacy focused world ByJames November 10, 2023April 16, 2026 I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance.",
+    "content": "Ingress Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Ingress Hosting | Personal Analytics in a privacy focused world ByJames November 10, 2023May 25, 2026 I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance.",
     "categories": [
       "Hosting",
       "Personal"
@@ -2181,7 +2177,7 @@
     "title": "Hosting Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/hosting/",
     "description": "Articles tagged with Hosting. Explore technical guides, tutorials, and insights about Hosting from James Kilby's blog.",
-    "content": "Hosting Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Hosting Hosting | Personal Analytics in a privacy focused world ByJames November 10, 2023April 16, 2026 I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance. Cloudflare | Hosting | Wordpress Static WordPress hosting using Cloudflare ByJames October 20, 2022April 16, 2026 For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product. Hosting | Cloudflare | Personal | Wordpress Hosting This Blog on Cloudflare Workers: Why & How I Did It ByJames January 4, 2022April 16, 2026 A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them.",
+    "content": "Hosting Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Hosting Hosting | Personal Analytics in a privacy focused world ByJames November 10, 2023May 25, 2026 I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance. Cloudflare | Hosting | Wordpress Static WordPress hosting using Cloudflare ByJames October 20, 2022April 16, 2026 For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product. Hosting | Cloudflare | Personal | Wordpress Hosting This Blog on Cloudflare Workers: Why & How I Did It ByJames January 4, 2022May 25, 2026 A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them.",
     "categories": [
       "Hosting",
       "Personal",
@@ -2262,7 +2258,7 @@
     "title": "Certification Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/certification/",
     "description": "Articles tagged with Certification. Explore technical guides, tutorials, and insights about Certification from James Kilby's blog.",
-    "content": "Certification Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Certification VMware | Personal | vSphere Advanced Deploy VMware vSphere 7.x 3V0-22.21N ByJames November 10, 2023April 16, 2026 Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal. Nutanix | Personal Passing the Nutanix NCP Exam: Free Training & My Experience ByJames July 2, 2020April 16, 2026 I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam. AWS | Personal AWS Solution Architect – Associate ByJames December 16, 2019April 16, 2026 I renewed my AWS Solution Architect certification.",
+    "content": "Certification Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Certification VMware | Personal | vSphere Advanced Deploy VMware vSphere 7.x 3V0-22.21N ByJames November 10, 2023May 25, 2026 Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal. Nutanix | Personal Passing the Nutanix NCP Exam: Free Training & My Experience ByJames July 2, 2020April 16, 2026 I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam. AWS | Personal AWS Solution Architect – Associate ByJames December 16, 2019April 16, 2026 I renewed my AWS Solution Architect certification.",
     "categories": [
       "VMware",
       "Personal",
@@ -2366,7 +2362,7 @@
     "title": "Networking Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/networking/",
     "description": "Articles tagged with Networking. Explore technical guides, tutorials, and insights about Networking from James Kilby's blog.",
-    "content": "Networking Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Networking Artificial Intelligence | Automation | Docker | Homelab | NVIDIA | Traefik | VMware My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2) ByJames April 4, 2026April 16, 2026 Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each. Mikrotik | Networking Home Network Upgrade to 25Gb/s with MikroTik Switching ByJames September 9, 2024April 11, 2026 My journey to superfast networking in my homelab Homelab | Networking Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense ByJames January 6, 2022April 16, 2026 I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes.",
+    "content": "Networking Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Networking Artificial Intelligence | Automation | Docker | Homelab | NVIDIA | Traefik | VMware My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2) ByJames April 4, 2026April 16, 2026 Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each. Mikrotik | Networking Home Network Upgrade to 25Gb/s with MikroTik Switching ByJames September 9, 2024May 24, 2026 My journey to superfast networking in my homelab Homelab | Networking Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense ByJames January 6, 2022April 16, 2026 I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes.",
     "categories": [
       "Artificial Intelligence",
       "Automation",
@@ -2448,7 +2444,7 @@
     "title": "Content Library Archives - James Kilby",
     "url": "https://jameskilby.co.uk/tag/content-library/",
     "description": "Articles tagged with Content Library. Explore technical guides, tutorials, and insights about Content Library from James Kilby's blog.",
-    "content": "Content Library Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Content Library VMware | VMware Cloud on AWS Using Content Libraries in VMC to deploy software faster ByJames January 27, 2026March 12, 2026 How to leverage Content Libraries to deploy into VMware Cloud on AWS faster.",
+    "content": "Content Library Archives - James Kilby Skip to content James Kilby James Kilby Toggle Menu Content Library VMware | VMware Cloud on AWS Using Content Libraries in VMC to deploy software faster ByJames January 27, 2026May 25, 2026 How to leverage Content Libraries to deploy into VMware Cloud on AWS faster.",
     "categories": [
       "VMware",
       "VMware Cloud on AWS"
@@ -2701,25 +2697,25 @@
     "date": "2022-01-04T21:11:23+00:00"
   },
   {
-    "title": "Hosting This Blog on Cloudflare Workers: Why & How I Did ...",
+    "title": "Hosting This Blog on Cloudflare Workers: Why & How I Did It - James Kilby",
     "url": "https://jameskilby.co.uk/2022/01/web-development/",
-    "description": "A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them. This is partly related to some issues I have bee...",
-    "content": "Hosting This Blog on Cloudflare Workers: Why & How I Did ... Skip to contentJames KilbyJames KilbyToggle MenuHosting | Cloudflare | Personal | WordpressHosting This Blog on Cloudflare Workers: Why & How I Did ItByJamesJanuary 4, 2022April 16, 2026 • 📖1 min read(211 words)📅Published: January 04, 2022•Updated: April 16, 2026A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them. This is partly related to some issues I have been having with internet access at home. Prior to this, the site ran from within my lab.This means the site is now super fast (hopefully :p). It was cached by Cloudflare previously and now it’s served entirely from within their network.The speed report looks goodTo enable this workflow I have retained a WordPress instance running within a docker instance on my Synology. I have also set up Cloudflare teams to access this.This allows me to have the convenience of utilising WordPress as a CMS without having to worry abo",
+    "description": "A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them.",
+    "content": "Hosting This Blog on Cloudflare Workers: Why & How I Did It - James Kilby Skip to content James Kilby James Kilby Toggle Menu Hosting | Cloudflare | Personal | Wordpress Hosting This Blog on Cloudflare Workers: Why & How I Did It ByJames January 4, 2022May 25, 2026 • 📖1 min read(211 words) 📅Published: January 04, 2022•Updated: May 25, 2026 A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them. This is partly related to some issues I have been having with internet access at home. Prior to this, the site ran from within my lab. This means the site is now super fast (hopefully :p). It was cached by Cloudflare previously and now it’s served entirely from within their network. The speed report looks good To enable this workflow I have retained a WordPress instance running within a docker instance on my Synology. I have also set up Cloudflare teams to access this. This allows me to have the convenience of utilising WordPress as a CMS witho",
     "categories": [
       "Hosting",
       "Cloudflare",
       "Personal",
       "Wordpress",
+      "VMware",
+      "Devops",
+      "Github",
+      "Artificial Intelligence",
+      "Docker",
       "Ansible",
       "Automation",
-      "Docker",
       "Homelab",
       "Traefik",
       "VCF",
-      "VMware",
-      "Kubernetes",
-      "AWS",
-      "Artificial Intelligence",
       "NVIDIA"
     ],
     "tags": [
@@ -2928,25 +2924,24 @@
     "date": "2026-03-27T11:56:33+00:00"
   },
   {
-    "title": "Blog Performance & SEO Improvements: Cloudflare, Privacy ...",
+    "title": "Blog Performance & SEO Improvements: Cloudflare, Privacy & More - James Kilby",
     "url": "https://jameskilby.co.uk/2026/01/web-development-improvements/",
-    "description": "I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend” These help improve the performance, Privacy, SEO,...",
-    "content": "Blog Performance & SEO Improvements: Cloudflare, Privacy ... Skip to contentJames KilbyJames KilbyToggle MenuCloudflare | Hosting | WordpressBlog Performance & SEO Improvements: Cloudflare, Privacy & MoreByJamesJanuary 15, 2026April 16, 2026 • 📖8 min read(1,598 words)📅Published: January 15, 2026•Updated: April 16, 2026I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend” These help improve the performance, Privacy, SEO, and I have also added some security best practices.Most of these changes were done more as an exercise than due to a specific requirement. I also had a HUGE amount of help with some of these steps from a variety of AI tools. However Warp did the bulk of the heavy lifting. The repo behind the content of this site as well as the implementation is public in case you want to look deeper/steal anything.Before we dig into the details it’s probably worth briefly summarising what is going on.Solution OverviewBelow is a conde",
+    "description": "I have spent the Christmas break making some improvements to this blog.",
+    "content": "Blog Performance & SEO Improvements: Cloudflare, Privacy & More - James Kilby Skip to content James Kilby James Kilby Toggle Menu Cloudflare | Hosting | Wordpress Blog Performance & SEO Improvements: Cloudflare, Privacy & More ByJames January 15, 2026May 25, 2026 • 📖8 min read(1,599 words) 📅Published: January 15, 2026•Updated: May 25, 2026 I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend” These help improve the performance, Privacy, SEO, and I have also added some security best practices. Most of these changes were done more as an exercise than due to a specific requirement. I also had a HUGE amount of help with some of these steps from a variety of AI tools. However Warp did the bulk of the heavy lifting. The repo behind the content of this site as well as the implementation is public in case you want to look deeper/steal anything. Before we dig into the details it’s probably worth briefly summarising what is going on. Solution",
     "categories": [
       "Cloudflare",
       "Hosting",
       "Wordpress",
-      "Personal",
-      "AWS",
       "Devops",
       "Github",
-      "Ansible",
+      "Artificial Intelligence",
       "Automation",
       "Docker",
       "Homelab",
+      "NVIDIA",
       "Traefik",
-      "VCF",
-      "VMware"
+      "VMware",
+      "AWS"
     ],
     "tags": [
       "#Cloudflare",
@@ -2957,19 +2952,18 @@
     "date": "2026-01-15T15:12:16+00:00"
   },
   {
-    "title": "Using Content Libraries in VMC to deploy software faster ...",
+    "title": "VMC Content Libraries: Faster Software Deployment in SDDC",
     "url": "https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/",
-    "description": "As part of my role spinning up new SDDC’s to test things is quite a common occurrence. This is both a blessing and a curse. The new SDDC is 100% Vanilla and ...",
-    "content": "Using Content Libraries in VMC to deploy software faster ... Skip to contentJames KilbyJames KilbyToggle MenuVMware | VMware Cloud on AWSUsing Content Libraries in VMC to deploy software fasterByJamesJanuary 27, 2026March 12, 2026 • 📖5 min read(975 words)📅Published: January 27, 2026•Updated: March 12, 2026As part of my role spinning up new SDDC’s to test things is quite a common occurrence. This is both a blessing and a curse. The new SDDC is 100% Vanilla and perfectly self contained. Therefore you can do the testing required, knowing that you won’t impact anything else and you’re not inheriting a legacy setting from previous testing.However the downside is you need to get the configuration and the software you require into the SDDC. This can take some time. For configuration it’s possible to use IAC tools like Terraform. To speed up the process of deploying software I decided to leverage Content Library specifically for this task. This is a much faster and more reliable way to get wha",
+    "description": "Using VMware Cloud on AWS Content Libraries to deploy ISOs and OVAs to new SDDCs in minutes instead of hours. Setup, layout, and a working example.",
+    "content": "VMC Content Libraries: Faster Software Deployment in SDDC Skip to content James Kilby James Kilby Toggle Menu VMware | VMware Cloud on AWS Using Content Libraries in VMC to deploy software faster ByJames January 27, 2026May 25, 2026 • 📖5 min read(975 words) 📅Published: January 27, 2026•Updated: May 25, 2026 As part of my role spinning up new SDDC’s to test things is quite a common occurrence. This is both a blessing and a curse. The new SDDC is 100% Vanilla and perfectly self contained. Therefore you can do the testing required, knowing that you won’t impact anything else and you’re not inheriting a legacy setting from previous testing. However the downside is you need to get the configuration and the software you require into the SDDC. This can take some time. For configuration it’s possible to use IAC tools like Terraform. To speed up the process of deploying software I decided to leverage Content Library specifically for this task. This is a much faster and more reliable way to get ",
     "categories": [
       "VMware",
       "VMware Cloud on AWS",
-      "Personal",
       "Homelab",
-      "Veeam",
-      "Ansible",
-      "Automation",
-      "vSAN"
+      "vSphere",
+      "Runecast",
+      "Personal",
+      "VCF"
     ],
     "tags": [
       "#Content Library",
@@ -2983,7 +2977,7 @@
     "title": "Automating My AI Homelab: Ansible + NVIDIA Passthrough",
     "url": "https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/",
     "description": "Automate a complete AI homelab build with Ansible: Ubuntu, NVIDIA GPU passthrough, Docker, Traefik, and the full AI stack deployed via Semaphore.",
-    "content": "Automating My AI Homelab: Ansible + NVIDIA Passthrough Skip to content James Kilby James Kilby Toggle Menu Ansible | Artificial Intelligence | Containers | Devops | Homelab | NVIDIA | Traefik | VMware Automating the Deployment of my Homelab AI Infrastructure ByJames February 9, 2026May 24, 2026 • 📖17 min read(3,332 words) 📅Published: February 09, 2026•Updated: May 24, 2026 In a previous post, I wrote about using my VMware lab with an NVIDIA Tesla P4 for running some AI services. This deployment was done with the P4 GPU in passthrough mode where the entire PCI card was presented into the VM. (I will refer to this as GPU mode). I wanted to take this to the next level. I also wanted to automate most of the steps. This was for a few reasons; firstly, I wanted to get better at automation in general. Secondly, I found the setup brittle and wanted to improve the reliability of deployments. This post will be about using automation to deploy the VM infrastructure required to be able to run AI W",
+    "content": "Automating My AI Homelab: Ansible + NVIDIA Passthrough Skip to contentJames KilbyJames KilbyToggle MenuAnsible | Artificial Intelligence | Containers | Devops | Homelab | NVIDIA | Traefik | VMwareAutomating the Deployment of my Homelab AI InfrastructureByJamesFebruary 9, 2026May 24, 2026 • 📖17 min read(3,332 words)📅Published: February 09, 2026•Updated: May 24, 2026In a previous post, I wrote about using my VMware lab with an NVIDIA Tesla P4 for running some AI services. This deployment was done with the P4 GPU in passthrough mode where the entire PCI card was presented into the VM. (I will refer to this as GPU mode). I wanted to take this to the next level. I also wanted to automate most of the steps. This was for a few reasons; firstly, I wanted to get better at automation in general.Secondly, I found the setup brittle and wanted to improve the reliability of deployments. This post will be about using automation to deploy the VM infrastructure required to be able to run AI Workloads. ",
     "categories": [
       "Ansible",
       "Artificial Intelligence",
@@ -3184,7 +3178,7 @@
     "title": "Managing My Homelab with SemaphoreUI (Ansible Web UI)",
     "url": "https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/",
     "description": "How I use SemaphoreUI as the web frontend for Ansible, Terraform and PowerShell in my homelab. Setup, screenshots, lessons learned in production use.",
-    "content": "Managing My Homelab with SemaphoreUI (Ansible Web UI) Skip to content James Kilby James Kilby Toggle Menu Ansible | Homelab Managing my Homelab with SemaphoreUI ByJames September 2, 2025May 24, 2026 • 📖8 min read(1,592 words) 📅Published: September 02, 2025•Updated: May 24, 2026 I recently stumbled across Semaphore, which is essentially a frontend for managing DevOps tooling, including Ansible, Terraform, OpenTofu, and PowerShell. It’s easy to deploy in Docker, and I am slowly moving more of my homelab management over to it. Introduction This is a guide to show you how to get up and running easily with SemaphoreUI in Docker and use it to execute a basic Ansible playbook to deploy Docker onto an Ubuntu Server. Table of Contents Pre-reqs Somewhere to run your Semaphore server. I chose to use a Docker container on one of my existing hosts. Git Repo. I am using GitHub. My code is all stored in a public repo here so others can follow along. SSH Keys/Authentication into the server to be provi",
+    "content": "Managing My Homelab with SemaphoreUI (Ansible Web UI) Skip to contentJames KilbyJames KilbyToggle MenuAnsible | HomelabManaging my Homelab with SemaphoreUIByJamesSeptember 2, 2025May 24, 2026 • 📖8 min read(1,592 words)📅Published: September 02, 2025•Updated: May 24, 2026I recently stumbled across Semaphore, which is essentially a frontend for managing DevOps tooling, including Ansible, Terraform, OpenTofu, and PowerShell.It’s easy to deploy in Docker, and I am slowly moving more of my homelab management over to it.IntroductionThis is a guide to show you how to get up and running easily with SemaphoreUI in Docker and use it to execute a basic Ansible playbook to deploy Docker onto an Ubuntu Server.Table of ContentsPre-reqsSomewhere to run your Semaphore server. I chose to use a Docker container on one of my existing hosts.Git Repo. I am using GitHub. My code is all stored in a public repo here so others can follow along.SSH Keys/Authentication into the server to be provisioned.Docker Con",
     "categories": [
       "Ansible",
       "Homelab",
@@ -3208,22 +3202,16 @@
     "title": "An in-depth look at VMware Cloud on AWS hosts - James Kilby",
     "url": "https://jameskilby.co.uk/2025/08/vmc-host-deepdive/",
     "description": "This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison.",
-    "content": "An in-depth look at VMware Cloud on AWS hosts - James Kilby Skip to contentJames KilbyJames KilbyToggle MenuVMware | VMware Cloud on AWSAn in-depth look at VMware Cloud on AWS hostsByJamesAugust 14, 2025April 16, 2026 • 📖1 min read(217 words)📅Published: August 14, 2025•Updated: April 16, 2026This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison.All of this data Is publicly available. I have just collated into a single pageI3.metalI3en.metalI4i.metalCPUProcessor NameIntel Xeon E5-2686 v4 Intel Xeon Platinum 8175Intel Xeon 8375cNo of Physical Cores364864HyperthreadingNoYesYesBase Clock2.3GHz2.5 GHz2.9 GHzTurbo ClockN/A3.1 GHz3.5 GHzProcessor FamilyBroadwellSkylakeIce LakeCustom Core Count8 16 368 16 24 30 36 488 16 24 30 36 48 64MemoryCapacity GiB5127681024Memory SpeedDDR4-2400DDR4-2666DDR4-3200NetworkingNetwork Adaptor Speed Gb/s2510075 Hardware Network Encryption in TransitNoYesYesStoragePhysical Drives8×19008×75008×35",
+    "content": "An in-depth look at VMware Cloud on AWS hosts - James Kilby Skip to content James Kilby James Kilby Toggle Menu VMware | VMware Cloud on AWS An in-depth look at VMware Cloud on AWS hosts ByJames August 14, 2025May 25, 2026 • 📖1 min read(219 words) 📅Published: August 14, 2025•Updated: May 25, 2026 This is a single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison. All of this data is publicly available. I have just collated it into a single page I3.metalI3en.metalI4i.metalCPUProcessor NameIntel Xeon E5-2686 v4 Intel Xeon Platinum 8175Intel Xeon 8375cNo of Physical Cores364864HyperthreadingNoYesYesBase Clock2.3GHz2.5 GHz2.9 GHzTurbo ClockN/A3.1 GHz3.5 GHzProcessor FamilyBroadwellSkylakeIce LakeCustom Core Count8 16 368 16 24 30 36 488 16 24 30 36 48 64Memory Capacity GiB5127681024Memory SpeedDDR4-2400DDR4-2666DDR4-3200NetworkingNetwork Adaptor Speed Gb/s2510075 Hardware Network Encryption in TransitNoYesYesStoragePhysical Drives8×1",
     "categories": [
       "VMware",
       "VMware Cloud on AWS",
-      "Personal",
+      "Automation",
       "Homelab",
-      "Networking",
-      "Storage",
-      "vSphere",
       "Veeam",
-      "Ansible",
-      "Artificial Intelligence",
-      "Containers",
-      "Devops",
-      "NVIDIA",
-      "Traefik"
+      "TrueNAS Scale",
+      "vSAN",
+      "vSphere"
     ],
     "tags": [
       "#VMware Cloud on AWS"
@@ -3231,27 +3219,27 @@
     "date": "2025-08-14T12:32:01+00:00"
   },
   {
-    "title": "How I upgraded my blog as a Static Website with GitHub Ac...",
+    "title": "How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare - James Kilby",
     "url": "https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/",
     "description": "I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.",
-    "content": "How I upgraded my blog as a Static Website with GitHub Ac... Skip to contentJames KilbyJames KilbyToggle MenuCloudflare | Devops | Github | WordpressHow I upgraded my blog as a Static Website with GitHub Actions and CloudflareByJamesOctober 6, 2025April 16, 2026 • 📖7 min read(1,380 words)📅Published: October 06, 2025•Updated: April 16, 2026I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.Table of ContentsWhat I started withMy previous setup, involved a locally hosted WordPress instance. This runs in my homelab in an Ubuntu VM. This I will refer to as the authoring instance. Within this WordPress instance I have the “Simply Static” Plugin. When I have finished writing a post or making changes, I then hit “Generate” within the plugin. It will then scan the entire site, creating an entire copy that’s made available as a Zip download. The benefits of this setup I have discussed previouslyI then take this exp",
+    "content": "How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare - James Kilby Skip to content James Kilby James Kilby Toggle Menu Cloudflare | Devops | Github | Wordpress How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare ByJames October 6, 2025May 25, 2026 • 📖7 min read(1,379 words) 📅Published: October 06, 2025•Updated: May 25, 2026 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made. Table of Contents What I started with My previous setup, involved a locally hosted WordPress instance. This runs in my homelab in an Ubuntu VM. This I will refer to as the authoring instance. Within this WordPress instance I have the “Simply Static” Plugin. When I have finished writing a post or making changes, I then hit “Generate” within the plugin. It will then scan the entire site, creating an entire copy that’s made available as a Zip download. The benefits of this setup I have d",
     "categories": [
       "Cloudflare",
       "Devops",
       "Github",
       "Wordpress",
-      "Hosting",
-      "Ansible",
       "Artificial Intelligence",
-      "Containers",
+      "Automation",
+      "Docker",
       "Homelab",
       "NVIDIA",
       "Traefik",
       "VMware",
+      "Hosting",
+      "Ansible",
+      "VCF",
       "Personal",
-      "Automation",
-      "Docker",
-      "VCF"
+      "Containers"
     ],
     "tags": [
       "#Blog",
@@ -3266,20 +3254,14 @@
   {
     "title": "vSAN Cluster Shutdown - Orchestration - James Kilby",
     "url": "https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/",
-    "description": "As can be seen on my Lab Overview page. I have a GPU/Management cluster that is usually running 24×7. I also have a 3x Node vSAN cluster that I use when I ne...",
-    "content": "vSAN Cluster Shutdown - Orchestration - James Kilby Skip to contentJames KilbyJames KilbyToggle MenuVMware | vSANvSAN Cluster Shutdown – OrchestrationByJamesDecember 6, 2025March 10, 2026 • 📖1 min read(115 words)📅Published: December 06, 2025•Updated: March 10, 2026As can be seen on my Lab Overview page. I have a GPU/Management cluster that is usually running 24×7. I also have a 3x Node vSAN cluster that I use when I need more resources (or specifically if I need vSAN to test with)This allows me to See the overview belowTo shut down a vSAN cluster, there is a nice workflow built into vCentre that will orchestrate all the required actions for youAnd there you have it…To restart the cluster, ensure all the hosts are booted. Leave them in maintenance mode and then select “Restart vSAN Services” The workflow will enable them to bring them back into operation. Restart vSAN ServicesConnect with me:GitHubTwitterLinkedIn📚 Related PostsAutomated VCF 9 Offline DepotMy Self-Hosted AI Stack: Infras",
+    "description": "As can be seen on my Lab Overview page. I have a GPU/Management cluster that is usually running 24x7.",
+    "content": "vSAN Cluster Shutdown - Orchestration - James Kilby Skip to content James Kilby James Kilby Toggle Menu VMware | vSAN vSAN Cluster Shutdown – Orchestration ByJames December 6, 2025May 25, 2026 • 📖1 min read(115 words) 📅Published: December 06, 2025•Updated: May 25, 2026 As can be seen on my Lab Overview page, I have a GPU/Management cluster that is usually running 24×7. I also have a 3x Node vSAN cluster that I use when I need more resources (or specifically if I need vSAN to test with) This allows me to See the overview below To shut down a vSAN cluster, there is a nice workflow built into vCentre that will orchestrate all the required actions for you And there you have it… To restart the cluster, ensure all the hosts are booted. Leave them in maintenance mode and then select “Restart vSAN Services” The workflow will enable them to bring them back into operation. Restart vSAN Services Connect with me:GitHubTwitterLinkedIn📚 Related PostsAutomated VCF 9 Offline DepotMy Self-Hosted AI Sta",
     "categories": [
       "VMware",
       "vSAN",
-      "Personal",
-      "vSphere",
       "VMware Cloud on AWS",
-      "Artificial Intelligence",
-      "Automation",
-      "Docker",
-      "Homelab",
-      "NVIDIA",
-      "Traefik"
+      "Runecast",
+      "VCF"
     ],
     "tags": [],
     "date": "2025-12-06T10:59:14+00:00"
@@ -3304,7 +3286,7 @@
     "title": "Expand Ubuntu Disk Space with LVM (pvresize, Step-by-Step)",
     "url": "https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/",
     "description": "Step-by-step Ubuntu disk expansion with LVM: pvresize, vgextend, lvextend, resize2fs. Works after resizing the VM disk in vSphere/Hyper-V/KVM.",
-    "content": "Expand Ubuntu Disk Space with LVM (pvresize, Step-by-Step) Skip to content James Kilby James Kilby Toggle Menu Ubuntu How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step ByJames December 15, 2025May 24, 2026 • 📖1 min read(91 words) 📅Published: December 15, 2025•Updated: May 24, 2026 How to expand disks from the command line in Ubuntu. This is something I do fairly frequently, and I can never remember the steps. So I decided to write them down. Table of Contents 1. Rescan for disk size changes sudo tee /sys/class/block/sda/device/rescan 2. Extend the physical partition (if needed) sudo growpart /dev/sda 3 3. Resize the physical volume sudo pvresize /dev/sda3 4. Extend the logical volume to use all available space sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv 5. Resize the filesystem sudo resize2fs /dev/ubuntu-vg/ubuntu-lv 6. Verify the new size df -h Connect with me:GitHubTwitterLinkedIn Similar Posts Ansible | Automation | Docker | Homelab | Traefik | VCF | VMware Automate",
+    "content": "Expand Ubuntu Disk Space with LVM (pvresize, Step-by-Step) Skip to contentJames KilbyJames KilbyToggle MenuUbuntuHow to Expand Ubuntu Disk Space: LVM pvresize Step-by-StepByJamesDecember 15, 2025May 24, 2026 • 📖1 min read(91 words)📅Published: December 15, 2025•Updated: May 24, 2026How to expand disks from the command line in Ubuntu.This is something I do fairly frequently, and I can never remember the steps. So I decided to write them down.Table of Contents1. Rescan for disk size changessudo tee /sys/class/block/sda/device/rescan2. Extend the physical partition (if needed)sudo growpart /dev/sda 33. Resize the physical volumesudo pvresize /dev/sda34. Extend the logical volume to use all available spacesudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv5. Resize the filesystemsudo resize2fs /dev/ubuntu-vg/ubuntu-lv6. Verify the new sizedf -hConnect with me:GitHubTwitterLinkedInSimilar PostsAnsible | Automation | Docker | Homelab | Traefik | VCF | VMwareAutomated VCF 9 Offline DepotByJame",
     "categories": [
       "Ubuntu",
       "Ansible",

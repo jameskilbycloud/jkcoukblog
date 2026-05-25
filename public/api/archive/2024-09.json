@@ -6,9 +6,9 @@
     {
       "slug": "home-network-upgrade",
       "title": "Home Network Upgrade to 25Gb/s with MikroTik Switching",
-      "description": "I have recently moved over to Mikrotik Switching for all of my Home environment as part of my home network upgrade. What started life as a move away from gig...",
+      "description": "How I rebuilt my home network around MikroTik CRS504 25Gb/s switching, DACs, optics, and the gotchas I hit going beyond 10Gb at home.",
       "date": "2024-09-09T08:25:08Z",
-      "modified": "2026-04-11T09:00:47Z",
+      "modified": "2026-05-24T07:31:36Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/09/home-network-upgrade/",
       "markdown_url": "/markdown/posts/home-network-upgrade.md",
@@ -16,15 +16,19 @@
       "categories": [
         "Mikrotik",
         "Networking",
+        "Ansible",
         "Homelab",
-        "Storage",
+        "Hosting",
         "VMware",
         "Artificial Intelligence",
+        "Automation",
         "Docker",
-        "Nutanix",
-        "Hosting",
-        "Kubernetes",
-        "TrueNAS Scale"
+        "NVIDIA",
+        "Traefik",
+        "Storage",
+        "Synology",
+        "Containers",
+        "Devops"
       ],
       "tags": [
         null,
@@ -32,7 +36,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg",
-      "excerpt": "![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg)\n\n[Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Home Network Upgrade to 25Gb/s with MikroTik Switching\n\nBy[James](https://jameskilby.co.uk)September 9..."
+      "excerpt": "![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg)\n\n[Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Home Network Upgrade to 25Gb/s with MikroTik Switching\n\nBy[James](https://jameskilby.co.uk) September ..."
     },
     {
       "slug": "can-you-really-squeeze-96tb-in-1u",
