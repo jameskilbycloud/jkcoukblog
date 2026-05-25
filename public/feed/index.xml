@@ -5,7 +5,7 @@
     <link>https://jameskilby.co.uk/</link>
     <description>VMware and cloud infrastructure tutorials, homelab guides, and DevOps insights</description>
     <language>en-gb</language>
-    <lastBuildDate>Sun, 24 May 2026 07:04:43 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 25 May 2026 08:51:02 +0000</lastBuildDate>
     <atom:link href="https://jameskilby.co.uk/feed/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)</title>
@@ -66,7 +66,7 @@
     <item>
       <title>Blog Performance &amp; SEO Improvements: Cloudflare, Privacy &amp; More</title>
       <link>https://jameskilby.co.uk/2026/01/web-development-improvements/</link>
-      <description>I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend” These help improve the performance, Privacy, SEO,...</description>
+      <description>I have spent the Christmas break making some improvements to this blog.</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2026/01/web-development-improvements/</guid>
       <pubDate>Thu, 15 Jan 2026 15:12:16 +0000</pubDate>
@@ -74,7 +74,7 @@
     <item>
       <title>Using Content Libraries in VMC to deploy software faster</title>
       <link>https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/</link>
-      <description>As part of my role spinning up new SDDC’s to test things is quite a common occurrence. This is both a blessing and a curse. The new SDDC is 100% Vanilla and ...</description>
+      <description>Using VMware Cloud on AWS Content Libraries to deploy ISOs and OVAs to new SDDCs in minutes instead of hours. Setup, layout, and a working example.</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/</guid>
       <pubDate>Tue, 27 Jan 2026 22:19:39 +0000</pubDate>
@@ -82,7 +82,7 @@
     <item>
       <title>vSAN Cluster Shutdown – Orchestration</title>
       <link>https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/</link>
-      <description>As can be seen on my Lab Overview page. I have a GPU/Management cluster that is usually running 24×7. I also have a 3x Node vSAN cluster that I use when I ne...</description>
+      <description>As can be seen on my Lab Overview page. I have a GPU/Management cluster that is usually running 24x7.</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/</guid>
       <pubDate>Sat, 06 Dec 2025 10:59:14 +0000</pubDate>

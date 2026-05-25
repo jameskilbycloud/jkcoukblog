@@ -45,7 +45,7 @@ posts.count.............72
 
 words.total............46k
 
-last_post..........38d ago
+last_post..........39d ago
 
 categories..............34
 
@@ -53,7 +53,7 @@ tags...................125
 
 vexpert.years...........11
 
-deploys.month...........37
+deploys.month...........38
 
 last_deploy.........1d ago
 
@@ -141,7 +141,7 @@ Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI 
 
 ## [Using Content Libraries in VMC to deploy software faster](https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/)
 
-By[James](https://jameskilby.co.uk) January 27, 2026March 12, 2026
+By[James](https://jameskilby.co.uk) January 27, 2026May 25, 2026
 
 How to leverage Content Libraries to deploy into VMware Cloud on AWS faster.
 
@@ -151,7 +151,7 @@ How to leverage Content Libraries to deploy into VMware Cloud on AWS faster.
 
 ## [Blog Performance & SEO Improvements: Cloudflare, Privacy & More](https://jameskilby.co.uk/2026/01/web-development-improvements/)
 
-By[James](https://jameskilby.co.uk) January 15, 2026April 16, 2026
+By[James](https://jameskilby.co.uk) January 15, 2026May 25, 2026
 
 I have spent the Christmas break making some improvements to this blog.
 
@@ -181,7 +181,7 @@ How to use the Amazon Time Sync Service in a VMC environment
 
 ## [vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
 
-By[James](https://jameskilby.co.uk) December 6, 2025March 10, 2026
+By[James](https://jameskilby.co.uk) December 6, 2025May 25, 2026
 
 How to safety shutdown a vSAN Environment
 
