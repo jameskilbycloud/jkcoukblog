@@ -5,7 +5,7 @@
     <link>https://jameskilby.co.uk/</link>
     <description>VMware and cloud infrastructure tutorials, homelab guides, and DevOps insights</description>
     <language>en-gb</language>
-    <lastBuildDate>Mon, 25 May 2026 08:51:02 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 25 May 2026 17:59:02 +0000</lastBuildDate>
     <atom:link href="https://jameskilby.co.uk/feed/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)</title>
@@ -82,7 +82,7 @@
     <item>
       <title>vSAN Cluster Shutdown – Orchestration</title>
       <link>https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/</link>
-      <description>As can be seen on my Lab Overview page. I have a GPU/Management cluster that is usually running 24x7.</description>
+      <description>As can be seen on my Lab Overview page, I have a GPU/Management cluster that is usually running 24×7. I also have a 3x Node vSAN cluster that I use when I ne...</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/</guid>
       <pubDate>Sat, 06 Dec 2025 10:59:14 +0000</pubDate>
@@ -90,7 +90,7 @@
     <item>
       <title>VMware Cloud on AWS Time Sync &amp; NTP Configuration</title>
       <link>https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/</link>
-      <description>VMware Cloud on AWS time sync NTP is managed automatically using the Amazon Time Sync Service, removing one of the traditional infrastructure concerns when r...</description>
+      <description>How to use the Amazon Time Sync Service in a VMC environment</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/</guid>
       <pubDate>Mon, 08 Dec 2025 14:03:44 +0000</pubDate>
@@ -138,7 +138,7 @@
     <item>
       <title>Warp – The intelligent terminal</title>
       <link>https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/</link>
-      <description>Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and theref...</description>
+      <description>Warp is helping me run my homelab.</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/</guid>
       <pubDate>Fri, 11 Apr 2025 15:46:23 +0000</pubDate>

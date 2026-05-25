@@ -8,7 +8,7 @@
       "title": "New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix",
       "description": "I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExper",
       "date": "2024-07-02T08:01:04Z",
-      "modified": "2026-05-25T08:44:12Z",
+      "modified": "2026-05-25T17:18:26Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/07/new-nodes/",
       "markdown_url": "/markdown/posts/new-nodes.md",
@@ -17,12 +17,14 @@
         "Homelab",
         "Nutanix",
         "VMware",
-        "VMware Cloud on AWS",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
+        "Automation",
         "Runecast",
-        "Automation"
+        "Personal",
+        "vSphere",
+        "Artificial Intelligence",
+        "Docker",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,

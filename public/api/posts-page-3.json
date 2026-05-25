@@ -3,9 +3,9 @@
     {
       "slug": "time-in-a-vmc-environment",
       "title": "VMware Cloud on AWS Time Sync & NTP Configuration",
-      "description": "VMware Cloud on AWS time sync NTP is managed automatically using the Amazon Time Sync Service, removing one of the traditional infrastructure concerns when r...",
+      "description": "How to use the Amazon Time Sync Service in a VMC environment",
       "date": "2025-12-08T14:03:44Z",
-      "modified": "2026-04-11T09:00:47Z",
+      "modified": "2026-05-25T17:15:48Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/",
       "markdown_url": "/markdown/posts/time-in-a-vmc-environment.md",
@@ -20,14 +20,14 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png",
-      "excerpt": "![Picture 1 E1768509620339](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png)\n\n[VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# VMware Cloud on AWS Time Sync & NTP Configuration\n\nBy[James](https://jameskilby.co.uk)December 8, 202..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png)\n\n[VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# VMware Cloud on AWS Time Sync & NTP Configuration\n\nBy[James](https://jameskilby.co.uk) December 8, 2025May 25, 2026 • 📖3 min ..."
     },
     {
       "slug": "starlink",
       "title": "Starlink Satellite Internet Review: Rural Broadband Solution",
-      "description": "Since moving to Dorset last year internet connectivity has been the bane of my existence. Currently, I have an ADSL connection provided by my old employer Ze...",
+      "description": "Since moving to Dorset last year internet connectivity has been the bane of my existence.",
       "date": "2022-10-11T21:40:50Z",
-      "modified": "2026-04-16T22:01:54Z",
+      "modified": "2026-05-25T11:09:17Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2022/10/starlink/",
       "markdown_url": "/markdown/posts/starlink.md",
@@ -36,33 +36,32 @@
         "Homelab",
         "Hosting",
         "Storage",
-        "vExpert",
         "VMware",
+        "TrueNAS Scale",
+        "vSAN",
         "vSphere",
         "Ansible",
         "Automation",
         "Docker",
         "Traefik",
         "VCF",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Nutanix"
+        "Cloudflare",
+        "Personal",
+        "Wordpress"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920.jpg",
-      "excerpt": "![Spacexs Starlink To Supply Free Satellite Internet To Famili U44U.1920](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/catego..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# Starlink Satellite Internet Review: Rural Broadband So..."
     },
     {
       "slug": "self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu",
       "title": "Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU",
       "description": "Artificial intelligence is all the rage at the moment, It’s getting included in every product announcement from pretty much every vendor under the su",
       "date": "2024-10-11T15:03:26Z",
-      "modified": "2026-04-16T22:01:45Z",
+      "modified": "2026-05-25T11:09:17Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/",
       "markdown_url": "/markdown/posts/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu.md",
@@ -71,18 +70,11 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "Nutanix",
-        "Networking",
-        "Hosting",
-        "Kubernetes",
-        "Ansible",
         "Automation",
-        "Traefik",
-        "VCF",
         "VMware",
-        "Containers",
-        "Devops",
-        "NVIDIA"
+        "vSphere",
+        "Hosting",
+        "VCF"
       ],
       "tags": [
         null,
@@ -90,7 +82,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-1024x683.jpg",
-      "excerpt": "![Pexels Tara Winstead 8386440 Scaled](https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-scaled.jpg)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameski..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-scaled.jpg)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Sel..."
     },
     {
       "slug": "runecast-remediation-scripts",
@@ -277,7 +269,7 @@
       "title": "New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix",
       "description": "I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExper",
       "date": "2024-07-02T08:01:04Z",
-      "modified": "2026-05-25T08:44:12Z",
+      "modified": "2026-05-25T17:18:26Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/07/new-nodes/",
       "markdown_url": "/markdown/posts/new-nodes.md",
@@ -286,12 +278,14 @@
         "Homelab",
         "Nutanix",
         "VMware",
-        "VMware Cloud on AWS",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
+        "Automation",
         "Runecast",
-        "Automation"
+        "Personal",
+        "vSphere",
+        "Artificial Intelligence",
+        "Docker",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,

@@ -2,22 +2,16 @@
 title: "Homelab Storage Refresh (Part 1)"
 description: "Table of Contents Background ZFS Overview Read Cache (ARC and L2ARC) ZIL (ZFS Intent Log) Hardware Background I have just completed the move of all my prod"
 date: 2023-05-23T12:07:09+00:00
-modified: 2026-04-16T22:01:50+00:00
+modified: 2026-05-25T17:18:26+00:00
 author: James Kilby
 categories:
   - Homelab
   - Storage
-  - Artificial Intelligence
-  - Automation
-  - Docker
-  - NVIDIA
-  - Traefik
   - VMware
-  - TrueNAS Scale
-  - Veeam
+  - Synology
   - Nutanix
-  - Ansible
-  - VCF
+  - Artificial Intelligence
+  - TrueNAS Scale
 tags:
   - #NAS
   - #TrueNAS Scale
@@ -32,9 +26,9 @@ image: https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22
 
 # Homelab Storage Refresh (Part 1)
 
-By[James](https://jameskilby.co.uk)May 23, 2023April 16, 2026 • 📖9 min read(1,851 words)
+By[James](https://jameskilby.co.uk) May 23, 2023May 25, 2026 • 📖9 min read(1,853 words)
 
-📅 **Published:** May 23, 2023• **Updated:** April 16, 2026
+📅 **Published:** May 23, 2023• **Updated:** May 25, 2026
 
 ## Table of Contents
 
@@ -48,7 +42,7 @@ However, my homelab needs could not be served by the units I had. I was especial
 
 Therefore the migration to TrueNAS was undertaken. I had the TrueNAS box running for a while (with a lower spec and only used it occasionally when I needed higher-performance storage)This was due to the significantly higher electrical usage.
 
-However, it was time to complete the move of all data and media services. Up until this point, my media stack was running on my Synology DS918+. I have had a few issues recently with the Synology that I suspect are it running out of memory. I had upgraded it to 12GB but this was still not enough. As my Z840 TrueNAS server has way more RAM and CPU capabilities As part of the migration, I also consolidated some additional hardware into the TrueNAS host. This has now become the central piece of kit in my homely running a large number of services.
+However, it was time to complete the move of all data and media services. Up until this point, my media stack was running on my Synology DS918+. I have had a few issues recently with the Synology that I suspect are it running out of memory. I had upgraded it to 12GB but this was still not enough. As my Z840 TrueNAS server has way more RAM and CPU capabilities As part of the migration, I also consolidated some additional hardware into the TrueNAS host. This has now become the central piece of kit in my homelab running a large number of services.
 
 ## ZFS Overview
 
@@ -86,7 +80,7 @@ In Truenas Scale only half of the available RAM is able to be used as ARC theref
 
 L2ARC Configuration
 
-For L2ARC I am using an Intel P3520 2TB NVMe in U2 form factor on a Startech PCI card. This is a perfect drive for L2ARC as is a heavy read-focused NVMe offering 375,000 IOPS and uptown 2700MB/s of read performance but only 26,000 IOPS and up to 1800MB/s of write performance. This isn’t an issue as by design the L2ARC fills slowly and with the later builds of Truenas, the data persists across reboots. This also helps with the relatively low data endurance of 1095 TBW 
+For L2ARC I am using an Intel P3520 2TB NVMe in U2 form factor on a Startech PCI card. This is a perfect drive for L2ARC as is a heavy read-focused NVMe offering 375,000 IOPS and up to 2700MB/s of read performance but only 26,000 IOPS and up to 1800MB/s of write performance. This isn’t an issue as by design the L2ARC fills slowly and with the later builds of Truenas, the data persists across reboots. This also helps with the relatively low data endurance of 1095 TBW 
 
 ### ZIL (ZFS Intent Log)
 
@@ -110,7 +104,7 @@ ZIL Config
 
 For the ZIL I am using two Intel Optane P4800X 750GB devices in a mirror configuration. I was VERY lucky to get these sample hardware devices from Intel as part of the [VMware vExpert](https://vexpert.vmware.com) program and I have some blogs coming up dedicated to these devices.
 
-These are capable of reading 550000 IOPS (4K Blocks) and unto 2500MB/s sequentially read and 550000 IOPS (4K Blocks) 2200 MB/s write Some crazy numbers…. The other thing that makes Optanes the best choice for this role is the endurance that they offer. The spec sheet says they will handle 41 Petabytes being written to them. 
+These are capable of reading 550000 IOPS (4K Blocks) and up to 2500MB/s sequentially read and 550000 IOPS (4K Blocks) 2200 MB/s write Some crazy numbers…. The other thing that makes Optanes the best choice for this role is the endurance that they offer. The spec sheet says they will handle 41 Petabytes being written to them. 
 
 ## Hardware
 
@@ -124,12 +118,12 @@ The current disk architecture is shown below. However, this is likely not the fi
 
 Role| Number| Device| Config| Usable/Role  
 ---|---|---|---|---  
-Boot Drive| 2| Intel 80GB SSD| MIRROR| N/A only used for TrueNas OS  
-SSD Pool| 6| Samsung 860 EVO 2TB| 2 x MIRROR | 3 wide| 4.71TiB (TrueNas Apps and VM storage)  
-HD Pool 1| 4| Seagate IronWolf 8TB | 1xRAIDZ1| 21TiB ( Media storage)   
-HD Pool 2| 4| HGST 1TB 7200RPM| 1xRAIDZ1| 3TiB. ( Files and Photos)   
-ARC (Assigned to SSD Pool)| 1| Intel 2TB NVMe| JBOD| N/A ARC is only used as a read cache and doesn’t contribute to capacity  
-SLOG (Assigned to SSD Pool)| 2| [Intel DC P4800X Optane](https://ark.intel.com/content/www/us/en/ark/products/97154/intel-optane-ssd-dc-p4800x-series-750gb-2-5in-pcie-x4-3d-xpoint.html)| 2 x MIRROR| SLOG is a write log and doesn’t add to capacity  
+Boot Drive | 2 | Intel 80GB SSD | MIRROR | N/A only used for TrueNas OS  
+SSD Pool | 6 | Samsung 860 EVO 2TB | 2 x MIRROR | 3 wide | 4.71TiB (TrueNas Apps and VM storage)  
+HD Pool 1 | 4 | Seagate IronWolf 8TB  | 1xRAIDZ1 | 21TiB ( Media storage)   
+HD Pool 2 | 4 | HGST 1TB 7200RPM | 1xRAIDZ1 | 3TiB. ( Files and Photos)   
+ARC (Assigned to SSD Pool) | 1 | Intel 2TB NVMe | JBOD | N/A ARC is only used as a read cache and doesn’t contribute to capacity  
+SLOG (Assigned to SSD Pool) | 2 | [Intel DC P4800X Optane](https://ark.intel.com/content/www/us/en/ark/products/97154/intel-optane-ssd-dc-p4800x-series-750gb-2-5in-pcie-x4-3d-xpoint.html) | 2 x MIRROR | SLOG is a write log and doesn’t add to capacity  
   
 I will do some proper performance testing in my next post and Im sure there optimisations I can make before I do that but until that’s done. I did just run CrystalMark to ensure things are running in the right ballpark.
 
@@ -147,60 +141,60 @@ I dug out some old testing from the Synology. The test isn’t exactly the same 
 
 ## Similar Posts
 
-  * [![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
-
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
-
-By[James](https://jameskilby.co.uk)April 4, 2026April 16, 2026
-
-Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each.
-
-  * [![Can you really squeeze 96TB in 1U ?](https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png)](https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/)
-
-### [Can you really squeeze 96TB in 1U ?](https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/)
-
-By[James](https://jameskilby.co.uk)September 12, 2024April 16, 2026
-
-Yes, that’s a clickbait title. But technically it’s possible if I dropped all drive redundancy… I recently saw an advert for a server that was just too good to be true.
-
-  * [![Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1-768x1024.jpg)](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
+  * [ ![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg) ](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
+### [Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
 
-By[James](https://jameskilby.co.uk)January 6, 2022February 16, 2026
+By[James](https://jameskilby.co.uk) October 23, 2023May 24, 2026
 
-Quite a few changes have happened in the lab recently. I decided to do a multipart blog on the changes.
+Card Stats Install steps VM Provisioning Folding@Home A little while ago I decided to play with vGPU in my homelab.
 
-  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+  * [ ![Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1-768x403.jpg) ](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
 
-### [Lab Update – Desired Workloads](https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)
 
-By[James](https://jameskilby.co.uk)January 6, 2022April 16, 2026
+### [Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
 
-My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.
+By[James](https://jameskilby.co.uk) November 21, 2022May 25, 2026
 
-  * [![Running Nutanix CE at Home: AHV Setup & First Impressions](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg)](https://jameskilby.co.uk/2018/01/nutanix-ce/)
+I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate.
+
+  * [ ![Running Nutanix CE at Home: AHV Setup & First Impressions](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg) ](https://jameskilby.co.uk/2018/01/nutanix-ce/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/)
 
 ### [Running Nutanix CE at Home: AHV Setup & First Impressions](https://jameskilby.co.uk/2018/01/nutanix-ce/)
 
-By[James](https://jameskilby.co.uk)January 6, 2018April 16, 2026
+By[James](https://jameskilby.co.uk) January 6, 2018April 16, 2026
 
 I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to continue running it at home.
 
-  * [![Automated VCF 9 Offline Depot architecture diagram showing Traefik reverse proxy and Nginx file server stack](https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png)](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
+  * [ ![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-768x180.png) ](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
 
-[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
-### [Automated VCF 9 Offline Depot](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
+### [Warp – The intelligent terminal](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
 
-By[James](https://jameskilby.co.uk)April 10, 2026April 16, 2026
+By[James](https://jameskilby.co.uk) April 11, 2025May 25, 2026
 
-One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS.
+How Warp is helping me run my homelab. 
+
+  * [ ![Can you really squeeze 96TB in 1U ?](https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png) ](https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/)
+
+### [Can you really squeeze 96TB in 1U ?](https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/)
+
+By[James](https://jameskilby.co.uk) September 12, 2024April 16, 2026
+
+Yes, that’s a clickbait title. But technically it’s possible if I dropped all drive redundancy… I recently saw an advert for a server that was just too good to be true.
+
+  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)
+
+### [My First Homelab Storage Setup: HP Gen8 & Xpenology](https://jameskilby.co.uk/2018/01/lab-storage/)
+
+By[James](https://jameskilby.co.uk) January 6, 2018May 25, 2026
+
+I have been meaning to post around some of the lab setup for a while. Although it changes frequently at present it’s as below.
