@@ -43,7 +43,7 @@ jameskilby@blog ~ % cat blog.stats live
 
 posts.count.............72
 
-words.total............46k
+words.total............45k
 
 last_post..........39d ago
 
@@ -53,9 +53,9 @@ tags...................125
 
 vexpert.years...........11
 
-deploys.month...........38
+deploys.month...........39
 
-last_deploy.........1d ago
+last_deploy..........today
 
 lighthouse..........95/100
 
@@ -71,9 +71,9 @@ FILTER
 
 ## [Automating vSphere Power Management driven by Ansible and SemaphoreUI](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
-By[James](https://jameskilby.co.uk) April 15, 2026April 19, 2026
+By[James](https://jameskilby.co.uk) April 15, 2026May 25, 2026
 
-In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introudction One of the larger costs of running my homelab is the electricity….
+In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introduction One of the larger costs of running my homelab is the electricity….
 
   * [ ![Automated VCF 9 Offline Depot architecture diagram showing Traefik reverse proxy and Nginx file server stack](https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png) ](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
 
@@ -131,7 +131,7 @@ I am quite a heavy consumer of electricity at home. This is primarily driven by 
 
 ## [Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
 
-By[James](https://jameskilby.co.uk) February 9, 2026May 24, 2026
+By[James](https://jameskilby.co.uk) February 9, 2026May 25, 2026
 
 Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere
 
@@ -171,7 +171,7 @@ How to expand disks from the command line in Ubuntu. This is something I do fair
 
 ## [VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
 
-By[James](https://jameskilby.co.uk) December 8, 2025April 11, 2026
+By[James](https://jameskilby.co.uk) December 8, 2025May 25, 2026
 
 How to use the Amazon Time Sync Service in a VMC environment
 
