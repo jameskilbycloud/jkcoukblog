@@ -750,6 +750,34 @@ jobs:
         echo "- **Brotli Space Saved:** ${BROTLI_SAVED_MB} MB (${BROTLI_RATIO}% reduction)" >> $GITHUB_STEP_SUMMARY
       continue-on-error: true
 
+    - name: Interactive UI smoke tests (Playwright)
+      # Headless-Chromium walkthrough that exercises the JS-driven UI
+      # (mobile drawer, Splide carousel layout, sticky-header behaviour
+      # when configured). Specifically guards against the optimize_css
+      # change in #36 stealthily stripping rules for classes added by
+      # JavaScript at runtime — those don't appear in the served HTML so
+      # static "is this selector used?" analysis can't see them.
+      #
+      # continue-on-error so a missing dependency / runner without
+      # chromium doesn't block deploys; the script itself prints a
+      # grep-friendly SKIP banner in that case.
+      timeout-minutes: 5
+      run: |
+        # Playwright + chromium aren't in requirements.txt because they
+        # weigh ~150 MB and are only needed for this one step. Install
+        # them here, idempotently (cached on the self-hosted runner).
+        if ! python3 -c "import playwright" 2>/dev/null; then
+          echo "📦 Installing Playwright Python..."
+          pip install playwright
+        fi
+        if [ ! -d "$HOME/.cache/ms-playwright" ] && [ ! -d "$HOME/Library/Caches/ms-playwright" ]; then
+          echo "📦 Installing Chromium headless shell..."
+          python3 -m playwright install --with-deps chromium
+        fi
+
+        python3 scripts/test_interactive_ui.py ./static-output
+      continue-on-error: true
+
     - name: Validate HTML and deployment (parallel)
       timeout-minutes: 10
       run: |
