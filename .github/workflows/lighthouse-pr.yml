@@ -1,0 +1,153 @@
+name: Lighthouse PR Preview Gate
+
+# Why this exists
+# ----------------
+# .github/workflows/quality-checks.yml already runs Lighthouse, but against
+# the PRODUCTION URL — i.e. it only sees a regression *after* the PR has
+# merged and the auto-pipeline has shipped it. That's useful as a daily
+# trend signal but useless as a "block bad PRs" gate.
+#
+# This workflow targets the Cloudflare Pages PREVIEW deployment that CF
+# auto-builds for every PR. Each PR gets its own `https://<sha>.jkcoukblog
+# .pages.dev` URL. We poll the CF Pages API for the deployment matching
+# the PR head SHA, then run Lighthouse against it. A regression past the
+# budget in .github/lighthouse/budget.json fails this check, blocking the
+# PR before it can merge.
+#
+# Fork PRs (github.event.pull_request.head.repo.full_name !=
+# github.repository) don't have access to secrets — they're skipped
+# entirely. This codebase is single-author so that's the practical state.
+
+on:
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+  pull-requests: write  # so the step summary can be posted to the PR
+
+jobs:
+  lighthouse-pr:
+    name: Lighthouse (PR preview)
+    runs-on: ubuntu-latest
+    # Skip for fork PRs — they can't read the CLOUDFLARE_API_TOKEN secret.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Wait for Cloudflare Pages preview deployment
+        id: pages_preview
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PR_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "ℹ️  Cloudflare API credentials not set — skipping Lighthouse PR gate."
+            echo "preview_url=" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "⏳ Waiting for Cloudflare Pages preview of ${PR_SHA:0:7}..."
+          # 60 × 10 s = 10 min. CF Pages typically builds in 30-90 s but
+          # larger content updates can stretch it; we'd rather wait than
+          # spuriously skip the gate.
+          MAX_ATTEMPTS=60
+          ATTEMPT=0
+          DEPLOY_RAW=""
+          STATUS=""
+          while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
+            RESP=$(curl -sS \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/jkcoukblog/deployments?per_page=25")
+            # Pull the first deployment whose commit_hash matches the PR
+            # head SHA. CF Pages returns deployments newest-first.
+            DEPLOY_RAW=$(printf '%s' "$RESP" \
+              | jq -c --arg sha "$PR_SHA" \
+                  '[.result[]? | select(.deployment_trigger.metadata.commit_hash == $sha)] | .[0] // empty' \
+              2>/dev/null || true)
+
+            if [ -n "$DEPLOY_RAW" ] && [ "$DEPLOY_RAW" != "null" ]; then
+              STATUS=$(printf '%s' "$DEPLOY_RAW" | jq -r '.latest_stage.status // "?"')
+              PREVIEW_URL=$(printf '%s' "$DEPLOY_RAW" | jq -r '.url // ""')
+              echo "   Status: $STATUS (attempt $((ATTEMPT+1))/$MAX_ATTEMPTS) — $PREVIEW_URL"
+              case "$STATUS" in
+                success)
+                  if [ -z "$PREVIEW_URL" ] || [ "$PREVIEW_URL" = "null" ]; then
+                    echo "❌ Deployment reached 'success' but URL field is empty — bailing."
+                    echo "preview_url=" >> $GITHUB_OUTPUT
+                    exit 0
+                  fi
+                  echo "✅ Preview ready: $PREVIEW_URL"
+                  # Small propagation buffer so the assets are guaranteed
+                  # to be reachable from the runner before Lighthouse hits.
+                  sleep 10
+                  echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
+                  break
+                  ;;
+                failure|canceled)
+                  echo "❌ Pages deployment $STATUS for ${PR_SHA:0:7} — Lighthouse skipped"
+                  echo "   (CF Pages check itself will block the merge)"
+                  echo "preview_url=" >> $GITHUB_OUTPUT
+                  exit 0
+                  ;;
+              esac
+            else
+              echo "   No deployment yet for ${PR_SHA:0:7} (attempt $((ATTEMPT+1))/$MAX_ATTEMPTS)"
+            fi
+            ATTEMPT=$((ATTEMPT+1))
+            sleep 10
+          done
+
+          if [ -z "$DEPLOY_RAW" ] || [ "$DEPLOY_RAW" = "null" ]; then
+            echo "⚠️  No CF Pages deployment found for ${PR_SHA:0:7} after 10 min."
+            echo "    Skipping Lighthouse gate — CF Pages may not be configured to"
+            echo "    build previews for this branch, or the build is stuck."
+            echo "preview_url=" >> $GITHUB_OUTPUT
+          elif [ "$STATUS" != "success" ]; then
+            echo "⚠️  CF Pages deployment for ${PR_SHA:0:7} stuck at '$STATUS' after 10 min."
+            echo "    Skipping Lighthouse gate."
+            echo "preview_url=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run Lighthouse CI against preview
+        # No continue-on-error here — this step IS the gate. If the budget
+        # is exceeded, the PR check fails (which is the point).
+        if: steps.pages_preview.outputs.preview_url != ''
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: ${{ steps.pages_preview.outputs.preview_url }}
+          runs: 3
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          budgetPath: .github/lighthouse/budget.json
+          configPath: .github/lighthouse/lighthouse-config.json
+
+      - name: Step summary
+        if: always()
+        run: |
+          {
+            echo "## 🚦 Lighthouse PR Preview Gate"
+            echo ""
+            if [ -n "${{ steps.pages_preview.outputs.preview_url }}" ]; then
+              echo "**Tested URL:** ${{ steps.pages_preview.outputs.preview_url }}"
+              echo ""
+              echo "**Budget:** \`.github/lighthouse/budget.json\` "
+              echo "(LCP ≤ 1200ms, FCP ≤ 1000ms, total transfer ≤ 800 KB, …)"
+              echo ""
+              echo "Lighthouse runs 3 passes against the preview and takes the"
+              echo "median. A regression past the budget fails this check."
+            else
+              echo "⚠️  **Skipped** — no Cloudflare Pages preview was reachable."
+              echo ""
+              echo "Possible reasons:"
+              echo "- This is a fork PR (no secret access)"
+              echo "- CF Pages is still building / building failed"
+              echo "- \`CLOUDFLARE_API_TOKEN\` / \`CLOUDFLARE_ACCOUNT_ID\` not configured"
+              echo ""
+              echo "The scheduled Lighthouse-on-production check still runs daily."
+            fi
+          } >> $GITHUB_STEP_SUMMARY
