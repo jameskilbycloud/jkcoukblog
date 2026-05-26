@@ -126,7 +126,7 @@
     {
       "slug": "intel-optane",
       "title": "Using Intel Optane NVMe in a VMware Homelab: Setup & Results",
-      "description": "I have been a VMware vExpert for many years and it has brought me many many benefits over the years.",
+      "description": "I have been a VMware vExpert for many years and it has brought me many many benefits over the years. I don’t think it’s an understatement to say I probably w...",
       "date": "2023-04-17T12:20:04Z",
       "modified": "2026-05-25T11:09:17Z",
       "author": "James Kilby",
@@ -157,12 +157,12 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://jameskilby.co.uk/category/vexpert/)\n\n# Using Intel Opta..."
+      "excerpt": "![Intel Optane Ssd 900P Series Aic Right Angle 575Px](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://james..."
     },
     {
       "slug": "lab-update-part-5-desired-workloads",
       "title": "Lab Update – Desired Workloads",
-      "description": "My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.",
+      "description": "My lab is always undergoing change. Partially as I want to try new things or new ways of doing things. Sometimes because I break things (not always by accide...",
       "date": "2022-01-06T19:23:11Z",
       "modified": "2026-05-25T11:09:16Z",
       "author": "James Kilby",
@@ -189,7 +189,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
-      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Lab Update – Desired Workloads\n\nBy[James](https://jameskilby.co.uk) January 6, 2022May 25, 2026 • 📖1 min read(139 words)\n\n📅 **Published:*..."
+      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Lab Update – Desired Workloads\n\nBy[James](https://jameskilby.co.uk)January 6, 2022May 25, 2026 • 📖1 min read(139 words)\n\n📅 **Published:**..."
     },
     {
       "slug": "monitoring-vmc-part-1",
@@ -389,7 +389,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png)\n\n[Veeam](https://jameskilby.co.uk/category/veeam/)\n\n# VeeamON 2020: Highlights From Veeam’s Virtual Conference\n\nBy[James](https://jameskilby.co.uk) June 18, 2020May 25, 2026 • 📖1 min read(272 words)\n\n📅 **Pub..."
+      "excerpt": "![Veeam Logo New Large 1934042827](https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png)\n\n[Veeam](https://jameskilby.co.uk/category/veeam/)\n\n# VeeamON 2020: Highlights From Veeam’s Virtual Conference\n\nBy[James](https://jameskilby.co.uk)June 18, 2020May 25, 2026 • 📖..."
     },
     {
       "slug": "vmware-certified-master-specialist-hci-2020",
@@ -429,7 +429,7 @@
     {
       "slug": "vmc-host-errors",
       "title": "How VMware Cloud on AWS Handles Host Failures Automatically",
-      "description": "When you run a large enough Infrastructure failure is inevitable. How you handle that can be a big differentiator.",
+      "description": "When you run a large enough infrastructure, failure is inevitable. How you handle that can be a big differentiator. With VMware Cloud on AWS, the hosts are m...",
       "date": "2020-09-15T10:56:32Z",
       "modified": "2026-05-25T17:18:25Z",
       "author": "James Kilby",

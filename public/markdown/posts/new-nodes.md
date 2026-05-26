@@ -24,13 +24,13 @@ url: https://jameskilby.co.uk/2024/07/new-nodes/
 image: https://jameskilby.co.uk/wp-content/uploads/2024/04/Screenshot-2024-04-06-at-22.50.57.png
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-scaled.jpeg)
+![Img 6629 Scaled](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-scaled.jpeg)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 # New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix
 
-By[James](https://jameskilby.co.uk) July 2, 2024May 25, 2026 • 📖7 min read(1,482 words)
+By[James](https://jameskilby.co.uk)July 2, 2024May 25, 2026 • 📖7 min read(1,482 words)
 
 📅 **Published:** July 02, 2024• **Updated:** May 25, 2026
 
@@ -52,15 +52,15 @@ I have chosen to deploy Nutanix Community Edition on these nodes but still retai
 
 Description| Quantity| Component Price £| Line Total £| Sourced from  
 ---|---|---|---|---  
-3x Nutanix nodes | 1 | 563.76 | 563.76 | Ebay  
-1TB Samsung enterprise SATA SSD | 3 | 40.00 | 120.00 | Ebay  
-2TB Samsung EVO Consumer SATA SSD | 6 | 150.00 | 900.00 | Removed from TrueNAS   
+3x Nutanix nodes| 1| 563.76| 563.76| Ebay  
+1TB Samsung enterprise SATA SSD| 3| 40.00| 120.00| Ebay  
+2TB Samsung EVO Consumer SATA SSD| 6| 150.00| 900.00| Removed from TrueNAS   
 (Not included in total cost)  
-32GB SATADom | 3 | 42.00 | 126.00 | Ebay  
-SSD Caddy | 9 | 10.00 | 90.00 | Ebay  
-QSFP28 to SFP+ Breakout cable | 1 | 29.99 | 29.99 | Ebay  
-|  |  |  |   
-Total |  |  | 929.75 |   
+32GB SATADom| 3| 42.00| 126.00| Ebay  
+SSD Caddy| 9| 10.00| 90.00| Ebay  
+QSFP28 to SFP+ Breakout cable| 1| 29.99| 29.99| Ebay  
+| | | |   
+Total| | | 929.75|   
   
 ## Rescue IPMI
 
@@ -83,9 +83,9 @@ Its useful to plan your IP address’s in advance. This is what I used
 
 NODE| ESX MANAGEMENT| CVM| DNS Record  
 ---|---|---|---  
-NODE A | 192.168.38.171 | 192.168.38.172 | uk-bhr-p-ntnx-a.jameskilby.cloud  
-NODE B | 192.168.38.173 | 192.168.38.174 | uk-bhr-p-ntnx-b.jameskilby.cloud  
-NODE C | 192.168.38.174 | 192.168.38.175 | uk-bhr-p-ntnx-c.jameskilby.cloud  
+NODE A| 192.168.38.171| 192.168.38.172| uk-bhr-p-ntnx-a.jameskilby.cloud  
+NODE B| 192.168.38.173| 192.168.38.174| uk-bhr-p-ntnx-b.jameskilby.cloud  
+NODE C| 192.168.38.174| 192.168.38.175| uk-bhr-p-ntnx-c.jameskilby.cloud  
   
 ## Web Server
 
@@ -238,62 +238,62 @@ The Nutanix Nodes are the first three nodes of the lower unit. The fourth is jus
 
 ## Similar Posts
 
-  * [ ![Template Deployment with Packer](https://jameskilby.co.uk/wp-content/uploads/2021/01/logo_packer.png) ](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
+  * [![Template Deployment with Packer](https://jameskilby.co.uk/wp-content/uploads/2021/01/logo_packer.png)](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
 
 [Automation](https://jameskilby.co.uk/category/automation/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Template Deployment with Packer](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
 
-By[James](https://jameskilby.co.uk) January 21, 2021April 16, 2026
+By[James](https://jameskilby.co.uk)January 21, 2021April 16, 2026
 
 Packer is one of those tools I have heard about, and some of the cool people on Twitter that I follow have been using it for a while.
 
-  * [ ![Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png) ](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
+  * [![Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
 
 [Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
 
-By[James](https://jameskilby.co.uk) May 16, 2023April 16, 2026
+By[James](https://jameskilby.co.uk)May 16, 2023April 16, 2026
 
 I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.
 
-  * [ ![Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg) ](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
+  * [![Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg)](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
 
 [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
 ### [Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
 
-By[James](https://jameskilby.co.uk) July 2, 2020April 16, 2026
+By[James](https://jameskilby.co.uk)July 2, 2020April 16, 2026
 
 I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam.
 
-  * [ ![Nutanix Command Reference Guide](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg) ](https://jameskilby.co.uk/2018/06/nutanix-command-reference-guide/)
+  * [![Nutanix Command Reference Guide](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg)](https://jameskilby.co.uk/2018/06/nutanix-command-reference-guide/)
 
 [Nutanix](https://jameskilby.co.uk/category/nutanix/)
 
 ### [Nutanix Command Reference Guide](https://jameskilby.co.uk/2018/06/nutanix-command-reference-guide/)
 
-By[James](https://jameskilby.co.uk) June 5, 2018March 10, 2026
+By[James](https://jameskilby.co.uk)June 5, 2018March 10, 2026
 
 A list of useful Nutanix Commands
 
-  * [ ![Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png) ](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
+  * [![Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png)](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
 
 ### [Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
-By[James](https://jameskilby.co.uk) November 10, 2023May 25, 2026
+By[James](https://jameskilby.co.uk)November 10, 2023May 25, 2026
 
 Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal.
 
-  * [ ![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png) ](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
+  * [![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [My Self-Hosted AI Stack: Architecture Overview (Part 1)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
 
-By[James](https://jameskilby.co.uk) March 27, 2026May 23, 2026
+By[James](https://jameskilby.co.uk)March 27, 2026May 23, 2026
 
 A walkthrough of my self-hosted AI stack: Ollama, Open WebUI, ComfyUI, Whishper, n8n, Qdrant, SearxNG, and a full observability layer — all running on my own hardware with Docker Compose.

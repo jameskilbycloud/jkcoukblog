@@ -26,7 +26,7 @@ image: https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22
 
 # Homelab Storage Refresh (Part 1)
 
-By[James](https://jameskilby.co.uk) May 23, 2023May 25, 2026 • 📖9 min read(1,853 words)
+By[James](https://jameskilby.co.uk)May 23, 2023May 25, 2026 • 📖9 min read(1,853 words)
 
 📅 **Published:** May 23, 2023• **Updated:** May 25, 2026
 
@@ -118,12 +118,12 @@ The current disk architecture is shown below. However, this is likely not the fi
 
 Role| Number| Device| Config| Usable/Role  
 ---|---|---|---|---  
-Boot Drive | 2 | Intel 80GB SSD | MIRROR | N/A only used for TrueNas OS  
-SSD Pool | 6 | Samsung 860 EVO 2TB | 2 x MIRROR | 3 wide | 4.71TiB (TrueNas Apps and VM storage)  
-HD Pool 1 | 4 | Seagate IronWolf 8TB  | 1xRAIDZ1 | 21TiB ( Media storage)   
-HD Pool 2 | 4 | HGST 1TB 7200RPM | 1xRAIDZ1 | 3TiB. ( Files and Photos)   
-ARC (Assigned to SSD Pool) | 1 | Intel 2TB NVMe | JBOD | N/A ARC is only used as a read cache and doesn’t contribute to capacity  
-SLOG (Assigned to SSD Pool) | 2 | [Intel DC P4800X Optane](https://ark.intel.com/content/www/us/en/ark/products/97154/intel-optane-ssd-dc-p4800x-series-750gb-2-5in-pcie-x4-3d-xpoint.html) | 2 x MIRROR | SLOG is a write log and doesn’t add to capacity  
+Boot Drive| 2| Intel 80GB SSD| MIRROR| N/A only used for TrueNas OS  
+SSD Pool| 6| Samsung 860 EVO 2TB| 2 x MIRROR | 3 wide| 4.71TiB (TrueNas Apps and VM storage)  
+HD Pool 1| 4| Seagate IronWolf 8TB | 1xRAIDZ1| 21TiB ( Media storage)   
+HD Pool 2| 4| HGST 1TB 7200RPM| 1xRAIDZ1| 3TiB. ( Files and Photos)   
+ARC (Assigned to SSD Pool)| 1| Intel 2TB NVMe| JBOD| N/A ARC is only used as a read cache and doesn’t contribute to capacity  
+SLOG (Assigned to SSD Pool)| 2| [Intel DC P4800X Optane](https://ark.intel.com/content/www/us/en/ark/products/97154/intel-optane-ssd-dc-p4800x-series-750gb-2-5in-pcie-x4-3d-xpoint.html)| 2 x MIRROR| SLOG is a write log and doesn’t add to capacity  
   
 I will do some proper performance testing in my next post and Im sure there optimisations I can make before I do that but until that’s done. I did just run CrystalMark to ensure things are running in the right ballpark.
 
@@ -141,53 +141,53 @@ I dug out some old testing from the Synology. The test isn’t exactly the same 
 
 ## Similar Posts
 
-  * [ ![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg) ](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
+  * [![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
 
-By[James](https://jameskilby.co.uk) October 23, 2023May 24, 2026
+By[James](https://jameskilby.co.uk)October 23, 2023May 24, 2026
 
 Card Stats Install steps VM Provisioning Folding@Home A little while ago I decided to play with vGPU in my homelab.
 
-  * [ ![Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1-768x403.jpg) ](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
+  * [![Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1-768x403.jpg)](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)
 
 ### [Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
 
-By[James](https://jameskilby.co.uk) November 21, 2022May 25, 2026
+By[James](https://jameskilby.co.uk)November 21, 2022May 25, 2026
 
 I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate.
 
-  * [ ![Running Nutanix CE at Home: AHV Setup & First Impressions](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg) ](https://jameskilby.co.uk/2018/01/nutanix-ce/)
+  * [![Running Nutanix CE at Home: AHV Setup & First Impressions](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg)](https://jameskilby.co.uk/2018/01/nutanix-ce/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/)
 
 ### [Running Nutanix CE at Home: AHV Setup & First Impressions](https://jameskilby.co.uk/2018/01/nutanix-ce/)
 
-By[James](https://jameskilby.co.uk) January 6, 2018April 16, 2026
+By[James](https://jameskilby.co.uk)January 6, 2018April 16, 2026
 
 I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to continue running it at home.
 
-  * [ ![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-768x180.png) ](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
+  * [![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-768x180.png)](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
 ### [Warp – The intelligent terminal](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
 
-By[James](https://jameskilby.co.uk) April 11, 2025May 25, 2026
+By[James](https://jameskilby.co.uk)April 11, 2025May 25, 2026
 
 How Warp is helping me run my homelab. 
 
-  * [ ![Can you really squeeze 96TB in 1U ?](https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png) ](https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/)
+  * [![Can you really squeeze 96TB in 1U ?](https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png)](https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/)
 
 ### [Can you really squeeze 96TB in 1U ?](https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/)
 
-By[James](https://jameskilby.co.uk) September 12, 2024April 16, 2026
+By[James](https://jameskilby.co.uk)September 12, 2024April 16, 2026
 
 Yes, that’s a clickbait title. But technically it’s possible if I dropped all drive redundancy… I recently saw an advert for a server that was just too good to be true.
 
@@ -195,6 +195,6 @@ Yes, that’s a clickbait title. But technically it’s possible if I dropped al
 
 ### [My First Homelab Storage Setup: HP Gen8 & Xpenology](https://jameskilby.co.uk/2018/01/lab-storage/)
 
-By[James](https://jameskilby.co.uk) January 6, 2018May 25, 2026
+By[James](https://jameskilby.co.uk)January 6, 2018May 25, 2026
 
 I have been meaning to post around some of the lab setup for a while. Although it changes frequently at present it’s as below.

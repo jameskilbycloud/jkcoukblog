@@ -165,7 +165,7 @@
     {
       "slug": "lab-update-part-5-desired-workloads",
       "title": "Lab Update – Desired Workloads",
-      "description": "My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.",
+      "description": "My lab is always undergoing change. Partially as I want to try new things or new ways of doing things. Sometimes because I break things (not always by accide...",
       "date": "2022-01-06T19:23:11Z",
       "modified": "2026-05-25T11:09:16Z",
       "author": "James Kilby",
@@ -192,7 +192,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
-      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Lab Update – Desired Workloads\n\nBy[James](https://jameskilby.co.uk) January 6, 2022May 25, 2026 • 📖1 min read(139 words)\n\n📅 **Published:*..."
+      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Lab Update – Desired Workloads\n\nBy[James](https://jameskilby.co.uk)January 6, 2022May 25, 2026 • 📖1 min read(139 words)\n\n📅 **Published:**..."
     },
     {
       "slug": "cloudflare-workers-limits-of-the-free-tier",
