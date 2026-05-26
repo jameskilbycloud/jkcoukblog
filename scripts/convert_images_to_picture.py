@@ -17,9 +17,16 @@ from typing import List, Tuple, Optional
 from bs4 import BeautifulSoup
 
 
+# Per-image AVIF/WebP-existence trace prints are useful when diagnosing why
+# specific <img> tags aren't being wrapped in <picture>, but they fired ~1,300×
+# per CI build — ~12% of the deploy log. Gate behind DEBUG_PICTURE so normal
+# runs stay quiet. Set DEBUG_PICTURE=1 (or any truthy value) to re-enable.
+_DEBUG_PICTURE = os.environ.get('DEBUG_PICTURE', '').lower() in ('1', 'true', 'yes')
+
+
 class ImageToPictureConverter:
     """Converts img tags to picture elements with AVIF/WebP sources and responsive srcsets"""
-    
+
     def __init__(self, directory: str):
         self.directory = Path(directory)
         self.stats = {
@@ -28,7 +35,10 @@ class ImageToPictureConverter:
             'images_skipped': 0,
             'responsive_srcsets_added': 0,
         }
-        self.debug_count = 0  # For debugging first few images
+        # Cap the trace to the first few images even when DEBUG_PICTURE is on
+        # so a verbose run still produces a readable log.
+        self.debug_count = 0
+        self.debug_limit = 3 if _DEBUG_PICTURE else 0
     
     def _get_responsive_srcset(self, img_srcset: str, format_ext: str) -> Optional[str]:
         """
@@ -94,30 +104,33 @@ class ImageToPictureConverter:
             img_path = img_src.lstrip('/')
         
         full_path = base_path / img_path
-        
-        # Debug first few images
-        if self.debug_count < 3:
+
+        # Debug first few images — only when DEBUG_PICTURE=1 in the env.
+        # The previous guard incremented debug_count only on the first 3 images
+        # but then printed unconditionally with `<= 3`, so once we hit 3 the
+        # trace fired for *every* subsequent image (~1,300 per CI build).
+        debug_this = self.debug_count < self.debug_limit
+        if debug_this:
             self.debug_count += 1
             print(f"\n🔍 DEBUG Image #{self.debug_count}:")
             print(f"   img_src: {img_src}")
             print(f"   img_path: {img_path}")
             print(f"   full_path: {full_path}")
             print(f"   full_path exists: {full_path.exists()}")
-        
-        if not full_path.exists():
-            if self.debug_count <= 3:
-                print(f"   ⚠️  Original image not found, checking for modern formats...")
+
+        if debug_this and not full_path.exists():
+            print(f"   ⚠️  Original image not found, checking for modern formats...")
 
         # Check for AVIF and WebP versions
         avif_path = full_path.with_suffix('.avif')
         webp_path = full_path.with_suffix('.webp')
-        
-        if self.debug_count <= 3:
+
+        if debug_this:
             print(f"   avif_path: {avif_path}")
             print(f"   avif exists: {avif_path.exists()}")
             print(f"   webp_path: {webp_path}")
             print(f"   webp exists: {webp_path.exists()}")
-        
+
         return avif_path.exists(), webp_path.exists()
     
     def _should_convert_img(self, img) -> bool:

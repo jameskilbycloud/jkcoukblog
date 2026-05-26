@@ -457,6 +457,7 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
             }}
         }}
     </style>
+    <script defer data-cfasync="false" data-domain="jameskilby.co.uk" src="https://plausible.jameskilby.cloud/js/script.js"></script>
 </head>
 <body>
     <div class="container">

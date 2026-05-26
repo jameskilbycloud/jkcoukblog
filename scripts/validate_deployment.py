@@ -475,8 +475,14 @@ class DeploymentValidator:
         """Verify Plausible Analytics script is properly injected in all HTML pages."""
         print("\n📊 Validating Plausible Analytics...")
 
-        # Find all HTML files
-        html_files = list(self.site_dir.glob('**/*.html'))
+        # Find all HTML files, excluding non-page artefacts that shouldn't ship
+        # the tracker (RSS feeds are XML masquerading as .html, embeds run in
+        # iframes without analytics, sitemaps are crawler-only).
+        SKIP_PATTERNS = ('feed/', '/embed/', 'sitemap')
+        html_files = [
+            f for f in self.site_dir.glob('**/*.html')
+            if not any(pat in str(f) for pat in SKIP_PATTERNS)
+        ]
 
         if not html_files:
             self.errors.append("No HTML files found to validate")
