@@ -148,6 +148,15 @@ class HTMLPerformanceEnhancer:
         if not soup.head:
             return False
 
+        # Skip same-origin hosts — a dns-prefetch hint to the document's own
+        # host is a no-op and just adds bytes. Pull the canonical host from
+        # Config so we don't need to hardcode it here.
+        try:
+            from config import Config
+            same_origin_hosts = {Config.TARGET_DOMAIN.split('//', 1)[-1].rstrip('/')}
+        except Exception:
+            same_origin_hosts = set()
+
         # Add DNS prefetch for external domains
         external_domains = set()
 
@@ -155,6 +164,8 @@ class HTMLPerformanceEnhancer:
             src = tag.get('src') or tag.get('href', '')
             if src.startswith('http'):
                 domain = src.split('/')[2]
+                if domain in same_origin_hosts:
+                    continue
                 external_domains.add(domain)
 
         # Add dns-prefetch for each external domain
@@ -250,26 +261,30 @@ class HTMLPerformanceEnhancer:
         if main_content:
             first_img = main_content.find('img')
             if first_img and first_img.get('src'):
-                img_src = first_img['src']
-
-                # Only preload if it's not a small icon/avatar
-                # Check if image has width/height attributes indicating it's large
                 width = first_img.get('width', '')
                 try:
                     if width and int(width) > 200:
-                        # Check if preload already exists
-                        existing = soup.find('link', rel='preload', href=img_src)
+                        # If the <img> sits inside a <picture> the browser will
+                        # pick the first matching <source> (AVIF > WebP > fallback).
+                        # Preloading the <img> src then double-downloads. Pick the
+                        # source the browser will actually use.
+                        preload_href, preload_type, preload_srcset, preload_sizes = (
+                            self._pick_lcp_preload(first_img)
+                        )
+
+                        existing = soup.find('link', rel='preload', href=preload_href)
                         if not existing:
                             preload = soup.new_tag('link')
                             preload['rel'] = 'preload'
-                            preload['href'] = img_src
+                            preload['href'] = preload_href
                             preload['as'] = 'image'
-
-                            # Add type attribute for modern formats
-                            img_type = self._get_image_type(img_src)
-                            if img_type:
-                                preload['type'] = img_type
-
+                            preload['fetchpriority'] = 'high'
+                            if preload_type:
+                                preload['type'] = preload_type
+                            if preload_srcset:
+                                preload['imagesrcset'] = preload_srcset
+                                if preload_sizes:
+                                    preload['imagesizes'] = preload_sizes
                             soup.head.insert(0, preload)
                             modified = True
                             self.optimizations_applied += 1
@@ -356,6 +371,29 @@ class HTMLPerformanceEnhancer:
         elif src.endswith('.svg'):
             return 'image/svg+xml'
         return None
+
+    def _pick_lcp_preload(self, img):
+        """Return (href, type, srcset, sizes) the browser will actually paint.
+
+        If the img is wrapped in <picture>, prefer the first AVIF <source>,
+        then WebP, then fall back to the img itself. Returns srcset/sizes
+        when the chosen source declares them so the preload matches the
+        responsive pick the picture element will make.
+        """
+        picture = img.find_parent('picture')
+        if picture:
+            for source in picture.find_all('source'):
+                mime = (source.get('type') or '').lower()
+                if mime not in ('image/avif', 'image/webp'):
+                    continue
+                srcset = source.get('srcset', '').strip()
+                if not srcset:
+                    continue
+                first_url = srcset.split(',')[0].strip().split()[0]
+                sizes = source.get('sizes') or img.get('sizes')
+                return first_url, mime, srcset, sizes
+        src = img.get('src', '')
+        return src, self._get_image_type(src), img.get('srcset'), img.get('sizes')
 
 
 def main():
