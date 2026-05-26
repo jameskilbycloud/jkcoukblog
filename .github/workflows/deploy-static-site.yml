@@ -991,14 +991,8 @@ jobs:
     - name: Purge all HTML from KV cache
       if: success()
       env:
-        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        # IMPORTANT: not $GITHUB_SHA. github.sha is the commit that *triggered*
-        # the workflow; the deploy job itself pushes a new commit later, and
-        # Cloudflare Pages deploys *that* one. The Commit-and-push step exports
-        # its post-push HEAD via this output so we wait for the right deploy.
-        # When no commit was needed (no content changed), PUSHED_SHA is empty
-        # and we skip the wait entirely — the existing deployment is still live.
+        # The Commit-and-push step exports its post-push HEAD via this output.
+        # Empty string when no commit was made (no content changes detected).
         PUSHED_SHA: ${{ steps.commit_push.outputs.pushed_sha }}
       run: |
         echo "🗑️ Purging all HTML entries from Workers KV cache..."
@@ -1009,68 +1003,26 @@ jobs:
           exit 0
         fi
 
-        if [ -z "$PUSHED_SHA" ]; then
-          echo "ℹ️  No new commit was pushed — previous deployment still live, purging immediately."
-        elif [ -n "$CLOUDFLARE_API_TOKEN" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
-          echo "⏳ Waiting for Cloudflare Pages deployment of ${PUSHED_SHA:0:7} to complete..."
-          MAX_ATTEMPTS=18   # 18 × 10s = 180s max
-          ATTEMPT=0
-          DEPLOY_STATUS="pending"
-          DEPLOY_RESP=""
-          while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
-            DEPLOY_RESP=$(curl -s \
-              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-              "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/jkcoukblog/deployments?per_page=10")
-            DEPLOY_STATUS=$(printf '%s' "$DEPLOY_RESP" \
-              | jq -r --arg sha "$PUSHED_SHA" \
-                  '[.result[]? | select(.deployment_trigger.metadata.commit_hash == $sha)] | .[0].latest_stage.status // "pending"' \
-              2>/dev/null || echo "pending")
-            echo "   Deployment status: $DEPLOY_STATUS (attempt $((ATTEMPT+1))/$MAX_ATTEMPTS)"
-            case "$DEPLOY_STATUS" in
-              success)
-                echo "✅ Deployment complete — waiting 15s for global propagation..."
-                sleep 15
-                break
-                ;;
-              failure|canceled)
-                echo "❌ Pages deployment $DEPLOY_STATUS — skipping purge"
-                exit 0
-                ;;
-            esac
-            ATTEMPT=$((ATTEMPT+1))
-            sleep 10
-          done
-          if [ "$DEPLOY_STATUS" != "success" ]; then
-            echo "⚠️  Deployment for ${PUSHED_SHA:0:7} did not reach 'success' within timeout"
-            echo "   Diagnosing — these are the bits the previous debug block silently swallowed:"
-            echo
-            echo "   [a] CF API success flag + error array:"
-            printf '%s' "$DEPLOY_RESP" \
-              | jq '{success, errors, messages, result_count: (.result | length? // 0)}' \
-                  2>&1 | sed 's/^/       /'
-            echo
-            echo "   [b] First 3 deployments returned (id / status / commit / created):"
-            printf '%s' "$DEPLOY_RESP" \
-              | jq -r '
-                  .result[0:3][]? as $d
-                  | "       - \($d.id[:8]) / \($d.latest_stage.name // "?"):\($d.latest_stage.status // "?") / \($d.deployment_trigger.metadata.commit_hash[:7] // "?") / \($d.created_on // "?")"
-                ' 2>&1
-            echo
-            echo "   [c] Did *any* returned deployment match $PUSHED_SHA?"
-            printf '%s' "$DEPLOY_RESP" \
-              | jq -r --arg sha "$PUSHED_SHA" \
-                  '[.result[]? | select(.deployment_trigger.metadata.commit_hash == $sha)] | "       matches: \(length)"' \
-                  2>&1
-            echo
-            echo "   [d] Raw response preview (first 600 chars):"
-            printf '%s' "${DEPLOY_RESP:0:600}" | sed 's/^/       /'
-            echo
-            echo "   Continuing with a 30s safety buffer before purge..."
-            sleep 30
-          fi
-        else
-          echo "⚠️  CF API credentials not set — sleeping 30s to allow deployment propagation..."
+        # We used to poll the Cloudflare Pages API to wait for the new
+        # deployment to reach `success` before purging — to avoid hitting the
+        # *old* worker (which the diff comments below suggested might lack the
+        # PURGE_TOKEN). The diagnostic added in #33 confirmed CLOUDFLARE_API_TOKEN
+        # returns `code 10000 Authentication error` (the token doesn't have
+        # Pages:Read scope), so every poll fell through to a 180s timeout +
+        # 30s safety buffer, wasting ~3.5 min per build for zero value.
+        #
+        # In practice the wait was over-cautious anyway: PURGE_TOKEN lives in
+        # Pages project env vars (shared across all deployments, not bundled
+        # into the worker code), so the old worker accepts the purge fine. A
+        # short fixed sleep is plenty.
+        #
+        # If a future token rotation grants Pages:Read, the polling block can
+        # be reinstated from git history (see PR #33's revert).
+        if [ -n "$PUSHED_SHA" ]; then
+          echo "⏳ Sleeping 30s to let Cloudflare Pages pick up ${PUSHED_SHA:0:7} before purging..."
           sleep 30
+        else
+          echo "ℹ️  No new commit was pushed — previous deployment still live, purging immediately."
         fi
 
         RESPONSE=$(curl -s -w "\n%{http_code}" \
