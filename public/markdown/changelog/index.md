@@ -15,7 +15,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-775
+777
 
 Git commits
 
@@ -35,7 +35,7 @@ Active contributors
 
 2026-05-26
 
-08:57:59
+12:27:42
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -58,6 +58,12 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-05-26 d58a9a9Fix
+
+ci: trim 4.5 min of waste + fix log noise + plausible coverage
+
+Four fixes informed by reviewing the 26-May deploy logs.
 
 2026-05-26 6348006Feature
 
@@ -199,19 +205,5 @@ Add soft-404 guard and manifest tooling
 
 Introduce a soft-404 protection system to prevent SPA fallbacks from being indexed as real pages. Adds scripts to generate artefacts (scripts/generate_soft404_artefacts.py), stamp the worker with a build-time path manifest (scripts/stamp_worker_manifest.py), and perform a targeted KV purge (scripts/purge_soft404_kv_cache.py). The deploy workflow now runs generation and stamping before publishing the worker. Adds public/path-manifest.json, a minimal public/404.html, and appends idempotent legacy `/slug/ -> /YYYY/MM/slug/` redirects to public/_redirects. _worker.template.js and the staged public/_worker.js are updated to consult the manifest and refuse to serve or cache unknown paths (returning a real 404 with noindex headers). Docs (docs/SEO.md) were updated with rationale and a manual runbook (including a one-shot KV purge) to complete the rollout.
 
-  
-
-2026-04-17 7905391Improvement
-
-refactor: remove view counting from Advanced Mode Worker
-
-Analytics are handled by Plausible, so the KV-metadata view counter had no
-
-2026-04-17 98e9e4aDocs
-
-docs: rewrite workers/README to match current state
-
-The old README described the html-cache worker and a now-missing
-
-Page generated: 2026-05-26 08:33:23 UTC  
+Page generated: 2026-05-26 13:49:18 UTC  
 Changelog powered by Git history and Lighthouse CI
