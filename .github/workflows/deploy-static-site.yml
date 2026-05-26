@@ -1042,10 +1042,29 @@ jobs:
           done
           if [ "$DEPLOY_STATUS" != "success" ]; then
             echo "⚠️  Deployment for ${PUSHED_SHA:0:7} did not reach 'success' within timeout"
-            echo "   Last 3 deployments (id / status / commit) for debugging:"
+            echo "   Diagnosing — these are the bits the previous debug block silently swallowed:"
+            echo
+            echo "   [a] CF API success flag + error array:"
             printf '%s' "$DEPLOY_RESP" \
-              | jq -r '.result[0:3][]? | "   - \(.id[:8]) / \(.latest_stage.status // "?") / \(.deployment_trigger.metadata.commit_hash[:7] // "?")"' \
-              2>/dev/null || echo "   (unable to parse API response)"
+              | jq '{success, errors, messages, result_count: (.result | length? // 0)}' \
+                  2>&1 | sed 's/^/       /'
+            echo
+            echo "   [b] First 3 deployments returned (id / status / commit / created):"
+            printf '%s' "$DEPLOY_RESP" \
+              | jq -r '
+                  .result[0:3][]? as $d
+                  | "       - \($d.id[:8]) / \($d.latest_stage.name // "?"):\($d.latest_stage.status // "?") / \($d.deployment_trigger.metadata.commit_hash[:7] // "?") / \($d.created_on // "?")"
+                ' 2>&1
+            echo
+            echo "   [c] Did *any* returned deployment match $PUSHED_SHA?"
+            printf '%s' "$DEPLOY_RESP" \
+              | jq -r --arg sha "$PUSHED_SHA" \
+                  '[.result[]? | select(.deployment_trigger.metadata.commit_hash == $sha)] | "       matches: \(length)"' \
+                  2>&1
+            echo
+            echo "   [d] Raw response preview (first 600 chars):"
+            printf '%s' "${DEPLOY_RESP:0:600}" | sed 's/^/       /'
+            echo
             echo "   Continuing with a 30s safety buffer before purge..."
             sleep 30
           fi
