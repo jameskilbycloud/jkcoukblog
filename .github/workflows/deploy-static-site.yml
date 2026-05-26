@@ -180,7 +180,11 @@ jobs:
       uses: actions/cache/restore@v5
       with:
         path: .build-cache.json
-        key: incremental-build-cache-${{ github.run_id }}
+        # Include run_attempt so re-runs of the same workflow (e.g. after a
+        # validation failure + retry) don't try to reserve a cache key that
+        # the failed attempt already owns. The restore-keys wildcard still
+        # finds the most recent previous build, so incrementality survives.
+        key: incremental-build-cache-${{ github.run_id }}-${{ github.run_attempt }}
         restore-keys: |
           incremental-build-cache-
 
@@ -440,7 +444,10 @@ jobs:
       uses: actions/cache/save@v5
       with:
         path: .build-cache.json
-        key: incremental-build-cache-${{ github.run_id }}
+        # Must match the restore key above — include run_attempt so re-runs
+        # don't fail with "Unable to reserve cache with key ... — another
+        # job may be creating this cache" against their own prior attempt.
+        key: incremental-build-cache-${{ github.run_id }}-${{ github.run_attempt }}
 
     - name: Export to Markdown
       run: |
