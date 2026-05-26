@@ -797,9 +797,17 @@ jobs:
         # Playwright + chromium aren't in requirements.txt because they
         # weigh ~150 MB and are only needed for this one step. Install
         # them here, idempotently (cached on the self-hosted runner).
+        #
+        # --break-system-packages is required on Ubuntu 24.04 (PEP 668).
+        # The runner Python is the system Python with EXTERNALLY-MANAGED
+        # set; pip refuses to install without an explicit override.
+        # Without the flag the step exits 1 immediately, the smoke tests
+        # never run, and the surrounding `continue-on-error: true` still
+        # lets the build succeed — which masks the regression-detection
+        # we added in #38.
         if ! python3 -c "import playwright" 2>/dev/null; then
           echo "📦 Installing Playwright Python..."
-          pip install playwright
+          pip install --break-system-packages playwright
         fi
         if [ ! -d "$HOME/.cache/ms-playwright" ] && [ ! -d "$HOME/Library/Caches/ms-playwright" ]; then
           echo "📦 Installing Chromium headless shell..."
