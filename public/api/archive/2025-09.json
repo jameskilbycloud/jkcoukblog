@@ -16,16 +16,15 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Storage",
         "Automation",
+        "Networking",
+        "Storage",
+        "VMware",
         "Docker",
         "Traefik",
         "VCF",
-        "VMware",
-        "vExpert",
-        "Networking",
-        "vSphere",
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Hosting"
       ],
       "tags": [
         null,
