@@ -4386,54 +4386,39 @@ document.addEventListener('DOMContentLoaded', function() {
                         words = content_text.split()
                         description = ' '.join(words[:150]) + ('...' if len(words) > 150 else '')
                 
-                # Extract full content for searching (limit to 1000 chars)
-                # Remove script and style elements
+                # Extract full content for searching (limit to 1000 chars).
+                # Scope to <main>/<article> first — the previous "strip nav/
+                # footer" approach left Kadence site-chrome ("Skip to content
+                # James Kilby Toggle Menu...") at the front of every entry,
+                # bloating the index by ~40 KB and matching every search.
                 content_soup = BeautifulSoup(html_content, 'html.parser')
-                for script in content_soup(["script", "style", "nav", "footer"]):
-                    script.decompose()
-                
-                full_content = content_soup.get_text()
+                content_root = (
+                    content_soup.find('main')
+                    or content_soup.find('article')
+                    or content_soup  # fall back to whole doc on list pages
+                )
+                for junk in content_root(["script", "style", "nav", "footer", "header"]):
+                    junk.decompose()
+
+                full_content = content_root.get_text()
                 # Clean up whitespace
                 lines = (line.strip() for line in full_content.splitlines())
                 chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
                 full_content = ' '.join(chunk for chunk in chunks if chunk)
-                
+
                 # Skip if content is too short (likely navigation pages)
                 if len(full_content.split()) < 50:
                     continue
-                
-                # Extract categories and tags
-                categories = []
-                tags = []
-                
-                # Look for category and tag links
-                cat_links = soup.find_all('a', href=re.compile(r'/category/'))
-                for link in cat_links:
-                    cat_text = link.get_text().strip()
-                    if cat_text and cat_text not in categories:
-                        categories.append(cat_text)
-                
-                tag_links = soup.find_all('a', href=re.compile(r'/tag/'))
-                for link in tag_links:
-                    tag_text = link.get_text().strip()
-                    if tag_text and tag_text not in tags:
-                        tags.append(tag_text)
-                
-                # Extract date
-                date = ""
-                date_elem = soup.find('time', class_=re.compile(r'(entry-date|published)', re.I))
-                if date_elem:
-                    date = date_elem.get('datetime', '') or date_elem.get_text().strip()
-                
-                # Create search entry
+
+                # Create search entry. Only fields actually consumed by
+                # scripts/search.js (Fuse keys + display). The previous version
+                # shipped `categories`/`tags`/`date` which were never read by
+                # the UI — ~24 KB / 12 % of payload for nothing.
                 entry = {
                     'title': title,
                     'url': f"{self.target_domain}{url_path}",
-                    'description': description[:200] if description else '',  # Limit description length
-                    'content': full_content[:1000],  # Limit content for searching
-                    'categories': categories,
-                    'tags': tags,
-                    'date': date
+                    'description': description[:200] if description else '',
+                    'content': full_content[:1000],
                 }
                 
                 search_index.append(entry)
