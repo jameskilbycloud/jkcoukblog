@@ -113,9 +113,13 @@ jobs:
             echo "preview_url=" >> $GITHUB_OUTPUT
           fi
 
-      - name: Run Lighthouse CI against preview
-        # No continue-on-error here — this step IS the gate. If the budget
-        # is exceeded, the PR check fails (which is the point).
+      # Two Lighthouse passes: desktop (fast Wi-Fi + no CPU throttle) and
+      # mobile (slow-4G + 4× CPU). Each has its own budget file because
+      # mobile measurements are 2-3× slower than desktop even for a
+      # well-optimised site. Both block the PR on regression — there's no
+      # continue-on-error here, this IS the gate.
+
+      - name: Lighthouse CI — DESKTOP pass against preview
         if: steps.pages_preview.outputs.preview_url != ''
         uses: treosh/lighthouse-ci-action@v11
         with:
@@ -125,6 +129,19 @@ jobs:
           temporaryPublicStorage: true
           budgetPath: .github/lighthouse/budget.json
           configPath: .github/lighthouse/lighthouse-config.json
+          artifactName: lighthouse-desktop-${{ github.event.pull_request.number }}
+
+      - name: Lighthouse CI — MOBILE pass against preview
+        if: steps.pages_preview.outputs.preview_url != ''
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: ${{ steps.pages_preview.outputs.preview_url }}
+          runs: 3
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          budgetPath: .github/lighthouse/budget-mobile.json
+          configPath: .github/lighthouse/lighthouse-config-mobile.json
+          artifactName: lighthouse-mobile-${{ github.event.pull_request.number }}
 
       - name: Step summary
         if: always()
@@ -135,11 +152,13 @@ jobs:
             if [ -n "${{ steps.pages_preview.outputs.preview_url }}" ]; then
               echo "**Tested URL:** ${{ steps.pages_preview.outputs.preview_url }}"
               echo ""
-              echo "**Budget:** \`.github/lighthouse/budget.json\` "
-              echo "(LCP ≤ 1200ms, FCP ≤ 1000ms, total transfer ≤ 800 KB, …)"
+              echo "Two passes, each runs Lighthouse 3 times and takes the median."
+              echo "A regression past either budget fails this check."
               echo ""
-              echo "Lighthouse runs 3 passes against the preview and takes the"
-              echo "median. A regression past the budget fails this check."
+              echo "| Pass | Profile | Budget | LCP target |"
+              echo "|------|---------|--------|------------|"
+              echo "| Desktop | Fast Wi-Fi, no CPU throttle | \`budget.json\`        | ≤ 1200 ms |"
+              echo "| Mobile  | Slow-4G, 4× CPU slowdown     | \`budget-mobile.json\` | ≤ 2500 ms |"
             else
               echo "⚠️  **Skipped** — no Cloudflare Pages preview was reachable."
               echo ""
