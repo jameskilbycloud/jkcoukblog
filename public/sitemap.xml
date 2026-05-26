@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://jameskilby.co.uk/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-05-26</lastmod>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png</image:loc>
@@ -803,12 +803,11 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-05-26</lastmod>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/09/Semaphore-Inventory.png</image:loc>
-      <image:title>Semaphore Inventory</image:title>
-      <image:caption>Semaphore Inventory</image:caption>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/09/Ansible-Inventory.png</image:loc>
+      <image:title>Ansible Inventory</image:title>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/07/Semaphore-Repo-1024x80.png</image:loc>
@@ -824,11 +823,6 @@
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/09/Repo-Settings.png</image:loc>
       <image:title>Repo Settings</image:title>
       <image:caption>Repo Settings</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/09/Ansible-Inventory.png</image:loc>
-      <image:title>Ansible Inventory</image:title>
-      <image:caption>Ansible Inventory</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/09/Screenshot-2025-09-02-at-13.28.53.png</image:loc>
@@ -1168,7 +1162,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/404/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-05-26</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/about-me/</loc>
@@ -1181,7 +1175,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/ansible/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-05-26</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
@@ -1236,7 +1230,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/category/homelab/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-05-26</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
@@ -1351,7 +1345,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/changelog/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-05-26</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/evs/</loc>
@@ -1385,23 +1379,23 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/2/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-05-26</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/3/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-05-26</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/4/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-05-26</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/5/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-05-26</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/page/6/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-05-26</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/privacy-policy-2/</loc>
@@ -1409,7 +1403,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/stats/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-05-26</lastmod>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/vmc/</loc>

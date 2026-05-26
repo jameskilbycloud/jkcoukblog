@@ -6,7 +6,7 @@
     {
       "slug": "time-in-a-vmc-environment",
       "title": "VMware Cloud on AWS Time Sync & NTP Configuration",
-      "description": "How to use the Amazon Time Sync Service in a VMC environment",
+      "description": "One of the nice things about the VMC Service is that you dont have to worry about a number of the traditional infrastructure services that you typically obse...",
       "date": "2025-12-08T14:03:44Z",
       "modified": "2026-05-25T17:15:48Z",
       "author": "James Kilby",
@@ -23,7 +23,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png)\n\n[VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# VMware Cloud on AWS Time Sync & NTP Configuration\n\nBy[James](https://jameskilby.co.uk) December 8, 2025May 25, 2026 • 📖3 min ..."
+      "excerpt": "![Picture 1 E1768509620339](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png)\n\n[VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# VMware Cloud on AWS Time Sync & NTP Configuration\n\nBy[James](https://jameskilby.co.uk)December 8, 202..."
     },
     {
       "slug": "vsan-cluster-shutdown",

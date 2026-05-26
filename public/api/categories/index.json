@@ -42,7 +42,7 @@
   {
     "name": "Nutanix",
     "slug": "nutanix",
-    "count": 20
+    "count": 19
   },
   {
     "name": "Consulting",
@@ -57,12 +57,12 @@
   {
     "name": "vSphere",
     "slug": "vsphere",
-    "count": 24
+    "count": 25
   },
   {
     "name": "Networking",
     "slug": "networking",
-    "count": 17
+    "count": 18
   },
   {
     "name": "Artificial Intelligence",
@@ -72,7 +72,7 @@
   {
     "name": "Automation",
     "slug": "automation",
-    "count": 40
+    "count": 41
   },
   {
     "name": "Docker",
@@ -87,7 +87,7 @@
   {
     "name": "Traefik",
     "slug": "traefik",
-    "count": 38
+    "count": 39
   },
   {
     "name": "Veeam",
@@ -157,7 +157,7 @@
   {
     "name": "vExpert",
     "slug": "vexpert",
-    "count": 8
+    "count": 9
   },
   {
     "name": "Money",
