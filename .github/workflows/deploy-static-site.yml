@@ -653,6 +653,17 @@ jobs:
           echo "⚠️  WARNING: _worker.template.js not found — Advanced Mode will not be enabled"
         fi
 
+    - name: Generate per-post Open Graph images
+      # Replace the shared fallback og:image with a branded, title-specific
+      # PNG so social shares of different posts look different. 60% of posts
+      # currently ship the same generic image. Must run BEFORE Brotli so
+      # the rewritten HTML meta tags get compressed in lockstep.
+      run: |
+        echo "🖼️  Generating per-post og:images for fallback pages..."
+        python3 scripts/generate_og_images.py ./static-output \
+          || echo "⚠️  og:image generation failed (non-blocking)"
+      continue-on-error: true
+
     - name: Brotli + Gzip compress static files
       timeout-minutes: 10
       run: |
