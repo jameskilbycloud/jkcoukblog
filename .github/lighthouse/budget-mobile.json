@@ -1,0 +1,31 @@
+[
+  {
+    "_comment_about_this_file": "Lighthouse CI budget for the MOBILE pass. Slow-4G + 4× CPU throttling typically lands well-optimised sites at LCP 1500-2500 ms — significantly slower than desktop (which sits at ~530 ms for this site). These budgets target Google's 'Good' Core Web Vitals thresholds (LCP < 2500, CLS < 0.1, INP/TBT < 200) with headroom for Lighthouse's run-to-run variance under throttling. Resource sizes are shared with the desktop budget (assets don't change between form factors). See .github/lighthouse/budget.json for the desktop counterpart.",
+    "path": "/*",
+    "timings": [
+      { "metric": "first-contentful-paint",   "budget": 2000, "tolerance": 600 },
+      { "metric": "largest-contentful-paint", "budget": 2500, "tolerance": 800 },
+      { "metric": "interactive",              "budget": 3500, "tolerance": 1000 },
+      { "metric": "first-meaningful-paint",   "budget": 2000, "tolerance": 600 },
+      { "metric": "speed-index",              "budget": 3000, "tolerance": 800 },
+      { "metric": "total-blocking-time",      "budget":  500, "tolerance": 200 },
+      { "metric": "cumulative-layout-shift",  "budget": 0.05, "tolerance": 0.05 }
+    ],
+    "resourceSizes": [
+      { "resourceType": "document",    "budget":  30 },
+      { "resourceType": "stylesheet",  "budget":  80 },
+      { "resourceType": "script",      "budget":  70 },
+      { "resourceType": "image",       "budget": 250 },
+      { "resourceType": "font",        "budget": 200 },
+      { "resourceType": "third-party", "budget":  60 },
+      { "resourceType": "total",       "budget": 800 }
+    ],
+    "resourceCounts": [
+      { "resourceType": "stylesheet",  "budget":  8 },
+      { "resourceType": "script",      "budget": 10 },
+      { "resourceType": "image",       "budget": 20 },
+      { "resourceType": "font",        "budget":  6 },
+      { "resourceType": "third-party", "budget":  6 }
+    ]
+  }
+]

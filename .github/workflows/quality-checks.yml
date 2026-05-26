@@ -78,7 +78,11 @@ jobs:
             echo "⚠️  Lighthouse config not found, will use defaults"
           fi
 
-      - name: Run Lighthouse CI (with configs)
+      # Two Lighthouse passes when configs exist: desktop (fast Wi-Fi) +
+      # mobile (slow-4G + 4× CPU). Real-world coverage — desktop alone
+      # misses mobile-specific regressions like overweight JS or fonts
+      # blocking the main thread on lower-powered devices.
+      - name: Run Lighthouse CI — DESKTOP (with configs)
         if: steps.check_configs.outputs.budget_exists == 'true' && steps.check_configs.outputs.config_exists == 'true'
         uses: treosh/lighthouse-ci-action@v11
         with:
@@ -89,8 +93,26 @@ jobs:
           temporaryPublicStorage: true
           budgetPath: .github/lighthouse/budget.json
           configPath: .github/lighthouse/lighthouse-config.json
+          artifactName: lighthouse-desktop-prod
 
-      - name: Run Lighthouse CI (without configs)
+      - name: Run Lighthouse CI — MOBILE (with configs)
+        if: |
+          steps.check_configs.outputs.budget_exists == 'true' &&
+          steps.check_configs.outputs.config_exists == 'true' &&
+          hashFiles('.github/lighthouse/budget-mobile.json') != '' &&
+          hashFiles('.github/lighthouse/lighthouse-config-mobile.json') != ''
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: |
+            https://jameskilby.co.uk
+          runs: 3
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          budgetPath: .github/lighthouse/budget-mobile.json
+          configPath: .github/lighthouse/lighthouse-config-mobile.json
+          artifactName: lighthouse-mobile-prod
+
+      - name: Run Lighthouse CI (without configs — fallback)
         if: steps.check_configs.outputs.budget_exists == 'false' || steps.check_configs.outputs.config_exists == 'false'
         uses: treosh/lighthouse-ci-action@v11
         with:
