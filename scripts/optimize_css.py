@@ -29,8 +29,19 @@ class CSSOptimizer:
         """Process all CSS files in the public directory"""
         css_files = list(self.public_dir.rglob('*.css'))
 
-        # Exclude already minified files
-        css_files = [f for f in css_files if '.min.' not in f.name]
+        # Skip *our own* minified files (already optimised pipeline output).
+        # WordPress-leaked .min.css files (wpo-minify, kadence theme) live
+        # under wp-content/ and DO need unused-selector removal — that's the
+        # whole point of running this on the static site. Without this, the
+        # 98 KB wpo-minify-header bundle ships unchanged on every page.
+        def _is_ours(path):
+            posix = path.as_posix()
+            return '/assets/' in posix or posix.endswith('-min.css')
+
+        css_files = [
+            f for f in css_files
+            if '.min.' not in f.name or not _is_ours(f)
+        ]
 
         if not css_files:
             print("⚠️  No CSS files found to optimize")

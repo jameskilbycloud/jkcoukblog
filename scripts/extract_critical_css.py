@@ -23,7 +23,10 @@ class CriticalCSSExtractor:
         self.public_dir = Path(public_dir)
         self.files_processed = 0
         self.css_inlined = 0
-        self.max_inline_critical = 12000
+        # ~16 KB raw → ~5 KB on the wire after brotli. Below this we always
+        # inline so the browser doesn't pay a render-blocking round-trip for
+        # critical CSS. Measured: p90 page produces ~15 KB of critical CSS.
+        self.max_inline_critical = 16384
 
     def process_all_files(self):
         """Process all HTML files in the public directory"""
@@ -319,6 +322,15 @@ class CriticalCSSExtractor:
 
         if len(critical_css) > self.max_inline_critical:
             return self._externalize_critical_css(soup, critical_css, file_path)
+
+        # If a previous run externalised this page's critical CSS, the
+        # <link rel=stylesheet href=/assets/css/critical/critical-*.css> is
+        # still in <head>. Strip those before inlining so we don't keep both.
+        for link in soup.find_all(
+            'link',
+            href=lambda h: h and h.startswith('/assets/css/critical/critical-')
+        ):
+            link.decompose()
 
         # Check if critical CSS already inlined
         existing = soup.find('style', id='critical-css')
