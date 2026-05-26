@@ -157,15 +157,20 @@ If no actual errors, return: {{"has_errors": false, "errors": []}}
                 
                 return {'has_errors': False, 'errors': []}
             else:
+                # API reachable but returned non-200. Distinguish from "no
+                # errors found" so the spell-check step can surface real
+                # connectivity failures rather than reporting "✅ All
+                # candidates were false positives" (the current behaviour
+                # silently masked an Ollama 404 for weeks).
                 print(f"❌ Ollama API error: {response.status_code}")
-                return {'has_errors': False, 'errors': []}
-                
+                return {'has_errors': False, 'errors': [], 'ollama_unreachable': True}
+
         except requests.exceptions.RequestException as e:
             print(f"⚠️  Ollama connection error: {str(e)}")
-            return {'has_errors': False, 'errors': []}
+            return {'has_errors': False, 'errors': [], 'ollama_unreachable': True}
         except Exception as e:
             print(f"⚠️  Unexpected error: {str(e)}")
-            return {'has_errors': False, 'errors': []}
+            return {'has_errors': False, 'errors': [], 'ollama_unreachable': True}
     
     def extract_text_from_html(self, html_content: str, post_title: str = '', post_excerpt: str = '') -> List[Tuple[str, str]]:
         """
@@ -305,7 +310,21 @@ If no actual errors, return: {{"has_errors": false, "errors": []}}
                 full_text += f"{text}\n\n"
             
             result = self.check_with_ollama_batched(full_text, all_candidate_errors)
-            
+
+            # Propagate "Ollama is down" up the call stack instead of
+            # masquerading as "no errors found". Without this, the calling
+            # script reports "✅ All candidates were false positives" when
+            # the API is actually 404'ing — a silent dependency failure.
+            if result.get('ollama_unreachable'):
+                return {
+                    'post_id': post_id,
+                    'title': post_title,
+                    'link': post_link,
+                    'ollama_unreachable': True,
+                    'errors': [],
+                    'has_errors': False,
+                }
+
             all_errors = []
             if result.get('has_errors'):
                 errors_found = result.get('errors', [])
@@ -487,24 +506,46 @@ def main():
     
     # Check posts
     results = checker.check_recent_posts(count=post_count, since=since_timestamp)
-    
+
     # Generate report
     if results:
         report = checker.generate_report(results)
-        
+
         # Save report
         report_file = Path('spelling_check_report.md')
         report_file.write_text(report)
-        
+
         print("\n" + "=" * 60)
         print(f"📊 Report saved to: {report_file}")
         print()
         print(report)
-        
-        # Exit with error code if errors found
+
+        # Differentiate three end-states so the surrounding CI step can
+        # tell "Ollama is down" apart from "Ollama checked and found
+        # nothing". Previously both ended on `sys.exit(0)` with a green
+        # "✅ No spelling errors found!" — masking weeks-long upstream
+        # outages.
+        ollama_down_count = sum(1 for r in results if r.get('ollama_unreachable'))
         if any(r.get('has_errors') for r in results):
             print("\n⚠️  Spelling errors found! Please review the report.")
             sys.exit(1)
+        elif ollama_down_count == len(results):
+            # Every post failed for the same upstream reason — Ollama is
+            # off the network. Non-fatal (we don't want to block deploys
+            # just because the LLM host is unreachable), but loud.
+            print(
+                f"\n⚠️  Ollama API was unreachable for all {len(results)} posts — "
+                "spell-check did NOT run. Check OLLAMA_URL / OLLAMA_API_CREDENTIALS."
+            )
+            sys.exit(2)
+        elif ollama_down_count:
+            # Partial outage — flag it but report what we got.
+            print(
+                f"\n⚠️  Ollama API was unreachable for {ollama_down_count}/"
+                f"{len(results)} posts. Remaining {len(results) - ollama_down_count} "
+                "checked successfully — no errors found."
+            )
+            sys.exit(0)
         else:
             print("\n✅ No spelling errors found!")
             sys.exit(0)
