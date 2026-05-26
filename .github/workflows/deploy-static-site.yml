@@ -981,6 +981,7 @@ jobs:
       env:
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        GITHUB_SHA: ${{ github.sha }}
       run: |
         echo "🗑️ Purging all HTML entries from Workers KV cache..."
 
@@ -992,34 +993,53 @@ jobs:
 
         # Wait for the new Cloudflare Pages deployment to propagate before purging.
         # Without this, the purge hits the OLD deployment (which may not have the
-        # PURGE_TOKEN env var yet) and gets a 401. Poll the CF Pages API until the
-        # latest deployment reaches "success", then add a short buffer.
+        # PURGE_TOKEN env var yet) and gets a 401. We poll the CF Pages API for
+        # the deployment that matches *this* commit ($GITHUB_SHA) — the previous
+        # query asked for `.result[0].latest_stage.status` which returned
+        # "unknown" forever because we either got the previous deployment (race)
+        # or the path didn't match the response shape. Filtering by commit_hash
+        # is unambiguous and short-circuits as soon as Pages picks up the push.
         if [ -n "$CLOUDFLARE_API_TOKEN" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
-          echo "⏳ Waiting for Cloudflare Pages deployment to complete..."
+          echo "⏳ Waiting for Cloudflare Pages deployment of ${GITHUB_SHA:0:7} to complete..."
           MAX_ATTEMPTS=18   # 18 × 10s = 180s max
           ATTEMPT=0
-          DEPLOY_STATUS=""
+          DEPLOY_STATUS="pending"
+          DEPLOY_RESP=""
           while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
             DEPLOY_RESP=$(curl -s \
               -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-              "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/jkcoukblog/deployments?per_page=1")
-            DEPLOY_STATUS=$(echo "$DEPLOY_RESP" | jq -r '.result[0].latest_stage.status // "unknown"' 2>/dev/null || echo "unknown")
+              "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/jkcoukblog/deployments?per_page=10")
+            DEPLOY_STATUS=$(printf '%s' "$DEPLOY_RESP" \
+              | jq -r --arg sha "$GITHUB_SHA" \
+                  '[.result[]? | select(.deployment_trigger.metadata.commit_hash == $sha)] | .[0].latest_stage.status // "pending"' \
+              2>/dev/null || echo "pending")
             echo "   Deployment status: $DEPLOY_STATUS (attempt $((ATTEMPT+1))/$MAX_ATTEMPTS)"
-            if [ "$DEPLOY_STATUS" = "success" ]; then
-              echo "✅ Deployment complete — waiting 15s for global propagation..."
-              sleep 15
-              break
-            fi
+            case "$DEPLOY_STATUS" in
+              success)
+                echo "✅ Deployment complete — waiting 15s for global propagation..."
+                sleep 15
+                break
+                ;;
+              failure|canceled)
+                echo "❌ Pages deployment $DEPLOY_STATUS — skipping purge"
+                exit 0
+                ;;
+            esac
             ATTEMPT=$((ATTEMPT+1))
             sleep 10
           done
           if [ "$DEPLOY_STATUS" != "success" ]; then
-            echo "⚠️  Deployment did not reach 'success' within timeout — sleeping 90s as fallback..."
-            sleep 90
+            echo "⚠️  Deployment for ${GITHUB_SHA:0:7} did not reach 'success' within timeout"
+            echo "   Last 3 deployments (id / status / commit) for debugging:"
+            printf '%s' "$DEPLOY_RESP" \
+              | jq -r '.result[0:3][]? | "   - \(.id[:8]) / \(.latest_stage.status // "?") / \(.deployment_trigger.metadata.commit_hash[:7] // "?")"' \
+              2>/dev/null || echo "   (unable to parse API response)"
+            echo "   Continuing with a 30s safety buffer before purge..."
+            sleep 30
           fi
         else
-          echo "⚠️  CF API credentials not set — sleeping 90s to allow deployment propagation..."
-          sleep 90
+          echo "⚠️  CF API credentials not set — sleeping 30s to allow deployment propagation..."
+          sleep 30
         fi
 
         RESPONSE=$(curl -s -w "\n%{http_code}" \

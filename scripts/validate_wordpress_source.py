@@ -594,6 +594,56 @@ class WordPressSourceValidator:
 
         return report
 
+    # Categorical roll-up so the WordPress source step at the top of the
+    # build summarises debt instead of dumping a flat list of 90+ warnings.
+    # New types should be added here when added at the `self.warnings.append`
+    # sites — fall-through to "Other" if a type isn't categorised yet.
+    _WARNING_CATEGORIES = {
+        'SEO — titles': ('seo_title_short', 'seo_title_long'),
+        'SEO — excerpts': ('seo_excerpt_missing', 'seo_excerpt_short', 'seo_excerpt_long'),
+        'Featured images': ('missing_featured_image', 'broken_featured_image'),
+        'Taxonomy': (
+            'missing_categories', 'broken_category',
+            'missing_tags', 'tags_out_of_range', 'broken_tag',
+        ),
+        'Connectivity / API': (
+            'site_not_accessible', 'api_request_failed', 'auth_failed',
+            'auth_forbidden', 'api_error',
+            'endpoint_unreachable', 'endpoint_error',
+        ),
+        'Content gaps': ('no_posts', 'no_media'),
+    }
+
+    def _print_warning_rollup(self):
+        """Print a category-level roll-up of warning counts before the detail list."""
+        type_to_category = {
+            t: cat
+            for cat, types in self._WARNING_CATEGORIES.items()
+            for t in types
+        }
+
+        # Aggregate by category, with sub-counts by raw type for visibility.
+        from collections import Counter, defaultdict
+        category_totals = Counter()
+        category_breakdown = defaultdict(Counter)
+        for w in self.warnings:
+            wtype = w.get('type', 'unknown')
+            category = type_to_category.get(wtype, 'Other')
+            category_totals[category] += 1
+            category_breakdown[category][wtype] += 1
+
+        print("📊 WARNING ROLL-UP (by category):")
+        # Sort by descending count; tie-break alphabetically so output is
+        # deterministic between runs.
+        for category, total in sorted(
+            category_totals.items(), key=lambda kv: (-kv[1], kv[0])
+        ):
+            print(f"   • {category}: {total}")
+            for wtype, count in category_breakdown[category].most_common():
+                # Human-friendly type label: seo_title_short → seo title short
+                print(f"       - {wtype.replace('_', ' ')}: {count}")
+        print()
+
     def print_summary(self):
         """Print human-readable validation summary to console."""
         print("\n" + "=" * 80)
@@ -634,9 +684,13 @@ class WordPressSourceValidator:
                 print(f"   ... and {len(self.errors) - 10} more errors")
             print()
 
-        # Print first 10 warnings
+        # Print warnings: roll-up by category first (triage-friendly), then
+        # the first 10 individual entries for context. Previous behaviour
+        # dumped 10 + "and 84 more" with no idea what kind of debt remained.
         if self.warnings:
-            print("⚠️  WARNINGS:")
+            self._print_warning_rollup()
+
+            print("⚠️  WARNINGS (first 10):")
             for i, warning in enumerate(self.warnings[:10], 1):
                 content_type = warning.get('content_type', '')
                 content_title = warning.get('content_title', '')

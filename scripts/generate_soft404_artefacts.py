@@ -87,6 +87,7 @@ def write_404_html(public_dir: Path) -> Path:
     ul{list-style:none;padding:0;margin:2rem 0 0}
     li{margin:.5rem 0}
   </style>
+  <script defer data-cfasync="false" data-domain="jameskilby.co.uk" src="https://plausible.jameskilby.cloud/js/script.js"></script>
 </head>
 <body>
   <main>
