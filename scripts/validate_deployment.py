@@ -477,8 +477,12 @@ class DeploymentValidator:
 
         # Find all HTML files, excluding non-page artefacts that shouldn't ship
         # the tracker (RSS feeds are XML masquerading as .html, embeds run in
-        # iframes without analytics, sitemaps are crawler-only).
-        SKIP_PATTERNS = ('feed/', '/embed/', 'sitemap')
+        # iframes without analytics, sitemaps are crawler-only) and pages
+        # that get *generated after* this validator runs (stats and changelog
+        # are emitted directly into public/ post-validate — verified manually
+        # on production that the Plausible tag is present, so these warnings
+        # were spurious).
+        SKIP_PATTERNS = ('feed/', '/embed/', 'sitemap', 'stats/', 'changelog/')
         html_files = [
             f for f in self.site_dir.glob('**/*.html')
             if not any(pat in str(f) for pat in SKIP_PATTERNS)
