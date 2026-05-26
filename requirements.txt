@@ -4,6 +4,9 @@ beautifulsoup4
 brotli
 cssutils
 Pillow
+# fontTools is used by generate_og_images.py to unwrap woff2 → ttf
+# (PIL can't render woff2 directly). [woff] extra pulls brotli decompression.
+fonttools[woff]
 html2text==2020.1.16
 pyyaml==6.0.1
 
