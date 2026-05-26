@@ -7,7 +7,7 @@
   {
     "name": "Hosting",
     "slug": "hosting",
-    "count": 29
+    "count": 30
   },
   {
     "name": "Wordpress",
@@ -57,7 +57,7 @@
   {
     "name": "vSphere",
     "slug": "vsphere",
-    "count": 25
+    "count": 24
   },
   {
     "name": "Networking",
@@ -157,7 +157,7 @@
   {
     "name": "vExpert",
     "slug": "vexpert",
-    "count": 9
+    "count": 8
   },
   {
     "name": "Money",

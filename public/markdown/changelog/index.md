@@ -15,13 +15,13 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-772
+775
 
 Git commits
 
 ### Repository Age
 
-234
+235
 
 Days active
 
@@ -33,9 +33,9 @@ Active contributors
 
 ### Last Deployment
 
-2026-05-25
+2026-05-26
 
-08:54:18
+08:57:59
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -58,6 +58,20 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-05-26 6348006Feature
+
+perf: address GTmetrix HAR audit findings
+
+Performance pass driven by a 26-May HAR audit of jameskilby.co.uk.
+
+2026-05-26 602002bOther
+
+chore: bump slackapi/slack-github-action from v3.0.1 to v3.0.3
+
+Clears the DEP0169 url.parse() deprecation warning emitted from the
+
+  
 
 2026-05-15 2183c69Improvement
 
@@ -199,17 +213,5 @@ docs: rewrite workers/README to match current state
 
 The old README described the html-cache worker and a now-missing
 
-2026-04-17 9f24734Fix
-
-fix: use Wrangler v4 kv key syntax for search index upload
-
-Wrangler v4 removed the colon form `kv:key put` in favour of `kv key put`.
-
-2026-04-17 563dff0Fix
-
-fix: bump Node to 20 for Wrangler and correct KV upload success reporting
-
-Wrangler requires Node 20+, so the Node 18 pin caused the KV search index
-
-Page generated: 2026-05-25 18:02:14 UTC  
+Page generated: 2026-05-26 08:33:23 UTC  
 Changelog powered by Git history and Lighthouse CI
