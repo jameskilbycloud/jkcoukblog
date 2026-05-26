@@ -496,6 +496,7 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
             }}
         }}
     </style>
+    <script defer data-cfasync="false" data-domain="jameskilby.co.uk" src="https://plausible.jameskilby.cloud/js/script.js"></script>
 </head>
 <body>
     <div class="container">
