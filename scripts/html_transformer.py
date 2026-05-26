@@ -117,6 +117,12 @@ class HTMLTransformer:
             if self._apply_critical_css(soup, file_path):
                 modified = True
 
+        # ── Phase 4.5: Inline tiny WP-shipped stylesheets ────────────────
+        # Has to run on every page (not only WP-regenerated ones) so list
+        # pages like the homepage get their rankmath.min.css inlined.
+        if self._apply_inline_tiny_wp_stylesheets(soup):
+            modified = True
+
         if not modified:
             return False
 
@@ -296,6 +302,53 @@ class HTMLTransformer:
             self.critical_css.css_inlined += 1
             return True
         return False
+
+    # WP-shipped stylesheets that survive the generator pass: small ones get
+    # inlined here so they don't cost a separate request. wp_to_static_generator
+    # also has this logic but only fires when a page is regenerated from WP —
+    # running it again here covers list pages (homepage, archives) that
+    # incremental builds skip.
+    _WP_INLINE_PATTERNS = (
+        'wp-content/themes/kadence/assets/css/rankmath.min.css',
+        'wp-content/themes/kadence/assets/css/footer.min.css',
+        'wp-content/cache/wpo-minify/',
+    )
+    _WP_INLINE_MAX_BYTES = 2048
+
+    def _apply_inline_tiny_wp_stylesheets(self, soup):
+        """Inline small WordPress-shipped CSS links into <head> as <style>."""
+        if not soup.head:
+            return False
+
+        inlined = 0
+        for link in list(soup.find_all('link', rel='stylesheet')):
+            if link.parent is None or link.attrs is None:
+                continue
+            raw_href = link.get('href') or ''
+            href = raw_href.lstrip('/').split('?', 1)[0]
+            if not any(p in href for p in self._WP_INLINE_PATTERNS):
+                continue
+            css_path = self.public_dir / href
+            if not css_path.exists():
+                continue
+            try:
+                content = css_path.read_text(encoding='utf-8').strip()
+            except Exception:
+                continue
+            if len(content) > self._WP_INLINE_MAX_BYTES:
+                continue
+
+            style_tag = soup.new_tag('style')
+            style_tag.string = content
+            link.insert_before(style_tag)
+            for companion in list(soup.find_all('link', href=raw_href)):
+                companion.decompose()
+            for noscript in list(soup.find_all('noscript')):
+                if noscript.find('link', href=raw_href):
+                    noscript.decompose()
+            inlined += 1
+
+        return inlined > 0
 
     @staticmethod
     def _dedup_head_string(html):
