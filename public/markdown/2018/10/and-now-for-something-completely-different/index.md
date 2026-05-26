@@ -14,7 +14,7 @@ categories:
   - Consulting
   - AWS
 url: https://jameskilby.co.uk/2018/10/and-now-for-something-completely-different/
-image: https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png
+image: https://jameskilby.co.uk/wp-content/uploads/og/and-now-for-something-completely-different.png
 ---
 
 ![Fwbxyba7](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)

@@ -22,7 +22,7 @@ tags:
   - #Homelab
   - #VMware
 url: https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/
-image: https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png
+image: https://jameskilby.co.uk/wp-content/uploads/og/lab-update-part-5-desired-workloads.png
 ---
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)

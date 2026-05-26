@@ -20,7 +20,7 @@ tags:
   - #Homelab
   - #Networking
 url: https://jameskilby.co.uk/2022/01/lab-update-part-3-network/
-image: https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png
+image: https://jameskilby.co.uk/wp-content/uploads/og/lab-update-part-3-network.png
 ---
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
