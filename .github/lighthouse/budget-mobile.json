@@ -1,6 +1,5 @@
 [
   {
-    "_comment_about_this_file": "Lighthouse CI budget for the MOBILE pass. Slow-4G + 4× CPU throttling typically lands well-optimised sites at LCP 1500-2500 ms — significantly slower than desktop (which sits at ~530 ms for this site). These budgets target Google's 'Good' Core Web Vitals thresholds (LCP < 2500, CLS < 0.1, INP/TBT < 200) with headroom for Lighthouse's run-to-run variance under throttling. Resource sizes are shared with the desktop budget (assets don't change between form factors). See .github/lighthouse/budget.json for the desktop counterpart.",
     "path": "/*",
     "timings": [
       { "metric": "first-contentful-paint",   "budget": 2000, "tolerance": 600 },

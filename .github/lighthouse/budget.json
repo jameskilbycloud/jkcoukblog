@@ -1,6 +1,5 @@
 [
   {
-    "_comment_about_this_file": "Lighthouse CI budget. The previous values (LCP 2500 ms, total 1000 KB) were so loose they accepted nearly any regression. After the perf work in May 2026 the site lands at LCP ~530 ms / total ~940 KB in GTmetrix terms — Lighthouse measures around 800-1000 ms LCP under its own throttling profile. The values below sit ~50% above the current measured state so normal run-to-run variance stays green but a real regression (LCP +300 ms or bigger) fails the check. Bump these down when measured performance improves; bump up only with a recorded reason. See .github/workflows/quality-checks.yml for how this file gets consumed.",
     "path": "/*",
     "timings": [
       { "metric": "first-contentful-paint",   "budget": 1000, "tolerance": 300 },
