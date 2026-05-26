@@ -71,8 +71,13 @@ class WordPressStaticGenerator:
             # Check if we need to rebuild archives
             if changed_posts or changed_pages or self.incremental_builder.should_rebuild_archives():
                 print("   🔄 Rebuilding archive pages...")
-                # Add essential pages and archives
-                urls.update(['/', '/category/', '/tag/'])
+                # Add essential pages and archives. Per-category/per-tag URLs
+                # are added below from the taxonomy listing; the bare
+                # `/category/` and `/tag/` paths used to be in here too but
+                # WordPress 404s them (they're not real pages, just taxonomy
+                # roots), producing two failures per build that obscured
+                # real errors.
+                urls.add('/')
                 
                 # Get all categories and tags (archives need full list)
                 categories_response = self.session.get(f'{self.wp_url}/wp-json/wp/v2/categories?per_page=100')
@@ -204,9 +209,12 @@ class WordPressStaticGenerator:
                     urls.add(relative_url)
                     print(f"   🏷️  Tag: {tag['name']}")
         
-        # Add essential pages
-        essential_urls = ['/', '/category/', '/tag/']
-        urls.update(essential_urls)
+        # Add essential pages. `/category/` and `/tag/` used to be in here
+        # too but WordPress 404s those bare taxonomy roots (only the
+        # individual `/category/<slug>/` and `/tag/<slug>/` URLs are real),
+        # producing two ❌ Failed entries on every build that masked real
+        # download errors.
+        urls.add('/')
 
         # Discover homepage pagination pages (/page/2/, /page/3/, etc.)
         print("   🔍 Discovering homepage pagination pages...")

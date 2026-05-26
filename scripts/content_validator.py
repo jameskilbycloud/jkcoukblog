@@ -152,13 +152,26 @@ class ContentValidator:
         # H1 tags (skip for RSS/Atom feed files — they have no H1 by design)
         rel = str(file_path)
         is_feed = 'feed' in rel.lower()
+        # Pagination archive pages (/page/2/, /page/3/, …) are WP-rendered
+        # list pages — WordPress doesn't emit an H1 because they're a
+        # listing of posts, not a content page. Downgrading these from a
+        # "critical error" to a warning matches reality. Real content
+        # pages still fail when missing H1.
+        is_pagination_archive = re.search(r'/page/\d+/index\.html$', rel) is not None
         h1_tags = soup.find_all('h1')
         if len(h1_tags) == 0 and not is_feed:
-            self.errors.append({
-                'type': 'seo_no_h1',
-                'file': str(file_path),
-                'message': 'Missing H1 tag'
-            })
+            if is_pagination_archive:
+                self.warnings.append({
+                    'type': 'seo_no_h1_archive',
+                    'file': str(file_path),
+                    'message': 'Missing H1 on paginated archive page (low priority)'
+                })
+            else:
+                self.errors.append({
+                    'type': 'seo_no_h1',
+                    'file': str(file_path),
+                    'message': 'Missing H1 tag'
+                })
         elif len(h1_tags) > 1:
             self.warnings.append({
                 'type': 'seo_multiple_h1',
