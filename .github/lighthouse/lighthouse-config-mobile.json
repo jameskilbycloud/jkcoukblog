@@ -1,0 +1,30 @@
+{
+  "_comment_about_this_file": "Lighthouse CI config for the MOBILE pass. Companion to lighthouse-config.json (desktop). Uses Lighthouse's default mobile profile: 1.6 Mbps slow-4G + 750 Kbps up + 150 ms RTT + 4× CPU slowdown + 360×640 viewport. Real-world conditions for the ~50% of visitors who hit the site on a phone. Mobile measurements are 2-3× slower than desktop even for a well-optimised site, so the budget file (.github/lighthouse/budget-mobile.json) sets correspondingly looser thresholds.",
+  "ci": {
+    "collect": {
+      "settings": {
+        "onlyCategories": ["performance", "accessibility", "best-practices", "seo"],
+        "formFactor": "mobile",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 360,
+          "height": 640,
+          "deviceScaleFactor": 2,
+          "disabled": false
+        },
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "cpuSlowdownMultiplier": 4,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 1638.4,
+          "uploadThroughputKbps": 750
+        },
+        "skipAudits": [
+          "uses-http2",
+          "canonical"
+        ]
+      }
+    }
+  }
+}
