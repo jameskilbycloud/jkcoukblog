@@ -16,6 +16,19 @@
 /wp-includes/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Fonts never change content under a stable filename — safe to mark immutable
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Pipeline-emitted CSS — long cache but allow revalidation since
+# brutalist-theme.css / consolidated-inline-styles.min.css are not
+# content-hashed and may be re-emitted with new contents.
+/assets/css/*
+  Cache-Control: public, max-age=31536000
+
+/assets/js/*
+  Cache-Control: public, max-age=31536000
+
 # Search index - moderate caching
 /search-index*.json
   Cache-Control: public, max-age=3600
@@ -46,8 +59,9 @@
   # Prevent MIME type sniffing
   X-Content-Type-Options: nosniff
   
-  # Force HTTPS for 1 year (31536000 seconds)
-  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  # Force HTTPS for 2 years — hstspreload.org requires >= 1 year
+  # and recommends 2 years. Site is on the HSTS preload list.
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   
   # Control browser features - deny access to device APIs
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=()

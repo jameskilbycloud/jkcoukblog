@@ -367,6 +367,11 @@ class WordPressStaticGenerator:
         
         # Consolidate small inline CSS files to reduce critical request chain
         self.consolidate_inline_css_files(soup)
+
+        # Inline tiny WordPress-cached stylesheets so they don't cost a
+        # separate request (rankmath.min.css ships as a single 39-byte rule
+        # — a whole RTT for one CSS declaration).
+        self.inline_tiny_wp_stylesheets(soup)
         
         # Process WordPress embeds (convert to proper iframes)
         self.process_wordpress_embeds(soup)
@@ -1579,18 +1584,23 @@ document.addEventListener('DOMContentLoaded', function() {
         print(f"   🐞 Added favicon links for browser support")
     
     def add_font_preloads(self, soup):
-        """Preload critical fonts for faster text rendering (reduces FCP/LCP)"""
+        """Preload critical fonts for faster text rendering (reduces FCP/LCP).
+
+        These three fonts cover the LCP-blocking text (H1 in Anton, body in
+        Space Grotesk 400/500). The remaining fonts shipped via fonts.css —
+        JetBrains Mono 400/700 and Space Grotesk 700 — are used by UI chrome
+        below the fold and rely on `font-display: optional` so they never
+        block first paint.
+        """
         if not soup.head:
             return
-        
-        # Critical fonts used above-the-fold
-        # Anton for headings, Space Grotesk for body text
+
         critical_fonts = [
             '/assets/fonts/anton-v27-latin-400.woff2',
             '/assets/fonts/spacegrotesk-v22-latin-400.woff2',
             '/assets/fonts/spacegrotesk-v22-latin-500.woff2'
         ]
-        
+
         for font_url in critical_fonts:
             # Check if font preload already exists
             existing_preload = soup.find('link', rel='preload', href=font_url)
@@ -1601,9 +1611,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 preload['type'] = 'font/woff2'
                 preload['href'] = font_url
                 preload['crossorigin'] = 'anonymous'
+                # Jump ahead of stylesheet fetches in the network queue.
+                preload['fetchpriority'] = 'high'
                 # Insert at beginning of head for highest priority
                 soup.head.insert(0, preload)
-        
+
         print(f"   🔤 Preloaded {len(critical_fonts)} critical fonts")
     
     def consolidate_inline_css_files(self, soup):
@@ -1679,7 +1691,66 @@ document.addEventListener('DOMContentLoaded', function() {
             soup.head.insert(0, consolidated_link)
         
         print(f"   ✅ Consolidated {len(css_links_to_consolidate)} CSS files → {consolidated_filename} ({len(consolidated_content)} bytes)")
-    
+
+    def inline_tiny_wp_stylesheets(self, soup):
+        """Inline small WordPress-shipped CSS links into <head> as <style>.
+
+        WordPress emits several render-path stylesheets that survive the
+        generator pass and reach production unchanged (rankmath.min.css,
+        kadence/footer.min.css, wpo-minify-header-*.min.css). When the file
+        is small enough that the request overhead dwarfs the bytes, inline
+        it instead. Keeps any associated noscript fallback consistent by
+        stripping it too.
+        """
+        if not soup.head:
+            return
+
+        # 2 KB raw is the rule of thumb where one TCP round-trip costs more
+        # than the bytes themselves on a typical mobile connection.
+        max_inline_bytes = 2048
+        inline_patterns = (
+            'wp-content/themes/kadence/assets/css/rankmath.min.css',
+            'wp-content/themes/kadence/assets/css/footer.min.css',
+            'wp-content/cache/wpo-minify/',
+        )
+
+        inlined = 0
+        for link in list(soup.find_all('link', rel='stylesheet')):
+            # Iterating a snapshot can include nodes we already decomposed via
+            # the noscript companion sweep below — those have no parent and no
+            # attrs. Skip them.
+            if link.parent is None or link.attrs is None:
+                continue
+            raw_href = link.get('href') or ''
+            href = raw_href.lstrip('/')
+            if not any(p in href for p in inline_patterns):
+                continue
+            css_path = self.output_dir / href.split('?', 1)[0]
+            if not css_path.exists():
+                continue
+            try:
+                content = css_path.read_text(encoding='utf-8').strip()
+            except Exception:
+                continue
+            if len(content) > max_inline_bytes:
+                continue
+
+            style_tag = soup.new_tag('style')
+            style_tag.string = content
+            link.insert_before(style_tag)
+
+            # Drop the original link plus any preload/noscript companions
+            # pointing at the same href so we don't ship both inline and a fetch.
+            for companion in list(soup.find_all('link', href=raw_href)):
+                companion.decompose()
+            for noscript in list(soup.find_all('noscript')):
+                if noscript.find('link', href=raw_href):
+                    noscript.decompose()
+            inlined += 1
+
+        if inlined:
+            print(f"   📎 Inlined {inlined} tiny WordPress stylesheet(s)")
+
     def add_brutalist_theme_css(self, soup):
         """Add brutalist theme CSS with critical mobile CSS inlined"""
         if not soup.head:
@@ -3680,6 +3751,19 @@ document.addEventListener('DOMContentLoaded', function() {
             "/wp-includes/*",
             "  Cache-Control: public, max-age=31536000, immutable",
             "",
+            "# Fonts never change content under a stable filename — safe to mark immutable",
+            "/assets/fonts/*",
+            "  Cache-Control: public, max-age=31536000, immutable",
+            "",
+            "# Pipeline-emitted CSS — long cache but allow revalidation since",
+            "# brutalist-theme.css / consolidated-inline-styles.min.css are not",
+            "# content-hashed and may be re-emitted with new contents.",
+            "/assets/css/*",
+            "  Cache-Control: public, max-age=31536000",
+            "",
+            "/assets/js/*",
+            "  Cache-Control: public, max-age=31536000",
+            "",
             "# Search index - moderate caching",
             "/search-index*.json",
             "  Cache-Control: public, max-age=3600",
@@ -3710,8 +3794,9 @@ document.addEventListener('DOMContentLoaded', function() {
             "  # Prevent MIME type sniffing",
             "  X-Content-Type-Options: nosniff",
             "  ",
-            "  # Force HTTPS for 1 year (31536000 seconds)",
-            "  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload",
+            "  # Force HTTPS for 2 years — hstspreload.org requires >= 1 year",
+            "  # and recommends 2 years. Site is on the HSTS preload list.",
+            "  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload",
             "  ",
             "  # Control browser features - deny access to device APIs",
             "  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=()",
