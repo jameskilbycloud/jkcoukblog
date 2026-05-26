@@ -34,9 +34,20 @@ class CSSOptimizer:
         # under wp-content/ and DO need unused-selector removal — that's the
         # whole point of running this on the static site. Without this, the
         # 98 KB wpo-minify-header bundle ships unchanged on every page.
+        #
+        # The earlier `'/assets/' in posix` test was too loose: WP themes
+        # ship CSS under `wp-content/themes/<theme>/assets/css/*.min.css`
+        # and the wpo-minify cache lives at `wp-content/cache/wpo-minify/
+        # <id>/assets/<name>.min.css`. Both contain `/assets/` and were
+        # therefore being treated as ours and skipped. Pin to the top-level
+        # `assets/` directory (relative to public/) so only our own pipeline
+        # output is excluded.
         def _is_ours(path):
-            posix = path.as_posix()
-            return '/assets/' in posix or posix.endswith('-min.css')
+            try:
+                rel = path.relative_to(self.public_dir).as_posix()
+            except ValueError:
+                return False
+            return rel.startswith('assets/')
 
         css_files = [
             f for f in css_files
@@ -157,38 +168,110 @@ class CSSOptimizer:
             print(f"   ⚠️  Error optimizing {css_file}: {e}")
             return False
 
+    # Classes that exist only after JavaScript runs — never present in the
+    # initial server-rendered HTML, but their CSS rules are essential for
+    # interactive UI (mobile menu toggles, drawer open/close, sticky-header
+    # state, scroll-into-view animations, focus management). Without this
+    # allowlist the old WP plugin/theme CSS would have these rules purged
+    # and the nav / sticky header / carousels would silently break the
+    # moment a user interacts with them.
+    #
+    # Source of truth: a wide grep of `classList.(add|remove|toggle)("...")`
+    # across wpo-minify-footer-*.min.js. When adding theme features or
+    # third-party widgets, re-run that grep and update this set.
+    _DYNAMIC_CLASSES = frozenset({
+        # Generic interactive state
+        'active', 'open', 'opened',
+        'show', 'shown', 'hidden', 'is-hidden',
+
+        # Focus / accessibility
+        'hide-focus-outline',
+
+        # Mobile drawer + menu
+        'show-drawer', 'toggle-show',
+        'toggled-on', 'menu-item--toggled-on', 'menu-item--has-toggle',
+        'dropdown-nav-special-toggle', 'sub-menu-edge',
+        'current-menu-item',
+        'kadence-scrollbar-fixer',
+
+        # Sticky header / scroll-tracking states
+        'header-is-fixed', 'item-is-fixed', 'item-is-stuck',
+        'item-at-start', 'item-hidden-above', 'child-is-fixed',
+        'scroll-visible',
+
+        # Animation triggers
+        'pop-animated', 'splide-initial',
+    })
+
     def _is_selector_used(self, selector_text, used_selectors):
-        """Check if a CSS selector is used in HTML"""
+        """Check if a CSS selector is used in HTML.
+
+        Returns True if the selector (or any of its comma-separated
+        alternatives) is potentially used by the rendered page or by JS-driven
+        interaction. The check splits each compound selector on the descendant
+        / sibling combinators and requires every compound to reference at
+        least one class/id that is either present in HTML or in the
+        dynamic-class allowlist.
+        """
         # Always keep @media, @keyframes, etc.
         if selector_text.startswith('@'):
             return True
 
-        # Split compound selectors (e.g., ".class1 .class2" or ".class1, .class2")
-        parts = re.split(r'[,\s>+~]', selector_text)
-
-        for part in parts:
-            part = part.strip()
-            if not part:
+        # Top-level split: comma separates fully independent selectors. Any
+        # match is enough to keep the rule.
+        for raw_selector in selector_text.split(','):
+            raw_selector = raw_selector.strip()
+            if not raw_selector:
                 continue
 
-            # Remove pseudo-classes and pseudo-elements for matching
-            part = re.sub(r':+[\w-]+(\([^)]*\))?', '', part)
-            part = re.sub(r'\[[^\]]+\]', '', part)  # Remove attribute selectors
-            part = part.strip()
+            # Split into compounds on combinators (descendant / >, +, ~).
+            # ".a.b .c" → ["[.a.b]", "[.c]"] — both compounds must individually
+            # be plausibly present for the rule to be matchable. If any
+            # compound references only unknown classes/ids, the selector
+            # cannot ever match → drop.
+            compounds = re.split(r'[\s>+~]+', raw_selector)
+            all_compounds_satisfied = True
+            for compound in compounds:
+                compound = compound.strip()
+                if not compound:
+                    continue
 
-            if not part:
-                continue
+                # Strip pseudo-classes/elements + attribute selectors before
+                # extracting class/id references. ":hover" / "[type=...]"
+                # don't change which classes a rule matches.
+                stripped = re.sub(r':+[\w-]+(\([^)]*\))?', '', compound)
+                stripped = re.sub(r'\[[^\]]+\]', '', stripped)
+                stripped = stripped.strip()
 
-            # Check if base selector is used
-            if part in used_selectors:
+                if not stripped:
+                    # Compound was just pseudos/attrs (e.g. ":root::before").
+                    # Nothing to assert about classes — treat as satisfied.
+                    continue
+
+                # Extract class and id references *anywhere* in the compound.
+                classes = re.findall(r'\.([a-zA-Z_][\w-]+)', stripped)
+                ids = re.findall(r'#([a-zA-Z_][\w-]+)', stripped)
+
+                if not classes and not ids:
+                    # Pure element selector (e.g. "div", "p > a") — keep.
+                    continue
+
+                # If the compound references at least one class that is in
+                # HTML *or* in the dynamic-class allowlist, OR at least one
+                # id that is in HTML, this compound is matchable.
+                if (any(f'.{c}' in used_selectors for c in classes)
+                        or any(c in self._DYNAMIC_CLASSES for c in classes)
+                        or any(f'#{i}' in used_selectors for i in ids)):
+                    continue
+
+                # No referenced class/id matches → this compound (and the
+                # whole selector) is unreachable.
+                all_compounds_satisfied = False
+                break
+
+            if all_compounds_satisfied:
                 return True
 
-            # Check for element selectors (no . or #)
-            if not part.startswith('.') and not part.startswith('#'):
-                # Element selector - always keep
-                return True
-
-        # Selector not found in HTML
         return False
 
     def _minify_css(self, css):
