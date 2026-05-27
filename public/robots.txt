@@ -6,7 +6,9 @@ Allow: /
 Disallow: /*/feed/
 Disallow: /api/
 
-# Tag archive pages are noindex thin content — skip crawling them.
-Disallow: /tag/
+# Tag pages carry <meta name="robots" content="noindex, follow">.
+# Do NOT Disallow them: Google must be allowed to crawl the page
+# in order to see the noindex directive. Blocking crawl leaves the
+# URLs in the index as URL-only entries and prevents clean removal.
 
 Sitemap: https://jameskilby.co.uk/sitemap.xml
