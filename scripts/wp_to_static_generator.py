@@ -46,6 +46,12 @@ class WordPressStaticGenerator:
         self.css_output_dir = self.output_dir / 'assets' / 'css'
         self.use_incremental = use_incremental
         self.incremental_builder = IncrementalBuilder() if use_incremental else None
+        # Map of relative_url -> {'cats': set[int], 'tags': set[int],
+        # 'date': str, 'title': str}. Populated once per build by
+        # build_post_index() and consumed by add_related_posts(); writes
+        # finish before the parallel processing pool starts, so reads from
+        # worker threads are safe.
+        self.post_index = {}
         
     def get_all_content_urls(self):
         """Get all content URLs from WordPress REST API"""
@@ -415,7 +421,7 @@ class WordPressStaticGenerator:
         self.fix_table_headers(soup)
         
         # Add markdown and API links to footer
-        self.add_markdown_api_links(soup)
+        self.add_markdown_api_links(soup, current_url)
         
         # Add breadcrumb navigation with schema markup
         self.add_breadcrumb_navigation(soup, current_url)
@@ -2896,36 +2902,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
         print("   ✨ Injected homepage redesign sections (strap, terminal, filter, topics)")
 
-    def add_markdown_api_links(self, soup):
-        """Add links to markdown and API versions in footer"""
+    def add_markdown_api_links(self, soup, current_url):
+        """Add links to markdown and API versions in footer.
+
+        Only rendered on post pages (/YYYY/MM/slug/) where a per-post markdown
+        export exists. Bare /markdown/ and /api/ are directories — Cloudflare
+        Pages 404s on the directory itself, so linking to them site-wide
+        produced hundreds of broken internal links (visible in GSC).
+        """
         import re
-        
+
+        post_match = re.match(r'^/(\d{4})/(\d{2})/([^/]+)/?$', current_url or '')
+        if not post_match:
+            return
+
         footer = soup.find('footer', class_=re.compile(r'site-footer', re.I))
-        
-        if footer:
-            # Create a new div for content formats
-            formats_div = soup.new_tag('div')
-            formats_div['class'] = 'content-formats'
-            formats_div['style'] = 'margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--gray-mid);'
-            
-            p = soup.new_tag('p')
-            p.string = 'Content also available in: '
-            
-            # Markdown link
-            md_link = soup.new_tag('a', href='/markdown/')
-            md_link.string = 'Markdown'
-            p.append(md_link)
-            
-            p.append(' | ')
-            
-            # API link
-            api_link = soup.new_tag('a', href='/api/')
-            api_link.string = 'JSON API'
-            p.append(api_link)
-            
-            formats_div.append(p)
-            footer.append(formats_div)
-            print(f"   🔗 Added markdown and API links to footer")
+        if not footer:
+            return
+
+        year, month, slug = post_match.groups()
+        md_href = f'/markdown/{year}/{month}/{slug}/index.md'
+        api_href = '/api/posts-page-1.json'
+
+        formats_div = soup.new_tag('div')
+        formats_div['class'] = 'content-formats'
+        formats_div['style'] = 'margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--gray-mid);'
+
+        p = soup.new_tag('p')
+        p.string = 'Content also available in: '
+
+        md_link = soup.new_tag('a', href=md_href)
+        md_link.string = 'Markdown'
+        p.append(md_link)
+
+        p.append(' | ')
+
+        api_link = soup.new_tag('a', href=api_href)
+        api_link.string = 'JSON API'
+        p.append(api_link)
+
+        formats_div.append(p)
+        footer.append(formats_div)
+        print(f"   🔗 Added markdown and API links to footer")
     
     def fix_table_headers(self, soup):
         """Fix table structure by converting first row to proper thead with th elements"""
@@ -3471,131 +3489,182 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 print(f"   🍞 Added breadcrumb navigation: {' > '.join([item['name'] for item in breadcrumb_items])}")
     
+    def build_post_index(self):
+        """Bulk-fetch all published posts once and store in self.post_index.
+
+        Replaces the per-post WordPress API calls previously made from
+        add_related_posts(). After this runs, related-post scoring is a pure
+        in-memory operation against integer category/tag ID sets.
+
+        Index entry shape:
+            {
+                'cats':  set[int],   # category term IDs
+                'tags':  set[int],   # tag term IDs
+                'date':  str,        # ISO 8601 published date
+                'title': str,        # rendered title (may contain HTML entities)
+            }
+
+        Keyed by relative URL (`post['link']` minus `self.wp_url`), matching
+        the `current_url` argument that process_html() passes to
+        add_related_posts().
+        """
+        print("📚 Building post index for related-posts scoring...")
+        index = {}
+        page = 1
+        while True:
+            resp = self.session.get(
+                f'{self.wp_url}/wp-json/wp/v2/posts',
+                params={
+                    'per_page': 100,
+                    'page': page,
+                    'status': 'publish',
+                    '_fields': 'id,link,date,categories,tags,title',
+                },
+            )
+            if resp.status_code != 200:
+                # 400 = past the last page on WP REST; anything else is a real
+                # failure but should not break the rest of the build — the
+                # related-posts section just won't render.
+                if resp.status_code not in (400,):
+                    print(f"   ⚠️  Post index fetch returned {resp.status_code} on page {page}")
+                break
+            try:
+                posts = resp.json()
+            except (json.JSONDecodeError, ValueError):
+                print(f"   ⚠️  Invalid JSON on post-index page {page}")
+                break
+            if not posts:
+                break
+            for post in posts:
+                relative_url = post['link'].replace(self.wp_url, '')
+                index[relative_url] = {
+                    'cats': set(post.get('categories') or []),
+                    'tags': set(post.get('tags') or []),
+                    'date': post.get('date') or '',
+                    'title': (post.get('title') or {}).get('rendered', ''),
+                }
+            page += 1
+
+        self.post_index = index
+        total_cats = sum(len(p['cats']) for p in index.values())
+        total_tags = sum(len(p['tags']) for p in index.values())
+        print(f"   ✅ Indexed {len(index)} posts ({total_tags} tag refs, {total_cats} category refs)")
+
     def add_related_posts(self, soup, current_url):
-        """Add related posts section based on categories and tags"""
-        
-        # Only add to single post pages
+        """Inject a 'Related Posts' section scored against self.post_index.
+
+        Score formula:
+            score = 3 * |shared_tags| + 2 * |shared_categories|
+        Ties broken by recency (newer first). Top 3 selected.
+
+        Tags are weighted higher than categories because categories are
+        coarse hubs ("Homelab") while tags are specific facets ("packer",
+        "vsan") — overlap on a tag is a stronger topical signal.
+
+        Fallback when no candidate has any overlap: newest 3 posts that
+        share at least one category (matches the legacy behaviour). This
+        preserves the section's existence on posts whose tags/categories
+        are unique enough to score zero against the rest of the corpus.
+        """
         body = soup.find('body')
         if not body:
             return
-        
+
         body_classes = body.get('class', [])
         body_class_str = ' '.join(body_classes).lower()
-        
-        # Check if this is a single post (not a page or archive)
         if 'single-post' not in body_class_str and 'single' not in body_classes:
             return
 
-        # Remove any existing related-posts sections to avoid duplicates
+        # Avoid double-injection on repeat process_html passes
         for existing in soup.find_all('section', class_='related-posts'):
             existing.decompose()
 
-        # Extract categories and tags from the current post
-        categories = []
-        tags = []
-        
-        # Find category links
-        category_links = soup.find_all('a', rel='tag', href=lambda x: x and '/category/' in x)
-        for link in category_links:
-            category_slug = link.get('href', '').split('/category/')[1].strip('/')
-            if category_slug and category_slug not in categories:
-                categories.append(category_slug)
-        
-        # Find tag links
-        tag_links = soup.find_all('a', rel='tag', href=lambda x: x and '/tag/' in x)
-        for link in tag_links:
-            tag_slug = link.get('href', '').split('/tag/')[1].strip('/')
-            if tag_slug and tag_slug not in tags:
-                tags.append(tag_slug)
-        
-        if not categories and not tags:
-            print(f"   ℹ️  No categories or tags found for related posts")
+        current_entry = self.post_index.get(current_url)
+        if not current_entry:
+            # Post isn't in the index — index didn't build, or this is a
+            # page/archive misclassified as a single post. Skip silently.
             return
-        
-        # Query WordPress API for related posts
-        try:
-            related_posts = []
-            
-            # First try to get posts from the same categories
-            if categories:
-                # Get category ID from the first category
-                cat_response = self.session.get(
-                    f'{self.wp_url}/wp-json/wp/v2/categories',
-                    params={'slug': categories[0]}
-                )
-                if cat_response.status_code == 200:
-                    try:
-                        cat_data = cat_response.json()
-                    except (json.JSONDecodeError, ValueError):
-                        cat_data = []
-                    if isinstance(cat_data, list) and cat_data:
-                        category_id = cat_data[0]['id']
-                        
-                        # Get posts from this category
-                        posts_response = self.session.get(
-                            f'{self.wp_url}/wp-json/wp/v2/posts',
-                            params={'categories': category_id, 'per_page': 4, '_fields': 'id,title,link,featured_media'}
-                        )
-                        if posts_response.status_code == 200:
-                            try:
-                                related_posts = posts_response.json()
-                            except (json.JSONDecodeError, ValueError):
-                                related_posts = []
-            
-            # Filter out current post
-            current_post_url = f"{self.wp_url}{current_url}"
-            related_posts = [p for p in related_posts if p['link'] != current_post_url][:3]
-            
-            if not related_posts:
-                print(f"   ℹ️  No related posts found")
-                return
-            
-            # Create related posts section
-            related_section = soup.new_tag('section')
-            related_section['class'] = 'related-posts'
-            related_section['style'] = '''margin: 40px 0; padding: 30px; background: #f7fafc; border-radius: 8px; border-left: 4px solid #4299e1;'''
-            
-            # Section heading
-            heading = soup.new_tag('h2')
-            heading['style'] = 'margin: 0 0 20px 0; font-size: 24px; color: #2d3748;'
-            heading.string = '📚 Related Posts'
-            related_section.append(heading)
-            
-            # Posts list
-            posts_list = soup.new_tag('ul')
-            posts_list['style'] = 'list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;'
-            
-            for post in related_posts:
-                li = soup.new_tag('li')
-                li['style'] = 'background: white; padding: 16px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: box-shadow 0.2s;'
-                
-                link = soup.new_tag('a')
-                link['href'] = post['link'].replace(self.wp_url, self.target_domain)
-                link['style'] = 'color: #2d3748; text-decoration: none; display: block; font-weight: 500; hover: color: #4299e1;'
-                link.string = post['title']['rendered']
-                
-                li.append(link)
-                posts_list.append(li)
-            
-            related_section.append(posts_list)
-            
-            # Find insertion point (after comments if present, otherwise after entry-content)
-            entry_content = soup.find('div', class_=lambda x: x and 'entry-content' in x)
-            if entry_content:
-                # Find the parent article
-                article = entry_content.find_parent('article')
-                if article:
-                    # Insert after comments (so order is: article → comments → related posts)
-                    comments = article.find('div', id='comments')
-                    if comments:
-                        comments.insert_after(related_section)
-                    else:
-                        entry_content.insert_after(related_section)
-                    
-                    print(f"   📚 Added {len(related_posts)} related posts")
-        
-        except Exception as e:
-            print(f"   ⚠️  Error fetching related posts: {str(e)}")
+
+        cur_cats = current_entry['cats']
+        cur_tags = current_entry['tags']
+        if not cur_cats and not cur_tags:
+            return
+
+        scored = []
+        for url, entry in self.post_index.items():
+            if url == current_url:
+                continue
+            shared_tags = len(cur_tags & entry['tags'])
+            shared_cats = len(cur_cats & entry['cats'])
+            score = 3 * shared_tags + 2 * shared_cats
+            if score > 0:
+                scored.append((score, entry['date'], url, entry['title']))
+
+        if scored:
+            # Sort by score desc, then date desc (newer breaks ties). ISO 8601
+            # dates sort lexicographically the same as chronologically, so a
+            # single tuple sort works.
+            scored.sort(key=lambda x: (x[0], x[1]), reverse=True)
+            selected = scored[:3]
+        else:
+            # Fallback: newest 3 sharing any category
+            fallback = [
+                (entry['date'], url, entry['title'])
+                for url, entry in self.post_index.items()
+                if url != current_url and (cur_cats & entry['cats'])
+            ]
+            fallback.sort(reverse=True)  # date desc
+            selected = [(0, d, u, t) for d, u, t in fallback[:3]]
+
+        if not selected:
+            return
+
+        related_section = soup.new_tag('section')
+        related_section['class'] = 'related-posts'
+        related_section['style'] = (
+            'margin: 40px 0; padding: 30px; background: #f7fafc; '
+            'border-radius: 8px; border-left: 4px solid #4299e1;'
+        )
+
+        heading = soup.new_tag('h2')
+        heading['style'] = 'margin: 0 0 20px 0; font-size: 24px; color: #2d3748;'
+        heading.string = '📚 Related Posts'
+        related_section.append(heading)
+
+        posts_list = soup.new_tag('ul')
+        posts_list['style'] = (
+            'list-style: none; padding: 0; margin: 0; display: grid; '
+            'grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;'
+        )
+
+        for _score, _date, rel_url, title in selected:
+            li = soup.new_tag('li')
+            li['style'] = (
+                'background: white; padding: 16px; border-radius: 6px; '
+                'box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: box-shadow 0.2s;'
+            )
+            link = soup.new_tag('a')
+            link['href'] = rel_url
+            link['style'] = (
+                'color: #2d3748; text-decoration: none; display: block; '
+                'font-weight: 500; hover: color: #4299e1;'
+            )
+            link.string = title
+            li.append(link)
+            posts_list.append(li)
+
+        related_section.append(posts_list)
+
+        entry_content = soup.find('div', class_=lambda x: x and 'entry-content' in x)
+        if entry_content:
+            article = entry_content.find_parent('article')
+            if article:
+                comments = article.find('div', id='comments')
+                if comments:
+                    comments.insert_after(related_section)
+                else:
+                    entry_content.insert_after(related_section)
+                print(f"   📚 Added {len(selected)} related posts (score-based)")
     
     def add_social_media_links(self, soup):
         """Add social media links (GitHub, Twitter, LinkedIn) to the bottom of each post"""
@@ -3787,8 +3856,10 @@ document.addEventListener('DOMContentLoaded', function() {
             "Disallow: /*/feed/",
             "Disallow: /api/",
             "",
-            "# Tag archive pages are noindex thin content — skip crawling them.",
-            "Disallow: /tag/",
+            "# Tag pages carry <meta name=\"robots\" content=\"noindex, follow\">.",
+            "# Do NOT Disallow them: Google must be allowed to crawl the page",
+            "# in order to see the noindex directive. Blocking crawl leaves the",
+            "# URLs in the index as URL-only entries and prevents clean removal.",
             "",
             f"Sitemap: {self.target_domain}/sitemap.xml",
             ""
@@ -4489,11 +4560,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
         # Get all URLs from WordPress
         urls = self.get_all_content_urls()
-        
+
         # Discover all media assets via WordPress API
         print(f"\\n🖼️  Media Asset Discovery:")
         media_assets = self.get_all_media_assets()
-        
+
+        # Build the post index used by add_related_posts(). Must happen
+        # before the parallel processing pool starts so worker threads see
+        # a fully-populated, read-only dict.
+        self.build_post_index()
+
         # Download and process all content
         print(f"\\n⬇️  Processing {len(urls)} URLs...")
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
