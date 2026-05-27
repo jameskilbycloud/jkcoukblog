@@ -126,6 +126,16 @@ export default {
     }
     // ────────────────────────────────────────────────────────────────────────
 
+    // ── Soft-404 fix for the bare 404 page ───────────────────────────────────
+    // /404.html exists in the static output (Cloudflare Pages uses it as the
+    // SPA fallback), but a direct GET to /404 or /404.html previously returned
+    // 200 with 404-styled content — a soft-404 that Google flags as
+    // "Discovered – currently not indexed". Force the proper 404 status here.
+    if (path === '/404' || path === '/404/' || path === '/404.html') {
+      return buildNotFoundResponse(env, url.hostname);
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
     // Only cache GET requests
     if (request.method !== 'GET') {
       return env.ASSETS.fetch(request);
