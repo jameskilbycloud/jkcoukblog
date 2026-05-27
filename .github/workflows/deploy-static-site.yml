@@ -811,7 +811,14 @@ jobs:
         fi
         if [ ! -d "$HOME/.cache/ms-playwright" ] && [ ! -d "$HOME/Library/Caches/ms-playwright" ]; then
           echo "📦 Installing Chromium headless shell..."
-          python3 -m playwright install --with-deps chromium
+          # No --with-deps: that flag triggers `sudo apt install` to fetch
+          # Chromium's runtime libraries, which fails on the self-hosted
+          # runner because sudo requires a password. The libs are already
+          # present on the runner (this step worked before Playwright began
+          # auto-detecting the OS as unsupported); if they ever go missing,
+          # test_interactive_ui.py prints its SKIP banner and
+          # `continue-on-error: true` below still lets the build pass.
+          python3 -m playwright install chromium
         fi
 
         python3 scripts/test_interactive_ui.py ./static-output
