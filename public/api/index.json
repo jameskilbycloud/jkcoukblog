@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-05-29T13:38:58.892536",
+  "generated": "2026-05-29T13:55:01.331399",
   "base_url": "/api",
   "endpoints": {
     "posts": {
