@@ -1,6 +1,6 @@
 ---
 title: "VMware Cloud on AWS Time Sync & NTP Configuration"
-description: "One of the nice things about the VMC Service is that you dont have to worry about a number of the traditional infrastructure services that you typically obse..."
+description: "One of the nice things about the VMC Service is that you dont have to worry about a number of the traditional infrastructure services that you typically"
 date: 2025-12-08T14:03:44+00:00
 modified: 2026-05-25T17:15:48+00:00
 author: James Kilby

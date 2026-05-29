@@ -3,7 +3,7 @@
     {
       "slug": "lab-update-part-3-network",
       "title": "Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense",
-      "description": "I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes. I will likely virtualise this in the f...",
+      "description": "I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes.",
       "date": "2022-01-06T19:25:40Z",
       "modified": "2026-04-16T22:01:55Z",
       "author": "James Kilby",
@@ -33,7 +33,7 @@
     {
       "slug": "lab-update-part-2-storage",
       "title": "Lab Update – Part 2 Storage Truenas Scale",
-      "description": "The HP Z840 has changed its role to a permanent storage box running Truenas Scale. This is in addition to my Synology DS918+...",
+      "description": "The HP Z840 has changed its role to a permanent storage box running Truenas Scale. This is in addition to my Synology DS918+",
       "date": "2022-01-11T22:35:02Z",
       "modified": "2026-04-16T22:01:55Z",
       "author": "James Kilby",
@@ -125,7 +125,7 @@
     {
       "slug": "lab-storage-2",
       "title": "Homelab Storage Upgrade: Synology DS918 for VMware & NFS",
-      "description": "Since starting my new role with Xtravirt my Homelab has gone through several fairly significant changes. At the moment it’s very much focused on the VMware ...",
+      "description": "Since starting my new role with Xtravirt my Homelab has gone through several fairly significant changes.",
       "date": "2019-02-10T23:59:20Z",
       "modified": "2026-04-16T22:02:01Z",
       "author": "James Kilby",
@@ -161,7 +161,7 @@
     {
       "slug": "intel-optane",
       "title": "Using Intel Optane NVMe in a VMware Homelab: Setup & Results",
-      "description": "I have been a VMware vExpert for many years and it has brought me many many benefits over the years. I don’t think it’s an understatement to say I probably w...",
+      "description": "I have been a VMware vExpert for many years and it has brought me many many benefits over the years.",
       "date": "2023-04-17T12:20:04Z",
       "modified": "2026-05-25T11:09:17Z",
       "author": "James Kilby",
@@ -197,7 +197,7 @@
     {
       "slug": "i3en",
       "title": "VMware Cloud on AWS i3en Host: Specs, Storage & Performance",
-      "description": "VMware Cloud on AWS (VMC) has introduced a new host to its lineup the “i3en”. This is based on the i3en.metal AWS instance....",
+      "description": "VMware Cloud on AWS (VMC) has introduced a new host to its lineup the “i3en”. This is based on the i3en.metal AWS instance.",
       "date": "2020-07-02T22:01:39Z",
       "modified": "2026-04-16T22:01:59Z",
       "author": "James Kilby",
@@ -267,7 +267,7 @@
     {
       "slug": "how-i-moved-my-wordpress-site-to-cloudflare-pages",
       "title": "Static WordPress hosting using Cloudflare",
-      "description": "For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product. I did this originally as a learning exerci...",
+      "description": "For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product.",
       "date": "2022-10-20T15:26:08Z",
       "modified": "2026-04-16T22:01:53Z",
       "author": "James Kilby",

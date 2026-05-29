@@ -69,7 +69,7 @@
     {
       "slug": "homelab-bad-days-almost",
       "title": "Homelab SSD Failure: How Synology RAID Saved My Data",
-      "description": "I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate. This involves driving from the south coast of Dorset up to Scotland and then getti...",
+      "description": "I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate. This involves driving from the south coast of Dorset up to Scotland and then",
       "date": "2022-11-21T15:46:53Z",
       "modified": "2026-05-25T17:18:25Z",
       "author": "James Kilby",
@@ -141,7 +141,7 @@
     {
       "slug": "holodeck-cpu-fixes",
       "title": "VMware Holodeck on Older CPUs: Fixing Compatibility Issues",
-      "description": "Disclaimer: This is not a supported configuration by the Holodeck team please don’t reach out to them for help. No support will be given for running CPUs wit...",
+      "description": "Disclaimer: This is not a supported configuration by the Holodeck team please don’t reach out to them for help.",
       "date": "2024-01-18T14:37:04Z",
       "modified": "2026-05-25T11:09:17Z",
       "author": "James Kilby",
@@ -201,7 +201,7 @@
     {
       "slug": "going-out-with-a-bang",
       "title": "VMware – Going out with a Bang!",
-      "description": "There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom. There are a lot of unknowns for the staff an...",
+      "description": "There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom.",
       "date": "2023-10-07T12:37:14Z",
       "modified": "2026-04-16T22:01:50Z",
       "author": "James Kilby",
@@ -230,7 +230,7 @@
     {
       "slug": "forcing-an-upgrade-to-vsphere-8",
       "title": "Forcing an Upgrade to vSphere 8",
-      "description": "I run a reasonably extensive homelab that is of course built around the VMware ecosystem. So with the release of vSphere 8 I was obviously going to upgrade ...",
+      "description": "I run a reasonably extensive homelab that is of course built around the VMware ecosystem.",
       "date": "2022-12-14T21:43:39Z",
       "modified": "2026-04-16T22:01:52Z",
       "author": "James Kilby",
@@ -288,7 +288,7 @@
     {
       "slug": "cloudflare",
       "title": "What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained",
-      "description": "I have been using Cloudflare for a long time. It is one of my go-to services and I use it to protect all of the public services I run for myself and other s...",
+      "description": "I have been using Cloudflare for a long time. It is one of my go-to services and I use it to protect all of the public services I run for myself and other",
       "date": "2018-03-27T12:30:48Z",
       "modified": "2026-04-16T22:02:04Z",
       "author": "James Kilby",

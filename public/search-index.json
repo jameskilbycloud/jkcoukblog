@@ -3,7 +3,7 @@
     "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automation. Real-world IT solutions.",
     "url": "https://jameskilby.co.uk/",
     "description": "Expert guides on VMware vSphere, homelab infrastructure, AI setup, and cloud computing. Real-world technical tutorials by a VMware vExpert.",
-    "content": "VMWARE VEXPERT · HOMELAB · INFRASTRUCTURE-AS-CODEField notes from a homelab that costsreal money to run.jameskilby@blog ~ % cat blog.stats liveposts.count.............72words.total............45klast_post..........43d agocategories..............34tags...................125vexpert.years...........11deploys.month...........91last_deploy..........todaylighthouse..........95/100$_FILTERAllVMwareHomelabAutomationAI In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introduction One of the larger costs of running my homelab is the electricity…. One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS. Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network iso"
+    "content": "VMWARE VEXPERT · HOMELAB · INFRASTRUCTURE-AS-CODEField notes from a homelab that costsreal money to run.jameskilby@blog ~ % cat blog.stats liveposts.count.............72words.total............45klast_post..........43d agocategories..............34tags...................125vexpert.years...........11deploys.month...........93last_deploy..........todaylighthouse..........95/100$_FILTERAllVMwareHomelabAutomationAI In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introduction One of the larger costs of running my homelab is the electricity…. One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS. Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network iso"
   },
   {
     "title": "VMware Cloud on AWS (VMC) – Links & Resources - James Kilby",
@@ -20,20 +20,20 @@
   {
     "title": "Media - James Kilby",
     "url": "https://jameskilby.co.uk/media/",
-    "description": "I’m a Solution Architect in Broadcom’s EMEA Hyperscalers team, a twelve-year VMware vExpert, and co-founder of the UK Veeam User Group. Alongside my day-to-d...",
+    "description": "I’m a Solution Architect in Broadcom’s EMEA Hyperscalers team, a twelve-year VMware vExpert, and co-founder of the UK Veeam User Group.",
     "content": "📅Published: January 15, 2021•Updated: March 29, 2026I’m a Solution Architect in Broadcom’s EMEA Hyperscalers team, a twelve-year VMware vExpert, and co-founder of the UK Veeam User Group. Alongside my day-to-day work I share practical insights on VMware, AWS cloud infrastructure, and enterprise AI through podcasts, user group sessions, and conference talks. Below you’ll find recordings of some of those appearances. You can find me on/in the following Videos/PodcastsXtravirt CloudInsiders Podcast – VMware Cloud on AWS In this episode of the Xtravirt CloudInsiders podcast, I discuss the practical realities of running VMware Cloud on AWS (VMC on AWS) — covering architecture decisions, common migration patterns, and what organisations need to consider before moving workloads to the cloud. We explore the commercial model, when VMC on AWS makes sense versus a native AWS approach, and the operational differences teams should plan for.Xtravirt CloudInsiders Podcast – Data Availability In this "
   },
   {
     "title": "Amazon Elastic VMware Service (AWS EVS) – Resources & Documentation - James Kilby",
     "url": "https://jameskilby.co.uk/evs/",
-    "description": "A curated collection of links and resources for Amazon Elastic VMware Service (AWS EVS) — official docs, design guides, pricing, networking, HCX, and the lat...",
+    "description": "My role at Broadcom is to look after VMware-based AWS HyperScaler Solutions — including VMware Cloud on AWS (VMC) and Amazon Elastic VMware Service (AWS",
     "content": "📅Published: June 18, 2025•Updated: April 16, 2026Amazon Elastic VMware Service (AWS EVS) – Links & ResourcesMy role at Broadcom is to look after VMware-based AWS HyperScaler Solutions — including VMware Cloud on AWS (VMC) and Amazon Elastic VMware Service (AWS EVS). This page is a curated, regularly updated collection of shortcuts to the public-facing EVS documentation on Broadcom and AWS’s websites, covering design, pricing, networking, operations, HCX, workloads, and the latest service announcements.Table of ContentsService StatusAWS Service Status DashboardService AnnouncementAnnouncementAmazon Elastic VMware Service: Start your modernization journeyNew Regions Reinvent Media2025A complete guide to Amazon EVS: Unlock AWS scale for VMware workloads (MAM201)Optimizing storage costs for Amazon EVS with FSx for ONTAP (MAM101)2024Amazon Elastic VMware Service: Start your modernization journey with AWS (MAM119)DesignUser Guide PDFNSX Edge Cluster Deployment – For Operations Automation and"
   },
   {
     "title": "Site Statistics - James Kilby",
     "url": "https://jameskilby.co.uk/stats/",
     "description": "Public statistics and metrics for James Kilby's technical blog including performance scores, traffic data, and build information.",
-    "content": "Site Statistics - James Kilby 📄 182 Total Pages 📝 72 Blog Posts 🖼️ 3428 Images 💾 189.11 Total Size (MB) 🚀 822 Deployments 📅 92 Updates This Month 🚀 Lighthouse Performance Scores Latest scores from 2026-05-26 deployment 95 Performance 95 Accessibility 100 Best Practices 100 SEO 📈 Performance Tracking: Scores are automatically measured on every deployment and stored in the changelog history. 🎯 Target: Maintaining 90+ scores across all categories for optimal user experience. 🔧 Build Metrics Metric Value Notes Total HTML Pages 182 All generated pages including posts, archives, and pages Blog Posts 72 Articles in dated directories (YYYY/MM/slug) Total Images 3428 Optimized images (PNG, JPG, WebP, SVG) Total Site Size 189.11 MB All files in public directory Average Page Size 1.04 KB Total size / number of pages Images per Post 47.6 Average images per blog post Last Deployment 2026-05-29 11:14:09 Most recent static site generation Total Deployments 822 Git commits to main branch 📊 Traffic Ana"
+    "content": "Site Statistics - James Kilby 📄 182 Total Pages 📝 72 Blog Posts 🖼️ 3428 Images 💾 189.11 Total Size (MB) 🚀 824 Deployments 📅 94 Updates This Month 🚀 Lighthouse Performance Scores Latest scores from 2026-05-26 deployment 95 Performance 95 Accessibility 100 Best Practices 100 SEO 📈 Performance Tracking: Scores are automatically measured on every deployment and stored in the changelog history. 🎯 Target: Maintaining 90+ scores across all categories for optimal user experience. 🔧 Build Metrics Metric Value Notes Total HTML Pages 182 All generated pages including posts, archives, and pages Blog Posts 72 Articles in dated directories (YYYY/MM/slug) Total Images 3428 Optimized images (PNG, JPG, WebP, SVG) Total Site Size 189.11 MB All files in public directory Average Page Size 1.04 KB Total size / number of pages Images per Post 47.6 Average images per blog post Last Deployment 2026-05-29 11:24:26 Most recent static site generation Total Deployments 824 Git commits to main branch 📊 Traffic Ana"
   },
   {
     "title": "Homelab - Software - James Kilby",
@@ -50,13 +50,13 @@
   {
     "title": "about me",
     "url": "https://jameskilby.co.uk/about-me/",
-    "description": "About Me: I'm a Solution Architect in Dorset, specializing in AWS based Hyperscaler VMware solutions and a vExpert for 11 years. Passionate about tech and ph...",
+    "description": "I’m based in Dorset, and I work as a Solution Architect on Broadcom’s EMEA Hyperscalers team, specialising in AWS-driven hyperscaler architectures.",
     "content": "📅Published: June 27, 2020•Updated: February 20, 2026Presenting at the London VMUG with my good friend GarethI’m based in Dorset, and I work as a Solution Architect on Broadcom’s EMEA Hyperscalers team, specialising in AWS-driven hyperscaler architectures.I have been a vExpert for the last 12 years and previously and has been honoured to be awarded Veeam Vanguard status for four years. I helped co-found the Veeam Usergroup in the UK. When not working I like to do some photography, climbing and exploring here and there.DisclaimerAll opinions expressed here are my own and do not represent Broadcom or any other employer.Some links on this site may be affiliate links — they never cost you extra, and they help support this site.© James Kilby. Please don’t reproduce my content without permission — if you’d like to share something, just link to it.AffiliatePlease bear in mind that links posted on this website may be affiliate links where I will earn a commission for any purchases made through "
   },
   {
     "title": "Homelab - Hardware - James Kilby",
     "url": "https://jameskilby.co.uk/lab/",
-    "description": "My homelab is a constantly evolving platform for learning, self-hosting, and running serious workloads — from VMware vSphere clusters and AI inference to net...",
+    "description": "My homelab is a constantly evolving platform for learning, self-hosting, and running serious workloads — from VMware vSphere clusters and AI inference to",
     "content": "📅Published: June 27, 2020•Updated: February 16, 2026My homelab is a constantly evolving platform for learning, self-hosting, and running serious workloads — from VMware vSphere clusters and AI inference to network automation and cloud integration. It lives in a dedicated server room, built around a StarTech 25U open-frame rack, and extends into the cloud via AWS and Cloudflare.See also: Homelab Software →Table of ContentsAt a GlanceCompute NodesTotal RAMUsable StorageNetwork Uplinks4 (3× NX-1365-G4 + HP Z840)1,280 GB95.9 TB25 GbEI would estimate the replacement value sits somewhere around £15–20k. This has been accumulated over the years through a mix of enterprise surplus finds and deliberate upgrades.My hardware choices are driven by a consistent set of design principles — some are non-negotiable, others are strong preferences:vSphere compatibility — HCL-listed hardware wherever possible, so certifications mean somethingIPMI / remote management — everything must be operable headlessl"
   },
   {
@@ -68,7 +68,7 @@
   {
     "title": "VMware Holodeck on Older CPUs: Fixing Compatibility Issues - James Kilby",
     "url": "https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/",
-    "description": "Disclaimer: This is not a supported configuration by the Holodeck team please don’t reach out to them for help. No support will be given for running CPUs wit...",
+    "description": "Disclaimer: This is not a supported configuration by the Holodeck team please don’t reach out to them for help.",
     "content": "📅Published: January 18, 2024•Updated: May 25, 2026Disclaimer: This is not a supported configuration by the Holodeck team please don’t reach out to them for help. No support will be given for running CPUs without the required feature sets.Table of ContentsIn my previous post about my Holodeck experience, I mentioned that I had some issues due to the age of the Physical CPU’s in the hosts that I was using to run Holodeck. This error will manifest itself in three places during the deployment.Nested ESX Power OnvCLS machine deploymentNSX Edge deploymentNested ESX Power OnObviously, my CPU’s are not supported for ESXi 8.0.1 and when the host is powered on you will see the image below. Just like with a physical host, it is possible to override this. This is done by adding --ignoreprereqwarnings --ignoreprereqerrors --forceunsupportedinstall📋 Copyto the VLCGUI.ps1 script.For the same reasons when the cluster is built and the vCLS VM’s for DRS are deployed, they will fail to power on. NSX Edge"
   },
   {
@@ -122,7 +122,7 @@
   {
     "title": "Advanced Deploy VMware vSphere 7.x 3V0-22.21N - James Kilby",
     "url": "https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/",
-    "description": "Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover dea...",
+    "description": "Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years.",
     "content": "📅Published: November 10, 2023•Updated: May 25, 2026 Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal. I had some downtime and decided to use one of the three exam vouchers VMware give me each year. This upgrades me to a VMware Certified Advanced Professional.The VCAP Deploy exams are lab based and use a similar infrastructure to the hands on labs. In my experience the whole setup was quite slick. If you know your way around vSphere pretty comprehensively or have done the appropriate studying then I think it was a fair assessment. The blueprint covers everything you need. So what’s stopping you…I have now scheduled the VCAP-Design exam and hopefully I will be able to pass that and receive the VCIX award.Connect with me:GitHubTwitterLinkedIn📚 Related PostsAutomated VCF 9 Offline DepotMy Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)New VMware Cloud on AWS Host: i7i.metal"
   },
   {
@@ -134,13 +134,13 @@
   {
     "title": "Analytics in a privacy focused world - James Kilby",
     "url": "https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/",
-    "description": "I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance...",
+    "description": "I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress",
     "content": "📅Published: November 10, 2023•Updated: May 25, 2026I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance. He has been a pretty prolific blogger over the years pumping out an amazing amount of really good content. It also highlighted to me that I didn’t know if anyone was reading my blog as I removed Google Analytics years ago over privacy concerns. I had seen from Myles’s blog that he had done something similar as part of his blog revamp. Myles was using Plausible and seeing as they had a self hosted version of this I decided to give it a whirl.Install Luckily for me Truecharts has a prebuilt plausible container so I fired that up and set an ingress entry of plausible.jameskilby.cloud on the container so that it uses my Traefik instance as an entry into my Truenas K3s environment. In my WordPress origin site I added the Plausible plugin and defined the endpoint. The last step was to "
   },
   {
     "title": "VMware - Going out with a Bang! - James Kilby",
     "url": "https://jameskilby.co.uk/2023/10/going-out-with-a-bang/",
-    "description": "There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom. There are a lot of unknowns for the staff an...",
+    "description": "There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom.",
     "content": "📅Published: October 07, 2023•Updated: April 16, 2026There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom. There are a lot of unknowns for the staff and customers about what the company will look like in the future. I certainly have some concerns mainly just with the unknown. However, VMware has a great reputation for doing the right thing around its staff, customers, and the wider world. Yesterday the entire company was off on one of VMware’s so-called EPIC days. I spent the day with my family on the beach. VMware also gave all employees $1300 dollars for donation through their foundation to a charity of your choice. I decided to give mine to the RNLI. Being based in Poole for the last couple of years and having a friend who volunteers for the RNLI in Ireland, I thought they were a great recipient of this very generous donation from VMware. Connect with me:GitHubTwitterLinkedIn📚 Related PostsAutomated VCF 9 Offline DepotMy Self"
   },
   {
@@ -152,7 +152,7 @@
   {
     "title": "Using Intel Optane NVMe in a VMware Homelab: Setup & Results - James Kilby",
     "url": "https://jameskilby.co.uk/2023/04/intel-optane/",
-    "description": "I have been a VMware vExpert for many years and it has brought me many many benefits over the years. I don’t think it’s an understatement to say I probably w...",
+    "description": "I have been a VMware vExpert for many years and it has brought me many many benefits over the years.",
     "content": "📅Published: April 17, 2023•Updated: May 25, 2026I have been a VMware vExpert for many years and it has brought me many many benefits over the years. I don’t think it’s an understatement to say I probably wouldn’t have my current role within VMware without it. One of the best benefits has been access to a huge amount of licences for VMware software to use in my lab. Some third parties have also recognised the award and given licences for their software. Two that I have probably made the most use of is Runecast and Devolutions Remote Desktop Manager. However recently a few bits of hardware have become available and one piece in particular piqued my interest in particular some Optane drives thanks to the very generous folks at Intel.I was lucky enough to get some together with Gareth Edwards we decided to put something together to show how good the Optane drives are and have a friendly bit of competition. Gareth is going to keep most of the drives to start with doing some vSAN testing and"
   },
   {
@@ -170,7 +170,7 @@
   {
     "title": "Runecast Remediation Scripts: Auto-Fix VMware Storage Issues - James Kilby",
     "url": "https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/",
-    "description": "I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab. One of the really cool features I wanted to mention...",
+    "description": "I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.",
     "content": "📅Published: May 16, 2023•Updated: April 16, 2026I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab. One of the really cool features I wanted to mention today was the remediation script function. I have been playing with storage a lot in my lab recently as part of a wider storage migration piece but also as part of testing Intel Optane drives. Runecast flagged up that I didn’t have Storage I/O Control enabled for these data stores. It gave a great overview of what that issue means:It is a good practice to enable SIOC, especially in environments where storage is overutilized. SIOC monitors the latency of I/Os to data stores at each ESX host sharing that device. When the average normalized datastore latency exceeds a set threshold (30ms by default), the datastore is considered to be congested, and SIOC kicks in to distribute the available storage resources to virtual machines in proportion to their shares. This is to ensure that low-prio"
   },
   {
@@ -308,13 +308,13 @@
   {
     "title": "What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained - James Kilby",
     "url": "https://jameskilby.co.uk/2018/03/cloudflare/",
-    "description": "I have been using Cloudflare for a long time. It is one of my go-to services and I use it to protect all of the public services I run for myself and other s...",
+    "description": "I have been using Cloudflare for a long time. It is one of my go-to services and I use it to protect all of the public services I run for myself and other",
     "content": "📅Published: March 27, 2018•Updated: April 16, 2026Cloudflare – What is it and why would I care?I have been using Cloudflare for a long time. It is one of my go-to services and I use it to protect all of the public services I run for myself and other sites/ organizations.The basic premise of what Cloudflare do is that they are a distributed Web Application Firewall (WAF) and CDN but they also offer so much more. Because they have a large number of POP’s they can cache and push content closer to your end users to give them a better experience. This also offloads work from your firewalls, DNS, Web and Database servers. At present they have 139 sites globally allowing you to host a site anywhere and get good global performance.Cloudflare has an amazing free tier so you can get started easily. I use this to host all of my public DNS records. So what does that look like?[codeblocks name=’host -a’]As you can see they have given me 2 Nameserver records (Matt and Fay) and also 2 A records Neith"
   },
   {
     "title": "AWS For Beginners: IAM Setup, Root Security & Billing Alerts - James Kilby",
     "url": "https://jameskilby.co.uk/2018/03/aws-for-beginners1/",
-    "description": "I am hoping to get back into doing some AWS stuff over the next couple of months. I am a huge fan of some of the tools and technology they have built. It’s...",
+    "description": "I am hoping to get back into doing some AWS stuff over the next couple of months. I am a huge fan of some of the tools and technology they have built.",
     "content": "📅Published: March 30, 2018•Updated: April 11, 2026AWS for Beginners Part 1I am hoping to get back into doing some AWS stuff over the next couple of months. I am a huge fan of some of the tools and technology they have built. It’s not perfect and it is often not well understood by people lifting and shifting existing infrastructure into “the cloud”My view is firmly if this is what you have done, then you have done it wrong and missed the point….But if you do want to kick the tyres and see what it’s all about go and set up an account and play Ensure you implement these three recommendationsRoot Account Security – Ensure you have a strong password on this account then stop using it. Use IAM to set up another account and then use that.Enable Two Factor Authentication – This is a must, Sadly AWS don’t appear to support my preferred 2FA device. Yubikey so I’m using the Google authenticatorEnable Billing Alerts Create an alert so that if your bill is over X you will get a notification. It’s v"
   },
   {
@@ -326,25 +326,25 @@
   {
     "title": "Running Nutanix CE at Home: AHV Setup & First Impressions - James Kilby",
     "url": "https://jameskilby.co.uk/2018/01/nutanix-ce/",
-    "description": "I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to con...",
+    "description": "I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to",
     "content": "📅Published: January 06, 2018•Updated: April 16, 2026I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to continue running it at home. This was compounded by the fact that I have many clusters to play with at work. These all run my Hypervisor of choice vSphere so I thought it was about time to see what was new with AHV and Nutanix CEI downloaded the latest copy of CE from the Nutanix site and extracted it to a USB stick with Rufus. (This took about 30 mins)The server that I chose to run this on was the same server I ran initially. a Dell T20 with the Xeon processor 32GB of RAM 1x240GB SSD and 1x3TB WD Red. The installation is pretty straightforward and covered a lot elsewhere.I am just kicking the tyres with it at the moment and running a few VM’s. I have also shared the storage from my Nutanix CE setup back to my vSphere environment.Ill post back with some updates of what I get up to wit"
   },
   {
     "title": "And now for something completely different - James Kilby",
     "url": "https://jameskilby.co.uk/2018/10/and-now-for-something-completely-different/",
-    "description": "I have worked for my current employer Zen Internet for 3.5 years. Over that time I have changed roles from what was originally a customer-focused role into...",
+    "description": "I have worked for my current employer Zen Internet for 3.5 years. Over that time I have changed roles from what was originally a customer-focused role",
     "content": "📅Published: October 16, 2018•Updated: April 16, 2026I have worked for my current employer Zen Internet for 3.5 years. Over that time I have changed roles from what was originally a customer-focused role into a role with one of the core platform teams. This has meant looking after the majority of the Internal and customer Virtual platforms. During this time Zen has undergone several large migration programs and countless smaller ones. Some of the big ones include:Core ISP network refreshMicrosegmentation rolloutNutanix integrationBackup ConsolidationI have been lucky enough to be involved with all of these ( some much more than others) Although the work is never complete Zen are in a good place.At the same time, my personal circumstances have changed somewhat. My upcoming wedding and my fiancé not knowing exactly where she will be based meant having the freedom to be located anywhere (within reason) was a huge win for me.I was also looking for a role challenging me using some of the too"
   },
   {
     "title": "Nutanix Command Reference Guide - James Kilby",
     "url": "https://jameskilby.co.uk/2018/06/nutanix-command-reference-guide/",
-    "description": "This is a list of Nutanix commands I have found useful. Its here as a reference and if i need a command more than a few times ill generally add it here....",
+    "description": "This is a list of Nutanix commands I have found useful. Its here as a reference and if i need a command more than a few times ill generally add it here.",
     "content": "📅Published: June 05, 2018•Updated: March 10, 2026Nutanix Command ListThis is a list of Nutanix commands I have found useful. Its here as a reference and if i need a command more than a few times ill generally add it here.CLIncli cluster get-domain-fault-tolerance-status type=node (Checks if all of the storage components meet the desired replication factor)cvm_shutdown -P now ( Correct way to shutdown a CVM)ncc health_checks run_all –parallel=4 . ( 4 is the max number)curator_cli get_under_replication_info summary=true Checks if any objects are not at the desired replication factorcurl localhost:2019/prism/leader . Find the leaderWEBhttp://{curator-master-cvm-ip}:2010/master/control ( If you want to invoke a curator scan manually)Connect with me:GitHubTwitterLinkedIn📚 Related PostsNew Homelab Nodes: SuperMicro BigTwin for VMware &#038; NutanixPassing the Nutanix NCP Exam: Free Training &#038; My ExperienceRunning Nutanix CE at Home: AHV Setup &#038; First ImpressionsSimilar PostsI recen"
   },
   {
     "title": "MacBook Air 2018 Retina Review: My Setup & Build Scripts - James Kilby",
     "url": "https://jameskilby.co.uk/2018/12/new-laptop/",
-    "description": "I decided it was about time I replaced my trusted MacBook Air that I purchased back in 2011. After waiting and watching the Apple announcements over the la...",
+    "description": "I decided it was about time I replaced my trusted MacBook Air that I purchased back in 2011.",
     "content": "📅Published: December 04, 2018•Updated: April 16, 2026I decided it was about time I replaced my trusted MacBook Air that I purchased back in 2011. After waiting and watching the Apple announcements over the last couple of years I decided the MacBook Pro’s weren’t worth it. So I have replaced my Air with yes you guessed it another MacBook Air.This time I went for the retina version with 16Gb of RAM and 512GB PCIe-based SSD. The spec was certainly good enough for 99% of my needs yet still being lighter and with better battery life than a MacBook Pro. It also has the security benefits of the T2 Security chipI also thought it was time to tidy up and publish my Mac build scripts for anyone else to use. They are available below and hopefully pretty easy for anyone to follow.Connect with me:GitHubTwitterLinkedIn📚 Related PostsHow Apple Content Caching Works: Speed Up iOS &#038; Mac UpdatesSimilar PostsI have slowly morphed into an Apple fanboy over the last decade or so collecting a large numb"
   },
   {
@@ -392,19 +392,19 @@
   {
     "title": "VMware Cloud on AWS i3en Host: Specs, Storage & Performance - James Kilby",
     "url": "https://jameskilby.co.uk/2020/07/i3en/",
-    "description": "VMware Cloud on AWS (VMC) has introduced a new host to its lineup the “i3en”. This is based on the i3en.metal AWS instance....",
+    "description": "VMware Cloud on AWS (VMC) has introduced a new host to its lineup the “i3en”. This is based on the i3en.metal AWS instance.",
     "content": "📅Published: July 02, 2020•Updated: April 16, 2026VMware Cloud on AWS (VMC) has introduced a new host to its lineup the “i3en”. This is based on the i3en.metal AWS instance.The specifications are certainly impressive packing in 96 logical cores, 768GiB RAM, and approximately 45.84 TiB of NVMe raw storage capacity per host.It’s certainly a monster with a 266% uplift in CPU, a 50% increase in RAM and a whopping 440% increase in raw storage per host compared to the i3. Most of the engagements I have worked on so far have discovered that they are storage limited requiring extra hosts to handle the required storage footprint. With such a big uplift in Storage capacity hopefully, this will trend towards filling up CPU, RAM & Storage at the same time. This is the panacea of Hyperconvergence.The other two noticeable changes are that the processor is based on a much later Intel family. It is now based on 3.1 GHz all-core turbo Intel® Xeon® Scalable (Skylake) processors. This is a much more moder"
   },
   {
     "title": "VMware Certified Master Specialist HCI 2020 - James Kilby",
     "url": "https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/",
-    "description": "I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.20). I won’t go into any details of the contents but I will comment that I felt the ...",
+    "description": "I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.20). I won’t go into any details of the contents but I will comment that I felt",
     "content": "📅Published: September 13, 2020•Updated: April 16, 2026I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.20). I won’t go into any details of the contents but I will comment that I felt the questions were fair and that there wasn’t anything in it to trip you up. The required knowledge was certainly wider than the vSAN specialist exam.This was my third remote proctored exam and I must say the experience has improved. Partially that is down to Pearson Vue improving the process and partially down to knowing what to expect a bit better.Together with the vSAN exam that I passed earlier in the month, this entitles me to a VMware Master Services Competency. This is now the second that I hold and I must say I like the way VMware is delivering a thought out learning path.Connect with me:GitHubTwitterLinkedIn📚 Related PostsAnalytics in a privacy focused worldAdvanced Deploy VMware vSphere 7.x 3V0-22.21NVMware &#8211; Going out with a Bang!Similar PostsMy lab is always underg"
   },
   {
     "title": "How VMware Cloud on AWS Handles Host Failures Automatically - James Kilby",
     "url": "https://jameskilby.co.uk/2020/09/vmc-host-errors/",
-    "description": "When you run a large enough infrastructure, failure is inevitable. How you handle that can be a big differentiator. With VMware Cloud on AWS, the hosts are m...",
+    "description": "When you run a large enough infrastructure, failure is inevitable. How you handle that can be a big differentiator.",
     "content": "📅Published: September 15, 2020•Updated: May 25, 2026When you run a large enough infrastructure, failure is inevitable. How you handle that can be a big differentiator. With VMware Cloud on AWS, the hosts are monitored 24×7 by VMware/AWS Support all as part of the service. If you pay for X number of hosts you should have X. That includes during maintenance and failure operations.I’m not sure lucky is the right word but I did witness a host issue with a customer I was working with. True to the marketing, it was picked up and automatically remediated.Looking at the log extract above a new host was being provisioned the same minute the issue was identified. Obviously, this needed to boot and join the VMware/vSAN cluster before a full data evacuation takes place on the faulty host and finally, the host is removed.All of this was seamless to the customer. I noticed it as a few HA alarms tripped in the vCenter (These were cosmetic only)Just another reason why you should look at the VMware Clo"
   },
   {
@@ -440,7 +440,7 @@
   {
     "title": "UK Money Saving Tips: Banking, Rewards & Travel Cards - James Kilby",
     "url": "https://jameskilby.co.uk/2017/05/money-saving-uk-version/",
-    "description": "I recently got back from an amazing conference in New Orleans. This was the VeeamON conference and I was invited as part of the Veeam Vanguard program that I...",
+    "description": "I recently got back from an amazing conference in New Orleans. This was the VeeamON conference and I was invited as part of the Veeam Vanguard program",
     "content": "📅Published: May 29, 2017•Updated: April 16, 2026I recently got back from an amazing conference in New Orleans. This was the VeeamON conference and I was invited as part of the Veeam Vanguard program that I am part of.A lot of the UK Vanguards all travelled out together and after numerous discussions, it became clear that a lot of them were paying more for UK and international banking. They were also not capitalising on the deals available for getting rewards where they did need to spend.I will detail below what I currently do; who I bank with etc. The deals I am on may not be available or right for you. YMMVI have split this across three posts as it’s very text heavy:1. UK banking and rewards2. Maximising credit card deals3. Minimising costs when travellingUK banking and rewards I currently have a number of UK current accountsBarclays Bank (Main Account) This is my main account where my salary gets paid into. Financially it is not an amazing account it pays 0 credit interest and is not"
   },
   {
@@ -530,7 +530,7 @@
   {
     "title": "Homelab SSD Failure: How Synology RAID Saved My Data - James Kilby",
     "url": "https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/",
-    "description": "I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate. This involves driving from the south coast of Dorset up to Scotland and then getti...",
+    "description": "I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate. This involves driving from the south coast of Dorset up to Scotland and then",
     "content": "📅Published: November 21, 2022•Updated: May 25, 2026I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate. This involves driving from the south coast of Dorset up to Scotland and then getting a ferry over to Belfast before travelling west to the Republic. While driving I got a slack notification that one of my SSDs in my Synology DS918+ was in a bad way. (You do have notifications set up right? ) The timing could not have been worse. Now for years anyone that I have talked to at VMUG’s around data protection etc, I have advocating never using RAID 5. The reasons for this are well known. But when it’s your homelab and your wallet is in the line corners sometimes need to be cut.When I got to Ireland I logged into the Synology it was pretty obvious it wasn’t happyUnhappy Array ( For historical reasons I was using slots 1, 2 and 4and it had pages and pages like this….I had 3 SDD’s in this particular array all from around the same time. Out of curiosity, I checked how old t"
   },
   {
@@ -542,19 +542,19 @@
   {
     "title": "Lab Update - Desired Workloads - James Kilby",
     "url": "https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/",
-    "description": "My lab is always undergoing change. Partially as I want to try new things or new ways of doing things. Sometimes because I break things (not always by accide...",
+    "description": "My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.",
     "content": "📅Published: January 06, 2022•Updated: May 25, 2026My lab is always undergoing change. Partially as I want to try new things or new ways of doing things. Sometimes because I break things (not always by accident) sometimes it’s a great way to learn….I decided to list the workloads I am looking to run (some of these are already in place)InfrastructureActive Directory -DonevRealize Lifecycle Manager – DonevRealize Operations Manager -DonevRealize Log InsightvRealize Network InsightVaultSecretServerNutanix CEHyper-VTanzu CEVMware Horizon – DoneVMware HCXvCloud DirectorVMware Cloud FoundationDockerK8sK3sNetworkingPFsense – DoneSophos UTM – DoneAviMonitoringGrafanaRunecastVeeam OneBackups/RecoveryVeeam Backup & ReplicationVeeam Service Provider ConsoleVMware Cloud Disaster RecoverySRMStorageTrueNASHP Store OnceMinioAWS Storage GatewayAutomationVMware Event BrokervRealize AutomationVMware OrchestratorConnect with me:GitHubTwitterLinkedIn📚 Related PostsAutomated VCF 9 Offline DepotMy Self-Hoste"
   },
   {
     "title": "Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense - James Kilby",
     "url": "https://jameskilby.co.uk/2022/01/lab-update-part-3-network/",
-    "description": "I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes. I will likely virtualise this in the f...",
+    "description": "I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes.",
     "content": "📅Published: January 06, 2022•Updated: April 16, 2026I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes. I will likely virtualise this in the future.In terms of network/switching I have moved to an intermediate step here vMotion and Storage are running over DAC’s while VMware management and VM traffic is still over 1Gb/s networking. This is working incredibly well. Due to the onboard network cards I am able to vMotion at 40Gb/s which for a home lab is game-changing. Storage is currently over 25Gb/s and the long-term plan is to get a 25Gb/s switch. The contenders at the moment are a Used Dell enterprise switch or possibly a QNAP box.Connect with me:GitHubTwitterLinkedIn📚 Related PostsAutomated VCF 9 Offline DepotMy Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)My Self-Hosted AI Stack: Architecture Overview (Part 1)Similar PostsOne Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, bas"
   },
   {
     "title": "Lab Update - Part 2 Storage Truenas Scale - James Kilby",
     "url": "https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/",
-    "description": "The HP Z840 has changed its role to a permanent storage box running Truenas Scale. This is in addition to my Synology DS918+...",
+    "description": "The HP Z840 has changed its role to a permanent storage box running Truenas Scale. This is in addition to my Synology DS918+",
     "content": "📅Published: January 11, 2022•Updated: April 16, 2026The HP Z840 has changed its role to a permanent storage box running Truenas Scale. This is in addition to my Synology DS918+TrueNas is the successor to FreeNas a very popular BSD based StorageOS and TrueNas scale is a fork of this based on Linux.The Synology has been an amazing piece of kit handling VM storage, Docker, File sharing and Plex duties. It will maintain most of these roles. However, I needed something faster for my lab and especially something with faster network access. The Synology I had was limited to 2xGb interfaces. An option was to buy a newer Synology but I felt a better route was to try a “Storage OS” on some of my existing hardware with some network tweaks to be seen later.The Spec of the Z840 Workstation I am using to run Truenas is 2x Intel Xeon CPU E5-2673 v3 @ 2.40GHz and 128GB of RAM. More than enough for my needs. I will use the 2xGb interfaces for management and the new network for a combination of iSCSI/NF"
   },
   {
@@ -572,25 +572,25 @@
   {
     "title": "Hosting This Blog on Cloudflare Workers: Why & How I Did It - James Kilby",
     "url": "https://jameskilby.co.uk/2022/01/web-development/",
-    "description": "A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them. This is partly related to some issues I have bee...",
+    "description": "A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them.",
     "content": "📅Published: January 04, 2022•Updated: May 25, 2026A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them. This is partly related to some issues I have been having with internet access at home. Prior to this, the site ran from within my lab.This means the site is now super fast (hopefully :p). It was cached by Cloudflare previously and now it’s served entirely from within their network.The speed report looks goodTo enable this workflow I have retained a WordPress instance running within a docker instance on my Synology. I have also set up Cloudflare teams to access this.This allows me to have the convenience of utilising WordPress as a CMS without having to worry about the security aspect as all public content is static. It also means that I don’t care about the uptime of the particular instance.When I have finished writing the post I use the Simply Static Plugin to Generate the required static files. I then copy these to my wrangler s"
   },
   {
     "title": "Static Wordpress hosting using Cloudflare - James Kilby",
     "url": "https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/",
-    "description": "For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product. I did this originally as a learning exerci...",
+    "description": "For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product.",
     "content": "📅Published: October 20, 2022•Updated: April 16, 2026For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product. I did this originally as a learning exercise but due to the benefits It brought and the ease of use I decided to stick with it. The benefits are several fold:Crazy Web Performance (Typically full page load in less than 500ms see below)High Availability globallyZero attack surface~Zero hosting costsGtmetrix Speed TestA couple of people have asked me about the setup so I thought I would try and document an overview.IntroductionFirstly although this setup is effectively Serverless you need to have a copy of WordPress somewhere to make your edits. This doesn’t need to be exposed to the outside world (or can even be run just on your workstation/laptop using local. I have chosen to keep WordPress running in some docker containers on my SynologyThe security of this setup is increased as WordPress is not published to the outside "
   },
   {
     "title": "Starlink Satellite Internet Review: Rural Broadband Solution - James Kilby",
     "url": "https://jameskilby.co.uk/2022/10/starlink/",
-    "description": "Since moving to Dorset last year internet connectivity has been the bane of my existence. Currently, I have an ADSL connection provided by my old employer Ze...",
+    "description": "Since moving to Dorset last year internet connectivity has been the bane of my existence.",
     "content": "📅Published: October 11, 2022•Updated: May 25, 2026Since moving to Dorset last year internet connectivity has been the bane of my existence. Currently, I have an ADSL connection provided by my old employer Zen and a 5G connection provided by Three. These are both plumbed into my WatchGuard Firewall with multi-wan configured. Most of the time the usability is ok but there are multiple times a day when latency or packet loss is not acceptable. From living at previous locations where I had multiple companies that would deliver Gigabit Internet connections it was far from ideal. My job at VMware involves numerous calls with customers every day, typically presenting things to them and often with video on. Even a small interruption can leave a bad impression. VMware sells an SDWan product (Velocloud) and enables staff to use them. I was given one not long after I started, however, integrating it with my network has been suboptimal (as the device is locked down by VMware Corporate IT) One of t"
   },
   {
     "title": "Forcing an Upgrade to vSphere 8 - James Kilby",
     "url": "https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/",
-    "description": "I run a reasonably extensive homelab that is of course built around the VMware ecosystem. So with the release of vSphere 8 I was obviously going to upgrade ...",
+    "description": "I run a reasonably extensive homelab that is of course built around the VMware ecosystem.",
     "content": "📅Published: December 14, 2022•Updated: April 16, 2026I run a reasonably extensive homelab that is of course built around the VMware ecosystem. So with the release of vSphere 8 I was obviously going to upgrade however a few personal things blocked me from doing it until now. The vCenter upgrade was smooth however knowing that some of the hardware I am running is a little dated this was always going to carry a risk.I tried using lifecycle manager (vLCM) within vCenter but I was faced with the following and I couldn’t see a way to force remediate from within vCenter. Therefore I resorted to doing it from the command line.Host is not compatibleFirstly enable SSH on each of the hosts to be upgradedThen Allow HTTP traffic in the ESXi firewallesxcli network firewall ruleset set -e true -r httpClient📋 CopyThe next step is to list the available ESXi profiles using the online depot. In my case, I was looking for ESXi 8.0aesxcli software sources profile list -d https://hostupdate.vmware.com/softw"
   },
   {
@@ -602,13 +602,13 @@
   {
     "title": "MikroTik CRS504 Review: 100Gb/s Networking in My Homelab - James Kilby",
     "url": "https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/",
-    "description": "For a while, I’ve been looking to update the networking at the core of my homelab. I have had some great results with the current setup utilising a number o...",
+    "description": "For a while, I’ve been looking to update the networking at the core of my homelab.",
     "content": "📅Published: December 19, 2022•Updated: April 16, 2026For a while, I’ve been looking to update the networking at the core of my homelab. I have had some great results with the current setup utilising a number of DAC’s but there were a couple of things that were annoying me. Then MikroTik dropped the CRS504-4XQ-IN and if the price wasn’t horrendous then that was the route I was going to go to alleviate these issues. Yes, it’s 100Gb/s and only has 4 ports but that should be all I need… I managed to locate one in stock for £587 plus VatAs you can see the switch has redundant power not often found at this price point. It actually has 4 ways to power it. 2 AC supplies, A DC input and then strangest of all it can be powered by POE in. This last point showcases how power efficient it is which is a huge win for a homelab.My plan is to utilise the existing Intel 25Gb NICs I have and split the 100’s on the switch into 4×25. This technically gives me 16 usable 25 ports which are way more than I ne"
   },
   {
     "title": "Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested - James Kilby",
     "url": "https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/",
-    "description": "I am quite a heavy consumer of electricity at home. This is primarily driven by my lab but having a young son and two golden retrievers means more washing an...",
+    "description": "I am quite a heavy consumer of electricity at home. This is primarily driven by my lab but having a young son and two golden retrievers means more washing",
     "content": "📅Published: March 09, 2026•Updated: April 16, 2026I am quite a heavy consumer of electricity at home. This is primarily driven by my lab but having a young son and two golden retrievers means more washing and drying. As a result I am always looking to try and reduce the electrical costs as it’s not cheap in the UK.Table of ContentsProblemSadly my roof isn’t an ideal candidate for solar panels as the south facing part isn’t huge and has some shade, therefore I was looking at other options. I have been an Octopus Energy customer for a number of years, they have become one of the larger suppliers in the UK by offering a wide range of interesting tariffs and good customer support. I am on the “Agile Tariff” which means the price of electricity that I pay varies widely with the price changing every 30 minutes. Despite having some expensive time periods I generally come out ahead. ( I am £178 better off than a tracker tariff over the last 4 months)I have often wondered if I can make a househ"
   },
   {
@@ -620,7 +620,7 @@
   {
     "title": "Blog Performance & SEO Improvements: Cloudflare, Privacy & More - James Kilby",
     "url": "https://jameskilby.co.uk/2026/01/web-development-improvements/",
-    "description": "I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend” These help improve the performance, Privacy, SEO,...",
+    "description": "I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend” These help improve the performance, Privacy",
     "content": "📅Published: January 15, 2026•Updated: May 25, 2026I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend” These help improve the performance, Privacy, SEO, and I have also added some security best practices.Most of these changes were done more as an exercise than due to a specific requirement. I also had a HUGE amount of help with some of these steps from a variety of AI tools. However Warp did the bulk of the heavy lifting. The repo behind the content of this site as well as the implementation is public in case you want to look deeper/steal anything.Before we dig into the details it’s probably worth briefly summarising what is going on.Solution OverviewBelow is a condensed view of what the GitHub runner does.Connect to WordPress REST API Discover all posts, pages, categories, and tagsDownloads the relevant HTML, CSS, JS, images, and fontsReplaces WordPress URLs from my authoring instance “WordPress.jameskilby.cloud” to the live site "
   },
   {
@@ -650,7 +650,7 @@
   {
     "title": "New VMware Cloud on AWS Host: i7i.metal-24xl - James Kilby",
     "url": "https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/",
-    "description": "We’ve expanded the VMC fleet with the new i7i (i7i.24xlarge) host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it delivers t...",
+    "description": "We’ve expanded the VMC fleet with the new i7i (i7i.24xlarge)host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it delivers",
     "content": "📅Published: April 01, 2026•Updated: April 16, 2026We’ve expanded the VMC fleet with the new i7i (i7i.24xlarge)host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it delivers the fleet’s highest single-core performance and memory bandwidth, making it well suited for latency-sensitive workloads and high-performance vSAN configurations.Key Technical Specs:Performance: Intel Emerald Rapids CPUs + PCIe Gen5, offering the fleet’s highest clock speeds and memory bandwidth.Storage: Optimized for vSAN with the fastest available NVMe devices. Support for both vSAN OSA and ESASecurity: Enhanced security based on Intel Total Memory EncryptionThis host brings a blend of usable options to complement the existing VMC fleet ranging from bleeding edge performance for tier one applications. It also supports expanded DR capabilities with SCFS via VLR.The below table compares the specifications of all nodes currently running in VMC.I3I3enI4iI7iAWS Nitro Versionv2v3v4v4CPUPro"
   },
   {
@@ -686,13 +686,13 @@
   {
     "title": "vSAN Cluster Shutdown - Orchestration - James Kilby",
     "url": "https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/",
-    "description": "As can be seen on my Lab Overview page, I have a GPU/Management cluster that is usually running 24×7. I also have a 3x Node vSAN cluster that I use when I ne...",
+    "description": "As can be seen on my Lab Overview page, I have a GPU/Management cluster that is usually running 24×7.",
     "content": "📅Published: December 06, 2025•Updated: May 25, 2026As can be seen on my Lab Overview page, I have a GPU/Management cluster that is usually running 24×7. I also have a 3x Node vSAN cluster that I use when I need more resources (or specifically if I need vSAN to test with)This allows me to See the overview belowTo shut down a vSAN cluster, there is a nice workflow built into vCentre that will orchestrate all the required actions for youAnd there you have it…To restart the cluster, ensure all the hosts are booted. Leave them in maintenance mode and then select “Restart vSAN Services” The workflow will enable them to bring them back into operation. Restart vSAN ServicesConnect with me:GitHubTwitterLinkedIn📚 Related PostsAutomated VCF 9 Offline DepotMy Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)New VMware Cloud on AWS Host: i7i.metal-24xlSimilar PostsHow to leverage Content Libraries to deploy into VMware Cloud on AWS faster.Learn how host failures are handled within VMCI am a h"
   },
   {
     "title": "VMware Cloud on AWS Time Sync & NTP Configuration - James Kilby",
     "url": "https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/",
-    "description": "One of the nice things about the VMC Service is that you dont have to worry about a number of the traditional infrastructure services that you typically obse...",
+    "description": "One of the nice things about the VMC Service is that you dont have to worry about a number of the traditional infrastructure services that you typically",
     "content": "📅Published: December 08, 2025•Updated: May 25, 2026One of the nice things about the VMC Service is that you dont have to worry about a number of the traditional infrastructure services that you typically obsess over when your running your own infrastructure. One of those is Time — a key requirement for any enterprise platform.Table of ContentsWhat is the Amazon Time Sync Service?The Amazon Time Sync Service is a highly accurate and reliable time source provided by AWS. It uses a fleet of redundant satellite-connected and atomic reference clocks to deliver Coordinated Universal Time (UTC) to AWS services and resources. In a VMware Cloud on AWS environment, the VMC infrastructure itself uses this service, and guest workloads can also be configured to use it directly.The service is accessible at the link-local IP address 169.254.169.123 over UDP port 123. This is the same address used by standard EC2 instances and is always available within the AWS network — no internet access required.Ti"
   },
   {
@@ -704,31 +704,31 @@
   {
     "title": "Warp – The intelligent terminal - James Kilby",
     "url": "https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/",
-    "description": "Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and theref...",
+    "description": "Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and",
     "content": "📅Published: April 11, 2025•Updated: May 25, 2026Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and therefore don’t always use best practices. I also know I take some shortcuts that is an acceptable risk to me but I strive to do better. Sometimes you just need a helping hand Enter Warp…Table of ContentsWhat is Warp?Taken from Warps website:Become a command line power user on day one. Warp combines AI and your dev team’s knowledge in one fast, intuitive terminal.At the moment I am just using the free model which has some limits. A number of paid options are available and I am definitely considering them.An example of Warp helping me out I was running “sudo apt-get update” on one of my servers. This is a server that’s been around the block a bit and runs quite a lot of things and MAY have had some experimentation done in the past :psudo apt-get update [sudo] password for username: Get:1 fil"
   },
   {
     "title": "VMware Cloud on AWS Storage Sizing Quick Reference Guide - James Kilby",
     "url": "https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/",
-    "description": "This is a quick reference guide to the available storage resources that you get in VMware Cloud on AWS depending on the host type in use....",
+    "description": "This is a quick reference guide to the available storage resources that you get in VMware Cloud on AWS depending on the host type in use.",
     "content": "📅Published: May 21, 2025•Updated: April 11, 2026This is a quick reference guide to the available storage resources that you get in VMware Cloud on AWS depending on the host type in use. For up to date info always use the official sizing tool located here This is based on vSAN OSA and excluding the management overhead (Ie valid for secondary clusters) It also uses the most efficient storage policy that is supported based on the number of hosts available.If you are planning to do a cluster conversion between host types then the management stack size doesn’t change.Host Typei3i3enI4iNo of Hostsi3 (TiB)i3en (TiB)I4i (TiB)FTT in use211.241.3918.48FTT1 RAID1316.862.0927.71FTT1 RAID1433.68124.4955.57FTT1 RAID5542.1155.6169.46FTT1 RAID5644.8165.5773.9FTT2 RAID6752.26193.1786.22FTT2 RAID6859.73220.7798.54FTT2 RAID6967.2248.36110.85FTT2 RAID61074.66275.96123.17FTT2 RAID61182.13303.55135.49FTT2 RAID61289.6331.15147.8FTT2 RAID61397.06358.74160.12FTT2 RAID614104.53386.34172.44FTT2 RAID615112413.941"
   },
   {
     "title": "What's In My Tech Bag? Everyday Carry for IT Consultants - James Kilby",
     "url": "https://jameskilby.co.uk/2019/01/whats-in-my-backpack/",
-    "description": "I have seen a few posts online recently about the tools and technology people use on a day to day basis. A few components that I have no one seems to have ...",
+    "description": "I have seen a few posts online recently about the tools and technology people use on a day to day basis.",
     "content": "📅Published: January 10, 2019•Updated: April 16, 2026I have seen a few posts online recently about the tools and technology people use on a day to day basis. A few components that I have no one seems to have mentioned yet. So I thought it was probably a good idea to share my list. I will probably do a separate list of the software I use at some point as well.Below is a list of the things that I tend to carry in my bag. I don’t always have all of them with me but I typically swap out what I need as appropriate depending on if need to go to a datacenter or just a meeting/onsite client work.Macbook Air 2018 ( My goto machine)iPad Pro 9.7 & Apple Pencil allows for quick sketching but also used as a presentation remote.Anker Powercore 20100 ( Huge battery for keeping iPhone/iPad charged)Beats Solo3 Wireless headphones. Equally useful in a noisy datacenter or a noisy office.2.5″ USB Drive caddyA bunch of USB Sticks typically with a few different ESX builds 6.0, 6.5 and 6.7 and an empty one ju"
   },
   {
     "title": "Homelab Storage Upgrade: Synology DS918 for VMware & NFS - James Kilby",
     "url": "https://jameskilby.co.uk/2019/02/lab-storage-2/",
-    "description": "Since starting my new role with Xtravirt my Homelab has gone through several fairly significant changes. At the moment it’s very much focused on the VMware ...",
+    "description": "Since starting my new role with Xtravirt my Homelab has gone through several fairly significant changes.",
     "content": "📅Published: February 10, 2019•Updated: April 16, 2026Lab Storage Update.Since starting my new role with Xtravirt my Homelab has gone through several fairly significant changes. At the moment it’s very much focused on the VMware stack and one of the things I needed was some more storage and especially some more storage performance. With that in mind, I purchased a new Synology DS918It’s a very compact unit with a quad-core Intel Celeron & I have left the RAM at 4 GB for now.I have added some of the existing SSD’s that I had giving me about 3TB of usable flash. I am presenting this back to my VMware hosts using NFS 4.1. I must have missed the announcement as this is now built into the Synology GUI ( It used to be a command-line-only option) I have verified the VAAI works as expected in this configuration. At present I am using this with a single network connection however I will be testing NFS Multipathing shortly.The performance improvement has been noticeable and I have now removed all"
   },
   {
     "title": "AWS Solution Architect - Associate - James Kilby",
     "url": "https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/",
-    "description": "Today was a good day. I renewed my AWS Solution Architect certification. Although my work is primarily in and around the VMware ecosystem I have been wor...",
+    "description": "Today was a good day. I renewed my AWS Solution Architect certification. Although my work is primarily in and around the VMware ecosystem I have been",
     "content": "📅Published: December 16, 2019•Updated: April 16, 2026Today was a good day. I renewed my AWS Solution Architect certification. Although my work is primarily in and around the VMware ecosystem I have been working a lot with VMware Cloud on AWS recently with a number of our customers. Having a good foundation of the core AWS services has made this much easier to be able to articulate to the customers.Due to the non-disclosure agreement, I can’t talk about any specific questions however I will say that the questions and the focus have changed quite significantly since I sat the exam a few years ago. Like AWS itself they were at the cutting edge of the industry and the number of services they now offer is extreme, adding to the challenge of the exam. I am now good for the next three years however I am planning to sit the Professional level exam in the new year.Connect with me:GitHubTwitterLinkedIn📚 Related PostsMonitoring VMware Cloud on AWS: Tools &#038; Approaches (Part 1)AWS Status Page "
   },
   {

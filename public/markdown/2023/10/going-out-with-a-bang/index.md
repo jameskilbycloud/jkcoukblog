@@ -1,6 +1,6 @@
 ---
 title: "VMware – Going out with a Bang!"
-description: "There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom. There are a lot of unknowns for the staff an..."
+description: "There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom."
 date: 2023-10-07T12:37:14+00:00
 modified: 2026-04-16T22:01:50+00:00
 author: James Kilby

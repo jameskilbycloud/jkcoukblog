@@ -1,6 +1,6 @@
 ---
 title: "AWS Solution Architect – Associate"
-description: "Today was a good day. I renewed my AWS Solution Architect certification. Although my work is primarily in and around the VMware ecosystem I have been wor..."
+description: "Today was a good day. I renewed my AWS Solution Architect certification. Although my work is primarily in and around the VMware ecosystem I have been"
 date: 2019-12-16T23:46:22+00:00
 modified: 2026-04-16T22:02:01+00:00
 author: James Kilby

@@ -1,14 +1,17 @@
 User-agent: *
 Allow: /
 
-# Stop crawlers from wasting crawl budget on feed URLs and
-# the JSON API directory — these are never indexed anyway.
+# Stop crawlers from wasting crawl budget on per-archive feed URLs
+# (e.g. /category/foo/feed/) and the JSON API directory — neither
+# is indexable content. The root /feed/ is allowed because it 301s
+# to /feed/index.xml which is the canonical RSS feed.
 Disallow: /*/feed/
 Disallow: /api/
 
-# Tag pages carry <meta name="robots" content="noindex, follow">.
-# Do NOT Disallow them: Google must be allowed to crawl the page
-# in order to see the noindex directive. Blocking crawl leaves the
-# URLs in the index as URL-only entries and prevents clean removal.
+# The 404 page carries <meta name="robots" content="noindex,follow">
+# and Cloudflare also sends X-Robots-Tag: noindex on it. We do NOT
+# Disallow noindex pages here — Google must be allowed to crawl them
+# in order to see the directive. Blocking crawl leaves the URLs in
+# the index as URL-only entries and prevents clean removal.
 
 Sitemap: https://jameskilby.co.uk/sitemap.xml

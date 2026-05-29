@@ -1,6 +1,6 @@
 ---
 title: "Homelab Storage Upgrade: Synology DS918 for VMware & NFS"
-description: "Since starting my new role with Xtravirt my Homelab has gone through several fairly significant changes. At the moment it’s very much focused on the VMware ..."
+description: "Since starting my new role with Xtravirt my Homelab has gone through several fairly significant changes."
 date: 2019-02-10T23:59:20+00:00
 modified: 2026-04-16T22:02:01+00:00
 author: James Kilby

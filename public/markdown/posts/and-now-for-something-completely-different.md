@@ -1,6 +1,6 @@
 ---
 title: "And now for something completely different"
-description: "I have worked for my current employer Zen Internet for 3.5 years. Over that time I have changed roles from what was originally a customer-focused role into..."
+description: "I have worked for my current employer Zen Internet for 3.5 years. Over that time I have changed roles from what was originally a customer-focused role"
 date: 2018-10-16T08:22:45+00:00
 modified: 2026-04-16T22:02:02+00:00
 author: James Kilby

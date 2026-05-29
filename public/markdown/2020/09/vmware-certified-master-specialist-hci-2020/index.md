@@ -1,6 +1,6 @@
 ---
 title: "VMware Certified Master Specialist HCI 2020"
-description: "I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.20). I won’t go into any details of the contents but I will comment that I felt the ..."
+description: "I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.20). I won’t go into any details of the contents but I will comment that I felt"
 date: 2020-09-13T21:38:48+00:00
 modified: 2026-04-16T22:01:59+00:00
 author: James Kilby

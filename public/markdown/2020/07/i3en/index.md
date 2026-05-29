@@ -1,6 +1,6 @@
 ---
 title: "VMware Cloud on AWS i3en Host: Specs, Storage & Performance"
-description: "VMware Cloud on AWS (VMC) has introduced a new host to its lineup the “i3en”. This is based on the i3en.metal AWS instance...."
+description: "VMware Cloud on AWS (VMC) has introduced a new host to its lineup the “i3en”. This is based on the i3en.metal AWS instance."
 date: 2020-07-02T22:01:39+00:00
 modified: 2026-04-16T22:01:59+00:00
 author: James Kilby

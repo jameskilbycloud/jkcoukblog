@@ -1,7 +1,14 @@
 # Redirect www to non-www (canonical URL)
 # Note: Cloudflare's 'Always Use HTTPS' runs first, so HTTP www gets 2 hops
 # This is normal and acceptable for the rare HTTP www case
-www.jameskilby.co.uk/* jameskilby.co.uk/:splat 301
+# (NB: www must also be added as a Custom Domain in the Cloudflare
+#  Pages dashboard for this rule to take effect — without that,
+#  www doesn't route to Pages and the apex zone returns 522.)
+www.jameskilby.co.uk/* https://jameskilby.co.uk/:splat 301!
+
+# /feed/ → RSS XML feed. Was previously a meta-refresh HTML shim,
+# which Google treats as a soft redirect; a 301 is the canonical form.
+/feed/ /feed/index.xml 301!
 
 # Automatic redirects for spelling corrections
 /2025/04/warp-the-inteligent-terminal/ /2025/04/warp-the-intelligent-terminal/ 301

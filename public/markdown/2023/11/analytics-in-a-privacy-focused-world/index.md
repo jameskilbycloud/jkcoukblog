@@ -1,6 +1,6 @@
 ---
 title: "Analytics in a privacy focused world"
-description: "I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance..."
+description: "I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress"
 date: 2023-11-10T16:45:03+00:00
 modified: 2026-05-25T08:06:40+00:00
 author: James Kilby

@@ -1,6 +1,6 @@
 ---
 title: "Static WordPress hosting using Cloudflare"
-description: "For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product. I did this originally as a learning exerci..."
+description: "For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product."
 date: 2022-10-20T15:26:08+00:00
 modified: 2026-04-16T22:01:53+00:00
 author: James Kilby

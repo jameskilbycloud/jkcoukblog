@@ -1,6 +1,6 @@
 ---
 title: "Homelab SSD Failure: How Synology RAID Saved My Data"
-description: "I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate. This involves driving from the south coast of Dorset up to Scotland and then getti..."
+description: "I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate. This involves driving from the south coast of Dorset up to Scotland and then"
 date: 2022-11-21T15:46:53+00:00
 modified: 2026-05-25T17:18:25+00:00
 author: James Kilby

@@ -5,7 +5,7 @@
     {
       "slug": "web-development-improvements",
       "title": "Blog Performance & SEO Improvements: Cloudflare, Privacy & More",
-      "description": "I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend” These help improve the performance, Privacy, SEO,...",
+      "description": "I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend” These help improve the performance, Privacy",
       "date": "2026-01-15T15:12:16Z",
       "modified": "2026-05-25T11:09:18Z",
       "author": "James Kilby",
@@ -33,7 +33,7 @@
     {
       "slug": "and-now-for-something-completely-different",
       "title": "And now for something completely different",
-      "description": "I have worked for my current employer Zen Internet for 3.5 years. Over that time I have changed roles from what was originally a customer-focused role into...",
+      "description": "I have worked for my current employer Zen Internet for 3.5 years. Over that time I have changed roles from what was originally a customer-focused role",
       "date": "2018-10-16T08:22:45Z",
       "modified": "2026-04-16T22:02:02Z",
       "author": "James Kilby",
@@ -56,7 +56,7 @@
     {
       "slug": "starlink",
       "title": "Starlink Satellite Internet Review: Rural Broadband Solution",
-      "description": "Since moving to Dorset last year internet connectivity has been the bane of my existence. Currently, I have an ADSL connection provided by my old employer Ze...",
+      "description": "Since moving to Dorset last year internet connectivity has been the bane of my existence.",
       "date": "2022-10-11T21:40:50Z",
       "modified": "2026-05-25T11:09:17Z",
       "author": "James Kilby",
@@ -195,7 +195,7 @@
     {
       "slug": "web-development",
       "title": "Hosting This Blog on Cloudflare Workers: Why & How I Did It",
-      "description": "A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them. This is partly related to some issues I have bee...",
+      "description": "A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them.",
       "date": "2022-01-04T11:27:12Z",
       "modified": "2026-05-25T08:24:40Z",
       "author": "James Kilby",
@@ -229,7 +229,7 @@
     {
       "slug": "cloudflare",
       "title": "What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained",
-      "description": "I have been using Cloudflare for a long time. It is one of my go-to services and I use it to protect all of the public services I run for myself and other s...",
+      "description": "I have been using Cloudflare for a long time. It is one of my go-to services and I use it to protect all of the public services I run for myself and other",
       "date": "2018-03-27T12:30:48Z",
       "modified": "2026-04-16T22:02:04Z",
       "author": "James Kilby",
@@ -332,7 +332,7 @@
     {
       "slug": "aws-solution-architect-associate",
       "title": "AWS Solution Architect – Associate",
-      "description": "Today was a good day. I renewed my AWS Solution Architect certification. Although my work is primarily in and around the VMware ecosystem I have been wor...",
+      "description": "Today was a good day. I renewed my AWS Solution Architect certification. Although my work is primarily in and around the VMware ecosystem I have been",
       "date": "2019-12-16T23:46:22Z",
       "modified": "2026-04-16T22:02:01Z",
       "author": "James Kilby",
@@ -470,7 +470,7 @@
     {
       "slug": "advanced-deploy-vmware-vsphere-7-x-3v0-22-21n",
       "title": "Advanced Deploy VMware vSphere 7.x 3V0-22.21N",
-      "description": "Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover dea...",
+      "description": "Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years.",
       "date": "2023-11-10T11:34:42Z",
       "modified": "2026-05-25T11:09:17Z",
       "author": "James Kilby",
@@ -507,7 +507,7 @@
     {
       "slug": "how-i-moved-my-wordpress-site-to-cloudflare-pages",
       "title": "Static WordPress hosting using Cloudflare",
-      "description": "For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product. I did this originally as a learning exerci...",
+      "description": "For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product.",
       "date": "2022-10-20T15:26:08Z",
       "modified": "2026-04-16T22:01:53Z",
       "author": "James Kilby",
@@ -541,7 +541,7 @@
     {
       "slug": "analytics-in-a-privacy-focused-world",
       "title": "Analytics in a privacy focused world",
-      "description": "I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance...",
+      "description": "I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress",
       "date": "2023-11-10T16:45:03Z",
       "modified": "2026-05-25T08:06:40Z",
       "author": "James Kilby",

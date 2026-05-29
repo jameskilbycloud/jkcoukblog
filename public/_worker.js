@@ -20,7 +20,7 @@
 // before `cp _worker.template.js public/_worker.js` in the deploy workflow.
 // If the placeholder is still present (local dev / template unchanged) the
 // soft-404 guard is disabled — the worker behaves exactly as before.
-const PATH_MANIFEST_RAW = /*__PATH_MANIFEST_START__*/["/","/2017/05/money-saving-uk-version","/2018/01/lab-storage","/2018/01/nutanix-ce","/2018/03/aws-for-beginners1","/2018/03/cloudflare","/2018/05/aws-status-page-monitoring-included","/2018/06/nutanix-command-reference-guide","/2018/10/and-now-for-something-completely-different","/2018/12/new-laptop","/2019/01/whats-in-my-backpack","/2019/02/lab-storage-2","/2019/12/aws-solution-architect-associate","/2019/12/monitoring-vmc-part-1","/2020/06/veeamon2020","/2020/07/i3en","/2020/07/nutanix-ncp","/2020/09/vmc-host-errors","/2020/09/vmware-certified-master-specialist-hci-2020","/2020/12/my-first-pull","/2021/01/hashicorp-packer","/2021/01/my-home-office-setup-upgrades","/2021/02/apple-content-caching","/2022/01/cloudflare-workers-limits-of-the-free-tier","/2022/01/lab-update-part-1-compute","/2022/01/lab-update-part-2-storage","/2022/01/lab-update-part-3-network","/2022/01/lab-update-part-5-desired-workloads","/2022/01/web-development","/2022/01/wrangler-and-node-versions","/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages","/2022/10/starlink","/2022/11/homelab-bad-days-almost","/2022/12/100gb-s-in-my-homelab-sort-of","/2022/12/forcing-an-upgrade-to-vsphere-8","/2022/12/use-portainer-in-a-homelab-with-github","/2023/04/intel-optane","/2023/05/homelab-storage-refresh-part-1","/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages","/2023/05/runecast-remediation-scripts","/2023/10/going-out-with-a-bang","/2023/10/vgpu-setup-in-my-homelab","/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n","/2023/11/analytics-in-a-privacy-focused-world","/2023/11/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router","/2023/11/truenas-scale-useful-commands","/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc","/2024/01/holodeck-cpu-fixes","/2024/01/multihost-holodeck-vcf","/2024/06/unifi-dhcp-option-43","/2024/07/new-nodes","/2024/09/can-you-really-squeeze-96tb-in-1u","/2024/09/home-network-upgrade","/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu","/2024/12/zfs-on-vmware","/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way","/2025/04/warp-the-intelligent-terminal","/2025/05/vmc-quick-sizing-guide","/2025/08/vmc-host-deepdive","/2025/09/managing-my-homelab-with-semaphoreui","/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare","/2025/12/time-in-a-vmc-environment","/2025/12/ubuntu-disk-expansion-steps","/2025/12/vsan-cluster-shutdown","/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster","/2026/01/web-development-improvements","/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements","/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive","/2026/03/octopus-agile-battery-solar-calculator","/2026/04/automated-vcf-9-offline-depot","/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2","/2026/04/new-vmc-host-i7i-metal-24xl","/2026/04/vsphere-power-management-driven-by-ansible","/404","/about-me","/category/ansible","/category/apple","/category/artificial-intelligence","/category/automation","/category/aws","/category/cloudflare","/category/consulting","/category/containers","/category/devops","/category/docker","/category/github","/category/homelab","/category/hosting","/category/kubernetes","/category/mikrotik","/category/money","/category/networking","/category/nutanix","/category/nvidia","/category/personal","/category/runecast","/category/storage","/category/synology","/category/traefik","/category/truenas-scale","/category/ubuntu","/category/veeam","/category/vexpert","/category/vmware","/category/vmware/vcf","/category/vmware/vmware-cloud-on-aws","/category/vmware/vsan-vmware","/category/vsphere","/category/wordpress","/changelog","/evs","/feed","/homelab-software","/lab","/media","/page/2","/page/3","/page/4","/page/5","/page/6","/privacy-policy-2","/stats","/tag/account-setup","/tag/ai","/tag/analytics","/tag/ansible","/tag/apple","/tag/architecture","/tag/artificial-intelligence","/tag/automation","/tag/aws","/tag/bash","/tag/blog","/tag/blogging","/tag/brew","/tag/cache","/tag/certification","/tag/certifications","/tag/charity","/tag/city-fibre","/tag/cli","/tag/clickhouse","/tag/cloudflare","/tag/cloudflare-pages","/tag/comfyui","/tag/containers","/tag/content-library","/tag/cpu","/tag/desired-state","/tag/dhcp","/tag/disk-expand","/tag/docker","/tag/energy","/tag/epic","/tag/failure","/tag/free","/tag/git","/tag/github","/tag/hashicorp","/tag/hoarder","/tag/holodeck","/tag/homebrew","/tag/homelab","/tag/homeoffice","/tag/hosting","/tag/https","/tag/i7i","/tag/iac","/tag/infrastructure","/tag/ingress","/tag/intel","/tag/lambda","/tag/langfuse","/tag/lets-encrypt","/tag/macbook-air","/tag/mikrotik","/tag/minio","/tag/multihost","/tag/n8n","/tag/nas","/tag/networking","/vmc"]/*__PATH_MANIFEST_END__*/;
+const PATH_MANIFEST_RAW = /*__PATH_MANIFEST_START__*/["/","/2017/05/money-saving-uk-version","/2018/01/lab-storage","/2018/01/nutanix-ce","/2018/03/aws-for-beginners1","/2018/03/cloudflare","/2018/05/aws-status-page-monitoring-included","/2018/06/nutanix-command-reference-guide","/2018/10/and-now-for-something-completely-different","/2018/12/new-laptop","/2019/01/whats-in-my-backpack","/2019/02/lab-storage-2","/2019/12/aws-solution-architect-associate","/2019/12/monitoring-vmc-part-1","/2020/06/veeamon2020","/2020/07/i3en","/2020/07/nutanix-ncp","/2020/09/vmc-host-errors","/2020/09/vmware-certified-master-specialist-hci-2020","/2020/12/my-first-pull","/2021/01/hashicorp-packer","/2021/01/my-home-office-setup-upgrades","/2021/02/apple-content-caching","/2022/01/cloudflare-workers-limits-of-the-free-tier","/2022/01/lab-update-part-1-compute","/2022/01/lab-update-part-2-storage","/2022/01/lab-update-part-3-network","/2022/01/lab-update-part-5-desired-workloads","/2022/01/web-development","/2022/01/wrangler-and-node-versions","/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages","/2022/10/starlink","/2022/11/homelab-bad-days-almost","/2022/12/100gb-s-in-my-homelab-sort-of","/2022/12/forcing-an-upgrade-to-vsphere-8","/2022/12/use-portainer-in-a-homelab-with-github","/2023/04/intel-optane","/2023/05/homelab-storage-refresh-part-1","/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages","/2023/05/runecast-remediation-scripts","/2023/10/going-out-with-a-bang","/2023/10/vgpu-setup-in-my-homelab","/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n","/2023/11/analytics-in-a-privacy-focused-world","/2023/11/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router","/2023/11/truenas-scale-useful-commands","/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc","/2024/01/holodeck-cpu-fixes","/2024/01/multihost-holodeck-vcf","/2024/06/unifi-dhcp-option-43","/2024/07/new-nodes","/2024/09/can-you-really-squeeze-96tb-in-1u","/2024/09/home-network-upgrade","/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu","/2024/12/zfs-on-vmware","/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way","/2025/04/warp-the-intelligent-terminal","/2025/05/vmc-quick-sizing-guide","/2025/08/vmc-host-deepdive","/2025/09/managing-my-homelab-with-semaphoreui","/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare","/2025/12/time-in-a-vmc-environment","/2025/12/ubuntu-disk-expansion-steps","/2025/12/vsan-cluster-shutdown","/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster","/2026/01/web-development-improvements","/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements","/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive","/2026/03/octopus-agile-battery-solar-calculator","/2026/04/automated-vcf-9-offline-depot","/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2","/2026/04/new-vmc-host-i7i-metal-24xl","/2026/04/vsphere-power-management-driven-by-ansible","/404","/about-me","/category/ansible","/category/apple","/category/artificial-intelligence","/category/automation","/category/aws","/category/cloudflare","/category/consulting","/category/containers","/category/devops","/category/docker","/category/github","/category/homelab","/category/hosting","/category/kubernetes","/category/mikrotik","/category/money","/category/networking","/category/nutanix","/category/nvidia","/category/personal","/category/runecast","/category/storage","/category/synology","/category/traefik","/category/truenas-scale","/category/ubuntu","/category/veeam","/category/vexpert","/category/vmware","/category/vmware/vcf","/category/vmware/vmware-cloud-on-aws","/category/vmware/vsan-vmware","/category/vsphere","/category/wordpress","/changelog","/evs","/homelab-software","/lab","/media","/page/2","/page/3","/page/4","/page/5","/page/6","/privacy-policy-2","/stats","/tag/account-setup","/tag/ai","/tag/analytics","/tag/ansible","/tag/apple","/tag/architecture","/tag/artificial-intelligence","/tag/automation","/tag/aws","/tag/bash","/tag/blog","/tag/blogging","/tag/brew","/tag/cache","/tag/certification","/tag/certifications","/tag/charity","/tag/city-fibre","/tag/cli","/tag/clickhouse","/tag/cloudflare","/tag/cloudflare-pages","/tag/comfyui","/tag/containers","/tag/content-library","/tag/cpu","/tag/desired-state","/tag/dhcp","/tag/disk-expand","/tag/docker","/tag/energy","/tag/epic","/tag/failure","/tag/free","/tag/git","/tag/github","/tag/hashicorp","/tag/hoarder","/tag/holodeck","/tag/homebrew","/tag/homelab","/tag/homeoffice","/tag/hosting","/tag/https","/tag/i7i","/tag/iac","/tag/infrastructure","/tag/ingress","/tag/intel","/tag/lambda","/tag/langfuse","/tag/lets-encrypt","/tag/macbook-air","/tag/mikrotik","/tag/minio","/tag/multihost","/tag/n8n","/tag/nas","/tag/networking","/vmc"]/*__PATH_MANIFEST_END__*/;
 const PATH_MANIFEST = PATH_MANIFEST_RAW ? new Set(PATH_MANIFEST_RAW) : null;
 
 /**
@@ -205,15 +205,39 @@ async function handleKVCache(request, env, ctx, path, hostname) {
     }
 
     const cacheKey = `html:${path}`;
-    const cached = await env.HTML_CACHE.get(cacheKey, { type: 'text' });
+    const cachedRes = await env.HTML_CACHE.getWithMetadata(cacheKey, { type: 'text' });
+    const cached = cachedRes && cachedRes.value;
+    const cachedMeta = (cachedRes && cachedRes.metadata) || {};
 
     if (cached) {
       const ttl = getTTL(path);
+      const etag = await computeETag(cached);
+      const lastModified = cachedMeta.cached_at
+        ? new Date(cachedMeta.cached_at).toUTCString()
+        : new Date().toUTCString();
+
+      // 304 Not Modified — Googlebot honours this and skips downloading the
+      // body, which cuts our crawl-budget cost on pages that haven't changed.
+      if (matchesIfNoneMatch(request, etag)) {
+        return new Response(null, {
+          status: 304,
+          headers: {
+            'ETag': etag,
+            'Last-Modified': lastModified,
+            'Cache-Control': `public, max-age=${ttl}`,
+            'X-Cache-Status': 'HIT-304',
+            'X-Worker': 'advanced-worker-kv',
+            ...getSecurityHeaders(hostname)
+          }
+        });
+      }
 
       return new Response(cached, {
         headers: {
           'Content-Type': 'text/html; charset=utf-8',
           'Cache-Control': `public, max-age=${ttl}`,
+          'ETag': etag,
+          'Last-Modified': lastModified,
           'X-Cache-Status': 'HIT',
           'X-Worker': 'advanced-worker-kv',
           ...getSecurityHeaders(hostname)
@@ -254,12 +278,29 @@ async function handleKVCache(request, env, ctx, path, hostname) {
       }).catch(err => console.error('KV cache write failed:', err))
     );
 
-    // Return with our headers
+    // Return with our headers (plus ETag/Last-Modified for crawl efficiency).
+    const etag = await computeETag(html);
+    const lastModified = new Date(nowSec * 1000).toUTCString();
+    if (matchesIfNoneMatch(request, etag)) {
+      return new Response(null, {
+        status: 304,
+        headers: {
+          'ETag': etag,
+          'Last-Modified': lastModified,
+          'Cache-Control': `public, max-age=${ttl}`,
+          'X-Cache-Status': 'MISS-304',
+          'X-Worker': 'advanced-worker-kv',
+          ...getSecurityHeaders(hostname)
+        }
+      });
+    }
     return new Response(html, {
       status: response.status,
       headers: {
         'Content-Type': 'text/html; charset=utf-8',
         'Cache-Control': `public, max-age=${ttl}`,
+        'ETag': etag,
+        'Last-Modified': lastModified,
         'X-Cache-Status': 'MISS',
         'X-Cache-TTL': ttl.toString(),
         'X-Worker': 'advanced-worker-kv',
@@ -420,6 +461,33 @@ function getTTL(path) {
 
   // Older content - 1 hour
   return 3600;
+}
+
+/**
+ * Compute a weak ETag for an HTML body. SHA-1 hex of the bytes, prefixed
+ * with W/ — the response may be served from KV cache, so the byte-for-byte
+ * "strong" guarantee doesn't quite hold. Googlebot honours weak ETags for
+ * the If-None-Match flow we care about.
+ */
+async function computeETag(text) {
+  const buf = new TextEncoder().encode(text);
+  const hash = await crypto.subtle.digest('SHA-1', buf);
+  const hex = Array.from(new Uint8Array(hash))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+  return `W/"${hex}"`;
+}
+
+/**
+ * Return true iff the request's If-None-Match header matches the given ETag.
+ * Tolerates the weak-prefix and quoted/unquoted variants clients may send.
+ */
+function matchesIfNoneMatch(request, etag) {
+  const header = request.headers.get('if-none-match');
+  if (!header) return false;
+  const normalize = s => s.replace(/^W\//, '').replace(/^"|"$/g, '');
+  const wanted = normalize(etag);
+  return header.split(',').some(t => normalize(t.trim()) === wanted);
 }
 
 // ── Plausible proxy ────────────────────────────────────────────────────────

@@ -1,6 +1,6 @@
 ---
 title: "How VMware Cloud on AWS Handles Host Failures Automatically"
-description: "When you run a large enough infrastructure, failure is inevitable. How you handle that can be a big differentiator. With VMware Cloud on AWS, the hosts are m..."
+description: "When you run a large enough infrastructure, failure is inevitable. How you handle that can be a big differentiator."
 date: 2020-09-15T10:56:32+00:00
 modified: 2026-05-25T17:18:25+00:00
 author: James Kilby

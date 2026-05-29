@@ -34,7 +34,7 @@
     {
       "slug": "lab-update-part-2-storage",
       "title": "Lab Update – Part 2 Storage Truenas Scale",
-      "description": "The HP Z840 has changed its role to a permanent storage box running Truenas Scale. This is in addition to my Synology DS918+...",
+      "description": "The HP Z840 has changed its role to a permanent storage box running Truenas Scale. This is in addition to my Synology DS918+",
       "date": "2022-01-11T22:35:02Z",
       "modified": "2026-04-16T22:01:55Z",
       "author": "James Kilby",
@@ -131,7 +131,7 @@
     {
       "slug": "nutanix-ce",
       "title": "Running Nutanix CE at Home: AHV Setup & First Impressions",
-      "description": "I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to con...",
+      "description": "I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to",
       "date": "2018-01-06T17:28:56Z",
       "modified": "2026-04-16T22:02:05Z",
       "author": "James Kilby",
@@ -244,7 +244,7 @@
     {
       "slug": "runecast-remediation-scripts",
       "title": "Runecast Remediation Scripts: Auto-Fix VMware Storage Issues",
-      "description": "I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab. One of the really cool features I wanted to mention...",
+      "description": "I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.",
       "date": "2023-05-16T10:38:45Z",
       "modified": "2026-04-16T22:01:51Z",
       "author": "James Kilby",
@@ -281,7 +281,7 @@
     {
       "slug": "homelab-bad-days-almost",
       "title": "Homelab SSD Failure: How Synology RAID Saved My Data",
-      "description": "I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate. This involves driving from the south coast of Dorset up to Scotland and then getti...",
+      "description": "I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate. This involves driving from the south coast of Dorset up to Scotland and then",
       "date": "2022-11-21T15:46:53Z",
       "modified": "2026-05-25T17:18:25Z",
       "author": "James Kilby",
@@ -353,7 +353,7 @@
     {
       "slug": "warp-the-intelligent-terminal",
       "title": "Warp – The intelligent terminal",
-      "description": "Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and theref...",
+      "description": "Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and",
       "date": "2025-04-11T15:46:23Z",
       "modified": "2026-05-25T17:18:26Z",
       "author": "James Kilby",

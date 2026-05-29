@@ -1,6 +1,6 @@
 ---
 title: "vSAN Cluster Shutdown – Orchestration"
-description: "As can be seen on my Lab Overview page, I have a GPU/Management cluster that is usually running 24×7. I also have a 3x Node vSAN cluster that I use when I ne..."
+description: "As can be seen on my Lab Overview page, I have a GPU/Management cluster that is usually running 24×7."
 date: 2025-12-06T10:59:14+00:00
 modified: 2026-05-25T08:36:12+00:00
 author: James Kilby

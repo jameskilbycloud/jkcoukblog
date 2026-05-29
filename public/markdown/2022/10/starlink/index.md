@@ -1,6 +1,6 @@
 ---
 title: "Starlink Satellite Internet Review: Rural Broadband Solution"
-description: "Since moving to Dorset last year internet connectivity has been the bane of my existence. Currently, I have an ADSL connection provided by my old employer Ze..."
+description: "Since moving to Dorset last year internet connectivity has been the bane of my existence."
 date: 2022-10-11T21:40:50+00:00
 modified: 2026-05-25T11:09:17+00:00
 author: James Kilby

@@ -1,6 +1,6 @@
 ---
 title: "What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained"
-description: "I have been using Cloudflare for a long time. It is one of my go-to services and I use it to protect all of the public services I run for myself and other s..."
+description: "I have been using Cloudflare for a long time. It is one of my go-to services and I use it to protect all of the public services I run for myself and other"
 date: 2018-03-27T12:30:48+00:00
 modified: 2026-04-16T22:02:04+00:00
 author: James Kilby

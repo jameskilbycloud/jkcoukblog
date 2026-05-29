@@ -1,6 +1,6 @@
 ---
 title: "VMware Cloud on AWS Storage Sizing Quick Reference Guide"
-description: "This is a quick reference guide to the available storage resources that you get in VMware Cloud on AWS depending on the host type in use...."
+description: "This is a quick reference guide to the available storage resources that you get in VMware Cloud on AWS depending on the host type in use."
 date: 2025-05-21T09:33:04+00:00
 modified: 2026-04-11T09:00:47+00:00
 author: James Kilby

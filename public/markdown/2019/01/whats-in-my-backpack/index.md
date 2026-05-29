@@ -1,6 +1,6 @@
 ---
 title: "What’s In My Tech Bag? Everyday Carry for IT Consultants"
-description: "I have seen a few posts online recently about the tools and technology people use on a day to day basis. A few components that I have no one seems to have ..."
+description: "I have seen a few posts online recently about the tools and technology people use on a day to day basis."
 date: 2019-01-10T21:48:41+00:00
 modified: 2026-04-16T22:02:02+00:00
 author: James Kilby

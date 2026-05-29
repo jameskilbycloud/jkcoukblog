@@ -1,6 +1,6 @@
 ---
 title: "Lab Update – Part 2 Storage Truenas Scale"
-description: "The HP Z840 has changed its role to a permanent storage box running Truenas Scale. This is in addition to my Synology DS918+..."
+description: "The HP Z840 has changed its role to a permanent storage box running Truenas Scale. This is in addition to my Synology DS918+"
 date: 2022-01-11T22:35:02+00:00
 modified: 2026-04-16T22:01:55+00:00
 author: James Kilby

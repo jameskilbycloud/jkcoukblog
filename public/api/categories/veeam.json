@@ -5,7 +5,7 @@
     {
       "slug": "forcing-an-upgrade-to-vsphere-8",
       "title": "Forcing an Upgrade to vSphere 8",
-      "description": "I run a reasonably extensive homelab that is of course built around the VMware ecosystem. So with the release of vSphere 8 I was obviously going to upgrade ...",
+      "description": "I run a reasonably extensive homelab that is of course built around the VMware ecosystem.",
       "date": "2022-12-14T21:43:39Z",
       "modified": "2026-04-16T22:01:52Z",
       "author": "James Kilby",
@@ -37,7 +37,7 @@
     {
       "slug": "vmc-quick-sizing-guide",
       "title": "VMware Cloud on AWS Storage Sizing Quick Reference Guide",
-      "description": "This is a quick reference guide to the available storage resources that you get in VMware Cloud on AWS depending on the host type in use....",
+      "description": "This is a quick reference guide to the available storage resources that you get in VMware Cloud on AWS depending on the host type in use.",
       "date": "2025-05-21T09:33:04Z",
       "modified": "2026-04-11T09:00:47Z",
       "author": "James Kilby",
@@ -101,7 +101,7 @@
     {
       "slug": "aws-for-beginners1",
       "title": "AWS For Beginners: IAM Setup, Root Security & Billing Alerts",
-      "description": "I am hoping to get back into doing some AWS stuff over the next couple of months. I am a huge fan of some of the tools and technology they have built. It’s...",
+      "description": "I am hoping to get back into doing some AWS stuff over the next couple of months. I am a huge fan of some of the tools and technology they have built.",
       "date": "2018-03-30T23:13:21Z",
       "modified": "2026-04-11T09:00:42Z",
       "author": "James Kilby",
@@ -126,7 +126,7 @@
     {
       "slug": "intel-optane",
       "title": "Using Intel Optane NVMe in a VMware Homelab: Setup & Results",
-      "description": "I have been a VMware vExpert for many years and it has brought me many many benefits over the years. I don’t think it’s an understatement to say I probably w...",
+      "description": "I have been a VMware vExpert for many years and it has brought me many many benefits over the years.",
       "date": "2023-04-17T12:20:04Z",
       "modified": "2026-05-25T11:09:17Z",
       "author": "James Kilby",
@@ -162,7 +162,7 @@
     {
       "slug": "lab-update-part-5-desired-workloads",
       "title": "Lab Update – Desired Workloads",
-      "description": "My lab is always undergoing change. Partially as I want to try new things or new ways of doing things. Sometimes because I break things (not always by accide...",
+      "description": "My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.",
       "date": "2022-01-06T19:23:11Z",
       "modified": "2026-05-25T11:09:16Z",
       "author": "James Kilby",
@@ -227,7 +227,7 @@
     {
       "slug": "runecast-remediation-scripts",
       "title": "Runecast Remediation Scripts: Auto-Fix VMware Storage Issues",
-      "description": "I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab. One of the really cool features I wanted to mention...",
+      "description": "I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.",
       "date": "2023-05-16T10:38:45Z",
       "modified": "2026-04-16T22:01:51Z",
       "author": "James Kilby",
@@ -312,7 +312,7 @@
     {
       "slug": "i3en",
       "title": "VMware Cloud on AWS i3en Host: Specs, Storage & Performance",
-      "description": "VMware Cloud on AWS (VMC) has introduced a new host to its lineup the “i3en”. This is based on the i3en.metal AWS instance....",
+      "description": "VMware Cloud on AWS (VMC) has introduced a new host to its lineup the “i3en”. This is based on the i3en.metal AWS instance.",
       "date": "2020-07-02T22:01:39Z",
       "modified": "2026-04-16T22:01:59Z",
       "author": "James Kilby",
@@ -394,7 +394,7 @@
     {
       "slug": "vmware-certified-master-specialist-hci-2020",
       "title": "VMware Certified Master Specialist HCI 2020",
-      "description": "I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.20). I won’t go into any details of the contents but I will comment that I felt the ...",
+      "description": "I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.20). I won’t go into any details of the contents but I will comment that I felt",
       "date": "2020-09-13T21:38:48Z",
       "modified": "2026-04-16T22:01:59Z",
       "author": "James Kilby",
@@ -429,7 +429,7 @@
     {
       "slug": "vmc-host-errors",
       "title": "How VMware Cloud on AWS Handles Host Failures Automatically",
-      "description": "When you run a large enough infrastructure, failure is inevitable. How you handle that can be a big differentiator. With VMware Cloud on AWS, the hosts are m...",
+      "description": "When you run a large enough infrastructure, failure is inevitable. How you handle that can be a big differentiator.",
       "date": "2020-09-15T10:56:32Z",
       "modified": "2026-05-25T17:18:25Z",
       "author": "James Kilby",

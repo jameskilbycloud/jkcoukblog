@@ -6,7 +6,7 @@
     {
       "slug": "aws-for-beginners1",
       "title": "AWS For Beginners: IAM Setup, Root Security & Billing Alerts",
-      "description": "I am hoping to get back into doing some AWS stuff over the next couple of months. I am a huge fan of some of the tools and technology they have built. It’s...",
+      "description": "I am hoping to get back into doing some AWS stuff over the next couple of months. I am a huge fan of some of the tools and technology they have built.",
       "date": "2018-03-30T23:13:21Z",
       "modified": "2026-04-11T09:00:42Z",
       "author": "James Kilby",
@@ -31,7 +31,7 @@
     {
       "slug": "cloudflare",
       "title": "What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained",
-      "description": "I have been using Cloudflare for a long time. It is one of my go-to services and I use it to protect all of the public services I run for myself and other s...",
+      "description": "I have been using Cloudflare for a long time. It is one of my go-to services and I use it to protect all of the public services I run for myself and other",
       "date": "2018-03-27T12:30:48Z",
       "modified": "2026-04-16T22:02:04Z",
       "author": "James Kilby",

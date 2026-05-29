@@ -1,6 +1,6 @@
 ---
 title: "MacBook Air 2018 Retina Review: My Setup & Build Scripts"
-description: "I decided it was about time I replaced my trusted MacBook Air that I purchased back in 2011. After waiting and watching the Apple announcements over the la..."
+description: "I decided it was about time I replaced my trusted MacBook Air that I purchased back in 2011."
 date: 2018-12-04T21:44:30+00:00
 modified: 2026-04-16T22:02:02+00:00
 author: James Kilby

@@ -1,6 +1,6 @@
 ---
 title: "UK Money Saving Tips: Banking, Rewards & Travel Cards"
-description: "I recently got back from an amazing conference in New Orleans. This was the VeeamON conference and I was invited as part of the Veeam Vanguard program that I..."
+description: "I recently got back from an amazing conference in New Orleans. This was the VeeamON conference and I was invited as part of the Veeam Vanguard program"
 date: 2017-05-29T11:49:16+00:00
 modified: 2026-04-16T22:02:05+00:00
 author: James Kilby
