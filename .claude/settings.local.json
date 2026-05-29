@@ -18,7 +18,8 @@
       "Bash(gh api:*)",
       "WebFetch(domain:www.indexnow.org)",
       "Bash(xxd)",
-      "WebFetch(domain:www.bing.com)"
+      "WebFetch(domain:www.bing.com)",
+      "Bash(awk -F/ '{print \"/\"$1\"/\"}')"
     ]
   }
 }
