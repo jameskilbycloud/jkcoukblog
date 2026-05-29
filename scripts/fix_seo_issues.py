@@ -15,9 +15,13 @@ try:
     from config import Config
     TARGET_DOMAIN = Config.TARGET_DOMAIN
     HOMEPAGE_TITLE = getattr(Config, 'HOMEPAGE_TITLE', None)
+    NOINDEX_PATH_PATTERNS = tuple(
+        re.compile(p) for p in getattr(Config, 'NOINDEX_PATH_PATTERNS', ())
+    )
 except (ImportError, AttributeError):
     TARGET_DOMAIN = 'https://jameskilby.co.uk'
     HOMEPAGE_TITLE = None
+    NOINDEX_PATH_PATTERNS = ()
 
 
 class SEOFixer:
@@ -60,6 +64,9 @@ class SEOFixer:
                 modified = True
 
             if self.fix_homepage_title(soup, file_path):
+                modified = True
+
+            if self.fix_thin_archive_noindex(soup, file_path):
                 modified = True
 
             if self.fix_meta_description(soup, file_path):
@@ -187,6 +194,59 @@ class SEOFixer:
             self.issues_fixed += 1
             print(f"   🏷️  Locked homepage title to canonical form ({len(HOMEPAGE_TITLE)} chars)")
         return modified
+
+    def fix_thin_archive_noindex(self, soup, file_path):
+        """Inject <meta name="robots" content="noindex,follow"> on thin
+        archive pages (categories, tags, pagination, auto-generated meta
+        pages) as defined by Config.NOINDEX_PATH_PATTERNS.
+
+        Why:
+          - /category/aws/ is 63 words of unique text → Google's "thin
+            content" zone. Categories add crawl cost without ranking value.
+          - /page/2/ etc. duplicate the homepage's post snippets.
+          - /changelog/, /stats/, /evs/, /privacy-policy-2/ are utility pages.
+
+        We keep `follow` so Google still discovers post links from these
+        pages, and we don't Disallow them in robots.txt (per the comment
+        there — Google has to crawl to see the noindex directive).
+
+        Pairs with wp_to_static_generator._matches_noindex_pattern which
+        drops these from sitemap.xml using the same Config list.
+        """
+        if not NOINDEX_PATH_PATTERNS:
+            return False
+        try:
+            rel = '/' + str(
+                file_path.resolve().relative_to(self.public_dir.resolve())
+            ).replace('\\', '/')
+        except (ValueError, AttributeError):
+            return False
+        # Convert /foo/bar/index.html → /foo/bar/ for matching
+        url_path = re.sub(r'/index\.html$', '/', rel)
+
+        if not any(p.match(url_path) for p in NOINDEX_PATH_PATTERNS):
+            return False
+
+        existing = soup.find('meta', attrs={'name': 'robots'})
+        existing_content = (existing.get('content') if existing else '') or ''
+        if 'noindex' in existing_content.lower():
+            return False  # already noindexed — nothing to do
+
+        if existing:
+            existing['content'] = 'noindex,follow'
+        else:
+            head = soup.find('head')
+            if not head:
+                return False
+            new_tag = soup.new_tag(
+                'meta',
+                attrs={'name': 'robots', 'content': 'noindex,follow'},
+            )
+            head.append(new_tag)
+
+        self.issues_fixed += 1
+        print(f"   🚫 Added noindex,follow to thin archive: {url_path}")
+        return True
 
     @staticmethod
     def _extract_title_from_jsonld(soup):
