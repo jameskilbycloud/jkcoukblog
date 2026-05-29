@@ -23,6 +23,18 @@ from incremental_builder import IncrementalBuilder
 # calls can still pass an explicit `timeout=` to override this.
 DEFAULT_HTTP_TIMEOUT = 30
 
+# Pre-compiled url-path regexes for sitemap noindex policy. Single source of
+# truth is Config.NOINDEX_PATH_PATTERNS. Compiled once at import.
+# scripts/fix_seo_issues.py reads the same list to inject the meta tag.
+try:
+    from config import Config as _NIPathConfig
+    _NOINDEX_URL_PATH_PATTERNS = tuple(
+        re.compile(p) for p in _NIPathConfig.NOINDEX_PATH_PATTERNS
+    )
+    del _NIPathConfig
+except (ImportError, AttributeError):
+    _NOINDEX_URL_PATH_PATTERNS = ()
+
 class WordPressStaticGenerator:
     def __init__(self, wp_url, auth_token, output_dir, target_domain, use_incremental=True):
         self.wp_url = wp_url.rstrip('/')
@@ -4130,14 +4142,29 @@ document.addEventListener('DOMContentLoaded', function() {
         except Exception:
             return False
 
+    def _matches_noindex_pattern(self, url_path):
+        """Return True if url_path matches any Config.NOINDEX_PATH_PATTERNS."""
+        return any(p.match(url_path) for p in _NOINDEX_URL_PATH_PATTERNS)
+
     def _should_exclude_from_sitemap(self, item, blocked_paths):
         """Decide whether a sitemap candidate URL should be dropped.
 
         Use the html_file already on the item dict (don't re-derive — paths
         like /404/ map to public/404.html, not public/404/index.html).
+
+        Layered check:
+          1. Explicit path blocklist (blocked_paths) — /404/, /feed/.
+          2. Config.NOINDEX_PATH_PATTERNS — pattern-level noindex policy.
+             Runs even before fix_seo_issues injects the meta tag, so the
+             sitemap stays clean regardless of pipeline-step ordering.
+          3. _is_noindex_page (reads HTML head) — catches anything WordPress
+             or Rank Math has already marked noindex.
+          4. _is_meta_refresh_shim — non-canonical redirect pages.
         """
         url_path = item['url'].replace(self.target_domain, '') or '/'
         if url_path in blocked_paths:
+            return True
+        if self._matches_noindex_pattern(url_path):
             return True
         html_file = item.get('html_file')
         if html_file is None:
