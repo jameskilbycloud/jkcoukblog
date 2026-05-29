@@ -123,6 +123,16 @@ class HTMLTransformer:
         if self._apply_inline_tiny_wp_stylesheets(soup):
             modified = True
 
+        # ── Phase 4.7: Inline project stylesheets ────────────────────────
+        # brutalist-theme.css and consolidated-inline-styles.min.css are
+        # render-blocking on every page. Inline their contents directly so
+        # FCP/LCP aren't gated on two extra round-trips. Brotli keeps the
+        # extra HTML weight to ~10 KB on the wire. The font discovery happens
+        # immediately because the @font-face declarations live inside
+        # brutalist-theme.css.
+        if self._apply_inline_project_stylesheets(soup):
+            modified = True
+
         if not modified:
             return False
 
@@ -362,6 +372,67 @@ class HTMLTransformer:
             for noscript in list(soup.find_all('noscript')):
                 if noscript.find('link', href=raw_href):
                     noscript.decompose()
+            inlined += 1
+
+        return inlined > 0
+
+    # Project-owned stylesheets we inline regardless of size. Both are
+    # render-blocking on every page; folding them into <head> trades ~10 KB
+    # of Brotli'd HTML weight for two saved round-trips on mobile, and lets
+    # the browser see brutalist-theme.css's @font-face declarations during
+    # the initial HTML parse.
+    _PROJECT_INLINE_STYLESHEETS = (
+        '/assets/css/brutalist-theme.css',
+        '/assets/css/consolidated-inline-styles.min.css',
+    )
+
+    def _apply_inline_project_stylesheets(self, soup):
+        """Inline project CSS files directly into <head> as <style> tags.
+
+        Removes the corresponding <link rel="stylesheet">, any matching
+        <link rel="preload" as="style">, and any <noscript> fallback for the
+        same href — those become dead weight once the CSS is inlined.
+        """
+        if not soup.head:
+            return False
+
+        def _normalize(href):
+            return (href or '').split('?', 1)[0].split('#', 1)[0]
+
+        inlined = 0
+        for target in self._PROJECT_INLINE_STYLESHEETS:
+            css_path = self.public_dir / target.lstrip('/')
+            if not css_path.exists():
+                continue
+
+            link = next(
+                (l for l in soup.head.find_all('link', rel='stylesheet')
+                 if _normalize(l.get('href')) == target),
+                None,
+            )
+            if link is None:
+                continue
+
+            try:
+                content = css_path.read_text(encoding='utf-8').strip()
+            except Exception:
+                continue
+            if not content:
+                continue
+
+            style_tag = soup.new_tag('style')
+            style_tag.string = content
+            link.insert_before(style_tag)
+            link.decompose()
+
+            # Strip the now-pointless preload and noscript fallback.
+            for preload in list(soup.head.find_all('link', rel='preload')):
+                if _normalize(preload.get('href')) == target:
+                    preload.decompose()
+            for noscript in list(soup.head.find_all('noscript')):
+                if noscript.find('link', href=lambda h: _normalize(h) == target):
+                    noscript.decompose()
+
             inlined += 1
 
         return inlined > 0
