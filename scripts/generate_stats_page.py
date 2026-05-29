@@ -146,7 +146,14 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site Statistics - James Kilby</title>
     <meta name="description" content="Public statistics and metrics for James Kilby's technical blog including performance scores, traffic data, and build information.">
-    <meta name="robots" content="index, follow">
+    <!--
+        noindex,follow: /stats/ is an auto-generated build artifact, not
+        content meant to rank. Follow keeps internal-link discovery alive.
+        Matches Config.NOINDEX_PATH_PATTERNS — this template runs AFTER
+        html_transformer (which would also have injected this), so baking it
+        in at source prevents the post-transform overwrite from undoing it.
+    -->
+    <meta name="robots" content="noindex, follow">
     <link rel="canonical" href="https://jameskilby.co.uk/stats/">
     
     <!-- Open Graph -->
