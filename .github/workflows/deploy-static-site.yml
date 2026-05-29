@@ -829,17 +829,21 @@ jobs:
       run: |
         echo "🔍 Running HTML validation and deployment validation in parallel..."
 
-        # Both validators are read-only — safe to run simultaneously
+        # All three validators are read-only — safe to run simultaneously.
         python3 scripts/validate_html.py ./static-output &
         PID_HTML=$!
         python3 scripts/validate_deployment.py ./static-output &
         PID_DEPLOY=$!
+        python3 scripts/validate_seo.py ./static-output &
+        PID_SEO=$!
 
         HTML_OK=true
         DEPLOY_OK=true
+        SEO_OK=true
 
-        wait $PID_HTML || HTML_OK=false
+        wait $PID_HTML   || HTML_OK=false
         wait $PID_DEPLOY || DEPLOY_OK=false
+        wait $PID_SEO    || SEO_OK=false
 
         if [ "$HTML_OK" = true ]; then
           echo "✅ HTML validation passed!"
@@ -853,15 +857,22 @@ jobs:
           echo "❌ Deployment validation failed!"
         fi
 
+        if [ "$SEO_OK" = true ]; then
+          echo "✅ SEO validation passed!"
+        else
+          echo "❌ SEO validation failed!"
+        fi
+
         # Add to GitHub Actions summary
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "## ✅ Validation" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "- **HTML Validation:** $([ "$HTML_OK" = true ] && echo '✅ Passed' || echo '❌ Failed')" >> $GITHUB_STEP_SUMMARY
         echo "- **Deployment Validation:** $([ "$DEPLOY_OK" = true ] && echo '✅ Passed' || echo '❌ Failed')" >> $GITHUB_STEP_SUMMARY
+        echo "- **SEO Validation:** $([ "$SEO_OK" = true ] && echo '✅ Passed' || echo '❌ Failed')" >> $GITHUB_STEP_SUMMARY
 
-        # Fail step if either validation failed
-        if [ "$HTML_OK" = false ] || [ "$DEPLOY_OK" = false ]; then
+        # Fail step if any validation failed
+        if [ "$HTML_OK" = false ] || [ "$DEPLOY_OK" = false ] || [ "$SEO_OK" = false ]; then
           exit 1
         fi
 
