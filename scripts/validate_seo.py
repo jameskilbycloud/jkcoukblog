@@ -34,7 +34,13 @@ from bs4 import BeautifulSoup
 # every threshold should map to a documented Google quality signal, not just
 # a personal preference.
 TITLE_MIN_LEN          = 15    # under this is suspicious (auto-generated?)
-TITLE_MAX_LEN          = 80    # over this gets truncated in search results
+# Google's SERP title pixel budget is ~580px, which works out to roughly
+# 55-65 characters depending on character mix (i, l vs M, W). 65 is the
+# pragmatic threshold — anything past gets display-truncated and Google
+# may rewrite the title in SERPs, so the declared title is not what users
+# actually see. Previous threshold (80) let titles slip through that were
+# guaranteed to be rewritten. Warnings here are non-failing.
+TITLE_MAX_LEN          = 65
 META_DESC_MIN_LEN      = 50
 META_DESC_MAX_LEN      = 200
 THIN_CONTENT_WORDS     = 150   # post pages under this are flagged warn

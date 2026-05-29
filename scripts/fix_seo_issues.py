@@ -5,6 +5,8 @@ Fixes common SEO problems in generated HTML files
 """
 
 import sys
+import json
+from collections import defaultdict
 from pathlib import Path
 from bs4 import BeautifulSoup
 import re
@@ -91,6 +93,9 @@ class SEOFixer:
                 modified = True
 
             if self.fix_breadcrumb_positions(soup, file_path):
+                modified = True
+
+            if self.fix_techarticle_dedupe_and_dates(soup, file_path):
                 modified = True
 
             if self.fix_person_name(soup, file_path):
@@ -651,6 +656,123 @@ class SEOFixer:
             print(f"   🍞 Fixed BreadcrumbList position types: {file_path.name}")
 
         return modified
+
+    # Article-family types we consider for dedupe + date injection. Order
+    # matters when collapsing duplicates — earlier types are "more specific"
+    # and preferred over later ones in a tie.
+    _ARTICLE_TYPES = (
+        'TechArticle', 'NewsArticle', 'ScholarlyArticle', 'BlogPosting', 'Article',
+    )
+
+    def fix_techarticle_dedupe_and_dates(self, soup, file_path):
+        """Clean up duplicate Article-family entries in JSON-LD @graph and
+        inject missing datePublished + dateModified.
+
+        Rank Math sometimes emits two Article-family entries in the same
+        @graph with the same headline/articleBody but different @ids — one
+        complete (with dates), one a strict subset (no dates). The dateless
+        one fails Google's required-field validation for the Article rich
+        result.
+
+        Strategy:
+          1. Within each <script type="application/ld+json"> block:
+             a. Group Article-family entries by (@type, headline, articleBody).
+             b. For each group of duplicates, keep the most "complete" entry
+                (most populated key fields) and drop the rest.
+          2. For each surviving Article-family entry that's still missing
+             datePublished / dateModified, inject from <meta property=
+             "article:published_time" / "article:modified_time">.
+
+        Idempotent — re-running on a cleaned file is a no-op.
+        """
+        # Pull fallback dates from the article meta tags (always emitted by
+        # Rank Math for Article-type WordPress posts).
+        pub_meta = soup.find('meta', attrs={'property': 'article:published_time'})
+        mod_meta = soup.find('meta', attrs={'property': 'article:modified_time'})
+        fallback_published = (pub_meta.get('content') if pub_meta else None) or None
+        fallback_modified = (
+            (mod_meta.get('content') if mod_meta else None) or fallback_published
+        )
+
+        def is_article(item):
+            if not isinstance(item, dict):
+                return False
+            t = item.get('@type')
+            types = t if isinstance(t, list) else [t]
+            return any(tt in self._ARTICLE_TYPES for tt in types if isinstance(tt, str))
+
+        def completeness(item):
+            """Score by which key Article fields are populated."""
+            return sum(1 for f in (
+                'datePublished', 'dateModified', 'url', 'author',
+                'description', 'image', 'publisher', 'mainEntityOfPage',
+                'articleBody', 'articleSection',
+            ) if item.get(f))
+
+        blocks_modified = 0
+        for script in soup.find_all('script', type='application/ld+json'):
+            raw = script.string or ''
+            if not raw.strip():
+                continue
+            try:
+                data = json.loads(raw)
+            except json.JSONDecodeError:
+                continue
+            if not isinstance(data, dict) or not isinstance(data.get('@graph'), list):
+                continue
+
+            graph = data['@graph']
+            block_changed = False
+
+            # ── Step 1: dedupe Article-family entries within @graph ────────
+            groups = defaultdict(list)
+            for idx, item in enumerate(graph):
+                if not is_article(item):
+                    continue
+                t = item.get('@type')
+                sig = (
+                    str(t),
+                    str(item.get('headline', ''))[:120],
+                    str(item.get('articleBody', ''))[:200],
+                )
+                groups[sig].append(idx)
+
+            to_drop = set()
+            for indices in groups.values():
+                if len(indices) <= 1:
+                    continue
+                best = max(indices, key=lambda i: completeness(graph[i]))
+                to_drop.update(i for i in indices if i != best)
+
+            if to_drop:
+                graph = [item for i, item in enumerate(graph) if i not in to_drop]
+                data['@graph'] = graph
+                block_changed = True
+
+            # ── Step 2: inject missing dates into surviving entries ────────
+            if fallback_published:
+                for item in graph:
+                    if not is_article(item):
+                        continue
+                    if not item.get('datePublished'):
+                        item['datePublished'] = fallback_published
+                        block_changed = True
+                    if not item.get('dateModified'):
+                        item['dateModified'] = fallback_modified
+                        block_changed = True
+
+            if block_changed:
+                # Compact serialization — matches how Rank Math emits it,
+                # so the diff stays minimal on pages already clean.
+                script.string = json.dumps(
+                    data, separators=(',', ':'), ensure_ascii=False
+                )
+                blocks_modified += 1
+
+        if blocks_modified:
+            self.issues_fixed += 1
+            print(f"   🧬 Cleaned JSON-LD Article duplicates/dates: {file_path.name}")
+        return blocks_modified > 0
 
     def fix_person_name(self, soup, file_path):
         """Fix incorrect Person/Organization name 'Jameskilbycouk' → 'James Kilby'.
