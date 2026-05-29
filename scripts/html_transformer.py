@@ -283,6 +283,8 @@ class HTMLTransformer:
             modified = True
         if self.seo.fix_breadcrumb_positions(soup, file_path):
             modified = True
+        if self.seo.fix_techarticle_dedupe_and_dates(soup, file_path):
+            modified = True
         if self.seo.fix_person_name(soup, file_path):
             modified = True
         return modified
