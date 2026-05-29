@@ -283,6 +283,8 @@ class HTMLTransformer:
     _picture_repair_sources_fixed = 0
     _picture_repair_files_touched = 0
     _picture_repair_missing_files = 0
+    _picture_repair_partial = 0  # got 1 variant, expected ≥2
+    _picture_repair_missing_samples = []  # first few paths we couldn't find
 
     def _apply_picture_responsive_repair(self, soup):
         """Re-derive AVIF/WebP <source> srcsets from the wrapping <img>'s
@@ -318,9 +320,26 @@ class HTMLTransformer:
                     source['srcset'] = new_srcset
                     fixed += 1
                 elif new_srcset is None:
-                    # Function returned None — at least one variant missing
-                    # on disk. Count so the summary surfaces it.
                     type(self)._picture_repair_missing_files += 1
+                    # Record the first few paths we expected to find so the
+                    # build log shows what's actually missing in CI.
+                    if len(type(self)._picture_repair_missing_samples) < 6:
+                        for part in img_srcset.split(','):
+                            comps = part.strip().split()
+                            if len(comps) >= 2:
+                                expected = (self.pictures.directory /
+                                            comps[0].lstrip('/')).with_suffix(ext)
+                                if not expected.exists():
+                                    type(self)._picture_repair_missing_samples.append(
+                                        str(expected)
+                                    )
+                                    if len(type(self)._picture_repair_missing_samples) >= 6:
+                                        break
+                else:
+                    # Single entry returned (no comma) — only one variant
+                    # exists on disk. Count separately so we can tell whether
+                    # the issue is "no variants at all" vs "only one variant".
+                    type(self)._picture_repair_partial += 1
 
         if fixed:
             type(self)._picture_repair_sources_fixed += fixed
@@ -605,9 +624,13 @@ class HTMLTransformer:
                   f"{self.pictures.stats['responsive_srcsets_added']} responsive srcsets")
             print(f"   Picture repair: {type(self)._picture_repair_sources_fixed} "
                   f"<source> srcsets fixed across "
-                  f"{type(self)._picture_repair_files_touched} files "
-                  f"({type(self)._picture_repair_missing_files} skipped — "
-                  f"missing AVIF/WebP variant on disk)")
+                  f"{type(self)._picture_repair_files_touched} files; "
+                  f"{type(self)._picture_repair_missing_files} none-on-disk, "
+                  f"{type(self)._picture_repair_partial} only-one-variant")
+            if type(self)._picture_repair_missing_samples:
+                print(f"   Sample missing paths (first {len(type(self)._picture_repair_missing_samples)}):")
+                for p in type(self)._picture_repair_missing_samples:
+                    print(f"     - {p}")
         if not self.skip_critical_css:
             print(f"   Critical CSS: inlined in {self.critical_css.css_inlined} files")
         print(f"{'='*60}")
