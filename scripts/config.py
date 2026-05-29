@@ -46,6 +46,13 @@ class Config:
     # in SERPs (pixel budget ≈ 580px ≈ 55-60 chars).
     HOMEPAGE_TITLE = "James Kilby — VMware, Homelab & Cloud Infrastructure Notes"
 
+    # X/Twitter handle for attribution meta tags. Applied at build time by
+    # scripts/fix_seo_issues.py:fix_twitter_attribution to every page that
+    # already emits a twitter:card. Both twitter:site (the site's handle)
+    # and twitter:creator (the post author's handle) are set to this value
+    # — single-author blog, no per-post variance.
+    TWITTER_HANDLE = "@jameskilbynet"
+
     # Paths that should carry <meta name="robots" content="noindex,follow">
     # at serve time AND be excluded from sitemap.xml. "follow" preserves
     # link discovery so Google still crawls posts linked from these pages;
