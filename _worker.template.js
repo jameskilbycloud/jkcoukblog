@@ -228,12 +228,16 @@ async function handleKVCache(request, env, ctx, path, hostname) {
 
       // 304 Not Modified — Googlebot honours this and skips downloading the
       // body, which cuts our crawl-budget cost on pages that haven't changed.
-      if (matchesIfNoneMatch(request, etag)) {
+      // If-Modified-Since is the path that actually fires for Googlebot (CF
+      // Pages strips ETag on text/html 200, so crawlers never capture it for
+      // If-None-Match). Both checks are wired so any client that does have
+      // an ETag still gets a 304.
+      if (matchesIfNoneMatch(request, etag) ||
+          matchesIfModifiedSince(request, lastModified)) {
         return new Response(null, {
           status: 304,
           headers: {
             'ETag': etag,
-            'X-ETag-Echo': etag, // diag: confirms whether Pages strips ETag
             'Last-Modified': lastModified,
             'Cache-Control': `public, max-age=${ttl}`,
             'X-Cache-Status': 'HIT-304',
@@ -248,7 +252,6 @@ async function handleKVCache(request, env, ctx, path, hostname) {
           'Content-Type': 'text/html; charset=utf-8',
           'Cache-Control': `public, max-age=${ttl}`,
           'ETag': etag,
-          'X-ETag-Echo': etag, // diag: confirms whether Pages strips ETag
           'Last-Modified': lastModified,
           'X-Cache-Status': 'HIT',
           'X-Worker': 'advanced-worker-kv',
@@ -293,12 +296,12 @@ async function handleKVCache(request, env, ctx, path, hostname) {
     // Return with our headers (plus ETag/Last-Modified for crawl efficiency).
     const etag = await computeETag(html);
     const lastModified = new Date(nowSec * 1000).toUTCString();
-    if (matchesIfNoneMatch(request, etag)) {
+    if (matchesIfNoneMatch(request, etag) ||
+        matchesIfModifiedSince(request, lastModified)) {
       return new Response(null, {
         status: 304,
         headers: {
           'ETag': etag,
-          'X-ETag-Echo': etag, // diag: confirms whether Pages strips ETag
           'Last-Modified': lastModified,
           'Cache-Control': `public, max-age=${ttl}`,
           'X-Cache-Status': 'MISS-304',
@@ -313,7 +316,6 @@ async function handleKVCache(request, env, ctx, path, hostname) {
         'Content-Type': 'text/html; charset=utf-8',
         'Cache-Control': `public, max-age=${ttl}`,
         'ETag': etag,
-        'X-ETag-Echo': etag, // diag: confirms whether Pages strips ETag
         'Last-Modified': lastModified,
         'X-Cache-Status': 'MISS',
         'X-Cache-TTL': ttl.toString(),
@@ -480,8 +482,15 @@ function getTTL(path) {
 /**
  * Compute a weak ETag for an HTML body. SHA-1 hex of the bytes, prefixed
  * with W/ — the response may be served from KV cache, so the byte-for-byte
- * "strong" guarantee doesn't quite hold. Googlebot honours weak ETags for
- * the If-None-Match flow we care about.
+ * "strong" guarantee doesn't quite hold.
+ *
+ * NOTE: Cloudflare Pages strips the ETag header from text/html 200 responses
+ * (it auto-generates its own per static asset, which collides). Empirically
+ * verified — see PR #48. Pages does NOT strip ETag on 304 responses, so the
+ * If-None-Match path still works for any client that captured the ETag
+ * out-of-band. The primary revalidation mechanism Googlebot can actually
+ * use here is If-Modified-Since against our Last-Modified header, which
+ * Pages does NOT strip.
  */
 async function computeETag(text) {
   const buf = new TextEncoder().encode(text);
@@ -502,6 +511,21 @@ function matchesIfNoneMatch(request, etag) {
   const normalize = s => s.replace(/^W\//, '').replace(/^"|"$/g, '');
   const wanted = normalize(etag);
   return header.split(',').some(t => normalize(t.trim()) === wanted);
+}
+
+/**
+ * Return true iff the request's If-Modified-Since is at or after the
+ * response's Last-Modified date. This is what Googlebot uses in practice
+ * for HTML revalidation. Granularity is one second — the HTTP spec rounds
+ * to whole-second precision for both headers.
+ */
+function matchesIfModifiedSince(request, lastModifiedHttpDate) {
+  const header = request.headers.get('if-modified-since');
+  if (!header) return false;
+  const since = Date.parse(header);
+  const lm = Date.parse(lastModifiedHttpDate);
+  if (Number.isNaN(since) || Number.isNaN(lm)) return false;
+  return Math.floor(lm / 1000) <= Math.floor(since / 1000);
 }
 
 // ── Plausible proxy ────────────────────────────────────────────────────────
