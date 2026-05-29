@@ -92,6 +92,16 @@ export default {
     }
     // ────────────────────────────────────────────────────────────────────────
 
+    // ── /feed/ → /feed/index.xml (301 permanent) ────────────────────────────
+    // _redirects is ignored in Advanced Mode Worker mode, so the redirect must
+    // live here. Without this, /feed/ would 404 (the meta-refresh HTML shim
+    // was deleted because Google read it as a soft redirect when listed in
+    // the sitemap).
+    if (path === '/feed' || path === '/feed/') {
+      return Response.redirect('https://jameskilby.co.uk/feed/index.xml', 301);
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
     // ── Admin / diagnostic endpoints ────────────────────────────────────────
     // These must be checked BEFORE the GET-only guard so POST purges work,
     // and BEFORE shouldCache so they are never accidentally cached.
@@ -223,6 +233,7 @@ async function handleKVCache(request, env, ctx, path, hostname) {
           status: 304,
           headers: {
             'ETag': etag,
+            'X-ETag-Echo': etag, // diag: confirms whether Pages strips ETag
             'Last-Modified': lastModified,
             'Cache-Control': `public, max-age=${ttl}`,
             'X-Cache-Status': 'HIT-304',
@@ -237,6 +248,7 @@ async function handleKVCache(request, env, ctx, path, hostname) {
           'Content-Type': 'text/html; charset=utf-8',
           'Cache-Control': `public, max-age=${ttl}`,
           'ETag': etag,
+          'X-ETag-Echo': etag, // diag: confirms whether Pages strips ETag
           'Last-Modified': lastModified,
           'X-Cache-Status': 'HIT',
           'X-Worker': 'advanced-worker-kv',
@@ -286,6 +298,7 @@ async function handleKVCache(request, env, ctx, path, hostname) {
         status: 304,
         headers: {
           'ETag': etag,
+          'X-ETag-Echo': etag, // diag: confirms whether Pages strips ETag
           'Last-Modified': lastModified,
           'Cache-Control': `public, max-age=${ttl}`,
           'X-Cache-Status': 'MISS-304',
@@ -300,6 +313,7 @@ async function handleKVCache(request, env, ctx, path, hostname) {
         'Content-Type': 'text/html; charset=utf-8',
         'Cache-Control': `public, max-age=${ttl}`,
         'ETag': etag,
+        'X-ETag-Echo': etag, // diag: confirms whether Pages strips ETag
         'Last-Modified': lastModified,
         'X-Cache-Status': 'MISS',
         'X-Cache-TTL': ttl.toString(),
