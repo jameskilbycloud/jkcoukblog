@@ -41,8 +41,10 @@ class Config:
     
     @classmethod
     def get_plausible_script_url(cls):
-        """Get the full Plausible Analytics script URL"""
-        return f"https://{cls.PLAUSIBLE_URL}/js/script.js"
+        """Same-origin path served by the Cloudflare Worker, which proxies to
+        the Plausible CE instance on PLAUSIBLE_URL. Same-origin so ad blockers
+        don't match the third-party host and the script is edge-cached."""
+        return "/js/script.js"
     
     @classmethod
     def get_plausible_domain(cls):

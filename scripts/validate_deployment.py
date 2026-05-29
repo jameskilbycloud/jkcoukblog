@@ -492,18 +492,25 @@ class DeploymentValidator:
             self.errors.append("No HTML files found to validate")
             return
 
+        # The Plausible script is now served same-origin at /js/script.js by
+        # the Cloudflare Worker proxy. Accept either the new same-origin path
+        # or the legacy upstream URL during the rollout — both are valid Plausible
+        # tags; after a clean rebuild only the same-origin form should remain.
         missing_plausible = 0
         malformed_plausible = 0
         pages_with_plausible = 0
-        missing_dns_prefetch = 0
-        missing_preconnect = 0
 
         for html_file in html_files:
             try:
                 soup = BeautifulSoup(html_file.read_text(), 'html.parser')
 
-                # Check for Plausible script
-                plausible_script = soup.find('script', src=lambda x: x and 'plausible' in x and 'script.js' in x)
+                # Check for Plausible script (same-origin or legacy upstream)
+                plausible_script = soup.find(
+                    'script',
+                    src=lambda x: x and 'script.js' in x and (
+                        x == '/js/script.js' or 'plausible' in x
+                    )
+                )
 
                 if not plausible_script:
                     missing_plausible += 1
@@ -533,7 +540,8 @@ class DeploymentValidator:
                     issues.append(f"wrong data-cfasync: {data_cfasync}")
                     is_valid = False
 
-                if not src or 'plausible.jameskilby.cloud/js/script.js' not in src:
+                # Accept the same-origin path or the legacy upstream URL.
+                if not src or (src != '/js/script.js' and 'plausible.jameskilby.cloud/js/script.js' not in src):
                     issues.append(f"wrong src: {src}")
                     is_valid = False
 
@@ -544,13 +552,6 @@ class DeploymentValidator:
                     )
                 else:
                     pages_with_plausible += 1
-
-                # Check for DNS prefetch and preconnect (warnings only, not critical)
-                if not soup.find('link', rel='dns-prefetch', href='//plausible.jameskilby.cloud'):
-                    missing_dns_prefetch += 1
-
-                if not soup.find('link', rel='preconnect', href='https://plausible.jameskilby.cloud'):
-                    missing_preconnect += 1
 
             except Exception as e:
                 self.errors.append(f"Failed to parse {html_file}: {e}")
@@ -563,12 +564,6 @@ class DeploymentValidator:
         self.stats['plausible_coverage'] = f"{coverage:.1f}%"
 
         print(f"  ✓ Pages with Plausible: {pages_with_plausible}/{total} ({coverage:.1f}%)")
-
-        if missing_dns_prefetch > 0:
-            print(f"  ⚠ Pages missing DNS prefetch: {missing_dns_prefetch} (performance issue)")
-
-        if missing_preconnect > 0:
-            print(f"  ⚠ Pages missing preconnect: {missing_preconnect} (performance issue)")
 
         if coverage < 95 and total > 0:
             self.errors.append(

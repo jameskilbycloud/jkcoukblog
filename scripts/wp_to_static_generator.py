@@ -1774,42 +1774,33 @@ document.addEventListener('DOMContentLoaded', function() {
             print(f"   ❌ Failed to add brutalist theme CSS: {str(e)}")
     
     def add_plausible_analytics(self, soup):
-        """Add Plausible Analytics script to the page if not already present"""
+        """Add Plausible Analytics script to the page if not already present.
+
+        The script is served from a same-origin path (/js/script.js) via the
+        Cloudflare Worker, which proxies to the Plausible CE instance. No
+        DNS prefetch / preconnect needed — the request is to our own host."""
         if not soup.head:
             return
-        
+
         # Import config for Plausible settings
         from config import Config
-        
-        # Check if Plausible script is already present
-        plausible_domain = Config.PLAUSIBLE_URL
+
         plausible_script_url = Config.get_plausible_script_url()
         target_analytics_domain = Config.get_plausible_domain()
-        
-        # Add DNS prefetch and preconnect for faster analytics loading
-        # This helps browser establish connection early, improving performance
-        
-        # Check if dns-prefetch already exists
-        existing_dns_prefetch = soup.find('link', rel='dns-prefetch', href=f'//{plausible_domain}')
-        if not existing_dns_prefetch:
-            dns_prefetch = soup.new_tag('link')
-            dns_prefetch['rel'] = 'dns-prefetch'
-            dns_prefetch['href'] = f'//{plausible_domain}'
-            soup.head.insert(0, dns_prefetch)  # Insert early in head
-            print(f"   🔗 Added DNS prefetch for {plausible_domain}")
-        
-        # Check if preconnect already exists
-        existing_preconnect = soup.find('link', rel='preconnect', href=f'https://{plausible_domain}')
-        if not existing_preconnect:
-            preconnect = soup.new_tag('link')
-            preconnect['rel'] = 'preconnect'
-            preconnect['href'] = f'https://{plausible_domain}'
-            preconnect['crossorigin'] = ''
-            soup.head.insert(1, preconnect)  # Insert after dns-prefetch
-            print(f"   🔗 Added preconnect for {plausible_domain}")
-        
-        # Look for existing Plausible script
-        existing_plausible = soup.find('script', src=lambda x: x and 'plausible' in x and 'script.js' in x)
+
+        # Drop any historical dns-prefetch / preconnect hints to the upstream
+        # Plausible host — same-origin now, so they're noise that delays the
+        # actual critical preconnects.
+        legacy_plausible_host = Config.PLAUSIBLE_URL
+        for hint in soup.find_all('link', rel=lambda r: r in ('dns-prefetch', 'preconnect')):
+            href = hint.get('href') or ''
+            if legacy_plausible_host in href:
+                hint.decompose()
+
+        # Look for existing Plausible script — historical pages may have the
+        # absolute upstream URL; this also catches any third-party plugin
+        # injection that snuck through.
+        existing_plausible = soup.find('script', src=lambda x: x and 'script.js' in x and ('plausible' in x or x == plausible_script_url))
         
         if existing_plausible:
             # Update the data-domain attribute to ensure it's correct
