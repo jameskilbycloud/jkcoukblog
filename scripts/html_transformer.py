@@ -133,6 +133,16 @@ class HTMLTransformer:
         if self._apply_inline_project_stylesheets(soup):
             modified = True
 
+        # ── Phase 4.8: Picture <source> srcset repair ────────────────────
+        # Safety net for pictures whose AVIF/WebP <source> tags ended up
+        # with single-file srcsets even though the wrapped <img> carries a
+        # multi-resolution srcset. Re-derive the responsive srcset on a
+        # late pass so the browser fetches the right-sized variant on
+        # mobile instead of the full-res original.
+        if not self.skip_images:
+            if self._apply_picture_responsive_repair(soup):
+                modified = True
+
         if not modified:
             return False
 
@@ -266,6 +276,56 @@ class HTMLTransformer:
         if self.seo.fix_person_name(soup, file_path):
             modified = True
         return modified
+
+    # Counters for the late-stage repair (Phase 4.8). We report these in the
+    # final summary so it's obvious from the build log whether the safety net
+    # actually had work to do — and how much.
+    _picture_repair_sources_fixed = 0
+    _picture_repair_files_touched = 0
+    _picture_repair_missing_files = 0
+
+    def _apply_picture_responsive_repair(self, soup):
+        """Re-derive AVIF/WebP <source> srcsets from the wrapping <img>'s
+        srcset for any <picture> still showing single-file sources. This
+        duplicates _update_existing_picture_srcsets so it runs even if the
+        upstream phase produced a picture without a responsive srcset.
+        Records counters for build-log visibility.
+        """
+        if not soup.body:
+            return False
+
+        fixed = 0
+        for picture in soup.find_all('picture'):
+            img = picture.find('img')
+            if img is None:
+                continue
+            img_srcset = (img.get('srcset') or '').strip()
+            if ',' not in img_srcset:
+                continue
+            for source in picture.find_all('source'):
+                srcset = (source.get('srcset') or '').strip()
+                if ',' in srcset:
+                    continue
+                source_type = (source.get('type') or '').lower()
+                if source_type == 'image/avif':
+                    ext = '.avif'
+                elif source_type == 'image/webp':
+                    ext = '.webp'
+                else:
+                    continue
+                new_srcset = self.pictures._get_responsive_srcset(img_srcset, ext)
+                if new_srcset and ',' in new_srcset:
+                    source['srcset'] = new_srcset
+                    fixed += 1
+                elif new_srcset is None:
+                    # Function returned None — at least one variant missing
+                    # on disk. Count so the summary surfaces it.
+                    type(self)._picture_repair_missing_files += 1
+
+        if fixed:
+            type(self)._picture_repair_sources_fixed += fixed
+            type(self)._picture_repair_files_touched += 1
+        return fixed > 0
 
     def _apply_picture_conversion(self, soup):
         """Convert img tags to picture elements using ImageToPictureConverter methods."""
@@ -543,6 +603,11 @@ class HTMLTransformer:
         if not self.skip_images:
             print(f"   Pictures: {self.pictures.stats['images_converted']} converted, "
                   f"{self.pictures.stats['responsive_srcsets_added']} responsive srcsets")
+            print(f"   Picture repair: {type(self)._picture_repair_sources_fixed} "
+                  f"<source> srcsets fixed across "
+                  f"{type(self)._picture_repair_files_touched} files "
+                  f"({type(self)._picture_repair_missing_files} skipped — "
+                  f"missing AVIF/WebP variant on disk)")
         if not self.skip_critical_css:
             print(f"   Critical CSS: inlined in {self.critical_css.css_inlined} files")
         print(f"{'='*60}")
