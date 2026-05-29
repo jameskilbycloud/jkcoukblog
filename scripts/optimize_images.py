@@ -347,9 +347,16 @@ class ImageOptimizer:
                 img_url = components[0]
                 width_descriptor = components[1]  # e.g., "300w"
 
-                # Convert the image URL to modern format
-                # Handle both relative and absolute paths
-                img_path_str = img_url.lstrip('/')
+                # Convert the image URL to modern format.
+                # html_transformer/optimize_images run BEFORE convert_to_staging,
+                # so srcsets at this point still hold absolute URLs like
+                # https://jameskilby.co.uk/wp-content/... — strip the scheme +
+                # host so the on-disk lookup hits the right path.
+                if img_url.startswith(('http://', 'https://')):
+                    from urllib.parse import urlparse
+                    img_path_str = urlparse(img_url).path.lstrip('/')
+                else:
+                    img_path_str = img_url.lstrip('/')
                 img_path = self.public_dir / img_path_str
 
                 # Check if modern format exists
