@@ -2,29 +2,28 @@
   {
     "path": "/*",
     "timings": [
-      { "metric": "first-contentful-paint",   "budget": 1000, "tolerance": 300 },
-      { "metric": "largest-contentful-paint", "budget": 1200, "tolerance": 400 },
-      { "metric": "interactive",              "budget": 1800, "tolerance": 500 },
-      { "metric": "first-meaningful-paint",   "budget": 1000, "tolerance": 300 },
-      { "metric": "speed-index",              "budget": 1500, "tolerance": 500 },
-      { "metric": "total-blocking-time",      "budget":  150, "tolerance": 100 },
-      { "metric": "cumulative-layout-shift",  "budget": 0.05, "tolerance": 0.05 }
+      { "metric": "first-contentful-paint",   "budget": 1000 },
+      { "metric": "largest-contentful-paint", "budget": 1500 },
+      { "metric": "interactive",              "budget": 2000 },
+      { "metric": "speed-index",              "budget": 1300 },
+      { "metric": "total-blocking-time",      "budget":  200 },
+      { "metric": "cumulative-layout-shift",  "budget": 0.05 }
     ],
     "resourceSizes": [
-      { "resourceType": "document",    "budget":  30 },
-      { "resourceType": "stylesheet",  "budget":  80 },
-      { "resourceType": "script",      "budget":  70 },
-      { "resourceType": "image",       "budget": 250 },
-      { "resourceType": "font",        "budget": 200 },
-      { "resourceType": "third-party", "budget":  60 },
-      { "resourceType": "total",       "budget": 800 }
+      { "resourceType": "document",    "budget":   30 },
+      { "resourceType": "stylesheet",  "budget":   30 },
+      { "resourceType": "script",      "budget":   40 },
+      { "resourceType": "image",       "budget":  450 },
+      { "resourceType": "font",        "budget":  600 },
+      { "resourceType": "third-party", "budget":   30 },
+      { "resourceType": "total",       "budget": 1100 }
     ],
     "resourceCounts": [
-      { "resourceType": "stylesheet",  "budget":  8 },
-      { "resourceType": "script",      "budget": 10 },
-      { "resourceType": "image",       "budget": 20 },
+      { "resourceType": "stylesheet",  "budget":  5 },
+      { "resourceType": "script",      "budget":  6 },
+      { "resourceType": "image",       "budget": 18 },
       { "resourceType": "font",        "budget":  6 },
-      { "resourceType": "third-party", "budget":  6 }
+      { "resourceType": "third-party", "budget":  3 }
     ]
   }
 ]
