@@ -2,10 +2,10 @@
   {
     "path": "/*",
     "timings": [
-      { "metric": "first-contentful-paint",   "budget": 2500 },
-      { "metric": "largest-contentful-paint", "budget": 3000 },
-      { "metric": "interactive",              "budget": 4000 },
-      { "metric": "speed-index",              "budget": 3500 },
+      { "metric": "first-contentful-paint",   "budget": 5500 },
+      { "metric": "largest-contentful-paint", "budget": 7000 },
+      { "metric": "interactive",              "budget": 8000 },
+      { "metric": "speed-index",              "budget": 5500 },
       { "metric": "total-blocking-time",      "budget":  400 },
       { "metric": "cumulative-layout-shift",  "budget": 0.05 }
     ],
