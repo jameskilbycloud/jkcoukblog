@@ -59,23 +59,31 @@ class ImageToPictureConverter:
             part = part.strip()
             if not part:
                 continue
-            
+
             # Parse "path/to/image.jpg 300w" format
             components = part.split()
             if len(components) >= 2:
                 img_url = components[0]
                 width_descriptor = components[1]  # e.g., "300w"
-                
-                # Convert the image URL to modern format path
-                img_path_str = img_url.lstrip('/')
+
+                # html_transformer runs BEFORE convert_to_staging, so srcsets
+                # at this point still hold absolute URLs like
+                # https://jameskilby.co.uk/wp-content/... — strip the scheme +
+                # host so the on-disk lookup hits the right path.
+                if img_url.startswith(('http://', 'https://')):
+                    from urllib.parse import urlparse
+                    img_path_str = urlparse(img_url).path.lstrip('/')
+                else:
+                    img_path_str = img_url.lstrip('/')
+
                 img_path = self.directory / img_path_str
-                
+
                 # Check if modern format exists
                 modern_path = img_path.with_suffix(format_ext)
                 if modern_path.exists():
                     modern_url = '/' + str(modern_path.relative_to(self.directory))
                     srcset_parts.append(f"{modern_url} {width_descriptor}")
-        
+
         return ', '.join(srcset_parts) if srcset_parts else None
     
     def _has_modern_format(self, img_src: str, base_path: Path) -> Tuple[bool, bool]:
