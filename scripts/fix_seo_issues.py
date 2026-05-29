@@ -188,45 +188,80 @@ class SEOFixer:
         desc = meta_desc.get('content', '')
         modified = False
 
-        # NOTE: long meta descriptions are not truncated here. Google decides
-        # how to display snippets and routinely rewrites them; an explicit
-        # "..." suffix in the source signals broken/auto-generated content
-        # the same way the old <title> truncation did, and gets penalised in
-        # ranking. Leave long descriptions alone.
-        if len(desc) > 160:
+        # Long meta descriptions are not truncated here (Google rewrites
+        # snippets and a literal '...' suffix signals broken content).
+        # Two repair paths follow:
+        #   - desc ends in '...' from a previous build: regenerate cleanly
+        #     from the first article paragraph (truncated to a word/sentence
+        #     boundary, NOT with another ellipsis)
+        #   - desc is too short (<120 chars): expand from article content
+        #     using the same clean truncation
+        too_long = len(desc) > 160
+        broken = desc.endswith('...')
+        too_short = len(desc) < 120
+
+        if too_long and not broken:
             return modified
 
-        # Too short (<120 chars) - try to expand from page content
-        if len(desc) < 120:
-            # #2: scope to article/main so we don't accidentally grab nav,
-            # footer, sidebar, or cookie-banner text as the description.
-            content_area = (
-                soup.find('article') or
-                soup.find('main') or
-                soup.find(class_=re.compile(
-                    r'entry.?content|post.?content|article.?body', re.I
-                )) or
-                soup
-            )
-            first_p = content_area.find('p')
-            if first_p:
-                p_text = first_p.get_text().strip()
-                if len(p_text) >= 120:
-                    # Use first 157 chars of paragraph
-                    new_desc = p_text[:157] + '...'
-                    meta_desc['content'] = new_desc
-                    self.issues_fixed += 1
-                    modified = True
-                    print(f"   📝 Expanded short description: {file_path.name}")
-                elif len(desc + ' ' + p_text) <= 160:
-                    # Append paragraph to existing description
-                    new_desc = f"{desc} {p_text}"
-                    meta_desc['content'] = new_desc
-                    self.issues_fixed += 1
-                    modified = True
-                    print(f"   📝 Expanded short description: {file_path.name}")
+        if not (broken or too_short):
+            return modified
 
-        return modified
+        content_area = (
+            soup.find('article') or
+            soup.find('main') or
+            soup.find(class_=re.compile(
+                r'entry.?content|post.?content|article.?body', re.I
+            )) or
+            soup
+        )
+        first_p = content_area.find('p')
+        if not first_p:
+            return modified
+
+        p_text = first_p.get_text().strip()
+        if not p_text:
+            return modified
+
+        if broken:
+            new_desc = self._clean_truncate(p_text, 155)
+            label = 'Restored truncated description'
+        elif len(p_text) >= 120:
+            new_desc = self._clean_truncate(p_text, 155)
+            label = 'Expanded short description'
+        elif len(desc + ' ' + p_text) <= 160:
+            new_desc = f"{desc} {p_text}"
+            label = 'Expanded short description (concat)'
+        else:
+            return modified
+
+        if not new_desc or new_desc == desc:
+            return modified
+
+        meta_desc['content'] = new_desc
+        self.issues_fixed += 1
+        print(f"   📝 {label}: {file_path.name}")
+        return True
+
+    @staticmethod
+    def _clean_truncate(text: str, max_len: int) -> str:
+        """Trim text to <=max_len chars at a sentence-end or word boundary.
+
+        Avoids two anti-patterns Google's quality signal picks up on:
+        breaking mid-word, and tacking a literal '...' onto the end.
+        """
+        if len(text) <= max_len:
+            return text.strip()
+        window = text[:max_len]
+        # Prefer cutting at the last sentence terminator.
+        for term in ('. ', '! ', '? '):
+            idx = window.rfind(term)
+            if idx >= max_len // 2:
+                return window[: idx + 1].strip()
+        # Otherwise fall back to the last word boundary.
+        idx = window.rfind(' ')
+        if idx > 0:
+            return window[:idx].rstrip(',;:—–-').strip()
+        return window.strip()
 
     def fix_multiple_h1(self, soup, file_path):
         """Ensure only one H1 tag per page"""
