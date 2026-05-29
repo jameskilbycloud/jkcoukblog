@@ -291,6 +291,8 @@ class HTMLTransformer:
             modified = True
         if self.seo.fix_twitter_attribution(soup, file_path):
             modified = True
+        if self.seo.fix_wordpress_host_leak(soup, file_path):
+            modified = True
         return modified
 
     # Counters for the late-stage repair (Phase 4.8). We report these in the
