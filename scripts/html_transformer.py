@@ -178,7 +178,23 @@ class HTMLTransformer:
         )
         head_body = re.sub(r'</noscript>', '', head_body, flags=re.IGNORECASE)
 
-        # 2. Revert preload-as-style back to stylesheet so critical CSS phase
+        # 2a. Strip font preloads. A previous pipeline run injected
+        #     <link rel="preload" as="font" fetchpriority="high"> for three
+        #     WOFF2 weights — ~138 KB at high priority on mobile, competing
+        #     with the LCP image. The inline critical CSS pins body to a
+        #     system-font stack and fonts.css uses font-display: optional
+        #     (fonts that arrive after the ~100 ms swap window are never
+        #     rendered), so the preload pressure was pure cost. This strip
+        #     keeps the cleanup idempotent for pages that aren't regenerated
+        #     by wp_to_static_generator on this run.
+        head_body = re.sub(
+            r'<link\b[^>]*\bas=["\']font["\'][^>]*/?\s*>',
+            '',
+            head_body,
+            flags=re.IGNORECASE,
+        )
+
+        # 2b. Revert preload-as-style back to stylesheet so critical CSS phase
         #    can redo the conversion cleanly with proper onload handlers.
         #    Match: <link ... rel="preload" ... as="style" ...>
         def _revert_preload(m):
