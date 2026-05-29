@@ -13,6 +13,13 @@ import re
 
 # Import config for target domain
 sys.path.insert(0, str(Path(__file__).parent))
+def _hostname(url):
+    """Strip scheme + trailing slash from a URL → bare hostname string."""
+    if not url:
+        return None
+    return url.replace('https://', '').replace('http://', '').rstrip('/').split('/')[0]
+
+
 try:
     from config import Config
     TARGET_DOMAIN = Config.TARGET_DOMAIN
@@ -26,6 +33,8 @@ try:
     PERSON_JOB_TITLE = getattr(Config, 'PERSON_JOB_TITLE', None)
     PERSON_KNOWS_ABOUT = tuple(getattr(Config, 'PERSON_KNOWS_ABOUT', ()))
     PERSON_AWARDS = tuple(getattr(Config, 'PERSON_AWARDS', ()))
+    WP_HOST = _hostname(getattr(Config, 'WP_URL', None))
+    TARGET_HOST = _hostname(TARGET_DOMAIN)
 except (ImportError, AttributeError):
     TARGET_DOMAIN = 'https://jameskilby.co.uk'
     HOMEPAGE_TITLE = None
@@ -36,6 +45,8 @@ except (ImportError, AttributeError):
     PERSON_JOB_TITLE = None
     PERSON_KNOWS_ABOUT = ()
     PERSON_AWARDS = ()
+    WP_HOST = None
+    TARGET_HOST = _hostname(TARGET_DOMAIN)
 
 
 class SEOFixer:
@@ -120,6 +131,9 @@ class SEOFixer:
                 modified = True
 
             if self.fix_twitter_attribution(soup, file_path):
+                modified = True
+
+            if self.fix_wordpress_host_leak(soup, file_path):
                 modified = True
 
             if self.fix_malformed_stylesheet_attr(soup, file_path):
@@ -1023,6 +1037,76 @@ class SEOFixer:
         if modified:
             self.issues_fixed += 1
             print(f"   🐦 Added twitter:site/twitter:creator ({TWITTER_HANDLE}): {file_path.name}")
+        return modified
+
+    def fix_wordpress_host_leak(self, soup, file_path):
+        """Strip vestigial references to the private WordPress host from the
+        generated HTML.
+
+        Three distinct leaks survive Rank Math + the pipeline's canonical-URL
+        rewriter:
+
+        1. oEmbed discovery <link> tags in <head>:
+              <link rel="alternate" type="application/json+oembed"
+                    href="/wp-json/oembed/1.0/embed?url=https%3A%2F%2F<wp>%2F...">
+              <link rel="alternate" type="application/xml+oembed"  href="...">
+           These point at /wp-json/oembed/... — a WordPress-only endpoint
+           that doesn't exist on the static site, so the links are broken
+           regardless. Strip them entirely.
+
+        2. Gutenberg block-editor internal-link metadata:
+              <a data-id="https://<wp>/2026/03/foo/" data-type="link"
+                 href="/2026/03/foo/">…</a>
+           Visible href is already the canonical jameskilby.co.uk URL; the
+           data-id is just internal block tracking. Rewrite host → target.
+
+        3. Defensive sweep: any other attribute containing the literal WP
+           hostname (raw or URL-encoded — dots aren't url-encoded, so the
+           literal string match catches both forms).
+
+        Single-pass over the soup, attributes only (text nodes left alone —
+        if a post mentions the host literally in prose, that's the author's
+        intent).
+
+        Idempotent.
+        """
+        if not WP_HOST or not TARGET_HOST or WP_HOST == TARGET_HOST:
+            return False
+
+        modified = False
+
+        # ── 1. Strip oEmbed discovery <link> tags ─────────────────────────
+        for link in list(soup.find_all('link', rel='alternate')):
+            link_type = (link.get('type') or '').lower()
+            if 'oembed' in link_type:
+                link.decompose()
+                modified = True
+
+        # ── 2 + 3. Rewrite WP_HOST → TARGET_HOST in all attribute values ─
+        # Fast-path gate: only walk the soup if the marker is present at all.
+        if WP_HOST in str(soup):
+            for tag in soup.find_all(True):
+                changed = False
+                for attr, value in list(tag.attrs.items()):
+                    if isinstance(value, str):
+                        if WP_HOST in value:
+                            tag[attr] = value.replace(WP_HOST, TARGET_HOST)
+                            changed = True
+                    elif isinstance(value, list):
+                        new_list = [
+                            (v.replace(WP_HOST, TARGET_HOST)
+                             if isinstance(v, str) and WP_HOST in v else v)
+                            for v in value
+                        ]
+                        if new_list != value:
+                            tag[attr] = new_list
+                            changed = True
+                if changed:
+                    modified = True
+
+        if modified:
+            self.issues_fixed += 1
+            print(f"   🧹 Stripped {WP_HOST} leakage: {file_path.name}")
         return modified
 
     def fix_malformed_stylesheet_attr(self, soup, file_path):
