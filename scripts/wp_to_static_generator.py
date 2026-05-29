@@ -1533,9 +1533,14 @@ document.addEventListener('DOMContentLoaded', function() {
         # Add Plausible analytics if not already present
         self.add_plausible_analytics(soup)
         
-        # Add font preloading for critical fonts
-        self.add_font_preloads(soup)
-        
+        # Font preloads were removed: the inline critical CSS pins body to a
+        # system-font stack, fonts.css uses font-display: optional (fonts that
+        # arrive after the ~100 ms swap window are never rendered), and on
+        # mobile the 138 KB of high-priority preloads contended with the LCP
+        # image. See html_transformer._deep_clean_head for the matching
+        # idempotent strip on previously-built pages.
+
+
         # Add preload hints for critical resources (with duplicate detection)
         for link in soup.find_all('link', rel='stylesheet'):
             if link.get('href'):
@@ -1595,41 +1600,6 @@ document.addEventListener('DOMContentLoaded', function() {
         soup.head.append(manifest)
         
         print(f"   🐞 Added favicon links for browser support")
-    
-    def add_font_preloads(self, soup):
-        """Preload critical fonts for faster text rendering (reduces FCP/LCP).
-
-        These three fonts cover the LCP-blocking text (H1 in Anton, body in
-        Space Grotesk 400/500). The remaining fonts shipped via fonts.css —
-        JetBrains Mono 400/700 and Space Grotesk 700 — are used by UI chrome
-        below the fold and rely on `font-display: optional` so they never
-        block first paint.
-        """
-        if not soup.head:
-            return
-
-        critical_fonts = [
-            '/assets/fonts/anton-v27-latin-400.woff2',
-            '/assets/fonts/spacegrotesk-v22-latin-400.woff2',
-            '/assets/fonts/spacegrotesk-v22-latin-500.woff2'
-        ]
-
-        for font_url in critical_fonts:
-            # Check if font preload already exists
-            existing_preload = soup.find('link', rel='preload', href=font_url)
-            if not existing_preload:
-                preload = soup.new_tag('link')
-                preload['rel'] = 'preload'
-                preload['as'] = 'font'
-                preload['type'] = 'font/woff2'
-                preload['href'] = font_url
-                preload['crossorigin'] = 'anonymous'
-                # Jump ahead of stylesheet fetches in the network queue.
-                preload['fetchpriority'] = 'high'
-                # Insert at beginning of head for highest priority
-                soup.head.insert(0, preload)
-
-        print(f"   🔤 Preloaded {len(critical_fonts)} critical fonts")
     
     def consolidate_inline_css_files(self, soup):
         """Consolidate multiple small inline CSS files into one to reduce critical request chain"""
