@@ -21,11 +21,21 @@ try:
     NOINDEX_PATH_PATTERNS = tuple(
         re.compile(p) for p in getattr(Config, 'NOINDEX_PATH_PATTERNS', ())
     )
+    PERSON_CANONICAL_NAMES = tuple(getattr(Config, 'PERSON_CANONICAL_NAMES', ()))
+    PERSON_SAME_AS = tuple(getattr(Config, 'PERSON_SAME_AS', ()))
+    PERSON_JOB_TITLE = getattr(Config, 'PERSON_JOB_TITLE', None)
+    PERSON_KNOWS_ABOUT = tuple(getattr(Config, 'PERSON_KNOWS_ABOUT', ()))
+    PERSON_AWARDS = tuple(getattr(Config, 'PERSON_AWARDS', ()))
 except (ImportError, AttributeError):
     TARGET_DOMAIN = 'https://jameskilby.co.uk'
     HOMEPAGE_TITLE = None
     TWITTER_HANDLE = None
     NOINDEX_PATH_PATTERNS = ()
+    PERSON_CANONICAL_NAMES = ()
+    PERSON_SAME_AS = ()
+    PERSON_JOB_TITLE = None
+    PERSON_KNOWS_ABOUT = ()
+    PERSON_AWARDS = ()
 
 
 class SEOFixer:
@@ -101,6 +111,9 @@ class SEOFixer:
                 modified = True
 
             if self.fix_person_name(soup, file_path):
+                modified = True
+
+            if self.fix_person_enrichment(soup, file_path):
                 modified = True
 
             if self.fix_og_site_name(soup, file_path):
@@ -821,6 +834,125 @@ class SEOFixer:
             print(f"   👤 Fixed Person name (Jameskilbycouk → James Kilby): {file_path.name}")
 
         return modified
+
+    # URL substring → if any sameAs entry matches this, it gets replaced. The
+    # pre-existing JSON-LD linked wordpress.jameskilby.cloud (the private CMS),
+    # which is wrong for a public schema graph and leaks internal infrastructure.
+    _PERSON_SAMEAS_LEAKS = ('wordpress.jameskilby.cloud',)
+
+    def fix_person_enrichment(self, soup, file_path):
+        """Enrich Person entities in JSON-LD @graph with E-E-A-T signals.
+
+        Rank Math emits a bare Person entity (name + url + image) but no
+        professional identifiers. Google leans on the entity graph for E-E-A-T
+        scoring on technical content — linking the author to GitHub, X, and
+        their professional expertise makes them a recognized entity rather
+        than a string of text.
+
+        Applied to any Person entity whose name matches Config.PERSON_CANONICAL_NAMES
+        (i.e. the site owner — single-author blog). Other Person entries
+        (e.g. people mentioned in a quote) are left alone.
+
+        Adds (idempotently):
+          - sameAs   — Config.PERSON_SAME_AS (also replaces internal-only links)
+          - jobTitle — Config.PERSON_JOB_TITLE
+          - knowsAbout — Config.PERSON_KNOWS_ABOUT
+          - award      — Config.PERSON_AWARDS
+
+        Doesn't touch existing values that already match — re-run = no-op.
+        """
+        if not PERSON_CANONICAL_NAMES:
+            return False
+
+        canonical_set = {n.lower() for n in PERSON_CANONICAL_NAMES}
+
+        def is_target_person(item):
+            if not isinstance(item, dict):
+                return False
+            t = item.get('@type')
+            types = t if isinstance(t, list) else [t]
+            if not any('Person' in str(x) for x in types if x):
+                return False
+            name = (item.get('name') or '').strip().lower()
+            return name in canonical_set
+
+        blocks_modified = 0
+        for script in soup.find_all('script', type='application/ld+json'):
+            raw = script.string or ''
+            if not raw.strip():
+                continue
+            try:
+                data = json.loads(raw)
+            except json.JSONDecodeError:
+                continue
+            graph_items = (
+                data.get('@graph') if isinstance(data, dict) and isinstance(data.get('@graph'), list)
+                else ([data] if isinstance(data, dict) else None)
+            )
+            if not graph_items:
+                continue
+
+            block_changed = False
+            for item in graph_items:
+                if not is_target_person(item):
+                    continue
+
+                # ── sameAs: replace any leaky entries, then ensure all canonical entries present ──
+                current = item.get('sameAs')
+                # Normalize: existing string or list of strings
+                if isinstance(current, str):
+                    current = [current]
+                if not isinstance(current, list):
+                    current = []
+                # Drop leak URLs
+                filtered = [
+                    u for u in current
+                    if isinstance(u, str)
+                    and not any(leak in u for leak in self._PERSON_SAMEAS_LEAKS)
+                ]
+                # Add any canonical URLs that aren't there yet (case-insensitive
+                # dedupe so we don't double up if the page already had github.com)
+                lc = {u.lower() for u in filtered}
+                added = False
+                for canonical in PERSON_SAME_AS:
+                    if canonical.lower() not in lc:
+                        filtered.append(canonical)
+                        lc.add(canonical.lower())
+                        added = True
+                if added or filtered != current:
+                    item['sameAs'] = filtered
+                    block_changed = True
+
+                # ── jobTitle ───────────────────────────────────────────────
+                if PERSON_JOB_TITLE and item.get('jobTitle') != PERSON_JOB_TITLE:
+                    if not item.get('jobTitle'):
+                        item['jobTitle'] = PERSON_JOB_TITLE
+                        block_changed = True
+
+                # ── knowsAbout ─────────────────────────────────────────────
+                if PERSON_KNOWS_ABOUT and not item.get('knowsAbout'):
+                    item['knowsAbout'] = list(PERSON_KNOWS_ABOUT)
+                    block_changed = True
+
+                # ── award ───────────────────────────────────────────────────
+                if PERSON_AWARDS and not item.get('award'):
+                    item['award'] = (
+                        PERSON_AWARDS[0] if len(PERSON_AWARDS) == 1
+                        else list(PERSON_AWARDS)
+                    )
+                    block_changed = True
+
+            if block_changed:
+                # Compact serialization — matches Rank Math's emission style.
+                script.string = json.dumps(
+                    data, separators=(',', ':'), ensure_ascii=False
+                )
+                blocks_modified += 1
+
+        if blocks_modified:
+            self.issues_fixed += 1
+            print(f"   🪪 Enriched Person entity (sameAs+jobTitle+knowsAbout+award): {file_path.name}")
+        return blocks_modified > 0
 
     def fix_og_site_name(self, soup, file_path):
         """Fix og:site_name when it contains the old concatenated slug 'Jameskilbycouk'.

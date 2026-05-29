@@ -53,6 +53,51 @@ class Config:
     # — single-author blog, no per-post variance.
     TWITTER_HANDLE = "@jameskilbynet"
 
+    # ── Person / E-E-A-T schema enrichment ──────────────────────────────────
+    # Applied at build time by scripts/fix_seo_issues.py:fix_person_enrichment
+    # to every Person entity in JSON-LD whose name matches PERSON_CANONICAL_NAMES
+    # below (i.e. the site owner — single-author blog, so one Person identity).
+    # Google leans hard on E-E-A-T (Experience, Expertise, Authoritativeness,
+    # Trustworthiness) for technical content. Connecting the author's @id to
+    # their professional profiles via sameAs strengthens Google's entity graph
+    # association and improves trust signal for every page.
+
+    # Names treated as "the site owner" — Rank Math sometimes emits "James"
+    # (the WordPress display name) and sometimes "James Kilby" (the schema
+    # person name). Both refer to the same Person.
+    PERSON_CANONICAL_NAMES = ('James Kilby', 'James')
+
+    # sameAs URLs — the canonical professional profile graph for entity linking.
+    # Pre-existing JSON-LD links to wordpress.jameskilby.cloud (the private CMS),
+    # which is wrong on a public schema; this list replaces that.
+    PERSON_SAME_AS = (
+        'https://github.com/jameskilbynet',
+        'https://x.com/jameskilbynet',
+    )
+
+    PERSON_JOB_TITLE = 'Cloud / Infrastructure Architect'
+
+    # Topic-expertise array. Pulled from the actual category distribution
+    # on the site — only areas with multiple substantive posts.
+    PERSON_KNOWS_ABOUT = (
+        'VMware vSphere',
+        'VMware Cloud on AWS',
+        'Homelab Infrastructure',
+        'Cloudflare',
+        'AWS',
+        'Ansible',
+        'Kubernetes',
+        'Storage',
+        'Self-hosted AI',
+        'Network Automation',
+    )
+
+    # Professional awards — see the homepage tagline, vexpert category, and
+    # VEXPERT_START_YEAR above. vExpert is a public VMware MVP-style program.
+    PERSON_AWARDS = (
+        'VMware vExpert',
+    )
+
     # Paths that should carry <meta name="robots" content="noindex,follow">
     # at serve time AND be excluded from sitemap.xml. "follow" preserves
     # link discovery so Google still crawls posts linked from these pages;
