@@ -1601,79 +1601,50 @@ document.addEventListener('DOMContentLoaded', function() {
         
         print(f"   🐞 Added favicon links for browser support")
     
+    # WP-leaked inline CSS files we drop from the page entirely.
+    # The brutalist theme already covers every visible element with !important
+    # overrides, so these add parse cost (~150 ms on mobile) without changing
+    # the rendered output. Gutenberg block content in posts may use the WP
+    # preset variables (--wp--preset--color--*); if a regression appears,
+    # re-introduce only `global-styles-inline-css` and `wp-block-library-inline-css`.
+    _WP_INLINE_CSS_DROP_PATTERNS = (
+        'wp-block-library-inline-css',
+        'wp-block-heading-inline-css',
+        'wp-block-paragraph-inline-css',
+        'wp-block-table-inline-css',
+        'wp-img-auto-sizes-contain-inline-css',
+        'global-styles-inline-css',
+        'classic-theme-styles-inline-css',
+        'inline-styles-',
+    )
+
     def consolidate_inline_css_files(self, soup):
-        """Consolidate multiple small inline CSS files into one to reduce critical request chain"""
+        """Strip WP-leaked inline CSS link tags. Previously concatenated them
+        into consolidated-inline-styles.min.css; now we drop them entirely
+        because the brutalist theme overrides everything visible.
+        """
         if not soup.head:
             return
-        
-        # Find all inline CSS files (wp-block-*, global-styles, etc.)
-        inline_css_patterns = [
-            'wp-block-library-inline-css',
-            'wp-block-heading-inline-css',
-            'wp-block-paragraph-inline-css',
-            'wp-block-table-inline-css',
-            'wp-img-auto-sizes-contain-inline-css',
-            'global-styles-inline-css',
-            'classic-theme-styles-inline-css',
-            'inline-styles-'
-        ]
-        
-        css_links_to_consolidate = []
-        
-        for link in soup.find_all('link', rel='stylesheet'):
+
+        dropped = []
+        for link in list(soup.find_all('link', rel='stylesheet')):
             href = link.get('href', '')
-            if any(pattern in href for pattern in inline_css_patterns):
-                css_links_to_consolidate.append(link)
-        
-        if len(css_links_to_consolidate) < 2:
-            return  # Not enough files to consolidate
-        
-        print(f"   📦 Consolidating {len(css_links_to_consolidate)} inline CSS files")
-        
-        # Read and merge CSS content
-        consolidated_css = []
-        
-        for link in css_links_to_consolidate:
-            href = link.get('href', '')
-            if href.startswith('/'):
-                css_file_path = self.output_dir / href.lstrip('/')
-                if css_file_path.exists():
-                    try:
-                        css_content = css_file_path.read_text(encoding='utf-8')
-                        consolidated_css.append(f"/* {href} */\n{css_content}\n")
-                    except Exception as e:
-                        print(f"   ⚠️  Could not read {href}: {e}")
-        
-        if not consolidated_css:
-            return
-        
-        # Create consolidated file
-        consolidated_content = '\n'.join(consolidated_css)
-        consolidated_filename = 'consolidated-inline-styles.min.css'
-        consolidated_path = self.output_dir / 'assets' / 'css' / consolidated_filename
-        
-        consolidated_path.parent.mkdir(parents=True, exist_ok=True)
-        consolidated_path.write_text(consolidated_content, encoding='utf-8')
-        
-        # Replace all inline CSS links with single consolidated link
-        # Remove old links
-        for link in css_links_to_consolidate:
-            link.decompose()
-        
-        # Add new consolidated link
-        consolidated_link = soup.new_tag('link')
-        consolidated_link['rel'] = 'stylesheet'
-        consolidated_link['href'] = f'/assets/css/{consolidated_filename}'
-        consolidated_link['media'] = 'all'
-        
-        # Insert after first stylesheet or at beginning of head
-        first_stylesheet = soup.find('link', rel='stylesheet')
-        if first_stylesheet:
-            first_stylesheet.insert_after(consolidated_link)
-        else:
-            soup.head.insert(0, consolidated_link)
-        
-        print(f"   ✅ Consolidated {len(css_links_to_consolidate)} CSS files → {consolidated_filename} ({len(consolidated_content)} bytes)")
+            if any(p in href for p in self._WP_INLINE_CSS_DROP_PATTERNS):
+                link.decompose()
+                dropped.append(href)
+
+        # Also strip the link to the previously-generated consolidated file
+        # so seeded pages from older builds don't keep fetching it.
+        for link in list(soup.find_all('link', rel='stylesheet')):
+            if link.get('href', '').endswith('/consolidated-inline-styles.min.css'):
+                link.decompose()
+                dropped.append(link.get('href', ''))
+        for preload in list(soup.find_all('link', rel='preload')):
+            if (preload.get('href') or '').endswith('/consolidated-inline-styles.min.css'):
+                preload.decompose()
+
+        if dropped:
+            print(f"   🧹 Dropped {len(dropped)} WP-leaked inline CSS link(s)")
 
     def add_brutalist_theme_css(self, soup):
         """Add brutalist theme CSS with critical mobile CSS inlined"""
