@@ -376,22 +376,46 @@ class HTMLTransformer:
 
         return inlined > 0
 
-    # Project-owned stylesheets we inline regardless of size. Both are
-    # render-blocking on every page; folding them into <head> trades ~10 KB
-    # of Brotli'd HTML weight for two saved round-trips on mobile, and lets
-    # the browser see brutalist-theme.css's @font-face declarations during
-    # the initial HTML parse.
+    # Project-owned stylesheets we inline directly into <head> as <style>
+    # tags, trading a few KB of Brotli'd HTML weight for a saved round-trip.
+    # brutalist-theme.css also carries the @font-face declarations so the
+    # browser discovers font URLs during the initial HTML parse.
     _PROJECT_INLINE_STYLESHEETS = (
         '/assets/css/brutalist-theme.css',
+    )
+
+    # Stylesheets we strip from the page without inlining. Used to clean up
+    # references to files we've stopped generating; on seeded pages the link
+    # would otherwise survive across pipeline runs.
+    _PROJECT_STRIP_STYLESHEETS = (
         '/assets/css/consolidated-inline-styles.min.css',
     )
 
-    def _apply_inline_project_stylesheets(self, soup):
-        """Inline project CSS files directly into <head> as <style> tags.
+    # <style> id stamped onto inlined content so future runs find and refresh
+    # the same tag rather than appending a stale duplicate.
+    _PROJECT_INLINE_STYLE_ID = {
+        '/assets/css/brutalist-theme.css': 'inlined-brutalist-theme',
+    }
 
-        Removes the corresponding <link rel="stylesheet">, any matching
-        <link rel="preload" as="style">, and any <noscript> fallback for the
-        same href — those become dead weight once the CSS is inlined.
+    # Content prefixes for detecting previously-inlined <style> tags from
+    # builds that predate the id markers. Match against the start of the
+    # tag's text content.
+    _PROJECT_INLINE_LEGACY_MARKERS = {
+        '/assets/css/brutalist-theme.css': (
+            '@font-face{font-family:"Anton"',
+            '@import url(/assets/fonts/fonts.css)',
+        ),
+        '/assets/css/consolidated-inline-styles.min.css': (
+            '/* /assets/css/inline-styles-',
+            '/* /assets/css/wp-block-library-inline-css',
+            '/* /assets/css/global-styles-inline-css',
+        ),
+    }
+
+    def _apply_inline_project_stylesheets(self, soup):
+        """Inline project CSS files into <head>; strip references to deprecated
+        ones. Idempotent: re-runs refresh existing inline content (matched by
+        id or legacy content marker) rather than appending duplicates.
         """
         if not soup.head:
             return False
@@ -399,20 +423,44 @@ class HTMLTransformer:
         def _normalize(href):
             return (href or '').split('?', 1)[0].split('#', 1)[0]
 
-        inlined = 0
+        def _find_existing_inline(target):
+            """Find a <style> tag in head that holds inlined content of target,
+            via stamped id first or legacy content prefix as fallback.
+            """
+            style_id = self._PROJECT_INLINE_STYLE_ID.get(target)
+            if style_id:
+                tag = soup.find('style', id=style_id)
+                if tag is not None and tag.parent is not None:
+                    return tag
+            markers = self._PROJECT_INLINE_LEGACY_MARKERS.get(target, ())
+            for style in soup.head.find_all('style'):
+                content = style.string or ''
+                if any(content.startswith(m) for m in markers):
+                    return style
+            return None
+
+        def _strip_link_artifacts(target):
+            removed = 0
+            for link in list(soup.head.find_all('link', rel='stylesheet')):
+                if _normalize(link.get('href')) == target:
+                    link.decompose()
+                    removed += 1
+            for preload in list(soup.head.find_all('link', rel='preload')):
+                if _normalize(preload.get('href')) == target:
+                    preload.decompose()
+                    removed += 1
+            for noscript in list(soup.head.find_all('noscript')):
+                if noscript.find('link', href=lambda h: _normalize(h) == target):
+                    noscript.decompose()
+                    removed += 1
+            return removed
+
+        modified = 0
+
         for target in self._PROJECT_INLINE_STYLESHEETS:
             css_path = self.public_dir / target.lstrip('/')
             if not css_path.exists():
                 continue
-
-            link = next(
-                (l for l in soup.head.find_all('link', rel='stylesheet')
-                 if _normalize(l.get('href')) == target),
-                None,
-            )
-            if link is None:
-                continue
-
             try:
                 content = css_path.read_text(encoding='utf-8').strip()
             except Exception:
@@ -420,22 +468,40 @@ class HTMLTransformer:
             if not content:
                 continue
 
-            style_tag = soup.new_tag('style')
-            style_tag.string = content
-            link.insert_before(style_tag)
-            link.decompose()
+            style_id = self._PROJECT_INLINE_STYLE_ID.get(target)
+            existing = _find_existing_inline(target)
 
-            # Strip the now-pointless preload and noscript fallback.
-            for preload in list(soup.head.find_all('link', rel='preload')):
-                if _normalize(preload.get('href')) == target:
-                    preload.decompose()
-            for noscript in list(soup.head.find_all('noscript')):
-                if noscript.find('link', href=lambda h: _normalize(h) == target):
-                    noscript.decompose()
+            if existing is not None:
+                # Refresh content and stamp the id for next time.
+                existing.string = content
+                if style_id:
+                    existing['id'] = style_id
+                modified += 1
+            else:
+                link = next(
+                    (l for l in soup.head.find_all('link', rel='stylesheet')
+                     if _normalize(l.get('href')) == target),
+                    None,
+                )
+                if link is None:
+                    continue
+                style_tag = soup.new_tag('style')
+                if style_id:
+                    style_tag['id'] = style_id
+                style_tag.string = content
+                link.insert_before(style_tag)
+                modified += 1
 
-            inlined += 1
+            _strip_link_artifacts(target)
 
-        return inlined > 0
+        for target in self._PROJECT_STRIP_STYLESHEETS:
+            modified += _strip_link_artifacts(target)
+            existing = _find_existing_inline(target)
+            if existing is not None:
+                existing.decompose()
+                modified += 1
+
+        return modified > 0
 
     @staticmethod
     def _dedup_head_string(html):
