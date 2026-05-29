@@ -45,6 +45,26 @@ class Config:
     # WordPress emits. Target ~50-60 chars so Google doesn't rewrite it
     # in SERPs (pixel budget ≈ 580px ≈ 55-60 chars).
     HOMEPAGE_TITLE = "James Kilby — VMware, Homelab & Cloud Infrastructure Notes"
+
+    # Paths that should carry <meta name="robots" content="noindex,follow">
+    # at serve time AND be excluded from sitemap.xml. "follow" preserves
+    # link discovery so Google still crawls posts linked from these pages;
+    # noindex stops the thin/utility pages themselves from competing in the
+    # index and inflating crawl budget. Each entry is a regex matched against
+    # the URL path (with trailing slash, e.g. "/category/aws/").
+    #
+    # See scripts/fix_seo_issues.py:fix_thin_archive_noindex (injects the
+    # meta tag) and wp_to_static_generator.py:_should_exclude_from_sitemap
+    # (drops them from sitemap). Both read this list — single source of truth.
+    NOINDEX_PATH_PATTERNS = (
+        r'^/category/.+',          # category archives (thin — list of post excerpts)
+        r'^/tag/.+',               # tag archives (currently 404 but future-proof)
+        r'^/page/\d+/?$',          # root pagination (no unique content)
+        r'^/changelog/?$',          # auto-generated changelog
+        r'^/evs/?$',               # raw event log (described as "non-content" in validate_seo)
+        r'^/stats/?$',             # auto-generated stats page
+        r'^/privacy-policy-2/?$',  # legal page — required, doesn't need to rank
+    )
     
     @classmethod
     def get_plausible_script_url(cls):
