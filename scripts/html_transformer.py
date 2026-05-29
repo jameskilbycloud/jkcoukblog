@@ -253,9 +253,17 @@ class HTMLTransformer:
         return html[:head_match.start()] + head_open + head_body + head_close + html[head_match.end():]
 
     def _apply_seo_fixes(self, soup, file_path):
-        """Apply all SEO transforms from SEOFixer on the soup object."""
+        """Apply all SEO transforms from SEOFixer on the soup object.
+
+        Mirrors SEOFixer.process_file's call order. When you add a fix method
+        to SEOFixer, you MUST also add it here — this orchestrator bypasses
+        process_file (which reads/writes the file itself) and drives the
+        SEOFixer methods on an already-parsed soup.
+        """
         modified = False
         if self.seo.fix_title_length(soup, file_path):
+            modified = True
+        if self.seo.fix_homepage_title(soup, file_path):
             modified = True
         if self.seo.fix_meta_description(soup, file_path):
             modified = True
