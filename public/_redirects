@@ -6,9 +6,10 @@
 #  www doesn't route to Pages and the apex zone returns 522.)
 www.jameskilby.co.uk/* https://jameskilby.co.uk/:splat 301!
 
-# /feed/ → RSS XML feed. Was previously a meta-refresh HTML shim,
-# which Google treats as a soft redirect; a 301 is the canonical form.
-/feed/ /feed/index.xml 301!
+# Note: /feed/ → /feed/index.xml redirect lives in _worker.template.js,
+# not here. _redirects is IGNORED in Cloudflare Pages Advanced Worker
+# mode (when public/_worker.js exists). Same reason the www redirect
+# above is also duplicated inside the worker.
 
 # Automatic redirects for spelling corrections
 /2025/04/warp-the-inteligent-terminal/ /2025/04/warp-the-intelligent-terminal/ 301
