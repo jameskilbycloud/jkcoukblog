@@ -14,8 +14,10 @@ sys.path.insert(0, str(Path(__file__).parent))
 try:
     from config import Config
     TARGET_DOMAIN = Config.TARGET_DOMAIN
+    HOMEPAGE_TITLE = getattr(Config, 'HOMEPAGE_TITLE', None)
 except (ImportError, AttributeError):
     TARGET_DOMAIN = 'https://jameskilby.co.uk'
+    HOMEPAGE_TITLE = None
 
 
 class SEOFixer:
@@ -55,6 +57,9 @@ class SEOFixer:
 
             # Apply fixes
             if self.fix_title_length(soup, file_path):
+                modified = True
+
+            if self.fix_homepage_title(soup, file_path):
                 modified = True
 
             if self.fix_meta_description(soup, file_path):
@@ -140,6 +145,48 @@ class SEOFixer:
         self.issues_fixed += 1
         print(f"   📏 Restored truncated title from JSON-LD: {file_path.name}")
         return True
+
+    def fix_homepage_title(self, soup, file_path):
+        """Replace the homepage <title>/og:title/twitter:title with the
+        canonical short title from Config.HOMEPAGE_TITLE.
+
+        Rank Math emits a 150-char title built by concatenating site
+        name + tagline + description. Google rewrites anything beyond
+        ~58 chars in SERPs, so the result is unpredictable. Lock it to
+        a tested ~60-char string so SERPs and social previews stay
+        consistent.
+        """
+        if not HOMEPAGE_TITLE:
+            return False
+        try:
+            rel = file_path.resolve().relative_to(self.public_dir.resolve())
+        except (ValueError, AttributeError):
+            return False
+        # Homepage is exactly public_dir/index.html
+        if str(rel) != 'index.html':
+            return False
+
+        modified = False
+
+        title_tag = soup.find('title')
+        if title_tag and (title_tag.get_text() or '').strip() != HOMEPAGE_TITLE:
+            title_tag.string = HOMEPAGE_TITLE
+            modified = True
+
+        og_title = soup.find('meta', attrs={'property': 'og:title'})
+        if og_title and og_title.get('content') != HOMEPAGE_TITLE:
+            og_title['content'] = HOMEPAGE_TITLE
+            modified = True
+
+        tw_title = soup.find('meta', attrs={'name': 'twitter:title'})
+        if tw_title and tw_title.get('content') != HOMEPAGE_TITLE:
+            tw_title['content'] = HOMEPAGE_TITLE
+            modified = True
+
+        if modified:
+            self.issues_fixed += 1
+            print(f"   🏷️  Locked homepage title to canonical form ({len(HOMEPAGE_TITLE)} chars)")
+        return modified
 
     @staticmethod
     def _extract_title_from_jsonld(soup):
