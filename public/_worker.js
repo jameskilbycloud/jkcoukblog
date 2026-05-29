@@ -136,6 +136,20 @@ export default {
     }
     // ────────────────────────────────────────────────────────────────────────
 
+    // ── Plausible Analytics proxy ────────────────────────────────────────────
+    // Serve script.js and /api/event from the same origin so:
+    //  - ad blockers don't recognise the third-party host
+    //  - the script is edge-cached at Cloudflare, not fetched from the VM
+    //  - one fewer TLS handshake on the visitor's first paint
+    // Must run before the GET-only guard below — /api/event is a POST.
+    if (path === '/js/script.js' && request.method === 'GET') {
+      return handlePlausibleScript(request);
+    }
+    if (path === '/api/event' && request.method === 'POST') {
+      return handlePlausibleEvent(request);
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
     // Only cache GET requests
     if (request.method !== 'GET') {
       return env.ASSETS.fetch(request);
@@ -407,6 +421,59 @@ function getTTL(path) {
   // Older content - 1 hour
   return 3600;
 }
+
+// ── Plausible proxy ────────────────────────────────────────────────────────
+// Upstream Plausible CE instance. Hostname-only; the proxy always targets
+// /js/script.js and /api/event so there's no path templating.
+const PLAUSIBLE_ORIGIN = 'https://plausible.jameskilby.cloud';
+
+/**
+ * Proxy GET /js/script.js → Plausible. Edge-cached so the VM only sees a
+ * trickle of requests per PoP per hour.
+ */
+async function handlePlausibleScript(request) {
+  const upstream = await fetch(`${PLAUSIBLE_ORIGIN}/js/script.js`, {
+    method: 'GET',
+    cf: { cacheEverything: true, cacheTtl: 3600 }
+  });
+
+  // Strip hop-by-hop headers; force a sane cache policy for the browser.
+  const headers = new Headers();
+  headers.set('Content-Type', upstream.headers.get('Content-Type') || 'application/javascript');
+  headers.set('Cache-Control', 'public, max-age=86400, stale-while-revalidate=3600');
+  headers.set('X-Worker', 'plausible-proxy');
+
+  return new Response(upstream.body, { status: upstream.status, headers });
+}
+
+/**
+ * Proxy POST /api/event → Plausible. Forwards the visitor IP via
+ * X-Forwarded-For (Plausible needs it for GeoIP + unique-visitor hashing)
+ * and the User-Agent (needed for the same hash). Never cached.
+ */
+async function handlePlausibleEvent(request) {
+  const headers = new Headers();
+  headers.set('Content-Type', request.headers.get('Content-Type') || 'application/json');
+  const ua = request.headers.get('User-Agent');
+  if (ua) headers.set('User-Agent', ua);
+  const clientIp = request.headers.get('CF-Connecting-IP');
+  if (clientIp) headers.set('X-Forwarded-For', clientIp);
+
+  const upstream = await fetch(`${PLAUSIBLE_ORIGIN}/api/event`, {
+    method: 'POST',
+    headers,
+    body: request.body
+  });
+
+  const respHeaders = new Headers();
+  respHeaders.set('Cache-Control', 'no-store');
+  respHeaders.set('X-Worker', 'plausible-proxy');
+  const ct = upstream.headers.get('Content-Type');
+  if (ct) respHeaders.set('Content-Type', ct);
+
+  return new Response(upstream.body, { status: upstream.status, headers: respHeaders });
+}
+// ───────────────────────────────────────────────────────────────────────────
 
 /**
  * Handle selective cache purge — POST only (#18)
