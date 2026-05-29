@@ -1,6 +1,6 @@
 ---
 title: "Runecast Remediation Scripts: Auto-Fix VMware Storage Issues"
-description: "I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab. One of the really cool features I wanted to mention..."
+description: "I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab."
 date: 2023-05-16T10:38:45+00:00
 modified: 2026-04-16T22:01:51+00:00
 author: James Kilby

@@ -34,7 +34,7 @@
     {
       "slug": "lab-update-part-5-desired-workloads",
       "title": "Lab Update – Desired Workloads",
-      "description": "My lab is always undergoing change. Partially as I want to try new things or new ways of doing things. Sometimes because I break things (not always by accide...",
+      "description": "My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.",
       "date": "2022-01-06T19:23:11Z",
       "modified": "2026-05-25T11:09:16Z",
       "author": "James Kilby",
@@ -165,7 +165,7 @@
     {
       "slug": "how-i-moved-my-wordpress-site-to-cloudflare-pages",
       "title": "Static WordPress hosting using Cloudflare",
-      "description": "For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product. I did this originally as a learning exerci...",
+      "description": "For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product.",
       "date": "2022-10-20T15:26:08Z",
       "modified": "2026-04-16T22:01:53Z",
       "author": "James Kilby",
@@ -232,7 +232,7 @@
     {
       "slug": "warp-the-intelligent-terminal",
       "title": "Warp – The intelligent terminal",
-      "description": "Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and theref...",
+      "description": "Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and",
       "date": "2025-04-11T15:46:23Z",
       "modified": "2026-05-25T17:18:26Z",
       "author": "James Kilby",

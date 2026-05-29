@@ -1,6 +1,6 @@
 ---
 title: "Advanced Deploy VMware vSphere 7.x 3V0-22.21N"
-description: "Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover dea..."
+description: "Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years."
 date: 2023-11-10T11:34:42+00:00
 modified: 2026-05-25T11:09:17+00:00
 author: James Kilby

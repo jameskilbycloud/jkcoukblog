@@ -1,6 +1,6 @@
 ---
 title: "Lab Update – Desired Workloads"
-description: "My lab is always undergoing change. Partially as I want to try new things or new ways of doing things. Sometimes because I break things (not always by accide..."
+description: "My lab is always undergoing change. Partially as I want to try new things or new ways of doing things."
 date: 2022-01-06T19:23:11+00:00
 modified: 2026-05-25T11:09:16+00:00
 author: James Kilby

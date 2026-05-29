@@ -1,6 +1,6 @@
 ---
 title: "AWS For Beginners: IAM Setup, Root Security & Billing Alerts"
-description: "I am hoping to get back into doing some AWS stuff over the next couple of months. I am a huge fan of some of the tools and technology they have built. It’s..."
+description: "I am hoping to get back into doing some AWS stuff over the next couple of months. I am a huge fan of some of the tools and technology they have built."
 date: 2018-03-30T23:13:21+00:00
 modified: 2026-04-11T09:00:42+00:00
 author: James Kilby

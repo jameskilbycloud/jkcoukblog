@@ -1,6 +1,6 @@
 ---
 title: "Warp – The intelligent terminal"
-description: "Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and theref..."
+description: "Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and"
 date: 2025-04-11T15:46:23+00:00
 modified: 2026-05-25T17:18:26+00:00
 author: James Kilby

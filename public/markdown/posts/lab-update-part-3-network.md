@@ -1,6 +1,6 @@
 ---
 title: "Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense"
-description: "I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes. I will likely virtualise this in the f..."
+description: "I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes."
 date: 2022-01-06T19:25:40+00:00
 modified: 2026-04-16T22:01:55+00:00
 author: James Kilby

@@ -6,7 +6,7 @@
     {
       "slug": "time-in-a-vmc-environment",
       "title": "VMware Cloud on AWS Time Sync & NTP Configuration",
-      "description": "One of the nice things about the VMC Service is that you dont have to worry about a number of the traditional infrastructure services that you typically obse...",
+      "description": "One of the nice things about the VMC Service is that you dont have to worry about a number of the traditional infrastructure services that you typically",
       "date": "2025-12-08T14:03:44Z",
       "modified": "2026-05-25T17:15:48Z",
       "author": "James Kilby",
@@ -28,7 +28,7 @@
     {
       "slug": "vsan-cluster-shutdown",
       "title": "vSAN Cluster Shutdown – Orchestration",
-      "description": "As can be seen on my Lab Overview page, I have a GPU/Management cluster that is usually running 24×7. I also have a 3x Node vSAN cluster that I use when I ne...",
+      "description": "As can be seen on my Lab Overview page, I have a GPU/Management cluster that is usually running 24×7.",
       "date": "2025-12-06T10:59:14Z",
       "modified": "2026-05-25T08:36:12Z",
       "author": "James Kilby",

@@ -1,6 +1,6 @@
 ---
 title: "Using Intel Optane NVMe in a VMware Homelab: Setup & Results"
-description: "I have been a VMware vExpert for many years and it has brought me many many benefits over the years. I don’t think it’s an understatement to say I probably w..."
+description: "I have been a VMware vExpert for many years and it has brought me many many benefits over the years."
 date: 2023-04-17T12:20:04+00:00
 modified: 2026-05-25T11:09:17+00:00
 author: James Kilby

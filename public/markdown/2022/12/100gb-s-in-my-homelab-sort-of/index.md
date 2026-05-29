@@ -1,6 +1,6 @@
 ---
 title: "MikroTik CRS504 Review: 100Gb/s Networking in My Homelab"
-description: "For a while, I’ve been looking to update the networking at the core of my homelab. I have had some great results with the current setup utilising a number o..."
+description: "For a while, I’ve been looking to update the networking at the core of my homelab."
 date: 2022-12-19T10:09:58+00:00
 modified: 2026-04-16T22:01:52+00:00
 author: James Kilby

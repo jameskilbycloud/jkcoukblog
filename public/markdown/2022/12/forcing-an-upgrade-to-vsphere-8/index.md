@@ -1,6 +1,6 @@
 ---
 title: "Forcing an Upgrade to vSphere 8"
-description: "I run a reasonably extensive homelab that is of course built around the VMware ecosystem. So with the release of vSphere 8 I was obviously going to upgrade ..."
+description: "I run a reasonably extensive homelab that is of course built around the VMware ecosystem."
 date: 2022-12-14T21:43:39+00:00
 modified: 2026-04-16T22:01:52+00:00
 author: James Kilby

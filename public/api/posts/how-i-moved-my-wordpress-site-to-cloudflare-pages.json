@@ -1,7 +1,7 @@
 {
   "slug": "how-i-moved-my-wordpress-site-to-cloudflare-pages",
   "title": "Static WordPress hosting using Cloudflare",
-  "description": "For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product. I did this originally as a learning exerci...",
+  "description": "For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product.",
   "date": "2022-10-20T15:26:08Z",
   "modified": "2026-04-16T22:01:53Z",
   "author": "James Kilby",

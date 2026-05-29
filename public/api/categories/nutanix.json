@@ -5,7 +5,7 @@
     {
       "slug": "and-now-for-something-completely-different",
       "title": "And now for something completely different",
-      "description": "I have worked for my current employer Zen Internet for 3.5 years. Over that time I have changed roles from what was originally a customer-focused role into...",
+      "description": "I have worked for my current employer Zen Internet for 3.5 years. Over that time I have changed roles from what was originally a customer-focused role",
       "date": "2018-10-16T08:22:45Z",
       "modified": "2026-04-16T22:02:02Z",
       "author": "James Kilby",
@@ -28,7 +28,7 @@
     {
       "slug": "forcing-an-upgrade-to-vsphere-8",
       "title": "Forcing an Upgrade to vSphere 8",
-      "description": "I run a reasonably extensive homelab that is of course built around the VMware ecosystem. So with the release of vSphere 8 I was obviously going to upgrade ...",
+      "description": "I run a reasonably extensive homelab that is of course built around the VMware ecosystem.",
       "date": "2022-12-14T21:43:39Z",
       "modified": "2026-04-16T22:01:52Z",
       "author": "James Kilby",
@@ -118,7 +118,7 @@
     {
       "slug": "lab-update-part-2-storage",
       "title": "Lab Update – Part 2 Storage Truenas Scale",
-      "description": "The HP Z840 has changed its role to a permanent storage box running Truenas Scale. This is in addition to my Synology DS918+...",
+      "description": "The HP Z840 has changed its role to a permanent storage box running Truenas Scale. This is in addition to my Synology DS918+",
       "date": "2022-01-11T22:35:02Z",
       "modified": "2026-04-16T22:01:55Z",
       "author": "James Kilby",
@@ -150,7 +150,7 @@
     {
       "slug": "nutanix-command-reference-guide",
       "title": "Nutanix Command Reference Guide",
-      "description": "This is a list of Nutanix commands I have found useful. Its here as a reference and if i need a command more than a few times ill generally add it here....",
+      "description": "This is a list of Nutanix commands I have found useful. Its here as a reference and if i need a command more than a few times ill generally add it here.",
       "date": "2018-06-05T20:59:24Z",
       "modified": "2026-03-10T20:35:15Z",
       "author": "James Kilby",
@@ -173,7 +173,7 @@
     {
       "slug": "100gb-s-in-my-homelab-sort-of",
       "title": "MikroTik CRS504 Review: 100Gb/s Networking in My Homelab",
-      "description": "For a while, I’ve been looking to update the networking at the core of my homelab. I have had some great results with the current setup utilising a number o...",
+      "description": "For a while, I’ve been looking to update the networking at the core of my homelab.",
       "date": "2022-12-19T10:09:58Z",
       "modified": "2026-04-16T22:01:52Z",
       "author": "James Kilby",
@@ -205,7 +205,7 @@
     {
       "slug": "intel-optane",
       "title": "Using Intel Optane NVMe in a VMware Homelab: Setup & Results",
-      "description": "I have been a VMware vExpert for many years and it has brought me many many benefits over the years. I don’t think it’s an understatement to say I probably w...",
+      "description": "I have been a VMware vExpert for many years and it has brought me many many benefits over the years.",
       "date": "2023-04-17T12:20:04Z",
       "modified": "2026-05-25T11:09:17Z",
       "author": "James Kilby",
@@ -241,7 +241,7 @@
     {
       "slug": "lab-update-part-5-desired-workloads",
       "title": "Lab Update – Desired Workloads",
-      "description": "My lab is always undergoing change. Partially as I want to try new things or new ways of doing things. Sometimes because I break things (not always by accide...",
+      "description": "My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.",
       "date": "2022-01-06T19:23:11Z",
       "modified": "2026-05-25T11:09:16Z",
       "author": "James Kilby",
@@ -312,7 +312,7 @@
     {
       "slug": "nutanix-ce",
       "title": "Running Nutanix CE at Home: AHV Setup & First Impressions",
-      "description": "I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to con...",
+      "description": "I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to",
       "date": "2018-01-06T17:28:56Z",
       "modified": "2026-04-16T22:02:05Z",
       "author": "James Kilby",
@@ -343,7 +343,7 @@
     {
       "slug": "aws-solution-architect-associate",
       "title": "AWS Solution Architect – Associate",
-      "description": "Today was a good day. I renewed my AWS Solution Architect certification. Although my work is primarily in and around the VMware ecosystem I have been wor...",
+      "description": "Today was a good day. I renewed my AWS Solution Architect certification. Although my work is primarily in and around the VMware ecosystem I have been",
       "date": "2019-12-16T23:46:22Z",
       "modified": "2026-04-16T22:02:01Z",
       "author": "James Kilby",
@@ -430,7 +430,7 @@
     {
       "slug": "advanced-deploy-vmware-vsphere-7-x-3v0-22-21n",
       "title": "Advanced Deploy VMware vSphere 7.x 3V0-22.21N",
-      "description": "Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover dea...",
+      "description": "Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years.",
       "date": "2023-11-10T11:34:42Z",
       "modified": "2026-05-25T11:09:17Z",
       "author": "James Kilby",
@@ -467,7 +467,7 @@
     {
       "slug": "going-out-with-a-bang",
       "title": "VMware – Going out with a Bang!",
-      "description": "There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom. There are a lot of unknowns for the staff an...",
+      "description": "There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom.",
       "date": "2023-10-07T12:37:14Z",
       "modified": "2026-04-16T22:01:50Z",
       "author": "James Kilby",
@@ -527,7 +527,7 @@
     {
       "slug": "warp-the-intelligent-terminal",
       "title": "Warp – The intelligent terminal",
-      "description": "Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and theref...",
+      "description": "Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and",
       "date": "2025-04-11T15:46:23Z",
       "modified": "2026-05-25T17:18:26Z",
       "author": "James Kilby",

@@ -1,6 +1,6 @@
 ---
 title: "Hosting This Blog on Cloudflare Workers: Why & How I Did It"
-description: "A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them. This is partly related to some issues I have bee..."
+description: "A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them."
 date: 2022-01-04T11:27:12+00:00
 modified: 2026-05-25T08:24:40+00:00
 author: James Kilby

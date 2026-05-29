@@ -1,6 +1,6 @@
 ---
 title: "Running Nutanix CE at Home: AHV Setup & First Impressions"
-description: "I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to con..."
+description: "I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to"
 date: 2018-01-06T17:28:56+00:00
 modified: 2026-04-16T22:02:05+00:00
 author: James Kilby

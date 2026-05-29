@@ -5,7 +5,7 @@
     {
       "slug": "web-development-improvements",
       "title": "Blog Performance & SEO Improvements: Cloudflare, Privacy & More",
-      "description": "I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend” These help improve the performance, Privacy, SEO,...",
+      "description": "I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend” These help improve the performance, Privacy",
       "date": "2026-01-15T15:12:16Z",
       "modified": "2026-05-25T11:09:18Z",
       "author": "James Kilby",
@@ -33,7 +33,7 @@
     {
       "slug": "and-now-for-something-completely-different",
       "title": "And now for something completely different",
-      "description": "I have worked for my current employer Zen Internet for 3.5 years. Over that time I have changed roles from what was originally a customer-focused role into...",
+      "description": "I have worked for my current employer Zen Internet for 3.5 years. Over that time I have changed roles from what was originally a customer-focused role",
       "date": "2018-10-16T08:22:45Z",
       "modified": "2026-04-16T22:02:02Z",
       "author": "James Kilby",
@@ -56,7 +56,7 @@
     {
       "slug": "forcing-an-upgrade-to-vsphere-8",
       "title": "Forcing an Upgrade to vSphere 8",
-      "description": "I run a reasonably extensive homelab that is of course built around the VMware ecosystem. So with the release of vSphere 8 I was obviously going to upgrade ...",
+      "description": "I run a reasonably extensive homelab that is of course built around the VMware ecosystem.",
       "date": "2022-12-14T21:43:39Z",
       "modified": "2026-04-16T22:01:52Z",
       "author": "James Kilby",
@@ -146,7 +146,7 @@
     {
       "slug": "starlink",
       "title": "Starlink Satellite Internet Review: Rural Broadband Solution",
-      "description": "Since moving to Dorset last year internet connectivity has been the bane of my existence. Currently, I have an ADSL connection provided by my old employer Ze...",
+      "description": "Since moving to Dorset last year internet connectivity has been the bane of my existence.",
       "date": "2022-10-11T21:40:50Z",
       "modified": "2026-05-25T11:09:17Z",
       "author": "James Kilby",
@@ -180,7 +180,7 @@
     {
       "slug": "aws-for-beginners1",
       "title": "AWS For Beginners: IAM Setup, Root Security & Billing Alerts",
-      "description": "I am hoping to get back into doing some AWS stuff over the next couple of months. I am a huge fan of some of the tools and technology they have built. It’s...",
+      "description": "I am hoping to get back into doing some AWS stuff over the next couple of months. I am a huge fan of some of the tools and technology they have built.",
       "date": "2018-03-30T23:13:21Z",
       "modified": "2026-04-11T09:00:42Z",
       "author": "James Kilby",
@@ -244,7 +244,7 @@
     {
       "slug": "nutanix-command-reference-guide",
       "title": "Nutanix Command Reference Guide",
-      "description": "This is a list of Nutanix commands I have found useful. Its here as a reference and if i need a command more than a few times ill generally add it here....",
+      "description": "This is a list of Nutanix commands I have found useful. Its here as a reference and if i need a command more than a few times ill generally add it here.",
       "date": "2018-06-05T20:59:24Z",
       "modified": "2026-03-10T20:35:15Z",
       "author": "James Kilby",
@@ -333,7 +333,7 @@
     {
       "slug": "web-development",
       "title": "Hosting This Blog on Cloudflare Workers: Why & How I Did It",
-      "description": "A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them. This is partly related to some issues I have bee...",
+      "description": "A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them.",
       "date": "2022-01-04T11:27:12Z",
       "modified": "2026-05-25T08:24:40Z",
       "author": "James Kilby",
@@ -398,7 +398,7 @@
     {
       "slug": "cloudflare",
       "title": "What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained",
-      "description": "I have been using Cloudflare for a long time. It is one of my go-to services and I use it to protect all of the public services I run for myself and other s...",
+      "description": "I have been using Cloudflare for a long time. It is one of my go-to services and I use it to protect all of the public services I run for myself and other",
       "date": "2018-03-27T12:30:48Z",
       "modified": "2026-04-16T22:02:04Z",
       "author": "James Kilby",
@@ -491,7 +491,7 @@
     {
       "slug": "whats-in-my-backpack",
       "title": "What’s In My Tech Bag? Everyday Carry for IT Consultants",
-      "description": "I have seen a few posts online recently about the tools and technology people use on a day to day basis. A few components that I have no one seems to have ...",
+      "description": "I have seen a few posts online recently about the tools and technology people use on a day to day basis.",
       "date": "2019-01-10T21:48:41Z",
       "modified": "2026-04-16T22:02:02Z",
       "author": "James Kilby",
@@ -508,7 +508,7 @@
     {
       "slug": "aws-solution-architect-associate",
       "title": "AWS Solution Architect – Associate",
-      "description": "Today was a good day. I renewed my AWS Solution Architect certification. Although my work is primarily in and around the VMware ecosystem I have been wor...",
+      "description": "Today was a good day. I renewed my AWS Solution Architect certification. Although my work is primarily in and around the VMware ecosystem I have been",
       "date": "2019-12-16T23:46:22Z",
       "modified": "2026-04-16T22:02:01Z",
       "author": "James Kilby",
@@ -717,7 +717,7 @@
     {
       "slug": "advanced-deploy-vmware-vsphere-7-x-3v0-22-21n",
       "title": "Advanced Deploy VMware vSphere 7.x 3V0-22.21N",
-      "description": "Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover dea...",
+      "description": "Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years.",
       "date": "2023-11-10T11:34:42Z",
       "modified": "2026-05-25T11:09:17Z",
       "author": "James Kilby",
@@ -754,7 +754,7 @@
     {
       "slug": "i3en",
       "title": "VMware Cloud on AWS i3en Host: Specs, Storage & Performance",
-      "description": "VMware Cloud on AWS (VMC) has introduced a new host to its lineup the “i3en”. This is based on the i3en.metal AWS instance....",
+      "description": "VMware Cloud on AWS (VMC) has introduced a new host to its lineup the “i3en”. This is based on the i3en.metal AWS instance.",
       "date": "2020-07-02T22:01:39Z",
       "modified": "2026-04-16T22:01:59Z",
       "author": "James Kilby",
@@ -787,7 +787,7 @@
     {
       "slug": "going-out-with-a-bang",
       "title": "VMware – Going out with a Bang!",
-      "description": "There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom. There are a lot of unknowns for the staff an...",
+      "description": "There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom.",
       "date": "2023-10-07T12:37:14Z",
       "modified": "2026-04-16T22:01:50Z",
       "author": "James Kilby",
@@ -860,7 +860,7 @@
     {
       "slug": "holodeck-cpu-fixes",
       "title": "VMware Holodeck on Older CPUs: Fixing Compatibility Issues",
-      "description": "Disclaimer: This is not a supported configuration by the Holodeck team please don’t reach out to them for help. No support will be given for running CPUs wit...",
+      "description": "Disclaimer: This is not a supported configuration by the Holodeck team please don’t reach out to them for help.",
       "date": "2024-01-18T14:37:04Z",
       "modified": "2026-05-25T11:09:17Z",
       "author": "James Kilby",
@@ -891,7 +891,7 @@
     {
       "slug": "vmware-certified-master-specialist-hci-2020",
       "title": "VMware Certified Master Specialist HCI 2020",
-      "description": "I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.20). I won’t go into any details of the contents but I will comment that I felt the ...",
+      "description": "I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.20). I won’t go into any details of the contents but I will comment that I felt",
       "date": "2020-09-13T21:38:48Z",
       "modified": "2026-04-16T22:01:59Z",
       "author": "James Kilby",
@@ -926,7 +926,7 @@
     {
       "slug": "analytics-in-a-privacy-focused-world",
       "title": "Analytics in a privacy focused world",
-      "description": "I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance...",
+      "description": "I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress",
       "date": "2023-11-10T16:45:03Z",
       "modified": "2026-05-25T08:06:40Z",
       "author": "James Kilby",
@@ -963,7 +963,7 @@
     {
       "slug": "vmc-host-errors",
       "title": "How VMware Cloud on AWS Handles Host Failures Automatically",
-      "description": "When you run a large enough infrastructure, failure is inevitable. How you handle that can be a big differentiator. With VMware Cloud on AWS, the hosts are m...",
+      "description": "When you run a large enough infrastructure, failure is inevitable. How you handle that can be a big differentiator.",
       "date": "2020-09-15T10:56:32Z",
       "modified": "2026-05-25T17:18:25Z",
       "author": "James Kilby",

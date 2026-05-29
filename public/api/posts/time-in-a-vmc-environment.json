@@ -1,7 +1,7 @@
 {
   "slug": "time-in-a-vmc-environment",
   "title": "VMware Cloud on AWS Time Sync & NTP Configuration",
-  "description": "One of the nice things about the VMC Service is that you dont have to worry about a number of the traditional infrastructure services that you typically obse...",
+  "description": "One of the nice things about the VMC Service is that you dont have to worry about a number of the traditional infrastructure services that you typically",
   "date": "2025-12-08T14:03:44Z",
   "modified": "2026-05-25T17:15:48Z",
   "author": "James Kilby",

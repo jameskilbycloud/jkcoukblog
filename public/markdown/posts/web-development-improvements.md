@@ -1,6 +1,6 @@
 ---
 title: "Blog Performance & SEO Improvements: Cloudflare, Privacy & More"
-description: "I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend” These help improve the performance, Privacy, SEO,..."
+description: "I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend” These help improve the performance, Privacy"
 date: 2026-01-15T15:12:16+00:00
 modified: 2026-05-25T11:09:18+00:00
 author: James Kilby

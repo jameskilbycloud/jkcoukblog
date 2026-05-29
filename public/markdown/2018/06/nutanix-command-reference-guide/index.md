@@ -1,6 +1,6 @@
 ---
 title: "Nutanix Command Reference Guide"
-description: "This is a list of Nutanix commands I have found useful. Its here as a reference and if i need a command more than a few times ill generally add it here...."
+description: "This is a list of Nutanix commands I have found useful. Its here as a reference and if i need a command more than a few times ill generally add it here."
 date: 2018-06-05T20:59:24+00:00
 modified: 2026-03-10T20:35:15+00:00
 author: James Kilby

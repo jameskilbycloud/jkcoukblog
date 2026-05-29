@@ -1,6 +1,6 @@
 ---
 title: "New VMware Cloud on AWS Host: i7i.metal-24xl"
-description: "We’ve expanded the VMC fleet with the new i7i (i7i.24xlarge) host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it delivers t..."
+description: "We’ve expanded the VMC fleet with the new i7i (i7i.24xlarge)host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it delivers"
 date: 2026-04-01T08:06:00+00:00
 modified: 2026-04-16T22:01:38+00:00
 author: James Kilby

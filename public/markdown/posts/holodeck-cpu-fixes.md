@@ -1,6 +1,6 @@
 ---
 title: "VMware Holodeck on Older CPUs: Fixing Compatibility Issues"
-description: "Disclaimer: This is not a supported configuration by the Holodeck team please don’t reach out to them for help. No support will be given for running CPUs wit..."
+description: "Disclaimer: This is not a supported configuration by the Holodeck team please don’t reach out to them for help."
 date: 2024-01-18T14:37:04+00:00
 modified: 2026-05-25T11:09:17+00:00
 author: James Kilby

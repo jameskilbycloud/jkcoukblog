@@ -1,6 +1,6 @@
 ---
 title: "About Me"
-description: "About Me: I'm a Solution Architect in Dorset, specializing in AWS based Hyperscaler VMware solutions and a vExpert for 11 years. Passionate about tech and ph..."
+description: "I’m based in Dorset, and I work as a Solution Architect on Broadcom’s EMEA Hyperscalers team, specialising in AWS-driven hyperscaler architectures."
 date: 2020-06-27T19:58:34+00:00
 modified: 2026-02-20T08:36:24+00:00
 author: James Kilby
