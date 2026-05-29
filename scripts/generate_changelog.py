@@ -218,7 +218,14 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Changelog - James Kilby</title>
     <meta name="description" content="Site improvements, deployments, and performance metrics for James Kilby's technical blog.">
-    <meta name="robots" content="index, follow">
+    <!--
+        noindex,follow: /changelog/ is an auto-generated build artifact, not
+        content meant to rank. Follow keeps internal-link discovery alive.
+        Matches Config.NOINDEX_PATH_PATTERNS — this template runs AFTER
+        html_transformer (which would also have injected this), so baking it
+        in at source prevents the post-transform overwrite from undoing it.
+    -->
+    <meta name="robots" content="noindex, follow">
     <link rel="canonical" href="https://jameskilby.co.uk/changelog/">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap');
