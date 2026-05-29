@@ -17,12 +17,14 @@ try:
     from config import Config
     TARGET_DOMAIN = Config.TARGET_DOMAIN
     HOMEPAGE_TITLE = getattr(Config, 'HOMEPAGE_TITLE', None)
+    TWITTER_HANDLE = getattr(Config, 'TWITTER_HANDLE', None)
     NOINDEX_PATH_PATTERNS = tuple(
         re.compile(p) for p in getattr(Config, 'NOINDEX_PATH_PATTERNS', ())
     )
 except (ImportError, AttributeError):
     TARGET_DOMAIN = 'https://jameskilby.co.uk'
     HOMEPAGE_TITLE = None
+    TWITTER_HANDLE = None
     NOINDEX_PATH_PATTERNS = ()
 
 
@@ -102,6 +104,9 @@ class SEOFixer:
                 modified = True
 
             if self.fix_og_site_name(soup, file_path):
+                modified = True
+
+            if self.fix_twitter_attribution(soup, file_path):
                 modified = True
 
             if self.fix_malformed_stylesheet_attr(soup, file_path):
@@ -838,6 +843,54 @@ class SEOFixer:
             self.issues_fixed += 1
             print(f"   🏷️  Fixed og:site_name (Jameskilbycouk → James Kilby): {file_path.name}")
 
+        return modified
+
+    def fix_twitter_attribution(self, soup, file_path):
+        """Ensure every page with a twitter:card also emits twitter:site and
+        twitter:creator pointing at Config.TWITTER_HANDLE.
+
+        Rank Math's default doesn't include twitter:site / twitter:creator,
+        which means X/Twitter previews show the link target text but no
+        attribution to the author. With these tags, the card shows the
+        author's @ handle and (where rendered) the author's avatar.
+
+        Single-author blog → site and creator are the same handle; no
+        per-post variance needed.
+
+        Only fires on pages that have twitter:card — pages without any
+        Twitter card meta aren't expected to render previews and we don't
+        want to introduce orphan tags.
+        """
+        if not TWITTER_HANDLE:
+            return False
+
+        twitter_card = soup.find('meta', attrs={'name': 'twitter:card'})
+        if not twitter_card:
+            return False
+
+        modified = False
+
+        for prop_name in ('twitter:site', 'twitter:creator'):
+            existing = soup.find('meta', attrs={'name': prop_name})
+            if existing:
+                # Already set to the right value? skip
+                if (existing.get('content') or '').strip() == TWITTER_HANDLE:
+                    continue
+                existing['content'] = TWITTER_HANDLE
+                modified = True
+            else:
+                # Insert right after twitter:card so all twitter:* tags
+                # stay grouped — easier to eyeball in view-source
+                new_tag = soup.new_tag(
+                    'meta',
+                    attrs={'name': prop_name, 'content': TWITTER_HANDLE},
+                )
+                twitter_card.insert_after(new_tag)
+                modified = True
+
+        if modified:
+            self.issues_fixed += 1
+            print(f"   🐦 Added twitter:site/twitter:creator ({TWITTER_HANDLE}): {file_path.name}")
         return modified
 
     def fix_malformed_stylesheet_attr(self, soup, file_path):
