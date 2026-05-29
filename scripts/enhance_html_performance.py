@@ -189,10 +189,10 @@ class HTMLPerformanceEnhancer:
 
         modified = False
 
-        # Critical domains that should use preconnect (stronger than dns-prefetch)
-        critical_domains = {
-            'https://plausible.jameskilby.cloud',  # Analytics
-        }
+        # Critical domains that should use preconnect (stronger than dns-prefetch).
+        # Plausible used to live here; it's now served same-origin via the
+        # Cloudflare Worker proxy, so no third-party preconnect is required.
+        critical_domains = set()
 
         for domain in critical_domains:
             # Check if this domain is actually used in the page
