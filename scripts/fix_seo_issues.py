@@ -102,39 +102,82 @@ class SEOFixer:
             print(f"⚠️  Error processing {file_path}: {e}")
             return False
 
+    # When a previous build truncated the <title>, it ends with this literal
+    # ellipsis. We restore the full title from JSON-LD if we can find it.
+    _TRUNCATED_TITLE_SUFFIX = '...'
+
     def fix_title_length(self, soup, file_path):
-        """Fix title tags that are too long or too short"""
+        """Repair broken <title> tags from previous builds and normalize.
+
+        Older versions of this method brutally truncated any <title> over
+        60 chars by chopping it at 57 chars and appending a literal '...'.
+        That signalled "broken/auto-generated content" to Google and was
+        the dominant cause of "Crawled — currently not indexed" in GSC
+        (40 of 72 posts had it). Restore the full title from JSON-LD
+        TechArticle.headline / Article.headline / WebPage.name when we
+        find a previously-truncated title; otherwise leave the title
+        alone so Google handles display truncation itself.
+        """
         title_tag = soup.find('title')
         if not title_tag:
             return False
 
         title_text = title_tag.get_text().strip()
-        modified = False
+        if not title_text.endswith(self._TRUNCATED_TITLE_SUFFIX):
+            return False
 
-        # Too long (>60 chars)
-        if len(title_text) > 60:
-            # Try to intelligently truncate
-            # Remove site suffix if present
-            if ' | ' in title_text:
-                parts = title_text.split(' | ')
-                # Keep first part and last part (site name), truncate middle
-                if len(parts) > 2:
-                    new_title = f"{parts[0]} | {parts[-1]}"
-                    if len(new_title) <= 60:
-                        title_tag.string = new_title
-                        self.issues_fixed += 1
-                        modified = True
-                        print(f"   📏 Fixed long title: {file_path.name}")
-                        return modified
+        full_title = self._extract_title_from_jsonld(soup)
+        if not full_title or full_title == title_text:
+            return False
 
-            # Simple truncation with ellipsis
-            truncated = title_text[:57] + '...'
-            title_tag.string = truncated
-            self.issues_fixed += 1
-            modified = True
-            print(f"   📏 Truncated long title: {file_path.name}")
+        # HTML-entity-decode (JSON-LD often holds &amp; / &#039; etc.)
+        import html as _html
+        full_title = _html.unescape(full_title).strip()
+        if not full_title or full_title == title_text:
+            return False
 
-        return modified
+        title_tag.string = full_title
+        self.issues_fixed += 1
+        print(f"   📏 Restored truncated title from JSON-LD: {file_path.name}")
+        return True
+
+    @staticmethod
+    def _extract_title_from_jsonld(soup):
+        """Pull the first plausible full-length title out of any JSON-LD
+        block in the page. Order of preference: TechArticle.headline,
+        Article.headline, BlogPosting.headline, WebPage.name.
+        """
+        import json as _json
+
+        preferred = (
+            ('TechArticle', 'headline'),
+            ('Article', 'headline'),
+            ('BlogPosting', 'headline'),
+            ('WebPage', 'name'),
+            ('CollectionPage', 'name'),
+        )
+
+        candidates = {}
+        for script in soup.find_all('script', type='application/ld+json'):
+            try:
+                data = _json.loads(script.string or '')
+            except Exception:
+                continue
+            graph = data.get('@graph', [data]) if isinstance(data, dict) else [data]
+            for item in graph:
+                if not isinstance(item, dict):
+                    continue
+                t = item.get('@type')
+                types = t if isinstance(t, list) else [t]
+                for tt in types:
+                    for needle_type, needle_field in preferred:
+                        if tt == needle_type and item.get(needle_field):
+                            candidates.setdefault(needle_type, item[needle_field])
+
+        for needle_type, _field in preferred:
+            if needle_type in candidates:
+                return candidates[needle_type]
+        return None
 
     def fix_meta_description(self, soup, file_path):
         """Fix meta description length"""
@@ -145,16 +188,16 @@ class SEOFixer:
         desc = meta_desc.get('content', '')
         modified = False
 
-        # Too long (>160 chars)
+        # NOTE: long meta descriptions are not truncated here. Google decides
+        # how to display snippets and routinely rewrites them; an explicit
+        # "..." suffix in the source signals broken/auto-generated content
+        # the same way the old <title> truncation did, and gets penalised in
+        # ranking. Leave long descriptions alone.
         if len(desc) > 160:
-            truncated = desc[:157] + '...'
-            meta_desc['content'] = truncated
-            self.issues_fixed += 1
-            modified = True
-            print(f"   📝 Truncated long description: {file_path.name}")
+            return modified
 
         # Too short (<120 chars) - try to expand from page content
-        elif len(desc) < 120:
+        if len(desc) < 120:
             # #2: scope to article/main so we don't accidentally grab nav,
             # footer, sidebar, or cookie-banner text as the description.
             content_area = (
