@@ -20,6 +20,13 @@ from bs4 import BeautifulSoup
 import argparse
 
 
+# Paths served at runtime by the Cloudflare Worker proxy (_worker.template.js),
+# not written to public/. The on-disk check would always fail for these.
+WORKER_SERVED_PATHS = frozenset({
+    '/js/script.js',   # Plausible Analytics proxy → handlePlausibleScript
+})
+
+
 class HTMLValidator:
     """Validate HTML files in a static site directory."""
     
@@ -254,15 +261,21 @@ class HTMLValidator:
             # Check JavaScript files
             for script in soup.find_all('script', src=True):
                 src = script['src']
-                
+
                 # Skip external URLs (including protocol-relative URLs)
                 if src.startswith(('http://', 'https://', '//')):
                     continue
-                    
+
+                # Skip paths served dynamically by the Cloudflare Worker proxy
+                # rather than written to public/ — currently the Plausible script
+                # at /js/script.js (see _worker.template.js: handlePlausibleScript).
+                if src.split('?', 1)[0].split('#', 1)[0] in WORKER_SERVED_PATHS:
+                    continue
+
                 target_path = self.normalize_path(src, html_file)
                 if target_path is None:
                     continue
-                    
+
                 if not target_path.exists():
                     rel_source = html_file.relative_to(self.site_dir)
                     self.log_error(f"{rel_source}: Missing JavaScript file '{src}'")
