@@ -1732,9 +1732,9 @@ document.addEventListener('DOMContentLoaded', function() {
             soup.head.append(preload)
             
             # Add main stylesheet link
-            # IMPORTANT: Load synchronously (not media="print" trick) because this CSS
-            # contains @import for custom fonts which must load before first paint
-            # to avoid Flash of Unstyled Text (FOUT)
+            # IMPORTANT: Load synchronously (not media="print" trick) because this
+            # CSS contains the @font-face declarations inline — the browser needs
+            # to parse it to discover the font URLs and start downloading them.
             link = soup.new_tag('link', rel='stylesheet', href='/assets/css/brutalist-theme.css')
             link['media'] = 'all'
             soup.head.append(link)

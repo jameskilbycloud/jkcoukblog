@@ -472,8 +472,10 @@ class CriticalCSSExtractor:
         # Do NOT add noscripts here — step 3 handles all of them uniformly.
         for link in soup.find_all('link', rel='stylesheet'):
             href = link.get('href', '')
-            # IMPORTANT: brutalist-theme.css and fonts.css use @import for
-            # custom fonts and must load synchronously.
+            # IMPORTANT: brutalist-theme.css ships the @font-face declarations
+            # inline (no @import) and must load synchronously so fonts are
+            # discovered as soon as it parses. consolidated-inline-styles is
+            # excluded for the same reason: theming layered above critical CSS.
             if any(x in href for x in EXCLUDED):
                 continue
             link['rel'] = 'preload'
