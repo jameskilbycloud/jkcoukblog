@@ -205,15 +205,39 @@ async function handleKVCache(request, env, ctx, path, hostname) {
     }
 
     const cacheKey = `html:${path}`;
-    const cached = await env.HTML_CACHE.get(cacheKey, { type: 'text' });
+    const cachedRes = await env.HTML_CACHE.getWithMetadata(cacheKey, { type: 'text' });
+    const cached = cachedRes && cachedRes.value;
+    const cachedMeta = (cachedRes && cachedRes.metadata) || {};
 
     if (cached) {
       const ttl = getTTL(path);
+      const etag = await computeETag(cached);
+      const lastModified = cachedMeta.cached_at
+        ? new Date(cachedMeta.cached_at).toUTCString()
+        : new Date().toUTCString();
+
+      // 304 Not Modified — Googlebot honours this and skips downloading the
+      // body, which cuts our crawl-budget cost on pages that haven't changed.
+      if (matchesIfNoneMatch(request, etag)) {
+        return new Response(null, {
+          status: 304,
+          headers: {
+            'ETag': etag,
+            'Last-Modified': lastModified,
+            'Cache-Control': `public, max-age=${ttl}`,
+            'X-Cache-Status': 'HIT-304',
+            'X-Worker': 'advanced-worker-kv',
+            ...getSecurityHeaders(hostname)
+          }
+        });
+      }
 
       return new Response(cached, {
         headers: {
           'Content-Type': 'text/html; charset=utf-8',
           'Cache-Control': `public, max-age=${ttl}`,
+          'ETag': etag,
+          'Last-Modified': lastModified,
           'X-Cache-Status': 'HIT',
           'X-Worker': 'advanced-worker-kv',
           ...getSecurityHeaders(hostname)
@@ -254,12 +278,29 @@ async function handleKVCache(request, env, ctx, path, hostname) {
       }).catch(err => console.error('KV cache write failed:', err))
     );
 
-    // Return with our headers
+    // Return with our headers (plus ETag/Last-Modified for crawl efficiency).
+    const etag = await computeETag(html);
+    const lastModified = new Date(nowSec * 1000).toUTCString();
+    if (matchesIfNoneMatch(request, etag)) {
+      return new Response(null, {
+        status: 304,
+        headers: {
+          'ETag': etag,
+          'Last-Modified': lastModified,
+          'Cache-Control': `public, max-age=${ttl}`,
+          'X-Cache-Status': 'MISS-304',
+          'X-Worker': 'advanced-worker-kv',
+          ...getSecurityHeaders(hostname)
+        }
+      });
+    }
     return new Response(html, {
       status: response.status,
       headers: {
         'Content-Type': 'text/html; charset=utf-8',
         'Cache-Control': `public, max-age=${ttl}`,
+        'ETag': etag,
+        'Last-Modified': lastModified,
         'X-Cache-Status': 'MISS',
         'X-Cache-TTL': ttl.toString(),
         'X-Worker': 'advanced-worker-kv',
@@ -420,6 +461,33 @@ function getTTL(path) {
 
   // Older content - 1 hour
   return 3600;
+}
+
+/**
+ * Compute a weak ETag for an HTML body. SHA-1 hex of the bytes, prefixed
+ * with W/ — the response may be served from KV cache, so the byte-for-byte
+ * "strong" guarantee doesn't quite hold. Googlebot honours weak ETags for
+ * the If-None-Match flow we care about.
+ */
+async function computeETag(text) {
+  const buf = new TextEncoder().encode(text);
+  const hash = await crypto.subtle.digest('SHA-1', buf);
+  const hex = Array.from(new Uint8Array(hash))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+  return `W/"${hex}"`;
+}
+
+/**
+ * Return true iff the request's If-None-Match header matches the given ETag.
+ * Tolerates the weak-prefix and quoted/unquoted variants clients may send.
+ */
+function matchesIfNoneMatch(request, etag) {
+  const header = request.headers.get('if-none-match');
+  if (!header) return false;
+  const normalize = s => s.replace(/^W\//, '').replace(/^"|"$/g, '');
+  const wanted = normalize(etag);
+  return header.split(',').some(t => normalize(t.trim()) === wanted);
 }
 
 // ── Plausible proxy ────────────────────────────────────────────────────────

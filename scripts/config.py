@@ -38,6 +38,13 @@ class Config:
     # vExpert membership year used to compute years.vexpert; update if the
     # source-of-truth changes.
     VEXPERT_START_YEAR = 2015
+
+    # Canonical homepage <title>. Applied at build time by
+    # scripts/fix_seo_issues.py:fix_homepage_title so <title>, og:title,
+    # and twitter:title stay in lockstep regardless of what Rank Math /
+    # WordPress emits. Target ~50-60 chars so Google doesn't rewrite it
+    # in SERPs (pixel budget ≈ 580px ≈ 55-60 chars).
+    HOMEPAGE_TITLE = "James Kilby — VMware, Homelab & Cloud Infrastructure Notes"
     
     @classmethod
     def get_plausible_script_url(cls):

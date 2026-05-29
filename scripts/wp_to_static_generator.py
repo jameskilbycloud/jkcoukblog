@@ -3724,6 +3724,14 @@ document.addEventListener('DOMContentLoaded', function() {
             "  Access-Control-Allow-Origin: *",
             "  Access-Control-Allow-Methods: GET, HEAD, OPTIONS",
             "",
+            "# RSS feed - explicit content-type. Cloudflare Pages defaults",
+            "# /feed/index.xml to application/xml; feed readers and validators",
+            "# (W3C feed validator, Feedly fetcher) prefer the RSS-specific",
+            "# media type.",
+            "/feed/index.xml",
+            "  Content-Type: application/rss+xml; charset=utf-8",
+            "  Cache-Control: public, max-age=3600",
+            "",
             "# API endpoints - JSON with CORS",
             "/api/*",
             "  Content-Type: application/json; charset=utf-8",
@@ -3765,7 +3773,14 @@ document.addEventListener('DOMContentLoaded', function() {
             "# Redirect www to non-www (canonical URL)",
             "# Note: Cloudflare's 'Always Use HTTPS' runs first, so HTTP www gets 2 hops",
             "# This is normal and acceptable for the rare HTTP www case",
-            "www.jameskilby.co.uk/* jameskilby.co.uk/:splat 301",
+            "# (NB: www must also be added as a Custom Domain in the Cloudflare",
+            "#  Pages dashboard for this rule to take effect — without that,",
+            "#  www doesn't route to Pages and the apex zone returns 522.)",
+            "www.jameskilby.co.uk/* https://jameskilby.co.uk/:splat 301!",
+            "",
+            "# /feed/ → RSS XML feed. Was previously a meta-refresh HTML shim,",
+            "# which Google treats as a soft redirect; a 301 is the canonical form.",
+            "/feed/ /feed/index.xml 301!",
             "",
             "# Automatic redirects for spelling corrections",
             "/2025/04/warp-the-inteligent-terminal/ /2025/04/warp-the-intelligent-terminal/ 301",
@@ -3783,15 +3798,18 @@ document.addEventListener('DOMContentLoaded', function() {
             "User-agent: *",
             "Allow: /",
             "",
-            "# Stop crawlers from wasting crawl budget on feed URLs and",
-            "# the JSON API directory — these are never indexed anyway.",
+            "# Stop crawlers from wasting crawl budget on per-archive feed URLs",
+            "# (e.g. /category/foo/feed/) and the JSON API directory — neither",
+            "# is indexable content. The root /feed/ is allowed because it 301s",
+            "# to /feed/index.xml which is the canonical RSS feed.",
             "Disallow: /*/feed/",
             "Disallow: /api/",
             "",
-            "# Tag pages carry <meta name=\"robots\" content=\"noindex, follow\">.",
-            "# Do NOT Disallow them: Google must be allowed to crawl the page",
-            "# in order to see the noindex directive. Blocking crawl leaves the",
-            "# URLs in the index as URL-only entries and prevents clean removal.",
+            "# The 404 page carries <meta name=\"robots\" content=\"noindex,follow\">",
+            "# and Cloudflare also sends X-Robots-Tag: noindex on it. We do NOT",
+            "# Disallow noindex pages here — Google must be allowed to crawl them",
+            "# in order to see the directive. Blocking crawl leaves the URLs in",
+            "# the index as URL-only entries and prevents clean removal.",
             "",
             f"Sitemap: {self.target_domain}/sitemap.xml",
             ""
@@ -3895,21 +3913,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 'html_file': html_file,   # kept for image extraction below
             })
 
-        # Exclude noindex pages from sitemap (category/tag archives are
-        # marked noindex,follow — including them in the sitemap sends a
-        # mixed signal to search engines and wastes crawl budget)
+        # Exclude pages that should never appear in the sitemap. Three classes:
+        #   1. noindex pages — sending them as sitemap entries is a mixed
+        #      signal and triggers "Submitted URL marked 'noindex'" in GSC.
+        #   2. Non-canonical shims — pages whose only purpose is a meta
+        #      refresh (e.g. /feed/index.html → /feed/index.xml). Google treats
+        #      these as soft redirects when submitted via sitemap.
+        #   3. The 404 page itself — returns HTTP 404 + noindex, so listing
+        #      it triggers BOTH "Submitted URL returns 404" and "noindex".
+        SITEMAP_BLOCKED_PATHS = ('/404/', '/feed/')
         before_count = len(urls_for_sitemap)
         urls_for_sitemap = [
             item for item in urls_for_sitemap
-            if not self._is_noindex_page(
-                self.output_dir / item['url'].replace(self.target_domain, '').strip('/') / 'index.html'
-                if item['url'] != f'{self.target_domain}/'
-                else self.output_dir / 'index.html'
-            )
+            if not self._should_exclude_from_sitemap(item, SITEMAP_BLOCKED_PATHS)
         ]
         excluded = before_count - len(urls_for_sitemap)
         if excluded:
-            print(f"   🚫 Excluded {excluded} noindex pages from sitemap")
+            print(f"   🚫 Excluded {excluded} non-indexable pages from sitemap")
 
         # Fix lastmod for any remaining archive pages that aren't noindex:
         # Use the most recent post date linked from each archive page
@@ -4098,6 +4118,35 @@ document.addEventListener('DOMContentLoaded', function() {
         except Exception:
             return False
 
+    def _is_meta_refresh_shim(self, html_file):
+        """Check if a page is a meta-refresh redirect shim (non-canonical)."""
+        try:
+            if not html_file.exists():
+                return False
+            with open(html_file, 'r', encoding='utf-8', errors='ignore') as f:
+                head_content = f.read(2048)
+            return 'http-equiv="refresh"' in head_content.lower()
+        except Exception:
+            return False
+
+    def _should_exclude_from_sitemap(self, item, blocked_paths):
+        """Decide whether a sitemap candidate URL should be dropped.
+
+        Use the html_file already on the item dict (don't re-derive — paths
+        like /404/ map to public/404.html, not public/404/index.html).
+        """
+        url_path = item['url'].replace(self.target_domain, '') or '/'
+        if url_path in blocked_paths:
+            return True
+        html_file = item.get('html_file')
+        if html_file is None:
+            return False
+        if self._is_noindex_page(html_file):
+            return True
+        if self._is_meta_refresh_shim(html_file):
+            return True
+        return False
+
     def generate_rss_feed(self):
         """Generate RSS feed from posts"""
         print("📡 Generating RSS feed...")
@@ -4219,19 +4268,15 @@ document.addEventListener('DOMContentLoaded', function() {
         feed_file = feed_dir / 'index.xml'
         feed_file.write_text('\n'.join(rss_lines), encoding='utf-8')
         
-        # Also create a simple HTML redirect for /feed/
-        feed_html = feed_dir / 'index.html'
-        feed_html.write_text(
-            '<!DOCTYPE html>\n'
-            '<html lang="en"><head>\n'
-            '<meta http-equiv="refresh" content="0; url=index.xml" />\n'
-            '<link rel="alternate" type="application/rss+xml" href="index.xml" />\n'
-            '</head><body>\n'
-            '<p>Redirecting to <a href="index.xml">RSS feed</a>...</p>\n'
-            '</body></html>',
-            encoding='utf-8'
-        )
-        
+        # /feed/ → /feed/index.xml is handled by a 301 rule in _redirects
+        # (create_redirects_file). A previous meta-refresh HTML shim here
+        # was treated by Google as a soft redirect and triggered "Page with
+        # redirect" in GSC when listed in the sitemap. Drop any stale shim
+        # from earlier builds so Cloudflare honours the 301.
+        stale_shim = feed_dir / 'index.html'
+        if stale_shim.exists():
+            stale_shim.unlink()
+
         print(f"   ✅ Created RSS feed with {len(posts)} posts")
         print(f"   📡 Feed URL: {self.target_domain}/feed/index.xml")
     
