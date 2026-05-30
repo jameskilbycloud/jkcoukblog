@@ -28,6 +28,13 @@ on:
   repository_dispatch:
     types: [apply-spell-corrections, verify-spell-corrections]
 
+# Needs contents: write (timestamp commit), issues: write (open/update report
+# issues), actions: read (download artifacts from the dispatching run).
+permissions:
+  contents: write
+  issues: write
+  actions: read
+
 jobs:
   spell-check:
     if: github.event_name == 'workflow_dispatch'
