@@ -5,6 +5,11 @@ on:
   repository_dispatch:      # Webhook trigger
     types: [wordpress-update]
 
+# Org defaults GITHUB_TOKEN to read-only; this workflow commits the generated
+# site back to main, so it must explicitly grant contents: write.
+permissions:
+  contents: write
+
 # Prevent concurrent runs of this workflow
 concurrency:
   group: wordpress-static-site-deploy
