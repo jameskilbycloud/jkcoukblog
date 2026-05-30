@@ -3,6 +3,9 @@ name: Rollback Site to Previous Commit
 on:
   workflow_dispatch:        # Manual trigger only
 
+permissions:
+  contents: write
+
 jobs:
   rollback:
     runs-on: self-hosted
