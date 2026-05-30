@@ -5,16 +5,8 @@
     <link>https://jameskilby.co.uk/</link>
     <description>VMware and cloud infrastructure tutorials, homelab guides, and DevOps insights</description>
     <language>en-gb</language>
-    <lastBuildDate>Sat, 30 May 2026 08:07:36 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 30 May 2026 09:46:11 +0000</lastBuildDate>
     <atom:link href="https://jameskilby.co.uk/feed/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)</title>
-      <link>https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/</link>
-      <description>Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database</description>
-      <author>James</author>
-      <guid isPermaLink="true">https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/</guid>
-      <pubDate>Sat, 04 Apr 2026 21:39:21 +0000</pubDate>
-    </item>
     <item>
       <title>Automating vSphere Power Management driven by Ansible and SemaphoreUI</title>
       <link>https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/</link>
@@ -22,14 +14,6 @@
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/</guid>
       <pubDate>Wed, 15 Apr 2026 21:36:41 +0000</pubDate>
-    </item>
-    <item>
-      <title>New VMware Cloud on AWS Host: i7i.metal-24xl</title>
-      <link>https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/</link>
-      <description>We’ve expanded the VMC fleet with the new i7i (i7i.24xlarge)host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it delivers</description>
-      <author>James</author>
-      <guid isPermaLink="true">https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/</guid>
-      <pubDate>Wed, 01 Apr 2026 08:06:00 +0000</pubDate>
     </item>
     <item>
       <title>Automated VCF 9 Offline Depot</title>
@@ -40,12 +24,20 @@
       <pubDate>Fri, 10 Apr 2026 11:36:03 +0000</pubDate>
     </item>
     <item>
-      <title>Free Octopus Agile Battery &amp; Solar Calculator: 5 Batteries Tested</title>
-      <link>https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/</link>
-      <description>I am quite a heavy consumer of electricity at home. This is primarily driven by my lab but having a young son and two golden retrievers means more washing</description>
+      <title>My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)</title>
+      <link>https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/</link>
+      <description>Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database</description>
       <author>James</author>
-      <guid isPermaLink="true">https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/</guid>
-      <pubDate>Mon, 09 Mar 2026 23:39:37 +0000</pubDate>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/</guid>
+      <pubDate>Sat, 04 Apr 2026 21:39:21 +0000</pubDate>
+    </item>
+    <item>
+      <title>New VMware Cloud on AWS Host: i7i.metal-24xl</title>
+      <link>https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/</link>
+      <description>We’ve expanded the VMC fleet with the new i7i (i7i.24xlarge)host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it delivers</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/</guid>
+      <pubDate>Wed, 01 Apr 2026 08:06:00 +0000</pubDate>
     </item>
     <item>
       <title>My Self-Hosted AI Stack: Architecture Overview (Part 1)</title>
@@ -54,6 +46,14 @@
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/</guid>
       <pubDate>Fri, 27 Mar 2026 11:56:33 +0000</pubDate>
+    </item>
+    <item>
+      <title>Free Octopus Agile Battery &amp; Solar Calculator: 5 Batteries Tested</title>
+      <link>https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/</link>
+      <description>I am quite a heavy consumer of electricity at home. This is primarily driven by my lab but having a young son and two golden retrievers means more washing</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/</guid>
+      <pubDate>Mon, 09 Mar 2026 23:39:37 +0000</pubDate>
     </item>
     <item>
       <title>Automating the Deployment of my Homelab AI Infrastructure</title>
@@ -88,20 +88,20 @@
       <pubDate>Sat, 06 Dec 2025 10:59:14 +0000</pubDate>
     </item>
     <item>
-      <title>VMware Cloud on AWS Time Sync &amp; NTP Configuration</title>
-      <link>https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/</link>
-      <description>One of the nice things about the VMC Service is that you dont have to worry about a number of the traditional infrastructure services that you typically</description>
-      <author>James</author>
-      <guid isPermaLink="true">https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/</guid>
-      <pubDate>Mon, 08 Dec 2025 14:03:44 +0000</pubDate>
-    </item>
-    <item>
       <title>How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step</title>
       <link>https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/</link>
       <description>Step-by-step Ubuntu disk expansion with LVM: pvresize, vgextend, lvextend, resize2fs. Works after resizing the VM disk in vSphere/Hyper-V/KVM.</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/</guid>
       <pubDate>Mon, 15 Dec 2025 20:56:40 +0000</pubDate>
+    </item>
+    <item>
+      <title>VMware Cloud on AWS Time Sync &amp; NTP Configuration</title>
+      <link>https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/</link>
+      <description>One of the nice things about the VMC Service is that you dont have to worry about a number of the traditional infrastructure services that you typically</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/</guid>
+      <pubDate>Mon, 08 Dec 2025 14:03:44 +0000</pubDate>
     </item>
     <item>
       <title>How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare</title>
