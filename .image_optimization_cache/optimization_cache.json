@@ -23244,91 +23244,101 @@
     "webp": "wp-content/uploads/og/tag-ai.webp",
     "avif": "wp-content/uploads/og/tag-ai.avif"
   },
-  "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-300x180.png": {
-    "hash": "541a1e5194aba8d4cc5d91d659c477b9",
-    "optimized_at": "2026-05-30T07:34:31.170648",
-    "optimized_size": 1072,
-    "timestamp": 1780126471.1706645,
-    "webp_created": true,
-    "avif_created": true,
-    "webp": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-300x180.webp",
-    "avif": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-300x180.avif"
-  },
-  "wp-content/uploads/2026/04/Packer-Workflow-300x47.png": {
-    "hash": "cd535684c9538a0d8e951af7466d9085",
-    "optimized_at": "2026-05-30T07:34:31.367191",
-    "optimized_size": 956,
-    "timestamp": 1780126471.3672066,
-    "webp_created": true,
-    "avif_created": true,
-    "webp": "wp-content/uploads/2026/04/Packer-Workflow-300x47.webp",
-    "avif": "wp-content/uploads/2026/04/Packer-Workflow-300x47.avif"
-  },
-  "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-768x461.png": {
-    "hash": "2b5a6a029d74d880c59284e61462eca6",
-    "optimized_at": "2026-05-30T07:34:31.793157",
-    "optimized_size": 3522,
-    "timestamp": 1780126471.7931721,
-    "webp_created": true,
-    "avif_created": true,
-    "webp": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-768x461.webp",
-    "avif": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-768x461.avif"
-  },
-  "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266.png": {
-    "hash": "1ac520d3ed11f01dca330d74c5f746fc",
-    "optimized_at": "2026-05-30T07:34:31.805250",
-    "optimized_size": 44,
-    "timestamp": 1780126471.8052626,
-    "webp_created": true,
-    "avif_created": true,
-    "webp": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266.webp",
-    "avif": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266.avif"
-  },
-  "wp-content/uploads/2026/04/Packer-Workflow-768x120.png": {
-    "hash": "019d1e25db62fc5d8813f40a5e50027c",
-    "optimized_at": "2026-05-30T07:34:32.210171",
-    "optimized_size": 4536,
-    "timestamp": 1780126472.2101865,
-    "webp_created": true,
-    "avif_created": true,
-    "webp": "wp-content/uploads/2026/04/Packer-Workflow-768x120.webp",
-    "avif": "wp-content/uploads/2026/04/Packer-Workflow-768x120.avif"
-  },
   "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait.png": {
     "hash": "f9f0976dad8e5d8591b5ac6dbc231892",
-    "optimized_at": "2026-05-30T07:34:32.504603",
-    "optimized_size": 6910,
-    "timestamp": 1780126472.5046184,
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
     "webp_created": true,
     "avif_created": true,
     "webp": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait.webp",
     "avif": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait.avif"
   },
-  "wp-content/uploads/2026/04/BuildSelection-150x150.png": {
-    "hash": "62d04ac2703cb870283a3b53ab1595fd",
-    "optimized_at": "2026-05-30T07:34:32.556203",
-    "optimized_size": 2452,
-    "timestamp": 1780126472.5562174,
+  "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-300x180.png": {
+    "hash": "541a1e5194aba8d4cc5d91d659c477b9",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
     "webp_created": true,
     "avif_created": true,
-    "webp": "wp-content/uploads/2026/04/BuildSelection-150x150.webp",
-    "avif": "wp-content/uploads/2026/04/BuildSelection-150x150.avif"
+    "webp": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-300x180.webp",
+    "avif": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-300x180.avif"
+  },
+  "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-768x461.png": {
+    "hash": "2b5a6a029d74d880c59284e61462eca6",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-768x461.webp",
+    "avif": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-768x461.avif"
   },
   "wp-content/uploads/2026/04/Packer-Workflow-2048x320.png": {
     "hash": "b67b5525c0069321eba67ee3cf7858d2",
-    "optimized_at": "2026-05-30T07:34:33.301364",
-    "optimized_size": 15052,
-    "timestamp": 1780126473.3013783,
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
     "webp_created": true,
     "avif_created": true,
     "webp": "wp-content/uploads/2026/04/Packer-Workflow-2048x320.webp",
     "avif": "wp-content/uploads/2026/04/Packer-Workflow-2048x320.avif"
   },
+  "wp-content/uploads/2026/04/Packer-Workflow-300x47.png": {
+    "hash": "cd535684c9538a0d8e951af7466d9085",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/04/Packer-Workflow-300x47.webp",
+    "avif": "wp-content/uploads/2026/04/Packer-Workflow-300x47.avif"
+  },
+  "wp-content/uploads/2026/04/Packer-Workflow-768x120.png": {
+    "hash": "019d1e25db62fc5d8813f40a5e50027c",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/04/Packer-Workflow-768x120.webp",
+    "avif": "wp-content/uploads/2026/04/Packer-Workflow-768x120.avif"
+  },
+  "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266.png": {
+    "hash": "1ac520d3ed11f01dca330d74c5f746fc",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266.webp",
+    "avif": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266.avif"
+  },
+  "wp-content/uploads/2026/04/BuildSelection.png": {
+    "hash": "e6da09914196341c4467736f2987a713",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/04/BuildSelection.webp",
+    "avif": "wp-content/uploads/2026/04/BuildSelection.avif"
+  },
+  "wp-content/uploads/2026/04/BuildSelection-150x150.png": {
+    "hash": "62d04ac2703cb870283a3b53ab1595fd",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/04/BuildSelection-150x150.webp",
+    "avif": "wp-content/uploads/2026/04/BuildSelection-150x150.avif"
+  },
   "wp-content/uploads/2026/04/Packer-Workflow-1536x240.png": {
     "hash": "07a6af4df71db2d525c04ed06b0fbf81",
-    "optimized_at": "2026-05-30T07:34:34.085815",
-    "optimized_size": 10286,
-    "timestamp": 1780126474.08583,
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
     "webp_created": true,
     "avif_created": true,
     "webp": "wp-content/uploads/2026/04/Packer-Workflow-1536x240.webp",
@@ -23336,9 +23346,9 @@
   },
   "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-150x150.png": {
     "hash": "13c28c85358af7656087bea79e5379e9",
-    "optimized_at": "2026-05-30T07:34:34.273228",
-    "optimized_size": 762,
-    "timestamp": 1780126474.273243,
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
     "webp_created": true,
     "avif_created": true,
     "webp": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-150x150.webp",
@@ -23346,62 +23356,52 @@
   },
   "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-1024x614.png": {
     "hash": "88a46dc9e9f99115bbb35d716adef1f4",
-    "optimized_at": "2026-05-30T07:34:34.438341",
-    "optimized_size": 4766,
-    "timestamp": 1780126474.4383557,
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
     "webp_created": true,
     "avif_created": true,
     "webp": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-1024x614.webp",
     "avif": "wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-1024x614.avif"
   },
-  "wp-content/uploads/2026/04/Packer-Workflow-150x150.png": {
-    "hash": "f446613005d671ee027e12cb0281615c",
-    "optimized_at": "2026-05-30T07:34:34.636388",
-    "optimized_size": 1458,
-    "timestamp": 1780126474.6364005,
-    "webp_created": true,
-    "avif_created": true,
-    "webp": "wp-content/uploads/2026/04/Packer-Workflow-150x150.webp",
-    "avif": "wp-content/uploads/2026/04/Packer-Workflow-150x150.avif"
-  },
   "wp-content/uploads/2026/04/BuildSelection-300x296.png": {
     "hash": "2a330ace0654414b64b884e886cd09f6",
-    "optimized_at": "2026-05-30T07:34:34.763272",
-    "optimized_size": 6446,
-    "timestamp": 1780126474.763287,
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
     "webp_created": true,
     "avif_created": true,
     "webp": "wp-content/uploads/2026/04/BuildSelection-300x296.webp",
     "avif": "wp-content/uploads/2026/04/BuildSelection-300x296.avif"
   },
-  "wp-content/uploads/2026/04/Packer-Workflow-1024x160.png": {
-    "hash": "85a23433024f8fbb9688e14663998f4a",
-    "optimized_at": "2026-05-30T07:34:36.330327",
-    "optimized_size": 6242,
-    "timestamp": 1780126476.3303418,
-    "webp_created": true,
-    "avif_created": true,
-    "webp": "wp-content/uploads/2026/04/Packer-Workflow-1024x160.webp",
-    "avif": "wp-content/uploads/2026/04/Packer-Workflow-1024x160.avif"
-  },
   "wp-content/uploads/2026/04/Packer-Workflow.png": {
     "hash": "f3d6f1162b50722c76c48e7ec019d8b7",
-    "optimized_at": "2026-05-30T07:34:36.546988",
-    "optimized_size": 19808,
-    "timestamp": 1780126476.5470028,
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
     "webp_created": true,
     "avif_created": true,
     "webp": "wp-content/uploads/2026/04/Packer-Workflow.webp",
     "avif": "wp-content/uploads/2026/04/Packer-Workflow.avif"
   },
-  "wp-content/uploads/2026/04/BuildSelection.png": {
-    "hash": "e6da09914196341c4467736f2987a713",
-    "optimized_at": "2026-05-30T07:34:36.710079",
-    "optimized_size": 17698,
-    "timestamp": 1780126476.710093,
+  "wp-content/uploads/2026/04/Packer-Workflow-1024x160.png": {
+    "hash": "85a23433024f8fbb9688e14663998f4a",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
     "webp_created": true,
     "avif_created": true,
-    "webp": "wp-content/uploads/2026/04/BuildSelection.webp",
-    "avif": "wp-content/uploads/2026/04/BuildSelection.avif"
+    "webp": "wp-content/uploads/2026/04/Packer-Workflow-1024x160.webp",
+    "avif": "wp-content/uploads/2026/04/Packer-Workflow-1024x160.avif"
+  },
+  "wp-content/uploads/2026/04/Packer-Workflow-150x150.png": {
+    "hash": "f446613005d671ee027e12cb0281615c",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/04/Packer-Workflow-150x150.webp",
+    "avif": "wp-content/uploads/2026/04/Packer-Workflow-150x150.avif"
   }
 }
