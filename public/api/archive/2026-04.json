@@ -137,7 +137,7 @@
       "title": "Automating vSphere Power Management driven by Ansible and SemaphoreUI",
       "description": "Learn how to automate vSphere power management using Ansible and SemaphoreUI, scheduling ESXi host shutdowns based on Octopus Agile energy tariffs to cut costs.",
       "date": "2026-04-15T21:36:41Z",
-      "modified": "2026-05-25T11:09:19Z",
+      "modified": "2026-05-31T10:11:25Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/",
       "markdown_url": "/markdown/posts/vsphere-power-management-driven-by-ansible.md",
@@ -145,14 +145,17 @@
       "categories": [
         "Ansible",
         "Automation",
-        "Homelab",
-        "Networking",
         "Artificial Intelligence",
         "Docker",
-        "Nutanix",
+        "Homelab",
         "VMware",
-        "Traefik",
-        "VCF"
+        "VMware Cloud on AWS",
+        "AWS",
+        "Veeam",
+        "Networking",
+        "Storage",
+        "Runecast",
+        "vExpert"
       ],
       "tags": [
         null,

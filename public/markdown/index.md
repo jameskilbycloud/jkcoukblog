@@ -45,7 +45,7 @@ posts.count.............72
 
 words.total............45k
 
-last_post..........44d ago
+last_post..........45d ago
 
 categories..............34
 
@@ -53,9 +53,9 @@ tags...................125
 
 vexpert.years...........11
 
-deploys.month..........117
+deploys.month..........118
 
-last_deploy..........today
+last_deploy.........1d ago
 
 lighthouse..........95/100
 
@@ -71,7 +71,7 @@ FILTER
 
 ## [Automating vSphere Power Management driven by Ansible and SemaphoreUI](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
-By[James](https://jameskilby.co.uk) April 15, 2026May 25, 2026
+By[James](https://jameskilby.co.uk) April 15, 2026May 31, 2026
 
 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introduction One of the larger costs of running my homelab is the electricity….
 
