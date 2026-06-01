@@ -14,12 +14,16 @@
         "VMware",
         "Personal",
         "vSphere",
-        "Homelab",
-        "Networking",
-        "Storage",
-        "VCF",
+        "Ansible",
         "Automation",
-        "Nutanix"
+        "Docker",
+        "Homelab",
+        "Traefik",
+        "VCF",
+        "VMware Cloud on AWS",
+        "vSAN",
+        "Artificial Intelligence",
+        "NVIDIA"
       ],
       "tags": [
         null,
@@ -44,11 +48,10 @@
         "Networking",
         "Storage",
         "VMware",
-        "Personal",
-        "vSphere",
-        "VMware Cloud on AWS",
-        "Runecast",
-        "Synology"
+        "Automation",
+        "vExpert",
+        "VCF",
+        "vSAN"
       ],
       "tags": [
         null,

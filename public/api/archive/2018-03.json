@@ -16,16 +16,11 @@
       "categories": [
         "Hosting",
         "Cloudflare",
-        "Personal",
+        "Devops",
+        "Github",
         "Wordpress",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Homelab",
-        "Traefik",
-        "VCF",
-        "VMware",
-        "Artificial Intelligence"
+        "Personal",
+        "Homelab"
       ],
       "tags": [
         null
@@ -45,11 +40,11 @@
       "api_url": "/api/posts/aws-for-beginners1.json",
       "categories": [
         "AWS",
-        "Personal",
         "VMware",
         "VMware Cloud on AWS",
+        "Hosting",
         "Veeam",
-        "Hosting"
+        "Personal"
       ],
       "tags": [
         null,

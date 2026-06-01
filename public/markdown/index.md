@@ -57,7 +57,7 @@ deploys.month............0
 
 last_deploy..........today
 
-lighthouse..........95/100
+lighthouse...............—
 
 $_
 

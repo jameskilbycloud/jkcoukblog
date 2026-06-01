@@ -17,11 +17,16 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Mikrotik",
-        "Networking",
-        "vExpert",
         "Artificial Intelligence",
-        "Docker"
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "Networking",
+        "Veeam",
+        "Mikrotik",
+        "Hosting"
       ],
       "tags": [
         null,

@@ -8,7 +8,7 @@
       "title": "Managing my Homelab with SemaphoreUI",
       "description": "How I use SemaphoreUI as the web frontend for Ansible, Terraform and PowerShell in my homelab. Setup, screenshots, lessons learned in production use.",
       "date": "2025-09-02T16:01:48Z",
-      "modified": "2026-05-26T08:29:07Z",
+      "modified": "2026-05-31T11:36:29Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/",
       "markdown_url": "/markdown/posts/managing-my-homelab-with-semaphoreui.md",
@@ -16,15 +16,14 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Automation",
-        "Networking",
-        "Storage",
         "VMware",
-        "Docker",
-        "Traefik",
-        "VCF",
+        "vSphere",
+        "Nutanix",
         "Artificial Intelligence",
-        "Hosting"
+        "Docker",
+        "Hosting",
+        "Storage",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
@@ -33,7 +32,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png",
-      "excerpt": "![Semaphore](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Managing my Homelab with SemaphoreUI\n\nBy[James](https://jameskilby.co.uk)September 2, 2025May 26, 2026 • 📖..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Managing my Homelab with SemaphoreUI\n\nBy[James](https://jameskilby.co.uk) September 2, 2025May 31, 2026 • 📖8 min re..."
     }
   ]
 }

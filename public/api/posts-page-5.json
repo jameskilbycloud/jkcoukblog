@@ -5,7 +5,7 @@
       "title": "Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense",
       "description": "I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes.",
       "date": "2022-01-06T19:25:40Z",
-      "modified": "2026-04-16T22:01:55Z",
+      "modified": "2026-05-31T11:36:27Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2022/01/lab-update-part-3-network/",
       "markdown_url": "/markdown/posts/lab-update-part-3-network.md",
@@ -13,22 +13,21 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Ansible",
+        "Nutanix",
+        "Artificial Intelligence",
         "Automation",
         "Docker",
+        "NVIDIA",
         "Traefik",
-        "VCF",
         "VMware",
-        "Storage",
-        "Artificial Intelligence",
-        "NVIDIA"
+        "Storage"
       ],
       "tags": [
         null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/og/lab-update-part-3-network.png",
-      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense\n\nBy[James](https://jameskilby.co.uk)January 6, 2022April 16, 2026 • 📖1 min read(113 words)\n\n📅 **Published:** January 06, 2022..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
+      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense\n\nBy[James](https://jameskilby.co.uk) January 6, 2022May 31, 2026 • 📖1 min read(113 words)\n\n📅 **Published:** January 06, 2022•..."
     },
     {
       "slug": "lab-update-part-2-storage",
@@ -43,20 +42,11 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Traefik",
-        "VCF",
-        "VMware",
-        "Synology",
-        "vSphere",
-        "Hosting",
-        "Kubernetes",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA"
+        "TrueNAS Scale",
+        "VMware",
+        "Networking",
+        "vExpert"
       ],
       "tags": [
         null,
@@ -80,15 +70,14 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Storage",
-        "TrueNAS Scale",
-        "Personal",
-        "vSphere",
         "Artificial Intelligence",
-        "Synology",
-        "VMware Cloud on AWS",
+        "Docker",
+        "Storage",
+        "vExpert",
         "vSAN",
-        "Networking"
+        "Synology",
+        "Personal",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -96,7 +85,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1-768x1024.jpg",
-      "excerpt": "![Img 4536 Scaled 1](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup\n\nBy[James](https://jameskilby.co..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup\n\nBy[James](https://jameskilby.co.uk) January 6, 2..."
     },
     {
       "slug": "lab-storage",
@@ -112,19 +101,17 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Artificial Intelligence",
+        "Networking",
+        "Ansible",
         "Automation",
         "Docker",
-        "NVIDIA",
         "Traefik",
+        "VCF",
         "VMware",
+        "Hosting",
         "TrueNAS Scale",
         "vSAN",
-        "vSphere",
-        "Hosting",
-        "Nutanix",
-        "VCF",
-        "Networking"
+        "vSphere"
       ],
       "tags": [
         null,
@@ -145,16 +132,15 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "VMware",
+        "Storage",
+        "TrueNAS Scale",
+        "Networking",
+        "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Kubernetes",
-        "Artificial Intelligence",
         "Automation",
-        "NVIDIA",
-        "Traefik",
-        "Storage",
-        "Synology"
+        "VMware",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -179,17 +165,9 @@
         "Storage",
         "vExpert",
         "Networking",
+        "VCF",
         "VMware",
-        "Nutanix",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Personal",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Traefik",
-        "VCF"
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -216,7 +194,7 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
+        "vSAN",
         "Ansible",
         "Artificial Intelligence",
         "Containers",
@@ -226,8 +204,7 @@
         "Traefik",
         "Automation",
         "Docker",
-        "Networking",
-        "Storage"
+        "VCF"
       ],
       "tags": [
         null,
@@ -250,11 +227,10 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "AWS",
-        "Docker",
-        "Homelab",
-        "Kubernetes",
-        "Personal"
+        "Personal",
+        "Devops",
+        "Github",
+        "AWS"
       ],
       "tags": [
         null,
@@ -279,13 +255,15 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Ansible",
-        "Automation",
         "Docker",
         "Homelab",
+        "Kubernetes",
+        "Artificial Intelligence",
+        "Automation",
+        "NVIDIA",
         "Traefik",
-        "VCF",
-        "VMware"
+        "VMware",
+        "AWS"
       ],
       "tags": [
         null,
@@ -301,7 +279,7 @@
       "title": "How I Migrated from Pocket to Hoarder with AI Integration",
       "description": "Update: Hoarder has now been renamed to Karakeep due to a trademark issue I've been on a mission recently to regain control of my data.",
       "date": "2025-01-29T23:31:56Z",
-      "modified": "2026-05-25T17:18:26Z",
+      "modified": "2026-05-31T11:36:29Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/",
       "markdown_url": "/markdown/posts/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way.md",
@@ -310,15 +288,17 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Automation",
-        "Ansible",
-        "Homelab",
-        "Traefik",
         "VCF",
         "VMware",
-        "Networking",
-        "Storage",
-        "Synology"
+        "Automation",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "Personal",
+        "Cloudflare",
+        "Wordpress",
+        "Mikrotik",
+        "Networking"
       ],
       "tags": [
         null,
@@ -328,7 +308,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-1024x547.png",
-      "excerpt": "![Screenshot 2025 01 29 At 23.30.47](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47.png)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Hosting](https://jameskilby...."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47.png)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# How I..."
     }
   ],
   "page": 5,
