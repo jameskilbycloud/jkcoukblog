@@ -119,12 +119,48 @@ def _query_slug(session: requests.Session, kind: str, slug: str) -> int | None:
     return None
 
 
+def _query_by_link(session: requests.Session, kind: str, live_url: str) -> int | None:
+    """Last-resort lookup: list every entry of `kind` and match by the WP-returned
+    `link` field. WP sets `link` to the live permalink, so this resolves cases
+    where the slug in WP doesn't match the URL slug (e.g. permalink overrides).
+    Slow but bulletproof.
+    """
+    live_path = urlparse(live_url).path.rstrip('/')
+    target_suffixes = {live_path, live_path + '/'}
+
+    page = 1
+    while page <= 20:  # safety cap — 20 pages of 100 = 2000 entries
+        resp = session.get(
+            f'{WP_URL}/wp-json/wp/v2/{kind}',
+            params={'per_page': 100, 'page': page, 'context': 'edit',
+                    'status': 'any', '_fields': 'id,slug,link'},
+        )
+        if resp.status_code != 200:
+            return None
+        items = resp.json()
+        if not items:
+            return None
+        for it in items:
+            link = (it.get('link') or '').rstrip('/')
+            link_path = urlparse(link).path.rstrip('/')
+            if link_path in target_suffixes or link.rstrip('/') == live_url.rstrip('/'):
+                return it['id']
+        if len(items) < 100:
+            return None
+        page += 1
+    return None
+
+
 def lookup_post_id(session: requests.Session, url: str) -> tuple[int | None, str]:
     """Find WP post or page ID. Returns (id, kind) where kind in {'posts','pages',''}.
 
-    Tries the natural kind first (posts for /YYYY/MM/.../, pages for the rest),
-    falls back to the other kind, and tries a small list of slug variants for
-    drift cases like /about-me/ -> 'about'.
+    Resolution order:
+    1. Natural kind (posts/pages based on URL shape) with the URL's literal slug.
+    2. Slug variants (hyphen↔underscore, compound first token) on the natural kind.
+    3. Same slugs on the OTHER kind.
+    4. Link-matching fallback: list everything and match by WP's `link` field.
+       Catches permalink-override cases like /about-me/ where the WP slug isn't
+       'about-me'.
     """
     primary_kind = 'posts' if is_post_url(url) else 'pages'
     other_kind = 'pages' if primary_kind == 'posts' else 'posts'
@@ -134,6 +170,14 @@ def lookup_post_id(session: requests.Session, url: str) -> tuple[int | None, str
             post_id = _query_slug(session, kind, slug)
             if post_id is not None:
                 return post_id, kind
+
+    # Link-matching fallback
+    print(f'   ↪ slug variants exhausted, trying link-match fallback for {url}')
+    for kind in (primary_kind, other_kind):
+        post_id = _query_by_link(session, kind, url)
+        if post_id is not None:
+            print(f'   ↪ resolved via link-match: {kind} id={post_id}')
+            return post_id, kind
     return None, ''
 
 
