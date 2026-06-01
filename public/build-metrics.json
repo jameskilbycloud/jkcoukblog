@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-06-01T12:50:29.948663",
-  "generation_duration_seconds": 31.84,
-  "urls_processed": 99,
-  "assets_downloaded": 1637,
+  "timestamp": "2026-06-01T20:20:09.895764",
+  "generation_duration_seconds": 43.5,
+  "urls_processed": 146,
+  "assets_downloaded": 1644,
   "errors": 0,
-  "total_size_mb": 177.19,
-  "total_size_bytes": 185794610,
-  "git_commit": "07f7383dbe1f63e48dca7d2665d0514842bf2ff6",
+  "total_size_mb": 175.36,
+  "total_size_bytes": 183874016,
+  "git_commit": "fbfea9532024f95005654ea3d3a8b100e136a155",
   "output_directory": "/home/w20kilja/actions-runner/_work/jkcoukblog/jkcoukblog/static-output"
 }

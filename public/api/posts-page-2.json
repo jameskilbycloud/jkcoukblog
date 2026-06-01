@@ -34,9 +34,9 @@
     {
       "slug": "vmc-host-errors",
       "title": "How VMware Cloud on AWS Handles Host Failures Automatically",
-      "description": "When you run a large enough infrastructure, failure is inevitable. How you handle that can be a big differentiator.",
+      "description": "When you run a large enough Infrastructure failure is inevitable. How you handle that can be a big differentiator.",
       "date": "2020-09-15T10:56:32Z",
-      "modified": "2026-05-25T17:18:25Z",
+      "modified": "2026-06-01T19:02:27Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2020/09/vmc-host-errors/",
       "markdown_url": "/markdown/posts/vmc-host-errors.md",
@@ -44,9 +44,10 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
+        "VCF",
         "Homelab",
-        "vSphere",
+        "Networking",
+        "Storage",
         "AWS",
         "Veeam"
       ],
@@ -92,7 +93,7 @@
       "title": "Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide",
       "description": "Step-by-step setup of Nvidia Tesla P4 vGPU on VMware ESXi for a homelab. Drivers, licence server, vGPU profiles, plus gotchas and performance notes.",
       "date": "2023-10-23T14:56:58Z",
-      "modified": "2026-05-24T06:36:26Z",
+      "modified": "2026-06-01T19:02:51Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/",
       "markdown_url": "/markdown/posts/vgpu-setup-in-my-homelab.md",
@@ -100,17 +101,18 @@
       "categories": [
         "Homelab",
         "VMware",
+        "Personal",
+        "Docker",
+        "Hosting",
+        "Kubernetes",
         "VMware Cloud on AWS",
+        "vSphere",
         "Ansible",
         "Artificial Intelligence",
         "Containers",
         "Devops",
         "NVIDIA",
-        "Traefik",
-        "Automation",
-        "Veeam",
-        "Docker",
-        "VCF"
+        "Traefik"
       ],
       "tags": [
         null,
@@ -118,30 +120,30 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg",
-      "excerpt": "![Img 1107 768X403 1](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide\n\nBy[James](https://jameskilby.co...."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide\n\nBy[James](https://jameskilby.co.uk) October 23, 20..."
     },
     {
       "slug": "veeamon2020",
       "title": "VeeamON 2020: Highlights From Veeam’s Virtual Conference",
       "description": "As everyone knows by now the world has changed possibly forever. Due to Covid19 working from home has become the new normal.",
       "date": "2020-06-18T14:42:45Z",
-      "modified": "2026-05-25T11:09:16Z",
+      "modified": "2026-06-01T19:02:24Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2020/06/veeamon2020/",
       "markdown_url": "/markdown/posts/veeamon2020.md",
       "api_url": "/api/posts/veeamon2020.json",
       "categories": [
         "Veeam",
-        "Homelab",
         "VMware",
-        "AWS"
+        "AWS",
+        "Homelab"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png",
-      "excerpt": "![Veeam Logo New Large 1934042827](https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png)\n\n[Veeam](https://jameskilby.co.uk/category/veeam/)\n\n# VeeamON 2020: Highlights From Veeam’s Virtual Conference\n\nBy[James](https://jameskilby.co.uk)June 18, 2020May 25, 2026 • 📖..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png)\n\n[Veeam](https://jameskilby.co.uk/category/veeam/)\n\n# VeeamON 2020: Highlights From Veeam’s Virtual Conference\n\nBy[James](https://jameskilby.co.uk) June 18, 2020June 1, 2026 • 📖1 min read(272 words)\n\n📅 **Pub..."
     },
     {
       "slug": "using-content-libraries-in-vmc-to-deploy-software-faster",
@@ -177,7 +179,7 @@
       "title": "Use Portainer in a Homelab with GitHub",
       "description": "Late to the party or not, I have been using containers in my lab more and more and that has led me to Portainer ….",
       "date": "2022-12-09T09:06:37Z",
-      "modified": "2026-05-25T11:09:16Z",
+      "modified": "2026-06-01T19:02:44Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/",
       "markdown_url": "/markdown/posts/use-portainer-in-a-homelab-with-github.md",
@@ -187,15 +189,20 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Mikrotik",
-        "Networking",
         "TrueNAS Scale",
         "VMware",
         "vSAN",
         "vSphere",
-        "Artificial Intelligence",
+        "Wordpress",
+        "Storage",
+        "Synology",
         "AWS",
-        "Ansible"
+        "Ansible",
+        "Automation",
+        "Traefik",
+        "VCF",
+        "Mikrotik",
+        "Networking"
       ],
       "tags": [
         null,
@@ -203,14 +210,14 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png",
-      "excerpt": "![22225832](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png)\n\n[Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernet..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png)\n\n[Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernetes/)\n\n# ..."
     },
     {
       "slug": "unifi-dhcp-option-43",
       "title": "Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets",
       "description": "Configure DHCP Option 43 so UniFi APs and switches auto-adopt across subnets. Includes the hex converter, OPNsense + Mikrotik examples, and a UDM guide.",
       "date": "2024-06-26T10:50:17Z",
-      "modified": "2026-05-25T17:18:26Z",
+      "modified": "2026-06-01T19:02:59Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/",
       "markdown_url": "/markdown/posts/unifi-dhcp-option-43.md",
@@ -220,7 +227,6 @@
         "Networking",
         "Storage",
         "TrueNAS Scale",
-        "Nutanix",
         "Artificial Intelligence",
         "Automation",
         "Docker",
@@ -228,9 +234,8 @@
         "Traefik",
         "VMware",
         "Synology",
-        "Ansible",
-        "Containers",
-        "Devops"
+        "Nutanix",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -238,7 +243,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_-1024x683.png",
-      "excerpt": "![Ubiquiti Networks Logo.Wine ](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Configure DHCP Option 43 for UniFi devices to enable remote ad..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets\n\nBy[Ja..."
     },
     {
       "slug": "ubuntu-disk-expansion-steps",

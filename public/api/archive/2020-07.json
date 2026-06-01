@@ -30,9 +30,9 @@
     {
       "slug": "i3en",
       "title": "VMware Cloud on AWS i3en Host: Specs, Storage & Performance",
-      "description": "VMware Cloud on AWS (VMC) has introduced a new host to its lineup the “i3en”. This is based on the i3en.metal AWS instance.",
+      "description": "VMware Cloud on AWS (VMC) has introduced a new host to its lineup the \"i3en\". This is based on the i3en.",
       "date": "2020-07-02T22:01:39Z",
-      "modified": "2026-04-16T22:01:59Z",
+      "modified": "2026-06-01T19:02:25Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2020/07/i3en/",
       "markdown_url": "/markdown/posts/i3en.md",
@@ -40,18 +40,18 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "AWS",
-        "Veeam",
         "Personal",
-        "vSphere",
+        "Ansible",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
+        "Containers",
+        "Devops",
         "Homelab",
         "NVIDIA",
         "Traefik",
-        "Runecast",
-        "VCF"
+        "Automation",
+        "Docker",
+        "Networking",
+        "Storage"
       ],
       "tags": [
         null,
