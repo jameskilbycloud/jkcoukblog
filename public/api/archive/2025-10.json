@@ -8,7 +8,7 @@
       "title": "How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare",
       "description": "I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.",
       "date": "2025-10-06T15:57:06Z",
-      "modified": "2026-05-31T19:49:49Z",
+      "modified": "2026-06-01T21:07:11Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/",
       "markdown_url": "/markdown/posts/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare.md",
@@ -19,6 +19,13 @@
         "Github",
         "Wordpress",
         "Hosting",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
         "Personal"
       ],
       "tags": [
@@ -30,7 +37,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp",
-      "excerpt": "![Github Actions](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/c..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpr..."
     }
   ]
 }

@@ -5,7 +5,7 @@
       "title": "How to Run ZFS on VMware vSphere: Setup Guide and Best Practices",
       "description": "Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the",
       "date": "2024-12-18T17:47:57Z",
-      "modified": "2026-05-31T19:49:48Z",
+      "modified": "2026-06-01T21:07:03Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/12/zfs-on-vmware/",
       "markdown_url": "/markdown/posts/zfs-on-vmware.md",
@@ -15,11 +15,12 @@
         "VMware",
         "vSAN",
         "vSphere",
+        "Artificial Intelligence",
+        "Docker",
+        "Hosting",
         "VMware Cloud on AWS",
         "Homelab",
         "Storage",
-        "Veeam",
-        "Automation",
         "Personal"
       ],
       "tags": [
@@ -30,25 +31,32 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/12/IMG_20140330_210511-1024x845.jpeg",
-      "excerpt": "![Zfs](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg)\n\n[TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/) | [vSphere](https://jameskilby.co.uk/category/v..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg)\n\n[TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/) | [vSphere](https://jameskilby.co.uk/category/vsph..."
     },
     {
       "slug": "wrangler-and-node-versions",
       "title": "Fixing Wrangler Node.js Version Conflicts After Brew Upgrade",
       "description": "I am a massive fan of the brew package management system for macOS and use it on all of my Mac's I typically just upgrade everything blindly and have never",
       "date": "2022-01-15T08:42:36Z",
-      "modified": "2026-06-01T19:02:37Z",
+      "modified": "2026-06-01T21:06:39Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/",
       "markdown_url": "/markdown/posts/wrangler-and-node-versions.md",
       "api_url": "/api/posts/wrangler-and-node-versions.json",
       "categories": [
         "Cloudflare",
-        "Hosting",
-        "Wordpress",
-        "Personal",
         "Devops",
-        "Github"
+        "Github",
+        "Wordpress",
+        "Hosting",
+        "Personal",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "VMware"
       ],
       "tags": [
         null,
@@ -57,7 +65,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1.png",
-      "excerpt": "![Wranglercrab 1](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/)\n\n# Fixing Wrangler Node.js Version Conflicts After Brew Upgrade\n\nBy[James](https://jameskilby.co.uk)January 15, 2022June 1, 2026 • 📖1 min read(217 wo..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/)\n\n# Fixing Wrangler Node.js Version Conflicts After Brew Upgrade\n\nBy[James](https://jameskilby.co.uk) January 15, 2022June 1, 2026 • 📖1 min read(217 words)\n\n📅 **Pub..."
     },
     {
       "slug": "whats-in-my-backpack",
@@ -107,9 +115,9 @@
     {
       "slug": "web-development-improvements",
       "title": "Blog Performance & SEO Improvements: Cloudflare, Privacy & More",
-      "description": "I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend”.",
+      "description": "I have spent the Christmas break making some improvements to this blog.",
       "date": "2026-01-15T15:12:16Z",
-      "modified": "2026-05-31T11:36:30Z",
+      "modified": "2026-06-01T21:07:14Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/01/web-development-improvements/",
       "markdown_url": "/markdown/posts/web-development-improvements.md",
@@ -118,9 +126,14 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
+        "Artificial Intelligence",
+        "Automation",
         "Docker",
         "Homelab",
-        "Kubernetes",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "Personal",
         "Devops",
         "Github"
       ],
@@ -131,14 +144,14 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/01/Website-Optimisations.png",
-      "excerpt": "![Website Optimisations](https://jameskilby.co.uk/wp-content/uploads/2026/01/Website-Optimisations.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Blog Performance..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/01/Website-Optimisations.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Blog Performance & SEO Improvements: ..."
     },
     {
       "slug": "warp-the-intelligent-terminal",
       "title": "Warp – The intelligent terminal",
-      "description": "Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and",
+      "description": "Warp is helping me run my homelab.",
       "date": "2025-04-11T15:46:23Z",
-      "modified": "2026-05-31T19:49:49Z",
+      "modified": "2026-06-01T21:07:06Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/",
       "markdown_url": "/markdown/posts/warp-the-intelligent-terminal.md",
@@ -146,16 +159,14 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Storage",
-        "Mikrotik",
-        "Networking",
-        "Ansible",
-        "Automation",
         "Docker",
-        "NVIDIA",
-        "Traefik",
+        "Hosting",
+        "Nutanix",
+        "Storage",
+        "Synology",
         "VMware",
-        "Nutanix"
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null,
@@ -170,7 +181,7 @@
       "title": "Automating vSphere Power Management driven by Ansible and SemaphoreUI",
       "description": "Learn how to automate vSphere power management using Ansible and SemaphoreUI, scheduling ESXi host shutdowns based on Octopus Agile energy tariffs to cut costs.",
       "date": "2026-04-15T21:36:41Z",
-      "modified": "2026-05-31T11:36:31Z",
+      "modified": "2026-06-01T21:07:22Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/",
       "markdown_url": "/markdown/posts/vsphere-power-management-driven-by-ansible.md",
@@ -178,13 +189,16 @@
       "categories": [
         "Ansible",
         "Automation",
-        "Artificial Intelligence",
+        "Homelab",
+        "Storage",
+        "Synology",
+        "vExpert",
+        "Docker",
+        "Traefik",
         "VCF",
         "VMware",
-        "Homelab",
-        "Networking",
-        "VMware Cloud on AWS",
-        "Mikrotik"
+        "Runecast",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -200,7 +214,7 @@
       "title": "vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24",
       "description": "vSAN ESA - Benefits Performance benefits Efficiency benefits Resilience Benefits Sizing vSAN Express Storage Architecture (ESA) was announced at VMware Exp",
       "date": "2023-11-17T11:29:42Z",
-      "modified": "2026-06-01T19:02:56Z",
+      "modified": "2026-06-01T21:06:57Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/",
       "markdown_url": "/markdown/posts/vsan-esa-and-the-improvements-it-brings-to-vmc.md",
@@ -209,12 +223,18 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
-        "VCF",
-        "Personal",
         "Homelab",
-        "Networking",
+        "Personal",
         "Storage",
-        "Automation"
+        "Synology",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "VCF",
+        "AWS",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -223,14 +243,14 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
-      "excerpt": "![Origionalpoweredbyvsan 550X324 1](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/) | [vSAN](https://jameskilby.co.uk/..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n#..."
     },
     {
       "slug": "vsan-cluster-shutdown",
       "title": "vSAN Cluster Shutdown – Orchestration",
-      "description": "As can be seen on my Lab Overview page, I have a GPU/Management cluster that is usually running 24×7.",
+      "description": "As can be seen on my Lab Overview page. I have a GPU/Management cluster that is usually running 24x7.",
       "date": "2025-12-06T10:59:14Z",
-      "modified": "2026-05-25T08:36:12Z",
+      "modified": "2026-06-01T21:07:13Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/",
       "markdown_url": "/markdown/posts/vsan-cluster-shutdown.md",
@@ -238,20 +258,21 @@
       "categories": [
         "VMware",
         "vSAN",
-        "Runecast",
-        "Homelab",
-        "Nutanix",
         "VMware Cloud on AWS",
-        "Automation",
-        "Networking",
-        "Storage",
+        "Ansible",
         "Artificial Intelligence",
-        "Docker",
+        "Containers",
+        "Devops",
+        "Homelab",
         "NVIDIA",
-        "Traefik"
+        "Traefik",
+        "Automation",
+        "Docker",
+        "VCF",
+        "Veeam"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
-      "excerpt": "![Origionalpoweredbyvsan 550X324 1](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n# vSAN Cluster Shutdown – Orchestration\n\nBy[James](https..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n# vSAN Cluster Shutdown – Orchestration\n\nBy[James](https://jameskilby.co.uk) December 6,..."
     },
     {
       "slug": "vmware-certified-master-specialist-hci-2020",

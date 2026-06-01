@@ -693,7 +693,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/09/Screenshot-2024-09-05-at-11.57.47.png</image:loc>
@@ -713,7 +713,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2024/12/zfs-on-vmware/</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/IMG_20140330_210511-1024x845.jpeg</image:loc>
@@ -753,7 +753,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/01/HoarderApp-1024x491.png</image:loc>
@@ -778,7 +778,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/04/Screenshot-2025-04-11-at-14.12.14-1024x95.png</image:loc>
@@ -793,22 +793,21 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/08/vmc-host-deepdive/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/09/Ansible-Inventory.png</image:loc>
       <image:title>Ansible Inventory</image:title>
-      <image:caption>Ansible Inventory</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/07/Semaphore-Repo-1024x80.png</image:loc>
@@ -843,7 +842,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/10/Wordpress-Authoring-2-1024x677.png</image:loc>
@@ -868,7 +867,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/vSphere-Overview-1024x530.png</image:loc>
@@ -943,7 +942,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2026/01/web-development-improvements/</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/10/Wordpress-Authoring-2-1024x677.png</image:loc>
@@ -963,7 +962,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/Add-PCI-Device-1-402x1024.png</image:loc>
@@ -1063,7 +1062,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/03/Screenshot-2026-03-07-at-07.30.35-1024x713.png</image:loc>
@@ -1093,7 +1092,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/VCF-Offline-Depot-1024x538.png</image:loc>
@@ -1123,7 +1122,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/01/Traefik-Docker-Setup-1024x342.png</image:loc>
@@ -1138,12 +1137,12 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/AgileRates-1024x707.png</image:loc>

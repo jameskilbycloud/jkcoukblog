@@ -6,9 +6,9 @@
     {
       "slug": "warp-the-intelligent-terminal",
       "title": "Warp – The intelligent terminal",
-      "description": "Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of linux based tools at home, I am mostly self taught and",
+      "description": "Warp is helping me run my homelab.",
       "date": "2025-04-11T15:46:23Z",
-      "modified": "2026-05-31T19:49:49Z",
+      "modified": "2026-06-01T21:07:06Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/",
       "markdown_url": "/markdown/posts/warp-the-intelligent-terminal.md",
@@ -16,16 +16,14 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Storage",
-        "Mikrotik",
-        "Networking",
-        "Ansible",
-        "Automation",
         "Docker",
-        "NVIDIA",
-        "Traefik",
+        "Hosting",
+        "Nutanix",
+        "Storage",
+        "Synology",
         "VMware",
-        "Nutanix"
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null,

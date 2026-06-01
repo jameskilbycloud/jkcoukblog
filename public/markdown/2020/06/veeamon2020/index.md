@@ -2,7 +2,7 @@
 title: "VeeamON 2020: Highlights From Veeam’s Virtual Conference"
 description: "As everyone knows by now the world has changed possibly forever. Due to Covid19 working from home has become the new normal."
 date: 2020-06-18T14:42:45+00:00
-modified: 2026-06-01T19:02:24+00:00
+modified: 2026-06-01T21:06:25+00:00
 author: James Kilby
 categories:
   - Veeam
@@ -16,13 +16,13 @@ url: https://jameskilby.co.uk/2020/06/veeamon2020/
 image: https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png
 ---
 
-![Veeam Logo New Large 1934042827](https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png)
+![](https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png)
 
 [Veeam](https://jameskilby.co.uk/category/veeam/)
 
 # VeeamON 2020: Highlights From Veeam’s Virtual Conference
 
-By[James](https://jameskilby.co.uk)June 18, 2020June 1, 2026 • 📖1 min read(272 words)
+By[James](https://jameskilby.co.uk) June 18, 2020June 1, 2026 • 📖1 min read(272 words)
 
 📅 **Published:** June 18, 2020• **Updated:** June 01, 2026
 
@@ -32,7 +32,7 @@ In the words of Charles Darwin “ _It is not the strongest of the species that 
 
 With that most (if not all IT conferences have been postponed or gone online) Veeam’s annual conference VeeamON is no exception and now it’s here!!
 
-As a [Veeam Vanguard](https://www.veeam.com/vanguard.html) I was privileged to be given an early briefing on some of the announcements. These are summarised below but for all the details make sure you sign up and view some of the great sessions.
+As a [Veeam Vanguard](https://www.veeam.com/vanguard.html) I was privileged to be given an early briefing on some of the announcements. These are summarised below but for all the details make sure you sign up and view some of the great sessions..
 
 If you haven’t managed to sign up you still can [here.](https://www.veeam.com/veeamon)
 
@@ -77,13 +77,13 @@ Yes Veeam Backup Agent for **MAC**
 
 ## Similar Posts
 
-  * [![Monitoring VMware Cloud on AWS: Tools & Approaches \(Part 1\)](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)](https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/)
+  * [ ![Monitoring VMware Cloud on AWS: Tools & Approaches \(Part 1\)](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp) ](https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [AWS](https://jameskilby.co.uk/category/aws/) | [Veeam](https://jameskilby.co.uk/category/veeam/)
 
 ### [Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1)](https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/)
 
-By[James](https://jameskilby.co.uk)December 17, 2019June 1, 2026
+By[James](https://jameskilby.co.uk) December 17, 2019June 1, 2026
 
 As previously mentioned I have been working a lot with VMware Cloud on AWS and one of the questions that often crops up is around an approach to monitoring.
 
@@ -91,6 +91,6 @@ As previously mentioned I have been working a lot with VMware Cloud on AWS and o
 
 ### [Lab Update – Desired Workloads](https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/)
 
-By[James](https://jameskilby.co.uk)January 6, 2022June 1, 2026
+By[James](https://jameskilby.co.uk) January 6, 2022June 1, 2026
 
 My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.

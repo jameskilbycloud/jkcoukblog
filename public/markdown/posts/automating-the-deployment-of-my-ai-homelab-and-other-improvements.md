@@ -2,7 +2,7 @@
 title: "Automating the Deployment of my Homelab AI Infrastructure"
 description: "Automate a complete AI homelab build with Ansible: Ubuntu, NVIDIA GPU passthrough, Docker, Traefik, and the full AI stack deployed via Semaphore."
 date: 2026-02-09T11:54:54+00:00
-modified: 2026-05-31T12:06:39+00:00
+modified: 2026-06-01T21:07:15+00:00
 author: James Kilby
 categories:
   - Ansible
@@ -13,16 +13,14 @@ categories:
   - NVIDIA
   - Traefik
   - VMware
-  - Cloudflare
-  - Github
-  - Wordpress
-  - Docker
-  - Hosting
-  - Automation
-  - Storage
-  - Synology
   - VMware Cloud on AWS
-  - vExpert
+  - vSAN
+  - Automation
+  - Docker
+  - VCF
+  - AWS
+  - Veeam
+  - Nutanix
 tags:
   - #AI
   - #Docker
@@ -33,21 +31,21 @@ url: https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab
 image: https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png
 ---
 
-![Vmware Nvidia Logos Ee2F18Dc 615D 4C9E 8F11 9C3C2Ce2Bf37 Prv](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png)
+![](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Containers](https://jameskilby.co.uk/category/containers/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 # Automating the Deployment of my Homelab AI Infrastructure
 
-By[James](https://jameskilby.co.uk)February 9, 2026May 31, 2026 • 📖17 min read(3,332 words)
+By[James](https://jameskilby.co.uk) February 9, 2026June 1, 2026 • 📖17 min read(3,332 words)
 
-📅 **Published:** February 09, 2026• **Updated:** May 31, 2026
+📅 **Published:** February 09, 2026• **Updated:** June 01, 2026
 
 In a previous [post](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/), I wrote about using my VMware lab with an NVIDIA Tesla P4 for running some AI services. This deployment was done with the P4 GPU in passthrough mode where the entire PCI card was presented into the VM. (I will refer to this as GPU mode). I wanted to take this to the next level. I also wanted to automate most of the steps. This was for a few reasons; firstly, I wanted to get better at automation in general.
 
 Secondly, I found the setup brittle and wanted to improve the reliability of deployments. This post will be about using automation to deploy the VM infrastructure required to be able to run AI Workloads. This is something I presented on with my good friend [Gareth](https://www.virtualisedfruit.co.uk/) at the London VMUG.
 
-However, in a homelab environment a more straightforward Docker-based setup could be more appropriate….
+However, in a homelab environment a more straightforward Docker-based setup could be more appropriate.
 
 I also decided to bite the bullet and update the graphics card I was using to something a bit more modern and capable. After a bit of searching, I decided on an [NVIDIA A10](https://www.nvidia.com/en-gb/data-center/products/a10-gpu/)
 
@@ -63,7 +61,7 @@ All of the code is referenced in my GitHub IAC [repository](https://github.com/j
 
 For anyone not familiar, it may be worth giving an overview of the differences between GPU and vGPU. What I describe as “GPU” is where I am passing the entire Graphics PCI device through to a single VM within vSphere. Using this method has some advantages; firstly, it doesn’t require any special licences or drivers. The entire PCI card gets passed into the VM as is. However, it has some downsides.
 
-The two most important ones for me are that it can only be presented to a single VM at a time and that VM cannot be snapshotted while it is turned on. This made backups convoluted. As I was changing configurations a lot this became tedious. I also wanted to be able to pass the card through to multiple VM’s
+The two most important ones for me are that it can only be presented to a single VM at a time and that VM cannot be snapshotted while it is turned on. This made backups convoluted. As I was changing configurations a lot this became tedious. I also wanted to be able to pass the card through to multiple VMs
 
 vGPU is only officially supported on “datacentre” cards from NVIDIA. It virtualises the graphics card and allows you to share it across multiple VMs in a similar way to what vSphere has done for compute virtualisation for years. It allows you to split the card into some predefined profiles that I have listed below and attach them to multiple virtual machines at the same time.
 
@@ -71,9 +69,9 @@ vGPU is only officially supported on “datacentre” cards from NVIDIA. It virt
 
 There are quite a lot of pre-reqs required to be in place to utilise all the attached deployment playbooks. So it’s worth ensuring that all of these are complete.
 
-  * Obviously, you need a vSphere Host and vCentre server licensed at least at the enterprise level (I am using Enterprise Plus on 8.0u3)
+  * Obviously, you need a vSphere Host and vCenter server licensed at least at the enterprise level (I am using Enterprise Plus on 8.0u3)
   * An Ubuntu VM (Tested with 25.04) referred to as the vGPU VM
-  * A NVIDIA datacenter Graphics card and associated Host and Guest drivers, I am using an A10 24GB and using driver version 535.247.0
+  * An NVIDIA datacenter graphics card and associated Host and Guest drivers, I am using an A10 24GB and using driver version 535.247.01
   * NVIDIA vGPU licence. Trials are available [here](https://www.nvidia.com/en-gb/data-center/resources/vgpu-evaluation/) if needed
   * NFS Server (used for NVIDIA software deployment)
   * A Domain hosted with Cloudflare and an API [token](http://You can create one at: https://dash.cloudflare.com/profile/api-tokens) with Zone:DNS:Edit permissions.
@@ -87,7 +85,7 @@ There are quite a lot of pre-reqs required to be in place to utilise all the att
 
 ## Host Setup
 
-To make vGPU work successfully, there are three elements required. The ESXi Driver/VIB, the Guest driver and the NVIDIA licence for the Guest VM. For now, I’m using the ‘535’ version of the driver bundle, which is the LTS version.` The Driver bundle and licence must be obtained from NVIDIA however trials are available if you don’t have access. Once the software has been obtained, you need to copy the host driver to a VMware datastore. Then place the host in maintenance mode and install the driver using the command.
+To make vGPU work successfully, there are three elements required. The ESXi Driver/VIB, the Guest driver and the NVIDIA licence for the Guest VM. For now, I’m using the ‘535’ version of the driver bundle, which is the LTS version. The Driver bundle and licence must be obtained from NVIDIA however trials are available if you don’t have access. Once the software has been obtained, you need to copy the host driver to a VMware datastore. Then place the host in maintenance mode and install the driver using the command.
     
     
     esxcli software vib install -d /vmfs/volumes/02cb3d2b-457ccb84/nvidia/NVIDIA-GRID-vSphere-8.0-535.247.02-535.247.01-539.28.zip
@@ -128,7 +126,7 @@ Once the host has restarted, ssh into it and validate that the driver is talking
 
 ### vGPU Profiles
 
-If everything is working correctly, you should now be able to see the vGPU profiles in vCentre.
+If everything is working correctly, you should now be able to see the vGPU profiles in vCenter.
     
     
     Select the VM you want to present the NVIDIA card to. Edit the VM settings and select add PCI device.
@@ -480,7 +478,7 @@ If everything runs smoothly the last step of the Ansible playbook will show an e
 
 This playbook installs the NVIDIA container toolkit and validates it. It does this by running a Docker container and executing the nvidia-smi command from within the container. This sounds trivial but actually is one of the main reasons I made these playbooks. To get the GPU to work in the docker container you have to have a lot of things set up correctly. This requires the correct ESXi Driver, VM driver within the Ubuntu VM, Docker and the Docker container toolkit set up correctly.
 
-The correct Kernel extensions, etc., and the licensing are working correctly
+The correct Kernel extensions, etc., and the licensing is working correctly
 
 No additional parameters need to be set to execute it.
 
@@ -509,7 +507,7 @@ The labels look something like the following. These are added to the individual 
 
 📋 Copy
 
-With the above labels added to my OpenWebUI container, Traefik will request a certificate for openwebui.jameskilby.cloud and deploy this as a HTTPS service mapped to the OpenWebUI container on port 8080
+With the above labels added to my OpenWebUI container, Traefik will request a certificate for openwebui.jameskilby.cloud and deploy this as an HTTPS service mapped to the OpenWebUI container on port 8080
 
 I could probably do a whole post just on my setup of Traefik but for now here is an overview diagram.
 
@@ -573,7 +571,7 @@ Rather than typing all of the values out you can copy the JSON below and then ju
 
 ##### Traefik Variable Definitions
 
- **Variable**|  **Default**|  **Description**  
+**Variable**|  **Default**|  **Description**  
 ---|---|---  
 traefik_deploy_test_service| true| set to false to skip NGINX deployment  
 traefik_healthcheck_poll_retries| 12| Number of health check poll attempts  
@@ -697,62 +695,62 @@ This is now ready for you to start deploying Docker-based AI workloads onto.
 
 ## Similar Posts
 
-  * [![How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
+  * [ ![vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg) ](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
 
-[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
 
-### [How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
+### [vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
 
-By[James](https://jameskilby.co.uk)October 6, 2025May 31, 2026
+By[James](https://jameskilby.co.uk) November 17, 2023June 1, 2026
 
-I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.
+An Overview of vSAN ESA in VMC 
 
-  * [![How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-768x411.png)](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
+  * [ ![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png) ](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
 
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
+[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
+### [My Self-Hosted AI Stack: Architecture Overview (Part 1)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
 
-By[James](https://jameskilby.co.uk)January 29, 2025May 31, 2026
+By[James](https://jameskilby.co.uk) March 27, 2026May 31, 2026
 
-Update: Hoarder has now been renamed to Karakeep due to a trademark issue I’ve been on a mission recently to regain control of my data.
+A walkthrough of my self-hosted AI stack: Ollama, Open WebUI, ComfyUI, Whishper, n8n, Qdrant, SearxNG, and a full observability layer — all running on my own hardware with Docker Compose.
 
-  * [![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png)](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
+  * [ ![VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png) ](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
 
-[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/)
 
-### [Automating vSphere Power Management driven by Ansible and SemaphoreUI](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
+### [VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
 
-By[James](https://jameskilby.co.uk)April 15, 2026May 31, 2026
+By[James](https://jameskilby.co.uk) January 17, 2024June 1, 2026
 
-In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introduction One of the larger costs of running my homelab is the electricity….
+How to Deploy VMware Holodeck on multiple hosts
 
-  * [![Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1-768x403.jpg)](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
+  * [ ![Monitoring VMware Cloud on AWS: Tools & Approaches \(Part 1\)](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp) ](https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [AWS](https://jameskilby.co.uk/category/aws/) | [Veeam](https://jameskilby.co.uk/category/veeam/)
 
-### [Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
+### [Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1)](https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/)
 
-By[James](https://jameskilby.co.uk)November 21, 2022June 1, 2026
+By[James](https://jameskilby.co.uk) December 17, 2019June 1, 2026
 
-I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate.
+As previously mentioned I have been working a lot with VMware Cloud on AWS and one of the questions that often crops up is around an approach to monitoring.
 
-  * [![VMware Cloud on AWS \(VMC\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-768x395.png)](https://jameskilby.co.uk/2020/07/i3en/)
+  * [ ![New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg) ](https://jameskilby.co.uk/2024/07/new-nodes/)
 
-[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [VMware Cloud on AWS i3en Host: Specs, Storage & Performance](https://jameskilby.co.uk/2020/07/i3en/)
+### [New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/2024/07/new-nodes/)
 
-By[James](https://jameskilby.co.uk)July 2, 2020June 1, 2026
+By[James](https://jameskilby.co.uk) July 2, 2024June 1, 2026
 
-VMware Cloud on AWS (VMC) has introduced a new host to its lineup the “i3en”. This is based on the i3en.
+I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul .
 
-  * [![Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png)](https://jameskilby.co.uk/2023/04/intel-optane/)
+  * [ ![VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743-768x737.jpg) ](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://jameskilby.co.uk/category/vexpert/)
+[VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/2023/04/intel-optane/)
+### [VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
 
-By[James](https://jameskilby.co.uk)April 17, 2023June 1, 2026
+By[James](https://jameskilby.co.uk) January 18, 2024June 1, 2026
 
-I have been a VMware vExpert for many years and it has brought me many many benefits over the years.
+How to deploy Holodeck with Legacy CPU’s

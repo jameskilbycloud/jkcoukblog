@@ -2,7 +2,7 @@
 title: "My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)"
 description: "Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database"
 date: 2026-04-04T21:39:21+00:00
-modified: 2026-05-31T11:36:30+00:00
+modified: 2026-06-01T21:07:19+00:00
 author: James Kilby
 categories:
   - Artificial Intelligence
@@ -12,14 +12,9 @@ categories:
   - NVIDIA
   - Traefik
   - VMware
-  - vSAN
-  - Storage
-  - Hosting
+  - VMware Cloud on AWS
   - Personal
-  - TrueNAS Scale
   - vSphere
-  - Mikrotik
-  - Networking
 tags:
   - #AI
   - #Artificial Intelligence
@@ -46,20 +41,20 @@ image: https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured.png
 
 # My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)
 
-By[James](https://jameskilby.co.uk)April 4, 2026May 31, 2026 • 📖11 min read(2,135 words)
+By[James](https://jameskilby.co.uk) April 4, 2026June 1, 2026 • 📖11 min read(2,138 words)
 
-📅 **Published:** April 04, 2026• **Updated:** May 31, 2026
+📅 **Published:** April 04, 2026• **Updated:** June 01, 2026
 
- _This is Part 2 of a multi-part series on my self-hosted AI stack.[Part 1](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/) covers the application architecture and a layer-by-layer walkthrough of every service. If you haven’t read it yet, I’d recommend starting there — it gives the context that makes Part 2 make sense._
+_This is Part 2 of a multi-part series on my self-hosted AI stack.[Part 1](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/) covers the application architecture and a layer-by-layer walkthrough of every service. If you haven’t read it yet, I’d recommend starting there — it gives the context that makes Part 2 make sense._
 
 Part 2 goes deeper into the infrastructure side of things: how traffic is designed to route, how containers are sized and constrained, what databases and data stores are running under the hood.
 
 Specifically, this post covers:
 
-  *  **Resource limits and sizing** — CPU and memory constraints for every container, and the reasoning behind them
-  *  **Infrastructure and routing** — the dual-network design, Traefik reverse proxy configuration, Cloudflare Tunnels, and how external traffic is isolated from internal service communication
-  *  **Data layer** — every database and persistent store in the stack: PostgreSQL, SQLite, ChromaDB, Redis, and Minio
-  *  **Backups** — the sidecar backup strategy for PostgreSQL, n8n, and Open WebUI, with data landing on a NAS over SMB
+  * **Resource limits and sizing** — CPU and memory constraints for every container, and the reasoning behind them
+  * **Infrastructure and routing** — the dual-network design, Traefik reverse proxy configuration, Cloudflare Tunnels, and how external traffic is isolated from internal service communication
+  * **Data layer** — every database and persistent store in the stack: PostgreSQL, SQLite, ChromaDB, Redis, and Minio
+  * **Backups** — the sidecar backup strategy for PostgreSQL, n8n, and Open WebUI, with data landing on a NAS over SMB
 
 ## Table of Contents
 
@@ -69,7 +64,7 @@ In this part I’ll walk through the network topology, container sizing, and eve
 
 ## Resource Limits & Sizing
 
-If you read part one, you will have seen that there are a lot of components that make up this AI stack. Every container in the stack has explicit CPU and memory limits and reservations set. This is to prevent a single runaway container or model starving other services of resources. These limits have been defined based on my production deployment running on my host with an NVIDIA A10 (24 GB vRAM), this is presented to a VM allocated with 24 CPU cores, and 96 GB RAM plus 500GB of NVMe storage. Based on that profile, I have allocated container resources as follows
+If you read part one, you will have seen that there are a lot of components that make up this AI stack. Every container in the stack has explicit CPU and memory limits and reservations set. This is to prevent a single runaway container or model starving other services of resources. These limits have been defined based on my production deployment running on my host with an NVIDIA A10 (24 GB vRAM), this is presented to a VM allocated with 24 CPU cores, and 96 GB RAM plus 500GB of NVMe storage. Based on that profile, I have allocated container resources as follows:
 
 Container| Role| Mem Limit| CPU Limit  
 ---|---|---|---  
@@ -103,7 +98,7 @@ Container| Role| Mem Limit| CPU Limit
   
 As can be seen from the docker containers above the resource requirements are not trivial.
 
-I would recommend the following VM configuration as a minimum to use the services with some tweaks to the docker and Ansible configuration to accommodate the reduced footprint. I would also highly recommend the data disk is on NVMe
+I would recommend the following VM configuration as a minimum to use the services with some tweaks to the docker and Ansible configuration to accommodate the reduced footprint. I would also highly recommend the data disk is on NVMe.
 
 Resource| Allocation  
 ---|---  
@@ -129,7 +124,7 @@ Services that need both external routing and internal communication (like Open W
 
 ### Domain Portability
 
-The deployment is designed in a way that the url can be adapted as needed. The compose file uses the pattern `${DOMAIN:-jameskilby.cloud}` rather than a hardcoded hostname. Traefik labels, environment variables, webhook URLs — all of them resolve through a single `DOMAIN` variable in the `.env` file. This allows you to fork the repo and deploy the stack under your own domain. You change one variable and every service picks it up — `chat.yourdomain.com`, `grafana.yourdomain.com`, `langfuse.yourdomain.com`, and so on. The `:-jameskilby.cloud` default means the compose still works if the variable is unset, which keeps `docker compose config` clean for local testing.
+The deployment is designed in a way that the url can be adapted as needed. The The compose file uses the pattern `${DOMAIN:-jameskilby.cloud}` rather than a hardcoded hostname. Traefik labels, environment variables, webhook URLs — all of them resolve through a single `DOMAIN` variable in the `.env` file. This allows you to fork the repo and deploy the stack under your own domain. You change one variable and every service picks it up — `chat.yourdomain.com`, `grafana.yourdomain.com`, `langfuse.yourdomain.com`, and so on. The `:-jameskilby.cloud` default means the compose still works if the variable is unset, which keeps `docker compose config` clean for local testing.
 
 An `.env.example` file is included in the repo with placeholder values and generation instructions for every required secret. Copy it to `.env`, fill in your values, and the stack is ready to deploy.
 
@@ -187,11 +182,11 @@ This split—local volumes for transactional databases, NAS for observability—
 
 ## Backups
 
-The self-hosted AI stack contains data in multiple locations. Some of this can be recreated or redownloaded easily and some of it needs protecting
+The self-hosted AI stack contains data in multiple locations. Some of this can be recreated or redownloaded easily and some of it needs protecting.
 
 ### OpenWebUI Backups
 
-OpenWebUI is the front end to most of the AI stack and it can end up storing a lot of data from various sources. This data is mostly stored in a SQLite database. Due to the way sqlite works it is not possible to run it on remote storage. It therefore runs on local NVMe storage attached to the VM. To enable backups of this data, I have a second container that runs alongside OpenWebUI sharing access to the same volumes. It periodically (every 6 hours) performs a crash-consistent database backup and writes it out to the persistent smb share. It also performs retention of the database only keeping the last 7 copies. This gives me the ability to restore 
+OpenWebUI is the front end to most of the AI stack and it can end up storing a lot of data from various sources. This data is mostly stored in a SQLite database. Due to the way sqlite works it is not possible to run it on remote storage. It therefore runs on local NVMe storage attached to the VM. To enable backups of this data, I have a second container that runs alongside OpenWebUI sharing access to the same volumes. It periodically (every 6 hours) performs a crash-consistent database backup and writes it out to the persistent smb share. It also performs retention of the database only keeping the last 7 copies. This gives me the ability to restore: 
 
   * All User config
   * Every conversation and the associated message history
@@ -212,7 +207,7 @@ I have also deployed a backup sidecar container to handle PostgreSQL following t
 
 ## N8N Backups
 
-The N8N container also contains a lot of data. A dedicated backup sidecar uses the n8n REST API (authenticated via `N8N_BACKUP_API_KEY`) to export data every 6 hours, committing changes to a local git repository for point-in-time history. To push changes to a remote GitHub repository, also define `N8N_BACKUP_GIT_REPO` and `N8N_BACKUP_GIT_TOKEN` in the .env file GitHub repo URL (e.g. `https://github.com/jameskilbynet/n8n-backups.git`)
+The N8N container also contains a lot of data. A dedicated backup sidecar uses the n8n REST API (authenticated via `N8N_BACKUP_API_KEY`) to export data every 6 hours, committing changes to a local git repository for point-in-time history. To push changes to a remote GitHub repository, also define `N8N_BACKUP_GIT_REPO` and `N8N_BACKUP_GIT_TOKEN` in the .env file as the GitHub repo URL (e.g. `https://github.com/jameskilbynet/n8n-backups.git`)
 
   * Workflows – Full workflow definitions including nodes, connections, and settings, exported as individual files for easy diffing and selective restore.
   * Credentials – Metadata only (name, type, ID). The n8n API does not expose secret values — credential secrets remain encrypted in PostgreSQL and are never written to the backup.
@@ -222,8 +217,8 @@ If the Git credentials are not set, it will back up to the SMB repo like the oth
 
 ## Continue Reading
 
-  *  **[← Part 1: Architecture Overview](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)** – The big picture, layer-by-layer walkthrough from inference to observability.
-  *  **Part 3: Operations & Maintenance →** – Ansible deployment, monitoring with Uptime Kuma, and the Open WebUI backup strategy — coming soon 
+  * **[← Part 1: Architecture Overview](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)** – The big picture, layer-by-layer walkthrough from inference to observability.
+  * **Part 3: Operations & Maintenance →** – Ansible deployment, monitoring with Uptime Kuma, and the Open WebUI backup strategy — coming soon 
 
 ## 📚 Related Posts
 
@@ -233,62 +228,62 @@ If the Git credentials are not set, it will back up to the SMB repo like the oth
 
 ## Similar Posts
 
-  * [![vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
+  * [ ![New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp) ](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
 
-[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
-### [vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
+### [New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
 
-By[James](https://jameskilby.co.uk)December 6, 2025May 25, 2026
+By[James](https://jameskilby.co.uk) April 1, 2026June 1, 2026
 
-How to safety shutdown a vSAN Environment
+We’ve expanded the VMC fleet with the new i7i (i7i.
 
-  * [![Lab Update – Part 2 Storage Truenas Scale](https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault-768x432.jpeg)](https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/)
+  * [ ![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png) ](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)
+[Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [Lab Update – Part 2 Storage Truenas Scale](https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/)
+### [VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
-By[James](https://jameskilby.co.uk)January 11, 2022June 1, 2026
+By[James](https://jameskilby.co.uk) September 13, 2020May 31, 2026
 
-The HP Z840 has changed its role to a permanent storage box running Truenas Scale.
+I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.
 
-  * [![Analytics in a privacy focused world](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png)](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
+  * [ ![Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU](https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-768x512.jpg) ](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/)
 
-[Hosting](https://jameskilby.co.uk/category/hosting/) | [Personal](https://jameskilby.co.uk/category/personal/)
+[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
-### [Analytics in a privacy focused world](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
+### [Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/)
 
-By[James](https://jameskilby.co.uk)November 10, 2023June 1, 2026
+By[James](https://jameskilby.co.uk) October 11, 2024June 1, 2026
 
-I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance.
+Artificial intelligence is all the rage at the moment, It’s getting included in every product announcement from pretty much every vendor under the sun.
 
-  * [![How to Run ZFS on VMware vSphere: Setup Guide and Best Practices](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg)](https://jameskilby.co.uk/2024/12/zfs-on-vmware/)
+  * [ ![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png) ](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
 
-[TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
+[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [How to Run ZFS on VMware vSphere: Setup Guide and Best Practices](https://jameskilby.co.uk/2024/12/zfs-on-vmware/)
+### [My Self-Hosted AI Stack: Architecture Overview (Part 1)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
 
-By[James](https://jameskilby.co.uk)December 18, 2024May 31, 2026
+By[James](https://jameskilby.co.uk) March 27, 2026May 31, 2026
 
-Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the way back in 2010.
+A walkthrough of my self-hosted AI stack: Ollama, Open WebUI, ComfyUI, Whishper, n8n, Qdrant, SearxNG, and a full observability layer — all running on my own hardware with Docker Compose.
 
-  * [![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600-768x427.jpg)](https://jameskilby.co.uk/2024/09/home-network-upgrade/)
+  * [ ![An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png) ](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
 
-[Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
-### [Home Network Upgrade to 25Gb/s with MikroTik Switching](https://jameskilby.co.uk/2024/09/home-network-upgrade/)
+### [An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
 
-By[James](https://jameskilby.co.uk)September 9, 2024June 1, 2026
+By[James](https://jameskilby.co.uk) August 14, 2025June 1, 2026
 
-My journey to superfast networking in my homelab
+This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison.
 
-  * [![VMware – Going out with a Bang!](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo-768x384.png)](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
+  * [ ![Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png) ](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
-[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
 
-### [VMware – Going out with a Bang!](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
+### [Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
-By[James](https://jameskilby.co.uk)October 7, 2023June 1, 2026
+By[James](https://jameskilby.co.uk) November 10, 2023June 1, 2026
 
-There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom.
+Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal.
