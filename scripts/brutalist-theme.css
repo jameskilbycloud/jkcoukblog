@@ -419,11 +419,14 @@ img {
   height: 100%;
 }
 
-/* Base thumbnail images - fill container with object-fit
-   Use two-class selector (0,2,1) to override Kadence's .post-thumbnail:not(...) img (0,2,1)
-   since brutalist-theme.css loads after Kadence CSS, same specificity = last wins */
-.post-thumbnail .post-thumbnail-inner img,
-.article-post-thumbnail .post-thumbnail-inner img {
+/* Grid/list card thumbnails - fill the fixed-ratio Kadence box with object-fit: cover
+   so card heights stay uniform. Decorative crop is acceptable for thumbnails.
+   Two-class selector (0,2,1) to match Kadence's .post-thumbnail:not(...) img (0,2,1)
+   so brutalist-theme.css wins via cascade order (it loads last). */
+.loop-entry .post-thumbnail .post-thumbnail-inner img,
+.loop-entry .article-post-thumbnail .post-thumbnail-inner img,
+.entry-list-item .post-thumbnail .post-thumbnail-inner img,
+.entry-list-item .article-post-thumbnail .post-thumbnail-inner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -437,9 +440,32 @@ img {
   background-color: rgba(255, 255, 255, 0.02);
 }
 
-/* Single post featured image - inherit from base rules */
+/* Single-post featured image - display at natural proportions.
+   Kadence's .post-thumbnail forces a fixed 3:2 box (padding-bottom:66.67%) which,
+   combined with object-fit:cover, savagely crops wide logos (4:1+) and square
+   portraits. On single posts we drop the forced ratio and let the image dictate
+   its own height. The .kadence-thumbnail-position-behind overlay still works
+   because .entry-content-wrap has its own solid dark background — the title
+   sits below the image as a banner. */
+.single .post-thumbnail.article-post-thumbnail,
+.single .article-post-thumbnail {
+  height: auto !important;
+  padding-bottom: 0 !important;
+}
+
 .single .article-post-thumbnail .post-thumbnail-inner {
-  /* Base rules handle positioning and image fit */
+  position: static;
+}
+
+.single .post-thumbnail .post-thumbnail-inner img,
+.single .article-post-thumbnail .post-thumbnail-inner img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 /* Content images inside posts - maintain natural proportions */
