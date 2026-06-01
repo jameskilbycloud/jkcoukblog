@@ -1,6 +1,6 @@
 ---
 title: "Changelog - James Kilby"
-description: "Site improvements, deployments, and performance metrics for James Kilby's technical blog."
+description: "Site improvements, deployments, and performance metrics for James Kilby's technical blog. Site improvements, deployments, and performance metrics"
 author: James Kilby
 url: https://jameskilby.co.uk/changelog/
 ---
@@ -11,7 +11,7 @@ url: https://jameskilby.co.uk/changelog/
 
 Site improvements, deployments, and performance metrics
 
-[ ![Quality Checks workflow status](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml/badge.svg) ](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml)
+[![Quality Checks workflow status](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml/badge.svg)](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml)
 
 ### Total Deployments
 
@@ -69,7 +69,7 @@ The WP→static generator is incremental: posts whose source content hasn't
 
 fix(search): vendor fuse.js and splide.js, drop jsdelivr dependency
 
-Site search broke because https://cdn.jsdelivr.net/npm/fuse.js@7.0.0
+Site search broke because /js/fuse.min.js
 
   
 
