@@ -1395,7 +1395,7 @@ class WordPressStaticGenerator:
 
         # Add Splide JS
         splide_script = soup.new_tag('script')
-        splide_script['src'] = 'https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/splide.min.js'
+        splide_script['src'] = '/js/splide.min.js'
         splide_script['defer'] = ''
         body.append(splide_script)
 
@@ -4345,6 +4345,17 @@ document.addEventListener('DOMContentLoaded', function() {
             print(f"   ✅ Copied search.js to public/js/search.js")
         else:
             print(f"   ⚠️  search.js not found at {search_script_src}")
+
+        # Vendor fuse.min.js and splide.min.js — both are loaded from /js/ to
+        # avoid third-party CDN dependencies at runtime.
+        for vendor_name in ('fuse.min.js', 'splide.min.js'):
+            vendor_src = Path(__file__).parent / vendor_name
+            vendor_dest = js_dir / vendor_name
+            if vendor_src.exists():
+                shutil.copy(vendor_src, vendor_dest)
+                print(f"   ✅ Copied {vendor_name} to public/js/{vendor_name}")
+            else:
+                print(f"   ⚠️  {vendor_name} not found at {vendor_src}")
 
     def copy_static_root_files(self):
         """Copy static files (favicons, manifest) to public root"""
