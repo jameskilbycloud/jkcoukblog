@@ -15,53 +15,41 @@
 /*.svg
   Content-Encoding: br
 
-# Cache static assets for 1 year
+# Static assets — long cache + strip HTML-only headers (CSP /
+# X-Frame-Options / Permissions-Policy) that don't govern non-HTML
+# responses. Folded into per-prefix blocks because Cloudflare Pages does
+# not honour a second block with the same path pattern.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
 
-# Cache CSS files for 1 year
 /wp-content/cache/*
   Cache-Control: public, max-age=31536000, immutable
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
 /wp-content/themes/*/assets/css/*
   Cache-Control: public, max-age=31536000, immutable
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
 
-# Cache images for 1 year
 /wp-content/uploads/*
   Cache-Control: public, max-age=31536000, immutable
-
-# Cache HTML pages for 5 minutes (allows quick updates)
-/*.html
-  Cache-Control: public, max-age=300, must-revalidate
-
-# Cache JSON files for 5 minutes
-/*.json
-  Cache-Control: public, max-age=300, must-revalidate
-
-# Security headers (all pages)
-/*
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: geolocation=(), microphone=(), camera=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' plausible.jameskilby.cloud utteranc.es static.cloudflareinsights.com cdn.credly.com cdn.youracclaim.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' plausible.jameskilby.cloud cloudflareinsights.com; frame-src https://www.youtube.com https://player.vimeo.com https://embed.acast.com https://utteranc.es https://plausible.jameskilby.cloud https://www.credly.com https://www.youracclaim.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
-
-# ── HTML-only headers — strip from non-document responses ────────────────────
-# CSP / X-Frame-Options / Permissions-Policy only govern HTML documents.
-# Stripping them from asset paths saves ~700 bytes per sub-resource response.
-/wp-content/*
   ! Content-Security-Policy
   ! X-Frame-Options
   ! Permissions-Policy
 
-/assets/*
-  ! Content-Security-Policy
-  ! X-Frame-Options
-  ! Permissions-Policy
-
+# Plausible proxy + search JS live at /js/* — add a strip block.
 /js/*
   ! Content-Security-Policy
   ! X-Frame-Options
   ! Permissions-Policy
 
+# API endpoints, markdown source files, feed, sitemap — strip HTML-only headers
 /api/*
   ! Content-Security-Policy
   ! X-Frame-Options
@@ -82,7 +70,17 @@
   ! X-Frame-Options
   ! Permissions-Policy
 
-/search-index*.json
-  ! Content-Security-Policy
-  ! X-Frame-Options
-  ! Permissions-Policy
+# Cache HTML pages for 5 minutes (allows quick updates)
+/*.html
+  Cache-Control: public, max-age=300, must-revalidate
+
+# Cache JSON files for 5 minutes
+/*.json
+  Cache-Control: public, max-age=300, must-revalidate
+
+# Security headers (all pages)
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' plausible.jameskilby.cloud utteranc.es static.cloudflareinsights.com cdn.credly.com cdn.youracclaim.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' plausible.jameskilby.cloud cloudflareinsights.com; frame-src https://www.youtube.com https://player.vimeo.com https://embed.acast.com https://utteranc.es https://plausible.jameskilby.cloud https://www.credly.com https://www.youracclaim.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
