@@ -1,0 +1,2844 @@
+{
+  "https://jameskilby.co.uk/about-me/": [
+    {
+      "find": "I have been a vExpert for the last 12 years and previously and has been honoured to be awarded Veeam Vanguard status for four years.",
+      "replace": "I have been a vExpert for the last 12 years and have previously been honoured to be awarded Veeam Vanguard status for four years.",
+      "context": "I have been a vExpert for the last 12 years and previously and has been honoured to be awarded Veeam Vanguard status for four years. I helped co-found the Veeam Usergroup in the UK.",
+      "occurrences": 1,
+      "reason": "Real grammar error: duplicate 'and' plus subject-verb agreement issue ('has' should be 'have' to match subject 'I'). The fix removes the duplicate 'and' and corrects the verb form.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/lab/": [
+    {
+      "find": "for over 6 years) It currently runs",
+      "replace": "for over 6 years). It currently runs",
+      "context": "running multiple functions for over 6 years) It currently runs vSphere",
+      "occurrences": 1,
+      "reason": "Missing full stop creating a run-on sentence between '6 years)' and 'It currently'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "giving me a usable 66.3 TB This is presented",
+      "replace": "giving me a usable 66.3 TB. This is presented",
+      "context": "RAIDZ2 config, giving me a usable 66.3 TB This is presented as SMB/NFS",
+      "occurrences": 1,
+      "reason": "Missing full stop between two independent clauses (66.3 TB and This is presented).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "More details are here",
+      "replace": "More details are here.",
+      "context": "iSCSI to multiple environments. More details are here",
+      "occurrences": 1,
+      "reason": "End of Primary Storage paragraph is missing terminal full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "with an identical configuration as below",
+      "replace": "with an identical configuration as below.",
+      "context": "3x Nodes in a Supermicro Big-Twin with an identical configuration as below",
+      "occurrences": 1,
+      "reason": "Sentence ends without a full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "GPU is an essential in at least one node.",
+      "replace": "A GPU is essential in at least one node.",
+      "context": "Bullet item: 'GPU is an essential in at least one node.'",
+      "occurrences": 1,
+      "reason": "Ungrammatical — 'an essential' reads as a noun; should be 'A GPU is essential'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Heat Output isn’t a huge factor",
+      "replace": "Heat output isn’t a huge factor",
+      "context": "Bullet item: 'Heat Output isn’t a huge factor' — neighbouring bullets use sentence case.",
+      "occurrences": 1,
+      "reason": "Inconsistent capitalisation — 'Output' should be lower case to match other bullet items.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/media/": [
+    {
+      "find": "You can find me on/in the following Videos/Podcasts\n",
+      "replace": "You can find me on/in the following Videos/Podcasts.\n",
+      "context": "End of intro paragraph before the first H3 heading.",
+      "occurrences": 1,
+      "reason": "Missing terminating full stop at the end of the sentence/paragraph.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "the Xtravirt CloudInsiders podcast ,",
+      "replace": "the Xtravirt CloudInsiders podcast,",
+      "context": "In this episode of the Xtravirt CloudInsiders podcast , I discuss the practical realities...",
+      "occurrences": 1,
+      "reason": "Stray space before the comma — punctuation error.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/vmc/": [
+    {
+      "find": "VLSR ( formerly SRM Site Recovery Manager)",
+      "replace": "VLSR (formerly SRM – Site Recovery Manager)",
+      "context": "VMware Live Recovery section: 'VLCR ( Formerly VCDR VMware Cloud Disaster Recovery)' / 'VLSR ( formerly SRM Site Recovery Manager)'",
+      "occurrences": 1,
+      "reason": "Stray space after '(' and missing separator between the abbreviation SRM and its expansion 'Site Recovery Manager' create a run-on. Inserting an en dash fixes the readability defect while keeping the abbreviation+expansion convention.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "VLCR ( Formerly VCDR VMware Cloud Disaster Recovery)",
+      "replace": "VLCR (formerly VCDR – VMware Cloud Disaster Recovery)",
+      "context": "VMware Live Recovery section, immediately above the VLSR line.",
+      "occurrences": 1,
+      "reason": "Stray space after '(', capitalised 'Formerly' inconsistent with the sibling line below, and missing separator between 'VCDR' and its expansion produce a run-on. Fix matches the adjacent line's lowercase 'formerly' and adds the needed separator.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2017/05/money-saving-uk-version/": [
+    {
+      "find": "First direct give you a good bonus",
+      "replace": "First Direct gives you a good bonus",
+      "context": "First Direct 1st Account ... First direct give you a good bonus if you switch to them £150 (which I did)",
+      "occurrences": 1,
+      "reason": "Inconsistent capitalisation with the section heading 'First Direct 1st Account' and subject-verb agreement (a single bank takes 'gives').",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Barclays mortgage , and £1",
+      "replace": "Barclays mortgage, and £1",
+      "context": "£5 for Barclays mortgage , and £1 for the Barclays loan.",
+      "occurrences": 1,
+      "reason": "Stray space before the comma.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I currently have a number of UK current accounts",
+      "replace": "I currently have a number of UK current accounts.",
+      "context": "Paragraph: 'I currently have a number of UK current accounts' is followed by a new paragraph 'Barclays Bank (Main Account)...' without terminal punctuation.",
+      "occurrences": 1,
+      "reason": "Missing terminal full stop at end of the paragraph before the next heading/paragraph.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2018/01/lab-storage/": [
+    {
+      "find": "I also have a DS216+II Synology with 2x 2TB WD Red’s this is my tier 2 lab storage. for backups ISO’s etc",
+      "replace": "I also have a DS216+II Synology with 2x 2TB WD Reds; this is my tier 2 lab storage, for backups, ISOs etc.",
+      "context": "Final paragraph before container list: tier 2 storage description with WD Reds and ISOs.",
+      "occurrences": 1,
+      "reason": "Run-on sentence with comma splice, lowercase 'for' starting a sentence fragment, and greengrocer's apostrophes in plural Reds/ISOs. Missing terminating full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "The 2xWD Red’s are in an SHR configuration with the SSDs running as an SSD read-write cache",
+      "replace": "The 2x WD Reds are in an SHR configuration with the SSDs running as an SSD read-write cache.",
+      "context": "Sentence describing the SHR configuration with SSD cache, immediately before the 2.6TB usable line.",
+      "occurrences": 1,
+      "reason": "Greengrocer's apostrophe on plural 'Red's' and missing terminating full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "This gives me 2.6TB Useable",
+      "replace": "This gives me 2.6TB useable",
+      "context": "Sentence about capacity: 'This gives me 2.6TB Useable which is plenty to lab and store photos...'",
+      "occurrences": 1,
+      "reason": "'Useable' is mid-sentence and should not be capitalised. Kept UK-acceptable 'useable' spelling rather than 'usable' to make the smallest correct change.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I have the 4 Nics split into two LACP bonds.",
+      "replace": "I have the 4 NICs split into two LACP bonds.",
+      "context": "Networking sentence after the Xpenology line, describing LACP bond configuration.",
+      "occurrences": 1,
+      "reason": "NIC is an acronym (Network Interface Card) and should be capitalised as 'NICs'. Consistent with '4x 1Gb/s NIC' earlier in the post.",
+      "actual_occurrences": 0
+    },
+    {
+      "find": "I will add some pics when I have tidied up the lab/cables",
+      "replace": "I will add some pics when I have tidied up the lab/cables.",
+      "context": "Opening paragraph end: '...it’s as below. I will add some pics when I have tidied up the lab/cables'.",
+      "occurrences": 1,
+      "reason": "Missing terminating full stop at the end of the sentence/paragraph.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2018/01/nutanix-ce/": [
+    {
+      "find": "see what was new with AHV and Nutanix CE",
+      "replace": "see what was new with AHV and Nutanix CE.",
+      "context": "End of opening paragraph: 'about time to see what was new with AHV and Nutanix CE' — missing terminal full stop before next paragraph.",
+      "occurrences": 1,
+      "reason": "Sentence/paragraph ends without a full stop. Adding the period is the minimal correct fix.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "the same server I ran initially. a Dell T20 with the Xeon processor 32GB of RAM 1x240GB SSD and 1x3TB WD Red.",
+      "replace": "the same server I ran initially: a Dell T20 with the Xeon processor, 32GB of RAM, 1x240GB SSD and 1x3TB WD Red.",
+      "context": "'The server that I chose to run this on was the same server I ran initially. a Dell T20 with the Xeon processor 32GB of RAM 1x240GB SSD and 1x3TB WD Red.'",
+      "occurrences": 1,
+      "reason": "Incorrect full stop creating a sentence fragment, plus missing serial commas between hardware spec items that make the list unreadable.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "running a few VM’s",
+      "replace": "running a few VMs",
+      "context": "'I am just kicking the tyres with it at the moment and running a few VM’s.'",
+      "occurrences": 1,
+      "reason": "Greengrocer's apostrophe — 'VM's' is incorrect for the plural; should be 'VMs'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Ill post back with some updates of what I get up to with it",
+      "replace": "I'll post back with some updates of what I get up to with it.",
+      "context": "Final line of post body: 'Ill post back with some updates of what I get up to with it'",
+      "occurrences": 1,
+      "reason": "Missing apostrophe in contraction ('Ill' should be 'I'll') and missing terminal full stop on the sentence.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2018/03/aws-for-beginners1/": [
+    {
+      "find": "This is a must, Sadly AWS don’t appear to support my preferred 2FA device. Yubikey so I’m using the Google authenticator",
+      "replace": "This is a must. Sadly, AWS doesn’t appear to support my preferred 2FA device, the Yubikey, so I’m using the Google Authenticator.",
+      "context": "Enable Two Factor Authentication paragraph — original is a comma splice with subject-verb disagreement and an orphan fragment.",
+      "occurrences": 1,
+      "reason": "Genuine grammar errors: comma splice ('must, Sadly'), subject-verb agreement ('AWS don't' → 'AWS doesn't'), and orphan fragment ('Yubikey so…'). Replacement repairs all three minimally and adds the missing terminal full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Enable Billing Alerts Create an alert so that if your bill is over X you will get a notification.",
+      "replace": "Enable Billing Alerts — create an alert so that if your bill is over X you will get a notification.",
+      "context": "Bullet 3 of the three recommendations — the label 'Enable Billing Alerts' runs straight into the next sentence with no separator.",
+      "occurrences": 1,
+      "reason": "Two sentences run together with no punctuation. The sibling bullets above use ' – ' to separate label from explanation; adding an em-dash matches that pattern and fixes the run-on.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "lifting and shifting existing infrastructure into “the cloud”",
+      "replace": "lifting and shifting existing infrastructure into “the cloud”.",
+      "context": "End of the intro paragraph — sentence has no terminal full stop after the closing curly quote.",
+      "occurrences": 1,
+      "reason": "Missing terminal punctuation. The following paragraph starts a new sentence, confirming this is the end of the prior one.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "go and set up an account and play",
+      "replace": "go and set up an account and play.",
+      "context": "End of the 'kick the tyres' paragraph — sentence ends with no full stop.",
+      "occurrences": 1,
+      "reason": "Missing terminal full stop on a paragraph-final sentence.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "missed the point….",
+      "replace": "missed the point…",
+      "context": "End of the 'My view is firmly…' paragraph — ellipsis character is followed by an extra full stop.",
+      "occurrences": 1,
+      "reason": "The text uses a true ellipsis character (…) followed by an extra full stop, producing four dots. Correct form is a single ellipsis.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2018/03/cloudflare/": [
+    {
+      "find": "sites/ organizations.",
+      "replace": "sites/organisations.",
+      "context": "I run for myself and other sites/ organizations.",
+      "occurrences": 1,
+      "reason": "Stray space after slash AND US spelling 'organizations' in an otherwise UK-English post (author uses UK spelling elsewhere). Both issues fixed in the minimal change.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "POP’s",
+      "replace": "POPs",
+      "context": "they have a large number of POP’s they can cache",
+      "occurrences": 1,
+      "reason": "Incorrect possessive apostrophe used for a plural acronym. Should be 'POPs' (plural Points of Presence).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "2 A records Neither of which",
+      "replace": "2 A records. Neither of which",
+      "context": "2 Nameserver records (Matt and Fay) and also 2 A records Neither of which are my source web server.",
+      "occurrences": 1,
+      "reason": "Missing full stop creates a run-on sentence; 'Neither' begins a new sentence.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "you input where the real webserver lives cloudflare will do the rest.",
+      "replace": "you input where the real webserver lives and Cloudflare will do the rest.",
+      "context": "Then within the Cloudflare portal, you input where the real webserver lives cloudflare will do the rest.",
+      "occurrences": 1,
+      "reason": "Run-on sentence missing conjunction; also 'cloudflare' should be capitalised as the company name 'Cloudflare' (used capitalised elsewhere in the post).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "it will automatically purge the cache if required",
+      "replace": "it will automatically purge the cache if required.",
+      "context": "when you make changes to your site it will automatically purge the cache if required",
+      "occurrences": 1,
+      "reason": "Missing full stop at end of paragraph/sentence.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2018/05/aws-status-page-monitoring-included/": [
+    {
+      "find": "The tool I deployed lambstatus supports pulling metrics",
+      "replace": "The tool I deployed, lambstatus, supports pulling metrics",
+      "context": "The tool I deployed lambstatus supports pulling metrics from AWS Cloudwatch and displaying them.",
+      "occurrences": 1,
+      "reason": "'lambstatus' is an appositive naming the tool and requires commas around it for correct grammar.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "at effectively zero cost",
+      "replace": "at effectively zero cost.",
+      "context": "It has been running without a hitch for nearly a month now at effectively zero cost",
+      "occurrences": 1,
+      "reason": "The paragraph ends mid-sentence with no full stop; adding the period closes the sentence.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "is documented in the Git repo here",
+      "replace": "is documented in the Git repo here.",
+      "context": "The guide I followed is very good and is documented in the Git repo here",
+      "occurrences": 1,
+      "reason": "The sentence under 'Site Response' ends without a full stop.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2018/06/nutanix-command-reference-guide/": [
+    {
+      "find": "Its here as a reference",
+      "replace": "It's here as a reference",
+      "context": "This is a list of Nutanix commands I have found useful. Its here as a reference and if i need a command more than a few times ill generally add it here.",
+      "occurrences": 1,
+      "reason": "Missing apostrophe — 'Its' (possessive) should be 'It's' (contraction of 'it is').",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "if i need a command",
+      "replace": "if I need a command",
+      "context": "Its here as a reference and if i need a command more than a few times ill generally add it here.",
+      "occurrences": 1,
+      "reason": "The pronoun 'I' must be capitalised.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "ill generally add it here",
+      "replace": "I'll generally add it here",
+      "context": "if i need a command more than a few times ill generally add it here.",
+      "occurrences": 1,
+      "reason": "'ill' should be the contraction 'I'll' (I will); current form reads as the adjective 'ill'.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2018/10/and-now-for-something-completely-different/": [
+    {
+      "find": "I have been lucky enough to be involved with all of these ( some much more than others) Although the work is never complete Zen are in a good place.",
+      "replace": "I have been lucky enough to be involved with all of these (some much more than others). Although the work is never complete, Zen are in a good place.",
+      "context": "Backup Consolidation paragraph; then this sentence followed by 'At the same time, my personal circumstances have changed...'",
+      "occurrences": 1,
+      "reason": "Stray space after opening parenthesis, missing full stop before 'Although' creating a run-on sentence, and missing comma after 'complete'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "for professional services in 2018\n\nYes,",
+      "replace": "for professional services in 2018.\n\nYes,",
+      "context": "End of paragraph: '...awarded both the EMEA and Global VMware Partner Innovation Award for professional services in 2018' followed by 'Yes, I'm Joining Xtravirt as a Senior Consultant.'",
+      "occurrences": 1,
+      "reason": "Sentence ends without a full stop before the new paragraph begins.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "one or two others…..",
+      "replace": "one or two others…",
+      "context": "'I also get to work with Chris Lewis, Simon Eady and one or two others…..' at end of body paragraph.",
+      "occurrences": 1,
+      "reason": "Unicode ellipsis followed by two extra dots (5 dots total) — should be a single standard ellipsis.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2018/12/new-laptop/": [
+    {
+      "find": "MacBook Pro’s weren’t worth it",
+      "replace": "MacBook Pros weren’t worth it",
+      "context": "I decided the MacBook Pro’s weren’t worth it. So I have replaced my Air",
+      "occurrences": 1,
+      "reason": "Incorrect apostrophe; plural 'Pros' should not take a possessive apostrophe.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "another MacBook Air .",
+      "replace": "another MacBook Air.",
+      "context": "yes you guessed it another MacBook Air .",
+      "occurrences": 1,
+      "reason": "Stray space before the full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "benefits of the T2 Security chip",
+      "replace": "benefits of the T2 Security chip.",
+      "context": "It also has the security benefits of the T2 Security chip\\n\\nI also thought",
+      "occurrences": 1,
+      "reason": "Sentence ends without a full stop before the paragraph break.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "16Gb of RAM",
+      "replace": "16GB of RAM",
+      "context": "retina version with 16Gb of RAM and 512GB PCIe-based SSD",
+      "occurrences": 1,
+      "reason": "Inconsistent capitalisation — 'Gb' means gigabits; should be 'GB' to match the adjacent '512GB'.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2019/01/whats-in-my-backpack/": [
+    {
+      "find": "A few components that I have no one seems to have mentioned yet.",
+      "replace": "A few components I have that no one seems to have mentioned yet.",
+      "context": "Opening paragraph: 'day to day basis. A few components that I have no one seems to have mentioned yet. So I thought...'",
+      "occurrences": 1,
+      "reason": "Grammatically broken / run-on with misplaced word order. The relative clause 'that I have' is in the wrong place, making the sentence nonsensical. Moving 'that' fixes it.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "depending on if need to go to a datacenter",
+      "replace": "depending on whether I need to go to a datacenter",
+      "context": "Second paragraph: '...what I need as appropriate depending on if need to go to a datacenter or just a meeting/onsite client work.'",
+      "occurrences": 1,
+      "reason": "Missing subject 'I' creates an ungrammatical clause. 'Whether' is also more natural than 'if' here. Real grammar error.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Macbook Air 2018 ( My goto machine)",
+      "replace": "MacBook Air 2018 (my go-to machine)",
+      "context": "Item list bullet: 'Macbook Air 2018 ( My goto machine)'",
+      "occurrences": 1,
+      "reason": "MacBook is Apple's official product spelling (capital B). 'Goto' is a programming keyword; the English phrase is hyphenated 'go-to'. Also removes the stray space after '('.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Led Headtorch",
+      "replace": "LED head torch",
+      "context": "Item list bullet between 'Leatherman Wingman' and 'Dymo portable label printer'.",
+      "occurrences": 1,
+      "reason": "LED is an acronym (Light Emitting Diode) and should be capitalised. 'Head torch' is the standard UK English form (two words).",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2019/02/lab-storage-2/": [
+    {
+      "find": "SSD’s that I had giving me about 3TB",
+      "replace": "SSDs I had, giving me about 3TB",
+      "context": "I have added some of the existing SSD’s that I had giving me about 3TB of usable flash.",
+      "occurrences": 1,
+      "reason": "Apostrophe incorrectly used to pluralise 'SSDs', and missing comma before 'giving' creates a run-on clause.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "ISO’s and some general file storage",
+      "replace": "ISOs and some general file storage",
+      "context": "I am using this for ISO’s and some general file storage.",
+      "occurrences": 1,
+      "reason": "Apostrophe incorrectly used to pluralise 'ISOs'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Synology GUI ( It used to be a command-line-only option) I have verified",
+      "replace": "Synology GUI (it used to be a command-line-only option). I have verified",
+      "context": "this is now built into the Synology GUI ( It used to be a command-line-only option) I have verified the VAAI works",
+      "occurrences": 1,
+      "reason": "Stray space after opening parenthesis, incorrect capital 'I' starting the parenthetical, and missing full stop before the next sentence — currently a run-on.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I purchased a new Synology DS918",
+      "replace": "I purchased a new Synology DS918.",
+      "context": "With that in mind, I purchased a new Synology DS918 [end of paragraph]",
+      "occurrences": 1,
+      "reason": "Paragraph ends mid-sentence with no terminating full stop.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/": [
+    {
+      "find": "If not you will need to open up the relevant firewalls",
+      "replace": "If not, you will need to open up the relevant firewalls.",
+      "context": "Veeam One server and the VMC vCenter then adding to Veeam One is straightforward. If not you will need to open up the relevant firewalls",
+      "occurrences": 1,
+      "reason": "Missing terminal full stop at end of paragraph (the paragraph ends here with no punctuation before the next paragraph 'Once done Veeam...'), plus missing comma after introductory 'If not'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "It is correctly reporting back that the hosts are running ESXi 6.9.1",
+      "replace": "It is correctly reporting back that the hosts are running ESXi 6.9.1.",
+      "context": "However, as you can see below it's correctly reporting on the hosts and VM workloads. It is correctly reporting back that the hosts are running ESXi 6.9.1",
+      "occurrences": 1,
+      "reason": "Missing terminal full stop at end of paragraph — sentence trails off without punctuation.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Veeam One .",
+      "replace": "Veeam One.",
+      "context": "The first product that I decided to test was Veeam One . This made sense for a few reasons",
+      "occurrences": 1,
+      "reason": "Stray space before the full stop — clear typographical error.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Influxdb",
+      "replace": "InfluxDB",
+      "context": "In Part Two I am going to look at using Grafana, Influxdb and Telegraf",
+      "occurrences": 1,
+      "reason": "InfluxDB is the official product name with that specific capitalisation — same kind of proper-noun fix as vCenter.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2020/06/veeamon2020/": [
+    {
+      "find": "With that most (if not all IT conferences have been postponed or gone online) Veeam’s annual conference VeeamON is no exception and now it’s here!!",
+      "replace": "With that, most (if not all) IT conferences have been postponed or gone online; Veeam’s annual conference VeeamON is no exception, and now it’s here!",
+      "context": "Paragraph after the Darwin quote.",
+      "occurrences": 1,
+      "reason": "Opening parenthesis is misplaced — it currently encloses 'if not all IT conferences have been postponed or gone online' instead of just 'if not all'. Fix corrects the parenthetical and the redundant exclamation marks.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "As everyone knows by now the world has changed possibly forever.",
+      "replace": "As everyone knows by now, the world has changed, possibly forever.",
+      "context": "Opening sentence of the post.",
+      "occurrences": 2,
+      "reason": "Missing comma after the introductory phrase 'As everyone knows by now' and around the trailing parenthetical 'possibly forever'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Due to Covid19 working from home has become the new normal.",
+      "replace": "Due to Covid-19, working from home has become the new normal.",
+      "context": "Second sentence of the opening paragraph.",
+      "occurrences": 2,
+      "reason": "Covid-19 is the conventional hyphenated form, and a comma is needed after the introductory prepositional phrase.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "make sure you sign up and view some of the great sessions",
+      "replace": "make sure you sign up and view some of the great sessions.",
+      "context": "End of the paragraph about being a Veeam Vanguard.",
+      "occurrences": 1,
+      "reason": "Sentence is missing its terminal full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Last but not least a feature that I have been asking about for over 3 years",
+      "replace": "Last but not least, a feature that I have been asking about for over 3 years.",
+      "context": "Lead-in to the Veeam Backup Agent for Mac announcement.",
+      "occurrences": 1,
+      "reason": "Missing comma after the introductory phrase 'Last but not least' and no terminal full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Yes Veeam Backup Agent for MAC",
+      "replace": "Yes — Veeam Backup Agent for Mac.",
+      "context": "Concluding line announcing the Mac agent.",
+      "occurrences": 1,
+      "reason": "Missing punctuation after 'Yes', and 'Mac' is a product name not an acronym — it should not be all caps.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Charles Darwin “ It is not the strongest of the species that survives",
+      "replace": "Charles Darwin: “It is not the strongest of the species that survives",
+      "context": "Darwin quotation in the second paragraph.",
+      "occurrences": 1,
+      "reason": "Stray space after the opening curly quote and the quote needs a colon to introduce it.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Fast recovery using Netapp Snapshots",
+      "replace": "Fast recovery using NetApp Snapshots",
+      "context": "Bullet under Veeam Availability Orchestrator v3.",
+      "occurrences": 1,
+      "reason": "Vendor brand is officially spelled 'NetApp' with a capital A.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2020/07/i3en/": [
+    {
+      "find": "lineup the “i3en”",
+      "replace": "lineup: the “i3en”",
+      "context": "VMC has introduced a new host to its lineup the “i3en”. This is based on...",
+      "occurrences": 1,
+      "reason": "Missing punctuation between 'lineup' and the appositive '“i3en”'; a colon makes the relationship clear.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "impressive packing in 96 logical cores",
+      "replace": "impressive, packing in 96 logical cores",
+      "context": "The specifications are certainly impressive packing in 96 logical cores, 768GiB RAM...",
+      "occurrences": 1,
+      "reason": "Missing comma before participial phrase modifying 'impressive'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "the Broadwell’s in the original i3",
+      "replace": "the Broadwells in the original i3",
+      "context": "more modern processor than the Broadwell’s in the original i3.",
+      "occurrences": 1,
+      "reason": "Erroneous apostrophe in plural noun (greengrocer's apostrophe).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "With such a big uplift in Storage capacity hopefully, this will trend",
+      "replace": "With such a big uplift in storage capacity, hopefully this will trend",
+      "context": "With such a big uplift in Storage capacity hopefully, this will trend towards filling up CPU, RAM & Storage at the same time.",
+      "occurrences": 1,
+      "reason": "Misplaced comma (belongs after introductory clause, not after 'hopefully') and inconsistent capitalisation of 'Storage' mid-sentence.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2020/07/nutanix-ncp/": [
+    {
+      "find": "All in all top work Nutanix",
+      "replace": "All in all, top work Nutanix.",
+      "context": "End of main article body: 'All in all top work Nutanix' — missing comma after 'All in all' and missing terminal full stop.",
+      "occurrences": 1,
+      "reason": "Real punctuation error in the main article body — missing comma after the introductory phrase 'All in all' and missing terminal full stop at the end of the closing sentence.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2020/09/vmc-host-errors/": [
+    {
+      "find": "Just another reason why you should look at the VMware Cloud on AWS Service",
+      "replace": "Just another reason why you should look at the VMware Cloud on AWS Service.",
+      "context": "Final sentence of the post body before 'Connect with me:'",
+      "occurrences": 1,
+      "reason": "Final sentence of the post body is missing its closing full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I noticed it as a few HA alarms tripped in the vCenter (These were cosmetic only)",
+      "replace": "I noticed it as a few HA alarms tripped in the vCenter (these were cosmetic only).",
+      "context": "All of this was seamless to the customer. I noticed it as a few HA alarms tripped in the vCenter (These were cosmetic only)",
+      "occurrences": 1,
+      "reason": "Mid-sentence parenthetical should start lowercase ('these'), and the sentence is missing its closing full stop.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/": [
+    {
+      "find": "I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.20).",
+      "replace": "I recently sat (and passed) the VMware HCI Master Specialist exam (5V0-21.20).",
+      "context": "Opening sentence of the article body: 'I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.20). I won't go into any details...'",
+      "occurrences": 1,
+      "reason": "Unbalanced parentheses: the opening '(' before 'and passed' is never closed. Inserting ')' after 'passed' restores balance and matches the intended parenthetical aside.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "a VMware Master Services Competency .",
+      "replace": "a VMware Master Services Competency.",
+      "context": "'...this entitles me to a VMware Master Services Competency . This is now the second that I hold...'",
+      "occurrences": 1,
+      "reason": "Stray space between the linked phrase 'VMware Master Services Competency' and the full stop. Removing the space gives the correct punctuation.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2020/12/my-first-pull/": [
+    {
+      "find": "minor errors and Improvements",
+      "replace": "minor errors and improvements",
+      "context": "I noticed a couple of minor errors and Improvements that I wanted to suggest.",
+      "occurrences": 1,
+      "reason": "Mid-sentence common noun 'Improvements' is erroneously capitalised; should be lowercase to match the parallel 'errors'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "listed as a contributor here .",
+      "replace": "listed as a contributor here.",
+      "context": "You can see that I am now listed as a contributor here . Although my contribution was tiny",
+      "occurrences": 1,
+      "reason": "Stray space before the full stop is a clear punctuation error.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2021/01/hashicorp-packer/": [
+    {
+      "find": "Thanks to Ryan for an Incredible piece of work",
+      "replace": "Thanks to Ryan for an incredible piece of work",
+      "context": "Closing line of the post body",
+      "occurrences": 1,
+      "reason": "'Incredible' is mid-sentence (after 'an') and should be lowercase.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "ISO’s and configs",
+      "replace": "ISOs and configs",
+      "context": "'Once all the relevant ISO’s and configs were in place'",
+      "occurrences": 1,
+      "reason": "Apostrophe incorrectly used for a plural; 'ISOs' is the correct plural form.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "in about 40mins",
+      "replace": "in about 40 mins",
+      "context": "'patched and added to my content library in about 40mins'",
+      "occurrences": 1,
+      "reason": "Missing space between numeric value and unit.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2021/01/my-home-office-setup-upgrades/": [
+    {
+      "find": "My Mac is connected via USB-C This helps in reducing the cables on the desk.",
+      "replace": "My Mac is connected via USB-C. This helps in reducing the cables on the desk.",
+      "context": "Monitor section: 'runs in 5120 x 1440 at 60 Hz. My Mac is connected via USB-C This helps in reducing the cables on the desk. The Monitor offers...'",
+      "occurrences": 1,
+      "reason": "Missing full stop after 'USB-C' creates a run-on sentence.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "(The Screen is 11.4KG)",
+      "replace": "(the screen is 11.4 kg)",
+      "context": "Monitor Arm section: 'Due to the size and weight of the Dell U4919DW (The Screen is 11.4KG), it heavily limited the choice of stands...'",
+      "occurrences": 1,
+      "reason": "Mid-sentence parenthetical should not capitalise 'The Screen', and SI unit convention is '11.4 kg' with a space and lowercase.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "an included stand but It took up",
+      "replace": "an included stand but it took up",
+      "context": "Monitor Arm section: 'The Dell Monitor does come with an included stand but It took up a large footprint on my desk.'",
+      "occurrences": 1,
+      "reason": "Stray capital 'It' mid-sentence after the conjunction 'but'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I have had a variety of Canon SLR’s over the last 14 years and the 5D is certainly the best, It is an exceptional piece of kit.",
+      "replace": "I have had a variety of Canon SLRs over the last 14 years and the 5D is certainly the best. It is an exceptional piece of kit.",
+      "context": "Camera section: 'I have had a variety of Canon SLR’s over the last 14 years and the 5D is certainly the best, It is an exceptional piece of kit. It offers a number of key features...'",
+      "occurrences": 1,
+      "reason": "Plural of an acronym (SLRs) should not take an apostrophe, and the comma splice before 'It is' should be a full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Yes, I snuck in one of the new M1 arm based Mac’s.",
+      "replace": "Yes, I snuck in one of the new M1 ARM-based Macs.",
+      "context": "Paragraph after the YouTube link: 'Yes, I snuck in one of the new M1 arm based Mac’s. I must say I have been blown away by the performance of it.'",
+      "occurrences": 1,
+      "reason": "ARM is an acronym (should be uppercase, hyphenated as 'ARM-based'); plural 'Macs' should not take an apostrophe.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "info on how It was put together",
+      "replace": "info on how it was put together",
+      "context": "Video section: 'I will do a separate post with some info on how It was put together and add some audio.'",
+      "occurrences": 1,
+      "reason": "Stray capital 'It' mid-sentence.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I purchased the software version and run this on my Ipad pro.",
+      "replace": "I purchased the software version and run this on my iPad Pro.",
+      "context": "Elgato Streamdeck section: 'I purchased the software version and run this on my Ipad pro. I think this was a sensible thing to do...'",
+      "occurrences": 1,
+      "reason": "Apple's product is correctly spelled 'iPad Pro' (lowercase i, capital P, capital P).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "it’s something I do everyday.",
+      "replace": "it’s something I do every day.",
+      "context": "Desk section: 'I don’t stand as often as I possibly should but it’s something I do everyday.'",
+      "occurrences": 1,
+      "reason": "'everyday' (adjective, meaning ordinary) is misused for the adverbial phrase 'every day' (each day).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "*The Beats Solo’s were a gift",
+      "replace": "*The Beats Solos were a gift",
+      "context": "Disclosure note: '*The Beats Solo’s were a gift as part of the Veeam Vanguard Program.'",
+      "occurrences": 1,
+      "reason": "Plural of the product name 'Solos' should not take a possessive apostrophe.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2021/02/apple-content-caching/": [
+    {
+      "find": "additional devices just make sense…..",
+      "replace": "additional devices just make sense.",
+      "context": "When you're in the ecosystem additional devices just make sense….. I currently have:",
+      "occurrences": 1,
+      "reason": "Ellipsis followed by two extra dots (five dots total) is incorrect punctuation; should be a single full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Ipad Pro 9.7",
+      "replace": "iPad Pro 9.7",
+      "context": "Device list: 'Ipad Pro 9.7' — Apple's product name is iPad (lowercase i, capital P).",
+      "occurrences": 1,
+      "reason": "Apple's official brand styling is 'iPad' not 'Ipad'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "MacBook Air\n\nIpad\n\niPhone Xs",
+      "replace": "MacBook Air\n\niPad\n\niPhone XS",
+      "context": "Wife's device list: 'MacBook Air / Ipad / iPhone Xs' — should be iPad and iPhone XS (Apple's official styling).",
+      "occurrences": 1,
+      "reason": "Fixes two Apple brand casing errors in the wife's device list: 'Ipad' → 'iPad' and 'iPhone Xs' → 'iPhone XS' (matches the 'iPhone XS' casing used earlier in the same post).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "a lot of apple devices",
+      "replace": "a lot of Apple devices",
+      "context": "'All in all a lot of apple devices need Software & Application updates' — Apple is a proper noun.",
+      "occurrences": 1,
+      "reason": "Apple is a proper noun and should be capitalised.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "MacOS",
+      "replace": "macOS",
+      "context": "'Christian Mohn mentioned a while back that MacOS can do content caching' — Apple styles it macOS.",
+      "occurrences": 1,
+      "reason": "Apple's official styling of the operating system is 'macOS' (lowercase m, capital OS).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Macbook Air 2018",
+      "replace": "MacBook Air 2018",
+      "context": "Device list entry 'Macbook Air 2018' — Apple's brand is MacBook (capital B). The same post uses 'MacBook Air' correctly elsewhere.",
+      "occurrences": 1,
+      "reason": "Apple's official brand styling is 'MacBook' (capital M and B); the rest of the post uses 'MacBook' correctly.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "the amount of disk space to use it defaults to 10%",
+      "replace": "the amount of disk space to use; it defaults to 10%",
+      "context": "'you can control the amount of disk space to use it defaults to 10%.' — two independent clauses with no punctuation between them.",
+      "occurrences": 1,
+      "reason": "Run-on sentence joining two independent clauses without punctuation; a semicolon (or full stop) is needed.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "More info on it can be found here\n\nTo enable it is very straightforward",
+      "replace": "More info on it can be found here.\n\nTo enable it is very straightforward:",
+      "context": "Two adjacent sentences both missing terminal punctuation: 'More info on it can be found here' and 'To enable it is very straightforward' (followed by steps).",
+      "occurrences": 1,
+      "reason": "Both sentences are missing terminal punctuation — the first needs a full stop and the second needs a colon to introduce the steps that follow.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/": [
+    {
+      "find": "(mainly cosmetic to this site over the last day or so) On most changes",
+      "replace": "(mainly cosmetic) to this site over the last day or so. On most changes",
+      "context": "I have been making several changes (mainly cosmetic to this site over the last day or so) On most changes I have been doing an export",
+      "occurrences": 1,
+      "reason": "Misplaced closing parenthesis and missing full stop create a run-on; logically the parenthetical is just '(mainly cosmetic)'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "When I next tried to publish I got the following",
+      "replace": "When I next tried to publish I got the following:",
+      "context": "Sentence introduces a code block ('wrangler publish --env production ...') and is missing terminal punctuation; a colon fits.",
+      "occurrences": 1,
+      "reason": "Missing terminal punctuation before code block; colon is the standard choice when introducing a quoted/coded snippet.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Detailed info on the limits is published here",
+      "replace": "Detailed info on the limits is published here.",
+      "context": "Final sentence of the body: 'Detailed info on the limits is published here' — no terminating full stop.",
+      "occurrences": 1,
+      "reason": "Sentence is missing its terminating full stop.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/": [
+    {
+      "find": "Quite a few changes have happened in the lab recently. so I decided to do a multipart blog on the changes.",
+      "replace": "Quite a few changes have happened in the lab recently, so I decided to do a multipart blog on the changes.",
+      "context": "Opening paragraph of the post body.",
+      "occurrences": 1,
+      "reason": "Full stop followed by lowercase 'so' creates a sentence fragment; should be a comma joining the two clauses.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Each node has 2x Intel Xeon CPU E5-2670 @ 2.60GHz 3 Nodes have 192GB of RAM and 1 has 128GB",
+      "replace": "Each node has 2x Intel Xeon CPU E5-2670 @ 2.60GHz. 3 Nodes have 192GB of RAM and 1 has 128GB",
+      "context": "Specs paragraph about the SuperMicro nodes.",
+      "occurrences": 1,
+      "reason": "Run-on sentence — missing terminal punctuation between '2.60GHz' and the new sentence beginning '3 Nodes'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "One of the Compute nodes was removed from the server",
+      "replace": "One of the Compute nodes was removed from the server.",
+      "context": "Standalone paragraph between the rack purchase and the networking plan.",
+      "occurrences": 1,
+      "reason": "Standalone sentence missing terminal full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "With the additional Supermicro compute available I have made the Z840 a sort of standalone node.",
+      "replace": "With the additional Supermicro compute available, I have made the Z840 a sort of standalone node.",
+      "context": "Final body paragraph about the Z840.",
+      "occurrences": 1,
+      "reason": "Missing comma after the introductory adverbial clause.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/": [
+    {
+      "find": "TrueNas is the successor to FreeNas a very popular BSD based StorageOS and TrueNas scale is a fork of this based on Linux.",
+      "replace": "TrueNAS is the successor to FreeNAS, a very popular BSD-based storage OS, and TrueNAS Scale is a fork of this based on Linux.",
+      "context": "Lab Update intro paragraph describing TrueNAS lineage.",
+      "occurrences": 1,
+      "reason": "TrueNAS and FreeNAS are the canonical product spellings (uppercase NAS); a comma is needed after the appositive, and 'TrueNas scale' should be the product name 'TrueNAS Scale'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Crystel Disk Mark",
+      "replace": "CrystalDiskMark",
+      "context": "real-world test built into Crystel Disk Mark.",
+      "occurrences": 1,
+      "reason": "CrystalDiskMark is the actual product name; the earlier paragraph already correctly references 'CrystalDisk'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "2x Intel 80GB SSD’s running within these.",
+      "replace": "2x Intel 80GB SSDs running within these.",
+      "context": "I have placed the TrueNAS OS on 2x Intel 80GB SSD’s running within these.",
+      "occurrences": 1,
+      "reason": "Plural acronyms do not take an apostrophe; SSD's should be SSDs.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I had a number of VM’s running on the NVMe test at the time testing was running.",
+      "replace": "I had a number of VMs running on the NVMe test at the time testing was running.",
+      "context": "NVMe initial performance test. I had a number of VM’s running on the NVMe test...",
+      "occurrences": 1,
+      "reason": "Plural acronyms do not take an apostrophe; VM's should be VMs.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "3x Sata disks in Raid5",
+      "replace": "3x SATA disks in RAID 5",
+      "context": "TrueNAS SATA test. 3x Sata disks in Raid5",
+      "occurrences": 1,
+      "reason": "SATA and RAID are universally uppercase acronyms; the same paragraph's preceding sentence already uses 'SATA' in uppercase, so this is an internal inconsistency.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "This was also done with a 4GiB file which isn’t huge but I used to keep the testing short.",
+      "replace": "This was also done with a 4GiB file which isn’t huge, but I used it to keep the testing short.",
+      "context": "Sentence about CrystalDiskMark test methodology.",
+      "occurrences": 1,
+      "reason": "Missing object 'it' makes the clause read as 'I used to keep' (past habitual) rather than the intended 'I used it to keep'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I will use the 2xGb interfaces for management and the new network for a combination of iSCSI/NFS",
+      "replace": "I will use the 2xGb interfaces for management and the new network for a combination of iSCSI/NFS.",
+      "context": "End of paragraph describing the Z840 spec; sentence ends without a full stop.",
+      "occurrences": 1,
+      "reason": "Sentence-ending period is missing.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "This is in addition to my Synology DS918+",
+      "replace": "This is in addition to my Synology DS918+.",
+      "context": "Opening paragraph: 'The HP Z840 has changed its role... This is in addition to my Synology DS918+'",
+      "occurrences": 1,
+      "reason": "Sentence-ending period is missing.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/": [
+    {
+      "find": "Active Directory -Done",
+      "replace": "Active Directory – Done",
+      "context": "List item under Infrastructure heading; other items use ' – Done' with en dash and surrounding spaces.",
+      "occurrences": 1,
+      "reason": "Missing space and wrong dash style — every other 'Done' item in the same list uses en dash with surrounding spaces (e.g. 'vRealize Lifecycle Manager – Done'). This is a clear formatting typo, not a stylistic preference.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "vRealize Operations Manager -Done",
+      "replace": "vRealize Operations Manager – Done",
+      "context": "List item under Infrastructure heading; other items use ' – Done' with en dash and surrounding spaces.",
+      "occurrences": 1,
+      "reason": "Same formatting inconsistency as the Active Directory entry — missing space after hyphen and wrong dash style versus the rest of the list.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Sometimes because I break things (not always by accident) sometimes it’s a great way to learn….",
+      "replace": "Sometimes because I break things (not always by accident); sometimes it’s a great way to learn…",
+      "context": "Intro paragraph: 'My lab is always undergoing change. ... Sometimes because I break things (not always by accident) sometimes it’s a great way to learn….'",
+      "occurrences": 1,
+      "reason": "Two independent 'sometimes' clauses are joined with no punctuation (run-on/comma splice). Also four dots instead of a proper ellipsis. Semicolon plus three-dot ellipsis is the smallest correct fix.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/": [
+    {
+      "find": "all of my Mac’s I typically just upgrade",
+      "replace": "all of my Macs. I typically just upgrade",
+      "context": "I am a massive fan of the brew package management system for macOS and use it on all of my Mac’s I typically just upgrade everything blindly",
+      "occurrences": 1,
+      "reason": "Apostrophe used for a plural ('Mac’s' should be 'Macs') and a missing sentence boundary before 'I typically' creating a run-on.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "have never had an issue….. Until today…",
+      "replace": "have never had an issue… until today.",
+      "context": "have never had an issue….. Until today…",
+      "occurrences": 1,
+      "reason": "Inconsistent and malformed ellipses — five dots followed by three dots. Normalising to a single ellipsis and proper full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "got the following error message",
+      "replace": "got the following error message:",
+      "context": "I went to push some changes to this site and got the following error message\n\nwrangler publish --env production",
+      "occurrences": 1,
+      "reason": "Sentence introducing a code block is missing a terminal colon.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/": [
+    {
+      "find": "due to the benefits It brought",
+      "replace": "due to the benefits it brought",
+      "context": "First paragraph: 'due to the benefits It brought and the ease of use I decided to stick with it.'",
+      "occurrences": 1,
+      "reason": "'It' is incorrectly capitalised mid-sentence; should be lowercase 'it'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "or can even be run just on your workstation/laptop using local .",
+      "replace": "or can even be run just on your workstation/laptop using local).",
+      "context": "Introduction: '(or can even be run just on your workstation/laptop using local . I have chosen to keep WordPress running...'",
+      "occurrences": 1,
+      "reason": "Opening parenthesis is never closed and the sentence has a stray space before the period; closing the bracket fixes the broken parenthetical.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "The difference is how content is published",
+      "replace": "The difference is how content is published.",
+      "context": "End of Introduction paragraph before the next paragraph 'At a very high level...'",
+      "occurrences": 1,
+      "reason": "Missing full stop at end of sentence/paragraph.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I have chosen to keep WordPress running in some docker containers on my Synology",
+      "replace": "I have chosen to keep WordPress running in some Docker containers on my Synology.",
+      "context": "End of Introduction paragraph; sentence has no terminating full stop and 'docker' is the product name.",
+      "occurrences": 1,
+      "reason": "Missing full stop; 'Docker' is a product name and should be capitalised.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "relative URL’s",
+      "replace": "relative URLs",
+      "context": "WordPress Setup: 'I have it set to use relative URL’s with a delivery method set to GitHub.'",
+      "occurrences": 1,
+      "reason": "Incorrect apostrophe used for plural of an acronym; should be 'URLs'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I have then excluded the WordPress management URL’s in the static generation.",
+      "replace": "I have then excluded the WordPress management URLs in the static generation.",
+      "context": "WordPress Setup paragraph immediately before the URL list.",
+      "occurrences": 1,
+      "reason": "Incorrect apostrophe used for plural of an acronym; 'URLs' is correct. 'in' vs 'from' is stylistic so left unchanged.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "push the relevant content into a GitHub repo",
+      "replace": "push the relevant content into a GitHub repo.",
+      "context": "GitHub Setup: 'simply static plugin can push the relevant content into a GitHub repo' (end of paragraph).",
+      "occurrences": 1,
+      "reason": "Missing full stop at end of sentence/paragraph.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "lastly added a webhook to be called when the site has been updated (More on this a bit later)",
+      "replace": "lastly added a webhook to be called when the site has been updated (more on this a bit later).",
+      "context": "End of GitHub Setup paragraph.",
+      "occurrences": 1,
+      "reason": "Missing terminating full stop; capital 'M' mid-sentence inside parenthetical is incorrect.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "The page’s site needs to be set up in Cloudflare",
+      "replace": "The Pages site needs to be set up in Cloudflare",
+      "context": "Cloudflare Page Builds: 'The page’s site needs to be set up in Cloudflare and then a Webhook is created...'",
+      "occurrences": 1,
+      "reason": "Possessive 'page’s' makes no sense here; the section is about Cloudflare Pages (the product), so 'Pages' is correct.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "login/select the relevant GitHub account and Repo",
+      "replace": "log in/select the relevant GitHub account and repo",
+      "context": "Cloudflare Page Builds: 'I selected connect to Git and login/select the relevant GitHub account and Repo.'",
+      "occurrences": 1,
+      "reason": "'login' is a noun; the verb form is 'log in'. 'Repo' should not be capitalised mid-sentence.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "one of the paid plans that starts at $5 a month",
+      "replace": "one of the paid plans that start at $5 a month",
+      "context": "Costs section: 'If your site is more popular then you may require one of the paid plans that starts at $5 a month.'",
+      "occurrences": 1,
+      "reason": "Subject-verb agreement: 'plans' is plural so the verb should be 'start', not 'starts'.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2022/10/starlink/": [
+    {
+      "find": "SDWan product (Velocloud)",
+      "replace": "SD-WAN product (VeloCloud)",
+      "context": "VMware sells an SDWan product (Velocloud) and enables staff to use them.",
+      "occurrences": 1,
+      "reason": "Correct product naming: VMware's product is officially branded 'VeloCloud' and the technology category is 'SD-WAN' (hyphenated).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "locked down by VMware Corporate IT)",
+      "replace": "locked down by VMware Corporate IT).",
+      "context": "Paragraph ends with '...by VMware Corporate IT)' with no terminating full stop before the next paragraph.",
+      "occurrences": 1,
+      "reason": "Missing terminal full stop at the end of a paragraph/sentence.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "speed tests over Wifi",
+      "replace": "speed tests over Wi-Fi",
+      "context": "I decided to do some speed tests over Wifi from my iPhone 13 Pro",
+      "occurrences": 1,
+      "reason": "'Wifi' is non-standard; the correct trademark/style is 'Wi-Fi'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Once all the above had been done. It was a case of connecting Starlink",
+      "replace": "Once all the above had been done, it was a case of connecting Starlink",
+      "context": "Once all the above had been done. It was a case of connecting Starlink to the relevant port on my firewall.",
+      "occurrences": 1,
+      "reason": "Sentence fragment: 'Once all the above had been done' is a dependent clause and should be joined to the following clause with a comma, not split with a full stop.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/": [
+    {
+      "find": "I have advocating never using RAID 5",
+      "replace": "I have advocated never using RAID 5",
+      "context": "data protection etc, I have advocating never using RAID 5. The reasons for this",
+      "occurrences": 1,
+      "reason": "Grammatical error: 'have advocating' is incorrect — should be past participle 'advocated'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "your wallet is in the line",
+      "replace": "your wallet is on the line",
+      "context": "when it's your homelab and your wallet is in the line corners sometimes need to be cut",
+      "occurrences": 1,
+      "reason": "Wrong preposition — the idiom is 'on the line', not 'in the line'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I had 3 SDD’s in this particular array",
+      "replace": "I had 3 SSDs in this particular array",
+      "context": "and it had pages and pages like this…. I had 3 SDD’s in this particular array all from around the same time",
+      "occurrences": 1,
+      "reason": "Letter transposition: SDD should be SSD (Solid State Drive); also removes the incorrect possessive apostrophe before a plural s.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "49599 hours (5.6 Years) It had more than served",
+      "replace": "49599 hours (5.6 Years). It had more than served",
+      "context": "power-on-hours count of 49599 hours (5.6 Years) It had more than served its purpose",
+      "occurrences": 1,
+      "reason": "Missing sentence-terminating period creating a run-on between two sentences.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I logged into the Synology it was pretty obvious",
+      "replace": "I logged into the Synology, it was pretty obvious",
+      "context": "When I got to Ireland I logged into the Synology it was pretty obvious it wasn't happy",
+      "occurrences": 1,
+      "reason": "Missing comma producing a run-on; comma splits the two clauses cleanly.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "You do have notifications set up right?",
+      "replace": "You do have notifications set up, right?",
+      "context": "in a bad way. (You do have notifications set up right? ) The timing could not have been worse",
+      "occurrences": 1,
+      "reason": "Missing comma before the tag question 'right?'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Unhappy Array ( For historical reasons I was using slots 1, 2 and 4",
+      "replace": "Unhappy Array (for historical reasons I was using slots 1, 2 and 4)",
+      "context": "it wasn't happy. Unhappy Array ( For historical reasons I was using slots 1, 2 and 4 and it had pages and pages like this….",
+      "occurrences": 1,
+      "reason": "Unclosed parenthesis, stray space after opening paren, and unnecessary capitalisation of 'For' mid-parenthetical.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/": [
+    {
+      "find": "a number of DAC’s",
+      "replace": "a number of DACs",
+      "context": "great results with the current setup utilising a number of DAC’s but there were a couple of things",
+      "occurrences": 1,
+      "reason": "Stray apostrophe on a plural acronym; DACs is the correct plural form.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "plus Vat",
+      "replace": "plus VAT",
+      "context": "I managed to locate one in stock for £587 plus Vat",
+      "occurrences": 1,
+      "reason": "VAT is an acronym (Value Added Tax) and should be uppercase.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "16 usable 25 ports which are way more than I need",
+      "replace": "16 usable 25Gb ports which are way more than I need",
+      "context": "split the 100’s on the switch into 4×25. This technically gives me 16 usable 25 ports which are way more than I need.",
+      "occurrences": 1,
+      "reason": "Missing unit; the rest of the post uses 25Gb consistently, so '25 ports' is a clear omission of the unit.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "split the 100’s on the switch into 4×25",
+      "replace": "split the 100s on the switch into 4×25",
+      "context": "utilise the existing Intel 25Gb NICs I have and split the 100’s on the switch into 4×25",
+      "occurrences": 1,
+      "reason": "Stray apostrophe on a plural number; 100s is the correct plural form.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "( It can be powered just from POE) however, the config is way more complex",
+      "replace": "(It can be powered just from PoE). However, the config is way more complex",
+      "context": "incredibly power efficient. ( It can be powered just from POE) however, the config is way more complex",
+      "occurrences": 1,
+      "reason": "Stray space after opening parenthesis, missing sentence break before 'however', and PoE is the conventional capitalisation (Power over Ethernet).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "2 AC supplies, A DC input",
+      "replace": "2 AC supplies, a DC input",
+      "context": "It actually has 4 ways to power it. 2 AC supplies, A DC input and then strangest of all",
+      "occurrences": 1,
+      "reason": "Incorrect capital A mid-list; should be lowercase article.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "strangest of all it can be powered by POE in",
+      "replace": "strangest of all, it can be powered by PoE in",
+      "context": "and then strangest of all it can be powered by POE in.",
+      "occurrences": 1,
+      "reason": "Missing comma after the introductory phrase, and PoE is the conventional capitalisation (Power over Ethernet).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "1gb/s network",
+      "replace": "1Gb/s network",
+      "context": "connecting my legacy 1gb/s network",
+      "occurrences": 1,
+      "reason": "Inconsistent unit casing; the rest of the post uses 100Gb/s and 25Gb, so 'Gb' should be capitalised.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/": [
+    {
+      "find": "with the release of vSphere 8 I was obviously going to upgrade however a few personal things blocked me",
+      "replace": "with the release of vSphere 8 I was obviously going to upgrade, however, a few personal things blocked me",
+      "context": "So with the release of vSphere 8 I was obviously going to upgrade however a few personal things blocked me from doing it until now.",
+      "occurrences": 1,
+      "reason": "Run-on sentence; 'however' joining two independent clauses needs comma punctuation.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "The vCenter upgrade was smooth however knowing that some of the hardware",
+      "replace": "The vCenter upgrade was smooth; however, knowing that some of the hardware",
+      "context": "The vCenter upgrade was smooth however knowing that some of the hardware I am running is a little dated this was always going to carry a risk.",
+      "occurrences": 1,
+      "reason": "Two independent clauses joined by 'however' need a semicolon and comma.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "It also listed all of the newly installed VIB’s",
+      "replace": "It also listed all of the newly installed VIBs",
+      "context": "It also listed all of the newly installed VIB’s (followed by the SSH/firewall steps).",
+      "occurrences": 1,
+      "reason": "Greengrocer's apostrophe on plural acronym VIBs.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/": [
+    {
+      "find": "Plus have GitHub (or similar) version control system",
+      "replace": "Plus, have a GitHub (or similar) version control system",
+      "context": "Plus have GitHub (or similar) version control system that Portainer can reach.",
+      "occurrences": 1,
+      "reason": "Missing article 'a' and missing comma after 'Plus'; sentence is ungrammatical as written.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "user and user id’s",
+      "replace": "user and user IDs",
+      "context": "important to understand user and user id’s and a great blog on this can be found here",
+      "occurrences": 1,
+      "reason": "Incorrect apostrophe used for plural of 'ID'; should be 'IDs'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Docker and Portainer It’s also important",
+      "replace": "Docker and Portainer. It’s also important",
+      "context": "detailed instructions for Docker and Portainer It’s also important to understand user and user id’s",
+      "occurrences": 1,
+      "reason": "Run-on sentence; missing full stop between 'Portainer' and 'It’s'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "a great blog on this can be found here\n",
+      "replace": "a great blog on this can be found here.\n",
+      "context": "a great blog on this can be found here\n\nContainer Provision",
+      "occurrences": 1,
+      "reason": "Sentence ends without a full stop before the next paragraph.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "as documented here .",
+      "replace": "as documented here.",
+      "context": "Personal Access Token to be created as documented here .",
+      "occurrences": 1,
+      "reason": "Stray space before the full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "If for any reason this errors this is usually as the volume map is not set up correctly",
+      "replace": "If for any reason this errors, it is usually because the volume map is not set up correctly",
+      "context": "If for any reason this errors this is usually as the volume map is not set up correctly or a permissions issue.",
+      "occurrences": 1,
+      "reason": "Missing comma creates a run-on, and 'as' is used awkwardly where 'because' is correct.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2023/04/intel-optane/": [
+    {
+      "find": "many many benefits",
+      "replace": "many benefits",
+      "context": "it has brought me many many benefits over the years",
+      "occurrences": 1,
+      "reason": "Accidental word repetition ('many many') — removing the duplicate is the smallest correct fix.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Two that I have probably made the most use of is",
+      "replace": "Two that I have probably made the most use of are",
+      "context": "Two that I have probably made the most use of is Runecast and Devolutions",
+      "occurrences": 1,
+      "reason": "Subject-verb agreement: plural subject 'Two' requires 'are', not 'is'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "piqued my interest in particular some Optane drives",
+      "replace": "piqued my interest, in particular some Optane drives",
+      "context": "one piece in particular piqued my interest in particular some Optane drives",
+      "occurrences": 1,
+      "reason": "Adding a comma after 'interest' breaks the run-on and properly introduces the parenthetical 'in particular some Optane drives'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I was lucky enough to get some together with Gareth Edwards we decided to put something together",
+      "replace": "I was lucky enough to get some. Together with Gareth Edwards, we decided to put something together",
+      "context": "run-on sentence joining two independent clauses",
+      "occurrences": 1,
+      "reason": "Two independent clauses run together with no punctuation — splitting into two sentences fixes the run-on.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "some back to back test to showcase",
+      "replace": "some back-to-back tests to showcase",
+      "context": "We're planning on doing some back to back test to showcase the performance difference",
+      "occurrences": 1,
+      "reason": "'back-to-back' is a compound adjective requiring hyphens, and 'test' should be plural 'tests' to agree with 'some'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "configure the Optane’s as",
+      "replace": "configure the Optanes as",
+      "context": "I will also configure the Optane's as \"SLOG\"",
+      "occurrences": 1,
+      "reason": "Incorrect possessive apostrophe used for a plural — Optanes (plural) does not take an apostrophe.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "TrueNas Server",
+      "replace": "TrueNAS server",
+      "context": "I have added two to my TrueNas Server. This has both iSCSI",
+      "occurrences": 1,
+      "reason": "Inconsistent product capitalisation — the post itself uses 'TrueNAS' elsewhere; the official product name is TrueNAS.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2023/05/homelab-storage-refresh-part-1/": [
+    {
+      "find": "Im sure there optimisations",
+      "replace": "I'm sure there are optimisations",
+      "context": "in my next post and Im sure there optimisations I can make before I do that",
+      "occurrences": 1,
+      "reason": "Missing apostrophe in 'Im' and missing 'are' between 'there' and 'optimisations'. Both are clear grammatical errors.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "2200 MB/s write Some crazy numbers",
+      "replace": "2200 MB/s write. Some crazy numbers",
+      "context": "(4K Blocks) 2200 MB/s write Some crazy numbers….",
+      "occurrences": 1,
+      "reason": "Run-on sentence — missing full stop between 'write' and the new sentence 'Some crazy numbers'.",
+      "actual_occurrences": 0
+    },
+    {
+      "find": "of 1095 TBW\n",
+      "replace": "of 1095 TBW.\n",
+      "context": "with the relatively low data endurance of 1095 TBW",
+      "occurrences": 1,
+      "reason": "Sentence ends without a full stop before the next section heading.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "As my Z840 TrueNAS server has way more RAM and CPU capabilities.",
+      "replace": "My Z840 TrueNAS server has way more RAM and CPU capabilities.",
+      "context": "I had upgraded it to 12GB but this was still not enough. As my Z840 TrueNAS server has way more RAM and CPU capabilities. As part of the migration,",
+      "occurrences": 1,
+      "reason": "Sentence fragment beginning with 'As' — has no main clause. Removing 'As' makes it a grammatical sentence.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "ZFS like a lot of modern storage technologies(VSAN etc) wants exclusive access",
+      "replace": "ZFS, like a lot of modern storage technologies (VSAN etc.), wants exclusive access",
+      "context": "ZFS like a lot of modern storage technologies(VSAN etc) wants exclusive access to the underlying disks.",
+      "occurrences": 1,
+      "reason": "Missing space before opening parenthesis and missing commas around the parenthetical clause.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "(it was originally called Zettabyte File System) It is a copy-on-write system (COW) If you are familiar",
+      "replace": "(it was originally called Zettabyte File System). It is a copy-on-write system (COW). If you are familiar",
+      "context": "the scale of the system that could be deployed (it was originally called Zettabyte File System) It is a copy-on-write system (COW) If you are familiar with ZFS operation",
+      "occurrences": 1,
+      "reason": "Two missing full stops between three sentences run together.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "“Data VDEV” This can also be done",
+      "replace": "“Data VDEV”. This can also be done",
+      "context": "The default is to use drives for data storage “Data VDEV” This can also be done in several layouts",
+      "occurrences": 1,
+      "reason": "Missing full stop between two sentences after the closing quote of 'Data VDEV'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "into a “Pool”",
+      "replace": "into a “Pool”.",
+      "context": "ZFS then groups these drives into a “Pool”",
+      "occurrences": 1,
+      "reason": "Sentence ends without a full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "When running VM’s sync write is basically essential.",
+      "replace": "When running VMs, sync write is basically essential.",
+      "context": "When running VM’s sync write is basically essential.",
+      "occurrences": 1,
+      "reason": "'VM’s' uses a possessive apostrophe for a plural — should be 'VMs'. Also missing comma after the introductory clause.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages/": [
+    {
+      "find": "Cloudflare has been improving there capabilities",
+      "replace": "Cloudflare has been improving their capabilities",
+      "context": "Throughout that time Cloudflare has been improving there capabilities and approximately 2 years ago",
+      "occurrences": 1,
+      "reason": "Wrong word: 'there' should be possessive 'their'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "served from their datacenter’s",
+      "replace": "served from their datacenters",
+      "context": "100% served from their datacenter’s rather than just cached assets",
+      "occurrences": 1,
+      "reason": "Incorrect apostrophe — plural noun, not possessive.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "use relative URL’s",
+      "replace": "use relative URLs",
+      "context": "set to Zip file delivery and use relative URL’s and then click",
+      "occurrences": 1,
+      "reason": "Incorrect apostrophe in plural acronym.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "to be “Main” You can then leave",
+      "replace": "to be “Main”. You can then leave",
+      "context": "set the production branch to be “Main” You can then leave all the other settings as default",
+      "occurrences": 1,
+      "reason": "Missing full stop — creates a run-on between two sentences.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Cloudflare will initialize the build environment clone the Git repository",
+      "replace": "Cloudflare will initialize the build environment, clone the Git repository",
+      "context": "When you hit Save and Deploy Cloudflare will initialize the build environment clone the Git repository and publish your site",
+      "occurrences": 1,
+      "reason": "Missing comma between list items — run-on.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "If you have not done this ( Or installed the Cloudflare Pages App in GitHub you can do this by following this link",
+      "replace": "If you have not done this (or installed the Cloudflare Pages App in GitHub) you can do this by following this link",
+      "context": "I have previously connected my Cloudflare account to GitHub for the WordPress repo so I did not need to do anything here. If you have not done this ( Or installed the Cloudflare Pages App in GitHub you can do this by following this link",
+      "occurrences": 1,
+      "reason": "Unclosed parenthesis and incorrectly capitalised 'Or' mid-sentence.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "If you click the name of the project, In my case WordPress",
+      "replace": "If you click the name of the project, in my case WordPress,",
+      "context": "If you click the name of the project, In my case WordPress you can then scroll to the Custom Domain section.",
+      "occurrences": 1,
+      "reason": "Incorrect capital 'In' mid-sentence after a comma; missing closing comma before main clause.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Then navigate to the settings section ensure that the settings are set to",
+      "replace": "Then navigate to the settings section and ensure that the settings are set to",
+      "context": "Then navigate to the settings section ensure that the settings are set to Zip file delivery",
+      "occurrences": 1,
+      "reason": "Missing conjunction — creates a run-on sentence.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/": [
+    {
+      "find": "If I drill into the specific issue I get the below view",
+      "replace": "If I drill into the specific issue, I get the view below.",
+      "context": "Standalone paragraph between the SIOC quote and the screenshot description.",
+      "occurrences": 1,
+      "reason": "Missing comma after introductory clause and missing terminal full stop; 'the below view' reads awkwardly compared to 'the view below'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Here you can confirm the discovered issue and the remediation action. ( I have chosen not to enable SIOC on my ISO-NFS datastore)",
+      "replace": "Here you can confirm the discovered issue and the remediation action. (I have chosen not to enable SIOC on my ISO-NFS datastore.)",
+      "context": "Sentence describing the remediation confirmation screen.",
+      "occurrences": 1,
+      "reason": "Stray space after the opening parenthesis and missing full stop inside the parenthetical.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Dropping this into a PowerCLI session we get….",
+      "replace": "Dropping this into a PowerCLI session, we get…",
+      "context": "Sentence introducing the PowerCLI output block.",
+      "occurrences": 1,
+      "reason": "Missing comma after the introductory clause and a stray full stop after the ellipsis character (which is already three dots).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "What an amazing little feature",
+      "replace": "What an amazing little feature!",
+      "context": "Final sentence of the post body before 'Connect with me:'.",
+      "occurrences": 1,
+      "reason": "Final exclamatory sentence missing terminal punctuation.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2023/10/going-out-with-a-bang/": [
+    {
+      "find": "VMware also gave all employees $1300 dollars",
+      "replace": "VMware also gave all employees $1,300",
+      "context": "VMware also gave all employees $1300 dollars for donation through their foundation to a charity of your choice.",
+      "occurrences": 1,
+      "reason": "'$1300 dollars' is redundant ($ already denotes currency) and the figure lacks a thousands separator. Smallest correct fix is to drop 'dollars' and add the comma.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I decided to give mine to the RNLI .",
+      "replace": "I decided to give mine to the RNLI.",
+      "context": "I decided to give mine to the RNLI . Being based in Poole for the last couple of years...",
+      "occurrences": 1,
+      "reason": "Stray space before the full stop after 'RNLI'.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/": [
+    {
+      "find": "The other node was going to be used as a Tdarr Node",
+      "replace": "The other node was going to be used as a Tdarr Node.",
+      "context": "End of paragraph: '...presented to one or more VMs... The other node was going to be used as a Tdarr Node'",
+      "occurrences": 1,
+      "reason": "End-of-paragraph sentence missing terminal full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "ran the below command to perform the install",
+      "replace": "ran the below command to perform the install.",
+      "context": "Sentence ends just before the esxcli command block.",
+      "occurrences": 1,
+      "reason": "Sentence missing a full stop before the code block.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "a host reboot is required (even if it says it isn’t )",
+      "replace": "a host reboot is required (even if it says it isn’t).",
+      "context": "End of installation note paragraph.",
+      "occurrences": 1,
+      "reason": "Stray space before closing parenthesis and missing terminal full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "The Nvidia GPU Software Docs list the capabilities of each profile I have copied the relevant table below.",
+      "replace": "The Nvidia GPU Software Docs list the capabilities of each profile. I have copied the relevant table below.",
+      "context": "Two independent clauses run together without punctuation.",
+      "occurrences": 1,
+      "reason": "Run-on sentence: two independent clauses joined without punctuation.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "all of the memory must be reserved for the VM",
+      "replace": "all of the memory must be reserved for the VM.",
+      "context": "Standalone PCI passthrough note paragraph.",
+      "occurrences": 1,
+      "reason": "Sentence missing terminal full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "we can now see the graphics card in windows",
+      "replace": "we can now see the graphics card in Windows.",
+      "context": "After 'With the VM running and the drivers installed...'",
+      "occurrences": 1,
+      "reason": "'Windows' is a proper noun (OS name) and the sentence is missing a full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Using GPU-Z we can validate the resources being presented through to the Virtual Machine",
+      "replace": "Using GPU-Z we can validate the resources being presented through to the Virtual Machine.",
+      "context": "Standalone paragraph after the Windows screenshot reference.",
+      "occurrences": 1,
+      "reason": "Sentence missing terminal full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "My Folding@home stats can be seen here and consider joining your compute to the project as well",
+      "replace": "My Folding@home stats can be seen here, and consider joining your compute to the project as well.",
+      "context": "End of Folding@Home paragraph linking to the stats.",
+      "occurrences": 1,
+      "reason": "Two independent clauses joined without a comma and missing terminal full stop.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/": [
+    {
+      "find": "With the current pause in the Broadcom VMware takeover deal. I had some downtime",
+      "replace": "With the current pause in the Broadcom VMware takeover deal, I had some downtime",
+      "context": "for a good number of years. With the current pause in the Broadcom VMware takeover deal. I had some downtime and decided to use one of the three exam vouchers",
+      "occurrences": 1,
+      "reason": "Sentence fragment — the full stop incorrectly splits a subordinate clause from its main clause; a comma joins them properly.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "VMware give me each year",
+      "replace": "VMware gives me each year",
+      "context": "decided to use one of the three exam vouchers VMware give me each year. This upgrades me",
+      "occurrences": 1,
+      "reason": "Subject-verb agreement: 'VMware' as a singular company name takes the singular verb 'gives'.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/": [
+    {
+      "find": "self hosted version",
+      "replace": "self-hosted version",
+      "context": "Myles was using Plausible and seeing as they had a self hosted version of this I decided to give it a whirl.",
+      "occurrences": 1,
+      "reason": "Compound modifier preceding a noun should be hyphenated; 'self-hosted' is the standard form.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "approx 30 mins to setup",
+      "replace": "approx 30 mins to set up",
+      "context": "The entire process took approx 30 mins to setup and I'm really pleased with the results.",
+      "occurrences": 1,
+      "reason": "'setup' is a noun; the verb form is 'set up'. Sentence uses it as a verb ('took ... to set up').",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2023/11/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router/": [
+    {
+      "find": "I have my 6 usable IP’s up and running",
+      "replace": "I have my 6 usable IPs up and running",
+      "context": "With the above config, I have my 6 usable IP’s up and running.",
+      "occurrences": 1,
+      "reason": "Apostrophe used incorrectly to pluralise an initialism; 'IPs' is the correct plural.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "these are added to the secondary tab as /32’s",
+      "replace": "these are added to the secondary tab as /32s",
+      "context": "To utilise the other addresses allocated by Zen these are added to the secondary tab as /32’s",
+      "occurrences": 1,
+      "reason": "Apostrophe-as-plural error; '/32s' is the correct plural for the CIDR notation.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/": [
+    {
+      "find": "until now…. With the release",
+      "replace": "until now… With the release",
+      "context": "it hasn't been available in VMC until now…. With the release of the M24 version",
+      "occurrences": 1,
+      "reason": "Ellipsis character followed by an extra full stop — only one terminator needed.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "So why is this such an important change? to answer that we need",
+      "replace": "So why is this such an important change? To answer that we need",
+      "context": "Start of paragraph after the rhetorical question.",
+      "occurrences": 1,
+      "reason": "New sentence after a question mark must start with a capital letter.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "for newly provisioned SDDC’s",
+      "replace": "for newly provisioned SDDCs",
+      "context": "an option for newly provisioned SDDC’s",
+      "occurrences": 1,
+      "reason": "Plural of an acronym does not take an apostrophe.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "on a single or low number of VMDK’s",
+      "replace": "on a single or low number of VMDKs",
+      "context": "customers that require high throughput on a single or low number of VMDK’s",
+      "occurrences": 1,
+      "reason": "Plural of an acronym does not take an apostrophe.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "As business demands lower RPO’s any improvement",
+      "replace": "As business demands lower RPOs, any improvement",
+      "context": "As business demands lower RPO’s any improvement in snapshot mechanisms reduce the overhead",
+      "occurrences": 1,
+      "reason": "Apostrophe-plural is wrong, and a comma is needed after the introductory clause to avoid a run-on.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "less rewrites in the event of a device replacement",
+      "replace": "fewer rewrites in the event of a device replacement",
+      "context": "Resilience Benefits — less rewrites in the event of a device replacement",
+      "occurrences": 1,
+      "reason": "'Rewrites' is a countable noun, so 'fewer' is correct, not 'less'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "a conservative compression ratio of 1.25%",
+      "replace": "a conservative compression ratio of 1.25x",
+      "context": "This is assuming a conservative compression ratio of 1.25% for ESA.",
+      "occurrences": 1,
+      "reason": "A compression ratio is expressed as a multiplier (1.25x), not a percentage — 1.25% would mean data grew.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "This is why the 4 and 5 node has a lower usable space.",
+      "replace": "This is why the 4- and 5-node configurations have a lower usable space.",
+      "context": "ESA has a dynamic parity-based mechanism … This is why the 4 and 5 node has a lower usable space.",
+      "occurrences": 1,
+      "reason": "Subject-verb agreement: a 4-node and a 5-node refer to multiple configurations, so 'have' is needed, and hyphenated compound modifiers fix the awkward phrasing.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "It is also not currently available in a 2-node or Stretched SDDC configuration\n",
+      "replace": "It is also not currently available in a 2-node or Stretched SDDC configuration.\n",
+      "context": "vSAN ESA will only be available on the i4.metal-based VMC hosts at launch. It is also not currently available in a 2-node or Stretched SDDC configuration",
+      "occurrences": 1,
+      "reason": "Sentence at end of paragraph is missing its terminating full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "further enhancements reduce the CPU overhead when using vSAN Encryption",
+      "replace": "Further enhancements reduce the CPU overhead when using vSAN Encryption",
+      "context": "Bullet in the Efficiency benefits list — surrounding bullets start with a capital letter.",
+      "occurrences": 1,
+      "reason": "Bullet sentence should start with a capital letter to match the other items in the list.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/": [
+    {
+      "find": "Holodeck team please don’t reach out",
+      "replace": "Holodeck team, please don’t reach out",
+      "context": "Disclaimer: This is not a supported configuration by the Holodeck team please don’t reach out to them for help.",
+      "occurrences": 1,
+      "reason": "Run-on sentence; missing comma before 'please' creates an unclear clause boundary.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "the age of the Physical CPU’s in the hosts",
+      "replace": "the age of the physical CPUs in the hosts",
+      "context": "I had some issues due to the age of the Physical CPU’s in the hosts that I was using to run Holodeck.",
+      "occurrences": 1,
+      "reason": "Spurious apostrophe on plural and unnecessary capitalisation of 'Physical'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Obviously, my CPU’s are not supported",
+      "replace": "Obviously, my CPUs are not supported",
+      "context": "Obviously, my CPU’s are not supported for ESXi 8.0.1 and when the host is powered on you will see the image below.",
+      "occurrences": 1,
+      "reason": "Spurious apostrophe on plural noun.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "the vCLS VM’s for DRS are deployed",
+      "replace": "the vCLS VMs for DRS are deployed",
+      "context": "when the cluster is built and the vCLS VM’s for DRS are deployed, they will fail to power on.",
+      "occurrences": 1,
+      "reason": "Spurious apostrophe on plural noun.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "deployment script and that is available here",
+      "replace": "deployment script, and it is available here.",
+      "context": "Tim Sommer has made all of the required changes to the VLCGUI.ps1 deployment script and that is available here",
+      "occurrences": 1,
+      "reason": "Missing terminal full stop, and awkward 'and that is' phrasing; small punctuation/wording fix.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Luckily a colleague of mine Tim Sommer has made",
+      "replace": "Luckily, a colleague of mine, Tim Sommer, has made",
+      "context": "Luckily a colleague of mine Tim Sommer has made all of the required changes to the VLCGUI.ps1 deployment script",
+      "occurrences": 1,
+      "reason": "Missing commas around the appositive name 'Tim Sommer'; also missing comma after introductory 'Luckily'.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/": [
+    {
+      "find": "Another point of note. The CPU’s in my hosts were identical.",
+      "replace": "Another point of note: the CPU’s in my hosts were identical.",
+      "context": "After Deployment Notes block, introducing the CPU compatibility note.",
+      "occurrences": 1,
+      "reason": "Sentence fragment ‘Another point of note.’ followed by a separate sentence; replacing the full stop with a colon and lowercasing the next word fixes the fragment with the smallest change.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "The CPU’s in my hosts were identical.",
+      "replace": "The CPUs in my hosts were identical.",
+      "context": "First plural CPU reference after ‘Another point of note.’",
+      "occurrences": 1,
+      "reason": "Plural of CPU is CPUs; the apostrophe is incorrect for a plural (greengrocer’s apostrophe).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "If you have different generation Intel CPU’s or a mix of AMD/Intel",
+      "replace": "If you have different generation Intel CPUs or a mix of AMD/Intel",
+      "context": "Second plural CPU reference in the same paragraph.",
+      "occurrences": 1,
+      "reason": "Plural of CPU is CPUs; the apostrophe is incorrect for a plural.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "the builder can always resolve the correct IP’s irrespective",
+      "replace": "the builder can always resolve the correct IPs irrespective",
+      "context": "DNS section, describing how the HoloBuilder VM resolves addresses.",
+      "occurrences": 1,
+      "reason": "Plural of IP is IPs; the apostrophe is incorrect for a plural.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "to make this work across at least 2 hosts….",
+      "replace": "to make this work across at least 2 hosts…",
+      "context": "End of the paragraph introducing the multi-host challenge.",
+      "occurrences": 1,
+      "reason": "Ellipsis already provides the trailing punctuation; the extra full stop after the ellipsis character is redundant.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "All of the storage is to be presented by my TrueNas setup.",
+      "replace": "All of the storage is to be presented by my TrueNAS setup.",
+      "context": "Hardware overview paragraph describing the storage backend.",
+      "occurrences": 1,
+      "reason": "The product name is officially TrueNAS (all-caps NAS), analogous to vCenter — this is a product-name correction, not a stylistic change.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/": [
+    {
+      "find": "That left me with DHCP option 43",
+      "replace": "That left me with DHCP Option 43.",
+      "context": "I discounted SSH... and I discounted DNS. That left me with DHCP option 43 [end of paragraph]",
+      "occurrences": 1,
+      "reason": "End-of-paragraph missing full stop; also inconsistent capitalisation — 'DHCP Option 43' is used in the title, H1, and the list item just above this sentence.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "so let me explain. It is made up of 2 parts",
+      "replace": "so let me explain. It is made up of 2 parts.",
+      "context": "All of which are straightforward except the last one so let me explain. It is made up of 2 parts [end of paragraph]",
+      "occurrences": 1,
+      "reason": "Missing terminating full stop at end of paragraph.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I am hosting the controller on IP 192.168.20.2 The remaining part",
+      "replace": "I am hosting the controller on IP 192.168.20.2. The remaining part",
+      "context": "The first two parts 01:04 is fixed for UniFi. I am hosting the controller on IP 192.168.20.2 The remaining part of the value (c0:a8:14:02) is the IP address...",
+      "occurrences": 1,
+      "reason": "Missing full stop between the IP address and the start of the next sentence — clear run-on.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "A multitude of tools exist for converting IP to HEX one can be found here",
+      "replace": "A multitude of tools exist for converting IP to HEX; one can be found here.",
+      "context": "Standalone paragraph linking to an IP-to-HEX converter.",
+      "occurrences": 1,
+      "reason": "Run-on sentence with no punctuation between 'HEX' and 'one can be found here'; also missing terminal full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I can connect a factory fresh UniFi device to my network DHCP will hand out an IP",
+      "replace": "I can connect a factory-fresh UniFi device to my network; DHCP will hand out an IP",
+      "context": "And there you have it. I can connect a factory fresh UniFi device to my network DHCP will hand out an IP on one subnet and tell the device how to reach the controller in a different subnet.",
+      "occurrences": 1,
+      "reason": "Run-on sentence — 'network' and 'DHCP will hand out' need separating punctuation. 'factory-fresh' as a compound adjective also takes a hyphen.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2024/07/new-nodes/": [
+    {
+      "find": "what I bought why and how I have configured it",
+      "replace": "what I bought, why, and how I have configured it",
+      "context": "The below post describes what I bought why and how I have configured it.",
+      "occurrences": 1,
+      "reason": "Missing commas in list creates a run-on; commas restore correct grammar.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "having run it in a production at a service provider",
+      "replace": "having run it in production at a service provider",
+      "context": "I am very familiar with this configuration having run it in a production at a service provider for a couple of years.",
+      "occurrences": 1,
+      "reason": "'in a production' is ungrammatical; the idiom is 'in production'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "had I chose to deploy vSAN OSA",
+      "replace": "had I chosen to deploy vSAN OSA",
+      "context": "something that would not be available had I chose to deploy vSAN OSA.",
+      "occurrences": 1,
+      "reason": "Wrong verb form; the past participle 'chosen' is required after 'had'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "To reset the password’s I resorted to using the IPMItool",
+      "replace": "To reset the passwords I resorted to using the IPMItool",
+      "context": "however you can’t set the password from the bios. To reset the password’s I resorted to using the IPMItool .",
+      "occurrences": 1,
+      "reason": "Incorrect possessive apostrophe in plural 'passwords'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "It’s useful to plan your IP address’s in advance",
+      "replace": "It’s useful to plan your IP addresses in advance",
+      "context": "It’s useful to plan your IP address’s in advance. This is what I used",
+      "occurrences": 1,
+      "reason": "Incorrect possessive apostrophe in plural 'addresses'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Then execute the following command utilising your CVM Ip address’s",
+      "replace": "Then execute the following command utilising your CVM IP addresses",
+      "context": "Then execute the following command utilising your CVM Ip address’s",
+      "occurrences": 1,
+      "reason": "'Ip' should be the initialism 'IP', and 'address’s' is an incorrect possessive in place of the plural 'addresses'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Cluster succeed in creating will look similar to the below.",
+      "replace": "A successful cluster creation will look similar to the below.",
+      "context": "cluster -s 192.168.38.171,192.168.38.173,192.168.38.175 create\n\nCluster succeed in creating will look similar to the below.",
+      "occurrences": 1,
+      "reason": "'Cluster succeed in creating' is ungrammatical; rewording to 'A successful cluster creation' fixes the broken syntax.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "The install is fairly straight forward",
+      "replace": "The install is fairly straightforward",
+      "context": "Install\n\nThe install is fairly straight forward if your default access vlan is the one you want to run Nutanix on.",
+      "occurrences": 1,
+      "reason": "'straight forward' is two words by mistake; the adjective is one word 'straightforward'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Log into one of the CVM’s I executed a “Cluster Stop” command when the cluster is stopped shut all the CVM’s down.",
+      "replace": "Log into one of the CVM’s and execute a “Cluster Stop” command. When the cluster is stopped, shut all the CVM’s down.",
+      "context": "To do this no running VM’s can be present on the host.\n\nLog into one of the CVM’s I executed a “Cluster Stop” command when the cluster is stopped shut all the CVM’s down.",
+      "occurrences": 1,
+      "reason": "Original is a run-on sentence with missing punctuation; splitting into two sentences and adding a comma fixes the broken grammar.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "adding to an existing vSphere cluster This had the correct EVC mode",
+      "replace": "adding to an existing vSphere cluster. This had the correct EVC mode",
+      "context": "The 3 ESXi hosts were placed in maintenance mode before adding to an existing vSphere cluster This had the correct EVC mode that I needed.",
+      "occurrences": 1,
+      "reason": "Missing full stop between two sentences.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I also want to Increase the RAM",
+      "replace": "I also want to increase the RAM",
+      "context": "The next steps are to deploy Prism Central and I also want to Increase the RAM in the CVM’s.",
+      "occurrences": 1,
+      "reason": "Unnecessary mid-sentence capitalisation of 'Increase'.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/": [
+    {
+      "find": "I typically don’t like using second hard storage",
+      "replace": "I typically don’t like using second-hand storage",
+      "context": "still have 4 8TB drives spare. I typically don’t like using second hard storage but in this instance",
+      "occurrences": 1,
+      "reason": "'second hard storage' is a clear typo for 'second-hand storage' — the author means previously-owned drives.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "it just had to be done….",
+      "replace": "it just had to be done…",
+      "context": "consolidate a few bits and pieces so it just had to be done….",
+      "occurrences": 1,
+      "reason": "Ellipsis character followed by a redundant full stop — should be just the ellipsis.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I have stuck with TrueNAS scale",
+      "replace": "I have stuck with TrueNAS Scale",
+      "context": "I have stuck with TrueNAS scale as the OS of choice",
+      "occurrences": 1,
+      "reason": "Inconsistent capitalisation of product name — used correctly as 'TrueNAS Scale' elsewhere on the same page (e.g. 'A benefit of TrueNAS Scale is that the L2ARC persists between reboots').",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2024/09/home-network-upgrade/": [
+    {
+      "find": "webmanaged switch",
+      "replace": "web-managed switch",
+      "context": "It's a trivial setup for anyone that's used a webmanaged switch before.",
+      "occurrences": 1,
+      "reason": "Missing hyphen — inconsistent with 'web-managed switch' used two sentences earlier in the same paragraph.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "100GB/s switch",
+      "replace": "100Gb/s switch",
+      "context": "I could never get SwitchOS to boot correctly on the 100GB/s switch so I stuck with RouterOS",
+      "occurrences": 1,
+      "reason": "GB (gigabyte) vs Gb (gigabit) — the rest of the article (and product spec) uses Gb/s. Technical error.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/": [
+    {
+      "find": "Artificial intelligence is all the rage at the moment, It’s getting included",
+      "replace": "Artificial intelligence is all the rage at the moment. It’s getting included",
+      "context": "Opening sentence of the post body: 'Artificial intelligence is all the rage at the moment, It’s getting included in every product announcement...'",
+      "occurrences": 1,
+      "reason": "Comma splice / run-on. The capital 'I' in 'It’s' after the comma indicates a new sentence; a full stop is needed.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "VM running Ubuntu 24.04 VM",
+      "replace": "VM running Ubuntu 24.04",
+      "context": "OS Choice section: 'I chose to use one of my vSphere Hosts with a VM running Ubuntu 24.04 VM'",
+      "occurrences": 1,
+      "reason": "Duplicated word 'VM' at the end of the sentence.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "how this much running chat queries may impact things",
+      "replace": "how much running chat queries may impact things",
+      "context": "Power Consumption section: '...dig into how this much running chat queries may impact things.'",
+      "occurrences": 1,
+      "reason": "Stray extra word 'this' makes the sentence ungrammatical.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "even if its not running any queries",
+      "replace": "even if it’s not running any queries",
+      "context": "Power Consumption section: 'once a model is loaded even if its not running any queries this increases to around 24W'",
+      "occurrences": 1,
+      "reason": "Possessive 'its' used where contraction 'it’s' (it is) is required.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "a bit more of a reminder for me as what I have done",
+      "replace": "a bit more of a reminder for me of what I have done",
+      "context": "Intro paragraph: 'This blog is a bit more of a reminder for me as what I have done.'",
+      "occurrences": 1,
+      "reason": "Wrong preposition; 'as' should be 'of' (or 'as to'). Smallest correct change is 'of'.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2024/12/zfs-on-vmware/": [
+    {
+      "find": "You also need to do is to to ensure that TrueNAS can see unique disk IDs.",
+      "replace": "What you also need to do is to ensure that TrueNAS can see unique disk IDs.",
+      "context": "Disk IDs section opening sentence — duplicated 'to to' and missing subject.",
+      "occurrences": 1,
+      "reason": "Real grammar error: duplicated word 'to to' and the sentence is missing its subject. Verbatim match in body.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "To confirm that To confirm that trim is working execute the below command command is working execute the below command command",
+      "replace": "To confirm that trim is working, execute the below command",
+      "context": "Trim section — garbled duplicated sentence fragments before 'sudo zpool status Pool-1'.",
+      "occurrences": 1,
+      "reason": "Clearly broken/garbled text with repeated phrases; appears verbatim in body.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "the VM’s be provisioned with thin disks",
+      "replace": "the VMs be provisioned with thin disks",
+      "context": "Copy on Write section — 'The first requirement is that the VM’s be provisioned with thin disks in vSphere.'",
+      "occurrences": 1,
+      "reason": "Incorrect possessive apostrophe used for the plural 'VMs'. Verbatim match with curly apostrophe.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "the VMs’s storage used",
+      "replace": "the VM’s storage used",
+      "context": "Trim section — 'A further validation that this is working is to review the VMs’s storage used'.",
+      "occurrences": 1,
+      "reason": "Double possessive 'VMs's' is ungrammatical; should be singular possessive 'VM's'. Verbatim match.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Before and after listed below command",
+      "replace": "Before and after listed below.",
+      "context": "Final sentence of Trim section — 'Additional confirmation can be seen by reviewing the underlying (vSAN consumption in this case). Before and after listed below command'.",
+      "occurrences": 1,
+      "reason": "Stray trailing word 'command' renders the sentence broken/incomplete; needs terminating punctuation.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/": [
+    {
+      "find": "is it generate similar tags",
+      "replace": "is that it generates similar tags",
+      "context": "one of the issues that can occur is it generate similar tags. Hoarder has the ability to allow you to merge them.",
+      "occurrences": 1,
+      "reason": "Grammar error: verb agreement broken and missing 'that' makes the clause ungrammatical. The smallest correct fix is 'is that it generates similar tags'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "connected it to my existing Ollama setup This means that",
+      "replace": "connected it to my existing Ollama setup. This means that",
+      "context": "I have chosen to run this within my home infrastructure and connected it to my existing Ollama setup This means that Hoarder can call Ollama",
+      "occurrences": 1,
+      "reason": "Two sentences run together with no full stop between 'setup' and 'This'. Adding a period creates two correct sentences.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "ranging from company takeovers. To sites being dead.",
+      "replace": "ranging from company takeovers, to sites being dead.",
+      "context": "These were for a few reasons, ranging from company takeovers. To sites being dead. Sadly, in one case the author is no longer with us.",
+      "occurrences": 1,
+      "reason": "'To sites being dead.' is a sentence fragment. Replacing the full stop with a comma joins it to the preceding clause as a single grammatical sentence.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/": [
+    {
+      "find": "linux based tools",
+      "replace": "Linux-based tools",
+      "context": "I utilise a lot of linux based tools at home",
+      "occurrences": 1,
+      "reason": "'Linux' is a proper noun and must be capitalised; 'Linux-based' is the standard compound modifier.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "self taught",
+      "replace": "self-taught",
+      "context": "I am mostly self taught and therefore don't always use best practices",
+      "occurrences": 1,
+      "reason": "Standard compound adjective requires a hyphen.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I take some shortcuts that is an acceptable risk",
+      "replace": "I take some shortcuts that are an acceptable risk",
+      "context": "I also know I take some shortcuts that is an acceptable risk to me",
+      "occurrences": 1,
+      "reason": "Subject-verb agreement: plural 'shortcuts' takes 'are', not 'is'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Sometimes you just need a helping hand\n\nEnter Warp",
+      "replace": "Sometimes you just need a helping hand.\n\nEnter Warp",
+      "context": "Sometimes you just need a helping hand [paragraph break] Enter Warp…",
+      "occurrences": 1,
+      "reason": "Sentence is missing its terminating full stop before the paragraph break.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Taken from Warps website",
+      "replace": "Taken from Warp's website",
+      "context": "Taken from Warps website:",
+      "occurrences": 1,
+      "reason": "Missing apostrophe on the possessive 'Warp's'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Where the beauty of warp kicked in and said",
+      "replace": "Where the beauty of Warp kicked in and said",
+      "context": "Where the beauty of warp kicked in and said",
+      "occurrences": 1,
+      "reason": "'Warp' is a product name and should be capitalised consistently with the rest of the post.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "It then auto executed a cat command",
+      "replace": "It then auto-executed a cat command",
+      "context": "It then auto executed a cat command to look at the contents of both files",
+      "occurrences": 1,
+      "reason": "'auto-' prefix takes a hyphen when forming a compound verb here.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "asked if it was ok to run it which I approved",
+      "replace": "asked if it was OK to run it, which I approved",
+      "context": "showed me the below sudo command it wanted to run and asked if it was ok to run it which I approved",
+      "occurrences": 1,
+      "reason": "'ok' is conventionally capitalised as 'OK'; a comma is needed before the non-restrictive 'which' clause.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Once apt-get had been upgraded the duplicates were no longer in place",
+      "replace": "Once apt-get had been upgraded, the duplicates were no longer in place",
+      "context": "Once apt-get had been upgraded the duplicates were no longer in place and a few updates were available",
+      "occurrences": 1,
+      "reason": "Missing comma after the introductory subordinate clause.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "sign up with my referral link here\n\nConnect with me",
+      "replace": "sign up with my referral link here.\n\nConnect with me",
+      "context": "If you like this and want to give Warp a go, sign up with my referral link here [end of conclusion]",
+      "occurrences": 1,
+      "reason": "Final sentence of the conclusion is missing its terminating full stop.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/": [
+    {
+      "find": "For up to date info always use the official sizing tool located here",
+      "replace": "For up-to-date info, always use the official sizing tool located here.",
+      "context": "...host type in use. For up to date info always use the official sizing tool located here This is based on vSAN OSA...",
+      "occurrences": 1,
+      "reason": "'up to date' is a compound adjective modifying 'info' and requires hyphens; a comma after the introductory phrase improves readability; the sentence is missing its terminal full stop, which would otherwise run into the next sentence.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "This is based on vSAN OSA and excluding the management overhead (Ie valid for secondary clusters) It also uses the most efficient storage policy",
+      "replace": "This is based on vSAN OSA and excludes the management overhead (i.e. valid for secondary clusters). It also uses the most efficient storage policy",
+      "context": "...located here This is based on vSAN OSA and excluding the management overhead (Ie valid for secondary clusters) It also uses the most efficient storage policy that is supported...",
+      "occurrences": 1,
+      "reason": "Verb agreement fix ('excluding' -> 'excludes' to pair with 'is based'); 'Ie' should be the standard abbreviation 'i.e.'; missing full stop after the closing parenthesis creates a run-on sentence.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2025/08/vmc-host-deepdive/": [
+    {
+      "find": "I have just collated it into a single page",
+      "replace": "I have just collated it into a single page.",
+      "context": "All of this data is publicly available. I have just collated it into a single page",
+      "occurrences": 1,
+      "reason": "Sentence ends without a full stop before the next paragraph; adding a period correctly terminates the sentence.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/": [
+    {
+      "find": "deploy Docker onto host’s specified in the Inventory",
+      "replace": "deploy Docker onto hosts specified in the Inventory",
+      "context": "Task Templates section: 'I will just be using it to deploy Docker onto host’s specified in the Inventory.'",
+      "occurrences": 1,
+      "reason": "Greengrocer's apostrophe in plural — 'host's' should be 'hosts'. The body uses a curly apostrophe (U+2019).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "It’s possible to have multiple repo’s connected",
+      "replace": "It’s possible to have multiple repos connected",
+      "context": "Repositories section: 'It’s possible to have multiple repo’s connected.'",
+      "occurrences": 1,
+      "reason": "Greengrocer's apostrophe in plural — 'repo's' should be 'repos'. The first apostrophe (It's) is correct as a contraction; only the second is wrong.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Now that we have gone over the basic concepts. Let’s deploy Docker using Semaphore.",
+      "replace": "Now that we have gone over the basic concepts, let’s deploy Docker using Semaphore.",
+      "context": "Execute section opening sentence.",
+      "occurrences": 1,
+      "reason": "'Now that we have gone over the basic concepts' is a subordinate clause with no main verb — ending it with a full stop creates a sentence fragment. Should be joined with a comma to the following main clause.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I have spun up a Vanilla Ubuntu 24.04 server",
+      "replace": "I have spun up a vanilla Ubuntu 24.04 server",
+      "context": "Execute section: 'For testing, I have spun up a Vanilla Ubuntu 24.04 server to be used as the Docker server'.",
+      "occurrences": 1,
+      "reason": "'Vanilla' here is a common adjective meaning plain/standard, not a proper noun, so it should be lowercase mid-sentence.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/": [
+    {
+      "find": "Replaces all WordPress URL’s as relative",
+      "replace": "Replaces all WordPress URLs as relative",
+      "context": "Bullet under Python: 'Replaces all WordPress URL’s as relative'",
+      "occurrences": 1,
+      "reason": "Stray apostrophe in plural — URLs should not have an apostrophe.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Set’s up the job on a runner",
+      "replace": "Sets up the job on a runner",
+      "context": "Pipeline step bullet 'Set’s up the job on a runner'",
+      "occurrences": 1,
+      "reason": "Wrong apostrophe — verb 'Sets' (3rd-person singular), not possessive.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Check’s Out the repo",
+      "replace": "Checks Out the repo",
+      "context": "Pipeline step bullet 'Check’s Out the repo'",
+      "occurrences": 1,
+      "reason": "Wrong apostrophe — verb 'Checks', not possessive.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Test’s the runner environment",
+      "replace": "Tests the runner environment",
+      "context": "Pipeline step bullet 'Test’s the runner environment'",
+      "occurrences": 1,
+      "reason": "Wrong apostrophe — verb 'Tests', not possessive.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Install any relevant dependencies",
+      "replace": "Installs any relevant dependencies",
+      "context": "Pipeline step bullet between 'Sets up the Python environment' and 'Test’s the runner environment'",
+      "occurrences": 1,
+      "reason": "Verb agreement — other bullets in the list use 3rd-person singular (Sets, Generates, Notifies, Executes).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Commit and Pushes the Static Site",
+      "replace": "Commits and Pushes the Static Site",
+      "context": "Pipeline step bullet 'Commit and Pushes the Static Site'",
+      "occurrences": 1,
+      "reason": "Verb agreement — 'Pushes' is 3rd-person singular so the conjoined verb should be 'Commits'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "therefore for the GitHub-hosted runner",
+      "replace": "therefore not reachable by the GitHub-hosted runner",
+      "context": "'WordPress instance isn’t available publicly and therefore for the GitHub-hosted runner.'",
+      "occurrences": 1,
+      "reason": "Sentence is grammatically broken/missing words — current text has no verb after 'therefore'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "so you can’t instantly view your changes without having any DNS propagation issues",
+      "replace": "so you can instantly view your changes without having any DNS propagation issues",
+      "context": "Build Notifications — preview URL described as useful 'so you can’t instantly view your changes without having any DNS propagation issues.'",
+      "occurrences": 1,
+      "reason": "'can’t' contradicts the meaning of the surrounding sentence (the preview URL is described as a useful feature for instant viewing).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "The benefits of this setup I have discussed previously",
+      "replace": "The benefits of this setup I have discussed previously.",
+      "context": "End of 'What I started with' section — sentence has no terminal full stop before the next paragraph.",
+      "occurrences": 1,
+      "reason": "Missing terminal full stop at end of sentence/paragraph.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I can trigger the GitHub runner manually ( It also runs on a Cron schedule)",
+      "replace": "I can trigger the GitHub runner manually (it also runs on a Cron schedule).",
+      "context": "Python section — 'I can trigger the GitHub runner manually ( It also runs on a Cron schedule)'",
+      "occurrences": 1,
+      "reason": "Stray space after opening paren, unnecessary capitalisation of 'It', and missing terminal full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Within WordPress changed comments.php to the following",
+      "replace": "Within WordPress I changed comments.php to the following",
+      "context": "Utterance section intro — 'Within WordPress changed comments.php to the following'",
+      "occurrences": 1,
+      "reason": "Missing subject 'I' — sentence has no subject for the verb 'changed'.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/": [
+    {
+      "find": "How to safety shutdown a vSAN Environment",
+      "replace": "How to safely shut down a vSAN Environment",
+      "context": "vSAN Cluster Shutdown excerpt: 'How to safety shutdown a vSAN Environment'",
+      "occurrences": 2,
+      "reason": "'safety' is a noun being used where the adverb 'safely' is required; 'shutdown' is a noun, the verb form is 'shut down'. Both are clear grammatical errors. [Lives in the WP excerpt field of the source post, not body.]",
+      "actual_occurrences": 2
+    },
+    {
+      "find": "select “Restart vSAN Services” The workflow will enable them to bring them back into operation.",
+      "replace": "select “Restart vSAN Services”. The workflow will bring them back into operation.",
+      "context": "Leave them in maintenance mode and then select “Restart vSAN Services” The workflow will enable them to bring them back into operation.",
+      "occurrences": 1,
+      "reason": "Missing full stop after the closing quote produces a run-on, and 'will enable them to bring them back' is redundant/awkward.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "vCentre",
+      "replace": "vCenter",
+      "context": "there is a nice workflow built into vCentre that will orchestrate all the required actions for you",
+      "occurrences": 1,
+      "reason": "VMware's product name is spelled 'vCenter' (proper noun, US spelling is the product name).",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2026/01/web-development-improvements/": [
+    {
+      "find": "in “the backend” These help improve",
+      "replace": "in “the backend”. These help improve",
+      "context": "A lot of these are in “the backend” These help improve the performance, Privacy, SEO",
+      "occurrences": 1,
+      "reason": "Missing full stop after the closing quote creates a run-on sentence.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "compression ratio’s than gzip",
+      "replace": "compression ratios than gzip",
+      "context": "Brotli is a modern compression algorithm and can achieve better compression ratio’s than gzip",
+      "occurrences": 1,
+      "reason": "Plural 'ratios' should not take an apostrophe.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "excellent compression ratio’s",
+      "replace": "excellent compression ratios",
+      "context": "AVIF has good modern support and excellent compression ratio’s.",
+      "occurrences": 1,
+      "reason": "Plural 'ratios' should not take an apostrophe.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "just incase",
+      "replace": "just in case",
+      "context": "However it makes sense to have a backup available just incase.",
+      "occurrences": 1,
+      "reason": "'incase' is not a word; should be two words 'in case'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "This took a long time to get right that were mainly down to ordering problems",
+      "replace": "This took a long time to get right; the issues were mainly down to ordering problems",
+      "context": "However the workflow creates a MD5 of the source images and creates a cache and therefore will only optimise new or changed images. This took a long time to get right that were mainly down to ordering problems in the execution.",
+      "occurrences": 1,
+      "reason": "'that were' has no plural antecedent — the sentence is grammatically broken.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "less DNS lookups",
+      "replace": "fewer DNS lookups",
+      "context": "This means that less DNS lookups are required for the site",
+      "occurrences": 1,
+      "reason": "DNS lookups are countable; UK and US English alike require 'fewer'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "“below the fold” This allowed",
+      "replace": "“below the fold”. This allowed",
+      "context": "Lazy loading is applied to the images on the page “below the fold” This allowed for anything that needed scrolling",
+      "occurrences": 1,
+      "reason": "Missing full stop after the closing quote creates a run-on sentence.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "preconnect for plausible.jameskilby.cloud\n",
+      "replace": "preconnect for plausible.jameskilby.cloud.\n",
+      "context": "DNS prefetch for plausible.jameskilby.cloud and preconnect for plausible.jameskilby.cloud\\n\\nI have also made this an async connection",
+      "occurrences": 1,
+      "reason": "Sentence ends without a full stop before the next paragraph.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "build timestamps When querying",
+      "replace": "build timestamps. When querying",
+      "context": "this includes hashes of the content the last modified time and the last build timestamps When querying the WordPress API",
+      "occurrences": 1,
+      "reason": "Missing full stop creates a run-on sentence between two distinct clauses.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "As the site is basically in GitOps fashion. I decided",
+      "replace": "As the site is basically run in GitOps fashion, I decided",
+      "context": "As the site is basically in GitOps fashion. I decided to add some best practices into the workflow.",
+      "occurrences": 1,
+      "reason": "Sentence fragment — 'As the site is basically in GitOps fashion.' is not a complete sentence; needs a comma and continuation.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "Ie (Published: January 06, 2018, Updated: July 10, 2024)",
+      "replace": "i.e. (Published: January 06, 2018, Updated: July 10, 2024)",
+      "context": "Ie (Published: January 06, 2018, Updated: July 10, 2024) This is injected at the top of the page",
+      "occurrences": 1,
+      "reason": "'Ie' is not a word; should be 'i.e.' (Latin abbreviation for 'that is').",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/": [
+    {
+      "find": "A NVIDIA datacenter Graphics card and associated Host and Guest drivers",
+      "replace": "An NVIDIA datacenter graphics card and associated Host and Guest drivers",
+      "context": "Prerequisites list item before driver version note.",
+      "occurrences": 1,
+      "reason": "'An' is correct before a word beginning with a vowel sound ('NVIDIA' starts with 'en'). 'Graphics' should be lowercase mid-sentence.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "using driver version 535.247.0",
+      "replace": "using driver version 535.247.01",
+      "context": "Prerequisites: '... I am using an A10 24GB and using driver version 535.247.0' (end of line, appears truncated).",
+      "occurrences": 1,
+      "reason": "Every other reference in the post (driver filename, nvidia-smi output, Variables table) uses 535.247.01; the bare '535.247.0' here is clearly a truncated version string.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "could be more appropriate….",
+      "replace": "could be more appropriate.",
+      "context": "'a more straightforward Docker-based setup could be more appropriate….'",
+      "occurrences": 1,
+      "reason": "Ellipsis character followed by an extra full stop; collapse to a single full stop (or just the ellipsis). Current form is malformed punctuation.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "which is the LTS version.` The Driver bundle",
+      "replace": "which is the LTS version. The Driver bundle",
+      "context": "Host Setup paragraph describing the '535' driver bundle.",
+      "occurrences": 1,
+      "reason": "Stray backtick after the full stop; clearly a markdown/formatting artefact.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "to multiple VM’s",
+      "replace": "to multiple VMs",
+      "context": "'I also wanted to be able to pass the card through to multiple VM’s'",
+      "occurrences": 1,
+      "reason": "Possessive apostrophe used for a plural. Body uses curly apostrophe, hence the adjusted find.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "vSphere Host and vCentre server",
+      "replace": "vSphere Host and vCenter server",
+      "context": "Prerequisites: 'you need a vSphere Host and vCentre server licensed at least at the enterprise level'.",
+      "occurrences": 1,
+      "reason": "VMware's product is officially spelled 'vCenter' (proper noun); UK spelling does not apply to product names.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "vGPU profiles in vCentre.",
+      "replace": "vGPU profiles in vCenter.",
+      "context": "vGPU Profiles section: 'you should now be able to see the vGPU profiles in vCentre.'",
+      "occurrences": 1,
+      "reason": "VMware's product is officially spelled 'vCenter' (proper noun); UK spelling does not apply to product names.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "deploy this as a HTTPS service",
+      "replace": "deploy this as an HTTPS service",
+      "context": "Traefik section: '... deploy this as a HTTPS service mapped to the OpenWebUI container on port 8080'.",
+      "occurrences": 1,
+      "reason": "'HTTPS' is pronounced 'aitch-tee-tee-pee-ess', starting with a vowel sound, so 'an HTTPS' is correct.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "and the licensing are working correctly",
+      "replace": "and the licensing is working correctly",
+      "context": "'The correct Kernel extensions, etc., and the licensing are working correctly'.",
+      "occurrences": 1,
+      "reason": "Subject 'the licensing' is singular and requires 'is', not 'are'.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/": [
+    {
+      "find": "automating these prerequisites here\n\nIf you have followed along",
+      "replace": "automating these prerequisites here.\n\nIf you have followed along",
+      "context": "End of paragraph: 'automating these prerequisites here' followed by next paragraph starting 'If you have followed along'.",
+      "occurrences": 1,
+      "reason": "Sentence ends without a full stop before the next paragraph begins. Adding the period without changing surrounding text.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "the underlying Infrastructure .",
+      "replace": "the underlying infrastructure.",
+      "context": "'I have previously written about the underlying Infrastructure . This post goes into the AI stack itself.'",
+      "occurrences": 1,
+      "reason": "Mid-sentence common noun should be lowercase, and there is a stray space before the full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "on my own hardware .",
+      "replace": "on my own hardware.",
+      "context": "'Everything runs on my own hardware . All the containers sit behind Traefik'",
+      "occurrences": 1,
+      "reason": "Stray space before the full stop.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "subdomain of your base DOMAIN .",
+      "replace": "subdomain of your base DOMAIN.",
+      "context": "'each on its own subdomain of your base DOMAIN . You can either create individual A/AAAA records'",
+      "occurrences": 1,
+      "reason": "Stray space before the full stop after DOMAIN.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "spoken around this journey at VMUG",
+      "replace": "spoken about this journey at VMUG",
+      "context": "'I have previously spoken around this journey at VMUG .'",
+      "occurrences": 1,
+      "reason": "'Spoken around' is incorrect phrasing; 'spoken about' is the natural form.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "where I added a new model in Ollama it auto detected",
+      "replace": "where I added a new model in Ollama and it auto-detected",
+      "context": "'This can be seen in the logs where I added a new model in Ollama it auto detected and started profiling.'",
+      "occurrences": 1,
+      "reason": "Run-on clause missing a conjunction, and 'auto detected' should be hyphenated as a compound verb.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/": [
+    {
+      "find": "Givenergy 13.5kWh",
+      "replace": "GivEnergy 13.5kWh",
+      "context": "Powerwall 2, GivEnergy 9.5kWh, Givenergy 13.5kWh, Sonnen 10kWh, Pylontech 7.4kWh.",
+      "occurrences": 1,
+      "reason": "Inconsistent brand casing in same sentence; the brand is GivEnergy (matches the immediately preceding instance).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "if the price of batteries halve and the price of electric doubles",
+      "replace": "if the price of batteries halves and the price of electricity doubles",
+      "context": "even if the price of batteries halve and the price of electric doubles it still doesn't make sense",
+      "occurrences": 1,
+      "reason": "'electric' should be 'electricity' (noun, not adjective); 'price... halves' agrees with singular subject 'price'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "run the script.To get your API key",
+      "replace": "run the script. To get your API key",
+      "context": "add your Octopus API key to the .env file and then run the script.To get your API key just head to your Octopus account dashboard",
+      "occurrences": 1,
+      "reason": "Missing space after the full stop between two sentences.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "recommend the most cost effective setup.I was surprised",
+      "replace": "recommend the most cost-effective setup. I was surprised",
+      "context": "ultimately recommend the most cost effective setup.I was surprised by the answer",
+      "occurrences": 1,
+      "reason": "Missing space after the full stop; 'cost-effective' is hyphenated as a compound modifier.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "( I am £178 better off than a tracker tariff over the last 4 months)",
+      "replace": "(I am £178 better off than a tracker tariff over the last 4 months)",
+      "context": "I generally come out ahead. ( I am £178 better off than a tracker tariff over the last 4 months)",
+      "occurrences": 1,
+      "reason": "Stray space after the opening parenthesis.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "This is an important factor in the calculations",
+      "replace": "This is an important factor in the calculations.",
+      "context": "The calculator will also include earnings for any unused solar energy. This is an important factor in the calculations",
+      "occurrences": 1,
+      "reason": "Sentence ending the SEG section is missing its terminal full stop.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/": [
+    {
+      "find": "process documented here .",
+      "replace": "process documented here.",
+      "context": "It basically simplifies and automates the official process documented here . Thanks to Gareth",
+      "occurrences": 1,
+      "reason": "Stray space before the full stop; the period should be attached to 'here'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "What the script does under the hood is",
+      "replace": "What the script does under the hood is:",
+      "context": "Sentence introduces a numbered list (1. Docker Installation...) but ends without any punctuation.",
+      "occurrences": 1,
+      "reason": "Missing colon before the numbered list that immediately follows — leaves the sentence dangling.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "You will see something like this in the Traefik logs if you do",
+      "replace": "You will see something like this in the Traefik logs if you do:",
+      "context": "Introduces a log/command snippet that follows immediately; sentence ends without punctuation.",
+      "occurrences": 1,
+      "reason": "Missing colon before the code/log block — the sentence dangles.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "SSH into your VM and run",
+      "replace": "SSH into your VM and run:",
+      "context": "How to use\n\nSSH into your VM and run\n\ncurl -sSL https://...",
+      "occurrences": 1,
+      "reason": "Missing colon before the code block that immediately follows.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/": [
+    {
+      "find": "compose file uses the pattern",
+      "replace": "The compose file uses the pattern",
+      "context": "the url can be adapted as needed. compose file uses the pattern ${DOMAIN:-jameskilby.cloud}",
+      "occurrences": 1,
+      "reason": "Sentence starts with lowercase 'compose' missing the article 'The'; clear grammar error.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "The internal network (Green Zone) is configured and a dedicated subnet",
+      "replace": "The internal network (Green Zone) is configured with a dedicated subnet",
+      "context": "The internal network (Green Zone) is configured and a dedicated subnet (172.30.0.0/24), which means containers on it have no outbound internet access",
+      "occurrences": 1,
+      "reason": "Broken grammar — 'is configured and a dedicated subnet' should be 'is configured with a dedicated subnet'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I have allocated container resources as follows",
+      "replace": "I have allocated container resources as follows:",
+      "context": "Based on that profile, I have allocated container resources as follows\n\nAs can be seen from the docker containers above",
+      "occurrences": 1,
+      "reason": "Missing colon before what follows (introduces a list/visual).",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "I would also highly recommend the data disk is on NVMe",
+      "replace": "I would also highly recommend the data disk is on NVMe.",
+      "context": "I would also highly recommend the data disk is on NVMe\n\nInfrastructure & Routing",
+      "occurrences": 1,
+      "reason": "Missing terminal full stop at end of paragraph before next H2 heading.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "some of it needs protecting",
+      "replace": "some of it needs protecting.",
+      "context": "Some of this can be recreated or redownloaded easily and some of it needs protecting\n\nOpenWebUI Backups",
+      "occurrences": 1,
+      "reason": "Missing terminal full stop at end of paragraph.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "This gives me the ability to restore",
+      "replace": "This gives me the ability to restore:",
+      "context": "keeping the last 7 copies. This gives me the ability to restore\n\nAll User config",
+      "occurrences": 1,
+      "reason": "Missing colon — sentence introduces a bulleted list.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "in the .env file GitHub repo URL (e.g.",
+      "replace": "in the .env file as the GitHub repo URL (e.g.",
+      "context": "also define N8N_BACKUP_GIT_REPO and N8N_BACKUP_GIT_TOKEN in the .env file GitHub repo URL (e.g. https://github.com/jameskilbynet/n8n-backups.git",
+      "occurrences": 1,
+      "reason": "Missing 'as the' — without it the noun phrase 'GitHub repo URL' has no grammatical role.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/": [
+    {
+      "find": "with SCFS via VLR .",
+      "replace": "with SCFS via VLR.",
+      "context": "It also supports expanded DR capabilities with SCFS via VLR .",
+      "occurrences": 1,
+      "reason": "Stray space before full stop. Verified in body line 150.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "can be found here .",
+      "replace": "can be found here.",
+      "context": "The official announcement can be found here .",
+      "occurrences": 1,
+      "reason": "Stray space before full stop. Verified in body line 204.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "taken from instances website vSAN performance will differ",
+      "replace": "taken from the instance's website. vSAN performance will differ",
+      "context": "*Storage performance figures taken from instances website vSAN performance will differ based on OSA/ESA",
+      "occurrences": 1,
+      "reason": "Run-on sentence with missing apostrophe and missing sentence break. Verified in body line 154. This claim supersedes the narrower 'instances website' claim.",
+      "actual_occurrences": 1
+    }
+  ],
+  "https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/": [
+    {
+      "find": "leverages P-states aggressively that govern frequency and voltage scaling. while preserving turbo boost",
+      "replace": "leverages P-states aggressively, which govern frequency and voltage scaling, while preserving turbo boost",
+      "context": "vSphere's default power policy is \"Balanced,\" which leverages P-states aggressively that govern frequency and voltage scaling. while preserving turbo boost and fast ramp-up behaviour.",
+      "occurrences": 1,
+      "reason": "Stray full stop mid-sentence breaks the grammar; replacement uses commas to form a coherent sentence.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "By automating you get a repeatable, process that runs in seconds",
+      "replace": "By automating, you get a repeatable process that runs in seconds",
+      "context": "By automating you get a repeatable, process that runs in seconds regardless of how many hosts you manage.",
+      "occurrences": 1,
+      "reason": "Misplaced comma between 'repeatable' and 'process' breaks the noun phrase; missing comma after the introductory clause 'By automating'.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "tedious and who wants to do that.",
+      "replace": "tedious — and who wants to do that?",
+      "context": "Manually changing these settings across multiple hosts through the vSphere client is tedious and who wants to do that.",
+      "occurrences": 1,
+      "reason": "Rhetorical question is punctuated with a full stop; should end with a question mark.",
+      "actual_occurrences": 1
+    },
+    {
+      "find": "As I have been using Ansible a lot lately therefore I decided to create two playbooks",
+      "replace": "As I have been using Ansible a lot lately, I decided to create two playbooks",
+      "context": "As I have been using Ansible a lot lately therefore I decided to create two playbooks that I could use to achieve this and then use SemaphoreUI to schedule and run them for me.",
+      "occurrences": 1,
+      "reason": "'As...therefore' is redundant/ungrammatical because both 'as' and 'therefore' introduce causation.",
+      "actual_occurrences": 1
+    }
+  ]
+}
