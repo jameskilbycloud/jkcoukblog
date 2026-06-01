@@ -101,7 +101,7 @@ console.log('[Search] Script loaded');
     
     function loadFuse(callback) {
         const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0';
+        script.src = '/js/fuse.min.js';
         script.onload = () => {
             fuse = new window.Fuse(searchIndex, {
                 keys: ['title', 'description', 'content'],
@@ -112,6 +112,7 @@ console.log('[Search] Script loaded');
             });
             if (callback) callback();
         };
+        script.onerror = () => console.error('[Search] Failed to load /js/fuse.min.js');
         document.head.appendChild(script);
     }
     
