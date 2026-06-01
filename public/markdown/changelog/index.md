@@ -15,7 +15,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-857
+859
 
 Git commits
 
@@ -35,7 +35,7 @@ Active contributors
 
 2026-06-01
 
-11:26:07
+11:56:22
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -58,6 +58,12 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-06-01 6149740Fix
+
+fix(deploy): sweep stale vendored-CDN URLs from cached HTML each build
+
+The WP→static generator is incremental: posts whose source content hasn't
 
 2026-06-01 0828198Fix
 
@@ -195,11 +201,5 @@ perf: inline brutalist + consolidated CSS into HTML head
 
 Two render-blocking stylesheets were still gating mobile FCP/LCP:
 
-2026-05-29 e1bcac5Other
-
-perf: inline @font-face in brutalist-theme.css to drop @import chain
-
-After removing the high-priority font preloads, mobile FCP regressed
-
-Page generated: 2026-06-01 11:48:55 UTC  
+Page generated: 2026-06-01 12:00:52 UTC  
 Changelog powered by Git history and Lighthouse CI
