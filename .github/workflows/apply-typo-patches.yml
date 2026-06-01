@@ -62,19 +62,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      # Use the runner's system python3 — no setup-python step. The self-hosted
-      # runner is on Ubuntu 26.04 (released 2026-04) and the setup-python
-      # manifest doesn't yet ship a 3.11 build for it. The existing pipeline
-      # already runs on system Python, so we follow the same pattern.
-      - name: Show Python version
+      # The self-hosted runner is on Ubuntu 26.04 (Python 3.14 system) and
+      # actions/setup-python@v6 has no 3.11 build for it yet, so we use the
+      # system python3 via a venv. PEP 668 blocks pip-into-system on Debian
+      # derivatives, hence the venv. Subsequent steps pick up the venv by
+      # prepending it to $GITHUB_PATH.
+      - name: Set up venv and install dependencies
         run: |
           python3 --version
-          python3 -c "import sys; print('sys.prefix:', sys.prefix)"
+          python3 -m venv .venv
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/python -m pip install requests
+          echo "${GITHUB_WORKSPACE}/.venv/bin" >> "$GITHUB_PATH"
 
-      - name: Install dependencies
+      - name: Confirm venv is on PATH
         run: |
-          # --user to avoid touching system packages on the runner.
-          python3 -m pip install --user --upgrade requests
+          which python3
+          python3 -c "import requests; print('requests', requests.__version__)"
 
       - name: Validate secrets / inputs
         run: |
