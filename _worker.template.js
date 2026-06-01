@@ -102,6 +102,23 @@ export default {
     }
     // ────────────────────────────────────────────────────────────────────────
 
+    // ── /YYYY/MM/DD/<slug>/ → /YYYY/MM/<slug>/ (301 permanent) ──────────────
+    // Legacy WordPress permalink format included the day. The static
+    // generator emits /YYYY/MM/<slug>/ only, so day-format URLs from old
+    // backlinks, archived snapshots and shared social-card links 404 with
+    // no recovery. Rewrite to the monthly canonical so link equity isn't
+    // lost. Matches /<4-digit>/<2-digit>/<2-digit>/<rest> only — won't
+    // collide with /wp-content/... or other top-level paths.
+    const dayPermalinkMatch = path.match(/^\/(\d{4})\/(\d{2})\/\d{2}\/(.+)$/);
+    if (dayPermalinkMatch) {
+      const [, year, month, rest] = dayPermalinkMatch;
+      return Response.redirect(
+        `https://jameskilby.co.uk/${year}/${month}/${rest}${url.search}`,
+        301
+      );
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
     // ── Admin / diagnostic endpoints ────────────────────────────────────────
     // These must be checked BEFORE the GET-only guard so POST purges work,
     // and BEFORE shouldCache so they are never accidentally cached.
@@ -408,11 +425,17 @@ async function handleCacheAPI(request, env, ctx, path, hostname = '') {
 
 /**
  * Get security headers for all responses.
+ *
+ * Note: Content-Security-Policy is intentionally NOT set here. Cloudflare Pages
+ * applies `_headers` rules AFTER worker responses, so any CSP set here would be
+ * silently overridden — `_headers` (and `scripts/wp_to_static_generator.py`,
+ * which generates `public/_headers`) is the single source of truth for CSP.
+ * Validation lives in scripts/test_csp.py.
+ *
  * Pass hostname to automatically add X-Robots-Tag: noindex on the Pages preview domain.
  */
 function getSecurityHeaders(hostname = '') {
   const headers = {
-    'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' plausible.io plausible.jameskilby.cloud https://utteranc.es cdn.credly.com cdn.youracclaim.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' plausible.io plausible.jameskilby.cloud https://api.github.com https://cloudflareinsights.com; frame-src 'self' plausible.jameskilby.cloud https://utteranc.es https://www.youtube.com https://youtube.com https://embed.acast.com https://www.credly.com https://www.youracclaim.com;",
     'X-Frame-Options': 'SAMEORIGIN',
     'X-Content-Type-Options': 'nosniff',
     'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
