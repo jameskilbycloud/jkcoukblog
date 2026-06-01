@@ -2,16 +2,26 @@
 
 /* Self-hosted fonts — declared inline (not @imported) so the browser
    discovers @font-face URLs as soon as this stylesheet parses, instead
-   of waiting on a second render-blocking request for fonts.css. With
-   font-display: optional, fonts arriving after the swap window are
-   silently dropped. /assets/fonts/fonts.css is now a no-op kept on
-   disk for any external references; safe to remove later. */
+   of waiting on a second render-blocking request for fonts.css.
+
+   Two-tier strategy:
+     - font-display: optional  → preloaded by enhance_html_performance.py
+                                 so they arrive within the block window
+                                 and avoid being silently dropped. Reserve
+                                 for fonts used in initial above-the-fold
+                                 rendering only (body + h1/h2 headings).
+     - font-display: swap      → not preloaded. Renders with system
+                                 fallback first, swaps to the web font
+                                 when it loads. Use for everything else
+                                 (bold variants, code blocks).
+   Adding more `optional` fonts pushes them up the priority queue past
+   the LCP image, so think twice before promoting. */
 @font-face{font-family:"Anton";font-style:normal;font-weight:400;font-display:optional;src:url(/assets/fonts/anton-v27-latin-400.woff2) format("woff2")}
-@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:optional;src:url(/assets/fonts/jetbrainsmono-v24-latin-400.woff2) format("woff2")}
-@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:700;font-display:optional;src:url(/assets/fonts/jetbrainsmono-v24-latin-700.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/jetbrainsmono-v24-latin-400.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/jetbrainsmono-v24-latin-700.woff2) format("woff2")}
 @font-face{font-family:"Space Grotesk";font-style:normal;font-weight:400;font-display:optional;src:url(/assets/fonts/spacegrotesk-v22-latin-400.woff2) format("woff2")}
-@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:500;font-display:optional;src:url(/assets/fonts/spacegrotesk-v22-latin-500.woff2) format("woff2")}
-@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:700;font-display:optional;src:url(/assets/fonts/spacegrotesk-v22-latin-700.woff2) format("woff2")}
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/spacegrotesk-v22-latin-500.woff2) format("woff2")}
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/spacegrotesk-v22-latin-700.woff2) format("woff2")}
 
 /* Root variables and noise overlay */
 :root {

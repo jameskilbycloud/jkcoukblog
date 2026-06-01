@@ -47,6 +47,9 @@ class HTMLPerformanceEnhancer:
             if self.add_media_attributes_to_css(soup):
                 modified = True
 
+            if self.strip_http_equiv_meta(soup):
+                modified = True
+
             if self.optimize_external_scripts(soup):
                 modified = True
 
@@ -141,10 +144,19 @@ class HTMLPerformanceEnhancer:
         return modified
 
     def optimize_external_scripts(self, soup):
-        """Optimize external script loading"""
+        """Manage <link rel="dns-prefetch"> hints.
+
+        Three passes:
+          1. Collect the set of external hosts actually referenced by any
+             script/link/img on the page.
+          2. Walk every existing dns-prefetch tag: drop duplicates (by
+             normalized host) and drop hints whose host is no longer
+             referenced (e.g. cdn.jsdelivr.net after we vendored fuse/splide).
+          3. Add a dns-prefetch hint for any referenced external host that
+             doesn't already have one.
+        """
         modified = False
 
-        # Find head tag
         if not soup.head:
             return False
 
@@ -157,26 +169,76 @@ class HTMLPerformanceEnhancer:
         except Exception:
             same_origin_hosts = set()
 
-        # Add DNS prefetch for external domains
-        external_domains = set()
+        def _host(href):
+            """Extract the bare host from `//x`, `https://x/...`, or `x`."""
+            if not href:
+                return ''
+            h = href.strip()
+            if h.startswith('//'):
+                h = h[2:]
+            elif '://' in h:
+                h = h.split('://', 1)[1]
+            return h.split('/', 1)[0].lower()
 
-        for tag in soup.find_all(['script', 'link', 'img'], src=True):
-            src = tag.get('src') or tag.get('href', '')
-            if src.startswith('http'):
-                domain = src.split('/')[2]
-                if domain in same_origin_hosts:
+        # 1. External hosts the page actually uses. Resource hints
+        #    (dns-prefetch, preconnect, prefetch, preload to a remote host)
+        #    are hints, not real references — exclude them or stale hints
+        #    self-reference their own host and never get pruned.
+        hint_rels = {'dns-prefetch', 'preconnect', 'prefetch', 'preload'}
+        referenced_hosts = set()
+        for tag in soup.find_all(['script', 'link', 'img']):
+            if tag.name == 'link':
+                rels = tag.get('rel') or []
+                if isinstance(rels, str):
+                    rels = [rels]
+                if any(r.lower() in hint_rels for r in rels):
                     continue
-                external_domains.add(domain)
+            src = tag.get('src') or tag.get('href', '')
+            if not src or not (src.startswith('http') or src.startswith('//')):
+                continue
+            host = _host(src)
+            if host and host not in same_origin_hosts:
+                referenced_hosts.add(host)
 
-        # Add dns-prefetch for each external domain
-        for domain in external_domains:
-            # Check if dns-prefetch already exists
-            existing = soup.find('link', rel='dns-prefetch', href=f'//{domain}')
-            if not existing:
-                dns_prefetch = soup.new_tag('link')
-                dns_prefetch['rel'] = 'dns-prefetch'
-                dns_prefetch['href'] = f'//{domain}'
-                soup.head.insert(0, dns_prefetch)
+        # 2. Prune existing dns-prefetch tags: dedupe and drop stale hosts.
+        seen_hosts = set()
+        for link in soup.find_all('link', rel='dns-prefetch'):
+            host = _host(link.get('href', ''))
+            if not host or host not in referenced_hosts or host in seen_hosts:
+                link.decompose()
+                modified = True
+                self.optimizations_applied += 1
+                continue
+            seen_hosts.add(host)
+
+        # 3. Add dns-prefetch for any referenced host without one.
+        for host in referenced_hosts - seen_hosts:
+            dns_prefetch = soup.new_tag('link')
+            dns_prefetch['rel'] = 'dns-prefetch'
+            dns_prefetch['href'] = f'//{host}'
+            soup.head.insert(0, dns_prefetch)
+            modified = True
+            self.optimizations_applied += 1
+
+        return modified
+
+    def strip_http_equiv_meta(self, soup):
+        """Remove <meta http-equiv> tags for headers that must come from HTTP.
+
+        The HTML payload carries `<meta http-equiv="Cache-Control" ...>` etc.
+        from upstream WordPress; the real HTTP response from Cloudflare Pages
+        already sets these (often to different values). Some intermediaries
+        and audit tools honour the meta tag, producing confusing divergence.
+        Strip them so the HTTP headers are the only source of truth.
+        """
+        if not soup.head:
+            return False
+
+        stripped = {'cache-control', 'pragma', 'expires'}
+        modified = False
+        for meta in soup.find_all('meta', attrs={'http-equiv': True}):
+            if meta.get('http-equiv', '').lower() in stripped:
+                meta.decompose()
                 modified = True
                 self.optimizations_applied += 1
 
@@ -220,32 +282,55 @@ class HTMLPerformanceEnhancer:
         return modified
 
     def optimize_fonts(self, soup):
-        """Optimize web font loading"""
+        """Preload WOFF2 fonts that need to render in the first viewport.
+
+        Only fonts whose @font-face block declares `font-display: optional`
+        get a preload hint. Rationale:
+          - `optional` silently drops fonts that miss the short block
+            window, so they're only useful when preloaded.
+          - `swap` fonts render with a system fallback first and swap
+            in when loaded — preloading them just pushes them past the
+            LCP image in the priority queue for no visual win.
+        Promoting a font to `optional` in the CSS automatically opts it
+        into preloading; demoting to `swap` automatically opts out.
+        """
         if not soup.head:
             return False
 
         modified = False
 
-        # Find and preload WOFF2 fonts from @font-face declarations
-        for style in soup.find_all('style'):
-            if style.string and '@font-face' in style.string:
-                # Extract WOFF2 font URLs
-                font_urls = re.findall(r'url\(["\']?(.*?\.woff2)["\']?\)', style.string)
-                for font_url in font_urls:
-                    font_url = font_url.strip('\'"')
+        # Match each @font-face { ... } block and capture its body so we
+        # can inspect font-display and the src url() together.
+        font_face_re = re.compile(r'@font-face\s*\{([^}]*)\}', re.IGNORECASE)
+        url_re = re.compile(r'url\(["\']?([^"\')]+\.woff2)["\']?\)', re.IGNORECASE)
+        display_re = re.compile(r'font-display\s*:\s*([a-z]+)', re.IGNORECASE)
 
-                    # Check if preload already exists
+        for style in soup.find_all('style'):
+            if not style.string or '@font-face' not in style.string:
+                continue
+
+            for block in font_face_re.finditer(style.string):
+                body = block.group(1)
+                display_match = display_re.search(body)
+                if not display_match or display_match.group(1).lower() != 'optional':
+                    continue
+
+                for url_match in url_re.finditer(body):
+                    font_url = url_match.group(1).strip()
+
                     existing = soup.find('link', rel='preload', href=font_url)
-                    if not existing:
-                        preload = soup.new_tag('link')
-                        preload['rel'] = 'preload'
-                        preload['href'] = font_url
-                        preload['as'] = 'font'
-                        preload['type'] = 'font/woff2'
-                        preload['crossorigin'] = ''
-                        soup.head.insert(0, preload)
-                        modified = True
-                        self.optimizations_applied += 1
+                    if existing:
+                        continue
+
+                    preload = soup.new_tag('link')
+                    preload['rel'] = 'preload'
+                    preload['href'] = font_url
+                    preload['as'] = 'font'
+                    preload['type'] = 'font/woff2'
+                    preload['crossorigin'] = ''
+                    soup.head.insert(0, preload)
+                    modified = True
+                    self.optimizations_applied += 1
 
         return modified
 
@@ -320,12 +405,14 @@ class HTMLPerformanceEnhancer:
         return modified
 
     def optimize_images(self, soup):
-        """Add lazy loading, fetchpriority, and responsive attributes to images.
+        """Normalise image loading hints around a single LCP candidate.
 
-        fetchpriority="high" is applied only to the first image found inside
-        <main> or <article> — the most likely LCP candidate. Images outside
-        that scope (logos, nav icons, sidebar thumbnails) are never given high
-        priority and always receive loading="lazy" instead.
+        Exactly one image — the first inside <main>/<article> — gets
+        fetchpriority="high" and no lazy hint. Every other image is
+        force-set to loading="lazy" and any inherited fetchpriority="high"
+        is stripped. WordPress emits loading="eager" on every post
+        thumbnail in archive listings; without this, multiple eager
+        images compete with the real LCP and burn its priority slot.
         """
         if not soup.body:
             return False
@@ -338,15 +425,23 @@ class HTMLPerformanceEnhancer:
 
         for img in soup.find_all('img'):
             if img is lcp_img:
-                # Likely LCP element — hint the browser to fetch it early.
-                if not img.get('fetchpriority'):
+                # Likely LCP element — fetch early, never lazy.
+                if img.get('fetchpriority') != 'high':
                     img['fetchpriority'] = 'high'
                     modified = True
                     self.optimizations_applied += 1
+                if img.get('loading') == 'lazy':
+                    del img['loading']
+                    modified = True
+                    self.optimizations_applied += 1
             else:
-                # Everything else: defer loading until near the viewport.
-                if not img.get('loading'):
+                # Everything else: force lazy and drop any stray high priority.
+                if img.get('loading') != 'lazy':
                     img['loading'] = 'lazy'
+                    modified = True
+                    self.optimizations_applied += 1
+                if img.get('fetchpriority') == 'high':
+                    del img['fetchpriority']
                     modified = True
                     self.optimizations_applied += 1
 
