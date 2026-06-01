@@ -30,6 +30,14 @@ on:
         description: 'Process a single live URL only (overrides limit). Leave blank for all.'
         required: false
         default: ''
+      debug:
+        description: 'Verbose REST-API logging — print every WP lookup with status code and response excerpt'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
       trigger_deploy:
         description: 'After successful --apply, dispatch deploy-static-site.yml to regenerate'
         required: false
@@ -102,6 +110,7 @@ jobs:
           if [ "${{ github.event.inputs.limit }}" != "0" ] && [ -n "${{ github.event.inputs.limit }}" ]; then
             ARGS+=(--limit "${{ github.event.inputs.limit }}")
           fi
+          if [ "${{ github.event.inputs.debug }}" == "true" ]; then ARGS+=(--debug); fi
           python3 scripts/apply_typo_patches.py "${ARGS[@]}" | tee dry-run.log
           # Move the dry-run log out of the way so the apply step writes a fresh log
           if [ -f typo-patches-applied.log.json ]; then
@@ -119,6 +128,7 @@ jobs:
           if [ "${{ github.event.inputs.limit }}" != "0" ] && [ -n "${{ github.event.inputs.limit }}" ]; then
             ARGS+=(--limit "${{ github.event.inputs.limit }}")
           fi
+          if [ "${{ github.event.inputs.debug }}" == "true" ]; then ARGS+=(--debug); fi
           python3 scripts/apply_typo_patches.py "${ARGS[@]}" | tee apply.log
 
       - name: Summarise to job summary
