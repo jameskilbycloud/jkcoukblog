@@ -15,7 +15,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-854
+856
 
 Git commits
 
@@ -35,7 +35,7 @@ Active contributors
 
 2026-06-01
 
-10:26:52
+11:21:00
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -58,6 +58,14 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-06-01 0828198Fix
+
+fix(search): vendor fuse.js and splide.js, drop jsdelivr dependency
+
+Site search broke because https://cdn.jsdelivr.net/npm/fuse.js@7.0.0
+
+  
 
 2026-05-30 d94cbffFix
 
@@ -193,11 +201,5 @@ perf: inline @font-face in brutalist-theme.css to drop @import chain
 
 After removing the high-priority font preloads, mobile FCP regressed
 
-2026-05-29 b364429Other
-
-perf: drop 138 KB of high-priority font preloads
-
-The pipeline injected <link rel="preload" as="font" fetchpriority="high">
-
-Page generated: 2026-06-01 11:13:36 UTC  
+Page generated: 2026-06-01 11:26:03 UTC  
 Changelog powered by Git history and Lighthouse CI
