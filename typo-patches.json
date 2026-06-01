@@ -2833,11 +2833,11 @@
   ],
   "https://jameskilby.co.uk/about-james-kilby-solution-architect/": [
     {
-      "find": "I have been a vExpert for the last 12 years and previously and has been honoured to be awarded Veeam Vanguard status for four years.",
-      "replace": "I have been a vExpert for the last 12 years and have previously been honoured to be awarded Veeam Vanguard status for four years.",
-      "context": "Grammar error: 'and previously and has been honoured' is broken (duplicate 'and' + subject-verb mismatch).",
+      "find": "for the last 12 years and previously and has been honoured",
+      "replace": "for the last 12 years and have previously been honoured",
+      "context": "Grammar fix on the vExpert/Veeam Vanguard sentence (narrowed find to skip the <a>vExpert</a> link tag).",
       "occurrences": 1,
-      "reason": "Real grammar error: duplicate 'and' plus subject-verb agreement issue ('has' should be 'have' to match subject 'I'). Re-routed from old /about-me/ URL since that slug was renamed in WP."
+      "reason": "Real grammar error: duplicate 'and' + subject-verb agreement issue. Find string narrowed to skip the <a> tag wrapping 'vExpert'."
     }
   ]
 }
