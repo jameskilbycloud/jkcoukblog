@@ -5,7 +5,7 @@
       "title": "Advanced Deploy VMware vSphere 7.x 3V0-22.21N",
       "description": "Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years.",
       "date": "2023-11-10T11:34:42Z",
-      "modified": "2026-05-25T11:09:17Z",
+      "modified": "2026-06-01T19:02:52Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/",
       "markdown_url": "/markdown/posts/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n.md",
@@ -14,20 +14,12 @@
         "VMware",
         "Personal",
         "vSphere",
-        "Ansible",
-        "Automation",
-        "Devops",
-        "Artificial Intelligence",
-        "Containers",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "Nutanix",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
+        "Networking",
         "Storage",
-        "vExpert"
+        "VCF",
+        "Automation",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -35,14 +27,14 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png",
-      "excerpt": "![Image](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)\n\n# Advanced Deploy VMware vSphere 7.x 3V0-22.21N\n\nBy[James](h..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)\n\n# Advanced Deploy VMware vSphere 7.x 3V0-22.21N\n\nBy[James](https:..."
     },
     {
       "slug": "100gb-s-in-my-homelab-sort-of",
       "title": "MikroTik CRS504 Review: 100Gb/s Networking in My Homelab",
-      "description": "For a while, I’ve been looking to update the networking at the core of my homelab.",
+      "description": "For a while, I've been looking to update the networking at the core of my homelab.",
       "date": "2022-12-19T10:09:58Z",
-      "modified": "2026-04-16T22:01:52Z",
+      "modified": "2026-06-01T19:02:42Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/",
       "markdown_url": "/markdown/posts/100gb-s-in-my-homelab-sort-of.md",
@@ -52,22 +44,18 @@
         "Networking",
         "Storage",
         "VMware",
+        "Personal",
         "vSphere",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
-        "Nutanix",
-        "Ansible",
-        "VCF"
+        "VMware Cloud on AWS",
+        "Runecast",
+        "Synology"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res.png",
-      "excerpt": "![2157 Hi Res](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/categor..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n..."
     }
   ],
   "page": 8,

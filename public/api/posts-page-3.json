@@ -27,7 +27,7 @@
       "title": "Starlink Satellite Internet Review: Rural Broadband Solution",
       "description": "Since moving to Dorset last year internet connectivity has been the bane of my existence.",
       "date": "2022-10-11T21:40:50Z",
-      "modified": "2026-05-25T11:09:17Z",
+      "modified": "2026-06-01T19:02:39Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2022/10/starlink/",
       "markdown_url": "/markdown/posts/starlink.md",
@@ -35,26 +35,26 @@
       "categories": [
         "Homelab",
         "Hosting",
-        "Storage",
-        "VMware",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Ansible",
+        "Wordpress",
+        "Artificial Intelligence",
         "Automation",
         "Docker",
+        "NVIDIA",
         "Traefik",
-        "VCF",
-        "Cloudflare",
-        "Personal",
-        "Wordpress"
+        "VMware",
+        "Networking",
+        "Storage",
+        "Synology",
+        "Ansible",
+        "Containers",
+        "Devops"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920.jpg",
-      "excerpt": "![Spacexs Starlink To Supply Free Satellite Internet To Famili U44U.1920](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/catego..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# Starlink Satellite Internet Review: Rural Broadband So..."
     },
     {
       "slug": "self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu",
@@ -89,7 +89,7 @@
       "title": "Runecast Remediation Scripts: Auto-Fix VMware Storage Issues",
       "description": "I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.",
       "date": "2023-05-16T10:38:45Z",
-      "modified": "2026-04-16T22:01:51Z",
+      "modified": "2026-06-01T19:02:49Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/",
       "markdown_url": "/markdown/posts/runecast-remediation-scripts.md",
@@ -97,20 +97,17 @@
       "categories": [
         "Runecast",
         "VMware",
-        "VMware Cloud on AWS",
-        "Homelab",
-        "Storage",
-        "Synology",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "AWS",
-        "Veeam",
         "VCF",
-        "Hosting"
+        "Artificial Intelligence",
+        "Docker",
+        "Hosting",
+        "Homelab",
+        "Networking",
+        "Storage",
+        "VMware Cloud on AWS",
+        "TrueNAS Scale",
+        "Personal",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -119,7 +116,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png",
-      "excerpt": "![Runecast Solutions Ltd](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)\n\n[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Runecast Remediation Scripts: Auto-Fix VMware Storage Issues\n\nBy[James](https://..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)\n\n[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Runecast Remediation Scripts: Auto-Fix VMware Storage Issues\n\nBy[James](https://jameskilby.co.uk) May ..."
     },
     {
       "slug": "octopus-agile-battery-solar-calculator",
@@ -179,32 +176,32 @@
     {
       "slug": "nutanix-command-reference-guide",
       "title": "Nutanix Command Reference Guide",
-      "description": "This is a list of Nutanix commands I have found useful. Its here as a reference and if i need a command more than a few times ill generally add it here.",
+      "description": "Nutanix Command List This is a list of Nutanix commands I have found useful.",
       "date": "2018-06-05T20:59:24Z",
-      "modified": "2026-03-10T20:35:15Z",
+      "modified": "2026-06-01T19:02:17Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2018/06/nutanix-command-reference-guide/",
       "markdown_url": "/markdown/posts/nutanix-command-reference-guide.md",
       "api_url": "/api/posts/nutanix-command-reference-guide.json",
       "categories": [
         "Nutanix",
+        "Personal",
         "Homelab",
-        "VMware",
-        "Personal"
+        "VMware"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
-      "excerpt": "![Nutanix Logo Hi Rez Reverse W Carrier](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Nutanix Command Reference Guide\n\nBy[James](https://jameskilby.co.uk)June 5, 2018March 10, 2026 • 📖1 min re..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Nutanix Command Reference Guide\n\nBy[James](https://jameskilby.co.uk) June 5, 2018June 1, 2026 • 📖1 min read(105 words)\n\n📅 **Published:** June 0..."
     },
     {
       "slug": "nutanix-ce",
       "title": "Running Nutanix CE at Home: AHV Setup & First Impressions",
-      "description": "I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to",
+      "description": "I ran a Nutanix CE server at home for a little while when it first came out.",
       "date": "2018-01-06T17:28:56Z",
-      "modified": "2026-04-16T22:02:05Z",
+      "modified": "2026-06-01T19:02:13Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2018/01/nutanix-ce/",
       "markdown_url": "/markdown/posts/nutanix-ce.md",
@@ -212,23 +209,23 @@
       "categories": [
         "Homelab",
         "Nutanix",
-        "Artificial Intelligence",
         "Docker",
+        "Hosting",
+        "Kubernetes",
         "Networking",
-        "Storage",
-        "VMware",
-        "Ansible",
-        "Containers",
-        "Devops",
+        "Artificial Intelligence",
+        "Automation",
         "NVIDIA",
         "Traefik",
-        "Synology"
+        "VMware",
+        "Veeam",
+        "Personal"
       ],
       "tags": [
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
-      "excerpt": "![Nutanix Logo Hi Rez Reverse W Carrier](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Running Nutanix CE at Home: AHV Setup & First Impr..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Running Nutanix CE at Home: AHV Setup & First Impressions\n\nBy[James](https://jameskilby..."
     },
     {
       "slug": "new-vmc-host-i7i-metal-24xl",
@@ -269,7 +266,7 @@
       "title": "New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix",
       "description": "I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExper",
       "date": "2024-07-02T08:01:04Z",
-      "modified": "2026-05-31T10:47:09Z",
+      "modified": "2026-06-01T19:03:00Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/07/new-nodes/",
       "markdown_url": "/markdown/posts/new-nodes.md",
@@ -278,16 +275,14 @@
         "Homelab",
         "Nutanix",
         "VMware",
-        "Storage",
-        "VMware Cloud on AWS",
-        "Ansible",
+        "VCF",
+        "Automation",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "Docker",
         "NVIDIA",
         "Traefik",
-        "Personal",
-        "vSphere"
+        "Networking",
+        "Storage"
       ],
       "tags": [
         null,
@@ -295,7 +290,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/04/Screenshot-2024-04-06-at-22.50.57.png",
-      "excerpt": "![Img 6629 Scaled](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-scaled.jpeg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# New Homelab Nodes: SuperMicro BigTwin f..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-scaled.jpeg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# New Homelab Nodes: SuperMicro BigTwin for VMware & Nut..."
     }
   ],
   "page": 3,
