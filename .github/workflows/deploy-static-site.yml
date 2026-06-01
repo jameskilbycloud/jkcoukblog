@@ -830,7 +830,19 @@ jobs:
           # auto-detecting the OS as unsupported); if they ever go missing,
           # test_interactive_ui.py prints its SKIP banner and
           # `continue-on-error: true` below still lets the build pass.
-          python3 -m playwright install chromium
+          #
+          # We swallow a non-zero exit here because Playwright validates the
+          # host OS against a hardcoded allowlist and refuses to install on
+          # any release newer than what its pinned binaries support (e.g.
+          # "Playwright does not support chromium on ubuntu26.04-x64").
+          # test_interactive_ui.py catches the missing-chromium case and
+          # prints its own SKIP banner via the launch_failed path, so this
+          # step ends up green and the SKIP is visible in build logs.
+          # Bump the playwright pip package when a newer one adds support.
+          if ! python3 -m playwright install chromium; then
+            echo "::warning::Playwright refused to install chromium on this runner OS — smoke tests will SKIP."
+            echo "    Bump the playwright pip package once a release adds the new OS to its allowlist."
+          fi
         fi
 
         python3 scripts/test_interactive_ui.py ./static-output
