@@ -26,7 +26,7 @@
       "title": "My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)",
       "description": "Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database",
       "date": "2026-04-04T21:39:21Z",
-      "modified": "2026-05-31T11:36:30Z",
+      "modified": "2026-06-01T21:07:19Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/",
       "markdown_url": "/markdown/posts/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2.md",
@@ -39,14 +39,9 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "vSAN",
-        "Storage",
-        "Hosting",
+        "VMware Cloud on AWS",
         "Personal",
-        "TrueNAS Scale",
-        "vSphere",
-        "Mikrotik",
-        "Networking"
+        "vSphere"
       ],
       "tags": [
         null,
@@ -208,7 +203,7 @@
       "title": "Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1)",
       "description": "As previously mentioned I have been working a lot with VMware Cloud on AWS and one of the questions that often crops up is around an approach to monitoring",
       "date": "2019-12-17T23:01:27Z",
-      "modified": "2026-06-01T19:02:23Z",
+      "modified": "2026-06-01T21:06:23Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/",
       "markdown_url": "/markdown/posts/monitoring-vmc-part-1.md",
@@ -218,13 +213,11 @@
         "AWS",
         "Veeam",
         "VMware Cloud on AWS",
-        "Ansible",
-        "Automation",
-        "Personal",
-        "TrueNAS Scale",
         "vSAN",
-        "vSphere",
-        "Runecast"
+        "Homelab",
+        "Networking",
+        "Storage",
+        "VCF"
       ],
       "tags": [
         null,
@@ -232,14 +225,14 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp",
-      "excerpt": "![Vmconaws.Png](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [AWS](https://jameskilby.co.uk/category/aws/) | [Veeam](https://jameskilby.co.uk/category/veeam/)\n\n# Monitoring VMware Cloud on AWS: Tools & Approaches (Part ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [AWS](https://jameskilby.co.uk/category/aws/) | [Veeam](https://jameskilby.co.uk/category/veeam/)\n\n# Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1)\n\nBy[James..."
     },
     {
       "slug": "money-saving-uk-version",
       "title": "UK Money Saving Tips: Banking, Rewards & Travel Cards",
-      "description": "I recently got back from an amazing conference in New Orleans. This was the VeeamON conference and I was invited as part of the Veeam Vanguard program",
+      "description": "I recently got back from an amazing conference in New Orleans.",
       "date": "2017-05-29T11:49:16Z",
-      "modified": "2026-06-01T19:02:07Z",
+      "modified": "2026-06-01T21:06:11Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2017/05/money-saving-uk-version/",
       "markdown_url": "/markdown/posts/money-saving-uk-version.md",
@@ -247,15 +240,15 @@
       "categories": [
         "Money"
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/og/money-saving-uk-version.png",
-      "excerpt": "[Money](https://jameskilby.co.uk/category/money/)\n\n# UK Money Saving Tips: Banking, Rewards & Travel Cards\n\nBy[James](https://jameskilby.co.uk)May 29, 2017June 1, 2026 • 📖4 min read(778 words)\n\n📅 **Published:** May 29, 2017• **Updated:** June 01, 2026\n\nI recently got back from an amazing conference ..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
+      "excerpt": "[Money](https://jameskilby.co.uk/category/money/)\n\n# UK Money Saving Tips: Banking, Rewards & Travel Cards\n\nBy[James](https://jameskilby.co.uk) May 29, 2017June 1, 2026 • 📖4 min read(778 words)\n\n📅 **Published:** May 29, 2017• **Updated:** June 01, 2026\n\nI recently got back from an amazing conference..."
     },
     {
       "slug": "managing-my-homelab-with-semaphoreui",
       "title": "Managing my Homelab with SemaphoreUI",
       "description": "How I use SemaphoreUI as the web frontend for Ansible, Terraform and PowerShell in my homelab. Setup, screenshots, lessons learned in production use.",
       "date": "2025-09-02T16:01:48Z",
-      "modified": "2026-05-31T11:36:29Z",
+      "modified": "2026-06-01T21:07:10Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/",
       "markdown_url": "/markdown/posts/managing-my-homelab-with-semaphoreui.md",
@@ -263,14 +256,15 @@
       "categories": [
         "Ansible",
         "Homelab",
+        "Storage",
+        "TrueNAS Scale",
         "VMware",
-        "vSphere",
-        "Nutanix",
-        "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Storage",
-        "TrueNAS Scale"
+        "Kubernetes",
+        "Synology",
+        "Automation",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -279,7 +273,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png",
-      "excerpt": "![Semaphore](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Managing my Homelab with SemaphoreUI\n\nBy[James](https://jameskilby.co.uk)September 2, 2025May 31, 2026 • 📖..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Managing my Homelab with SemaphoreUI\n\nBy[James](https://jameskilby.co.uk) September 2, 2025June 1, 2026 • 📖8 min re..."
     },
     {
       "slug": "lab-update-part-5-desired-workloads",

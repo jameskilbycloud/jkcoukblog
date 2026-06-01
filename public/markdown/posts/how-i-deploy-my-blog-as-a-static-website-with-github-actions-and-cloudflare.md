@@ -2,7 +2,7 @@
 title: "How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare"
 description: "I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made."
 date: 2025-10-06T15:57:06+00:00
-modified: 2026-05-31T19:49:49+00:00
+modified: 2026-06-01T21:07:11+00:00
 author: James Kilby
 categories:
   - Cloudflare
@@ -10,6 +10,13 @@ categories:
   - Github
   - Wordpress
   - Hosting
+  - Artificial Intelligence
+  - Automation
+  - Docker
+  - Homelab
+  - NVIDIA
+  - Traefik
+  - VMware
   - Personal
 tags:
   - #Blog
@@ -22,15 +29,15 @@ url: https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-w
 image: https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp
 ---
 
-![Github Actions](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)
+![](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)
 
 [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
 
 # How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare
 
-By[James](https://jameskilby.co.uk)October 6, 2025May 31, 2026 • 📖7 min read(1,380 words)
+By[James](https://jameskilby.co.uk) October 6, 2025June 1, 2026 • 📖7 min read(1,382 words)
 
-📅 **Published:** October 06, 2025• **Updated:** May 31, 2026
+📅 **Published:** October 06, 2025• **Updated:** June 01, 2026
 
 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.
 
@@ -50,7 +57,7 @@ The new setup is conceptually similar in that I have maintained the authoring Wo
 
 I have introduced a GitHub runner that runs alongside the WordPress Instance. This runner has permissions to query the WordPress API to get data. Now when I have finished updating my site, I can start the runner. It then scans the site making a local copy of it and performs an automated check-in to Github.
 
- **Disclaimer:** I used a fair bit of AI to help with some of the python and API calls. It also wrote the documentation for me.
+**Disclaimer:** I used a fair bit of AI to help with some of the python and API calls. It also wrote the documentation for me.
 
 ## How I got there
 
@@ -66,7 +73,7 @@ This is done by navigating to the GitHub repo > Settings then navigate to the Se
 
 ### GitHub Runner
 
-The next step was to deploy a runner. These can either be a GitHub-hosted runner or a local runner. I am using a local GitHub runner running on an Ubuntu machine in my lab to perform this function as the WordPress instance isn’t available publicly and therefore for the GitHub-hosted runner.
+The next step was to deploy a runner. These can either be a GitHub-hosted runner or a local runner. I am using a local GitHub runner running on an Ubuntu machine in my lab to perform this function as the WordPress instance isn’t available publicly and therefore not reachable by the GitHub-hosted runner.
 
 To set this up, first you need to navigate to the Actions section within your GitHub Repo and select the “Runners” section. 
 
@@ -104,25 +111,25 @@ At a high level these:
 
   * Discover all posts, pages, categories and tags
   * Fetches the media library assets 
-  * Replaces all WordPress URL’s as relative
+  * Replaces all WordPress URLs as relative
   * Converts WordPress Embed blocks to iframes
   * Removes WordPress specific elements that are not required in the static site.
 
 This grabs a copy of the site and then stores it in the Public directory within the GitHub Repo and issues a Git Commit and Git Push command.
 
-When I have finished making changes in WordPress I can trigger the GitHub runner manually ( It also runs on a Cron schedule)
+When I have finished making changes in WordPress I can trigger the GitHub runner manually (it also runs on a Cron schedule).
 
 It typically takes about 1 minute 20 to process my site.
 
 In that time it:
 
-  * Set’s up the job on a runner
-  * Check’s Out the repo
+  * Sets up the job on a runner
+  * Checks Out the repo
   * Sets up the Python environment
-  * Install any relevant dependencies 
-  * Test’s the runner environment
+  * Installs any relevant dependencies 
+  * Tests the runner environment
   * Generates the Static Site files
-  * Commit and Pushes the Static Site
+  * Commits and Pushes the Static Site
   * Notifies Slack 
   * Executes Python cleanup
   * Executes other cleanups
@@ -163,7 +170,7 @@ While testing, I have all notifications turned on.
 
 ![Cloudflare Events](https://jameskilby.co.uk/wp-content/uploads/2025/10/Cloudflare-Events-1024x214.png)
 
-When I trigger the runner, I get 3 Slack notifications in my Web channel. The first is the Commit to GitHub, I then get one when Cloudflare starts building the Static site and one when it completes. One useful feature is that it gives you the preview URL so you can’t instantly view your changes without having any DNS propagation issues.
+When I trigger the runner, I get 3 Slack notifications in my Web channel. The first is the Commit to GitHub, I then get one when Cloudflare starts building the Static site and one when it completes. One useful feature is that it gives you the preview URL so you can instantly view your changes without having any DNS propagation issues.
     
     
     incoming-webhook
@@ -202,7 +209,7 @@ I wanted to add a comment mechanism to my pages, but as it’s a static site tha
 
 Utterance is lightweight javascript code that integrates with GitHub issues. To enable it, I enabled Issues on the repo I have been using for all of my Web stuff and then edited the WordPress theme using the built-in theme editor.
 
-Within WordPress changed comments.php to the following
+Within WordPress I changed comments.php to the following
     
     
     <?php
@@ -236,7 +243,7 @@ Within WordPress changed comments.php to the following
 
 I also wanted a Slack notification if anyone posted comments on one of my pages. Unfortunately the payload Slack is expecting is a JSON payload in a specific format that GitHub doesn’t do by default. I therefore created a new GitHub Action to trigger the notification
 
-###  **Use GitHub Actions**
+### **Use GitHub Actions**
 
 You can trigger Slack messages directly via GitHub Actions:
 
@@ -277,62 +284,62 @@ I am using the same SLACK_WEBHOOK_URL as defined previously so these get posted 
 
 ## Similar Posts
 
-  * [![What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2-768x229.png)](https://jameskilby.co.uk/2018/03/cloudflare/)
-
-[Hosting](https://jameskilby.co.uk/category/hosting/)
-
-### [What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained](https://jameskilby.co.uk/2018/03/cloudflare/)
-
-By[James](https://jameskilby.co.uk)March 27, 2018June 1, 2026
-
-Cloudflare – What is it and why would I care? I have been using Cloudflare for a long time.
-
-  * [![Blog Performance & SEO Improvements: Cloudflare, Privacy & More](https://jameskilby.co.uk/wp-content/uploads/2026/01/Website-Optimisations-768x560.png)](https://jameskilby.co.uk/2026/01/web-development-improvements/)
+  * [ ![Static WordPress hosting using Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu-768x450.jpeg) ](https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/)
 
 [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
 
-### [Blog Performance & SEO Improvements: Cloudflare, Privacy & More](https://jameskilby.co.uk/2026/01/web-development-improvements/)
+### [Static WordPress hosting using Cloudflare](https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/)
 
-By[James](https://jameskilby.co.uk)January 15, 2026May 31, 2026
+By[James](https://jameskilby.co.uk) October 20, 2022June 1, 2026
 
-I have spent the Christmas break making some improvements to this blog.
+For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product.
 
-  * [![Analytics in a privacy focused world](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png)](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
+  * [ ![Fixing Wrangler Node.js Version Conflicts After Brew Upgrade](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1-768x256.png) ](https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/)
 
-[Hosting](https://jameskilby.co.uk/category/hosting/) | [Personal](https://jameskilby.co.uk/category/personal/)
+[Cloudflare](https://jameskilby.co.uk/category/cloudflare/)
 
-### [Analytics in a privacy focused world](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
+### [Fixing Wrangler Node.js Version Conflicts After Brew Upgrade](https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/)
 
-By[James](https://jameskilby.co.uk)November 10, 2023June 1, 2026
+By[James](https://jameskilby.co.uk) January 15, 2022June 1, 2026
 
-I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance.
+I am a massive fan of the brew package management system for macOS and use it on all of my Macs. I typically just upgrade everything blindly and have never had an issue.
 
-  * [![Hosting This Blog on Cloudflare Workers: Why & How I Did It](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2-768x229.png)](https://jameskilby.co.uk/2022/01/web-development/)
+  * [ ![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png) ](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
-[Hosting](https://jameskilby.co.uk/category/hosting/) | [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Personal](https://jameskilby.co.uk/category/personal/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
+[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [Hosting This Blog on Cloudflare Workers: Why & How I Did It](https://jameskilby.co.uk/2022/01/web-development/)
+### [My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
-By[James](https://jameskilby.co.uk)January 4, 2022May 25, 2026
+By[James](https://jameskilby.co.uk) April 4, 2026June 1, 2026
 
-A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them.
+Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each.
 
-  * [![Cloudflare Workers – Limits of the free tier](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu-768x450.jpeg)](https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/)
+  * [ ![Cloudflare Workers – Limits of the free tier](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu-768x450.jpeg) ](https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/)
 
 [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
 
 ### [Cloudflare Workers – Limits of the free tier](https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/)
 
-By[James](https://jameskilby.co.uk)January 4, 2022June 1, 2026
+By[James](https://jameskilby.co.uk) January 4, 2022June 1, 2026
 
 I have been making several changes (mainly cosmetic) to this site over the last day or so. On most changes I have been doing an export and then uploading the site to Cloudflare using Wrangler.
 
-  * [![WordPress Hosting with Cloudflare Pages](https://jameskilby.co.uk/wp-content/uploads/2023/05/simply-static-logo.png)](https://jameskilby.co.uk/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages/)
+  * [ ![My First GitHub Pull Request: Contributing to Open Source](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg) ](https://jameskilby.co.uk/2020/12/my-first-pull/)
 
-[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
+[Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
-### [WordPress Hosting with Cloudflare Pages](https://jameskilby.co.uk/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages/)
+### [My First GitHub Pull Request: Contributing to Open Source](https://jameskilby.co.uk/2020/12/my-first-pull/)
 
-By[James](https://jameskilby.co.uk)May 14, 2023June 1, 2026
+By[James](https://jameskilby.co.uk) December 22, 2020May 31, 2026
 
-Table of Contents The Tooling The Process WordPress Plugin Install GitHub setup Cloudflare setup I have been using Cloudflare to protect my web assets for a really long time.
+I was initially going to add in the contents of this post to one that I have been writing about my exploits with HashiCorp Packer but I decided it probably warranted being separated out.
+
+  * [ ![Analytics in a privacy focused world](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png) ](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
+
+[Hosting](https://jameskilby.co.uk/category/hosting/) | [Personal](https://jameskilby.co.uk/category/personal/)
+
+### [Analytics in a privacy focused world](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
+
+By[James](https://jameskilby.co.uk) November 10, 2023June 1, 2026
+
+I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance.
