@@ -4,34 +4,63 @@
 # HTML pages - minimal caching for fresh content
 /*.html
   Cache-Control: public, max-age=300, must-revalidate
-  
+
 # Root paths - minimal caching
 /
   Cache-Control: public, max-age=300, must-revalidate
 
-# Static assets - longer cache with immutable for versioned files
+# Static assets - longer cache with immutable for versioned files.
+# `! Header-Name` strips HTML-only security headers set by the `/*` block
+# below — CSP / X-Frame-Options / Permissions-Policy don't govern non-HTML
+# responses and add ~700 bytes per sub-resource. Folded into the existing
+# per-prefix blocks (not duplicated lower in the file) because Cloudflare
+# Pages does not honour a second block with the same path pattern.
 /wp-content/*
   Cache-Control: public, max-age=31536000, immutable
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
 
 /wp-includes/*
   Cache-Control: public, max-age=31536000, immutable
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
 
 # Fonts never change content under a stable filename — safe to mark immutable
 /assets/fonts/*
   Cache-Control: public, max-age=31536000, immutable
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
 
 # Pipeline-emitted CSS — long cache but allow revalidation since
 # brutalist-theme.css / consolidated-inline-styles.min.css are not
 # content-hashed and may be re-emitted with new contents.
 /assets/css/*
   Cache-Control: public, max-age=31536000
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
 
 /assets/js/*
   Cache-Control: public, max-age=31536000
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
+# Plausible proxy + search JS live at /js/* — no existing block, add one.
+/js/*
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
 
 # Search index - moderate caching
 /search-index*.json
   Cache-Control: public, max-age=3600
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
 
 # Markdown files - allow CORS for API access
 /markdown/*
@@ -39,6 +68,9 @@
   Cache-Control: public, max-age=3600
   Access-Control-Allow-Origin: *
   Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
 
 # RSS feed - explicit content-type. Cloudflare Pages defaults
 # /feed/index.xml to application/xml; feed readers and validators
@@ -47,6 +79,15 @@
 /feed/index.xml
   Content-Type: application/rss+xml; charset=utf-8
   Cache-Control: public, max-age=3600
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
+# Sitemap XML — strip HTML-only headers
+/sitemap.xml
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
 
 # API endpoints - JSON with CORS
 /api/*
@@ -55,64 +96,24 @@
   Access-Control-Allow-Origin: *
   Access-Control-Allow-Methods: GET, HEAD, OPTIONS
   Access-Control-Allow-Headers: Content-Type
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
 
 # Global security headers
 /*
   # Clickjacking Protection - prevents site from being embedded in iframes
   X-Frame-Options: SAMEORIGIN
-  
+
   # Prevent MIME type sniffing
   X-Content-Type-Options: nosniff
-  
+
   # Force HTTPS for 2 years — hstspreload.org requires >= 1 year
   # and recommends 2 years. Site is on the HSTS preload list.
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
-  
+
   # Control browser features - deny access to device APIs
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=()
-  
+
   # Content Security Policy - controls what resources can load
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' plausible.jameskilby.cloud utteranc.es static.cloudflareinsights.com cdn.credly.com cdn.youracclaim.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' plausible.jameskilby.cloud cloudflareinsights.com; frame-src https://www.youtube.com https://player.vimeo.com https://embed.acast.com https://utteranc.es https://plausible.jameskilby.cloud https://www.credly.com https://www.youracclaim.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
-
-# ── HTML-only headers — strip from non-document responses ────────────────────
-# CSP / X-Frame-Options / Permissions-Policy only govern HTML documents.
-# Stripping them from asset paths saves ~700 bytes per sub-resource response.
-/wp-content/*
-  ! Content-Security-Policy
-  ! X-Frame-Options
-  ! Permissions-Policy
-
-/assets/*
-  ! Content-Security-Policy
-  ! X-Frame-Options
-  ! Permissions-Policy
-
-/js/*
-  ! Content-Security-Policy
-  ! X-Frame-Options
-  ! Permissions-Policy
-
-/api/*
-  ! Content-Security-Policy
-  ! X-Frame-Options
-  ! Permissions-Policy
-
-/markdown/*
-  ! Content-Security-Policy
-  ! X-Frame-Options
-  ! Permissions-Policy
-
-/feed/index.xml
-  ! Content-Security-Policy
-  ! X-Frame-Options
-  ! Permissions-Policy
-
-/sitemap.xml
-  ! Content-Security-Policy
-  ! X-Frame-Options
-  ! Permissions-Policy
-
-/search-index*.json
-  ! Content-Security-Policy
-  ! X-Frame-Options
-  ! Permissions-Policy
