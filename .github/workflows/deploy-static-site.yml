@@ -689,6 +689,13 @@ jobs:
           || echo "⚠️  Font subsetting failed (non-blocking)"
       continue-on-error: true
 
+    - name: Rewrite stale vendored-CDN URLs in cached HTML
+      # The WP→static generator is incremental — posts whose source hasn't
+      # changed reuse cached HTML and skip script-tag injection. This sweep
+      # rewrites any straggler third-party URLs (Splide, Fuse) to the
+      # vendored /js/* paths so the runner self-heals on every build.
+      run: python3 scripts/rewrite_vendored_urls.py ./static-output
+
     - name: Brotli + Gzip compress static files
       timeout-minutes: 10
       run: |
