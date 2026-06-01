@@ -18,17 +18,9 @@
         "Storage",
         "vExpert",
         "Networking",
+        "VCF",
         "VMware",
-        "Nutanix",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Personal",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Traefik",
-        "VCF"
+        "Nutanix"
       ],
       "tags": [
         null,

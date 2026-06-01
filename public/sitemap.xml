@@ -83,7 +83,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-31</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -118,7 +118,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2020/07/nutanix-ncp/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-31</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -133,12 +133,12 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-31</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2020/12/my-first-pull/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-31</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -263,7 +263,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2022/01/lab-update-part-3-network/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-31</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -693,7 +693,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-05-31</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/09/Screenshot-2024-09-05-at-11.57.47.png</image:loc>
@@ -753,7 +753,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-05-31</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/01/HoarderApp-1024x491.png</image:loc>
@@ -803,12 +803,11 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-05-31</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/09/Ansible-Inventory.png</image:loc>
       <image:title>Ansible Inventory</image:title>
-      <image:caption>Ansible Inventory</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/07/Semaphore-Repo-1024x80.png</image:loc>
@@ -943,7 +942,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2026/01/web-development-improvements/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-05-31</lastmod>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/10/Wordpress-Authoring-2-1024x677.png</image:loc>
@@ -1048,7 +1047,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-31</lastmod>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-1024x538.png</image:loc>
@@ -1063,7 +1062,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-31</lastmod>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/03/Screenshot-2026-03-07-at-07.30.35-1024x713.png</image:loc>
@@ -1123,7 +1122,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-05-31</lastmod>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/01/Traefik-Docker-Setup-1024x342.png</image:loc>
@@ -1166,15 +1165,6 @@
     <lastmod>2026-06-01</lastmod>
   </url>
   <url>
-    <loc>https://jameskilby.co.uk/about-me/</loc>
-    <lastmod>2026-02-20</lastmod>
-    <image:image>
-      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/02/55f91c39-f0dd-42e1-939a-cdffc92c0b52-1024x768.jpeg</image:loc>
-      <image:title>55F91C39 F0Dd 42E1 939A Cdffc92C0B52 1024X768</image:title>
-      <image:caption>55F91C39 F0Dd 42E1 939A Cdffc92C0B52 1024X768</image:caption>
-    </image:image>
-  </url>
-  <url>
     <loc>https://jameskilby.co.uk/homelab-software/</loc>
     <lastmod>2026-04-02</lastmod>
   </url>
@@ -1184,12 +1174,10 @@
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/vSphere-Overview-1024x530.png</image:loc>
       <image:title>Vsphere Overview 1024X530</image:title>
-      <image:caption>Vsphere Overview 1024X530</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/02/HouseNetworkOverview-1024x634.png</image:loc>
       <image:title>Housenetworkoverview 1024X634</image:title>
-      <image:caption>Housenetworkoverview 1024X634</image:caption>
     </image:image>
   </url>
   <url>

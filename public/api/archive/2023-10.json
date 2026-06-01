@@ -16,13 +16,11 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Personal",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
-        "VMware Cloud on AWS",
-        "vSphere",
         "Ansible",
+        "Automation",
+        "VMware Cloud on AWS",
+        "Storage",
+        "Synology",
         "Artificial Intelligence",
         "Containers",
         "Devops",
@@ -50,9 +48,13 @@
       "categories": [
         "VMware",
         "Personal",
+        "AWS",
+        "Veeam",
         "VMware Cloud on AWS",
         "Homelab",
-        "vSphere"
+        "Storage",
+        "vExpert",
+        "Automation"
       ],
       "tags": [
         null,

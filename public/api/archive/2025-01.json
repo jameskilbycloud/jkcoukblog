@@ -8,7 +8,7 @@
       "title": "How I Migrated from Pocket to Hoarder with AI Integration",
       "description": "Update: Hoarder has now been renamed to Karakeep due to a trademark issue I've been on a mission recently to regain control of my data.",
       "date": "2025-01-29T23:31:56Z",
-      "modified": "2026-05-25T17:18:26Z",
+      "modified": "2026-05-31T11:36:29Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/",
       "markdown_url": "/markdown/posts/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way.md",
@@ -17,15 +17,17 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Automation",
-        "Ansible",
-        "Homelab",
-        "Traefik",
         "VCF",
         "VMware",
-        "Networking",
-        "Storage",
-        "Synology"
+        "Automation",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "Personal",
+        "Cloudflare",
+        "Wordpress",
+        "Mikrotik",
+        "Networking"
       ],
       "tags": [
         null,
@@ -35,7 +37,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-1024x547.png",
-      "excerpt": "![Screenshot 2025 01 29 At 23.30.47](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47.png)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Hosting](https://jameskilby...."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47.png)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# How I..."
     }
   ]
 }

@@ -26,7 +26,7 @@
       "title": "My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)",
       "description": "Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database",
       "date": "2026-04-04T21:39:21Z",
-      "modified": "2026-04-16T22:01:37Z",
+      "modified": "2026-05-31T11:36:30Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/",
       "markdown_url": "/markdown/posts/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2.md",
@@ -39,15 +39,14 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Cloudflare",
-        "Devops",
-        "Github",
-        "Wordpress",
+        "vSAN",
+        "Storage",
         "Hosting",
         "Personal",
+        "TrueNAS Scale",
         "vSphere",
-        "AWS",
-        "Veeam"
+        "Mikrotik",
+        "Networking"
       ],
       "tags": [
         null,
@@ -74,7 +73,7 @@
       "title": "My Self-Hosted AI Stack: Architecture Overview (Part 1)",
       "description": "How I built a fully self-hosted AI stack with Ollama, Open WebUI, n8n, ComfyUI, Qdrant and SearxNG on Docker Compose. Configs, costs, observability.",
       "date": "2026-03-27T11:56:33Z",
-      "modified": "2026-05-23T11:22:20Z",
+      "modified": "2026-05-31T11:36:30Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/",
       "markdown_url": "/markdown/posts/my-self-hosted-ai-stack-a-technical-deep-dive.md",
@@ -88,12 +87,11 @@
         "Traefik",
         "VMware",
         "Ansible",
-        "Containers",
-        "Devops",
+        "Storage",
+        "Nutanix",
         "Runecast",
         "vSAN",
-        "Personal",
-        "VCF"
+        "Hosting"
       ],
       "tags": [
         null,
@@ -126,12 +124,11 @@
       "categories": [
         "Personal",
         "Consulting",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
-        "VMware",
         "AWS",
-        "vSphere"
+        "VMware",
+        "vSphere",
+        "Hosting",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -146,7 +143,7 @@
       "title": "My First GitHub Pull Request: Contributing to Open Source",
       "description": "I was initially going to add in the contents of this post to one that I have been writing about my exploits with HashiCorp Packer but I decided it probably",
       "date": "2020-12-22T16:38:11Z",
-      "modified": "2026-04-16T22:01:58Z",
+      "modified": "2026-05-31T10:53:52Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2020/12/my-first-pull/",
       "markdown_url": "/markdown/posts/my-first-pull.md",
@@ -154,18 +151,14 @@
       "categories": [
         "Devops",
         "Personal",
-        "Cloudflare",
         "Hosting",
+        "Cloudflare",
         "Wordpress",
         "VMware",
-        "Automation",
-        "Homelab",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "NVIDIA",
-        "Traefik",
-        "vSphere"
+        "vSphere",
+        "Nutanix",
+        "AWS",
+        "Consulting"
       ],
       "tags": [
         null,
@@ -173,7 +166,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg",
-      "excerpt": "![175Jvbleoqfazjc3Sgtspqa](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg)\n\n[Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# My First GitHub Pull Request: Contributing to Open Source\n\nBy[James](https://j..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg)\n\n[Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# My First GitHub Pull Request: Contributing to Open Source\n\nBy[James](https://jameskilby.co.uk) Decemb..."
     },
     {
       "slug": "multihost-holodeck-vcf",
@@ -188,17 +181,18 @@
       "categories": [
         "VMware",
         "VCF",
+        "Homelab",
+        "vSphere",
+        "Storage",
+        "vExpert",
+        "VMware Cloud on AWS",
         "Artificial Intelligence",
         "Automation",
         "Docker",
-        "Homelab",
         "NVIDIA",
         "Traefik",
-        "VMware Cloud on AWS",
-        "Veeam",
-        "vSAN",
-        "Personal",
-        "vSphere"
+        "AWS",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -223,20 +217,14 @@
         "VMware",
         "AWS",
         "Veeam",
-        "Personal",
-        "vSphere",
         "VMware Cloud on AWS",
-        "Hosting",
         "Ansible",
         "Automation",
-        "Docker",
-        "Homelab",
-        "Traefik",
-        "VCF",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA"
+        "Personal",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "Runecast"
       ],
       "tags": [
         null,
@@ -267,7 +255,7 @@
       "title": "Managing my Homelab with SemaphoreUI",
       "description": "How I use SemaphoreUI as the web frontend for Ansible, Terraform and PowerShell in my homelab. Setup, screenshots, lessons learned in production use.",
       "date": "2025-09-02T16:01:48Z",
-      "modified": "2026-05-26T08:29:07Z",
+      "modified": "2026-05-31T11:36:29Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/",
       "markdown_url": "/markdown/posts/managing-my-homelab-with-semaphoreui.md",
@@ -275,15 +263,14 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Automation",
-        "Networking",
-        "Storage",
         "VMware",
-        "Docker",
-        "Traefik",
-        "VCF",
+        "vSphere",
+        "Nutanix",
         "Artificial Intelligence",
-        "Hosting"
+        "Docker",
+        "Hosting",
+        "Storage",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
@@ -292,7 +279,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png",
-      "excerpt": "![Semaphore](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Managing my Homelab with SemaphoreUI\n\nBy[James](https://jameskilby.co.uk)September 2, 2025May 26, 2026 • 📖..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Managing my Homelab with SemaphoreUI\n\nBy[James](https://jameskilby.co.uk) September 2, 2025May 31, 2026 • 📖8 min re..."
     },
     {
       "slug": "lab-update-part-5-desired-workloads",
@@ -309,16 +296,16 @@
         "Veeam",
         "VMware",
         "Ansible",
-        "VMware Cloud on AWS",
+        "Automation",
+        "Networking",
+        "VCF",
+        "Storage",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "Docker",
         "NVIDIA",
         "Traefik",
-        "Nutanix",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere"
+        "Containers",
+        "Devops"
       ],
       "tags": [
         null,

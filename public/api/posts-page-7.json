@@ -14,15 +14,8 @@
         "Hosting",
         "Wordpress",
         "Cloudflare",
-        "Personal",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "Kubernetes"
+        "Personal"
       ],
       "tags": [
         null,
@@ -46,15 +39,12 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
-        "Ansible",
-        "Automation",
-        "Artificial Intelligence",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
+        "Networking",
+        "Veeam",
         "VMware",
-        "Hosting",
-        "Kubernetes"
+        "Artificial Intelligence",
+        "vSphere",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -76,15 +66,12 @@
       "categories": [
         "AWS",
         "Hosting",
-        "Artificial Intelligence",
-        "Docker",
-        "Personal",
         "Cloudflare",
+        "Personal",
         "Wordpress",
+        "Docker",
         "Homelab",
-        "Kubernetes",
-        "VMware",
-        "VMware Cloud on AWS"
+        "Kubernetes"
       ],
       "tags": [
         null,
@@ -96,9 +83,9 @@
     {
       "slug": "aws-solution-architect-associate",
       "title": "AWS Solution Architect – Associate",
-      "description": "Today was a good day. I renewed my AWS Solution Architect certification. Although my work is primarily in and around the VMware ecosystem I have been",
+      "description": "I renewed my AWS Solution Architect certification.",
       "date": "2019-12-16T23:46:22Z",
-      "modified": "2026-04-16T22:02:01Z",
+      "modified": "2026-05-31T11:36:26Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/",
       "markdown_url": "/markdown/posts/aws-solution-architect-associate.md",
@@ -107,19 +94,17 @@
         "AWS",
         "Personal",
         "VMware",
-        "Consulting",
-        "Devops",
-        "Nutanix",
+        "Veeam",
         "Hosting",
-        "Cloudflare",
-        "Wordpress"
+        "Devops",
+        "Consulting"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png",
-      "excerpt": "![Amazonwebservices Logo.Svg ](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png)\n\n[AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# AWS Solution Architect – Associate\n\nBy[James](https://jameskilby.co.uk)Decem..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png)\n\n[AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# AWS Solution Architect – Associate\n\nBy[James](https://jameskilby.co.uk) December 16, 2019May 31, 2026 •..."
     },
     {
       "slug": "aws-for-beginners1",
@@ -133,11 +118,11 @@
       "api_url": "/api/posts/aws-for-beginners1.json",
       "categories": [
         "AWS",
-        "Personal",
         "VMware",
         "VMware Cloud on AWS",
+        "Hosting",
         "Veeam",
-        "Hosting"
+        "Personal"
       ],
       "tags": [
         null,
@@ -165,14 +150,16 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Automation",
-        "VMware Cloud on AWS",
-        "vSAN",
+        "Cloudflare",
+        "Github",
+        "Wordpress",
         "Docker",
         "Hosting",
-        "Kubernetes",
+        "Automation",
         "Storage",
-        "TrueNAS Scale"
+        "Synology",
+        "VMware Cloud on AWS",
+        "vExpert"
       ],
       "tags": [
         null,
@@ -182,7 +169,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png",
-      "excerpt": "![Vmware Nvidia Logos Ee2F18Dc 615D 4C9E 8F11 9C3C2Ce2Bf37 Prv](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/a..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Containers](https://jameskilby.c..."
     },
     {
       "slug": "automated-vcf-9-offline-depot",
@@ -204,12 +191,12 @@
         "VMware",
         "Hosting",
         "Wordpress",
-        "Artificial Intelligence",
-        "NVIDIA",
-        "VMware Cloud on AWS",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
         "Storage",
-        "Personal",
-        "Synology"
+        "Synology",
+        "Personal"
       ],
       "tags": [
         null,
@@ -264,10 +251,10 @@
       "categories": [
         "Personal",
         "VMware",
-        "Nutanix",
-        "Hosting",
-        "Consulting",
-        "vSphere"
+        "vSphere",
+        "AWS",
+        "Devops",
+        "Consulting"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018June 1, 2026 • 📖1 min read(263 words)\n\n📅 **Published:** October 16, 2018• ..."
@@ -285,12 +272,13 @@
       "categories": [
         "Hosting",
         "Personal",
+        "AWS",
+        "Artificial Intelligence",
+        "Docker",
         "Cloudflare",
-        "Wordpress",
         "Devops",
         "Github",
-        "Artificial Intelligence",
-        "Docker"
+        "Wordpress"
       ],
       "tags": [
         null,

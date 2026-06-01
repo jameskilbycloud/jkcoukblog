@@ -8,7 +8,7 @@
       "title": "Passing the Nutanix NCP Exam: Free Training & My Experience",
       "description": "I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam.",
       "date": "2020-07-02T15:20:30Z",
-      "modified": "2026-04-16T22:02:00Z",
+      "modified": "2026-05-31T11:36:26Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2020/07/nutanix-ncp/",
       "markdown_url": "/markdown/posts/nutanix-ncp.md",
@@ -16,16 +16,18 @@
       "categories": [
         "Nutanix",
         "Personal",
-        "Consulting",
-        "Homelab",
-        "VMware"
+        "Devops",
+        "VMware",
+        "Hosting",
+        "vSphere",
+        "Consulting"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
-      "excerpt": "![Nutanix Logo Hi Rez Reverse W Carrier](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# Passing the Nutanix NCP Exam: Free Training & My..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# Passing the Nutanix NCP Exam: Free Training & My Experience\n\nBy[James](https://jamesk..."
     },
     {
       "slug": "i3en",
@@ -40,7 +42,7 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
+        "vSAN",
         "Ansible",
         "Artificial Intelligence",
         "Containers",
@@ -50,8 +52,7 @@
         "Traefik",
         "Automation",
         "Docker",
-        "Networking",
-        "Storage"
+        "VCF"
       ],
       "tags": [
         null,
