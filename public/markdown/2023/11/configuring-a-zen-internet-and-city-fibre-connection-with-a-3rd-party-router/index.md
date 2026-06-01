@@ -2,7 +2,7 @@
 title: "Configuring a Zen Internet and City Fibre connection with a 3rd party router"
 description: "Back in July I bought a new house and one of the best things about the property was that it was already in a City Fibre location."
 date: 2023-11-15T19:27:48+00:00
-modified: 2026-04-16T22:01:48+00:00
+modified: 2026-06-01T05:26:41+00:00
 author: James Kilby
 categories:
   - Networking
@@ -19,15 +19,15 @@ url: https://jameskilby.co.uk/2023/11/configuring-a-zen-internet-and-city-fibre-
 image: https://jameskilby.co.uk/wp-content/uploads/2023/11/cityfibre-zen-1024x538.jpg
 ---
 
-![Cityfibre Zen](https://jameskilby.co.uk/wp-content/uploads/2023/11/cityfibre-zen.jpg)
+![](https://jameskilby.co.uk/wp-content/uploads/2023/11/cityfibre-zen.jpg)
 
 [Networking](https://jameskilby.co.uk/category/networking/)
 
 # Configuring a Zen Internet and City Fibre connection with a 3rd party router
 
-By[James](https://jameskilby.co.uk)November 15, 2023April 16, 2026 • 📖2 min read(314 words)
+By[James](https://jameskilby.co.uk) November 15, 2023June 1, 2026 • 📖2 min read(316 words)
 
-📅 **Published:** November 15, 2023• **Updated:** April 16, 2026
+📅 **Published:** November 15, 2023• **Updated:** June 01, 2026
 
 Back in July I bought a new house and one of the best things about the property was that it was already in a City Fibre location. That meant I could take my Zen internet connection with me but ditch the ADSL (and Phone Line requirement). This gave me a much better connection in terms of throughput and latency at a lower overall cost.
 
@@ -57,7 +57,7 @@ To utilise the other addresses allocated by Zen these are added to the secondary
 
 And that’s all there is to it. With the above config, I have my 6 usable IP’s up and running.
 
-One of the nice capabilities that the WatchGuard Firewall is it can monitor your interfaces (and make routing decisions if multiple connections are available)
+One of the nice capabilities that the WatchGuard Firewall has is that it can monitor your interfaces (and make routing decisions if multiple connections are available)
 
 I no longer use this feature as the single connection is reliable enough for my needs, but nonetheless the monitoring part is still useful.
 
@@ -75,13 +75,13 @@ Example Route to Cloudflare 1.1.1.1
 
 ## Similar Posts
 
-  * [![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600-768x427.jpg)](https://jameskilby.co.uk/2024/09/home-network-upgrade/)
+  * [ ![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600-768x427.jpg) ](https://jameskilby.co.uk/2024/09/home-network-upgrade/)
 
 [Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)
 
 ### [Home Network Upgrade to 25Gb/s with MikroTik Switching](https://jameskilby.co.uk/2024/09/home-network-upgrade/)
 
-By[James](https://jameskilby.co.uk)September 9, 2024April 11, 2026
+By[James](https://jameskilby.co.uk) September 9, 2024May 31, 2026
 
 My journey to superfast networking in my homelab
 
@@ -89,26 +89,26 @@ My journey to superfast networking in my homelab
 
 ### [Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense](https://jameskilby.co.uk/2022/01/lab-update-part-3-network/)
 
-By[James](https://jameskilby.co.uk)January 6, 2022April 16, 2026
+By[James](https://jameskilby.co.uk) January 6, 2022May 31, 2026
 
 I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes.
 
-  * [![Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_-768x512.png)](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
-
-### [Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
-
-By[James](https://jameskilby.co.uk)June 26, 2024March 10, 2026
-
-How to configure DHCP Option 43 for UniFi devices 
-
-  * [![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png)](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
+  * [ ![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png) ](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
 
-By[James](https://jameskilby.co.uk)December 19, 2022April 16, 2026
+By[James](https://jameskilby.co.uk) December 19, 2022April 16, 2026
 
 For a while, I’ve been looking to update the networking at the core of my homelab.
+
+  * [ ![Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_-768x512.png) ](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
+
+### [Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
+
+By[James](https://jameskilby.co.uk) June 26, 2024May 31, 2026
+
+How to configure DHCP Option 43 for UniFi devices

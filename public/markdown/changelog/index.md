@@ -1,6 +1,6 @@
 ---
 title: "Changelog - James Kilby"
-description: "Site improvements, deployments, and performance metrics for James Kilby's technical blog. Site improvements, deployments, and performance metrics"
+description: "Site improvements, deployments, and performance metrics for James Kilby's technical blog."
 author: James Kilby
 url: https://jameskilby.co.uk/changelog/
 ---
@@ -11,17 +11,17 @@ url: https://jameskilby.co.uk/changelog/
 
 Site improvements, deployments, and performance metrics
 
-[![Quality Checks workflow status](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml/badge.svg)](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml)
+[ ![Quality Checks workflow status](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml/badge.svg) ](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml)
 
 ### Total Deployments
 
-780
+851
 
 Git commits
 
 ### Repository Age
 
-235
+240
 
 Days active
 
@@ -33,9 +33,9 @@ Active contributors
 
 ### Last Deployment
 
-2026-05-26
+2026-05-30
 
-14:50:14
+09:50:08
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -59,139 +59,155 @@ SEO
 
 ## Recent Changes
 
-2026-05-26 1846ed9Other
+2026-05-30 d94cbffFix
 
-ci: KV-purge now polls for the *pushed* commit, not the trigger commit
+fix(ci): skip interactive UI tests when chromium fails to launch (#57)
 
-Follow-up to #31. The 26-May post-merge deploy still spent 210s in the
+The smoke-test step in deploy-static-site.yml is wrapped in
 
-2026-05-26 d58a9a9Fix
+2026-05-30 60ee29dFix
 
-ci: trim 4.5 min of waste + fix log noise + plausible coverage
+fix(ci): declare workflow GITHUB_TOKEN permissions for org defaults (#56)
 
-Four fixes informed by reviewing the 26-May deploy logs.
-
-2026-05-26 6348006Feature
-
-perf: address GTmetrix HAR audit findings
-
-Performance pass driven by a 26-May HAR audit of jameskilby.co.uk.
-
-2026-05-26 602002bOther
-
-chore: bump slackapi/slack-github-action from v3.0.1 to v3.0.3
-
-Clears the DEP0169 url.parse() deprecation warning emitted from the
+After moving the repo into an organization, GITHUB_TOKEN defaults to
 
   
 
-2026-05-15 2183c69Improvement
+2026-05-29 ea56802Fix
 
-Repo Cleanup
+fix(seo): strip wordpress.jameskilby.cloud leakage from generated HTML (#55)
 
-  
+Post-#54 audit found three residual references to the private WordPress
 
-2026-05-08 3072236Feature
+2026-05-29 b346016Fix
 
-Update Generate to add quality checks
+fix(seo): enrich Person/E-E-A-T schema (sameAs + jobTitle + knowsAbout + award) (#54)
 
-2026-05-08 c658884Improvement
+After auditing what Google actually leverages for ranking in 2026:
 
-Update Quality Checks
+2026-05-29 92c6a5cFeature
 
-2026-05-08 dab649fOther
+fix(seo): add twitter:site + twitter:creator attribution (#53)
 
-Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog
+Rank Math's default doesn't include twitter:site or twitter:creator, so
 
-2026-05-08 9dcfce7Improvement
+2026-05-29 b83e72eFix
 
-update quality check URL
+fix(seo): dedupe TechArticle in @graph + inject dates + tighten title cap (#52)
 
-  
+Three follow-ups from the post-#51 SEO audit:
 
-2026-05-06 50f9025Other
+2026-05-29 5be7f93Fix
 
-Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog
+fix(seo): bake noindex,follow into changelog + stats templates (#51)
 
-2026-05-06 e856596Other
+Post-PR-#50 verification showed /stats/ still serving `index, follow`
 
-Tweaked the cache mechanisms
+2026-05-29 7d5e77eFix
 
-2026-05-06 93ff447Improvement
+fix(seo): noindex,follow on thin category/tag/archive pages (#50)
 
-Theme Updates
+Live audit (post-PR-#49 status check) showed multiple pages in the
 
-2026-05-06 3f49588Other
+2026-05-29 8e56ecaFeature
 
-Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog
+fix(seo): add If-Modified-Since 304 handling, drop ETag debug (#49)
 
-2026-05-06 02279bbOther
+PR #48's X-ETag-Echo diagnostic confirmed the hypothesis: Cloudflare
 
-Tidy Up
+2026-05-29 d8e3670Fix
 
-2026-05-06 d510762Improvement
+fix(seo): move /feed/ 301 into the worker + diag ETag stripping (#48)
 
-Update wp_to_static_generator.py
+PR #46 added /feed/ -> /feed/index.xml as a 301! rule in _redirects.
 
-2026-05-06 a3c67dcImprovement
+2026-05-29 5be4876Fix
 
-Update Validation
+fix(seo): wire fix_homepage_title into html_transformer orchestrator (#47)
 
-2026-05-06 ccbf4a6Other
+The previous PR added Config.HOMEPAGE_TITLE + SEOFixer.fix_homepage_title
 
-Theme Tweak
+2026-05-29 d35c0c3Feature
 
-  
+fix(seo): drop /404/ + /feed/ from sitemap, lock homepage title, add ETag/304 (#46)
 
-2026-05-02 b18967fOther
+Audit against the live site surfaced three issues GSC would flag and a few
 
-Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog
+2026-05-29 8c2ed77Feature
 
-2026-05-02 b123552Improvement
+fix(seo): restore truncated meta descriptions + add SEO build validator
 
-update CSP
+Two changes that ship together:
 
-2026-05-02 9990e9aFeature
+2026-05-29 8edf2fbFix
 
-ADD Google Ping
+fix(seo): stop truncating titles with literal '...' + restore broken ones
 
-2026-05-02 509c002Fix
+42 of 72 post pages had their <title> brutally chopped at 57 chars
 
-Fix IndexNow submission
+2026-05-29 14535e9Other
 
-2026-05-02 46b7ff8Other
+ci: recalibrate Lighthouse thresholds for CI mobile variance
 
-Merge branch 'main' of https://github.com/jameskilbynet/jkcoukblog
+The previous threshold tightening (perf-tighten commit) failed the
 
-2026-05-02 b38b2afImprovement
+2026-05-29 cd67d11Other
 
-Update Robots
+ci: tighten Lighthouse budgets + start actually enforcing them
 
-2026-05-02 8635d80Fix
+The budget JSONs had a `tolerance` property on every timing entry,
 
-fix: source-level SEO fixes in generator and post-processor
+2026-05-29 34a1a34Fix
 
-wp_to_static_generator.py:
+fix: handle absolute URLs in picture responsive srcset derivation
 
-2026-05-02 5732865Fix
+Lighthouse mobile was flagging UbuntuExpand.avif as wasting 178 KiB
 
-fix: SEO pipeline — og:site_name, stylesheet artefact, category indexing, crawl budget
+2026-05-29 4eeffcbFix
 
-scripts/fix_seo_issues.py (pipeline post-processor):
+debug: surface exact paths that picture-repair couldn't find in CI
 
-  
+Last build reported "594 skipped — missing AVIF/WebP variant on disk"
 
-2026-04-30 f046ae2Fix
+2026-05-29 91615fbFeature
 
-fix: skip post-validation paths in HTML link checker
+perf: add late-pass picture <source> srcset repair + diagnostics
 
-/changelog/ and /stats/ are generated after validate_html.py runs,
+Lighthouse mobile flagged UbuntuExpand.avif as wasting 178 KiB because
 
-2026-04-30 042a943Removal
+2026-05-29 2d30e3bOther
 
-chore: restore build artifacts after history rewrite; remove dead code
+perf: drop consolidated WP CSS and hide noise overlay on mobile
 
-History rewritten with git filter-repo to strip public/ and
+Two more mobile FCP/LCP wins:
 
-Page generated: 2026-05-26 14:58:27 UTC  
+2026-05-29 4d8e2b1Other
+
+perf: inline brutalist + consolidated CSS into HTML head
+
+Two render-blocking stylesheets were still gating mobile FCP/LCP:
+
+2026-05-29 e1bcac5Other
+
+perf: inline @font-face in brutalist-theme.css to drop @import chain
+
+After removing the high-priority font preloads, mobile FCP regressed
+
+2026-05-29 b364429Other
+
+perf: drop 138 KB of high-priority font preloads
+
+The pipeline injected <link rel="preload" as="font" fetchpriority="high">
+
+2026-05-29 afe9a8eFix
+
+fix: skip Worker-proxied /js/script.js in HTML asset validator
+
+The Plausible proxy commit pointed every page's <script src> at
+
+2026-05-29 6b7802fOther
+
+Move Plausible JS to CF Workers
+
+Page generated: 2026-05-31 11:55:26 UTC  
 Changelog powered by Git history and Lighthouse CI
