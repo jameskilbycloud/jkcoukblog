@@ -15,7 +15,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-859
+860
 
 Git commits
 
@@ -35,7 +35,7 @@ Active contributors
 
 2026-06-01
 
-11:56:22
+12:00:56
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -195,11 +195,5 @@ perf: drop consolidated WP CSS and hide noise overlay on mobile
 
 Two more mobile FCP/LCP wins:
 
-2026-05-29 4d8e2b1Other
-
-perf: inline brutalist + consolidated CSS into HTML head
-
-Two render-blocking stylesheets were still gating mobile FCP/LCP:
-
-Page generated: 2026-06-01 12:00:52 UTC  
+Page generated: 2026-06-01 11:53:22 UTC  
 Changelog powered by Git history and Lighthouse CI
