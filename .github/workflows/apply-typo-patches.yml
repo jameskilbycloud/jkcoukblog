@@ -1,0 +1,172 @@
+name: Apply Typo Patches (one-off)
+
+# One-time job: applies the audit-derived typo fixes in typo-patches.json to
+# the WordPress source via the REST API. Runs on the self-hosted runner so it
+# can reach the CF-Access-protected wordpress.jameskilby.cloud the same way
+# the deploy pipeline does (no per-request CF Access headers needed).
+#
+# Workflow is manual-only (workflow_dispatch). It defaults to DRY-RUN; flip
+# the `apply` input to `true` to actually write changes.
+#
+# After a successful apply, optionally chain into the existing
+# deploy-static-site.yml so the corrections propagate to the live site.
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: 'Actually write changes to WordPress (false = dry-run)'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+      limit:
+        description: 'Process at most N posts (0 = all). Useful for staged rollout.'
+        required: false
+        default: '0'
+      url:
+        description: 'Process a single live URL only (overrides limit). Leave blank for all.'
+        required: false
+        default: ''
+      trigger_deploy:
+        description: 'After successful --apply, dispatch deploy-static-site.yml to regenerate'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+permissions:
+  contents: read
+  actions: write   # needed for the optional follow-on deploy dispatch
+
+# Don't let two of these stomp each other if someone double-clicks Run.
+concurrency:
+  group: apply-typo-patches
+  cancel-in-progress: false
+
+jobs:
+  apply-patches:
+    runs-on: self-hosted
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Validate secrets / inputs
+        run: |
+          if [ -z "${{ secrets.WP_AUTH_TOKEN }}" ]; then
+            echo "❌ Secret WP_AUTH_TOKEN is missing"
+            exit 1
+          fi
+          if [ ! -f typo-patches.json ]; then
+            echo "❌ typo-patches.json not found in repo root"
+            exit 1
+          fi
+          echo "Inputs:"
+          echo "  apply=${{ github.event.inputs.apply }}"
+          echo "  limit=${{ github.event.inputs.limit }}"
+          echo "  url='${{ github.event.inputs.url }}'"
+          echo "  trigger_deploy=${{ github.event.inputs.trigger_deploy }}"
+
+      - name: Dry-run (always — for the log even when apply=true)
+        env:
+          WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+        run: |
+          echo "=== Dry-run pass — no writes will happen here ==="
+          ARGS=()
+          if [ -n "${{ github.event.inputs.url }}" ]; then ARGS+=(--url "${{ github.event.inputs.url }}"); fi
+          if [ "${{ github.event.inputs.limit }}" != "0" ] && [ -n "${{ github.event.inputs.limit }}" ]; then
+            ARGS+=(--limit "${{ github.event.inputs.limit }}")
+          fi
+          python3 scripts/apply_typo_patches.py "${ARGS[@]}" | tee dry-run.log
+          # Move the dry-run log out of the way so the apply step writes a fresh log
+          if [ -f typo-patches-applied.log.json ]; then
+            mv typo-patches-applied.log.json typo-patches-dry-run.log.json
+          fi
+
+      - name: Apply (only if input apply=true)
+        if: ${{ github.event.inputs.apply == 'true' }}
+        env:
+          WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+        run: |
+          echo "=== APPLY pass — writing changes to WordPress ==="
+          ARGS=(--apply)
+          if [ -n "${{ github.event.inputs.url }}" ]; then ARGS+=(--url "${{ github.event.inputs.url }}"); fi
+          if [ "${{ github.event.inputs.limit }}" != "0" ] && [ -n "${{ github.event.inputs.limit }}" ]; then
+            ARGS+=(--limit "${{ github.event.inputs.limit }}")
+          fi
+          python3 scripts/apply_typo_patches.py "${ARGS[@]}" | tee apply.log
+
+      - name: Summarise to job summary
+        if: always()
+        run: |
+          {
+            echo "## Apply Typo Patches — run summary"
+            echo ""
+            echo "- **apply**: \`${{ github.event.inputs.apply }}\`"
+            echo "- **limit**: \`${{ github.event.inputs.limit }}\`"
+            echo "- **url**: \`${{ github.event.inputs.url }}\`"
+            echo ""
+            if [ -f typo-patches-applied.log.json ]; then
+              APPLIED=$(jq '[.[] | .applied] | add // 0' typo-patches-applied.log.json)
+              SKIPPED=$(jq '[.[] | .skipped] | add // 0' typo-patches-applied.log.json)
+              RESOLVED=$(jq '[.[] | select(.resolved == true)] | length' typo-patches-applied.log.json)
+              TOTAL=$(jq 'length' typo-patches-applied.log.json)
+              echo "### Apply log"
+              echo ""
+              echo "| Metric | Count |"
+              echo "|---|---|"
+              echo "| Posts processed | $TOTAL |"
+              echo "| Posts resolved | $RESOLVED |"
+              echo "| Patches written | $APPLIED |"
+              echo "| Patches skipped | $SKIPPED |"
+              echo ""
+              echo "### Skipped patches (if any)"
+              echo ""
+              echo '```json'
+              jq '[.[] | select(.skipped > 0) | {url: .url, applied: .applied, skipped: .skipped}]' typo-patches-applied.log.json
+              echo '```'
+            elif [ -f typo-patches-dry-run.log.json ]; then
+              APPLIED=$(jq '[.[] | .applied] | add // 0' typo-patches-dry-run.log.json)
+              SKIPPED=$(jq '[.[] | .skipped] | add // 0' typo-patches-dry-run.log.json)
+              echo "### Dry-run preview"
+              echo ""
+              echo "Would apply **$APPLIED** patches, skip **$SKIPPED**."
+              echo ""
+              echo "Re-run with \`apply=true\` to actually write."
+            fi
+          } >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: typo-patch-logs
+          path: |
+            dry-run.log
+            apply.log
+            typo-patches-dry-run.log.json
+            typo-patches-applied.log.json
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Trigger static-site regeneration (only on real apply, if asked)
+        if: ${{ github.event.inputs.apply == 'true' && github.event.inputs.trigger_deploy == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "→ Dispatching deploy-static-site.yml so the corrections propagate to the live site"
+          gh workflow run deploy-static-site.yml --ref ${{ github.ref_name }}
