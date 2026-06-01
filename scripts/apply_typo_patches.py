@@ -105,53 +105,69 @@ def is_post_url(url: str) -> bool:
     return len(parts) >= 3 and parts[0].isdigit() and parts[1].isdigit()
 
 
-def _query_slug(session: requests.Session, kind: str, slug: str) -> int | None:
-    """One slug lookup against /posts or /pages. Returns the post id or None."""
-    # status: list-form filters across draft/publish/private/etc. — covers any
-    # page state. The REST API accepts comma-separated values for this param.
+def _query_slug(session: requests.Session, kind: str, slug: str, debug: bool = False) -> int | None:
+    """One slug lookup against /posts or /pages. Returns the post id or None.
+
+    When debug is True, print the HTTP status code and a short response excerpt
+    so we can see WHY a lookup failed (auth error vs empty result vs permission).
+    """
     for status_arg in ('any', 'publish,draft,pending,private,future'):
         resp = session.get(f'{WP_URL}/wp-json/wp/v2/{kind}',
                            params={'slug': slug, 'context': 'edit', 'status': status_arg})
+        if debug:
+            body_preview = resp.text[:200].replace('\n', ' ')
+            print(f'     [debug] GET /{kind}?slug={slug}&status={status_arg} → {resp.status_code}  body={body_preview!r}')
         if resp.status_code == 200:
             items = resp.json()
             if items:
                 return items[0]['id']
+            if debug:
+                print(f'     [debug] (empty list returned)')
     return None
 
 
-def _query_by_link(session: requests.Session, kind: str, live_url: str) -> int | None:
+def _query_by_link(session: requests.Session, kind: str, live_url: str, debug: bool = False) -> int | None:
     """Last-resort lookup: list every entry of `kind` and match by the WP-returned
     `link` field. WP sets `link` to the live permalink, so this resolves cases
-    where the slug in WP doesn't match the URL slug (e.g. permalink overrides).
-    Slow but bulletproof.
+    where the slug in WP doesn't match the URL slug.
+
+    Tries 'any' first then a list of statuses (some WP versions reject 'any' on
+    the list endpoint). Slow but bulletproof.
     """
     live_path = urlparse(live_url).path.rstrip('/')
     target_suffixes = {live_path, live_path + '/'}
 
-    page = 1
-    while page <= 20:  # safety cap — 20 pages of 100 = 2000 entries
-        resp = session.get(
-            f'{WP_URL}/wp-json/wp/v2/{kind}',
-            params={'per_page': 100, 'page': page, 'context': 'edit',
-                    'status': 'any', '_fields': 'id,slug,link'},
-        )
-        if resp.status_code != 200:
-            return None
-        items = resp.json()
-        if not items:
-            return None
-        for it in items:
-            link = (it.get('link') or '').rstrip('/')
-            link_path = urlparse(link).path.rstrip('/')
-            if link_path in target_suffixes or link.rstrip('/') == live_url.rstrip('/'):
-                return it['id']
-        if len(items) < 100:
-            return None
-        page += 1
+    for status_arg in ('any', 'publish,draft,pending,private,future'):
+        page = 1
+        total_scanned = 0
+        while page <= 20:  # safety cap — 20 pages of 100 = 2000 entries
+            resp = session.get(
+                f'{WP_URL}/wp-json/wp/v2/{kind}',
+                params={'per_page': 100, 'page': page, 'context': 'edit',
+                        'status': status_arg, '_fields': 'id,slug,link'},
+            )
+            if debug:
+                print(f'     [debug] link-match GET /{kind}?status={status_arg}&page={page} → {resp.status_code}')
+            if resp.status_code != 200:
+                break  # try next status_arg
+            items = resp.json()
+            if not items:
+                break
+            total_scanned += len(items)
+            for it in items:
+                link = (it.get('link') or '').rstrip('/')
+                link_path = urlparse(link).path.rstrip('/')
+                if link_path in target_suffixes or link.rstrip('/') == live_url.rstrip('/'):
+                    return it['id']
+            if len(items) < 100:
+                break
+            page += 1
+        if debug:
+            print(f'     [debug] link-match scanned {total_scanned} {kind} with status={status_arg}, no match')
     return None
 
 
-def lookup_post_id(session: requests.Session, url: str) -> tuple[int | None, str]:
+def lookup_post_id(session: requests.Session, url: str, debug: bool = False) -> tuple[int | None, str]:
     """Find WP post or page ID. Returns (id, kind) where kind in {'posts','pages',''}.
 
     Resolution order:
@@ -159,22 +175,23 @@ def lookup_post_id(session: requests.Session, url: str) -> tuple[int | None, str
     2. Slug variants (hyphen↔underscore, compound first token) on the natural kind.
     3. Same slugs on the OTHER kind.
     4. Link-matching fallback: list everything and match by WP's `link` field.
-       Catches permalink-override cases like /about-me/ where the WP slug isn't
-       'about-me'.
+
+    When debug is True, print every REST request and its result so a CI run can
+    capture why an unresolvable URL didn't match.
     """
     primary_kind = 'posts' if is_post_url(url) else 'pages'
     other_kind = 'pages' if primary_kind == 'posts' else 'posts'
 
     for slug in slug_candidates(url):
         for kind in (primary_kind, other_kind):
-            post_id = _query_slug(session, kind, slug)
+            post_id = _query_slug(session, kind, slug, debug=debug)
             if post_id is not None:
                 return post_id, kind
 
     # Link-matching fallback
     print(f'   ↪ slug variants exhausted, trying link-match fallback for {url}')
     for kind in (primary_kind, other_kind):
-        post_id = _query_by_link(session, kind, url)
+        post_id = _query_by_link(session, kind, url, debug=debug)
         if post_id is not None:
             print(f'   ↪ resolved via link-match: {kind} id={post_id}')
             return post_id, kind
@@ -301,9 +318,9 @@ def apply_patches_to_content(raw: str, patches: list[dict]) -> tuple[str, list[d
 
 
 def process_url(session: requests.Session, url: str, patches: list[dict],
-                apply_changes: bool) -> dict:
+                apply_changes: bool, debug: bool = False) -> dict:
     print(f'\n=== {url} ({len(patches)} patch{"es" if len(patches) != 1 else ""}) ===')
-    post_id, kind = lookup_post_id(session, url)
+    post_id, kind = lookup_post_id(session, url, debug=debug)
     if not post_id:
         print(f'   ❌ could not resolve to a WP post/page (slug={slug_from_url(url)})')
         return {'url': url, 'resolved': False, 'applied': 0, 'skipped': len(patches)}
@@ -372,6 +389,7 @@ def main():
     ap.add_argument('--apply', action='store_true', help='actually write changes to WordPress')
     ap.add_argument('--url', help='process one URL only')
     ap.add_argument('--limit', type=int, default=0, help='process at most N URLs (0 = all)')
+    ap.add_argument('--debug', action='store_true', help='verbose REST-API logging for diagnosis')
     args = ap.parse_args()
 
     if not PATCHES_PATH.exists():
@@ -405,7 +423,7 @@ def main():
     results = []
     for url in urls:
         try:
-            results.append(process_url(session, url, patches_by_url[url], args.apply))
+            results.append(process_url(session, url, patches_by_url[url], args.apply, debug=args.debug))
         except Exception as e:
             print(f'   💥 exception on {url}: {e}', file=sys.stderr)
             results.append({'url': url, 'resolved': False, 'applied': 0, 'skipped': len(patches_by_url[url]), 'error': str(e)})
