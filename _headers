@@ -40,7 +40,49 @@
 # Security headers (all pages)
 /*
   X-Content-Type-Options: nosniff
-  X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
-  Content-Security-Policy: frame-ancestors 'self'; frame-src 'self' https://embed.acast.com https://www.youtube.com https://youtube.com https://utteranc.es https://www.credly.com https://www.youracclaim.com; script-src 'self' 'unsafe-inline' cdn.credly.com cdn.youracclaim.com;
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' plausible.jameskilby.cloud utteranc.es static.cloudflareinsights.com cdn.credly.com cdn.youracclaim.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' plausible.jameskilby.cloud cloudflareinsights.com; frame-src https://www.youtube.com https://player.vimeo.com https://embed.acast.com https://utteranc.es https://plausible.jameskilby.cloud https://www.credly.com https://www.youracclaim.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
+
+# ── HTML-only headers — strip from non-document responses ────────────────────
+# CSP / X-Frame-Options / Permissions-Policy only govern HTML documents.
+# Stripping them from asset paths saves ~700 bytes per sub-resource response.
+/wp-content/*
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
+/assets/*
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
+/js/*
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
+/api/*
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
+/markdown/*
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
+/feed/index.xml
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
+/sitemap.xml
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
+/search-index*.json
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy

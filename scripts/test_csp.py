@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """
-Consolidated CSP test — validates that _worker.template.js CSP headers
-allow all required third-party services (Utterances, Credly, Plausible).
+Consolidated CSP test — validates that the deployed CSP allows all required
+third-party services (Utterances, Credly, Plausible).
+
+The CSP lives in _headers (Cloudflare Pages applies it after the worker, so
+that's the source of truth). Validation reads from _headers directly.
 
 Usage:
     python3 scripts/test_csp.py              # Test all providers
@@ -14,13 +17,15 @@ import re
 from pathlib import Path
 
 # Each provider defines which domains must appear in which CSP directives.
+# Only the *parent* page's requirements are enforced here — iframe content
+# (e.g. Utterances calling api.github.com from inside its own iframe) is
+# governed by the iframe's own CSP, not ours.
 PROVIDERS = {
     'utterances': {
         'label': 'Utterances comments',
         'checks': {
             'script-src': ['utteranc.es'],
             'frame-src': ['utteranc.es'],
-            'connect-src': ['api.github.com'],
         },
         'blocked_msg': 'Utterances will be blocked by CSP!',
         'success_msg': 'CSP correctly configured for Utterances!',
@@ -35,10 +40,12 @@ PROVIDERS = {
         'success_msg': 'CSP correctly configured for Credly badges!',
     },
     'plausible': {
+        # This site uses self-hosted Plausible at plausible.jameskilby.cloud
+        # (proxied via /js/script.js). plausible.io is not used.
         'label': 'Plausible Analytics',
         'checks': {
-            'script-src': ['plausible.io', 'plausible.jameskilby.cloud'],
-            'connect-src': ['plausible.io', 'plausible.jameskilby.cloud'],
+            'script-src': ['plausible.jameskilby.cloud'],
+            'connect-src': ['plausible.jameskilby.cloud'],
             'frame-src': ['plausible.jameskilby.cloud'],
         },
         'blocked_msg': 'Plausible Analytics will be blocked by CSP!',
@@ -48,19 +55,24 @@ PROVIDERS = {
 
 
 def read_csp():
-    """Read and return the CSP string from _worker.template.js."""
-    worker_file = Path('_worker.template.js')
-    if not worker_file.exists():
-        print("❌ _worker.template.js not found!")
+    """Read and return the CSP string from _headers (root)."""
+    headers_file = Path('_headers')
+    if not headers_file.exists():
+        print("❌ _headers not found!")
         return None
 
-    content = worker_file.read_text()
-    csp_match = re.search(r"'Content-Security-Policy':\s*\"([^\"]+)\"", content)
+    content = headers_file.read_text()
+    # _headers lines look like:  Content-Security-Policy: default-src 'self'; ...
+    csp_match = re.search(
+        r"^\s*Content-Security-Policy:\s*(.+)$",
+        content,
+        re.MULTILINE,
+    )
     if not csp_match:
-        print("❌ No CSP header found in Worker!")
+        print("❌ No Content-Security-Policy line found in _headers!")
         return None
 
-    return csp_match.group(1)
+    return csp_match.group(1).strip()
 
 
 def check_provider(csp, name):

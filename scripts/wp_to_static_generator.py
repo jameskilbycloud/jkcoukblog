@@ -3757,9 +3757,6 @@ document.addEventListener('DOMContentLoaded', function() {
             "  # Clickjacking Protection - prevents site from being embedded in iframes",
             "  X-Frame-Options: SAMEORIGIN",
             "  ",
-            "  # XSS Protection for older browsers",
-            "  X-XSS-Protection: 1; mode=block",
-            "  ",
             "  # Prevent MIME type sniffing",
             "  X-Content-Type-Options: nosniff",
             "  ",
@@ -3771,9 +3768,30 @@ document.addEventListener('DOMContentLoaded', function() {
             "  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=()",
             "  ",
             "  # Content Security Policy - controls what resources can load",
-            "  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https: cdn.jsdelivr.net plausible.jameskilby.cloud utteranc.es github.com static.cloudflareinsights.com cdn.credly.com cdn.youracclaim.com; style-src 'self' 'unsafe-inline' https: github.com; img-src 'self' data: https:; font-src 'self' data: https:; connect-src 'self' https: plausible.jameskilby.cloud; frame-src https://www.youtube.com https://player.vimeo.com https://embed.acast.com https://utteranc.es https://plausible.jameskilby.cloud https://www.credly.com https://www.youracclaim.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'",
+            "  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' plausible.jameskilby.cloud utteranc.es static.cloudflareinsights.com cdn.credly.com cdn.youracclaim.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' plausible.jameskilby.cloud cloudflareinsights.com; frame-src https://www.youtube.com https://player.vimeo.com https://embed.acast.com https://utteranc.es https://plausible.jameskilby.cloud https://www.credly.com https://www.youracclaim.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'",
+            "",
+            "# ── HTML-only headers — strip from non-document responses ────────────────────",
+            "# CSP / X-Frame-Options / Permissions-Policy only govern HTML documents.",
+            "# Stripping them from asset paths saves ~700 bytes per sub-resource response.",
         ]
-        
+        for asset_path in (
+            '/wp-content/*',
+            '/assets/*',
+            '/js/*',
+            '/api/*',
+            '/markdown/*',
+            '/feed/index.xml',
+            '/sitemap.xml',
+            '/search-index*.json',
+        ):
+            headers_content.extend([
+                asset_path,
+                "  ! Content-Security-Policy",
+                "  ! X-Frame-Options",
+                "  ! Permissions-Policy",
+                "",
+            ])
+
         headers_file = self.output_dir / '_headers'
         headers_file.write_text('\n'.join(headers_content))
         print("   ✅ Created _headers file with security headers")

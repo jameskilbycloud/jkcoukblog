@@ -11,6 +11,15 @@ from pathlib import Path
 
 def minify_html(html):
     """Minify HTML while preserving pre/code/script/style content."""
+
+    # Drop a garbage attribute injected upstream by the WP Rocket / Kadence
+    # async-CSS pattern. The end of the <link> tag looks like:
+    #     ... rel="preload" stylesheet'"=""/>
+    # The literal `stylesheet'"=""` is parsed by browsers as an empty-valued
+    # attribute whose name is `stylesheet'"`. Strip it before minification.
+    # See https://html.spec.whatwg.org/multipage/syntax.html#attributes-2
+    html = html.replace(' stylesheet\'"=""', '')
+
     placeholders = []
 
     def _stash(match):

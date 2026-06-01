@@ -60,10 +60,7 @@
 /*
   # Clickjacking Protection - prevents site from being embedded in iframes
   X-Frame-Options: SAMEORIGIN
-  
-  # XSS Protection for older browsers
-  X-XSS-Protection: 1; mode=block
-  
+
   # Prevent MIME type sniffing
   X-Content-Type-Options: nosniff
   
@@ -75,4 +72,51 @@
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=()
   
   # Content Security Policy - controls what resources can load
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https: cdn.jsdelivr.net plausible.jameskilby.cloud utteranc.es github.com static.cloudflareinsights.com cdn.credly.com cdn.youracclaim.com; style-src 'self' 'unsafe-inline' https: github.com; img-src 'self' data: https:; font-src 'self' data: https:; connect-src 'self' https: plausible.jameskilby.cloud; frame-src https://www.youtube.com https://player.vimeo.com https://embed.acast.com https://utteranc.es https://plausible.jameskilby.cloud https://www.credly.com https://www.youracclaim.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' plausible.jameskilby.cloud utteranc.es static.cloudflareinsights.com cdn.credly.com cdn.youracclaim.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' plausible.jameskilby.cloud cloudflareinsights.com; frame-src https://www.youtube.com https://player.vimeo.com https://embed.acast.com https://utteranc.es https://plausible.jameskilby.cloud https://www.credly.com https://www.youracclaim.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
+
+# ── HTML-only headers — strip from non-document responses ────────────────────
+# Content-Security-Policy, X-Frame-Options and Permissions-Policy only govern
+# HTML documents; sending them on every image / font / JSON / markdown / feed
+# response is ~700 bytes of dead header weight per sub-resource. The `! Header`
+# syntax removes a header that an earlier matching block (above) set, so the
+# global `/*` rule still applies — just minus these three on asset paths.
+# X-Content-Type-Options (nosniff) and HSTS stay global on purpose.
+/wp-content/*
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
+/assets/*
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
+/js/*
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
+/api/*
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
+/markdown/*
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
+/feed/index.xml
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
+/sitemap.xml
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
+/search-index*.json
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
