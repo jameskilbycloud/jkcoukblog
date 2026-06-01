@@ -15,7 +15,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-853
+854
 
 Git commits
 
@@ -35,7 +35,7 @@ Active contributors
 
 2026-06-01
 
-07:25:03
+10:26:52
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -199,11 +199,5 @@ perf: drop 138 KB of high-priority font preloads
 
 The pipeline injected <link rel="preload" as="font" fetchpriority="high">
 
-2026-05-29 afe9a8eFix
-
-fix: skip Worker-proxied /js/script.js in HTML asset validator
-
-The Plausible proxy commit pointed every page's <script src> at
-
-Page generated: 2026-06-01 10:26:48 UTC  
+Page generated: 2026-06-01 11:13:36 UTC  
 Changelog powered by Git history and Lighthouse CI
