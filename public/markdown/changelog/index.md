@@ -15,7 +15,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-852
+853
 
 Git commits
 
@@ -33,9 +33,9 @@ Active contributors
 
 ### Last Deployment
 
-2026-05-31
+2026-06-01
 
-11:55:31
+07:25:03
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -205,9 +205,5 @@ fix: skip Worker-proxied /js/script.js in HTML asset validator
 
 The Plausible proxy commit pointed every page's <script src> at
 
-2026-05-29 6b7802fOther
-
-Move Plausible JS to CF Workers
-
-Page generated: 2026-06-01 07:24:58 UTC  
+Page generated: 2026-06-01 10:26:48 UTC  
 Changelog powered by Git history and Lighthouse CI
