@@ -48,6 +48,11 @@ concurrency:
   group: apply-typo-patches
   cancel-in-progress: false
 
+# Opt into Node.js 24 for actions/* — silences the upload-artifact@v4 deprecation
+# warning until v5 ships. (Default flips to Node 24 on 2026-06-16 anyway.)
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
 jobs:
   apply-patches:
     runs-on: self-hosted
@@ -57,13 +62,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.11'
+      # Use the runner's system python3 — no setup-python step. The self-hosted
+      # runner is on Ubuntu 26.04 (released 2026-04) and the setup-python
+      # manifest doesn't yet ship a 3.11 build for it. The existing pipeline
+      # already runs on system Python, so we follow the same pattern.
+      - name: Show Python version
+        run: |
+          python3 --version
+          python3 -c "import sys; print('sys.prefix:', sys.prefix)"
 
       - name: Install dependencies
-        run: pip install requests
+        run: |
+          # --user to avoid touching system packages on the runner.
+          python3 -m pip install --user --upgrade requests
 
       - name: Validate secrets / inputs
         run: |
