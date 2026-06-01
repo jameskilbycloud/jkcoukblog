@@ -16,16 +16,11 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Storage",
-        "TrueNAS Scale",
-        "VCF",
         "VMware",
-        "Mikrotik",
-        "Networking",
-        "vSAN",
-        "vSphere",
-        "Ansible",
-        "Automation"
+        "Veeam",
+        "Storage",
+        "VCF",
+        "Synology"
       ],
       "tags": [
         null,

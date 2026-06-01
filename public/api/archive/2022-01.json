@@ -17,11 +17,13 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "Storage",
-        "Synology",
+        "Artificial Intelligence",
+        "Personal",
         "Networking",
         "VMware Cloud on AWS",
-        "vExpert"
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -36,26 +38,25 @@
       "title": "Fixing Wrangler Node.js Version Conflicts After Brew Upgrade",
       "description": "I am a massive fan of the brew package management system for macOS and use it on all of my Mac's I typically just upgrade everything blindly and have never",
       "date": "2022-01-15T08:42:36Z",
-      "modified": "2026-06-01T21:06:39Z",
+      "modified": "2026-06-01T21:58:42Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/",
       "markdown_url": "/markdown/posts/wrangler-and-node-versions.md",
       "api_url": "/api/posts/wrangler-and-node-versions.json",
       "categories": [
         "Cloudflare",
-        "Hosting",
-        "Wordpress",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
         "Docker",
         "Homelab",
-        "NVIDIA",
         "Traefik",
-        "VMware",
-        "Ansible",
         "VCF",
+        "VMware",
         "Devops",
-        "Github"
+        "Github",
+        "Wordpress",
+        "Hosting",
+        "Personal"
       ],
       "tags": [
         null,
@@ -79,15 +80,17 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Hosting",
         "Ansible",
-        "Storage",
+        "Automation",
+        "Docker",
+        "Traefik",
+        "VCF",
         "VMware",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik"
+        "Runecast",
+        "Nutanix",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -109,14 +112,16 @@
       "categories": [
         "Homelab",
         "VMware",
-        "vSAN",
-        "VCF",
+        "Runecast",
+        "Automation",
         "Mikrotik",
         "Networking",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "VMware Cloud on AWS",
         "Storage",
-        "vExpert",
-        "Personal",
-        "VMware Cloud on AWS"
+        "vExpert"
       ],
       "tags": [
         null,
@@ -148,8 +153,9 @@
         "Traefik",
         "VCF",
         "VMware",
-        "vSphere",
-        "AWS"
+        "Nutanix",
+        "Devops",
+        "Github"
       ],
       "tags": [
         null,
@@ -163,7 +169,7 @@
       "title": "Lab Update – Part 2 Storage Truenas Scale",
       "description": "The HP Z840 has changed its role to a permanent storage box running Truenas Scale.",
       "date": "2022-01-11T22:35:02Z",
-      "modified": "2026-06-01T21:06:37Z",
+      "modified": "2026-06-01T21:58:40Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/",
       "markdown_url": "/markdown/posts/lab-update-part-2-storage.md",
@@ -171,18 +177,16 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Synology",
-        "Automation",
-        "VMware",
-        "Ansible",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "Docker",
+        "vExpert",
+        "VMware",
+        "vSphere",
+        "Nutanix",
+        "Automation",
         "NVIDIA",
         "Traefik",
-        "Hosting",
-        "Networking",
-        "vExpert"
+        "Networking"
       ],
       "tags": [
         null,
@@ -198,7 +202,7 @@
       "title": "Cloudflare Workers – Limits of the free tier",
       "description": "I have been making several changes (mainly cosmetic to this site over the last day or so) On most changes I have been doing an export and then uploading th",
       "date": "2022-01-04T21:11:23Z",
-      "modified": "2026-06-01T21:06:33Z",
+      "modified": "2026-06-01T21:58:35Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/",
       "markdown_url": "/markdown/posts/cloudflare-workers-limits-of-the-free-tier.md",
@@ -206,8 +210,19 @@
       "categories": [
         "Hosting",
         "Wordpress",
+        "Personal",
         "Cloudflare",
-        "Personal"
+        "Devops",
+        "Github",
+        "Artificial Intelligence",
+        "Docker",
+        "Homelab",
+        "Kubernetes",
+        "Ansible",
+        "Automation",
+        "Traefik",
+        "VCF",
+        "VMware"
       ],
       "tags": [
         null,

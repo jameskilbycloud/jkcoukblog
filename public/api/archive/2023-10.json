@@ -8,7 +8,7 @@
       "title": "Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide",
       "description": "Step-by-step setup of Nvidia Tesla P4 vGPU on VMware ESXi for a homelab. Drivers, licence server, vGPU profiles, plus gotchas and performance notes.",
       "date": "2023-10-23T14:56:58Z",
-      "modified": "2026-06-01T21:06:53Z",
+      "modified": "2026-06-01T21:58:55Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/",
       "markdown_url": "/markdown/posts/vgpu-setup-in-my-homelab.md",
@@ -16,16 +16,13 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Nutanix",
-        "VCF",
-        "AWS",
-        "Veeam",
-        "Personal",
-        "vSphere",
-        "Artificial Intelligence",
-        "Docker",
         "Storage",
-        "Synology"
+        "TrueNAS Scale",
+        "Mikrotik",
+        "Networking",
+        "VMware Cloud on AWS",
+        "Ansible",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -48,14 +45,16 @@
       "categories": [
         "VMware",
         "Personal",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
         "Homelab",
-        "Networking",
-        "Storage",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
+        "NVIDIA",
+        "Traefik",
+        "AWS",
+        "Veeam",
         "VMware Cloud on AWS",
-        "AWS"
+        "Ansible"
       ],
       "tags": [
         null,

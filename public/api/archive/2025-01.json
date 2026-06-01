@@ -18,12 +18,17 @@
         "Docker",
         "Hosting",
         "Homelab",
+        "Networking",
+        "Storage",
         "VMware",
+        "VCF",
+        "AWS",
         "Ansible",
         "Automation",
-        "Wordpress",
-        "Cloudflare",
-        "Personal"
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,

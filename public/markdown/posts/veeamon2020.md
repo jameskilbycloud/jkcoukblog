@@ -2,7 +2,7 @@
 title: "VeeamON 2020: Highlights From Veeam’s Virtual Conference"
 description: "As everyone knows by now the world has changed possibly forever. Due to Covid19 working from home has become the new normal."
 date: 2020-06-18T14:42:45+00:00
-modified: 2026-06-01T21:06:25+00:00
+modified: 2026-06-01T21:58:29+00:00
 author: James Kilby
 categories:
   - Veeam
@@ -32,7 +32,7 @@ In the words of Charles Darwin “ _It is not the strongest of the species that 
 
 With that most (if not all IT conferences have been postponed or gone online) Veeam’s annual conference VeeamON is no exception and now it’s here!!
 
-As a [Veeam Vanguard](https://www.veeam.com/vanguard.html) I was privileged to be given an early briefing on some of the announcements. These are summarised below but for all the details make sure you sign up and view some of the great sessions..
+As a [Veeam Vanguard](https://www.veeam.com/vanguard.html) I was privileged to be given an early briefing on some of the announcements. These are summarised below but for all the details make sure you sign up and view some of the great sessions…
 
 If you haven’t managed to sign up you still can [here.](https://www.veeam.com/veeamon)
 

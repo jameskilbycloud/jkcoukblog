@@ -2,7 +2,7 @@
 title: "My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)"
 description: "Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database"
 date: 2026-04-04T21:39:21+00:00
-modified: 2026-06-01T21:07:19+00:00
+modified: 2026-06-01T21:59:15+00:00
 author: James Kilby
 categories:
   - Artificial Intelligence
@@ -12,13 +12,13 @@ categories:
   - NVIDIA
   - Traefik
   - VMware
-  - VCF
-  - Personal
   - Cloudflare
-  - Devops
-  - Github
+  - Hosting
   - Wordpress
   - Ansible
+  - VCF
+  - Storage
+  - vExpert
 tags:
   - #AI
   - #Artificial Intelligence
@@ -45,7 +45,7 @@ image: https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured.png
 
 # My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)
 
-By[James](https://jameskilby.co.uk) April 4, 2026June 1, 2026 • 📖11 min read(2,138 words)
+By[James](https://jameskilby.co.uk) April 4, 2026June 1, 2026 • 📖11 min read(2,139 words)
 
 📅 **Published:** April 04, 2026• **Updated:** June 01, 2026
 
@@ -68,7 +68,7 @@ In this part I’ll walk through the network topology, container sizing, and eve
 
 ## Resource Limits & Sizing
 
-If you read part one, you will have seen that there are a lot of components that make up this AI stack. Every container in the stack has explicit CPU and memory limits and reservations set. This is to prevent a single runaway container or model starving other services of resources. These limits have been defined based on my production deployment running on my host with an NVIDIA A10 (24 GB vRAM), this is presented to a VM allocated with 24 CPU cores, and 96 GB RAM plus 500GB of NVMe storage. Based on that profile, I have allocated container resources as follows:
+If you read part one, you will have seen that there are a lot of components that make up this AI stack. Every container in the stack has explicit CPU and memory limits and reservations set. This is to prevent a single runaway container or model starving other services of resources. These limits have been defined based on my production deployment running on my host with an NVIDIA A10 (24 GB vRAM), this is presented to a VM allocated with 24 CPU cores, and 96 GB RAM plus 500GB of NVMe storage. Based on that profile, I have allocated container resources as follows::
 
 Container| Role| Mem Limit| CPU Limit  
 ---|---|---|---  
@@ -102,7 +102,7 @@ Container| Role| Mem Limit| CPU Limit
   
 As can be seen from the docker containers above the resource requirements are not trivial.
 
-I would recommend the following VM configuration as a minimum to use the services with some tweaks to the docker and Ansible configuration to accommodate the reduced footprint. I would also highly recommend the data disk is on NVMe.
+I would recommend the following VM configuration as a minimum to use the services with some tweaks to the docker and Ansible configuration to accommodate the reduced footprint. I would also highly recommend the data disk is on NVMe..
 
 Resource| Allocation  
 ---|---  
@@ -128,7 +128,7 @@ Services that need both external routing and internal communication (like Open W
 
 ### Domain Portability
 
-The deployment is designed in a way that the url can be adapted as needed. The The compose file uses the pattern `${DOMAIN:-jameskilby.cloud}` rather than a hardcoded hostname. Traefik labels, environment variables, webhook URLs — all of them resolve through a single `DOMAIN` variable in the `.env` file. This allows you to fork the repo and deploy the stack under your own domain. You change one variable and every service picks it up — `chat.yourdomain.com`, `grafana.yourdomain.com`, `langfuse.yourdomain.com`, and so on. The `:-jameskilby.cloud` default means the compose still works if the variable is unset, which keeps `docker compose config` clean for local testing.
+The deployment is designed in a way that the url can be adapted as needed. The The The compose file uses the pattern `${DOMAIN:-jameskilby.cloud}` rather than a hardcoded hostname. Traefik labels, environment variables, webhook URLs — all of them resolve through a single `DOMAIN` variable in the `.env` file. This allows you to fork the repo and deploy the stack under your own domain. You change one variable and every service picks it up — `chat.yourdomain.com`, `grafana.yourdomain.com`, `langfuse.yourdomain.com`, and so on. The `:-jameskilby.cloud` default means the compose still works if the variable is unset, which keeps `docker compose config` clean for local testing.
 
 An `.env.example` file is included in the repo with placeholder values and generation instructions for every required secret. Copy it to `.env`, fill in your values, and the stack is ready to deploy.
 
@@ -186,11 +186,11 @@ This split—local volumes for transactional databases, NAS for observability—
 
 ## Backups
 
-The self-hosted AI stack contains data in multiple locations. Some of this can be recreated or redownloaded easily and some of it needs protecting.
+The self-hosted AI stack contains data in multiple locations. Some of this can be recreated or redownloaded easily and some of it needs protecting..
 
 ### OpenWebUI Backups
 
-OpenWebUI is the front end to most of the AI stack and it can end up storing a lot of data from various sources. This data is mostly stored in a SQLite database. Due to the way sqlite works it is not possible to run it on remote storage. It therefore runs on local NVMe storage attached to the VM. To enable backups of this data, I have a second container that runs alongside OpenWebUI sharing access to the same volumes. It periodically (every 6 hours) performs a crash-consistent database backup and writes it out to the persistent smb share. It also performs retention of the database only keeping the last 7 copies. This gives me the ability to restore: 
+OpenWebUI is the front end to most of the AI stack and it can end up storing a lot of data from various sources. This data is mostly stored in a SQLite database. Due to the way sqlite works it is not possible to run it on remote storage. It therefore runs on local NVMe storage attached to the VM. To enable backups of this data, I have a second container that runs alongside OpenWebUI sharing access to the same volumes. It periodically (every 6 hours) performs a crash-consistent database backup and writes it out to the persistent smb share. It also performs retention of the database only keeping the last 7 copies. This gives me the ability to restore:: 
 
   * All User config
   * Every conversation and the associated message history
@@ -232,45 +232,15 @@ If the Git credentials are not set, it will back up to the SMB repo like the oth
 
 ## Similar Posts
 
-  * [ ![VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png) ](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
+  * [ ![WordPress Hosting with Cloudflare Pages](https://jameskilby.co.uk/wp-content/uploads/2023/05/simply-static-logo.png) ](https://jameskilby.co.uk/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages/)
 
-[VMware](https://jameskilby.co.uk/category/vmware/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/)
+[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
 
-### [VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
+### [WordPress Hosting with Cloudflare Pages](https://jameskilby.co.uk/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages/)
 
-By[James](https://jameskilby.co.uk) January 17, 2024June 1, 2026
+By[James](https://jameskilby.co.uk) May 14, 2023June 1, 2026
 
-How to Deploy VMware Holodeck on multiple hosts
-
-  * [ ![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg) ](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
-
-By[James](https://jameskilby.co.uk) October 23, 2023June 1, 2026
-
-Card Stats Install steps VM Provisioning Folding@Home A little while ago I decided to play with vGPU in my homelab.
-
-  * [ ![VMware – Going out with a Bang!](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo-768x384.png) ](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
-
-[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/)
-
-### [VMware – Going out with a Bang!](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
-
-By[James](https://jameskilby.co.uk) October 7, 2023June 1, 2026
-
-There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom.
-
-  * [ ![How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp) ](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
-
-[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
-
-### [How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
-
-By[James](https://jameskilby.co.uk) October 6, 2025June 1, 2026
-
-I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.
+Table of Contents The Tooling The Process WordPress Plugin Install GitHub setup Cloudflare setup I have been using Cloudflare to protect my web assets for a really long time.
 
   * [ ![Automated VCF 9 Offline Depot architecture diagram showing Traefik reverse proxy and Nginx file server stack](https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png) ](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
 
@@ -282,12 +252,42 @@ By[James](https://jameskilby.co.uk) April 10, 2026June 1, 2026
 
 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS.
 
-  * [ ![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png) ](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
+  * [ ![Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore-768x768.png) ](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
-[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
-### [Automating vSphere Power Management driven by Ansible and SemaphoreUI](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
+### [Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
-By[James](https://jameskilby.co.uk) April 15, 2026June 1, 2026
+By[James](https://jameskilby.co.uk) September 2, 2025June 1, 2026
 
-In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introduction One of the larger costs of running my homelab is the electricity….
+An intro on how I use SemaphoreUI to manage my Homelab
+
+  * [ ![Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png) ](https://jameskilby.co.uk/2023/04/intel-optane/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://jameskilby.co.uk/category/vexpert/)
+
+### [Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/2023/04/intel-optane/)
+
+By[James](https://jameskilby.co.uk) April 17, 2023June 1, 2026
+
+I have been a VMware vExpert for many years and it has brought me many benefits over the years.
+
+  * [ ![Static WordPress hosting using Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu-768x450.jpeg) ](https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/)
+
+[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
+
+### [Static WordPress hosting using Cloudflare](https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/)
+
+By[James](https://jameskilby.co.uk) October 20, 2022June 1, 2026
+
+For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product.
+
+  * [ ![Fixing Wrangler Node.js Version Conflicts After Brew Upgrade](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1-768x256.png) ](https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/)
+
+[Cloudflare](https://jameskilby.co.uk/category/cloudflare/)
+
+### [Fixing Wrangler Node.js Version Conflicts After Brew Upgrade](https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/)
+
+By[James](https://jameskilby.co.uk) January 15, 2022June 1, 2026
+
+I am a massive fan of the brew package management system for macOS and use it on all of my Macs. I typically just upgrade everything blindly and have never had an issue.

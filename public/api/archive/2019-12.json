@@ -8,7 +8,7 @@
       "title": "Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1)",
       "description": "As previously mentioned I have been working a lot with VMware Cloud on AWS and one of the questions that often crops up is around an approach to monitoring",
       "date": "2019-12-17T23:01:27Z",
-      "modified": "2026-06-01T21:06:23Z",
+      "modified": "2026-06-01T21:58:27Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/",
       "markdown_url": "/markdown/posts/monitoring-vmc-part-1.md",
@@ -17,18 +17,9 @@
         "VMware",
         "AWS",
         "Veeam",
+        "Personal",
         "VMware Cloud on AWS",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Homelab",
-        "Traefik",
-        "VCF",
-        "vSAN",
-        "Networking",
-        "Storage",
-        "Artificial Intelligence",
-        "NVIDIA"
+        "vSphere"
       ],
       "tags": [
         null,
@@ -51,12 +42,9 @@
       "categories": [
         "AWS",
         "Personal",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
-        "Consulting",
+        "Nutanix",
         "VMware",
-        "VMware Cloud on AWS"
+        "Veeam"
       ],
       "tags": [
         null,

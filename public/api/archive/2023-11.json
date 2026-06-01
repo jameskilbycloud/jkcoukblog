@@ -16,13 +16,17 @@
       "categories": [
         "Hosting",
         "Personal",
-        "VMware",
-        "Cloudflare",
-        "Devops",
-        "Github",
-        "Wordpress",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
         "Homelab",
-        "vSphere"
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "Nutanix",
+        "AWS",
+        "Cloudflare",
+        "Wordpress"
       ],
       "tags": [
         null,
@@ -49,11 +53,11 @@
       "categories": [
         "Kubernetes",
         "TrueNAS Scale",
+        "Docker",
         "Homelab",
+        "Hosting",
         "Storage",
         "vExpert",
-        "Docker",
-        "Hosting",
         "VMware",
         "vSAN",
         "vSphere"
@@ -78,9 +82,9 @@
       "categories": [
         "Networking",
         "Homelab",
+        "Mikrotik",
         "Storage",
-        "VMware",
-        "Mikrotik"
+        "VMware"
       ],
       "tags": [
         null,
@@ -96,7 +100,7 @@
       "title": "vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24",
       "description": "vSAN ESA - Benefits Performance benefits Efficiency benefits Resilience Benefits Sizing vSAN Express Storage Architecture (ESA) was announced at VMware Exp",
       "date": "2023-11-17T11:29:42Z",
-      "modified": "2026-06-01T21:06:57Z",
+      "modified": "2026-06-01T21:58:58Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/",
       "markdown_url": "/markdown/posts/vsan-esa-and-the-improvements-it-brings-to-vmc.md",
@@ -106,16 +110,17 @@
         "VMware Cloud on AWS",
         "vSAN",
         "Ansible",
-        "Automation",
-        "Docker",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
         "Homelab",
+        "NVIDIA",
         "Traefik",
-        "VCF",
         "Storage",
+        "Synology",
         "TrueNAS Scale",
-        "Personal",
-        "vSphere",
-        "Nutanix"
+        "Automation",
+        "Networking"
       ],
       "tags": [
         null,
@@ -140,18 +145,18 @@
         "VMware",
         "Personal",
         "vSphere",
-        "VMware Cloud on AWS",
-        "Consulting",
-        "Nutanix",
-        "Homelab",
-        "Storage",
-        "vExpert",
+        "Ansible",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
+        "Containers",
+        "Devops",
+        "Homelab",
         "NVIDIA",
         "Traefik",
-        "vSAN"
+        "Storage",
+        "vExpert",
+        "Automation",
+        "Nutanix",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,

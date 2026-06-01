@@ -16,13 +16,17 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Automation",
-        "VMware",
-        "vSphere",
+        "Networking",
         "Artificial Intelligence",
-        "Docker",
-        "Hosting",
-        "Kubernetes"
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "Mikrotik"
       ],
       "tags": [
         null,
