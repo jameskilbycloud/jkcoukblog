@@ -20,13 +20,13 @@ url: https://jameskilby.co.uk/2021/01/my-home-office-setup-upgrades/
 image: https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1-1024x768.jpeg
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1.jpeg)
+![Img 7017 Scaled 1](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1.jpeg)
 
 [Personal](https://jameskilby.co.uk/category/personal/) | [Consulting](https://jameskilby.co.uk/category/consulting/)
 
 # My Home Office Setup & Upgrades
 
-By[James](https://jameskilby.co.uk) January 5, 2021June 1, 2026 • 📖8 min read(1,570 words)
+By[James](https://jameskilby.co.uk)January 5, 2021June 1, 2026 • 📖8 min read(1,570 words)
 
 📅 **Published:** January 05, 2021• **Updated:** June 01, 2026
 
@@ -42,26 +42,26 @@ I’ll start with the BOM. I have attached a link to where they can be obtained 
 
 Item | Cost £| Link  
 ---|---|---  
-Standing Desk | 500 | [Ikea](https://www.ikea.com/gb/en/p/idasen-desk-sit-stand-brown-beige-s89280969/)  
-Headphone Stand | 22.90 | [Amazon](https://amzn.to/2XQYvsp)  
-Laptop Stand | 19.99 | [Amazon](https://amzn.to/2XPNVli)  
-Apple Macbook Air 2018 13″ | 1779 | [Apple](https://www.apple.com/uk/shop/buy-mac/macbook-air)  
-Apple iPad Pro 9.7″ | 599.39 | [Apple](https://www.apple.com/uk/shop/buy-ipad/ipad-pro)  
-Apple Pencil  | 99.99 | [Amazon](https://amzn.to/2Kd0vYC)  
-Dell 49″ Monitor | 1100 | [Dell](https://www.dell.com/en-uk/shop/dell-ultrasharp-49-curved-monitor-u4919dw/apd/210-argk/monitors-monitor-accessories)  
-Ergotron MX | 119.76 | [Amazon](https://amzn.to/2Lz46RI)  
-Elgato Ring Light | 189.95 | [Amazon](https://amzn.to/38PI0mM)  
-Canon EOS 5D Mk IV | 2799 | [Amazon](https://amzn.to/39J1jgx)  
-Canon 17-40MM F4 Lens + Hoya UV Filter | 573 | [Amazon](https://amzn.to/38PI0mM)  
-Blackmagic Design Atem Mini | 303 | [Amazon](https://amzn.to/38PI0mM)  
-Shure MV7 + Stand | 289 | [Amazon](https://amzn.to/2KHOvPf)  
-Anker USB-C Charger | 29.99 | [Amazon](https://amzn.to/3iE2LoC)  
-Amazon Echo Show 5 | 29.99 | [Amazon](https://amzn.to/2Kd0vYC)  
-Yubikey 4 | 39.99 | [Amazon](https://amzn.to/3ifPHp7)  
-Beats Solo Pro* | 169.99 | [Amazon](https://amzn.to/3qwVsC2)  
-Knobsound Amp | 41.99 | [Amazon](https://amzn.to/3sByXxx)  
-Assorted Cables | 100 | N/A  
-**Total** | **8306.93** |   
+Standing Desk| 500| [Ikea](https://www.ikea.com/gb/en/p/idasen-desk-sit-stand-brown-beige-s89280969/)  
+Headphone Stand| 22.90| [Amazon](https://amzn.to/2XQYvsp)  
+Laptop Stand| 19.99| [Amazon](https://amzn.to/2XPNVli)  
+Apple Macbook Air 2018 13″| 1779| [Apple](https://www.apple.com/uk/shop/buy-mac/macbook-air)  
+Apple iPad Pro 9.7″| 599.39| [Apple](https://www.apple.com/uk/shop/buy-ipad/ipad-pro)  
+Apple Pencil | 99.99| [Amazon](https://amzn.to/2Kd0vYC)  
+Dell 49″ Monitor| 1100| [Dell](https://www.dell.com/en-uk/shop/dell-ultrasharp-49-curved-monitor-u4919dw/apd/210-argk/monitors-monitor-accessories)  
+Ergotron MX| 119.76| [Amazon](https://amzn.to/2Lz46RI)  
+Elgato Ring Light| 189.95| [Amazon](https://amzn.to/38PI0mM)  
+Canon EOS 5D Mk IV| 2799| [Amazon](https://amzn.to/39J1jgx)  
+Canon 17-40MM F4 Lens + Hoya UV Filter| 573| [Amazon](https://amzn.to/38PI0mM)  
+Blackmagic Design Atem Mini| 303| [Amazon](https://amzn.to/38PI0mM)  
+Shure MV7 + Stand| 289| [Amazon](https://amzn.to/2KHOvPf)  
+Anker USB-C Charger| 29.99| [Amazon](https://amzn.to/3iE2LoC)  
+Amazon Echo Show 5| 29.99| [Amazon](https://amzn.to/2Kd0vYC)  
+Yubikey 4| 39.99| [Amazon](https://amzn.to/3ifPHp7)  
+Beats Solo Pro*| 169.99| [Amazon](https://amzn.to/3qwVsC2)  
+Knobsound Amp| 41.99| [Amazon](https://amzn.to/3sByXxx)  
+Assorted Cables| 100| N/A  
+ **Total**|  **8306.93**|   
   
 ## Desk – Ikea Idasen Sit/Stand 160
 
@@ -145,62 +145,62 @@ When travel was a thing I was lucky enough to visit a number of customers in the
 
 ## Similar Posts
 
-  * [ ![AWS Solution Architect – Associate](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_-768x307.png) ](https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/)
+  * [![AWS Solution Architect – Associate](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_-768x307.png)](https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/)
 
 [AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
 ### [AWS Solution Architect – Associate](https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/)
 
-By[James](https://jameskilby.co.uk) December 16, 2019May 31, 2026
+By[James](https://jameskilby.co.uk)December 16, 2019May 31, 2026
 
 I renewed my AWS Solution Architect certification.
 
-  * [ ![Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png) ](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
+  * [![Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png)](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
 
 ### [Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
-By[James](https://jameskilby.co.uk) November 10, 2023June 1, 2026
+By[James](https://jameskilby.co.uk)November 10, 2023June 1, 2026
 
 Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal.
 
-  * [ ![VMware – Going out with a Bang!](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo-768x384.png) ](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
+  * [![VMware – Going out with a Bang!](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo-768x384.png)](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
 ### [VMware – Going out with a Bang!](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
 
-By[James](https://jameskilby.co.uk) October 7, 2023June 1, 2026
+By[James](https://jameskilby.co.uk)October 7, 2023June 1, 2026
 
 There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom.
 
-  * [ ![Analytics in a privacy focused world](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png) ](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
+  * [![Analytics in a privacy focused world](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png)](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
 
 [Hosting](https://jameskilby.co.uk/category/hosting/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
 ### [Analytics in a privacy focused world](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
 
-By[James](https://jameskilby.co.uk) November 10, 2023June 1, 2026
+By[James](https://jameskilby.co.uk)November 10, 2023June 1, 2026
 
 I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance.
 
-  * [ ![Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg) ](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
+  * [![Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg)](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
 
 [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
 ### [Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
 
-By[James](https://jameskilby.co.uk) July 2, 2020May 31, 2026
+By[James](https://jameskilby.co.uk)July 2, 2020May 31, 2026
 
 I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam.
 
-  * [ ![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png) ](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
+  * [![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
 [Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
-By[James](https://jameskilby.co.uk) September 13, 2020May 31, 2026
+By[James](https://jameskilby.co.uk)September 13, 2020May 31, 2026
 
 I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.
