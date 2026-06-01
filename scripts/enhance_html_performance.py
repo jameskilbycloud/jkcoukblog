@@ -293,11 +293,23 @@ class HTMLPerformanceEnhancer:
             LCP image in the priority queue for no visual win.
         Promoting a font to `optional` in the CSS automatically opts it
         into preloading; demoting to `swap` automatically opts out.
+
+        Idempotent: any existing `<link rel="preload" as="font">` tag is
+        stripped first, so re-running this function (e.g. before AND
+        after stylesheet inlining) converges on the correct preload set.
         """
         if not soup.head:
             return False
 
         modified = False
+
+        # Strip any pre-existing font preloads — they may have been
+        # injected by a previous pipeline run that saw stale @font-face
+        # values. We re-derive from the current soup state below.
+        for stale in list(soup.find_all('link', rel='preload', attrs={'as': 'font'})):
+            stale.decompose()
+            modified = True
+            self.optimizations_applied += 1
 
         # Match each @font-face { ... } block and capture its body so we
         # can inspect font-display and the src url() together.
