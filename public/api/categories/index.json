@@ -32,7 +32,7 @@
   {
     "name": "VCF",
     "slug": "vcf",
-    "count": 29
+    "count": 28
   },
   {
     "name": "Storage",
@@ -52,7 +52,7 @@
   {
     "name": "Ansible",
     "slug": "ansible",
-    "count": 39
+    "count": 38
   },
   {
     "name": "Automation",
@@ -82,7 +82,7 @@
   {
     "name": "Artificial Intelligence",
     "slug": "artificial-intelligence",
-    "count": 41
+    "count": 42
   },
   {
     "name": "Consulting",
@@ -97,12 +97,12 @@
   {
     "name": "Devops",
     "slug": "devops",
-    "count": 25
+    "count": 26
   },
   {
     "name": "NVIDIA",
     "slug": "nvidia",
-    "count": 32
+    "count": 33
   },
   {
     "name": "vSAN",
@@ -112,7 +112,7 @@
   {
     "name": "Kubernetes",
     "slug": "kubernetes",
-    "count": 8
+    "count": 7
   },
   {
     "name": "TrueNAS Scale",
@@ -137,7 +137,7 @@
   {
     "name": "Github",
     "slug": "github",
-    "count": 7
+    "count": 8
   },
   {
     "name": "Wordpress",

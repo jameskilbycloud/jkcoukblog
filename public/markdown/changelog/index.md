@@ -15,13 +15,13 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-851
+852
 
 Git commits
 
 ### Repository Age
 
-240
+241
 
 Days active
 
@@ -33,9 +33,9 @@ Active contributors
 
 ### Last Deployment
 
-2026-05-30
+2026-05-31
 
-09:50:08
+11:55:31
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -209,5 +209,5 @@ The Plausible proxy commit pointed every page's <script src> at
 
 Move Plausible JS to CF Workers
 
-Page generated: 2026-05-31 11:55:26 UTC  
+Page generated: 2026-06-01 07:24:58 UTC  
 Changelog powered by Git history and Lighthouse CI
