@@ -133,6 +133,15 @@ class HTMLTransformer:
         if self._apply_inline_project_stylesheets(soup):
             modified = True
 
+        # ── Phase 4.7.5: Re-derive font preloads from freshly inlined CSS ──
+        # Phase 3 ran optimize_fonts before the project stylesheets were
+        # inlined, so it may have keyed off stale @font-face values left in
+        # the input HTML by an earlier pipeline run (e.g. all `optional`
+        # before the optional→swap split). Re-run after inlining so the
+        # preload set reflects the current CSS source of truth.
+        if self.perf.optimize_fonts(soup):
+            modified = True
+
         # ── Phase 4.8: Picture <source> srcset repair ────────────────────
         # Safety net for pictures whose AVIF/WebP <source> tags ended up
         # with single-file srcsets even though the wrapped <img> carries a
@@ -398,6 +407,8 @@ class HTMLTransformer:
     def _apply_performance_hints(self, soup):
         """Apply all performance enhancements from HTMLPerformanceEnhancer."""
         modified = False
+        if self.perf.strip_http_equiv_meta(soup):
+            modified = True
         if self.perf.add_async_defer_to_scripts(soup):
             modified = True
         if self.perf.add_media_attributes_to_css(soup):
