@@ -13,10 +13,13 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "VCF",
+        "AWS",
+        "Veeam",
         "Personal",
-        "Automation",
-        "Homelab"
+        "vSphere",
+        "vSAN",
+        "Homelab",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -31,7 +34,7 @@
       "title": "How VMware Cloud on AWS Handles Host Failures Automatically",
       "description": "When you run a large enough Infrastructure failure is inevitable. How you handle that can be a big differentiator.",
       "date": "2020-09-15T10:56:32Z",
-      "modified": "2026-06-01T21:06:29Z",
+      "modified": "2026-06-01T21:58:32Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2020/09/vmc-host-errors/",
       "markdown_url": "/markdown/posts/vmc-host-errors.md",
@@ -39,12 +42,13 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "TrueNAS Scale",
         "vSAN",
-        "vSphere",
+        "Automation",
+        "Homelab",
         "AWS",
-        "Personal",
-        "Hosting"
+        "Veeam",
+        "vSphere",
+        "Personal"
       ],
       "tags": [
         null,
@@ -62,7 +66,7 @@
       "title": "An in-depth look at VMware Cloud on AWS hosts",
       "description": "This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison.",
       "date": "2025-08-14T12:32:01Z",
-      "modified": "2026-06-01T21:07:09Z",
+      "modified": "2026-06-01T21:59:06Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/08/vmc-host-deepdive/",
       "markdown_url": "/markdown/posts/vmc-host-deepdive.md",
@@ -70,13 +74,16 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
-        "VCF",
         "AWS",
         "Veeam",
         "Homelab",
-        "Networking",
-        "Storage"
+        "vSAN",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "Personal"
       ],
       "tags": [
         null
@@ -89,7 +96,7 @@
       "title": "Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide",
       "description": "Step-by-step setup of Nvidia Tesla P4 vGPU on VMware ESXi for a homelab. Drivers, licence server, vGPU profiles, plus gotchas and performance notes.",
       "date": "2023-10-23T14:56:58Z",
-      "modified": "2026-06-01T21:06:53Z",
+      "modified": "2026-06-01T21:58:55Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/",
       "markdown_url": "/markdown/posts/vgpu-setup-in-my-homelab.md",
@@ -97,16 +104,13 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Nutanix",
-        "VCF",
-        "AWS",
-        "Veeam",
-        "Personal",
-        "vSphere",
-        "Artificial Intelligence",
-        "Docker",
         "Storage",
-        "Synology"
+        "TrueNAS Scale",
+        "Mikrotik",
+        "Networking",
+        "VMware Cloud on AWS",
+        "Ansible",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -121,7 +125,7 @@
       "title": "VeeamON 2020: Highlights From Veeam’s Virtual Conference",
       "description": "As everyone knows by now the world has changed possibly forever. Due to Covid19 working from home has become the new normal.",
       "date": "2020-06-18T14:42:45Z",
-      "modified": "2026-06-01T21:06:25Z",
+      "modified": "2026-06-01T21:58:29Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2020/06/veeamon2020/",
       "markdown_url": "/markdown/posts/veeamon2020.md",
@@ -152,17 +156,16 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "AWS",
+        "Veeam",
+        "Personal",
+        "vSphere",
+        "Homelab",
         "Artificial Intelligence",
         "Automation",
         "Docker",
-        "Homelab",
         "NVIDIA",
-        "Traefik",
-        "Personal",
-        "vSphere",
-        "Storage",
-        "vExpert",
-        "Nutanix"
+        "Traefik"
       ],
       "tags": [
         null,
@@ -188,11 +191,15 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Storage",
-        "Ansible",
-        "VCF",
         "VMware",
+        "Networking",
+        "Storage",
+        "Runecast",
+        "Artificial Intelligence",
         "Automation",
+        "NVIDIA",
+        "Traefik",
+        "Cloudflare",
         "Wordpress"
       ],
       "tags": [
@@ -208,7 +215,7 @@
       "title": "Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets",
       "description": "Configure DHCP Option 43 so UniFi APs and switches auto-adopt across subnets. Includes the hex converter, OPNsense + Mikrotik examples, and a UDM guide.",
       "date": "2024-06-26T10:50:17Z",
-      "modified": "2026-06-01T21:07:00Z",
+      "modified": "2026-06-01T21:59:01Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/",
       "markdown_url": "/markdown/posts/unifi-dhcp-option-43.md",
@@ -216,16 +223,19 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Ansible",
-        "Storage",
-        "Synology",
         "Docker",
         "Hosting",
         "Kubernetes",
+        "Artificial Intelligence",
         "Automation",
+        "NVIDIA",
         "Traefik",
+        "VMware",
+        "Nutanix",
+        "Ansible",
         "VCF",
-        "VMware"
+        "Storage",
+        "Synology"
       ],
       "tags": [
         null,
@@ -275,11 +285,11 @@
       "categories": [
         "Kubernetes",
         "TrueNAS Scale",
+        "Docker",
         "Homelab",
+        "Hosting",
         "Storage",
         "vExpert",
-        "Docker",
-        "Hosting",
         "VMware",
         "vSAN",
         "vSphere"

@@ -27,7 +27,7 @@
       "title": "Starlink Satellite Internet Review: Rural Broadband Solution",
       "description": "Since moving to Dorset last year internet connectivity has been the bane of my existence.",
       "date": "2022-10-11T21:40:50Z",
-      "modified": "2026-06-01T21:06:43Z",
+      "modified": "2026-06-01T21:58:46Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2022/10/starlink/",
       "markdown_url": "/markdown/posts/starlink.md",
@@ -35,19 +35,15 @@
       "categories": [
         "Homelab",
         "Hosting",
-        "TrueNAS Scale",
+        "VCF",
         "VMware",
-        "vSAN",
-        "vSphere",
-        "Storage",
-        "Synology",
-        "Mikrotik",
         "Networking",
-        "Ansible",
-        "Automation",
+        "Storage",
         "Cloudflare",
-        "Personal",
-        "Wordpress"
+        "Wordpress",
+        "Nutanix",
+        "Docker",
+        "Kubernetes"
       ],
       "tags": [
         null,
@@ -70,15 +66,13 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
+        "Networking",
         "Automation",
         "VMware",
-        "Storage",
-        "Synology",
         "NVIDIA",
         "Traefik",
-        "Ansible",
-        "Containers",
-        "Devops"
+        "Hosting",
+        "Kubernetes"
       ],
       "tags": [
         null,
@@ -93,7 +87,7 @@
       "title": "Runecast Remediation Scripts: Auto-Fix VMware Storage Issues",
       "description": "I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.",
       "date": "2023-05-16T10:38:45Z",
-      "modified": "2026-06-01T21:06:51Z",
+      "modified": "2026-06-01T21:58:53Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/",
       "markdown_url": "/markdown/posts/runecast-remediation-scripts.md",
@@ -102,11 +96,15 @@
         "Runecast",
         "VMware",
         "Homelab",
-        "Networking",
-        "Storage",
+        "Veeam",
         "VMware Cloud on AWS",
-        "Hosting",
-        "Nutanix"
+        "Storage",
+        "vExpert",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,
@@ -122,7 +120,7 @@
       "title": "Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested",
       "description": "I am quite a heavy consumer of electricity at home.",
       "date": "2026-03-09T23:39:37Z",
-      "modified": "2026-06-01T21:07:17Z",
+      "modified": "2026-06-01T21:59:12Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/",
       "markdown_url": "/markdown/posts/octopus-agile-battery-solar-calculator.md",
@@ -130,16 +128,14 @@
       "categories": [
         "Artificial Intelligence",
         "Automation",
-        "Homelab",
-        "Ansible",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
         "Docker",
         "Hosting",
-        "VCF"
+        "Homelab",
+        "Ansible",
+        "Traefik",
+        "VCF",
+        "VMware",
+        "NVIDIA"
       ],
       "tags": [
         null,
@@ -162,11 +158,10 @@
       "categories": [
         "Nutanix",
         "Personal",
-        "Homelab",
         "VMware",
-        "Hosting",
         "Consulting",
-        "Devops"
+        "Devops",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -187,9 +182,9 @@
       "api_url": "/api/posts/nutanix-command-reference-guide.json",
       "categories": [
         "Nutanix",
+        "Personal",
         "Homelab",
-        "VMware",
-        "Personal"
+        "VMware"
       ],
       "tags": [
         null,
@@ -203,7 +198,7 @@
       "title": "Running Nutanix CE at Home: AHV Setup & First Impressions",
       "description": "I ran a Nutanix CE server at home for a little while when it first came out.",
       "date": "2018-01-06T17:28:56Z",
-      "modified": "2026-06-01T21:06:14Z",
+      "modified": "2026-06-01T21:58:18Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2018/01/nutanix-ce/",
       "markdown_url": "/markdown/posts/nutanix-ce.md",
@@ -211,12 +206,19 @@
       "categories": [
         "Homelab",
         "Nutanix",
-        "Artificial Intelligence",
         "Docker",
+        "Hosting",
+        "Kubernetes",
+        "Veeam",
+        "VMware",
         "Personal",
-        "Storage",
-        "Synology",
-        "TrueNAS Scale"
+        "Artificial Intelligence",
+        "Ansible",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "Storage"
       ],
       "tags": [
         null
@@ -237,20 +239,18 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Homelab",
+        "Traefik",
+        "VCF",
+        "Networking",
+        "Storage",
         "TrueNAS Scale",
         "vSAN",
         "vSphere",
-        "VCF",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "Automation",
-        "Docker",
-        "Veeam"
+        "Personal"
       ],
       "tags": [
         null,
@@ -274,14 +274,14 @@
         "Homelab",
         "Nutanix",
         "VMware",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
-        "Ansible",
-        "Veeam",
-        "VCF",
+        "Networking",
         "VMware Cloud on AWS",
-        "Networking"
+        "Ansible",
+        "Automation",
+        "Runecast",
+        "Artificial Intelligence",
+        "Docker",
+        "Hosting"
       ],
       "tags": [
         null,

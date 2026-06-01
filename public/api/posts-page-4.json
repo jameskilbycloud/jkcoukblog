@@ -26,7 +26,7 @@
       "title": "My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)",
       "description": "Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database",
       "date": "2026-04-04T21:39:21Z",
-      "modified": "2026-06-01T21:07:19Z",
+      "modified": "2026-06-01T21:59:15Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/",
       "markdown_url": "/markdown/posts/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2.md",
@@ -39,13 +39,13 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VCF",
-        "Personal",
         "Cloudflare",
-        "Devops",
-        "Github",
+        "Hosting",
         "Wordpress",
-        "Ansible"
+        "Ansible",
+        "VCF",
+        "Storage",
+        "vExpert"
       ],
       "tags": [
         null,
@@ -85,12 +85,13 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VMware Cloud on AWS",
+        "Nutanix",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
         "Ansible",
-        "Containers",
-        "Devops",
-        "Runecast",
-        "Hosting"
+        "Hosting",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -124,11 +125,10 @@
         "Personal",
         "Consulting",
         "VMware",
+        "Devops",
         "Hosting",
         "Cloudflare",
-        "Wordpress",
-        "AWS",
-        "Devops"
+        "Wordpress"
       ],
       "tags": [
         null,
@@ -151,14 +151,14 @@
       "categories": [
         "Devops",
         "Personal",
-        "Consulting",
         "VMware",
         "vSphere",
-        "Hosting",
         "Cloudflare",
+        "Hosting",
         "Wordpress",
         "Automation",
-        "Homelab"
+        "Homelab",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -183,12 +183,12 @@
         "VCF",
         "Homelab",
         "Veeam",
-        "vSAN",
-        "Storage",
-        "vExpert",
+        "AWS",
         "VMware Cloud on AWS",
-        "TrueNAS Scale",
-        "vSphere"
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Traefik"
       ],
       "tags": [
         null,
@@ -204,7 +204,7 @@
       "title": "Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1)",
       "description": "As previously mentioned I have been working a lot with VMware Cloud on AWS and one of the questions that often crops up is around an approach to monitoring",
       "date": "2019-12-17T23:01:27Z",
-      "modified": "2026-06-01T21:06:23Z",
+      "modified": "2026-06-01T21:58:27Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/",
       "markdown_url": "/markdown/posts/monitoring-vmc-part-1.md",
@@ -213,18 +213,9 @@
         "VMware",
         "AWS",
         "Veeam",
+        "Personal",
         "VMware Cloud on AWS",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Homelab",
-        "Traefik",
-        "VCF",
-        "vSAN",
-        "Networking",
-        "Storage",
-        "Artificial Intelligence",
-        "NVIDIA"
+        "vSphere"
       ],
       "tags": [
         null,
@@ -239,7 +230,7 @@
       "title": "UK Money Saving Tips: Banking, Rewards & Travel Cards",
       "description": "I recently got back from an amazing conference in New Orleans.",
       "date": "2017-05-29T11:49:16Z",
-      "modified": "2026-06-01T21:06:11Z",
+      "modified": "2026-06-01T21:58:14Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2017/05/money-saving-uk-version/",
       "markdown_url": "/markdown/posts/money-saving-uk-version.md",
@@ -263,13 +254,17 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Automation",
-        "VMware",
-        "vSphere",
+        "Networking",
         "Artificial Intelligence",
-        "Docker",
-        "Hosting",
-        "Kubernetes"
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "Mikrotik"
       ],
       "tags": [
         null,
@@ -294,11 +289,13 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "Storage",
-        "Synology",
+        "Artificial Intelligence",
+        "Personal",
         "Networking",
         "VMware Cloud on AWS",
-        "vExpert"
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere"
       ],
       "tags": [
         null,

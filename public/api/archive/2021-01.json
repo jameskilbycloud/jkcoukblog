@@ -17,15 +17,12 @@
         "Automation",
         "Homelab",
         "VMware",
-        "Storage",
-        "vExpert",
-        "VMware Cloud on AWS",
+        "vSphere",
         "Ansible",
         "Docker",
         "Traefik",
         "VCF",
-        "Mikrotik",
-        "Networking"
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -50,11 +47,10 @@
         "Personal",
         "Consulting",
         "VMware",
+        "Devops",
         "Hosting",
         "Cloudflare",
-        "Wordpress",
-        "AWS",
-        "Devops"
+        "Wordpress"
       ],
       "tags": [
         null,

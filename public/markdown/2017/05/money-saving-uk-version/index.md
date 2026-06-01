@@ -2,7 +2,7 @@
 title: "UK Money Saving Tips: Banking, Rewards & Travel Cards"
 description: "I recently got back from an amazing conference in New Orleans."
 date: 2017-05-29T11:49:16+00:00
-modified: 2026-06-01T21:06:11+00:00
+modified: 2026-06-01T21:58:14+00:00
 author: James Kilby
 categories:
   - Money
@@ -34,7 +34,7 @@ I have split this across three posts as it’s very text heavy:
 
 **UK banking and rewards**
 
-I currently have a number of UK current accounts…
+I currently have a number of UK current accounts….
 
 **Barclays Bank (Main Account)** This is my main account where my salary gets paid into. Financially it is not an amazing account it pays 0 credit interest and is not very cheap if you go into the overdraft. The overdraft is large (carry over from my student days). Most of my direct debits are paid from this account and I try to have zero balance in this account all of the time. There are three reasons why I keep this account around. 1. The iPhone app is amazing – it pretty much does everything I could want from a banking point of view. Managing balances, standing orders, and direct debits is easy. But the app also covers all the more complex features. I have organised a loan and mortgage straight from the app (I did need to visit the bank for a quick meeting with them for the mortgage). The loan took about 5 mins, with 0 personal interaction.
 

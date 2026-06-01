@@ -15,6 +15,7 @@
         "Devops",
         "Github",
         "Wordpress",
+        "Personal",
         "Hosting",
         "Artificial Intelligence",
         "Automation",
@@ -23,7 +24,8 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Personal"
+        "Ansible",
+        "VCF"
       ],
       "tags": [
         null,
@@ -41,7 +43,7 @@
       "title": "Homelab Storage Refresh (Part 1)",
       "description": "Table of Contents Background ZFS Overview Read Cache (ARC and L2ARC) ZIL (ZFS Intent Log) Hardware Background I have just completed the move of all my prod",
       "date": "2023-05-23T12:07:09Z",
-      "modified": "2026-06-01T21:06:49Z",
+      "modified": "2026-06-01T21:58:50Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2023/05/homelab-storage-refresh-part-1/",
       "markdown_url": "/markdown/posts/homelab-storage-refresh-part-1.md",
@@ -49,14 +51,14 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
-        "Artificial Intelligence",
         "Networking",
-        "TrueNAS Scale",
+        "VMware",
+        "Ansible",
         "Automation",
-        "VMware"
+        "Docker",
+        "Traefik",
+        "VCF",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -80,16 +82,9 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
+        "Nutanix",
         "VMware",
-        "Ansible",
-        "Containers",
-        "Devops",
-        "Hosting"
+        "Veeam"
       ],
       "tags": [
         null,
@@ -111,17 +106,14 @@
       "categories": [
         "Mikrotik",
         "Networking",
+        "Ansible",
         "Homelab",
-        "Hosting",
-        "Veeam",
         "VMware",
-        "Runecast",
+        "VCF",
         "Artificial Intelligence",
-        "Automation",
         "Docker",
-        "NVIDIA",
-        "Traefik",
-        "Ansible"
+        "Storage",
+        "vExpert"
       ],
       "tags": [
         null,
@@ -144,14 +136,12 @@
       "categories": [
         "VCF",
         "VMware",
-        "Artificial Intelligence",
-        "Docker",
-        "Homelab",
-        "VMware Cloud on AWS",
-        "Ansible",
         "Automation",
-        "Traefik",
-        "Hosting"
+        "Homelab",
+        "Networking",
+        "Storage",
+        "VMware Cloud on AWS",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -176,15 +166,12 @@
         "Automation",
         "Homelab",
         "VMware",
-        "Storage",
-        "vExpert",
-        "VMware Cloud on AWS",
+        "vSphere",
         "Ansible",
         "Docker",
         "Traefik",
         "VCF",
-        "Mikrotik",
-        "Networking"
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -208,14 +195,16 @@
       "categories": [
         "VMware",
         "Personal",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
         "Homelab",
-        "Networking",
-        "Storage",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
+        "NVIDIA",
+        "Traefik",
+        "AWS",
+        "Veeam",
         "VMware Cloud on AWS",
-        "AWS"
+        "Ansible"
       ],
       "tags": [
         null,
@@ -240,16 +229,17 @@
         "Homelab",
         "VMware",
         "vSphere",
-        "VMware Cloud on AWS",
+        "Nutanix",
         "vSAN",
-        "Ansible",
-        "Automation",
+        "Artificial Intelligence",
         "Docker",
+        "Ansible",
+        "Containers",
+        "Devops",
+        "NVIDIA",
         "Traefik",
-        "VCF",
-        "TrueNAS Scale",
-        "Storage",
-        "vExpert"
+        "Networking",
+        "Automation"
       ],
       "tags": [
         null,
@@ -271,9 +261,9 @@
       "categories": [
         "Networking",
         "Homelab",
+        "Mikrotik",
         "Storage",
-        "VMware",
-        "Mikrotik"
+        "VMware"
       ],
       "tags": [
         null,
@@ -289,17 +279,16 @@
       "title": "What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained",
       "description": "Cloudflare - What is it and why would I care? I have been using Cloudflare for a long time.",
       "date": "2018-03-27T12:30:48Z",
-      "modified": "2026-06-01T21:06:17Z",
+      "modified": "2026-06-01T21:58:21Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2018/03/cloudflare/",
       "markdown_url": "/markdown/posts/cloudflare.md",
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
-        "AWS",
         "Cloudflare",
-        "Personal",
         "Wordpress",
+        "Personal",
         "Ansible",
         "Automation",
         "Docker",
@@ -307,7 +296,8 @@
         "Traefik",
         "VCF",
         "VMware",
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "NVIDIA"
       ],
       "tags": [
         null

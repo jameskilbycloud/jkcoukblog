@@ -5,7 +5,7 @@
       "title": "Cloudflare Workers – Limits of the free tier",
       "description": "I have been making several changes (mainly cosmetic to this site over the last day or so) On most changes I have been doing an export and then uploading th",
       "date": "2022-01-04T21:11:23Z",
-      "modified": "2026-06-01T21:06:33Z",
+      "modified": "2026-06-01T21:58:35Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/",
       "markdown_url": "/markdown/posts/cloudflare-workers-limits-of-the-free-tier.md",
@@ -13,8 +13,19 @@
       "categories": [
         "Hosting",
         "Wordpress",
+        "Personal",
         "Cloudflare",
-        "Personal"
+        "Devops",
+        "Github",
+        "Artificial Intelligence",
+        "Docker",
+        "Homelab",
+        "Kubernetes",
+        "Ansible",
+        "Automation",
+        "Traefik",
+        "VCF",
+        "VMware"
       ],
       "tags": [
         null,
@@ -39,10 +50,15 @@
         "Storage",
         "TrueNAS Scale",
         "Networking",
-        "Synology",
-        "Artificial Intelligence",
         "VMware",
-        "Ansible"
+        "Hosting",
+        "Mikrotik",
+        "Veeam",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Traefik",
+        "VCF"
       ],
       "tags": [
         null,
@@ -64,13 +80,12 @@
       "categories": [
         "AWS",
         "Hosting",
-        "Personal",
-        "Docker",
         "Homelab",
-        "Kubernetes",
-        "Wordpress",
+        "Personal",
         "Cloudflare",
-        "Artificial Intelligence"
+        "Wordpress",
+        "VMware",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -92,12 +107,9 @@
       "categories": [
         "AWS",
         "Personal",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
-        "Consulting",
+        "Nutanix",
         "VMware",
-        "VMware Cloud on AWS"
+        "Veeam"
       ],
       "tags": [
         null,
@@ -111,18 +123,18 @@
       "title": "AWS For Beginners: IAM Setup, Root Security & Billing Alerts",
       "description": "AWS for Beginners Part 1 I am hoping to get back into doing some AWS stuff over the next couple of months.",
       "date": "2018-03-30T23:13:21Z",
-      "modified": "2026-06-01T21:06:15Z",
+      "modified": "2026-06-01T21:58:19Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2018/03/aws-for-beginners1/",
       "markdown_url": "/markdown/posts/aws-for-beginners1.md",
       "api_url": "/api/posts/aws-for-beginners1.json",
       "categories": [
         "AWS",
-        "Personal",
         "VMware",
-        "VMware Cloud on AWS",
         "Veeam",
-        "Hosting"
+        "VMware Cloud on AWS",
+        "Hosting",
+        "Personal"
       ],
       "tags": [
         null,
@@ -136,7 +148,7 @@
       "title": "Automating the Deployment of my Homelab AI Infrastructure",
       "description": "Automate a complete AI homelab build with Ansible: Ubuntu, NVIDIA GPU passthrough, Docker, Traefik, and the full AI stack deployed via Semaphore.",
       "date": "2026-02-09T11:54:54Z",
-      "modified": "2026-06-01T21:07:15Z",
+      "modified": "2026-06-01T21:59:10Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/",
       "markdown_url": "/markdown/posts/automating-the-deployment-of-my-ai-homelab-and-other-improvements.md",
@@ -150,14 +162,15 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Personal",
-        "vSphere",
         "Storage",
         "Synology",
         "Automation",
-        "Runecast",
-        "VMware Cloud on AWS",
-        "vSAN"
+        "Docker",
+        "Personal",
+        "vSphere",
+        "Cloudflare",
+        "Github",
+        "Wordpress"
       ],
       "tags": [
         null,
@@ -174,7 +187,7 @@
       "title": "Automated VCF 9 Offline Depot",
       "description": "One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let's Encrypt wildcard certs via Cloudflare DNS.",
       "date": "2026-04-10T11:36:03Z",
-      "modified": "2026-06-01T21:07:18Z",
+      "modified": "2026-06-01T21:59:13Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/",
       "markdown_url": "/markdown/posts/automated-vcf-9-offline-depot.md",
@@ -187,14 +200,15 @@
         "Traefik",
         "VCF",
         "VMware",
-        "Storage",
-        "Synology",
+        "Cloudflare",
+        "Devops",
+        "Github",
+        "Wordpress",
+        "Hosting",
+        "Kubernetes",
         "Mikrotik",
         "Networking",
-        "Artificial Intelligence",
-        "AWS",
-        "Veeam",
-        "Hosting"
+        "vSphere"
       ],
       "tags": [
         null,
@@ -248,13 +262,14 @@
       "api_url": "/api/posts/and-now-for-something-completely-different.json",
       "categories": [
         "Personal",
-        "Hosting",
-        "Devops",
-        "Consulting",
-        "Cloudflare",
-        "Wordpress",
         "VMware",
-        "AWS"
+        "vSphere",
+        "AWS",
+        "Consulting",
+        "Devops",
+        "Hosting",
+        "Cloudflare",
+        "Wordpress"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018June 1, 2026 • 📖1 min read(263 words)\n\n📅 **Published:** October 16, 2018• ..."
@@ -272,13 +287,17 @@
       "categories": [
         "Hosting",
         "Personal",
-        "VMware",
-        "Cloudflare",
-        "Devops",
-        "Github",
-        "Wordpress",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
         "Homelab",
-        "vSphere"
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "Nutanix",
+        "AWS",
+        "Cloudflare",
+        "Wordpress"
       ],
       "tags": [
         null,

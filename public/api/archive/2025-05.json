@@ -16,10 +16,13 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "VCF",
+        "AWS",
+        "Veeam",
         "Personal",
-        "Automation",
-        "Homelab"
+        "vSphere",
+        "vSAN",
+        "Homelab",
+        "Nutanix"
       ],
       "tags": [
         null,
