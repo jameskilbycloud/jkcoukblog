@@ -62,23 +62,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      # The self-hosted runner is on Ubuntu 26.04 (Python 3.14 system) and
-      # actions/setup-python@v6 has no 3.11 build for it yet, so we use the
-      # system python3 via a venv. PEP 668 blocks pip-into-system on Debian
-      # derivatives, hence the venv. Subsequent steps pick up the venv by
-      # prepending it to $GITHUB_PATH.
-      - name: Set up venv and install dependencies
+      # Runner is Ubuntu 26.04 with system Python 3.14. setup-python@v6 has no
+      # 3.11 build for this OS, and the system Python's ensurepip / venv are
+      # stripped by Debian (the `python3.14-venv` package isn't installed).
+      # Use pip in --user mode with --break-system-packages: keeps everything
+      # under ~/.local, doesn't touch system site-packages.
+      - name: Install dependencies (user-site, PEP 668 override)
         run: |
           python3 --version
-          python3 -m venv .venv
-          .venv/bin/python -m pip install --upgrade pip
-          .venv/bin/python -m pip install requests
-          echo "${GITHUB_WORKSPACE}/.venv/bin" >> "$GITHUB_PATH"
-
-      - name: Confirm venv is on PATH
-        run: |
-          which python3
-          python3 -c "import requests; print('requests', requests.__version__)"
+          # ~/.local/bin is where --user installs script-shim binaries; not
+          # strictly needed here since we only import requests, but tidy.
+          echo "${HOME}/.local/bin" >> "$GITHUB_PATH"
+          python3 -m pip install --user --break-system-packages --upgrade requests
+          python3 -c "import requests, sys; print('requests', requests.__version__, '| python', sys.version.split()[0])"
 
       - name: Validate secrets / inputs
         run: |
