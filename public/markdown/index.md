@@ -45,7 +45,7 @@ posts.count.............72
 
 words.total............45k
 
-last_post..........45d ago
+last_post..........46d ago
 
 categories..............34
 
@@ -53,7 +53,7 @@ tags...................125
 
 vexpert.years...........11
 
-deploys.month..........118
+deploys.month............0
 
 last_deploy.........1d ago
 
@@ -91,7 +91,7 @@ One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Ngi
 
 ## [My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
-By[James](https://jameskilby.co.uk) April 4, 2026April 16, 2026
+By[James](https://jameskilby.co.uk) April 4, 2026May 31, 2026
 
 Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each.
 
@@ -111,7 +111,7 @@ We’ve expanded the VMC fleet with the new i7i (i7i.
 
 ## [My Self-Hosted AI Stack: Architecture Overview (Part 1)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
 
-By[James](https://jameskilby.co.uk) March 27, 2026May 23, 2026
+By[James](https://jameskilby.co.uk) March 27, 2026May 31, 2026
 
 A walkthrough of my self-hosted AI stack: Ollama, Open WebUI, ComfyUI, Whishper, n8n, Qdrant, SearxNG, and a full observability layer — all running on my own hardware with Docker Compose.
 
@@ -121,7 +121,7 @@ A walkthrough of my self-hosted AI stack: Ollama, Open WebUI, ComfyUI, Whishper,
 
 ## [Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested](https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/)
 
-By[James](https://jameskilby.co.uk) March 9, 2026April 16, 2026
+By[James](https://jameskilby.co.uk) March 9, 2026May 31, 2026
 
 I am quite a heavy consumer of electricity at home. This is primarily driven by my lab but having a young son and two golden retrievers means more washing and drying.
 
@@ -131,7 +131,7 @@ I am quite a heavy consumer of electricity at home. This is primarily driven by 
 
 ## [Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
 
-By[James](https://jameskilby.co.uk) February 9, 2026May 25, 2026
+By[James](https://jameskilby.co.uk) February 9, 2026May 31, 2026
 
 Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere
 
@@ -151,7 +151,7 @@ How to leverage Content Libraries to deploy into VMware Cloud on AWS faster.
 
 ## [Blog Performance & SEO Improvements: Cloudflare, Privacy & More](https://jameskilby.co.uk/2026/01/web-development-improvements/)
 
-By[James](https://jameskilby.co.uk) January 15, 2026May 25, 2026
+By[James](https://jameskilby.co.uk) January 15, 2026May 31, 2026
 
 I have spent the Christmas break making some improvements to this blog.
 
