@@ -9,12 +9,15 @@ categories:
   - VMware
   - vSAN
   - vSphere
-  - Artificial Intelligence
-  - Docker
-  - Hosting
-  - VMware Cloud on AWS
   - Homelab
   - Storage
+  - Synology
+  - VMware Cloud on AWS
+  - Ansible
+  - Automation
+  - Docker
+  - Traefik
+  - VCF
   - Personal
 tags:
   - #Homelab
@@ -26,13 +29,13 @@ url: https://jameskilby.co.uk/2024/12/zfs-on-vmware/
 image: https://jameskilby.co.uk/wp-content/uploads/2024/12/IMG_20140330_210511-1024x845.jpeg
 ---
 
-![Zfs](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg)
+![](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg)
 
 [TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
 
 # How to Run ZFS on VMware vSphere: Setup Guide and Best Practices
 
-By[James](https://jameskilby.co.uk)December 18, 2024June 1, 2026 • 📖3 min read(531 words)
+By[James](https://jameskilby.co.uk) December 18, 2024June 1, 2026 • 📖3 min read(531 words)
 
 📅 **Published:** December 18, 2024• **Updated:** June 01, 2026
 
@@ -95,11 +98,11 @@ If everything is working you will see trimming running next to the pool.
 
 A further validation that this is working is to review the VM’s storage used, see the before and after of this VM’s storage
 
-![vm Before 2](https://jameskilby.co.uk/wp-content/uploads/2024/12/vm-Before-2.png)![vm After](https://jameskilby.co.uk/wp-content/uploads/2024/12/vm-After.png)
+![vm Before 2](https://jameskilby.co.uk/wp-content/uploads/2024/12/vm-Before-2.png) ![vm After](https://jameskilby.co.uk/wp-content/uploads/2024/12/vm-After.png)
 
 Additional confirmation can be seen by reviewing the underlying (vSAN consumption in this case). Before and after listed below.
 
-![V SAN Before](https://jameskilby.co.uk/wp-content/uploads/2024/12/vSAN-Before.png)![V SAN After](https://jameskilby.co.uk/wp-content/uploads/2024/12/vSAN-After-1.png)
+![V SAN Before](https://jameskilby.co.uk/wp-content/uploads/2024/12/vSAN-Before.png) ![V SAN After](https://jameskilby.co.uk/wp-content/uploads/2024/12/vSAN-After-1.png)
 
 ## 📚 Related Posts
 
@@ -109,62 +112,62 @@ Additional confirmation can be seen by reviewing the underlying (vSAN consumptio
 
 ## Similar Posts
 
-  * [![How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-768x411.png)](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
+  * [ ![Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1-768x403.jpg) ](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
 
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)
 
-### [How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
+### [Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
 
-By[James](https://jameskilby.co.uk)January 29, 2025June 1, 2026
+By[James](https://jameskilby.co.uk) November 21, 2022June 1, 2026
 
-Update: Hoarder has now been renamed to Karakeep due to a trademark issue I’ve been on a mission recently to regain control of my data.
+I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate.
 
-  * [![vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
-
-[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
-
-### [vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
-
-By[James](https://jameskilby.co.uk)November 17, 2023June 1, 2026
-
-An Overview of vSAN ESA in VMC 
-
-  * [![TrueNAS Logo](https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22-at-18.49.21-768x198.png)](https://jameskilby.co.uk/2023/05/homelab-storage-refresh-part-1/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)
-
-### [Homelab Storage Refresh (Part 1)](https://jameskilby.co.uk/2023/05/homelab-storage-refresh-part-1/)
-
-By[James](https://jameskilby.co.uk)May 23, 2023June 1, 2026
-
-Table of Contents Background ZFS Overview Read Cache (ARC and L2ARC) ZIL (ZFS Intent Log) Hardware Background I have just completed the move of all my production and media-based storage/services to TrueNAS Scale. ( I will just refer to this as TrueNAS) This is based on my HP Z840 and I have now retired my…
-
-  * [![VMware – Going out with a Bang!](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo-768x384.png)](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
-
-[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/)
-
-### [VMware – Going out with a Bang!](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
-
-By[James](https://jameskilby.co.uk)October 7, 2023June 1, 2026
-
-There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom.
-
-  * [![VMware Cloud on AWS Storage Sizing Quick Reference Guide](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png)](https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/)
+  * [ ![An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png) ](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
-### [VMware Cloud on AWS Storage Sizing Quick Reference Guide](https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/)
+### [An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
 
-By[James](https://jameskilby.co.uk)May 21, 2025June 1, 2026
+By[James](https://jameskilby.co.uk) August 14, 2025June 1, 2026
 
-Quick reference guide to the available storage resources that you get in VMware Cloud on AWS
+This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison.
 
-  * [![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
+  * [ ![Automated VCF 9 Offline Depot architecture diagram showing Traefik reverse proxy and Nginx file server stack](https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png) ](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
+
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [Automated VCF 9 Offline Depot](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
+
+By[James](https://jameskilby.co.uk) April 10, 2026June 1, 2026
+
+One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS.
+
+  * [ ![VMware Cloud on AWS \(VMC\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-768x395.png) ](https://jameskilby.co.uk/2020/09/vmc-host-errors/)
+
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
+
+### [How VMware Cloud on AWS Handles Host Failures Automatically](https://jameskilby.co.uk/2020/09/vmc-host-errors/)
+
+By[James](https://jameskilby.co.uk) September 15, 2020June 1, 2026
+
+Learn how host failures are handled within VMC
+
+  * [ ![Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1-768x1024.jpg) ](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
+
+By[James](https://jameskilby.co.uk) January 6, 2022February 16, 2026
+
+Quite a few changes have happened in the lab recently. I decided to do a multipart blog on the changes.
+
+  * [ ![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png) ](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
 [Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
-By[James](https://jameskilby.co.uk)September 13, 2020May 31, 2026
+By[James](https://jameskilby.co.uk) September 13, 2020May 31, 2026
 
 I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.

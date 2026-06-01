@@ -12,9 +12,13 @@ categories:
   - NVIDIA
   - Traefik
   - VMware
-  - VMware Cloud on AWS
+  - VCF
   - Personal
-  - vSphere
+  - Cloudflare
+  - Devops
+  - Github
+  - Wordpress
+  - Ansible
 tags:
   - #AI
   - #Artificial Intelligence
@@ -41,20 +45,20 @@ image: https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured.png
 
 # My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)
 
-By[James](https://jameskilby.co.uk)April 4, 2026June 1, 2026 • 📖11 min read(2,138 words)
+By[James](https://jameskilby.co.uk) April 4, 2026June 1, 2026 • 📖11 min read(2,138 words)
 
 📅 **Published:** April 04, 2026• **Updated:** June 01, 2026
 
- _This is Part 2 of a multi-part series on my self-hosted AI stack.[Part 1](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/) covers the application architecture and a layer-by-layer walkthrough of every service. If you haven’t read it yet, I’d recommend starting there — it gives the context that makes Part 2 make sense._
+_This is Part 2 of a multi-part series on my self-hosted AI stack.[Part 1](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/) covers the application architecture and a layer-by-layer walkthrough of every service. If you haven’t read it yet, I’d recommend starting there — it gives the context that makes Part 2 make sense._
 
 Part 2 goes deeper into the infrastructure side of things: how traffic is designed to route, how containers are sized and constrained, what databases and data stores are running under the hood.
 
 Specifically, this post covers:
 
-  *  **Resource limits and sizing** — CPU and memory constraints for every container, and the reasoning behind them
-  *  **Infrastructure and routing** — the dual-network design, Traefik reverse proxy configuration, Cloudflare Tunnels, and how external traffic is isolated from internal service communication
-  *  **Data layer** — every database and persistent store in the stack: PostgreSQL, SQLite, ChromaDB, Redis, and Minio
-  *  **Backups** — the sidecar backup strategy for PostgreSQL, n8n, and Open WebUI, with data landing on a NAS over SMB
+  * **Resource limits and sizing** — CPU and memory constraints for every container, and the reasoning behind them
+  * **Infrastructure and routing** — the dual-network design, Traefik reverse proxy configuration, Cloudflare Tunnels, and how external traffic is isolated from internal service communication
+  * **Data layer** — every database and persistent store in the stack: PostgreSQL, SQLite, ChromaDB, Redis, and Minio
+  * **Backups** — the sidecar backup strategy for PostgreSQL, n8n, and Open WebUI, with data landing on a NAS over SMB
 
 ## Table of Contents
 
@@ -217,8 +221,8 @@ If the Git credentials are not set, it will back up to the SMB repo like the oth
 
 ## Continue Reading
 
-  *  **[← Part 1: Architecture Overview](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)** – The big picture, layer-by-layer walkthrough from inference to observability.
-  *  **Part 3: Operations & Maintenance →** – Ansible deployment, monitoring with Uptime Kuma, and the Open WebUI backup strategy — coming soon 
+  * **[← Part 1: Architecture Overview](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)** – The big picture, layer-by-layer walkthrough from inference to observability.
+  * **Part 3: Operations & Maintenance →** – Ansible deployment, monitoring with Uptime Kuma, and the Open WebUI backup strategy — coming soon 
 
 ## 📚 Related Posts
 
@@ -228,62 +232,62 @@ If the Git credentials are not set, it will back up to the SMB repo like the oth
 
 ## Similar Posts
 
-  * [![New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
+  * [ ![VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png) ](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
 
-[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/)
 
-### [New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
+### [VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
 
-By[James](https://jameskilby.co.uk)April 1, 2026June 1, 2026
+By[James](https://jameskilby.co.uk) January 17, 2024June 1, 2026
 
-We’ve expanded the VMC fleet with the new i7i (i7i.
+How to Deploy VMware Holodeck on multiple hosts
 
-  * [![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
+  * [ ![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg) ](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
 
-[Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
+### [Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
 
-By[James](https://jameskilby.co.uk)September 13, 2020May 31, 2026
+By[James](https://jameskilby.co.uk) October 23, 2023June 1, 2026
 
-I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.
+Card Stats Install steps VM Provisioning Folding@Home A little while ago I decided to play with vGPU in my homelab.
 
-  * [![Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU](https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-768x512.jpg)](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/)
+  * [ ![VMware – Going out with a Bang!](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo-768x384.png) ](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
 
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
-### [Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/)
+### [VMware – Going out with a Bang!](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
 
-By[James](https://jameskilby.co.uk)October 11, 2024June 1, 2026
+By[James](https://jameskilby.co.uk) October 7, 2023June 1, 2026
 
-Artificial intelligence is all the rage at the moment, It’s getting included in every product announcement from pretty much every vendor under the sun.
+There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom.
 
-  * [![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
+  * [ ![How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp) ](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
 
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
 
-### [My Self-Hosted AI Stack: Architecture Overview (Part 1)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
+### [How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
 
-By[James](https://jameskilby.co.uk)March 27, 2026May 31, 2026
+By[James](https://jameskilby.co.uk) October 6, 2025June 1, 2026
 
-A walkthrough of my self-hosted AI stack: Ollama, Open WebUI, ComfyUI, Whishper, n8n, Qdrant, SearxNG, and a full observability layer — all running on my own hardware with Docker Compose.
+I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.
 
-  * [![An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png)](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
+  * [ ![Automated VCF 9 Offline Depot architecture diagram showing Traefik reverse proxy and Nginx file server stack](https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png) ](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
 
-[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
+### [Automated VCF 9 Offline Depot](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
 
-By[James](https://jameskilby.co.uk)August 14, 2025June 1, 2026
+By[James](https://jameskilby.co.uk) April 10, 2026June 1, 2026
 
-This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison.
+One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS.
 
-  * [![Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png)](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
+  * [ ![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png) ](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
-[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)
 
-### [Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
+### [Automating vSphere Power Management driven by Ansible and SemaphoreUI](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
-By[James](https://jameskilby.co.uk)November 10, 2023June 1, 2026
+By[James](https://jameskilby.co.uk) April 15, 2026June 1, 2026
 
-Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal.
+In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introduction One of the larger costs of running my homelab is the electricity….

@@ -1,6 +1,6 @@
 ---
 title: "Can you really squeeze 96TB in 1U ?"
-description: "Yes, that’s a clickbait title. Yes, that’s a clickbait title. But technically it’s possible if I dropped all drive redundancy…"
+description: "Yes, that’s a clickbait title."
 date: 2024-09-12T12:39:16+00:00
 modified: 2026-06-01T19:03:02+00:00
 author: James Kilby
@@ -9,11 +9,10 @@ categories:
   - Storage
   - TrueNAS Scale
   - Networking
-  - Veeam
-  - VMware
+  - Synology
   - Artificial Intelligence
-  - vSphere
-  - Nutanix
+  - VMware
+  - Ansible
 tags:
   - #Homelab
   - #Storage
@@ -21,13 +20,13 @@ url: https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/
 image: https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png
 ---
 
-![Quantagrid Sd1Q 1Ulh Front Three Quarter](https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png)
+![](https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/)
 
 # Can you really squeeze 96TB in 1U ?
 
-By[James](https://jameskilby.co.uk)September 12, 2024June 1, 2026 • 📖4 min read(773 words)
+By[James](https://jameskilby.co.uk) September 12, 2024June 1, 2026 • 📖4 min read(773 words)
 
 📅 **Published:** September 12, 2024• **Updated:** June 01, 2026
 
@@ -57,11 +56,11 @@ The servers also included rails which was a much appreciated benefit. The only d
 
 CPU| 2x Intel(R) Xeon(R) CPU E5-2620 v4 @ 2.10GHz  
 ---|---  
-Memory| 256 DDR4  
-Boot Device| 32 GB SATADom  
-HDD| 12x ST8000NM0075 8TB 12Gb SAS  
-SSD| 3x2TB Samsung Evo  
-NIC| 2x 25Gb  
+Memory | 256 DDR4  
+Boot Device | 32 GB SATADom  
+HDD | 12x ST8000NM0075 8TB 12Gb SAS  
+SSD | 3x2TB Samsung Evo  
+NIC | 2x 25Gb  
   
 ## Pool Configuration
 
@@ -113,54 +112,56 @@ I have also upgraded the NIC to a Quanta ConnectX-4 LX Dual-Port 25GbE
 
 ### [Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense](https://jameskilby.co.uk/2022/01/lab-update-part-3-network/)
 
-By[James](https://jameskilby.co.uk)January 6, 2022May 31, 2026
+By[James](https://jameskilby.co.uk) January 6, 2022May 31, 2026
 
 I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes.
 
-  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+  * [ ![Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1-768x403.jpg) ](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
 
-### [Lab Update – Desired Workloads](https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)
 
-By[James](https://jameskilby.co.uk)January 6, 2022June 1, 2026
+### [Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
 
-My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.
+By[James](https://jameskilby.co.uk) November 21, 2022June 1, 2026
 
-  * [![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-768x180.png)](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
+I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate.
+
+  * [ ![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-768x180.png) ](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
 ### [Warp – The intelligent terminal](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
 
-By[James](https://jameskilby.co.uk)April 11, 2025May 31, 2026
+By[James](https://jameskilby.co.uk) April 11, 2025June 1, 2026
 
 How Warp is helping me run my homelab. 
 
-  * [![Lab Update – Part 2 Storage Truenas Scale](https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault-768x432.jpeg)](https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/)
+  * [ ![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png) ](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [Lab Update – Part 2 Storage Truenas Scale](https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/)
+### [MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
 
-By[James](https://jameskilby.co.uk)January 11, 2022June 1, 2026
+By[James](https://jameskilby.co.uk) December 19, 2022June 1, 2026
 
-The HP Z840 has changed its role to a permanent storage box running Truenas Scale.
+For a while, I’ve been looking to update the networking at the core of my homelab.
 
-  * [![Forcing an Upgrade to vSphere 8](https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.45.23.png)](https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/)
+  * [ ![Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore-768x768.png) ](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
-### [Forcing an Upgrade to vSphere 8](https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/)
+### [Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
-By[James](https://jameskilby.co.uk)December 14, 2022June 1, 2026
+By[James](https://jameskilby.co.uk) September 2, 2025June 1, 2026
 
-I run a reasonably extensive homelab that is of course built around the VMware ecosystem.
+An intro on how I use SemaphoreUI to manage my Homelab
 
-  * [![Running Nutanix CE at Home: AHV Setup & First Impressions](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg)](https://jameskilby.co.uk/2018/01/nutanix-ce/)
+  * [ ![Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_-768x512.png) ](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
 
-### [Running Nutanix CE at Home: AHV Setup & First Impressions](https://jameskilby.co.uk/2018/01/nutanix-ce/)
+### [Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
 
-By[James](https://jameskilby.co.uk)January 6, 2018June 1, 2026
+By[James](https://jameskilby.co.uk) June 26, 2024June 1, 2026
 
-I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to continue running it at home.
+How to configure DHCP Option 43 for UniFi devices

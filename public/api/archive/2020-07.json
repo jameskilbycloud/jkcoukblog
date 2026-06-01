@@ -16,23 +16,23 @@
       "categories": [
         "Nutanix",
         "Personal",
-        "Devops",
+        "Homelab",
         "VMware",
         "Hosting",
-        "vSphere",
-        "Consulting"
+        "Consulting",
+        "Devops"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
-      "excerpt": "![Nutanix Logo Hi Rez Reverse W Carrier](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# Passing the Nutanix NCP Exam: Free Training & My..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# Passing the Nutanix NCP Exam: Free Training & My Experience\n\nBy[James](https://jamesk..."
     },
     {
       "slug": "i3en",
       "title": "VMware Cloud on AWS i3en Host: Specs, Storage & Performance",
-      "description": "VMware Cloud on AWS (VMC) has introduced a new host to its lineup: the “i3en”. This is based on the i3en.metal AWS instance.",
+      "description": "VMware Cloud on AWS (VMC) has introduced a new host to its lineup the \"i3en\". This is based on the i3en.",
       "date": "2020-07-02T22:01:39Z",
       "modified": "2026-06-01T21:06:27Z",
       "author": "James Kilby",
@@ -43,11 +43,11 @@
         "VMware",
         "VMware Cloud on AWS",
         "VCF",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
         "Homelab",
-        "Nutanix",
-        "Automation",
-        "Veeam",
-        "AWS"
+        "Veeam"
       ],
       "tags": [
         null,
