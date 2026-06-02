@@ -17,9 +17,11 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Nutanix",
-        "VMware",
-        "Veeam"
+        "Mikrotik",
+        "Networking",
+        "Hosting",
+        "Docker",
+        "Kubernetes"
       ],
       "tags": [
         null,

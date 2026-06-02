@@ -13,13 +13,17 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "AWS",
-        "Veeam",
-        "Personal",
-        "vSphere",
-        "vSAN",
+        "VCF",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
         "Homelab",
-        "Nutanix"
+        "NVIDIA",
+        "Traefik",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -42,13 +46,16 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "vSAN",
+        "Personal",
+        "Artificial Intelligence",
         "Automation",
+        "Docker",
         "Homelab",
-        "AWS",
-        "Veeam",
-        "vSphere",
-        "Personal"
+        "NVIDIA",
+        "Traefik",
+        "vSAN",
+        "Storage",
+        "vExpert"
       ],
       "tags": [
         null,
@@ -74,16 +81,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "AWS",
-        "Veeam",
+        "VCF",
         "Homelab",
-        "vSAN",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
-        "Personal"
+        "Networking",
+        "Storage",
+        "Personal",
+        "vSphere"
       ],
       "tags": [
         null
@@ -104,13 +107,16 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Storage",
-        "TrueNAS Scale",
-        "Mikrotik",
-        "Networking",
-        "VMware Cloud on AWS",
         "Ansible",
-        "Hosting"
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "Nutanix",
+        "Networking",
+        "Storage",
+        "Synology"
       ],
       "tags": [
         null,
@@ -141,7 +147,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png)\n\n[Veeam](https://jameskilby.co.uk/category/veeam/)\n\n# VeeamON 2020: Highlights From Veeam’s Virtual Conference\n\nBy[James](https://jameskilby.co.uk) June 18, 2020June 1, 2026 • 📖1 min read(272 words)\n\n📅 **Pub..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png)\n\n[Veeam](https://jameskilby.co.uk/category/veeam/)\n\n# VeeamON 2020: Highlights From Veeam’s Virtual Conference\n\nBy[James](https://jameskilby.co.uk) June 18, 2020 · Updated June 1, 2026 • 📖1 min read(272 word..."
     },
     {
       "slug": "using-content-libraries-in-vmc-to-deploy-software-faster",
@@ -156,16 +162,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "AWS",
-        "Veeam",
-        "Personal",
-        "vSphere",
         "Homelab",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Networking",
+        "Storage",
+        "Runecast",
+        "Veeam",
+        "AWS"
       ],
       "tags": [
         null,
@@ -191,16 +193,11 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "VMware",
-        "Networking",
+        "Personal",
         "Storage",
-        "Runecast",
-        "Artificial Intelligence",
-        "Automation",
-        "NVIDIA",
-        "Traefik",
-        "Cloudflare",
-        "Wordpress"
+        "Synology",
+        "Networking",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -223,17 +220,14 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
         "Artificial Intelligence",
         "Automation",
+        "Docker",
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Nutanix",
-        "Ansible",
-        "VCF",
+        "Hosting",
+        "Kubernetes",
         "Storage",
         "Synology"
       ],
@@ -270,7 +264,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)\n\n[Ubuntu](https://jameskilby.co.uk/category/ubuntu/)\n\n# How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step\n\nBy[James](https://jameskilby.co.uk) December 15, 2025May 24, 2026 • 📖1 min read(91 words)\n\n📅 **Published:** De..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)\n\n[Ubuntu](https://jameskilby.co.uk/category/ubuntu/)\n\n# How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step\n\nBy[James](https://jameskilby.co.uk) December 15, 2025 · Updated May 24, 2026 • 📖1 min read(91 words)\n\n📅 **Publ..."
     },
     {
       "slug": "truenas-scale-useful-commands",
@@ -285,14 +279,14 @@
       "categories": [
         "Kubernetes",
         "TrueNAS Scale",
-        "Docker",
         "Homelab",
-        "Hosting",
         "Storage",
         "vExpert",
         "VMware",
         "vSAN",
-        "vSphere"
+        "vSphere",
+        "Docker",
+        "Hosting"
       ],
       "tags": [
         null,

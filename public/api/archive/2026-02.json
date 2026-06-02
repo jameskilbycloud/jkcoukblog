@@ -22,15 +22,12 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Storage",
-        "Synology",
-        "Automation",
         "Docker",
-        "Personal",
-        "vSphere",
-        "Cloudflare",
-        "Github",
-        "Wordpress"
+        "Hosting",
+        "Networking",
+        "Automation",
+        "VMware Cloud on AWS",
+        "vSAN"
       ],
       "tags": [
         null,

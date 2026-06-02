@@ -17,12 +17,13 @@
         "Automation",
         "Homelab",
         "VMware",
-        "vSphere",
-        "Ansible",
-        "Docker",
-        "Traefik",
-        "VCF",
-        "Artificial Intelligence"
+        "AWS",
+        "Veeam",
+        "Storage",
+        "Devops",
+        "Personal",
+        "Artificial Intelligence",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -46,9 +47,11 @@
       "categories": [
         "Personal",
         "Consulting",
+        "Hosting",
         "VMware",
         "Devops",
-        "Hosting",
+        "AWS",
+        "vSphere",
         "Cloudflare",
         "Wordpress"
       ],
@@ -58,7 +61,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1-1024x768.jpeg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1.jpeg)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# My Home Office Setup & Upgrades\n\nBy[James](https://jameskilby.co.uk) January 5, 2021June 1, 2026 •..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1.jpeg)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# My Home Office Setup & Upgrades\n\nBy[James](https://jameskilby.co.uk) January 5, 2021 · Updated Jun..."
     }
   ]
 }

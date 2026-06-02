@@ -14,7 +14,7 @@ image: https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-
 
 # UK Money Saving Tips: Banking, Rewards & Travel Cards
 
-By[James](https://jameskilby.co.uk) May 29, 2017June 1, 2026 • 📖4 min read(778 words)
+By[James](https://jameskilby.co.uk) May 29, 2017 · Updated June 1, 2026 • 📖4 min read(778 words)
 
 📅 **Published:** May 29, 2017• **Updated:** June 01, 2026
 

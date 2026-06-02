@@ -17,13 +17,16 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "Networking",
         "Automation",
         "VMware",
+        "Veeam",
+        "Storage",
+        "Ansible",
+        "Containers",
+        "Devops",
         "NVIDIA",
         "Traefik",
-        "Hosting",
-        "Kubernetes"
+        "VCF"
       ],
       "tags": [
         null,
