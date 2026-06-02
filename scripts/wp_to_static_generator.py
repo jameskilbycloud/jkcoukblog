@@ -2965,8 +2965,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         hero.append(body)
 
-        # Remove the source card so the grid starts at post #2.
-        first_entry.decompose()
+        # Remove the source card so the grid starts at post #2. Kadence wraps
+        # each article in <li class="entry-list-item"> — decomposing the
+        # <article> alone leaves an empty <li> behind that the grid still
+        # counts as a slot, so walk up to the nearest list-item wrapper first.
+        to_remove = first_entry
+        wrapper = first_entry.find_parent('li')
+        if wrapper is not None and wrapper is not posts_list:
+            to_remove = wrapper
+        to_remove.decompose()
 
         return hero
 
