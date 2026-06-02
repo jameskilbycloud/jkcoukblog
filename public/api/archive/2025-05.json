@@ -16,8 +16,16 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "Homelab",
+        "Veeam",
         "Personal",
-        "Homelab"
+        "vSphere",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Traefik",
+        "VCF",
+        "vSAN"
       ],
       "tags": [
         null,

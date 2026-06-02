@@ -19,14 +19,10 @@
         "vSAN",
         "vSphere",
         "Homelab",
-        "Artificial Intelligence",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
-        "Ansible",
-        "AWS",
-        "Veeam",
-        "VMware Cloud on AWS"
+        "Storage",
+        "Synology",
+        "Networking",
+        "vExpert"
       ],
       "tags": [
         null,

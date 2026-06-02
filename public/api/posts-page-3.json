@@ -12,8 +12,7 @@
       "api_url": "/api/posts/time-in-a-vmc-environment.json",
       "categories": [
         "VMware Cloud on AWS",
-        "VMware",
-        "vSAN"
+        "VMware"
       ],
       "tags": [
         null,
@@ -35,15 +34,16 @@
       "categories": [
         "Homelab",
         "Hosting",
-        "Automation",
-        "VMware",
-        "Docker",
-        "Kubernetes",
-        "Personal",
-        "Nutanix",
         "Storage",
-        "Synology",
-        "Artificial Intelligence"
+        "vExpert",
+        "VMware",
+        "vSphere",
+        "Cloudflare",
+        "Personal",
+        "Wordpress",
+        "Nutanix",
+        "TrueNAS Scale",
+        "vSAN"
       ],
       "tags": [
         null,
@@ -66,14 +66,16 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "Automation",
-        "VMware",
-        "Networking",
-        "Storage",
-        "TrueNAS Scale",
         "Hosting",
-        "Kubernetes",
-        "Synology"
+        "Ansible",
+        "Automation",
+        "Traefik",
+        "VCF",
+        "VMware",
+        "Mikrotik",
+        "Networking",
+        "Runecast",
+        "Storage"
       ],
       "tags": [
         null,
@@ -97,13 +99,17 @@
         "Runecast",
         "VMware",
         "Artificial Intelligence",
+        "Automation",
         "Docker",
         "Homelab",
-        "Ansible",
-        "Automation",
+        "NVIDIA",
+        "Traefik",
+        "Storage",
+        "Synology",
         "VMware Cloud on AWS",
-        "Personal",
-        "VCF"
+        "vSAN",
+        "TrueNAS Scale",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -127,15 +133,16 @@
       "categories": [
         "Artificial Intelligence",
         "Automation",
-        "Homelab",
-        "VMware",
-        "Ansible",
         "Docker",
-        "Traefik",
-        "VCF",
+        "Homelab",
         "NVIDIA",
+        "Traefik",
+        "VMware",
+        "Hosting",
+        "Ansible",
         "Containers",
-        "Devops"
+        "Devops",
+        "VCF"
       ],
       "tags": [
         null,
@@ -158,12 +165,13 @@
       "categories": [
         "Nutanix",
         "Personal",
+        "Homelab",
         "VMware",
-        "vSphere",
+        "AWS",
         "Hosting",
         "Cloudflare",
         "Wordpress",
-        "Devops"
+        "vSphere"
       ],
       "tags": [
         null,
@@ -184,9 +192,9 @@
       "api_url": "/api/posts/nutanix-command-reference-guide.json",
       "categories": [
         "Nutanix",
-        "Personal",
         "Homelab",
-        "VMware"
+        "VMware",
+        "Personal"
       ],
       "tags": [
         null,
@@ -208,19 +216,16 @@
       "categories": [
         "Homelab",
         "Nutanix",
-        "Artificial Intelligence",
+        "Networking",
         "Storage",
-        "Docker",
-        "Ansible",
-        "Automation",
-        "Traefik",
-        "VCF",
         "VMware",
-        "Hosting",
-        "Kubernetes",
-        "Containers",
-        "Devops",
-        "NVIDIA"
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "vExpert",
+        "Personal"
       ],
       "tags": [
         null
@@ -241,9 +246,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
         "Homelab",
-        "vSAN"
+        "Storage",
+        "vExpert",
+        "vSphere",
+        "Personal",
+        "Automation"
       ],
       "tags": [
         null,
@@ -267,13 +275,17 @@
         "Homelab",
         "Nutanix",
         "VMware",
-        "vSAN",
-        "Veeam",
-        "Storage",
         "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Networking"
+        "Personal",
+        "Automation",
+        "NVIDIA",
+        "Traefik",
+        "vSAN",
+        "Ansible",
+        "Containers",
+        "Devops"
       ],
       "tags": [
         null,

@@ -17,11 +17,17 @@
         "Homelab",
         "Storage",
         "vExpert",
+        "VMware",
+        "VMware Cloud on AWS",
         "Artificial Intelligence",
+        "Automation",
         "Docker",
-        "Hosting",
+        "NVIDIA",
+        "Traefik",
         "Ansible",
-        "VMware"
+        "VCF",
+        "Veeam",
+        "Networking"
       ],
       "tags": [
         null,

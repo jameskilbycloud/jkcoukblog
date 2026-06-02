@@ -17,15 +17,12 @@
         "Ansible",
         "Homelab",
         "Networking",
-        "Storage",
+        "Nutanix",
+        "Mikrotik",
         "VMware",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "Hosting",
-        "Runecast"
+        "VCF",
+        "Storage",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,

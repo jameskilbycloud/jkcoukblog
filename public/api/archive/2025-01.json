@@ -17,14 +17,18 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
+        "Ansible",
+        "Containers",
+        "Devops",
         "Homelab",
-        "Networking",
-        "Automation",
         "NVIDIA",
         "Traefik",
         "VMware",
+        "Cloudflare",
         "Wordpress",
-        "Storage"
+        "Personal",
+        "AWS",
+        "Automation"
       ],
       "tags": [
         null,

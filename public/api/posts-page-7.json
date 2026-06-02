@@ -13,16 +13,10 @@
       "categories": [
         "Hosting",
         "Wordpress",
-        "AWS",
         "Cloudflare",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
+        "Personal",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "Personal"
+        "AWS"
       ],
       "tags": [
         null,
@@ -46,18 +40,11 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
+        "Synology",
+        "Ansible",
         "Networking",
         "VMware",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
-        "vSphere",
-        "Ansible",
-        "Containers",
-        "Devops",
-        "VCF"
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -79,11 +66,13 @@
       "categories": [
         "AWS",
         "Hosting",
-        "Cloudflare",
         "Personal",
-        "Wordpress",
+        "VMware",
+        "Veeam",
         "Artificial Intelligence",
-        "Docker"
+        "Docker",
+        "Cloudflare",
+        "Wordpress"
       ],
       "tags": [
         null,
@@ -105,11 +94,12 @@
       "categories": [
         "AWS",
         "Personal",
+        "Hosting",
         "VMware",
         "Veeam",
-        "Consulting",
+        "vSphere",
         "Devops",
-        "Nutanix"
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -130,10 +120,10 @@
       "api_url": "/api/posts/aws-for-beginners1.json",
       "categories": [
         "AWS",
-        "Hosting",
-        "Personal",
         "VMware",
         "VMware Cloud on AWS",
+        "Hosting",
+        "Personal",
         "Veeam"
       ],
       "tags": [
@@ -162,10 +152,12 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Networking",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere"
+        "Storage",
+        "Synology",
+        "Automation",
+        "Docker",
+        "VCF",
+        "Personal"
       ],
       "tags": [
         null,
@@ -196,10 +188,11 @@
         "VCF",
         "VMware",
         "VMware Cloud on AWS",
-        "Storage",
-        "vSAN",
         "Personal",
-        "vSphere"
+        "vSphere",
+        "Hosting",
+        "Artificial Intelligence",
+        "Networking"
       ],
       "tags": [
         null,
@@ -253,11 +246,11 @@
       "api_url": "/api/posts/and-now-for-something-completely-different.json",
       "categories": [
         "Personal",
-        "Hosting",
+        "AWS",
         "Consulting",
         "VMware",
-        "Devops",
-        "AWS"
+        "vSphere",
+        "Nutanix"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018 · Updated June 1, 2026 • 📖1 min read(263 words)\n\n📅 **Published:** October..."
@@ -275,11 +268,12 @@
       "categories": [
         "Hosting",
         "Personal",
-        "Consulting",
-        "Cloudflare",
-        "Wordpress",
         "Homelab",
-        "AWS"
+        "AWS",
+        "Devops",
+        "Artificial Intelligence",
+        "Docker",
+        "Cloudflare"
       ],
       "tags": [
         null,

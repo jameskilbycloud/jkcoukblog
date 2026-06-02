@@ -14,17 +14,17 @@
         "VMware",
         "Personal",
         "vSphere",
-        "VMware Cloud on AWS",
-        "vSAN",
-        "Hosting",
-        "Homelab",
-        "Networking",
-        "Storage",
+        "AWS",
         "Artificial Intelligence",
         "Automation",
         "Docker",
+        "Homelab",
         "NVIDIA",
-        "Traefik"
+        "Traefik",
+        "Ansible",
+        "Containers",
+        "Devops",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -49,10 +49,13 @@
         "Networking",
         "Storage",
         "VMware",
-        "Synology",
+        "vSAN",
+        "VMware Cloud on AWS",
+        "Automation",
         "Artificial Intelligence",
-        "Mikrotik",
-        "Personal"
+        "Docker",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,
