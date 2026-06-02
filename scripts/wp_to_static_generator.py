@@ -2707,6 +2707,11 @@ document.addEventListener('DOMContentLoaded', function() {
             print("   ⚠️  Homepage redesign: no .kadence-posts-list found — skipping")
             return
 
+        # ── 0. featured-post hero (page-1 only) ─────────────────────────
+        # Promote the newest post (first .loop-entry) into a wide hero card
+        # above the grid. Removed from the grid so it doesn't double-render.
+        hero = self._build_homepage_hero(soup, posts_list)
+
         # ── 1. hero strap ───────────────────────────────────────────────
         strap = soup.new_tag('section', attrs={'class': 'jkr-strap'})
         strap_inner = soup.new_tag('div', attrs={'class': 'jkr-strap-inner'})
@@ -2840,16 +2845,130 @@ document.addEventListener('DOMContentLoaded', function() {
         topics.append(topics_grid)
 
         # ── insert ──────────────────────────────────────────────────────
-        # Strap → terminal → filter bar all sit above the post grid.
+        # Strap → terminal → filter bar → hero all sit above the post grid.
         # Each insert_before lands the node directly adjacent to posts_list,
         # so insert in the desired final order: the last one inserted ends
-        # up closest to the grid.
+        # up closest to the grid. Hero is closest to the grid so it reads
+        # as "the top of the post stream", promoted from inside the loop.
         posts_list.insert_before(strap)
         posts_list.insert_before(term_section)
         posts_list.insert_before(filter_bar)
+        if hero is not None:
+            posts_list.insert_before(hero)
         posts_list.insert_after(topics)
 
-        print("   ✨ Injected homepage redesign sections (strap, terminal, filter, topics)")
+        bits = ['strap', 'terminal', 'filter']
+        if hero is not None:
+            bits.append('hero')
+        bits.append('topics')
+        print(f"   ✨ Injected homepage redesign sections ({', '.join(bits)})")
+
+    def _build_homepage_hero(self, soup, posts_list):
+        """Promote the newest post (first .loop-entry inside posts_list) into a
+        featured hero card. Returns the new <a.jkr-hero> element ready to be
+        inserted before posts_list, or None if no candidate post is found.
+
+        Side-effect: removes the source .loop-entry from posts_list so the grid
+        starts at post #2.
+
+        Drives change 3 of the Jun 2026 homepage refresh — see
+        Downloads/design_handoff_homepage_refresh/PATCH-hero-and-meta.md §3.
+        """
+        first_entry = posts_list.find(class_='loop-entry')
+        if not first_entry:
+            return None
+
+        # ── pull data from the source card ──
+        title_a = first_entry.select_one('.entry-title a')
+        if not title_a:
+            return None
+        title_text = title_a.get_text(strip=True)
+        permalink = title_a.get('href', '#')
+
+        # Featured image: reuse the WP-rendered <picture> verbatim so AVIF/WebP
+        # sources, srcsets, alt text, and sizes survive untouched.
+        picture = first_entry.select_one('.post-thumbnail picture')
+        img = first_entry.select_one('.post-thumbnail img') if not picture else None
+
+        # Categories: first two, in source order.
+        cat_links = first_entry.select('.category-links a, .entry-taxonomies a')
+        cats = []
+        seen_cats = set()
+        for a in cat_links:
+            t = a.get_text(strip=True)
+            if t and t not in seen_cats:
+                seen_cats.add(t)
+                cats.append(t)
+            if len(cats) >= 2:
+                break
+
+        # Published date — text only (the hero never shows the modified date).
+        pub_time = first_entry.select_one('time.entry-date.published') \
+            or first_entry.select_one('time.published') \
+            or first_entry.select_one('time.entry-date')
+        pub_text = pub_time.get_text(strip=True) if pub_time else ''
+        pub_datetime = pub_time.get('datetime') if pub_time else None
+
+        # Excerpt.
+        excerpt_p = first_entry.select_one('.entry-summary p, .entry-summary')
+        excerpt_text = excerpt_p.get_text(strip=True) if excerpt_p else ''
+
+        # ── build the hero element ──
+        hero = soup.new_tag('a', href=permalink, attrs={'class': 'jkr-hero'})
+        hero['aria-label'] = title_text
+
+        media = soup.new_tag('div', attrs={'class': 'jkr-hero-media'})
+        if picture:
+            # Clone the <picture> so the original is left alone when we drop the
+            # source entry. extract() detaches; we reattach into the hero.
+            media.append(picture.extract())
+        elif img:
+            media.append(img.extract())
+        else:
+            media.append(soup.new_tag('div', attrs={'class': 'jkr-hero-media-fallback'}))
+
+        badge = soup.new_tag('span', attrs={'class': 'jkr-hero-badge'})
+        badge.string = 'LATEST'
+        media.append(badge)
+        hero.append(media)
+
+        body = soup.new_tag('div', attrs={'class': 'jkr-hero-body'})
+
+        if cats:
+            cats_wrap = soup.new_tag('div', attrs={'class': 'jkr-hero-cats'})
+            for c in cats:
+                chip = soup.new_tag('span')
+                chip.string = c
+                cats_wrap.append(chip)
+            body.append(cats_wrap)
+
+        h_title = soup.new_tag('h2', attrs={'class': 'jkr-hero-title'})
+        h_title.string = title_text
+        body.append(h_title)
+
+        if excerpt_text:
+            p_excerpt = soup.new_tag('p', attrs={'class': 'jkr-hero-excerpt'})
+            p_excerpt.string = excerpt_text
+            body.append(p_excerpt)
+
+        meta = soup.new_tag('div', attrs={'class': 'jkr-hero-meta'})
+        if pub_text:
+            date_span = soup.new_tag('time', attrs={'class': 'jkr-hero-date'})
+            if pub_datetime:
+                date_span['datetime'] = pub_datetime
+            date_span.string = pub_text
+            meta.append(date_span)
+        cta = soup.new_tag('span', attrs={'class': 'jkr-hero-cta'})
+        cta.string = 'Read post →'
+        meta.append(cta)
+        body.append(meta)
+
+        hero.append(body)
+
+        # Remove the source card so the grid starts at post #2.
+        first_entry.decompose()
+
+        return hero
 
     def add_markdown_api_links(self, soup, current_url):
         """Add links to markdown and API versions in footer.
