@@ -16,16 +16,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "AWS",
-        "Veeam",
+        "VCF",
         "Homelab",
-        "vSAN",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
-        "Personal"
+        "Networking",
+        "Storage",
+        "Personal",
+        "vSphere"
       ],
       "tags": [
         null

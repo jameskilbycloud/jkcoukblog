@@ -16,14 +16,17 @@
       "categories": [
         "VMware",
         "VCF",
-        "Homelab",
-        "Veeam",
-        "AWS",
-        "VMware Cloud on AWS",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
         "Ansible",
         "Automation",
-        "Docker",
-        "Traefik"
+        "AWS",
+        "Veeam",
+        "Personal",
+        "Homelab",
+        "Networking",
+        "Storage"
       ],
       "tags": [
         null,
@@ -47,11 +50,17 @@
       "categories": [
         "VCF",
         "VMware",
-        "Automation",
+        "Artificial Intelligence",
         "Homelab",
-        "Networking",
         "Storage",
+        "TrueNAS Scale",
         "VMware Cloud on AWS",
+        "Personal",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "AWS",
         "Veeam"
       ],
       "tags": [

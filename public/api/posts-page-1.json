@@ -15,17 +15,18 @@
         "VMware",
         "vSAN",
         "vSphere",
+        "Mikrotik",
+        "Networking",
+        "Personal",
+        "Homelab",
+        "Storage",
+        "Synology",
+        "AWS",
+        "Veeam",
+        "VMware Cloud on AWS",
         "Artificial Intelligence",
         "Docker",
-        "Homelab",
-        "VMware Cloud on AWS",
-        "Networking",
-        "Storage",
-        "Ansible",
-        "Automation",
-        "Traefik",
-        "VCF",
-        "Personal"
+        "Hosting"
       ],
       "tags": [
         null,
@@ -49,17 +50,8 @@
       "api_url": "/api/posts/wrangler-and-node-versions.json",
       "categories": [
         "Cloudflare",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Homelab",
-        "Traefik",
-        "VCF",
-        "VMware",
-        "Devops",
-        "Github",
-        "Wordpress",
         "Hosting",
+        "Wordpress",
         "Personal"
       ],
       "tags": [
@@ -69,7 +61,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/)\n\n# Fixing Wrangler Node.js Version Conflicts After Brew Upgrade\n\nBy[James](https://jameskilby.co.uk) January 15, 2022June 1, 2026 • 📖1 min read(217 words)\n\n📅 **Pub..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/)\n\n# Fixing Wrangler Node.js Version Conflicts After Brew Upgrade\n\nBy[James](https://jameskilby.co.uk) January 15, 2022 · Updated June 1, 2026 • 📖1 min read(217 word..."
     },
     {
       "slug": "whats-in-my-backpack",
@@ -86,7 +78,7 @@
         "Personal"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png)\n\n[Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# What’s In My Tech Bag? Everyday Carry for IT Consultants\n\nBy[James](https://jameskilby.co.uk) January 10, 2019June 1, 2026 • 📖1 min read(251 words)\n\n📅 **Published:** ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png)\n\n[Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# What’s In My Tech Bag? Everyday Carry for IT Consultants\n\nBy[James](https://jameskilby.co.uk) January 10, 2019 · Updated June 1, 2026 • 📖1 min read(251 words)\n\n📅 **Pu..."
     },
     {
       "slug": "web-development",
@@ -103,16 +95,11 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Homelab",
-        "Traefik",
-        "VCF",
-        "VMware",
-        "Nutanix",
         "Devops",
-        "Github"
+        "Github",
+        "VMware",
+        "AWS",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -142,11 +129,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
+        "Kubernetes",
         "Devops",
         "Github",
-        "Ansible",
-        "VCF",
-        "AWS"
+        "Personal"
       ],
       "tags": [
         null,
@@ -170,11 +156,14 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Hosting",
+        "Kubernetes",
         "VMware",
-        "Veeam",
-        "Storage",
-        "VCF",
-        "Synology"
+        "Traefik",
+        "VCF"
       ],
       "tags": [
         null,
@@ -198,15 +187,11 @@
         "Ansible",
         "Automation",
         "Homelab",
-        "Storage",
-        "Synology",
+        "Veeam",
         "VMware",
-        "VCF",
-        "Personal",
-        "Mikrotik",
-        "Networking",
+        "AWS",
         "Artificial Intelligence",
-        "Docker",
+        "VMware Cloud on AWS",
         "Hosting"
       ],
       "tags": [
@@ -232,18 +217,13 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "Storage",
-        "Synology",
-        "TrueNAS Scale",
+        "VCF",
         "Automation",
-        "Networking"
+        "Homelab",
+        "Ansible",
+        "Docker",
+        "Traefik",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -269,9 +249,15 @@
         "vSAN",
         "VMware Cloud on AWS",
         "Homelab",
-        "Personal",
-        "vSphere",
-        "Nutanix"
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "Automation",
+        "TrueNAS Scale",
+        "vSphere"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n# vSAN Cluster Shutdown – Orchestration\n\nBy[James](https://jameskilby.co.uk) December 6,..."
@@ -289,19 +275,16 @@
       "categories": [
         "Personal",
         "VMware",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
-        "Consulting",
         "Homelab",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
         "Storage",
         "vExpert",
-        "Runecast"
+        "VMware Cloud on AWS",
+        "VCF",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Traefik",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -309,7 +292,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# VMware Certified Master Specialist HCI 2020\n\nBy[James](https://jameskilby.co.uk) September 13, 2020May 31, 20..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# VMware Certified Master Specialist HCI 2020\n\nBy[James](https://jameskilby.co.uk) September 13, 2020 · Updated..."
     }
   ],
   "page": 1,

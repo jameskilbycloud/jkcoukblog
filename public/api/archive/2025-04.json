@@ -16,11 +16,14 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Hosting",
+        "Kubernetes",
         "VMware",
-        "Veeam",
-        "Storage",
-        "VCF",
-        "Synology"
+        "Traefik",
+        "VCF"
       ],
       "tags": [
         null,

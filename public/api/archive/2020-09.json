@@ -16,19 +16,16 @@
       "categories": [
         "Personal",
         "VMware",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
-        "Consulting",
         "Homelab",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
         "Storage",
         "vExpert",
-        "Runecast"
+        "VMware Cloud on AWS",
+        "VCF",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Traefik",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -36,7 +33,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# VMware Certified Master Specialist HCI 2020\n\nBy[James](https://jameskilby.co.uk) September 13, 2020May 31, 20..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# VMware Certified Master Specialist HCI 2020\n\nBy[James](https://jameskilby.co.uk) September 13, 2020 · Updated..."
     },
     {
       "slug": "vmc-host-errors",
@@ -51,13 +48,16 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "vSAN",
+        "Personal",
+        "Artificial Intelligence",
         "Automation",
+        "Docker",
         "Homelab",
-        "AWS",
-        "Veeam",
-        "vSphere",
-        "Personal"
+        "NVIDIA",
+        "Traefik",
+        "vSAN",
+        "Storage",
+        "vExpert"
       ],
       "tags": [
         null,

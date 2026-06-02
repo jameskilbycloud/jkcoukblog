@@ -26,7 +26,7 @@ image: https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png
 
 # How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step
 
-By[James](https://jameskilby.co.uk) December 15, 2025May 24, 2026 • 📖1 min read(91 words)
+By[James](https://jameskilby.co.uk) December 15, 2025 · Updated May 24, 2026 • 📖1 min read(91 words)
 
 📅 **Published:** December 15, 2025• **Updated:** May 24, 2026
 
@@ -72,6 +72,6 @@ df -h
 
 ### [Automated VCF 9 Offline Depot](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
 
-By[James](https://jameskilby.co.uk) April 10, 2026June 1, 2026
+By[James](https://jameskilby.co.uk) April 10, 2026 · Updated June 1, 2026
 
 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS.

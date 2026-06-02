@@ -20,7 +20,7 @@ image: https://jameskilby.co.uk/wp-content/uploads/2018/12/colorware.jpg
 
 # MacBook Air 2018 Retina Review: My Setup & Build Scripts
 
-By[James](https://jameskilby.co.uk) December 4, 2018June 1, 2026 • 📖1 min read(138 words)
+By[James](https://jameskilby.co.uk) December 4, 2018 · Updated June 1, 2026 • 📖1 min read(138 words)
 
 📅 **Published:** December 04, 2018• **Updated:** June 01, 2026
 
@@ -42,6 +42,6 @@ I also thought it was time to tidy up and publish my Mac build scripts for anyon
 
 ### [How Apple Content Caching Works: Speed Up iOS & Mac Updates](https://jameskilby.co.uk/2021/02/apple-content-caching/)
 
-By[James](https://jameskilby.co.uk) February 8, 2021June 1, 2026
+By[James](https://jameskilby.co.uk) February 8, 2021 · Updated June 1, 2026
 
 I have slowly morphed into an Apple fanboy over the last decade or so collecting a large number of devices ever since my first MacBook Air back in 2011.

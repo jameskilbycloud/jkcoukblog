@@ -17,9 +17,9 @@
         "VMware",
         "AWS",
         "Veeam",
-        "Personal",
-        "VMware Cloud on AWS",
-        "vSphere"
+        "Homelab",
+        "Automation",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -42,8 +42,10 @@
       "categories": [
         "AWS",
         "Personal",
-        "Nutanix",
         "VMware",
+        "VMware Cloud on AWS",
+        "Hosting",
+        "Devops",
         "Veeam"
       ],
       "tags": [
@@ -51,7 +53,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png)\n\n[AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# AWS Solution Architect – Associate\n\nBy[James](https://jameskilby.co.uk) December 16, 2019May 31, 2026 •..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png)\n\n[AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# AWS Solution Architect – Associate\n\nBy[James](https://jameskilby.co.uk) December 16, 2019 · Updated May..."
     }
   ]
 }

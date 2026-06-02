@@ -19,7 +19,7 @@ image: https://jameskilby.co.uk/wp-content/uploads/2021/02/iu.png
 
 # How Apple Content Caching Works: Speed Up iOS & Mac Updates
 
-By[James](https://jameskilby.co.uk) February 8, 2021June 1, 2026 • 📖2 min read(313 words)
+By[James](https://jameskilby.co.uk) February 8, 2021 · Updated June 1, 2026 • 📖2 min read(313 words)
 
 📅 **Published:** February 08, 2021• **Updated:** June 01, 2026
 
@@ -79,6 +79,6 @@ In the options, you can control the amount of disk space to use. It defaults to 
 
 ### [MacBook Air 2018 Retina Review: My Setup & Build Scripts](https://jameskilby.co.uk/2018/12/new-laptop/)
 
-By[James](https://jameskilby.co.uk) December 4, 2018June 1, 2026
+By[James](https://jameskilby.co.uk) December 4, 2018 · Updated June 1, 2026
 
 I decided it was about time I replaced my trusted MacBook Air that I purchased back in 2011.

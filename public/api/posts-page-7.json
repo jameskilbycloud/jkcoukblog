@@ -13,19 +13,11 @@
       "categories": [
         "Hosting",
         "Wordpress",
-        "Personal",
-        "Cloudflare",
-        "Devops",
-        "Github",
-        "Artificial Intelligence",
         "Docker",
         "Homelab",
         "Kubernetes",
-        "Ansible",
-        "Automation",
-        "Traefik",
-        "VCF",
-        "VMware"
+        "Cloudflare",
+        "Personal"
       ],
       "tags": [
         null,
@@ -33,7 +25,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Cloudflare Workers – Limits of the free tier\n\nBy[James](https://jameskilby.co.uk) January 4, 2022June 1, 2026 • 📖1 mi..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Cloudflare Workers – Limits of the free tier\n\nBy[James](https://jameskilby.co.uk) January 4, 2022 · Updated June 1, 2..."
     },
     {
       "slug": "can-you-really-squeeze-96tb-in-1u",
@@ -49,16 +41,12 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
-        "Networking",
+        "Runecast",
         "VMware",
-        "Hosting",
-        "Mikrotik",
-        "Veeam",
-        "Ansible",
-        "Automation",
+        "Kubernetes",
+        "Artificial Intelligence",
         "Docker",
-        "Traefik",
-        "VCF"
+        "Hosting"
       ],
       "tags": [
         null,
@@ -80,19 +68,16 @@
       "categories": [
         "AWS",
         "Hosting",
-        "Homelab",
-        "Personal",
         "Cloudflare",
-        "Wordpress",
-        "VMware",
-        "VMware Cloud on AWS"
+        "Personal",
+        "Wordpress"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png)\n\n[AWS](https://jameskilby.co.uk/category/aws/) | [Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# AWS Status Page – Monitoring Included\n\nBy[James](https://jameskilby.co.uk) May 15, 2018June 1, 2026 • 📖1 ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png)\n\n[AWS](https://jameskilby.co.uk/category/aws/) | [Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# AWS Status Page – Monitoring Included\n\nBy[James](https://jameskilby.co.uk) May 15, 2018 · Updated June 1,..."
     },
     {
       "slug": "aws-solution-architect-associate",
@@ -107,8 +92,10 @@
       "categories": [
         "AWS",
         "Personal",
-        "Nutanix",
         "VMware",
+        "VMware Cloud on AWS",
+        "Hosting",
+        "Devops",
         "Veeam"
       ],
       "tags": [
@@ -116,7 +103,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png)\n\n[AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# AWS Solution Architect – Associate\n\nBy[James](https://jameskilby.co.uk) December 16, 2019May 31, 2026 •..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png)\n\n[AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# AWS Solution Architect – Associate\n\nBy[James](https://jameskilby.co.uk) December 16, 2019 · Updated May..."
     },
     {
       "slug": "aws-for-beginners1",
@@ -130,18 +117,18 @@
       "api_url": "/api/posts/aws-for-beginners1.json",
       "categories": [
         "AWS",
-        "VMware",
-        "Veeam",
-        "VMware Cloud on AWS",
+        "Personal",
         "Hosting",
-        "Personal"
+        "VMware",
+        "VMware Cloud on AWS",
+        "Veeam"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2018/03/raf750x1000075t101010_01c5ca27c6.u2.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/03/raf750x1000075t101010_01c5ca27c6.u2.jpg)\n\n[AWS](https://jameskilby.co.uk/category/aws/)\n\n# AWS For Beginners: IAM Setup, Root Security & Billing Alerts\n\nBy[James](https://jameskilby.co.uk) March 30, 2018June 1, 2026 • 📖1 min read(202 words)\n\n📅 ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/03/raf750x1000075t101010_01c5ca27c6.u2.jpg)\n\n[AWS](https://jameskilby.co.uk/category/aws/)\n\n# AWS For Beginners: IAM Setup, Root Security & Billing Alerts\n\nBy[James](https://jameskilby.co.uk) March 30, 2018 · Updated June 1, 2026 • 📖1 min read(202..."
     },
     {
       "slug": "automating-the-deployment-of-my-ai-homelab-and-other-improvements",
@@ -162,15 +149,12 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Storage",
-        "Synology",
-        "Automation",
         "Docker",
-        "Personal",
-        "vSphere",
-        "Cloudflare",
-        "Github",
-        "Wordpress"
+        "Hosting",
+        "Networking",
+        "Automation",
+        "VMware Cloud on AWS",
+        "vSAN"
       ],
       "tags": [
         null,
@@ -200,15 +184,12 @@
         "Traefik",
         "VCF",
         "VMware",
-        "Cloudflare",
-        "Devops",
-        "Github",
-        "Wordpress",
+        "Artificial Intelligence",
         "Hosting",
-        "Kubernetes",
-        "Mikrotik",
-        "Networking",
-        "vSphere"
+        "NVIDIA",
+        "Storage",
+        "Cloudflare",
+        "Wordpress"
       ],
       "tags": [
         null,
@@ -248,7 +229,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2021/02/iu.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2021/02/iu.png)\n\n[Apple](https://jameskilby.co.uk/category/apple/)\n\n# How Apple Content Caching Works: Speed Up iOS & Mac Updates\n\nBy[James](https://jameskilby.co.uk) February 8, 2021June 1, 2026 • 📖2 min read(313 words)\n\n📅 **Published:** February 08, ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2021/02/iu.png)\n\n[Apple](https://jameskilby.co.uk/category/apple/)\n\n# How Apple Content Caching Works: Speed Up iOS & Mac Updates\n\nBy[James](https://jameskilby.co.uk) February 8, 2021 · Updated June 1, 2026 • 📖2 min read(313 words)\n\n📅 **Published:** Fe..."
     },
     {
       "slug": "and-now-for-something-completely-different",
@@ -262,17 +243,15 @@
       "api_url": "/api/posts/and-now-for-something-completely-different.json",
       "categories": [
         "Personal",
-        "VMware",
-        "vSphere",
-        "AWS",
         "Consulting",
-        "Devops",
+        "Nutanix",
         "Hosting",
+        "VMware",
         "Cloudflare",
         "Wordpress"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018June 1, 2026 • 📖1 min read(263 words)\n\n📅 **Published:** October 16, 2018• ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018 · Updated June 1, 2026 • 📖1 min read(263 words)\n\n📅 **Published:** October..."
     },
     {
       "slug": "analytics-in-a-privacy-focused-world",
@@ -287,15 +266,13 @@
       "categories": [
         "Hosting",
         "Personal",
+        "VMware",
         "Artificial Intelligence",
         "Automation",
         "Docker",
         "Homelab",
         "NVIDIA",
         "Traefik",
-        "VMware",
-        "Nutanix",
-        "AWS",
         "Cloudflare",
         "Wordpress"
       ],
@@ -309,7 +286,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# Analytics in a privacy focused world\n\nBy[James](https://jameskilby.co.uk) November 10, 2023Jun..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# Analytics in a privacy focused world\n\nBy[James](https://jameskilby.co.uk) November 10, 2023 · ..."
     }
   ],
   "page": 7,
