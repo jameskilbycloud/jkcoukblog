@@ -1,0 +1,89 @@
+name: Force Full Deploy (no cache)
+
+# Purges the two GH Actions caches that drive incremental behavior in
+# deploy-static-site.yml, then triggers the regular deploy. The next run
+# starts from a clean slate:
+#
+#   - incremental-build-cache-*  →  no .build-cache.json restored,
+#                                   so wp_to_static_generator.py treats it as
+#                                   a first build: fetches every WordPress
+#                                   post, regenerates every archive page
+#                                   (including / and /page/N/), and
+#                                   reapplies every process_html() pass
+#                                   (e.g. inject_homepage_redesign).
+#   - build-cache-avif-v3-*      →  no .image_optimization_cache restored,
+#                                   so optimize_images.py rebuilds every
+#                                   AVIF/WebP from the original source.
+#
+# Use this when a script change touches code that only runs on pages the
+# incremental builder would otherwise skip (typically the homepage / archive
+# templates / image pipeline). After the run finishes, the next normal deploy
+# repopulates both caches and incremental behavior resumes.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: write   # delete caches + trigger sibling workflow
+
+jobs:
+  purge-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - name: Purge incremental build cache
+      env:
+        GH_TOKEN: ${{ github.token }}
+        GH_REPO: ${{ github.repository }}
+      run: |
+        set -euo pipefail
+        echo "🗑️  Searching for incremental-build-cache-* entries..."
+        IDS=$(gh cache list --limit 100 --key incremental-build-cache --json id --jq '.[].id' || echo "")
+        if [ -z "$IDS" ]; then
+          echo "ℹ️  No incremental-build-cache-* entries to delete."
+        else
+          echo "$IDS" | while read -r id; do
+            [ -z "$id" ] && continue
+            if gh cache delete "$id" >/dev/null 2>&1; then
+              echo "  ✓ deleted $id"
+            else
+              echo "  ⚠️  failed to delete $id"
+            fi
+          done
+        fi
+
+    - name: Purge image optimization cache
+      env:
+        GH_TOKEN: ${{ github.token }}
+        GH_REPO: ${{ github.repository }}
+      run: |
+        set -euo pipefail
+        echo "🗑️  Searching for build-cache-avif-v3-* entries..."
+        IDS=$(gh cache list --limit 100 --key build-cache-avif-v3 --json id --jq '.[].id' || echo "")
+        if [ -z "$IDS" ]; then
+          echo "ℹ️  No build-cache-avif-v3-* entries to delete."
+        else
+          echo "$IDS" | while read -r id; do
+            [ -z "$id" ] && continue
+            if gh cache delete "$id" >/dev/null 2>&1; then
+              echo "  ✓ deleted $id"
+            else
+              echo "  ⚠️  failed to delete $id"
+            fi
+          done
+        fi
+
+    - name: Trigger main deploy workflow
+      env:
+        GH_TOKEN: ${{ github.token }}
+        GH_REPO: ${{ github.repository }}
+      run: |
+        set -euo pipefail
+        echo "🚀 Triggering deploy-static-site.yml on main..."
+        gh workflow run deploy-static-site.yml --ref main
+        echo ""
+        echo "✅ Triggered. The deploy uses the same concurrency group as a"
+        echo "   manual run, so if a deploy is already in flight this one"
+        echo "   queues behind it. Watch progress with:"
+        echo "     gh run list --workflow=deploy-static-site.yml --limit 3"
+        echo "     gh run watch"
