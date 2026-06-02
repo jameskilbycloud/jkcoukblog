@@ -429,6 +429,11 @@ class WordPressStaticGenerator:
         # terminal stats block, filter bar, topic index). Skips paginated pages.
         self.inject_homepage_redesign(soup, current_url)
 
+        # Fix byline: published + updated time elements with no separator render
+        # as "By James May 29, 2017 June 1, 2026". Insert a separator + 'Updated'
+        # label, and hide the updated date if it renders identical to published.
+        self.fix_byline_dates(soup)
+
         # Fix table structure (add proper header rows)
         self.fix_table_headers(soup)
         
@@ -2889,11 +2894,71 @@ document.addEventListener('DOMContentLoaded', function() {
         footer.append(formats_div)
         print(f"   🔗 Added markdown and API links to footer")
     
+    def fix_byline_dates(self, soup):
+        """Insert a visible separator + 'Updated' label between adjacent
+        published/updated time elements in entry-meta bylines.
+
+        WordPress + Kadence renders:
+            <span class="posted-on">
+              <time class="entry-date published" ...>May 29, 2017</time>
+              <time class="updated" ...>June 1, 2026</time>
+            </span>
+        Plain text: "May 29, 2017 June 1, 2026" — confusing.
+
+        After this pass:
+            <span class="posted-on">
+              <time class="entry-date published" ...>May 29, 2017</time>
+              <span class="byline-sep"> · </span>
+              <span class="meta-label">Updated</span>
+              <time class="updated" ...>June 1, 2026</time>
+            </span>
+
+        If both <time> elements render identically (same date string), the
+        updated element is removed entirely so we don't show "May 29, 2017
+        May 29, 2017". Idempotent — checks for an already-injected sep.
+        """
+        spans = soup.find_all('span', class_='posted-on')
+        if not spans:
+            return
+
+        fixed = 0
+        deduped = 0
+        for span in spans:
+            published = span.find('time', class_=lambda c: c and 'published' in c)
+            updated = span.find('time', class_='updated')
+            if not (published and updated):
+                continue
+
+            # Already fixed?
+            if span.find('span', class_='byline-sep'):
+                continue
+
+            pub_text = published.get_text(strip=True)
+            upd_text = updated.get_text(strip=True)
+
+            if pub_text == upd_text:
+                # Same rendered date → drop the updated <time> to avoid duplication
+                updated.decompose()
+                deduped += 1
+                continue
+
+            # Insert separator + label between the two <time> elements
+            sep = soup.new_tag('span', attrs={'class': 'byline-sep'})
+            sep.string = ' · '
+            label = soup.new_tag('span', attrs={'class': 'meta-label byline-updated-label'})
+            label.string = 'Updated '
+            updated.insert_before(sep)
+            updated.insert_before(label)
+            fixed += 1
+
+        if fixed or deduped:
+            print(f"   🗓️  Byline dates: separated {fixed}, deduplicated {deduped}")
+
     def fix_table_headers(self, soup):
         """Fix table structure by converting first row to proper thead with th elements"""
         # Find all tables
         tables = soup.find_all('table')
-        
+
         if not tables:
             return
         
