@@ -16,11 +16,13 @@
       "categories": [
         "AWS",
         "Hosting",
-        "Cloudflare",
         "Personal",
-        "Wordpress",
+        "VMware",
+        "Veeam",
         "Artificial Intelligence",
-        "Docker"
+        "Docker",
+        "Cloudflare",
+        "Wordpress"
       ],
       "tags": [
         null,

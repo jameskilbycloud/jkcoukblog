@@ -16,12 +16,16 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Veeam",
+        "Ansible",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
         "VMware",
-        "Mikrotik",
-        "Hosting",
+        "Veeam",
         "Storage",
-        "Synology"
+        "vSphere"
       ],
       "tags": [
         null,

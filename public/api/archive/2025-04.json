@@ -16,15 +16,20 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Automation",
-        "VMware",
-        "Storage",
-        "vExpert",
-        "Docker",
-        "Hosting",
+        "Networking",
+        "Ansible",
+        "Containers",
+        "Devops",
         "NVIDIA",
         "Traefik",
-        "Ansible"
+        "VMware",
+        "Veeam",
+        "Automation",
+        "Docker",
+        "VCF",
+        "Storage",
+        "TrueNAS Scale",
+        "Runecast"
       ],
       "tags": [
         null,

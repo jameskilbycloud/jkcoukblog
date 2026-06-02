@@ -22,10 +22,12 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Networking",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere"
+        "Storage",
+        "Synology",
+        "Automation",
+        "Docker",
+        "VCF",
+        "Personal"
       ],
       "tags": [
         null,

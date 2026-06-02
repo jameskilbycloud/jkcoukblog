@@ -13,18 +13,14 @@
       "categories": [
         "Homelab",
         "Networking",
-        "TrueNAS Scale",
+        "Storage",
         "VMware",
-        "vSAN",
-        "vSphere",
-        "Automation",
+        "Hosting",
         "Artificial Intelligence",
         "Docker",
-        "NVIDIA",
-        "Traefik",
         "Ansible",
-        "Mikrotik",
-        "Nutanix"
+        "Automation",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
@@ -46,12 +42,15 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Nutanix",
-        "VMware",
-        "TrueNAS Scale",
-        "Veeam",
         "Ansible",
-        "Synology"
+        "Automation",
+        "Docker",
+        "Traefik",
+        "VCF",
+        "VMware",
+        "Hosting",
+        "Kubernetes",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -75,18 +74,11 @@
       "categories": [
         "Homelab",
         "VMware",
-        "vSphere",
-        "Networking",
-        "Storage",
-        "AWS",
-        "Veeam",
-        "Synology",
+        "Personal",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
-        "Runecast"
+        "Storage",
+        "vSphere",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -110,14 +102,11 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Networking",
+        "Hosting",
+        "Nutanix",
         "VMware",
-        "Artificial Intelligence",
-        "TrueNAS Scale",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Hosting"
+        "Veeam",
+        "vExpert"
       ],
       "tags": [
         null,
@@ -138,15 +127,13 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "VMware",
-        "Networking",
         "Storage",
-        "vSphere",
-        "Ansible",
-        "Automation",
-        "TrueNAS Scale",
-        "vSAN",
-        "Nutanix"
+        "Synology",
+        "Networking",
+        "Hosting",
+        "VCF",
+        "VMware",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -170,11 +157,17 @@
         "Homelab",
         "Storage",
         "vExpert",
+        "VMware",
+        "VMware Cloud on AWS",
         "Artificial Intelligence",
+        "Automation",
         "Docker",
-        "Hosting",
+        "NVIDIA",
+        "Traefik",
         "Ansible",
-        "VMware"
+        "VCF",
+        "Veeam",
+        "Networking"
       ],
       "tags": [
         null,
@@ -201,13 +194,11 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Automation",
         "Homelab",
+        "Personal",
         "vSphere",
-        "Ansible",
-        "Docker",
-        "Traefik",
-        "VCF"
+        "VCF",
+        "vSAN"
       ],
       "tags": [
         null,
@@ -233,12 +224,11 @@
         "Docker",
         "Homelab",
         "Kubernetes",
+        "Devops",
+        "Github",
         "AWS",
-        "Artificial Intelligence",
-        "Automation",
-        "NVIDIA",
-        "Traefik",
-        "VMware"
+        "Personal",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -263,14 +253,17 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
         "Docker",
         "Homelab",
-        "NVIDIA",
         "Traefik",
+        "VCF",
         "VMware",
-        "Personal"
+        "Artificial Intelligence",
+        "NVIDIA",
+        "Personal",
+        "AWS"
       ],
       "tags": [
         null,
@@ -295,14 +288,18 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
+        "Ansible",
+        "Containers",
+        "Devops",
         "Homelab",
-        "Networking",
-        "Automation",
         "NVIDIA",
         "Traefik",
         "VMware",
+        "Cloudflare",
         "Wordpress",
-        "Storage"
+        "Personal",
+        "AWS",
+        "Automation"
       ],
       "tags": [
         null,

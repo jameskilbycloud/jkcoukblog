@@ -16,16 +16,13 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "VCF",
-        "Personal",
-        "vSphere",
-        "TrueNAS Scale",
-        "vSAN",
         "Ansible",
         "Automation",
         "Docker",
         "Homelab",
-        "Traefik"
+        "Traefik",
+        "VCF",
+        "Veeam"
       ],
       "tags": [
         null
