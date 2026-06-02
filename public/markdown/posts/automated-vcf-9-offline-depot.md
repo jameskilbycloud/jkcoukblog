@@ -12,12 +12,11 @@ categories:
   - Traefik
   - VCF
   - VMware
-  - Artificial Intelligence
-  - Hosting
-  - NVIDIA
+  - VMware Cloud on AWS
   - Storage
-  - Cloudflare
-  - Wordpress
+  - vSAN
+  - Personal
+  - vSphere
 tags:
   - #Ansible
   - #Automation
@@ -44,7 +43,7 @@ image: https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png
 
 # Automated VCF 9 Offline Depot
 
-By[James](https://jameskilby.co.uk)April 10, 2026 · Updated June 1, 2026 • 📖7 min read(1,427 words)
+By[James](https://jameskilby.co.uk) April 10, 2026 · Updated June 1, 2026 • 📖7 min read(1,427 words)
 
 📅 **Published:** April 10, 2026• **Updated:** June 01, 2026
 
@@ -102,31 +101,31 @@ What the script does under the hood is::
 
 **1\. Docker Installation** — Adds Docker’s official GPG key and APT repository, installs Docker Engine, CLI, containerd, Buildx and the Compose plugin. It detects the system architecture automatically so it works on both amd64 and arm64.
 
- **2\. Directory Structure** — Creates the stack directory at `/opt/traefik-nginx` with subdirectories for compose files, Traefik config, and Nginx config. Creates `/vcf` owned by the user who ran `sudo` so you can write files there without root.
+**2\. Directory Structure** — Creates the stack directory at `/opt/traefik-nginx` with subdirectories for compose files, Traefik config, and Nginx config. Creates `/vcf` owned by the user who ran `sudo` so you can write files there without root.
 
- **3\. Nginx Config** — Writes a custom `default.conf` that enables `autoindex` for directory browsing with human-readable file sizes and local timestamps.
+**3\. Nginx Config** — Writes a custom `default.conf` that enables `autoindex` for directory browsing with human-readable file sizes and local timestamps.
 
- **4\. Traefik Static Config** — Generates `traefik.yml` with:
+**4\. Traefik Static Config** — Generates `traefik.yml` with:
 
   * HTTP and HTTPS entrypoints
   * Cloudflare DNS challenge for Let’s Encrypt certificates
   * Docker provider for automatic service discovery
   * Dashboard enabled via its own subdomain
 
- **5\. Environment File** — Writes `.env` (mode `0600`) containing the domain, subdomain, Cloudflare token, basic auth hash, and install directory. Docker Compose interpolates these into container labels at runtime.
+**5\. Environment File** — Writes `.env` (mode `0600`) containing the domain, subdomain, Cloudflare token, basic auth hash, and install directory. Docker Compose interpolates these into container labels at runtime.
 
- **6\. Network & Stack** — Creates the `traefik` Docker network (idempotent), then runs `docker compose up -d`.
+**6\. Network & Stack** — Creates the `traefik` Docker network (idempotent), then runs `docker compose up -d`.
 
 The stack is split across two compose files included from a root `docker-compose.yml`:
 
- **Traefik** (`compose/traefik.yml`):
+**Traefik** (`compose/traefik.yml`):
 
   * Binds ports 80 and 443
   * Mounts the Docker socket (read-only) for container discovery
   * Global HTTP-to-HTTPS redirect via a catchall router
   * Dashboard exposed at `traefik.yourdomain.com`
 
- **Nginx** (`compose/nginx.yml`):
+**Nginx** (`compose/nginx.yml`):
 
   * Mounts `/vcf` from the host as the web root (read-only)
   * Custom nginx config for directory browsing
@@ -240,7 +239,7 @@ If you’re still having issues review the Traefik Dashboard `https://traefik.do
 
 You should see four routers and six services like the attached screenshots
 
-![traefikrouters](https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikrouters-1024x254.png)![traefikservices](https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikservices-1024x326.png)
+![traefikrouters](https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikrouters-1024x254.png) ![traefikservices](https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikservices-1024x326.png)
 
 ### Basic auth prompt loops
 
@@ -254,62 +253,62 @@ If the depot keeps prompting for credentials even with the right ones, it’s al
 
 ## Similar Posts
 
-  * [![How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-768x411.png)](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
+  * [ ![An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png) ](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
 
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
-### [How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
+### [An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
 
-By[James](https://jameskilby.co.uk)January 29, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) August 14, 2025 · Updated June 1, 2026
 
-Update: Hoarder has now been renamed to Karakeep due to a trademark issue I’ve been on a mission recently to regain control of my data.
+This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison.
 
-  * [![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
-
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [My Self-Hosted AI Stack: Architecture Overview (Part 1)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
-
-By[James](https://jameskilby.co.uk)March 27, 2026 · Updated May 31, 2026
-
-A walkthrough of my self-hosted AI stack: Ollama, Open WebUI, ComfyUI, Whishper, n8n, Qdrant, SearxNG, and a full observability layer — all running on my own hardware with Docker Compose.
-
-  * [![Lab Update – Part 2 Storage Truenas Scale](https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault-768x432.jpeg)](https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/)
+  * [ ![TrueNAS Logo](https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22-at-18.49.21-768x198.png) ](https://jameskilby.co.uk/2023/05/homelab-storage-refresh-part-1/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)
 
-### [Lab Update – Part 2 Storage Truenas Scale](https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/)
+### [Homelab Storage Refresh (Part 1)](https://jameskilby.co.uk/2023/05/homelab-storage-refresh-part-1/)
 
-By[James](https://jameskilby.co.uk)January 11, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) May 23, 2023 · Updated June 1, 2026
 
-The HP Z840 has changed its role to a permanent storage box running Truenas Scale.
+Table of Contents Background ZFS Overview Read Cache (ARC and L2ARC) ZIL (ZFS Intent Log) Hardware Background I have just completed the move of all my production and media-based storage/services to TrueNAS Scale. ( I will just refer to this as TrueNAS) This is based on my HP Z840 and I have now retired my…
 
-  * [![Static WordPress hosting using Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu-768x450.jpeg)](https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/)
+  * [ ![vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg) ](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
 
-[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
 
-### [Static WordPress hosting using Cloudflare](https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/)
+### [vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
 
-By[James](https://jameskilby.co.uk)October 20, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) November 17, 2023 · Updated June 1, 2026
 
-For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product.
+An Overview of vSAN ESA in VMC 
 
-  * [![Cloudflare Workers – Limits of the free tier](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu-768x450.jpeg)](https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/)
+  * [ ![Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png) ](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
-[Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
 
-### [Cloudflare Workers – Limits of the free tier](https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/)
+### [Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
-By[James](https://jameskilby.co.uk)January 4, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) November 10, 2023 · Updated June 1, 2026
 
-I have been making several changes (mainly cosmetic) to this site over the last day or so. On most changes I have been doing an export and then uploading the site to Cloudflare using Wrangler.
+Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal.
 
-  * [![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-768x180.png)](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
+  * [ ![Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore-768x768.png) ](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
-### [Warp – The intelligent terminal](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
+### [Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
-By[James](https://jameskilby.co.uk)April 11, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) September 2, 2025 · Updated June 1, 2026
 
-How Warp is helping me run my homelab.
+An intro on how I use SemaphoreUI to manage my Homelab
+
+  * [ ![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png) ](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
+
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)
+
+### [Automating vSphere Power Management driven by Ansible and SemaphoreUI](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
+
+By[James](https://jameskilby.co.uk) April 15, 2026 · Updated June 1, 2026
+
+In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introduction One of the larger costs of running my homelab is the electricity….
