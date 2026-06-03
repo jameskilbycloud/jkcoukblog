@@ -302,6 +302,8 @@ class HTMLTransformer:
             modified = True
         if self.seo.fix_person_enrichment(soup, file_path):
             modified = True
+        if self.seo.fix_organization_sameas(soup, file_path):
+            modified = True
         if self.seo.fix_twitter_attribution(soup, file_path):
             modified = True
         if self.seo.fix_wordpress_host_leak(soup, file_path):
