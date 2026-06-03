@@ -119,6 +119,19 @@ export default {
     }
     // ────────────────────────────────────────────────────────────────────────
 
+    // ── /about-me/ → /about-james-kilby-solution-architect/ (301 permanent) ─
+    // The About Me page slug was renamed in WordPress (probably via a
+    // Rank Math / permalink-manager rewrite); the old URL now 404s,
+    // breaking external backlinks, social-card shares and historical mentions.
+    // Preserve link equity with a permanent redirect to the new slug.
+    if (path === '/about-me' || path === '/about-me/') {
+      return Response.redirect(
+        `https://jameskilby.co.uk/about-james-kilby-solution-architect/${url.search}`,
+        301
+      );
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
     // ── Admin / diagnostic endpoints ────────────────────────────────────────
     // These must be checked BEFORE the GET-only guard so POST purges work,
     // and BEFORE shouldCache so they are never accidentally cached.
