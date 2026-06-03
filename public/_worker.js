@@ -401,9 +401,17 @@ async function handleCacheAPI(request, env, ctx, path, hostname = '') {
     const responseToCache = response.clone();
     const newHeaders = new Headers(responseToCache.headers);
 
-    if (!newHeaders.has('Cache-Control')) {
-      newHeaders.set('Cache-Control', `public, max-age=${getTTL(path)}`);
-    }
+    // Always apply our smart TTL (Cache-Control) to HTML, overriding any
+    // upstream default. The previous `if (!has(...))` guard was meant to
+    // respect the `_headers /*.html` rule (max-age=300), but that rule only
+    // matches literal `.html` paths — pretty-URL post permalinks like
+    // `/2017/05/foo/` skipped it entirely and inherited Cloudflare Pages'
+    // `max-age=0, must-revalidate` default, leaving browsers unable to
+    // soft-cache repeat visits. Aligning the browser cache with the smart
+    // KV TTL gives readers proper local caching without violating the
+    // "absolute-expiry, view-counts don't reset the clock" invariant
+    // (browser cache is a separate clock from the KV cache).
+    newHeaders.set('Cache-Control', `public, max-age=${getTTL(path)}`);
 
     newHeaders.set('X-Cache-Status', 'MISS');
     newHeaders.set('X-Worker', 'advanced-worker-cache-api');
