@@ -40,7 +40,7 @@ image: https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured.png
 
 # My Self-Hosted AI Stack: Architecture Overview (Part 1)
 
-By[James](https://jameskilby.co.uk) March 27, 2026 · Updated May 31, 2026 • 📖14 min read(2,817 words)
+By[James](https://jameskilby.co.uk)March 27, 2026 · Updated May 31, 2026 • 📖14 min read(2,817 words)
 
 📅 **Published:** March 27, 2026• **Updated:** May 31, 2026
 
@@ -176,12 +176,12 @@ It works with any OpenAI-compatible client, so a wide range of tools can connect
 
 A few features worth calling out from the config:
 
-  * **VRAM-aware routing** — it monitors GPU VRAM and can automatically unload models using an LRU strategy when memory gets tight, then load the right model for the next request.
-  * **Response caching** — a 500-entry cache with a 1-hour TTL avoids redundant inference on repeated or similar prompts.
-  * **Signature injection** — responses are annotated with the model that actually handled them (`Model: {model}`), which is useful for debugging and understanding routing decisions.
-  * **SQLite-backed routing state** — profiles and cache persist across restarts in a named volume.
-  * **Automated backups for PostgreSQL** — the Open WebUI backup sidecar pattern works well and I’d like to extend it to pg_dump snapshots for the Langfuse, n8n, and Grafana databases.
-  * **LiteLLM as a unified gateway** to front both local Ollama models and external APIs (OpenAI, Anthropic) behind a single endpoint, with spend tracking and per-user rate limits.
+  *  **VRAM-aware routing** — it monitors GPU VRAM and can automatically unload models using an LRU strategy when memory gets tight, then load the right model for the next request.
+  *  **Response caching** — a 500-entry cache with a 1-hour TTL avoids redundant inference on repeated or similar prompts.
+  *  **Signature injection** — responses are annotated with the model that actually handled them (`Model: {model}`), which is useful for debugging and understanding routing decisions.
+  *  **SQLite-backed routing state** — profiles and cache persist across restarts in a named volume.
+  *  **Automated backups for PostgreSQL** — the Open WebUI backup sidecar pattern works well and I’d like to extend it to pg_dump snapshots for the Langfuse, n8n, and Grafana databases.
+  *  **LiteLLM as a unified gateway** to front both local Ollama models and external APIs (OpenAI, Anthropic) behind a single endpoint, with spend tracking and per-user rate limits.
 
 The practical result is that you can send any prompt to a single endpoint and let the router decide whether it warrants a heavyweight model or whether something smaller and faster will do. For a homelab running a single GPU, this kind of intelligent load management makes a real difference.
     
@@ -256,23 +256,23 @@ This post is Part 1 of a multi-part series. The architecture overview above cove
 
 ## Similar Posts
 
-  * [ ![Running Nutanix CE at Home: AHV Setup & First Impressions](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg) ](https://jameskilby.co.uk/2018/01/nutanix-ce/)
+  * [![Running Nutanix CE at Home: AHV Setup & First Impressions](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg)](https://jameskilby.co.uk/2018/01/nutanix-ce/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/)
 
 ### [Running Nutanix CE at Home: AHV Setup & First Impressions](https://jameskilby.co.uk/2018/01/nutanix-ce/)
 
-By[James](https://jameskilby.co.uk) January 6, 2018 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)January 6, 2018 · Updated June 1, 2026
 
 I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to continue running it at home.
 
-  * [ ![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png) ](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
+  * [![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
 [Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
-By[James](https://jameskilby.co.uk) September 13, 2020 · Updated May 31, 2026
+By[James](https://jameskilby.co.uk)September 13, 2020 · Updated May 31, 2026
 
 I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.
 
@@ -280,36 +280,36 @@ I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.
 
 ### [Lab Update – Desired Workloads](https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/)
 
-By[James](https://jameskilby.co.uk) January 6, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)January 6, 2022 · Updated June 1, 2026
 
 My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.
 
-  * [ ![Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested](https://jameskilby.co.uk/wp-content/uploads/2026/03/Octopus-Energy-logo.jpg) ](https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/)
+  * [![Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested](https://jameskilby.co.uk/wp-content/uploads/2026/03/Octopus-Energy-logo.jpg)](https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/)
 
 ### [Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested](https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/)
 
-By[James](https://jameskilby.co.uk) March 9, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)March 9, 2026 · Updated June 1, 2026
 
 I am quite a heavy consumer of electricity at home. This is primarily driven by my lab but having a young son and two golden retrievers means more washing and drying.
 
-  * [ ![VMware Cloud on AWS \(VMC\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-768x395.png) ](https://jameskilby.co.uk/2020/07/i3en/)
+  * [![VMware Cloud on AWS \(VMC\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-768x395.png)](https://jameskilby.co.uk/2020/07/i3en/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
 ### [VMware Cloud on AWS i3en Host: Specs, Storage & Performance](https://jameskilby.co.uk/2020/07/i3en/)
 
-By[James](https://jameskilby.co.uk) July 2, 2020 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)July 2, 2020 · Updated June 1, 2026
 
 VMware Cloud on AWS (VMC) has introduced a new host to its lineup: the “i3en”. This is based on the i3en.
 
-  * [ ![VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png) ](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
+  * [![VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png)](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
 
 [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
 ### [VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
 
-By[James](https://jameskilby.co.uk) December 8, 2025 · Updated May 25, 2026
+By[James](https://jameskilby.co.uk)December 8, 2025 · Updated May 25, 2026
 
 How to use the Amazon Time Sync Service in a VMC environment
