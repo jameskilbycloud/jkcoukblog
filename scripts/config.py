@@ -70,9 +70,15 @@ class Config:
     # sameAs URLs — the canonical professional profile graph for entity linking.
     # Pre-existing JSON-LD links to wordpress.jameskilby.cloud (the private CMS),
     # which is wrong on a public schema; this list replaces that.
+    #
+    # The same list is applied to both Person AND Organization entities (by
+    # fix_person_enrichment and fix_organization_sameas respectively) — this
+    # is a single-author blog so Person.sameAs and Organization.sameAs should
+    # describe the same identity graph.
     PERSON_SAME_AS = (
         'https://github.com/jameskilbynet',
         'https://x.com/jameskilbynet',
+        'https://www.linkedin.com/in/james-kilby/',
     )
 
     PERSON_JOB_TITLE = 'Cloud / Infrastructure Architect'
