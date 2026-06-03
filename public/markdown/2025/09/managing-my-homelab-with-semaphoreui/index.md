@@ -28,13 +28,13 @@ url: https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/
 image: https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)
+![Semaphore](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
 # Managing my Homelab with SemaphoreUI
 
-By[James](https://jameskilby.co.uk) September 2, 2025 · Updated June 1, 2026 • 📖8 min read(1,592 words)
+By[James](https://jameskilby.co.uk)September 2, 2025 · Updated June 1, 2026 • 📖8 min read(1,592 words)
 
 📅 **Published:** September 02, 2025• **Updated:** June 01, 2026
 
@@ -208,7 +208,7 @@ The next block ensures that the required packages are present on the system.
 
 📋 Copy
 
-# Semaphore Concepts
+## Semaphore Concepts
 
 So now that we understand the playbook, let’s go over some of the Semaphore concepts
 
@@ -228,7 +228,7 @@ A schedule is an easy way to run a specified task repeatedly. Fairly self-explan
 
 The Inventory specifies hosts to be managed with the appropriate credentials.
 
-![](https://jameskilby.co.uk/wp-content/uploads/2025/09/Ansible-Inventory.png)
+![Ansible Inventory](https://jameskilby.co.uk/wp-content/uploads/2025/09/Ansible-Inventory.png)
 
 ### Variable Groups
 
@@ -425,43 +425,43 @@ I have been really impressed with Semaphore and am migrating more and more of my
 
 ## Similar Posts
 
-  * [ ![Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920-768x432.jpg) ](https://jameskilby.co.uk/2022/10/starlink/)
+  * [![Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920-768x432.jpg)](https://jameskilby.co.uk/2022/10/starlink/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
 
 ### [Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/2022/10/starlink/)
 
-By[James](https://jameskilby.co.uk) October 11, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)October 11, 2022 · Updated June 1, 2026
 
 Since moving to Dorset last year internet connectivity has been the bane of my existence. Currently, I have an ADSL connection provided by my old employer Zen and a 5G connection provided by Three.
 
-  * [ ![Automated VCF 9 Offline Depot architecture diagram showing Traefik reverse proxy and Nginx file server stack](https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png) ](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
+  * [![Automated VCF 9 Offline Depot architecture diagram showing Traefik reverse proxy and Nginx file server stack](https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png)](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Automated VCF 9 Offline Depot](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
 
-By[James](https://jameskilby.co.uk) April 10, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)April 10, 2026 · Updated June 1, 2026
 
 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS.
 
-  * [ ![How to Run ZFS on VMware vSphere: Setup Guide and Best Practices](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg) ](https://jameskilby.co.uk/2024/12/zfs-on-vmware/)
+  * [![How to Run ZFS on VMware vSphere: Setup Guide and Best Practices](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg)](https://jameskilby.co.uk/2024/12/zfs-on-vmware/)
 
 [TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
 
 ### [How to Run ZFS on VMware vSphere: Setup Guide and Best Practices](https://jameskilby.co.uk/2024/12/zfs-on-vmware/)
 
-By[James](https://jameskilby.co.uk) December 18, 2024 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)December 18, 2024 · Updated June 1, 2026
 
 Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the way back in 2010.
 
-  * [ ![Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1-768x1024.jpg) ](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
+  * [![Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1-768x1024.jpg)](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
 
-By[James](https://jameskilby.co.uk) January 6, 2022 · Updated February 16, 2026
+By[James](https://jameskilby.co.uk)January 6, 2022 · Updated February 16, 2026
 
 Quite a few changes have happened in the lab recently. I decided to do a multipart blog on the changes.
 
@@ -469,16 +469,16 @@ Quite a few changes have happened in the lab recently. I decided to do a multipa
 
 ### [My First Homelab Storage Setup: HP Gen8 & Xpenology](https://jameskilby.co.uk/2018/01/lab-storage/)
 
-By[James](https://jameskilby.co.uk) January 6, 2018 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)January 6, 2018 · Updated June 1, 2026
 
 I have been meaning to post around some of the lab setup for a while. Although it changes frequently at present it’s as below.
 
-  * [ ![Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png) ](https://jameskilby.co.uk/2023/04/intel-optane/)
+  * [![Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png)](https://jameskilby.co.uk/2023/04/intel-optane/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://jameskilby.co.uk/category/vexpert/)
 
 ### [Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/2023/04/intel-optane/)
 
-By[James](https://jameskilby.co.uk) April 17, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)April 17, 2023 · Updated June 1, 2026
 
 I have been a VMware vExpert for many years and it has brought me many benefits over the years.

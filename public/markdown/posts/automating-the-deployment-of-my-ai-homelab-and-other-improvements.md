@@ -26,13 +26,13 @@ url: https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab
 image: https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png)
+![Vmware Nvidia Logos Ee2F18Dc 615D 4C9E 8F11 9C3C2Ce2Bf37 Prv](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Containers](https://jameskilby.co.uk/category/containers/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 # Automating the Deployment of my Homelab AI Infrastructure
 
-By[James](https://jameskilby.co.uk) February 9, 2026 · Updated June 1, 2026 • 📖17 min read(3,332 words)
+By[James](https://jameskilby.co.uk)February 9, 2026 · Updated June 1, 2026 • 📖17 min read(3,332 words)
 
 📅 **Published:** February 09, 2026• **Updated:** June 01, 2026
 
@@ -566,7 +566,7 @@ Rather than typing all of the values out you can copy the JSON below and then ju
 
 ##### Traefik Variable Definitions
 
-**Variable**|  **Default**|  **Description**  
+ **Variable**|  **Default**|  **Description**  
 ---|---|---  
 traefik_deploy_test_service| true| set to false to skip NGINX deployment  
 traefik_healthcheck_poll_retries| 12| Number of health check poll attempts  
@@ -690,62 +690,62 @@ This is now ready for you to start deploying Docker-based AI workloads onto.
 
 ## Similar Posts
 
-  * [ ![Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920-768x432.jpg) ](https://jameskilby.co.uk/2022/10/starlink/)
+  * [![Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920-768x432.jpg)](https://jameskilby.co.uk/2022/10/starlink/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
 
 ### [Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/2022/10/starlink/)
 
-By[James](https://jameskilby.co.uk) October 11, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)October 11, 2022 · Updated June 1, 2026
 
 Since moving to Dorset last year internet connectivity has been the bane of my existence. Currently, I have an ADSL connection provided by my old employer Zen and a 5G connection provided by Three.
 
-  * [ ![An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png) ](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
+  * [![An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png)](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
 ### [An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
 
-By[James](https://jameskilby.co.uk) August 14, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)August 14, 2025 · Updated June 1, 2026
 
 This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison.
 
-  * [ ![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg) ](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
+  * [![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
 
-By[James](https://jameskilby.co.uk) October 23, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)October 23, 2023 · Updated June 1, 2026
 
 Card Stats Install steps VM Provisioning Folding@Home A little while ago I decided to play with vGPU in my homelab.
 
-  * [ ![Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png) ](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
+  * [![Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
 
 [Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
 
-By[James](https://jameskilby.co.uk) May 16, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)May 16, 2023 · Updated June 1, 2026
 
 I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.
 
-  * [ ![VMware Cloud on AWS \(VMC\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-768x395.png) ](https://jameskilby.co.uk/2020/09/vmc-host-errors/)
+  * [![VMware Cloud on AWS \(VMC\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-768x395.png)](https://jameskilby.co.uk/2020/09/vmc-host-errors/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
 ### [How VMware Cloud on AWS Handles Host Failures Automatically](https://jameskilby.co.uk/2020/09/vmc-host-errors/)
 
-By[James](https://jameskilby.co.uk) September 15, 2020 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)September 15, 2020 · Updated June 1, 2026
 
 Learn how host failures are handled within VMC
 
-  * [ ![New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp) ](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
+  * [![New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
 ### [New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
 
-By[James](https://jameskilby.co.uk) April 1, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)April 1, 2026 · Updated June 1, 2026
 
 We’ve expanded the VMC fleet with the new i7i (i7i.

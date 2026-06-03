@@ -1,6 +1,6 @@
 ---
 title: "Analytics in a privacy focused world"
-description: "I recently helped my friend Dean Lewis @veducate with some hosting issues."
+description: "I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress"
 date: 2023-11-10T16:45:03+00:00
 modified: 2026-06-01T19:02:53+00:00
 author: James Kilby
@@ -26,13 +26,13 @@ url: https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/
 image: https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png)
+![Plausible Analytics Icon Top](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png)
 
 [Hosting](https://jameskilby.co.uk/category/hosting/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
 # Analytics in a privacy focused world
 
-By[James](https://jameskilby.co.uk) November 10, 2023 · Updated June 1, 2026 • 📖1 min read(254 words)
+By[James](https://jameskilby.co.uk)November 10, 2023 · Updated June 1, 2026 • 📖1 min read(254 words)
 
 📅 **Published:** November 10, 2023• **Updated:** June 01, 2026
 
@@ -60,62 +60,62 @@ I am now happy with this and have decided to make my stats public to show exactl
 
 ## Similar Posts
 
-  * [ ![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png) ](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
+  * [![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
 [Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
-By[James](https://jameskilby.co.uk) September 13, 2020 · Updated May 31, 2026
+By[James](https://jameskilby.co.uk)September 13, 2020 · Updated May 31, 2026
 
 I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.
 
-  * [ ![Hosting This Blog on Cloudflare Workers: Why & How I Did It](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2-768x229.png) ](https://jameskilby.co.uk/2022/01/web-development/)
+  * [![Hosting This Blog on Cloudflare Workers: Why & How I Did It](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2-768x229.png)](https://jameskilby.co.uk/2022/01/web-development/)
 
 [Hosting](https://jameskilby.co.uk/category/hosting/) | [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Personal](https://jameskilby.co.uk/category/personal/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
 
 ### [Hosting This Blog on Cloudflare Workers: Why & How I Did It](https://jameskilby.co.uk/2022/01/web-development/)
 
-By[James](https://jameskilby.co.uk) January 4, 2022 · Updated May 25, 2026
+By[James](https://jameskilby.co.uk)January 4, 2022 · Updated May 25, 2026
 
 A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them.
 
-  * [ ![And now for something completely different](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7-768x193.png) ](https://jameskilby.co.uk/2018/10/and-now-for-something-completely-different/)
+  * [![And now for something completely different](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7-768x193.png)](https://jameskilby.co.uk/2018/10/and-now-for-something-completely-different/)
 
 [Personal](https://jameskilby.co.uk/category/personal/)
 
 ### [And now for something completely different](https://jameskilby.co.uk/2018/10/and-now-for-something-completely-different/)
 
-By[James](https://jameskilby.co.uk) October 16, 2018 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)October 16, 2018 · Updated June 1, 2026
 
 I have worked for my current employer Zen Internet for 3. Over that time I have changed roles from what was originally a customer-focused role into a role with one of the core platform teams.
 
-  * [ ![How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-768x411.png) ](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
+  * [![How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-768x411.png)](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
 
 ### [How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
 
-By[James](https://jameskilby.co.uk) January 29, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)January 29, 2025 · Updated June 1, 2026
 
 Update: Hoarder has now been renamed to Karakeep due to a trademark issue I’ve been on a mission recently to regain control of my data.
 
-  * [ ![Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png) ](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
+  * [![Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png)](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
 
 ### [Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
-By[James](https://jameskilby.co.uk) November 10, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)November 10, 2023 · Updated June 1, 2026
 
 Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal.
 
-  * [ ![AWS Status Page – Monitoring Included](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_-768x307.png) ](https://jameskilby.co.uk/2018/05/aws-status-page-monitoring-included/)
+  * [![AWS Status Page – Monitoring Included](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_-768x307.png)](https://jameskilby.co.uk/2018/05/aws-status-page-monitoring-included/)
 
 [AWS](https://jameskilby.co.uk/category/aws/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
 
 ### [AWS Status Page – Monitoring Included](https://jameskilby.co.uk/2018/05/aws-status-page-monitoring-included/)
 
-By[James](https://jameskilby.co.uk) May 15, 2018 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)May 15, 2018 · Updated June 1, 2026
 
 AWS Status Page – Enhancements The tool I deployed, lambstatus, supports pulling metrics from AWS Cloudwatch and displaying them.

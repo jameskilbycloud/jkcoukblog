@@ -47,7 +47,7 @@ image: https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png
 
 # Automated VCF 9 Offline Depot
 
-By[James](https://jameskilby.co.uk) April 10, 2026 · Updated June 1, 2026 • 📖7 min read(1,427 words)
+By[James](https://jameskilby.co.uk)April 10, 2026 · Updated June 1, 2026 • 📖7 min read(1,427 words)
 
 📅 **Published:** April 10, 2026• **Updated:** June 01, 2026
 
@@ -105,31 +105,31 @@ What the script does under the hood is::
 
 **1\. Docker Installation** — Adds Docker’s official GPG key and APT repository, installs Docker Engine, CLI, containerd, Buildx and the Compose plugin. It detects the system architecture automatically so it works on both amd64 and arm64.
 
-**2\. Directory Structure** — Creates the stack directory at `/opt/traefik-nginx` with subdirectories for compose files, Traefik config, and Nginx config. Creates `/vcf` owned by the user who ran `sudo` so you can write files there without root.
+ **2\. Directory Structure** — Creates the stack directory at `/opt/traefik-nginx` with subdirectories for compose files, Traefik config, and Nginx config. Creates `/vcf` owned by the user who ran `sudo` so you can write files there without root.
 
-**3\. Nginx Config** — Writes a custom `default.conf` that enables `autoindex` for directory browsing with human-readable file sizes and local timestamps.
+ **3\. Nginx Config** — Writes a custom `default.conf` that enables `autoindex` for directory browsing with human-readable file sizes and local timestamps.
 
-**4\. Traefik Static Config** — Generates `traefik.yml` with:
+ **4\. Traefik Static Config** — Generates `traefik.yml` with:
 
   * HTTP and HTTPS entrypoints
   * Cloudflare DNS challenge for Let’s Encrypt certificates
   * Docker provider for automatic service discovery
   * Dashboard enabled via its own subdomain
 
-**5\. Environment File** — Writes `.env` (mode `0600`) containing the domain, subdomain, Cloudflare token, basic auth hash, and install directory. Docker Compose interpolates these into container labels at runtime.
+ **5\. Environment File** — Writes `.env` (mode `0600`) containing the domain, subdomain, Cloudflare token, basic auth hash, and install directory. Docker Compose interpolates these into container labels at runtime.
 
-**6\. Network & Stack** — Creates the `traefik` Docker network (idempotent), then runs `docker compose up -d`.
+ **6\. Network & Stack** — Creates the `traefik` Docker network (idempotent), then runs `docker compose up -d`.
 
 The stack is split across two compose files included from a root `docker-compose.yml`:
 
-**Traefik** (`compose/traefik.yml`):
+ **Traefik** (`compose/traefik.yml`):
 
   * Binds ports 80 and 443
   * Mounts the Docker socket (read-only) for container discovery
   * Global HTTP-to-HTTPS redirect via a catchall router
   * Dashboard exposed at `traefik.yourdomain.com`
 
-**Nginx** (`compose/nginx.yml`):
+ **Nginx** (`compose/nginx.yml`):
 
   * Mounts `/vcf` from the host as the web root (read-only)
   * Custom nginx config for directory browsing
@@ -243,7 +243,7 @@ If you’re still having issues review the Traefik Dashboard `https://traefik.do
 
 You should see four routers and six services like the attached screenshots
 
-![traefikrouters](https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikrouters-1024x254.png) ![traefikservices](https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikservices-1024x326.png)
+![traefikrouters](https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikrouters-1024x254.png)![traefikservices](https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikservices-1024x326.png)
 
 ### Basic auth prompt loops
 
@@ -257,62 +257,62 @@ If the depot keeps prompting for credentials even with the right ones, it’s al
 
 ## Similar Posts
 
-  * [ ![VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743-768x737.jpg) ](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
+  * [![VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743-768x737.jpg)](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
 
 [VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
 
-By[James](https://jameskilby.co.uk) January 18, 2024 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)January 18, 2024 · Updated June 1, 2026
 
 How to deploy Holodeck with Legacy CPU’s
 
-  * [ ![vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg) ](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
+  * [![vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
 
 ### [vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
 
-By[James](https://jameskilby.co.uk) November 17, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)November 17, 2023 · Updated June 1, 2026
 
 An Overview of vSAN ESA in VMC 
 
-  * [ ![WordPress Hosting with Cloudflare Pages](https://jameskilby.co.uk/wp-content/uploads/2023/05/simply-static-logo.png) ](https://jameskilby.co.uk/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages/)
+  * [![WordPress Hosting with Cloudflare Pages](https://jameskilby.co.uk/wp-content/uploads/2023/05/simply-static-logo.png)](https://jameskilby.co.uk/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages/)
 
 [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
 
 ### [WordPress Hosting with Cloudflare Pages](https://jameskilby.co.uk/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages/)
 
-By[James](https://jameskilby.co.uk) May 14, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)May 14, 2023 · Updated June 1, 2026
 
 Table of Contents The Tooling The Process WordPress Plugin Install GitHub setup Cloudflare setup I have been using Cloudflare to protect my web assets for a really long time.
 
-  * [ ![Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1-768x403.jpg) ](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
+  * [![Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1-768x403.jpg)](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)
 
 ### [Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
 
-By[James](https://jameskilby.co.uk) November 21, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)November 21, 2022 · Updated June 1, 2026
 
 I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate.
 
-  * [ ![How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp) ](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
+  * [![How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
 
 [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
 
 ### [How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
 
-By[James](https://jameskilby.co.uk) October 6, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)October 6, 2025 · Updated June 1, 2026
 
 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.
 
-  * [ ![VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png) ](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
+  * [![VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png)](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/)
 
 ### [VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
 
-By[James](https://jameskilby.co.uk) January 17, 2024 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)January 17, 2024 · Updated June 1, 2026
 
 How to Deploy VMware Holodeck on multiple hosts

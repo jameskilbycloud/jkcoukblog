@@ -3,7 +3,7 @@
     {
       "slug": "time-in-a-vmc-environment",
       "title": "VMware Cloud on AWS Time Sync & NTP Configuration",
-      "description": "How to use the Amazon Time Sync Service in a VMC environment",
+      "description": "One of the nice things about the VMC Service is that you dont have to worry about a number of the traditional infrastructure services that you typically",
       "date": "2025-12-08T14:03:44Z",
       "modified": "2026-05-25T17:15:48Z",
       "author": "James Kilby",
@@ -20,7 +20,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png)\n\n[VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# VMware Cloud on AWS Time Sync & NTP Configuration\n\nBy[James](https://jameskilby.co.uk) December 8, 2025 · Updated May 25, 202..."
+      "excerpt": "![Picture 1 E1768509620339](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png)\n\n[VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# VMware Cloud on AWS Time Sync & NTP Configuration\n\nBy[James](https://jameskilby.co.uk)December 8, 202..."
     },
     {
       "slug": "starlink",
@@ -53,7 +53,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# Starlink Satellite Internet Review: Rural Broadband So..."
+      "excerpt": "![Spacexs Starlink To Supply Free Satellite Internet To Famili U44U.1920](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/catego..."
     },
     {
       "slug": "self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu",
@@ -82,7 +82,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-1024x683.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-scaled.jpg)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Sel..."
+      "excerpt": "![Pexels Tara Winstead 8386440 Scaled](https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-scaled.jpg)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameski..."
     },
     {
       "slug": "runecast-remediation-scripts",
@@ -114,12 +114,12 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)\n\n[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Runecast Remediation Scripts: Auto-Fix VMware Storage Issues\n\nBy[James](https://jameskilby.co.uk) May ..."
+      "excerpt": "![Runecast Solutions Ltd](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)\n\n[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Runecast Remediation Scripts: Auto-Fix VMware Storage Issues\n\nBy[James](https://..."
     },
     {
       "slug": "octopus-agile-battery-solar-calculator",
       "title": "Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested",
-      "description": "I am quite a heavy consumer of electricity at home.",
+      "description": "I am quite a heavy consumer of electricity at home. This is primarily driven by my lab but having a young son and two golden retrievers means more washing",
       "date": "2026-03-09T23:39:37Z",
       "modified": "2026-06-01T21:59:12Z",
       "author": "James Kilby",
@@ -144,7 +144,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/03/Octopus-Energy-logo.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/03/Octopus-Energy-logo.jpg)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/)\n\n# Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested\n\n..."
+      "excerpt": "![Octopus Energy Logo](https://jameskilby.co.uk/wp-content/uploads/2026/03/Octopus-Energy-logo.jpg)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/)\n\n# Free Octopus Agile Battery & Solar Calculator: 5..."
     },
     {
       "slug": "nutanix-ncp",
@@ -171,12 +171,12 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# Passing the Nutanix NCP Exam: Free Training & My Experience\n\nBy[James](https://jamesk..."
+      "excerpt": "![Nutanix Logo Hi Rez Reverse W Carrier](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# Passing the Nutanix NCP Exam: Free Training & My..."
     },
     {
       "slug": "nutanix-command-reference-guide",
       "title": "Nutanix Command Reference Guide",
-      "description": "Nutanix Command List This is a list of Nutanix commands I have found useful.",
+      "description": "This is a list of Nutanix commands I have found useful. It’s here as a reference and if I need a command more than a few times I’ll generally add it here.",
       "date": "2018-06-05T20:59:24Z",
       "modified": "2026-06-01T19:02:17Z",
       "author": "James Kilby",
@@ -194,12 +194,12 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Nutanix Command Reference Guide\n\nBy[James](https://jameskilby.co.uk) June 5, 2018 · Updated June 1, 2026 • 📖1 min read(105 words)\n\n📅 **Publishe..."
+      "excerpt": "![Nutanix Logo Hi Rez Reverse W Carrier](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Nutanix Command Reference Guide\n\nBy[James](https://jameskilby.co.uk)June 5, 2018 · Updated June 1, 2026 • ..."
     },
     {
       "slug": "nutanix-ce",
       "title": "Running Nutanix CE at Home: AHV Setup & First Impressions",
-      "description": "I ran a Nutanix CE server at home for a little while when it first came out.",
+      "description": "I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to",
       "date": "2018-01-06T17:28:56Z",
       "modified": "2026-06-01T21:58:18Z",
       "author": "James Kilby",
@@ -223,12 +223,12 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Running Nutanix CE at Home: AHV Setup & First Impressions\n\nBy[James](https://jameskilby..."
+      "excerpt": "![Nutanix Logo Hi Rez Reverse W Carrier](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Running Nutanix CE at Home: AHV Setup & First Impr..."
     },
     {
       "slug": "new-vmc-host-i7i-metal-24xl",
       "title": "New VMware Cloud on AWS Host: i7i.metal-24xl",
-      "description": "We’ve expanded the VMC fleet with the new i7i (i7i.",
+      "description": "We’ve expanded the VMC fleet with the new i7i (i7i.24xlarge) host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it",
       "date": "2026-04-01T08:06:00Z",
       "modified": "2026-06-01T21:07:20Z",
       "author": "James Kilby",
@@ -255,7 +255,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# New VMware Cloud on AWS Host: i7i.metal-24xl\n\nBy[James](https://jameskilby.co.uk) ..."
+      "excerpt": "![Vmconaws.Png](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# New VMware Cloud on AWS Host: i7i.metal-24xl\n\nBy[James](https://jamesk..."
     },
     {
       "slug": "new-nodes",
@@ -286,7 +286,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/04/Screenshot-2024-04-06-at-22.50.57.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-scaled.jpeg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# New Homelab Nodes: SuperMicro BigTwin for VMware & Nut..."
+      "excerpt": "![Img 6629 Scaled](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-scaled.jpeg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# New Homelab Nodes: SuperMicro BigTwin f..."
     }
   ],
   "page": 3,

@@ -23,13 +23,13 @@ url: https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/
 image: https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_-1024x683.png
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_.png)
+![Ubiquiti Networks Logo.Wine ](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_.png)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
 
 # Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets
 
-By[James](https://jameskilby.co.uk) June 26, 2024 · Updated June 1, 2026 • 📖1 min read(270 words)
+By[James](https://jameskilby.co.uk)June 26, 2024 · Updated June 1, 2026 • 📖1 min read(270 words)
 
 📅 **Published:** June 26, 2024• **Updated:** June 01, 2026
 
@@ -55,9 +55,9 @@ In this, I have set a custom option and then it asks for four values:
 
 Code| 43  
 ---|---  
-Name | Unifi  
-Type | Hexadecimal  
-Value | 01:04:c0:a8:14:02  
+Name| Unifi  
+Type| Hexadecimal  
+Value| 01:04:c0:a8:14:02  
   
 All of which are straightforward except the last one so let me explain. It is made up of 2 parts…
 
@@ -79,56 +79,56 @@ And there you have it. I can connect a factory fresh UniFi device to my network.
 
 ### [My First Homelab Storage Setup: HP Gen8 & Xpenology](https://jameskilby.co.uk/2018/01/lab-storage/)
 
-By[James](https://jameskilby.co.uk) January 6, 2018 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)January 6, 2018 · Updated June 1, 2026
 
 I have been meaning to post around some of the lab setup for a while. Although it changes frequently at present it’s as below.
 
-  * [ ![Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore-768x768.png) ](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
+  * [![Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore-768x768.png)](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
 ### [Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
-By[James](https://jameskilby.co.uk) September 2, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)September 2, 2025 · Updated June 1, 2026
 
 An intro on how I use SemaphoreUI to manage my Homelab
 
-  * [ ![Configuring a Zen Internet and City Fibre connection with a 3rd party router](https://jameskilby.co.uk/wp-content/uploads/2023/11/cityfibre-zen-768x403.jpg) ](https://jameskilby.co.uk/2023/11/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router/)
+  * [![Configuring a Zen Internet and City Fibre connection with a 3rd party router](https://jameskilby.co.uk/wp-content/uploads/2023/11/cityfibre-zen-768x403.jpg)](https://jameskilby.co.uk/2023/11/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router/)
 
 [Networking](https://jameskilby.co.uk/category/networking/)
 
 ### [Configuring a Zen Internet and City Fibre connection with a 3rd party router](https://jameskilby.co.uk/2023/11/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router/)
 
-By[James](https://jameskilby.co.uk) November 15, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)November 15, 2023 · Updated June 1, 2026
 
 Back in July I bought a new house and one of the best things about the property was that it was already in a City Fibre location.
 
-  * [ ![Homelab Storage Upgrade: Synology DS918 for VMware & NFS](https://jameskilby.co.uk/wp-content/uploads/2023/04/81-ZoEW24UL._SL1500_-768x461.jpg) ](https://jameskilby.co.uk/2019/02/lab-storage-2/)
+  * [![Homelab Storage Upgrade: Synology DS918 for VMware & NFS](https://jameskilby.co.uk/wp-content/uploads/2023/04/81-ZoEW24UL._SL1500_-768x461.jpg)](https://jameskilby.co.uk/2019/02/lab-storage-2/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/)
 
 ### [Homelab Storage Upgrade: Synology DS918 for VMware & NFS](https://jameskilby.co.uk/2019/02/lab-storage-2/)
 
-By[James](https://jameskilby.co.uk) February 10, 2019 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)February 10, 2019 · Updated June 1, 2026
 
 Since starting my new role with Xtravirt my Homelab has gone through several fairly significant changes.
 
-  * [ ![Template Deployment with Packer](https://jameskilby.co.uk/wp-content/uploads/2021/01/logo_packer.png) ](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
+  * [![Template Deployment with Packer](https://jameskilby.co.uk/wp-content/uploads/2021/01/logo_packer.png)](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
 
 [Automation](https://jameskilby.co.uk/category/automation/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Template Deployment with Packer](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
 
-By[James](https://jameskilby.co.uk) January 21, 2021 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)January 21, 2021 · Updated June 1, 2026
 
 Packer is one of those tools I have heard about, and some of the cool people on Twitter that I follow have been using it for a while.
 
-  * [ ![Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png) ](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
+  * [![Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png)](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
 
 [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernetes/)
 
 ### [Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
 
-By[James](https://jameskilby.co.uk) December 9, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)December 9, 2022 · Updated June 1, 2026
 
 Late to the party or not, I have been using containers in my lab more and more and that has led me to Portainer ….
