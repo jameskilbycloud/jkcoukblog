@@ -808,7 +808,6 @@
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/09/Ansible-Inventory.png</image:loc>
       <image:title>Ansible Inventory</image:title>
-      <image:caption>Ansible Inventory</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/07/Semaphore-Repo-1024x80.png</image:loc>
@@ -1164,6 +1163,10 @@
   <url>
     <loc>https://jameskilby.co.uk/about-james-kilby-solution-architect/</loc>
     <lastmod>2026-06-01</lastmod>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/02/55f91c39-f0dd-42e1-939a-cdffc92c0b52-1024x768.jpeg</image:loc>
+      <image:title>55F91C39 F0Dd 42E1 939A Cdffc92C0B52 1024X768</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/homelab-software/</loc>
@@ -1175,12 +1178,10 @@
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/vSphere-Overview-1024x530.png</image:loc>
       <image:title>Vsphere Overview 1024X530</image:title>
-      <image:caption>Vsphere Overview 1024X530</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/02/HouseNetworkOverview-1024x634.png</image:loc>
       <image:title>Housenetworkoverview 1024X634</image:title>
-      <image:caption>Housenetworkoverview 1024X634</image:caption>
     </image:image>
   </url>
   <url>
