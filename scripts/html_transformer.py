@@ -292,6 +292,8 @@ class HTMLTransformer:
             modified = True
         if self.seo.fix_breadcrumb_positions(soup, file_path):
             modified = True
+        if self.seo.fix_dedupe_breadcrumblist(soup, file_path):
+            modified = True
         if self.seo.fix_techarticle_dedupe_and_dates(soup, file_path):
             modified = True
         if self.seo.fix_person_name(soup, file_path):
@@ -301,6 +303,8 @@ class HTMLTransformer:
         if self.seo.fix_twitter_attribution(soup, file_path):
             modified = True
         if self.seo.fix_wordpress_host_leak(soup, file_path):
+            modified = True
+        if self.seo.fix_og_meta_alignment(soup, file_path):
             modified = True
         return modified
 
