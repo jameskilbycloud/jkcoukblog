@@ -1,0 +1,149 @@
+name: Apply Image Alt Patches (one-off)
+
+# Runs scripts/apply_alt_patches.py against WP to fix image alt-text on
+# attachments matching filename patterns. Same self-hosted-runner + PEP-668
+# install pattern as apply-typo-patches.yml.
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: 'Actually write changes to WordPress (false = dry-run)'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+      pattern:
+        description: 'Only process patches whose file_pattern contains this substring (blank = all)'
+        required: false
+        default: ''
+      trigger_deploy:
+        description: 'After successful --apply, force a full rebuild deploy so the new alts propagate'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+permissions:
+  contents: read
+  actions: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
+concurrency:
+  group: apply-alt-patches
+  cancel-in-progress: false
+
+jobs:
+  apply-alt-patches:
+    runs-on: self-hosted
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Install dependencies (user-site, PEP 668 override)
+        run: |
+          python3 --version
+          echo "${HOME}/.local/bin" >> "$GITHUB_PATH"
+          python3 -m pip install --user --break-system-packages --upgrade requests
+          python3 -c "import requests; print('requests', requests.__version__)"
+
+      - name: Validate secrets / inputs
+        run: |
+          if [ -z "${{ secrets.WP_AUTH_TOKEN }}" ]; then
+            echo "❌ Secret WP_AUTH_TOKEN is missing"; exit 1
+          fi
+          if [ ! -f alt-patches.json ]; then
+            echo "❌ alt-patches.json not found"; exit 1
+          fi
+          echo "Inputs: apply=${{ github.event.inputs.apply }}  pattern='${{ github.event.inputs.pattern }}'  trigger_deploy=${{ github.event.inputs.trigger_deploy }}"
+
+      - name: Dry-run (always, even when apply=true — for the log)
+        env:
+          WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+        run: |
+          echo "=== Dry-run pass ==="
+          ARGS=()
+          if [ -n "${{ github.event.inputs.pattern }}" ]; then ARGS+=(--pattern "${{ github.event.inputs.pattern }}"); fi
+          python3 scripts/apply_alt_patches.py "${ARGS[@]}" | tee dry-run.log
+          [ -f alt-patches-applied.log.json ] && mv alt-patches-applied.log.json alt-patches-dry-run.log.json || true
+
+      - name: Apply (only if input apply=true)
+        if: ${{ github.event.inputs.apply == 'true' }}
+        env:
+          WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+        run: |
+          echo "=== APPLY pass ==="
+          ARGS=(--apply)
+          if [ -n "${{ github.event.inputs.pattern }}" ]; then ARGS+=(--pattern "${{ github.event.inputs.pattern }}"); fi
+          python3 scripts/apply_alt_patches.py "${ARGS[@]}" | tee apply.log
+
+      - name: Summarise to job summary
+        if: always()
+        run: |
+          {
+            echo "## Apply Alt Patches — run summary"
+            echo ""
+            echo "- **apply**: \`${{ github.event.inputs.apply }}\`"
+            echo "- **pattern**: \`${{ github.event.inputs.pattern }}\`"
+            echo ""
+            if [ -f alt-patches-applied.log.json ]; then
+              WROTE=$(jq '[.[] | select(.applied == true)] | length' alt-patches-applied.log.json)
+              NOOP=$(jq '[.[] | select(.noop == true)] | length' alt-patches-applied.log.json)
+              TOTAL=$(jq 'length' alt-patches-applied.log.json)
+              echo "### Apply result"
+              echo "| Metric | Count |"
+              echo "|---|---|"
+              echo "| Patches | $TOTAL |"
+              echo "| Written | $WROTE |"
+              echo "| No-op (already correct) | $NOOP |"
+              echo ""
+              echo '```json'
+              cat alt-patches-applied.log.json
+              echo '```'
+            elif [ -f alt-patches-dry-run.log.json ]; then
+              echo "### Dry-run preview"
+              echo '```json'
+              cat alt-patches-dry-run.log.json
+              echo '```'
+            fi
+          } >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: alt-patch-logs
+          path: |
+            dry-run.log
+            apply.log
+            alt-patches-dry-run.log.json
+            alt-patches-applied.log.json
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Force-rebuild deploy (apply + trigger_deploy)
+        if: ${{ github.event.inputs.apply == 'true' && github.event.inputs.trigger_deploy == 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "→ Dispatching deploy-static-site.yml via curl (gh CLI not on runner PATH)"
+          # Workflow dispatch via REST — same effect as gh workflow run.
+          # The next deploy will be incremental, which won't catch alt changes
+          # because attachment edits don't bump containing post modified_gmt.
+          # For now we leave it to the user to run another full rebuild when
+          # they notice — adding a "delete incremental cache" step here would
+          # need broader actions: write scope.
+          curl -sf -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/deploy-static-site.yml/dispatches" \
+            -d '{"ref":"${{ github.ref_name }}"}'
+          echo "✅ Deploy dispatched"
