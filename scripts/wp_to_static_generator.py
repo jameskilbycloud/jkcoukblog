@@ -4230,7 +4230,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     html_file := item.get('html_file')
                 ) and html_file is not None and any(
                     url_path.startswith(f'/{y}/') for y in range(2010, 2035)
-                ) or url_path in ('/', '/about-me/', '/lab/', '/homelab-software/')
+                ) or url_path in (
+                    '/',
+                    '/about-james-kilby-solution-architect/',  # was '/about-me/' — renamed in WP
+                    '/lab/',
+                    '/homelab-software/',
+                    '/media/',
+                    '/vmc/',
+                )
 
                 if is_content_page and item.get('html_file'):
                     images = self._extract_page_images(item['html_file'])

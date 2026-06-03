@@ -1,8 +1,8 @@
 # Typo patches — still pending after WP REST + deploy
 
-_Generated 2026-06-01. Of 338 verified patches, **156 landed live**. The rest are listed below grouped by reason._
+_Generated 2026-06-01. Of 338 verified patches, **208 landed live**. The rest are listed below grouped by reason._
 
-## NEVER_APPLIED (105)
+## NEVER_APPLIED (52)
 
 ❌ Script reported "✅ written" to WP but the old text is still in the rendered body and raw HTML. Means the WP REST POST returned 200 but the change wasn't persisted (WP plugin filter or revision-only save). **Action: edit the post in WP admin and apply manually.**
 
@@ -237,97 +237,6 @@ _Generated 2026-06-01. Of 338 verified patches, **156 landed live**. The rest ar
   _Why: Missing full stop between the IP address and the start of the next sentence — clear run-on._
 
 
-### `/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/`  _(4 patches)_
-
-- **Find:** `VM running Ubuntu 24.04 VM`
-  **Replace with:** `VM running Ubuntu 24.04`
-  _Why: Duplicated word 'VM' at the end of the sentence._
-
-- **Find:** `how this much running chat queries may impact things`
-  **Replace with:** `how much running chat queries may impact things`
-  _Why: Stray extra word 'this' makes the sentence ungrammatical._
-
-- **Find:** `even if its not running any queries`
-  **Replace with:** `even if it’s not running any queries`
-  _Why: Possessive 'its' used where contraction 'it’s' (it is) is required._
-
-- **Find:** `a bit more of a reminder for me as what I have done`
-  **Replace with:** `a bit more of a reminder for me of what I have done`
-  _Why: Wrong preposition; 'as' should be 'of' (or 'as to'). Smallest correct change is 'of'._
-
-
-### `/2024/12/zfs-on-vmware/`  _(5 patches)_
-
-- **Find:** `You also need to do is to to ensure that TrueNAS can see unique disk IDs.`
-  **Replace with:** `What you also need to do is to ensure that TrueNAS can see unique disk IDs.`
-  _Why: Real grammar error: duplicated word 'to to' and the sentence is missing its subject. Verbatim match in body._
-
-- **Find:** `To confirm that To confirm that trim is working execute the below command command is worki…`
-  **Replace with:** `To confirm that trim is working, execute the below command`
-  _Why: Clearly broken/garbled text with repeated phrases; appears verbatim in body._
-
-- **Find:** `the VM’s be provisioned with thin disks`
-  **Replace with:** `the VMs be provisioned with thin disks`
-  _Why: Incorrect possessive apostrophe used for the plural 'VMs'. Verbatim match with curly apostrophe._
-
-- **Find:** `the VMs’s storage used`
-  **Replace with:** `the VM’s storage used`
-  _Why: Double possessive 'VMs's' is ungrammatical; should be singular possessive 'VM's'. Verbatim match._
-
-- **Find:** `Before and after listed below command`
-  **Replace with:** `Before and after listed below.`
-  _Why: Stray trailing word 'command' renders the sentence broken/incomplete; needs terminating punctuation._
-
-
-### `/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/`  _(1 patch)_
-
-- **Find:** `is it generate similar tags`
-  **Replace with:** `is that it generates similar tags`
-  _Why: Grammar error: verb agreement broken and missing 'that' makes the clause ungrammatical. The smallest correct fix is 'is that it generates similar tags'._
-
-
-### `/2025/04/warp-the-intelligent-terminal/`  _(8 patches)_
-
-- **Find:** `linux based tools`
-  **Replace with:** `Linux-based tools`
-  _Why: 'Linux' is a proper noun and must be capitalised; 'Linux-based' is the standard compound modifier._
-
-- **Find:** `self taught`
-  **Replace with:** `self-taught`
-  _Why: Standard compound adjective requires a hyphen._
-
-- **Find:** `I take some shortcuts that is an acceptable risk`
-  **Replace with:** `I take some shortcuts that are an acceptable risk`
-  _Why: Subject-verb agreement: plural 'shortcuts' takes 'are', not 'is'._
-
-- **Find:** `Taken from Warps website`
-  **Replace with:** `Taken from Warp's website`
-  _Why: Missing apostrophe on the possessive 'Warp's'._
-
-- **Find:** `Where the beauty of warp kicked in and said`
-  **Replace with:** `Where the beauty of Warp kicked in and said`
-  _Why: 'Warp' is a product name and should be capitalised consistently with the rest of the post._
-
-- **Find:** `It then auto executed a cat command`
-  **Replace with:** `It then auto-executed a cat command`
-  _Why: 'auto-' prefix takes a hyphen when forming a compound verb here._
-
-- **Find:** `asked if it was ok to run it which I approved`
-  **Replace with:** `asked if it was OK to run it, which I approved`
-  _Why: 'ok' is conventionally capitalised as 'OK'; a comma is needed before the non-restrictive 'which' clause._
-
-- **Find:** `Once apt-get had been upgraded the duplicates were no longer in place`
-  **Replace with:** `Once apt-get had been upgraded, the duplicates were no longer in place`
-  _Why: Missing comma after the introductory subordinate clause._
-
-
-### `/2025/05/vmc-quick-sizing-guide/`  _(1 patch)_
-
-- **Find:** `This is based on vSAN OSA and excluding the management overhead (Ie valid for secondary cl…`
-  **Replace with:** `This is based on vSAN OSA and excludes the management overhead (i.e. valid for secondary c…`
-  _Why: Verb agreement fix ('excluding' -> 'excludes' to pair with 'is based'); 'Ie' should be the standard abbreviation 'i.e.'; missing full stop after the closing parenthesis creates a run-on sentence._
-
-
 ### `/2025/08/vmc-host-deepdive/`  _(1 patch)_
 
 - **Find:** `I have just collated it into a single page`
@@ -335,150 +244,21 @@ _Generated 2026-06-01. Of 338 verified patches, **156 landed live**. The rest ar
   _Why: Sentence ends without a full stop before the next paragraph; adding a period correctly terminates the sentence._
 
 
-### `/2025/09/managing-my-homelab-with-semaphoreui/`  _(2 patches)_
-
-- **Find:** `It’s possible to have multiple repo’s connected`
-  **Replace with:** `It’s possible to have multiple repos connected`
-  _Why: Greengrocer's apostrophe in plural — 'repo's' should be 'repos'. The first apostrophe (It's) is correct as a contraction; only the second is wrong._
-
-- **Find:** `I have spun up a Vanilla Ubuntu 24.04 server`
-  **Replace with:** `I have spun up a vanilla Ubuntu 24.04 server`
-  _Why: 'Vanilla' here is a common adjective meaning plain/standard, not a proper noun, so it should be lowercase mid-sentence._
-
-
-### `/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/`  _(10 patches)_
-
-- **Find:** `Replaces all WordPress URL’s as relative`
-  **Replace with:** `Replaces all WordPress URLs as relative`
-  _Why: Stray apostrophe in plural — URLs should not have an apostrophe._
-
-- **Find:** `Set’s up the job on a runner`
-  **Replace with:** `Sets up the job on a runner`
-  _Why: Wrong apostrophe — verb 'Sets' (3rd-person singular), not possessive._
-
-- **Find:** `Check’s Out the repo`
-  **Replace with:** `Checks Out the repo`
-  _Why: Wrong apostrophe — verb 'Checks', not possessive._
-
-- **Find:** `Test’s the runner environment`
-  **Replace with:** `Tests the runner environment`
-  _Why: Wrong apostrophe — verb 'Tests', not possessive._
-
-- **Find:** `Install any relevant dependencies`
-  **Replace with:** `Installs any relevant dependencies`
-  _Why: Verb agreement — other bullets in the list use 3rd-person singular (Sets, Generates, Notifies, Executes)._
-
-- **Find:** `Commit and Pushes the Static Site`
-  **Replace with:** `Commits and Pushes the Static Site`
-  _Why: Verb agreement — 'Pushes' is 3rd-person singular so the conjoined verb should be 'Commits'._
-
-- **Find:** `therefore for the GitHub-hosted runner`
-  **Replace with:** `therefore not reachable by the GitHub-hosted runner`
-  _Why: Sentence is grammatically broken/missing words — current text has no verb after 'therefore'._
-
-- **Find:** `so you can’t instantly view your changes without having any DNS propagation issues`
-  **Replace with:** `so you can instantly view your changes without having any DNS propagation issues`
-  _Why: 'can’t' contradicts the meaning of the surrounding sentence (the preview URL is described as a useful feature for instant viewing)._
-
-- **Find:** `I can trigger the GitHub runner manually ( It also runs on a Cron schedule)`
-  **Replace with:** `I can trigger the GitHub runner manually (it also runs on a Cron schedule).`
-  _Why: Stray space after opening paren, unnecessary capitalisation of 'It', and missing terminal full stop._
-
-- **Find:** `Within WordPress changed comments.php to the following`
-  **Replace with:** `Within WordPress I changed comments.php to the following`
-  _Why: Missing subject 'I' — sentence has no subject for the verb 'changed'._
-
-
-### `/2025/12/vsan-cluster-shutdown/`  _(2 patches)_
-
-- **Find:** `select “Restart vSAN Services” The workflow will enable them to bring them back into opera…`
-  **Replace with:** `select “Restart vSAN Services”. The workflow will bring them back into operation.`
-  _Why: Missing full stop after the closing quote produces a run-on, and 'will enable them to bring them back' is redundant/awkward._
-
-- **Find:** `vCentre`
-  **Replace with:** `vCenter`
-  _Why: VMware's product name is spelled 'vCenter' (proper noun, US spelling is the product name)._
-
-
-### `/2026/01/web-development-improvements/`  _(6 patches)_
-
-- **Find:** `just incase`
-  **Replace with:** `just in case`
-  _Why: 'incase' is not a word; should be two words 'in case'._
-
-- **Find:** `This took a long time to get right that were mainly down to ordering problems`
-  **Replace with:** `This took a long time to get right; the issues were mainly down to ordering problems`
-  _Why: 'that were' has no plural antecedent — the sentence is grammatically broken._
-
-- **Find:** `less DNS lookups`
-  **Replace with:** `fewer DNS lookups`
-  _Why: DNS lookups are countable; UK and US English alike require 'fewer'._
-
-- **Find:** `“below the fold” This allowed`
-  **Replace with:** `“below the fold”. This allowed`
-  _Why: Missing full stop after the closing quote creates a run-on sentence._
+### `/2026/01/web-development-improvements/`  _(1 patch)_
 
 - **Find:** `As the site is basically in GitOps fashion. I decided`
   **Replace with:** `As the site is basically run in GitOps fashion, I decided`
   _Why: Sentence fragment — 'As the site is basically in GitOps fashion.' is not a complete sentence; needs a comma and continuation._
 
-- **Find:** `Ie (Published: January 06, 2018, Updated: July 10, 2024)`
-  **Replace with:** `i.e. (Published: January 06, 2018, Updated: July 10, 2024)`
-  _Why: 'Ie' is not a word; should be 'i.e.' (Latin abbreviation for 'that is')._
 
-
-### `/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/`  _(9 patches)_
-
-- **Find:** `A NVIDIA datacenter Graphics card and associated Host and Guest drivers`
-  **Replace with:** `An NVIDIA datacenter graphics card and associated Host and Guest drivers`
-  _Why: 'An' is correct before a word beginning with a vowel sound ('NVIDIA' starts with 'en'). 'Graphics' should be lowercase mid-sentence._
+### `/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/`  _(1 patch)_
 
 - **Find:** `using driver version 535.247.0`
   **Replace with:** `using driver version 535.247.01`
   _Why: Every other reference in the post (driver filename, nvidia-smi output, Variables table) uses 535.247.01; the bare '535.247.0' here is clearly a truncated version string._
 
-- **Find:** `could be more appropriate….`
-  **Replace with:** `could be more appropriate.`
-  _Why: Ellipsis character followed by an extra full stop; collapse to a single full stop (or just the ellipsis). Current form is malformed punctuation._
 
-- **Find:** `which is the LTS version.` The Driver bundle`
-  **Replace with:** `which is the LTS version. The Driver bundle`
-  _Why: Stray backtick after the full stop; clearly a markdown/formatting artefact._
-
-- **Find:** `to multiple VM’s`
-  **Replace with:** `to multiple VMs`
-  _Why: Possessive apostrophe used for a plural. Body uses curly apostrophe, hence the adjusted find._
-
-- **Find:** `vSphere Host and vCentre server`
-  **Replace with:** `vSphere Host and vCenter server`
-  _Why: VMware's product is officially spelled 'vCenter' (proper noun); UK spelling does not apply to product names._
-
-- **Find:** `vGPU profiles in vCentre.`
-  **Replace with:** `vGPU profiles in vCenter.`
-  _Why: VMware's product is officially spelled 'vCenter' (proper noun); UK spelling does not apply to product names._
-
-- **Find:** `deploy this as a HTTPS service`
-  **Replace with:** `deploy this as an HTTPS service`
-  _Why: 'HTTPS' is pronounced 'aitch-tee-tee-pee-ess', starting with a vowel sound, so 'an HTTPS' is correct._
-
-- **Find:** `and the licensing are working correctly`
-  **Replace with:** `and the licensing is working correctly`
-  _Why: Subject 'the licensing' is singular and requires 'is', not 'are'._
-
-
-### `/2026/03/octopus-agile-battery-solar-calculator/`  _(4 patches)_
-
-- **Find:** `Givenergy 13.5kWh`
-  **Replace with:** `GivEnergy 13.5kWh`
-  _Why: Inconsistent brand casing in same sentence; the brand is GivEnergy (matches the immediately preceding instance)._
-
-- **Find:** `if the price of batteries halve and the price of electric doubles`
-  **Replace with:** `if the price of batteries halves and the price of electricity doubles`
-  _Why: 'electric' should be 'electricity' (noun, not adjective); 'price... halves' agrees with singular subject 'price'._
-
-- **Find:** `( I am £178 better off than a tracker tariff over the last 4 months)`
-  **Replace with:** `(I am £178 better off than a tracker tariff over the last 4 months)`
-  _Why: Stray space after the opening parenthesis._
+### `/2026/03/octopus-agile-battery-solar-calculator/`  _(1 patch)_
 
 - **Find:** `This is an important factor in the calculations`
   **Replace with:** `This is an important factor in the calculations.`
@@ -500,7 +280,7 @@ _Generated 2026-06-01. Of 338 verified patches, **156 landed live**. The rest ar
   _Why: Missing colon before the code block that immediately follows._
 
 
-### `/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/`  _(6 patches)_
+### `/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/`  _(5 patches)_
 
 - **Find:** `compose file uses the pattern`
   **Replace with:** `The compose file uses the pattern`
@@ -522,28 +302,6 @@ _Generated 2026-06-01. Of 338 verified patches, **156 landed live**. The rest ar
   **Replace with:** `This gives me the ability to restore:`
   _Why: Missing colon — sentence introduces a bulleted list._
 
-- **Find:** `in the .env file GitHub repo URL (e.g.`
-  **Replace with:** `in the .env file as the GitHub repo URL (e.g.`
-  _Why: Missing 'as the' — without it the noun phrase 'GitHub repo URL' has no grammatical role._
-
-
-### `/2026/04/new-vmc-host-i7i-metal-24xl/`  _(1 patch)_
-
-- **Find:** `taken from instances website vSAN performance will differ`
-  **Replace with:** `taken from the instance's website. vSAN performance will differ`
-  _Why: Run-on sentence with missing apostrophe and missing sentence break. Verified in body line 154. This claim supersedes the narrower 'instances website' claim._
-
-
-### `/2026/04/vsphere-power-management-driven-by-ansible/`  _(2 patches)_
-
-- **Find:** `tedious and who wants to do that.`
-  **Replace with:** `tedious — and who wants to do that?`
-  _Why: Rhetorical question is punctuated with a full stop; should end with a question mark._
-
-- **Find:** `As I have been using Ansible a lot lately therefore I decided to create two playbooks`
-  **Replace with:** `As I have been using Ansible a lot lately, I decided to create two playbooks`
-  _Why: 'As...therefore' is redundant/ungrammatical because both 'as' and 'therefore' introduce causation._
-
 
 ### `/lab/`  _(1 patch)_
 
@@ -552,7 +310,7 @@ _Generated 2026-06-01. Of 338 verified patches, **156 landed live**. The rest ar
   _Why: Sentence ends without a full stop._
 
 
-## TEXT_DRIFTED (35)
+## TEXT_DRIFTED (37)
 
 🔄 Neither old nor new text is in the body — the surrounding content has been changed by you separately since the audit. **Action: probably nothing — the original typo may already be gone.**
 
@@ -729,7 +487,7 @@ To enable it is very straightforward:`
   _Why: Run-on sentence — 'network' and 'DHCP will hand out' need separating punctuation. 'factory-fresh' as a compound adjective also takes a hyphen._
 
 
-### `/2025/04/warp-the-intelligent-terminal/`  _(2 patches)_
+### `/2025/04/warp-the-intelligent-terminal/`  _(3 patches)_
 
 - **Find:** `Sometimes you just need a helping hand
 
@@ -738,6 +496,10 @@ Enter Warp`
 
 Enter Warp`
   _Why: Sentence is missing its terminating full stop before the paragraph break._
+
+- **Find:** `Taken from Warps website`
+  **Replace with:** `Taken from Warp's website`
+  _Why: Missing apostrophe on the possessive 'Warp's'._
 
 - **Find:** `sign up with my referral link here
 
@@ -784,6 +546,13 @@ If you have followed along`
 - **Find:** `recommend the most cost effective setup.I was surprised`
   **Replace with:** `recommend the most cost-effective setup. I was surprised`
   _Why: Missing space after the full stop; 'cost-effective' is hyphenated as a compound modifier._
+
+
+### `/2026/04/new-vmc-host-i7i-metal-24xl/`  _(1 patch)_
+
+- **Find:** `taken from instances website vSAN performance will differ`
+  **Replace with:** `taken from the instance's website. vSAN performance will differ`
+  _Why: Run-on sentence with missing apostrophe and missing sentence break. Verified in body line 154. This claim supersedes the narrower 'instances website' claim._
 
 
 ### `/2026/04/vsphere-power-management-driven-by-ansible/`  _(2 patches)_
@@ -1020,7 +789,7 @@ If you have followed along`
   _Why: Stray space before the comma — punctuation error._
 
 
-## SPANS_LINK (7)
+## SPANS_LINK (6)
 
 🔗 The find string spans an `<a>` link tag in the WP source. String matching can't bridge HTML markup. **Action: edit in WP admin — usually a missing full stop after a linked word.**
 
@@ -1064,13 +833,6 @@ If you have followed along`
 - **Find:** `connected it to my existing Ollama setup This means that`
   **Replace with:** `connected it to my existing Ollama setup. This means that`
   _Why: Two sentences run together with no full stop between 'setup' and 'This'. Adding a period creates two correct sentences._
-
-
-### `/about-me/`  _(1 patch)_
-
-- **Find:** `I have been a vExpert for the last 12 years and previously and has been honoured to be awa…`
-  **Replace with:** `I have been a vExpert for the last 12 years and have previously been honoured to be awarde…`
-  _Why: Real grammar error: duplicate 'and' plus subject-verb agreement issue ('has' should be 'have' to match subject 'I'). The fix removes the duplicate 'and' and corrects the verb form._
 
 
 ## SPANS_OTHER_MARKUP (2)
