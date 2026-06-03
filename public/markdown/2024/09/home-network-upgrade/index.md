@@ -31,7 +31,7 @@ image: https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg
 
 # Home Network Upgrade to 25Gb/s with MikroTik Switching
 
-By[James](https://jameskilby.co.uk) September 9, 2024 · Updated June 1, 2026 • 📖2 min read(454 words)
+By[James](https://jameskilby.co.uk)September 9, 2024 · Updated June 1, 2026 • 📖2 min read(454 words)
 
 📅 **Published:** September 09, 2024• **Updated:** June 01, 2026
 
@@ -75,53 +75,53 @@ I have a draft post of the steps I have used to get RouterOS configured how I li
 
 ## Similar Posts
 
-  * [ ![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png) ](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
+  * [![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
-By[James](https://jameskilby.co.uk) April 4, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)April 4, 2026 · Updated June 1, 2026
 
 Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each.
 
-  * [ ![Homelab Storage Upgrade: Synology DS918 for VMware & NFS](https://jameskilby.co.uk/wp-content/uploads/2023/04/81-ZoEW24UL._SL1500_-768x461.jpg) ](https://jameskilby.co.uk/2019/02/lab-storage-2/)
+  * [![Homelab Storage Upgrade: Synology DS918 for VMware & NFS](https://jameskilby.co.uk/wp-content/uploads/2023/04/81-ZoEW24UL._SL1500_-768x461.jpg)](https://jameskilby.co.uk/2019/02/lab-storage-2/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/)
 
 ### [Homelab Storage Upgrade: Synology DS918 for VMware & NFS](https://jameskilby.co.uk/2019/02/lab-storage-2/)
 
-By[James](https://jameskilby.co.uk) February 10, 2019 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)February 10, 2019 · Updated June 1, 2026
 
 Since starting my new role with Xtravirt my Homelab has gone through several fairly significant changes.
 
-  * [ ![How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-768x411.png) ](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
+  * [![How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-768x411.png)](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
 
 ### [How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
 
-By[James](https://jameskilby.co.uk) January 29, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)January 29, 2025 · Updated June 1, 2026
 
 Update: Hoarder has now been renamed to Karakeep due to a trademark issue I’ve been on a mission recently to regain control of my data.
 
-  * [ ![Configuring a Zen Internet and City Fibre connection with a 3rd party router](https://jameskilby.co.uk/wp-content/uploads/2023/11/cityfibre-zen-768x403.jpg) ](https://jameskilby.co.uk/2023/11/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router/)
+  * [![Configuring a Zen Internet and City Fibre connection with a 3rd party router](https://jameskilby.co.uk/wp-content/uploads/2023/11/cityfibre-zen-768x403.jpg)](https://jameskilby.co.uk/2023/11/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router/)
 
 [Networking](https://jameskilby.co.uk/category/networking/)
 
 ### [Configuring a Zen Internet and City Fibre connection with a 3rd party router](https://jameskilby.co.uk/2023/11/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router/)
 
-By[James](https://jameskilby.co.uk) November 15, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)November 15, 2023 · Updated June 1, 2026
 
 Back in July I bought a new house and one of the best things about the property was that it was already in a City Fibre location.
 
-  * [ ![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png) ](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
+  * [![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png)](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)
 
 ### [Automating vSphere Power Management driven by Ansible and SemaphoreUI](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
-By[James](https://jameskilby.co.uk) April 15, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)April 15, 2026 · Updated June 1, 2026
 
 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introduction One of the larger costs of running my homelab is the electricity….
 
@@ -129,6 +129,6 @@ In this post I’ll walk through how I use vSphere Power Management driven by An
 
 ### [Lab Update – Desired Workloads](https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/)
 
-By[James](https://jameskilby.co.uk) January 6, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)January 6, 2022 · Updated June 1, 2026
 
 My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.

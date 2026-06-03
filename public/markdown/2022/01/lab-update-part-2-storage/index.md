@@ -1,6 +1,6 @@
 ---
 title: "Lab Update – Part 2 Storage Truenas Scale"
-description: "The HP Z840 has changed its role to a permanent storage box running Truenas Scale."
+description: "The HP Z840 has changed its role to a permanent storage box running Truenas Scale. This is in addition to my Synology DS918+…"
 date: 2022-01-11T22:35:02+00:00
 modified: 2026-06-01T21:58:40+00:00
 author: James Kilby
@@ -27,13 +27,13 @@ url: https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/
 image: https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault.jpeg
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault.jpeg)
+![Maxresdefault](https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault.jpeg)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)
 
 # Lab Update – Part 2 Storage Truenas Scale
 
-By[James](https://jameskilby.co.uk) January 11, 2022 · Updated June 1, 2026 • 📖2 min read(495 words)
+By[James](https://jameskilby.co.uk)January 11, 2022 · Updated June 1, 2026 • 📖2 min read(495 words)
 
 📅 **Published:** January 11, 2022• **Updated:** June 01, 2026
 
@@ -81,33 +81,33 @@ Comparison with Synology 3x SSD Raid 5 ( 2x1Gb/s ) Networking. You can see this 
 
 ## Similar Posts
 
-  * [ ![Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore-768x768.png) ](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
+  * [![Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore-768x768.png)](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
 ### [Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
-By[James](https://jameskilby.co.uk) September 2, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)September 2, 2025 · Updated June 1, 2026
 
 An intro on how I use SemaphoreUI to manage my Homelab
 
-  * [ ![Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU](https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-768x512.jpg) ](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/)
+  * [![Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU](https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-768x512.jpg)](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
 ### [Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/)
 
-By[James](https://jameskilby.co.uk) October 11, 2024 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)October 11, 2024 · Updated June 1, 2026
 
 Artificial intelligence is all the rage at the moment, It’s getting included in every product announcement from pretty much every vendor under the sun.
 
-  * [ ![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png) ](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
+  * [![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [My Self-Hosted AI Stack: Architecture Overview (Part 1)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
 
-By[James](https://jameskilby.co.uk) March 27, 2026 · Updated May 31, 2026
+By[James](https://jameskilby.co.uk)March 27, 2026 · Updated May 31, 2026
 
 A walkthrough of my self-hosted AI stack: Ollama, Open WebUI, ComfyUI, Whishper, n8n, Qdrant, SearxNG, and a full observability layer — all running on my own hardware with Docker Compose.
 
@@ -115,26 +115,26 @@ A walkthrough of my self-hosted AI stack: Ollama, Open WebUI, ComfyUI, Whishper,
 
 ### [Lab Update – Desired Workloads](https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/)
 
-By[James](https://jameskilby.co.uk) January 6, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)January 6, 2022 · Updated June 1, 2026
 
 My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.
 
-  * [ ![Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv-768x432.png) ](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
+  * [![Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv-768x432.png)](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Containers](https://jameskilby.co.uk/category/containers/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
 
-By[James](https://jameskilby.co.uk) February 9, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)February 9, 2026 · Updated June 1, 2026
 
 Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere
 
-  * [ ![Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920-768x432.jpg) ](https://jameskilby.co.uk/2022/10/starlink/)
+  * [![Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920-768x432.jpg)](https://jameskilby.co.uk/2022/10/starlink/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
 
 ### [Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/2022/10/starlink/)
 
-By[James](https://jameskilby.co.uk) October 11, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)October 11, 2022 · Updated June 1, 2026
 
 Since moving to Dorset last year internet connectivity has been the bane of my existence. Currently, I have an ADSL connection provided by my old employer Zen and a 5G connection provided by Three.

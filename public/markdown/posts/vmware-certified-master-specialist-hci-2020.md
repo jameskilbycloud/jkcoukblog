@@ -1,6 +1,6 @@
 ---
 title: "VMware Certified Master Specialist HCI 2020"
-description: "I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21."
+description: "I recently sat (and passed) the VMware HCI Master Specialist exam (5V0-21.20)."
 date: 2020-09-13T21:38:48+00:00
 modified: 2026-05-31T11:36:26+00:00
 author: James Kilby
@@ -20,13 +20,13 @@ url: https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-202
 image: https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)
+![Vmware Sp Hci20](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)
 
 [Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 # VMware Certified Master Specialist HCI 2020
 
-By[James](https://jameskilby.co.uk) September 13, 2020 · Updated May 31, 2026 • 📖1 min read(136 words)
+By[James](https://jameskilby.co.uk)September 13, 2020 · Updated May 31, 2026 • 📖1 min read(136 words)
 
 📅 **Published:** September 13, 2020• **Updated:** May 31, 2026
 
@@ -44,62 +44,62 @@ Together with the vSAN exam that I passed earlier in the month, this entitles me
 
 ## Similar Posts
 
-  * [ ![VMware Cloud on AWS Storage Sizing Quick Reference Guide](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png) ](https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/)
+  * [![VMware Cloud on AWS Storage Sizing Quick Reference Guide](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png)](https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
 ### [VMware Cloud on AWS Storage Sizing Quick Reference Guide](https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/)
 
-By[James](https://jameskilby.co.uk) May 21, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)May 21, 2025 · Updated June 1, 2026
 
 Quick reference guide to the available storage resources that you get in VMware Cloud on AWS
 
-  * [ ![New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg) ](https://jameskilby.co.uk/2024/07/new-nodes/)
+  * [![New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg)](https://jameskilby.co.uk/2024/07/new-nodes/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/2024/07/new-nodes/)
 
-By[James](https://jameskilby.co.uk) July 2, 2024 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)July 2, 2024 · Updated June 1, 2026
 
 I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul .
 
-  * [ ![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg) ](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
+  * [![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
 
-By[James](https://jameskilby.co.uk) October 23, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)October 23, 2023 · Updated June 1, 2026
 
 Card Stats Install steps VM Provisioning Folding@Home A little while ago I decided to play with vGPU in my homelab.
 
-  * [ ![Template Deployment with Packer](https://jameskilby.co.uk/wp-content/uploads/2021/01/logo_packer.png) ](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
+  * [![Template Deployment with Packer](https://jameskilby.co.uk/wp-content/uploads/2021/01/logo_packer.png)](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
 
 [Automation](https://jameskilby.co.uk/category/automation/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Template Deployment with Packer](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
 
-By[James](https://jameskilby.co.uk) January 21, 2021 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)January 21, 2021 · Updated June 1, 2026
 
 Packer is one of those tools I have heard about, and some of the cool people on Twitter that I follow have been using it for a while.
 
-  * [ ![VMware Cloud on AWS \(VMC\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-768x395.png) ](https://jameskilby.co.uk/2020/09/vmc-host-errors/)
+  * [![VMware Cloud on AWS \(VMC\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-768x395.png)](https://jameskilby.co.uk/2020/09/vmc-host-errors/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
 ### [How VMware Cloud on AWS Handles Host Failures Automatically](https://jameskilby.co.uk/2020/09/vmc-host-errors/)
 
-By[James](https://jameskilby.co.uk) September 15, 2020 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)September 15, 2020 · Updated June 1, 2026
 
 Learn how host failures are handled within VMC
 
-  * [ ![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png) ](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
+  * [![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png)](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)
 
 ### [Automating vSphere Power Management driven by Ansible and SemaphoreUI](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
-By[James](https://jameskilby.co.uk) April 15, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)April 15, 2026 · Updated June 1, 2026
 
 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introduction One of the larger costs of running my homelab is the electricity….

@@ -1,6 +1,6 @@
 ---
 title: "Using Intel Optane NVMe in a VMware Homelab: Setup & Results"
-description: "I have been a VMware vExpert for many years and it has brought me many many benefits over the years."
+description: "I have been a VMware vExpert for many years and it has brought me many benefits over the years."
 date: 2023-04-17T12:20:04+00:00
 modified: 2026-06-01T21:06:47+00:00
 author: James Kilby
@@ -26,13 +26,13 @@ url: https://jameskilby.co.uk/2023/04/intel-optane/
 image: https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png)
+![Intel Optane Ssd 900P Series Aic Right Angle 575Px](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://jameskilby.co.uk/category/vexpert/)
 
 # Using Intel Optane NVMe in a VMware Homelab: Setup & Results
 
-By[James](https://jameskilby.co.uk) April 17, 2023 · Updated June 1, 2026 • 📖2 min read(316 words)
+By[James](https://jameskilby.co.uk)April 17, 2023 · Updated June 1, 2026 • 📖2 min read(316 words)
 
 📅 **Published:** April 17, 2023• **Updated:** June 01, 2026
 
@@ -54,9 +54,9 @@ I will also configure the Optane’s as “SLOG” attached to my main SSD stora
 
 Drive| Model | Size| Manufacturers Read IOPS| Manufacturer Write IOPS| Max Read Sequential MB/s| Max Write Sequential MB/s  
 ---|---|---|---|---|---|---  
-Consumer SSD | Samsung EVO 860 2TB | 2TB | 97,000 | 88,000 | 550 | 520  
-Enterprise SSD | Samsung PM863 | 960GB | 99,000 | 18,000 | 520 | 475  
-Intel Optane | SSD DC P4800X | 750GB | 550,000 | 550,000 | 2500 | 2200  
+Consumer SSD| Samsung EVO 860 2TB| 2TB| 97,000| 88,000| 550| 520  
+Enterprise SSD| Samsung PM863| 960GB| 99,000| 18,000| 520| 475  
+Intel Optane| SSD DC P4800X| 750GB| 550,000| 550,000| 2500| 2200  
   
 ## 📚 Related Posts
 
@@ -66,62 +66,62 @@ Intel Optane | SSD DC P4800X | 750GB | 550,000 | 550,000 | 2500 | 2200
 
 ## Similar Posts
 
-  * [ ![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png) ](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
+  * [![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png)](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
 
-By[James](https://jameskilby.co.uk) December 19, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)December 19, 2022 · Updated June 1, 2026
 
 For a while, I’ve been looking to update the networking at the core of my homelab.
 
-  * [ ![Lab Update – Part 2 Storage Truenas Scale](https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault-768x432.jpeg) ](https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/)
+  * [![Lab Update – Part 2 Storage Truenas Scale](https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault-768x432.jpeg)](https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)
 
 ### [Lab Update – Part 2 Storage Truenas Scale](https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/)
 
-By[James](https://jameskilby.co.uk) January 11, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)January 11, 2022 · Updated June 1, 2026
 
 The HP Z840 has changed its role to a permanent storage box running Truenas Scale.
 
-  * [ ![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg) ](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
+  * [![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
 
-By[James](https://jameskilby.co.uk) October 23, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)October 23, 2023 · Updated June 1, 2026
 
 Card Stats Install steps VM Provisioning Folding@Home A little while ago I decided to play with vGPU in my homelab.
 
-  * [ ![How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-768x411.png) ](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
+  * [![How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-768x411.png)](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
 
 ### [How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
 
-By[James](https://jameskilby.co.uk) January 29, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)January 29, 2025 · Updated June 1, 2026
 
 Update: Hoarder has now been renamed to Karakeep due to a trademark issue I’ve been on a mission recently to regain control of my data.
 
-  * [ ![Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU](https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-768x512.jpg) ](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/)
+  * [![Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU](https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-768x512.jpg)](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
 ### [Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/)
 
-By[James](https://jameskilby.co.uk) October 11, 2024 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)October 11, 2024 · Updated June 1, 2026
 
 Artificial intelligence is all the rage at the moment, It’s getting included in every product announcement from pretty much every vendor under the sun.
 
-  * [ ![Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1-768x403.jpg) ](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
+  * [![Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1-768x403.jpg)](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)
 
 ### [Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
 
-By[James](https://jameskilby.co.uk) November 21, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)November 21, 2022 · Updated June 1, 2026
 
 I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate.
