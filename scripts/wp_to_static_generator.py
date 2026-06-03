@@ -3600,11 +3600,16 @@ document.addEventListener('DOMContentLoaded', function() {
             else:
                 main_wrap.insert(0, breadcrumb_nav)
             
-            # Add BreadcrumbList JSON-LD schema
-            if soup.head:
+            # Add BreadcrumbList JSON-LD schema — but only if the page
+            # doesn't already have one in an existing @graph block. Rank
+            # Math emits its own BreadcrumbList inside the main @graph on
+            # most posts; emitting a second standalone copy here triggers
+            # "Breadcrumbs item not specified" warnings in Search Console
+            # and dilutes the rich-result signal.
+            if soup.head and not self._has_existing_breadcrumblist(soup):
                 schema_script = soup.new_tag('script')
                 schema_script['type'] = 'application/ld+json'
-                
+
                 breadcrumb_list = {
                     "@context": "https://schema.org",
                     "@type": "BreadcrumbList",
@@ -3618,11 +3623,37 @@ document.addEventListener('DOMContentLoaded', function() {
                         for item in breadcrumb_items
                     ]
                 }
-                
+
                 schema_script.string = json.dumps(breadcrumb_list, ensure_ascii=False, separators=(',', ':'))
                 soup.head.append(schema_script)
-                
+
                 print(f"   🍞 Added breadcrumb navigation: {' > '.join([item['name'] for item in breadcrumb_items])}")
+            else:
+                print(f"   🍞 Added breadcrumb nav (HTML only — existing BreadcrumbList in @graph): {' > '.join([item['name'] for item in breadcrumb_items])}")
+
+    @staticmethod
+    def _has_existing_breadcrumblist(soup):
+        """Return True if any JSON-LD block on the page already declares a
+        BreadcrumbList (standalone or inside an @graph).
+        """
+        for script in soup.find_all('script', type='application/ld+json'):
+            raw = script.string or ''
+            if not raw.strip():
+                continue
+            try:
+                data = json.loads(raw)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(data, dict):
+                if data.get('@type') == 'BreadcrumbList':
+                    return True
+                graph = data.get('@graph')
+                if isinstance(graph, list) and any(
+                    isinstance(n, dict) and n.get('@type') == 'BreadcrumbList'
+                    for n in graph
+                ):
+                    return True
+        return False
     
     def build_post_index(self):
         """Bulk-fetch all published posts once and store in self.post_index.
