@@ -30,11 +30,11 @@ Each fix has been adversarially re-verified against the published HTML body. Bel
 
 ### Static / landing pages
 
-#### /about-me/  _(1 fix)_
+#### /about-james-kilby-solution-architect/  _(1 fix)_
 
-1. **Find:** `I have been a vExpert for the last 12 years and previously and has been honoured to be awarded Veeam Vanguard status for four years.`
-   **Replace:** `I have been a vExpert for the last 12 years and have previously been honoured to be awarded Veeam Vanguard status for four years.`
-   _Real grammar error: duplicate 'and' plus subject-verb agreement issue ('has' should be 'have' to match subject 'I'). The fix removes the duplicate 'and' and corrects the verb form._
+1. **Find:** `for the last 12 years and previously and has been honoured`
+   **Replace:** `for the last 12 years and have previously been honoured`
+   _Real grammar error: duplicate 'and' + subject-verb agreement issue. Find string narrowed to skip the <a> tag wrapping 'vExpert'._
 
 
 #### /lab/  _(6 fixes)_
