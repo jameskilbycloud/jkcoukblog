@@ -133,6 +133,9 @@ class SEOFixer:
             if self.fix_person_enrichment(soup, file_path):
                 modified = True
 
+            if self.fix_organization_sameas(soup, file_path):
+                modified = True
+
             if self.fix_og_site_name(soup, file_path):
                 modified = True
 
@@ -1145,6 +1148,95 @@ class SEOFixer:
         if blocks_modified:
             self.issues_fixed += 1
             print(f"   🪪 Enriched Person entity (sameAs+jobTitle+knowsAbout+award): {file_path.name}")
+        return blocks_modified > 0
+
+    def fix_organization_sameas(self, soup, file_path):
+        """Mirror Config.PERSON_SAME_AS onto Organization entities so that
+        Person.sameAs and Organization.sameAs describe the same identity
+        graph.
+
+        Single-author blog: the site (Organization) and the author (Person)
+        share the same professional profiles. Misaligned sameAs lists
+        (Person has GitHub+X, Organization has GitHub+LinkedIn — the
+        Rank Math default) weaken Google's entity reconciliation and
+        send mixed signals to AI engines doing author attribution.
+
+        Strategy:
+          - Find every Organization-family entity in JSON-LD @graph blocks
+          - Drop any sameAs entries pointing at WordPress (private CMS leak)
+          - Ensure every URL in PERSON_SAME_AS is present (case-insensitive)
+          - Preserve any other existing entries (e.g. company-specific
+            profiles a future contributor might add)
+
+        Idempotent.
+        """
+        if not PERSON_SAME_AS:
+            return False
+
+        def is_target_org(item):
+            if not isinstance(item, dict):
+                return False
+            t = item.get('@type')
+            types = t if isinstance(t, list) else [t]
+            return any(
+                isinstance(x, str) and x in ('Organization', 'NewsMediaOrganization')
+                for x in types
+            )
+
+        blocks_modified = 0
+        for script in soup.find_all('script', type='application/ld+json'):
+            raw = script.string or ''
+            if not raw.strip():
+                continue
+            try:
+                data = json.loads(raw)
+            except json.JSONDecodeError:
+                continue
+            graph_items = (
+                data.get('@graph') if isinstance(data, dict) and isinstance(data.get('@graph'), list)
+                else ([data] if isinstance(data, dict) else None)
+            )
+            if not graph_items:
+                continue
+
+            block_changed = False
+            for item in graph_items:
+                if not is_target_org(item):
+                    continue
+
+                current = item.get('sameAs')
+                if isinstance(current, str):
+                    current = [current]
+                if not isinstance(current, list):
+                    current = []
+
+                # Reuse the Person leak-list — both entities should never
+                # link the private WordPress CMS.
+                filtered = [
+                    u for u in current
+                    if isinstance(u, str)
+                    and not any(leak in u for leak in self._PERSON_SAMEAS_LEAKS)
+                ]
+                lc = {u.lower() for u in filtered}
+                added = False
+                for canonical in PERSON_SAME_AS:
+                    if canonical.lower() not in lc:
+                        filtered.append(canonical)
+                        lc.add(canonical.lower())
+                        added = True
+                if added or filtered != current:
+                    item['sameAs'] = filtered
+                    block_changed = True
+
+            if block_changed:
+                script.string = json.dumps(
+                    data, separators=(',', ':'), ensure_ascii=False
+                )
+                blocks_modified += 1
+
+        if blocks_modified:
+            self.issues_fixed += 1
+            print(f"   🏢 Aligned Organization.sameAs with Person canonical list: {file_path.name}")
         return blocks_modified > 0
 
     def fix_og_site_name(self, soup, file_path):
