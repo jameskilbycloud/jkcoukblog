@@ -1,0 +1,9 @@
+{
+  "patches": [
+    {
+      "file_pattern": "55f91c39-f0dd-42e1-939a-cdffc92c0b52",
+      "new_alt": "Presenting at the London VMUG with my good friend Gareth",
+      "note": "About Me featured image. Old alt was the filename. Caption-derived."
+    }
+  ]
+}
