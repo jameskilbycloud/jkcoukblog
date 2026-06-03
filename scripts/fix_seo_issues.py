@@ -118,6 +118,9 @@ class SEOFixer:
             if self.fix_breadcrumb_positions(soup, file_path):
                 modified = True
 
+            if self.fix_dedupe_breadcrumblist(soup, file_path):
+                modified = True
+
             if self.fix_techarticle_dedupe_and_dates(soup, file_path):
                 modified = True
 
@@ -134,6 +137,9 @@ class SEOFixer:
                 modified = True
 
             if self.fix_wordpress_host_leak(soup, file_path):
+                modified = True
+
+            if self.fix_og_meta_alignment(soup, file_path):
                 modified = True
 
             if self.fix_malformed_stylesheet_attr(soup, file_path):
@@ -231,6 +237,124 @@ class SEOFixer:
             self.issues_fixed += 1
             print(f"   🏷️  Locked homepage title to canonical form ({len(HOMEPAGE_TITLE)} chars)")
         return modified
+
+    # Brand suffixes we strip from social-share titles. The leading separator
+    # is intentional — only collapse the suffix when it appears at the END of
+    # the title (e.g. "Foo - James Kilby" → "Foo"), never mid-string.
+    _BRAND_SUFFIX_RE = re.compile(
+        r"\s+[-–—|]\s+James\s+Kilby\s*$",
+        re.IGNORECASE,
+    )
+
+    def fix_og_meta_alignment(self, soup, file_path):
+        """Force og:/twitter: title+description to mirror the canonical
+        <title> and meta description.
+
+        Rank Math (and similar plugins) sometimes emit LLM-generated
+        marketing copy in og:title/og:description that has no relationship
+        to the SEO-tuned <title>/meta description. Social previews then
+        carry clickbait the article never delivers — a brand-consistency
+        problem and a CTR drag.
+
+        Rule:
+          - og:title / twitter:title  ← <title> minus brand suffix
+          - og:description / twitter:description  ← meta[name=description]
+
+        Skipped for:
+          - The homepage (fix_homepage_title locks its own canonical title)
+          - Pages where the canonical source field is empty
+        """
+        # Homepage uses fix_homepage_title — leave it alone.
+        try:
+            rel = file_path.resolve().relative_to(self.public_dir.resolve())
+            if str(rel) == 'index.html':
+                return False
+        except (ValueError, AttributeError):
+            pass
+
+        modified = False
+
+        title_tag = soup.find('title')
+        title_text = (title_tag.get_text() or '').strip() if title_tag else ''
+        if title_text:
+            social_title = self._BRAND_SUFFIX_RE.sub('', title_text).strip()
+            for spec in (
+                {'property': 'og:title'},
+                {'name': 'twitter:title'},
+            ):
+                tag = soup.find('meta', attrs=spec)
+                if tag and (tag.get('content') or '') != social_title:
+                    tag['content'] = social_title
+                    modified = True
+
+        desc_tag = soup.find('meta', attrs={'name': 'description'})
+        desc_text = (desc_tag.get('content') or '').strip() if desc_tag else ''
+        if desc_text:
+            for spec in (
+                {'property': 'og:description'},
+                {'name': 'twitter:description'},
+            ):
+                tag = soup.find('meta', attrs=spec)
+                if tag and (tag.get('content') or '') != desc_text:
+                    tag['content'] = desc_text
+                    modified = True
+
+        if modified:
+            self.issues_fixed += 1
+            print(f"   🔗 Aligned og:/twitter: title+description with canonical: {file_path.name}")
+        return modified
+
+    def fix_dedupe_breadcrumblist(self, soup, file_path):
+        """Drop standalone BreadcrumbList JSON-LD blocks when an @graph
+        block on the same page already contains a BreadcrumbList.
+
+        Background: wp_to_static_generator.add_breadcrumb_navigation()
+        emits a standalone BreadcrumbList JSON-LD block as a safety net
+        for pages where Rank Math doesn't. On pages where Rank Math
+        DOES emit one inside the main @graph, we end up with two —
+        which Search Console flags as "Breadcrumbs item not specified"
+        and which dilutes the rich-result signal.
+
+        Strategy: if the page has at least one @graph-embedded
+        BreadcrumbList, drop every standalone (non-@graph) BreadcrumbList
+        block. The @graph entry is preferred because it is co-located
+        with the rest of the page's structured data and references the
+        same @id namespace.
+        """
+        import json as _json
+
+        graph_breadcrumbs = 0
+        standalone_scripts = []
+
+        for script in soup.find_all('script', type='application/ld+json'):
+            raw = script.string or ''
+            if not raw.strip():
+                continue
+            try:
+                data = _json.loads(raw)
+            except _json.JSONDecodeError:
+                continue
+            if isinstance(data, dict) and isinstance(data.get('@graph'), list):
+                if any(
+                    isinstance(n, dict) and n.get('@type') == 'BreadcrumbList'
+                    for n in data['@graph']
+                ):
+                    graph_breadcrumbs += 1
+            elif isinstance(data, dict) and data.get('@type') == 'BreadcrumbList':
+                standalone_scripts.append(script)
+
+        if graph_breadcrumbs == 0 or not standalone_scripts:
+            return False
+
+        for s in standalone_scripts:
+            s.decompose()
+
+        self.issues_fixed += 1
+        print(
+            f"   🍞 Removed {len(standalone_scripts)} duplicate standalone "
+            f"BreadcrumbList JSON-LD: {file_path.name}"
+        )
+        return True
 
     def fix_thin_archive_noindex(self, soup, file_path):
         """Inject <meta name="robots" content="noindex,follow"> on thin
