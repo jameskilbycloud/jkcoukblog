@@ -469,6 +469,14 @@ jobs:
           ./static-output/markdown \
           ./static-output/api
 
+    - name: Generate llms.txt
+      run: |
+        echo "📝 Generating llms.txt + llms-full.txt for AI ingestion..."
+        python3 scripts/generate_llms_txt.py \
+          ./static-output/markdown \
+          ./static-output \
+          --with-full
+
     - name: Content quality validation
       timeout-minutes: 5
       continue-on-error: true  # Non-blocking: warnings won't fail the build

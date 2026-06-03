@@ -35,8 +35,9 @@ install-dev: ## Install all dependencies (including CI/dev tools)
 
 generate: ## Generate static site from WordPress
 	python3 scripts/wp_to_static_generator.py $(STATIC_DIR)
-	python3 scripts/markdown_exporter.py $(STATIC_DIR)
-	python3 scripts/markdown_api.py $(STATIC_DIR)
+	python3 scripts/markdown_exporter.py $(STATIC_DIR) $(STATIC_DIR)/markdown https://jameskilby.co.uk
+	python3 scripts/markdown_api.py $(STATIC_DIR)/markdown $(STATIC_DIR)/api
+	python3 scripts/generate_llms_txt.py $(STATIC_DIR)/markdown $(STATIC_DIR) --with-full
 
 # ─── Validation ───────────────────────────────────────────────────
 
