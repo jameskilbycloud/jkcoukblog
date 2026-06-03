@@ -91,6 +91,9 @@ class SEOFixer:
             if self.fix_homepage_title(soup, file_path):
                 modified = True
 
+            if self.fix_title_drop_brand_suffix(soup, file_path):
+                modified = True
+
             if self.fix_thin_archive_noindex(soup, file_path):
                 modified = True
 
@@ -245,6 +248,58 @@ class SEOFixer:
         r"\s+[-–—|]\s+James\s+Kilby\s*$",
         re.IGNORECASE,
     )
+
+    # Above this body length (chars, excluding the brand suffix), Google
+    # truncates the title in mobile SERP. Keep the suffix only when the body
+    # is short enough to leave room.
+    _TITLE_DROP_SUFFIX_BODY_THRESHOLD = 55
+
+    def fix_title_drop_brand_suffix(self, soup, file_path):
+        """Drop the " - James Kilby" suffix from <title> when the body
+        already exceeds the mobile-SERP truncation threshold.
+
+        Rank Math appends a site-name suffix to every post title. On long
+        titles (body > 55 chars) the suffix pushes total length past
+        Google's ~55–60 char mobile cutoff and the suffix gets clipped
+        anyway — so we shed it pre-emptively to give the body the full
+        width and remove the "…" tail. On short titles the suffix is
+        kept for brand recall.
+
+        Skipped for:
+          - The homepage (fix_homepage_title locks its own title)
+          - Pages where <title> has no recognisable brand suffix
+          - Pages where stripping the suffix would not actually shorten
+            the title (defensive — should never happen given the regex)
+        """
+        # Homepage uses fix_homepage_title — leave it alone.
+        try:
+            rel = file_path.resolve().relative_to(self.public_dir.resolve())
+            if str(rel) == 'index.html':
+                return False
+        except (ValueError, AttributeError):
+            pass
+
+        title_tag = soup.find('title')
+        if not title_tag:
+            return False
+        title_text = (title_tag.get_text() or '').strip()
+        if not title_text:
+            return False
+
+        body = self._BRAND_SUFFIX_RE.sub('', title_text).strip()
+        if body == title_text:
+            return False  # no recognisable brand suffix
+        if len(body) <= self._TITLE_DROP_SUFFIX_BODY_THRESHOLD:
+            return False  # short enough to keep the suffix
+
+        title_tag.string = body
+        self.issues_fixed += 1
+        print(
+            f"   ✂️  Dropped brand suffix from long <title> "
+            f"(body {len(body)}c > {self._TITLE_DROP_SUFFIX_BODY_THRESHOLD}c): "
+            f"{file_path.name}"
+        )
+        return True
 
     def fix_og_meta_alignment(self, soup, file_path):
         """Force og:/twitter: title+description to mirror the canonical
