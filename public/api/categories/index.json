@@ -1,13 +1,68 @@
 [
   {
+    "name": "VMware",
+    "slug": "vmware",
+    "count": 64
+  },
+  {
+    "name": "VMware Cloud on AWS",
+    "slug": "vmware-cloud-on-aws",
+    "count": 25
+  },
+  {
+    "name": "vSAN",
+    "slug": "vsan",
+    "count": 13
+  },
+  {
+    "name": "AWS",
+    "slug": "aws",
+    "count": 18
+  },
+  {
+    "name": "Veeam",
+    "slug": "veeam",
+    "count": 18
+  },
+  {
+    "name": "Automation",
+    "slug": "automation",
+    "count": 37
+  },
+  {
     "name": "Homelab",
     "slug": "homelab",
     "count": 60
   },
   {
-    "name": "VMware",
-    "slug": "vmware",
-    "count": 64
+    "name": "Storage",
+    "slug": "storage",
+    "count": 30
+  },
+  {
+    "name": "Synology",
+    "slug": "synology",
+    "count": 11
+  },
+  {
+    "name": "Personal",
+    "slug": "personal",
+    "count": 38
+  },
+  {
+    "name": "VCF",
+    "slug": "vcf",
+    "count": 27
+  },
+  {
+    "name": "Runecast",
+    "slug": "runecast",
+    "count": 8
+  },
+  {
+    "name": "Hosting",
+    "slug": "hosting",
+    "count": 33
   },
   {
     "name": "vSphere",
@@ -15,14 +70,14 @@
     "count": 28
   },
   {
+    "name": "Devops",
+    "slug": "devops",
+    "count": 18
+  },
+  {
     "name": "Artificial Intelligence",
     "slug": "artificial-intelligence",
     "count": 35
-  },
-  {
-    "name": "Automation",
-    "slug": "automation",
-    "count": 37
   },
   {
     "name": "Docker",
@@ -40,94 +95,14 @@
     "count": 34
   },
   {
-    "name": "VMware Cloud on AWS",
-    "slug": "vmware-cloud-on-aws",
-    "count": 25
-  },
-  {
-    "name": "Veeam",
-    "slug": "veeam",
-    "count": 18
-  },
-  {
-    "name": "Storage",
-    "slug": "storage",
-    "count": 30
-  },
-  {
-    "name": "Nutanix",
-    "slug": "nutanix",
-    "count": 15
-  },
-  {
-    "name": "TrueNAS Scale",
-    "slug": "truenas-scale",
-    "count": 11
-  },
-  {
-    "name": "Networking",
-    "slug": "networking",
-    "count": 17
-  },
-  {
-    "name": "Ansible",
-    "slug": "ansible",
-    "count": 31
-  },
-  {
-    "name": "Hosting",
-    "slug": "hosting",
-    "count": 33
-  },
-  {
-    "name": "Kubernetes",
-    "slug": "kubernetes",
-    "count": 7
-  },
-  {
-    "name": "Consulting",
-    "slug": "consulting",
-    "count": 6
-  },
-  {
-    "name": "Personal",
-    "slug": "personal",
-    "count": 38
-  },
-  {
-    "name": "Containers",
-    "slug": "containers",
-    "count": 9
-  },
-  {
-    "name": "Devops",
-    "slug": "devops",
-    "count": 18
-  },
-  {
-    "name": "Synology",
-    "slug": "synology",
-    "count": 11
-  },
-  {
-    "name": "VCF",
-    "slug": "vcf",
-    "count": 27
-  },
-  {
-    "name": "AWS",
-    "slug": "aws",
-    "count": 18
+    "name": "vExpert",
+    "slug": "vexpert",
+    "count": 8
   },
   {
     "name": "Cloudflare",
     "slug": "cloudflare",
     "count": 16
-  },
-  {
-    "name": "Runecast",
-    "slug": "runecast",
-    "count": 8
   },
   {
     "name": "Wordpress",
@@ -140,24 +115,34 @@
     "count": 6
   },
   {
-    "name": "vExpert",
-    "slug": "vexpert",
-    "count": 8
+    "name": "Kubernetes",
+    "slug": "kubernetes",
+    "count": 7
   },
   {
-    "name": "vSAN",
-    "slug": "vsan",
-    "count": 13
+    "name": "TrueNAS Scale",
+    "slug": "truenas-scale",
+    "count": 11
   },
   {
-    "name": "Money",
-    "slug": "money",
-    "count": 1
+    "name": "Consulting",
+    "slug": "consulting",
+    "count": 6
   },
   {
-    "name": "Apple",
-    "slug": "apple",
-    "count": 2
+    "name": "Ansible",
+    "slug": "ansible",
+    "count": 31
+  },
+  {
+    "name": "Containers",
+    "slug": "containers",
+    "count": 9
+  },
+  {
+    "name": "Networking",
+    "slug": "networking",
+    "count": 17
   },
   {
     "name": "Mikrotik",
@@ -168,5 +153,20 @@
     "name": "Ubuntu",
     "slug": "ubuntu",
     "count": 1
+  },
+  {
+    "name": "Nutanix",
+    "slug": "nutanix",
+    "count": 15
+  },
+  {
+    "name": "Money",
+    "slug": "money",
+    "count": 1
+  },
+  {
+    "name": "Apple",
+    "slug": "apple",
+    "count": 2
   }
 ]

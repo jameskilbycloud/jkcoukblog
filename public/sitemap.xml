@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://jameskilby.co.uk/</loc>
-    <lastmod>2026-06-02</lastmod>
+    <lastmod>2026-06-03</lastmod>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png</image:loc>
@@ -808,6 +808,7 @@
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/09/Ansible-Inventory.png</image:loc>
       <image:title>Ansible Inventory</image:title>
+      <image:caption>Ansible Inventory</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/07/Semaphore-Repo-1024x80.png</image:loc>
@@ -1174,10 +1175,12 @@
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/vSphere-Overview-1024x530.png</image:loc>
       <image:title>Vsphere Overview 1024X530</image:title>
+      <image:caption>Vsphere Overview 1024X530</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/02/HouseNetworkOverview-1024x634.png</image:loc>
       <image:title>Housenetworkoverview 1024X634</image:title>
+      <image:caption>Housenetworkoverview 1024X634</image:caption>
     </image:image>
   </url>
   <url>
