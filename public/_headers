@@ -129,6 +129,15 @@
   ! X-Frame-Options
   ! Permissions-Policy
 
+# llms.txt + llms-full.txt — built for AI ingestion crawlers; let them
+# soft-cache for an hour (CF Pages would otherwise default these to
+# max-age=0). Same rationale as the /markdown/* block above.
+/llms*.txt
+  Cache-Control: public, max-age=3600
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Permissions-Policy
+
 # API endpoints - JSON with CORS
 /api/*
   Content-Type: application/json; charset=utf-8
