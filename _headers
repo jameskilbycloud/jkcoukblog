@@ -87,3 +87,18 @@
 # Cache JSON files for 5 minutes
 /*.json
   Cache-Control: public, max-age=300, must-revalidate
+
+# Pretty-URL post pages: /YYYY/MM/<slug>/ — the `/*.html` rule above
+# only matches literal `.html` paths, so directory-style permalinks
+# inherited Cloudflare Pages' implicit `max-age=0, must-revalidate`
+# default and browsers couldn't soft-cache repeat visits.
+#
+# The _worker.template.js KV cache already serves these with a smart TTL
+# (15 min recent / 1 hr older), but Cloudflare Pages applies `_headers`
+# rules AFTER the worker response so the worker's Cache-Control is
+# silently overridden. This rule is the single source of truth for the
+# browser cache budget on post pages — set it conservatively to 5 min
+# (matching the homepage) so a fresh auto-deploy is visible to repeat
+# readers within a window comparable to the homepage TTL.
+/20*/*/*/
+  Cache-Control: public, max-age=300, must-revalidate
