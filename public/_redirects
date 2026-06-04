@@ -116,6 +116,8 @@ www.jameskilby.co.uk/* https://jameskilby.co.uk/:splat 301!
 /nutanix-ncp/ /2020/07/nutanix-ncp/ 301
 /octopus-agile-battery-solar-calculator /2026/03/octopus-agile-battery-solar-calculator/ 301
 /octopus-agile-battery-solar-calculator/ /2026/03/octopus-agile-battery-solar-calculator/ 301
+/packer-vsphere-golden-images /2026/04/packer-vsphere-golden-images/ 301
+/packer-vsphere-golden-images/ /2026/04/packer-vsphere-golden-images/ 301
 /runecast-remediation-scripts /2023/05/runecast-remediation-scripts/ 301
 /runecast-remediation-scripts/ /2023/05/runecast-remediation-scripts/ 301
 /self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu /2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/ 301

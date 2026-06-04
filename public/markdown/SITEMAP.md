@@ -1,8 +1,8 @@
 # Markdown Content Sitemap
 
-Generated: 2026-06-04 08:30:29
+Generated: 2026-06-04 21:43:38
 
-Total Files: 82
+Total Files: 83
 
 ## Blog Posts
 
@@ -77,6 +77,9 @@ Total Files: 82
 
 - [Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/) - 2023-05-16 10:38:45+00:00
   - Markdown: `/markdown/posts/runecast-remediation-scripts.md`
+
+- [Automating vSphere Golden Images with Packer and GitHub Actions](https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/) - 2026-04-30 17:22:19+00:00
+  - Markdown: `/markdown/posts/packer-vsphere-golden-images.md`
 
 - [Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested](https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/) - 2026-03-09 23:39:37+00:00
   - Markdown: `/markdown/posts/octopus-agile-battery-solar-calculator.md`

@@ -8,6 +8,7 @@ The full content corpus (every post inlined) is available at [https://jameskilby
 
 ## Recent posts
 
+- [Automating vSphere Golden Images with Packer and GitHub Actions](https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/): Automate your Packer vSphere golden-image pipeline: build 6 Ubuntu LTS templates (22.04, 24.04, 26.04) server & desktop flavours with GitHub Actions.
 - [Automating vSphere Power Management driven by Ansible and SemaphoreUI](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/): Learn how to automate vSphere power management using Ansible and SemaphoreUI, scheduling ESXi host shutdowns based on Octopus Agile energy tariffs to cut costs.
 - [Automated VCF 9 Offline Depot](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/): One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let's Encrypt wildcard certs via Cloudflare DNS.
 - [My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/): Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database
@@ -19,7 +20,6 @@ The full content corpus (every post inlined) is available at [https://jameskilby
 - [Blog Performance & SEO Improvements: Cloudflare, Privacy & More](https://jameskilby.co.uk/2026/01/web-development-improvements/): I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend”.
 - [How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step](https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/): Step-by-step Ubuntu disk expansion with LVM: pvresize, vgextend, lvextend, resize2fs. Works after resizing the VM disk in vSphere/Hyper-V/KVM.
 - [VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/): One of the nice things about the VMC Service is that you dont have to worry about a number of the traditional infrastructure services that you typically
-- [vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/): As can be seen on my Lab Overview page, I have a GPU/Management cluster that is usually running 24×7.
 
 ## AWS
 
@@ -47,6 +47,11 @@ The full content corpus (every post inlined) is available at [https://jameskilby
 - [Warp – The intelligent terminal](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/): Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of Linux-based tools at home, I am mostly self-taught and
 - [How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/): Update: Hoarder has now been renamed to Karakeep due to a trademark issue I've been on a mission recently to regain control of my data.
 - [Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/): Artificial intelligence is all the rage at the moment, It’s getting included in every product announcement from pretty much every vendor under the su
+
+## Automation
+
+- [Automating vSphere Golden Images with Packer and GitHub Actions](https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/): Automate your Packer vSphere golden-image pipeline: build 6 Ubuntu LTS templates (22.04, 24.04, 26.04) server & desktop flavours with GitHub Actions.
+- [Template Deployment with Packer](https://jameskilby.co.uk/2021/01/hashicorp-packer/): Packer is one of those tools I have heard about, and some of the cool people on Twitter that I follow have been using it for a while.
 
 ## Cloudflare
 
@@ -120,7 +125,6 @@ The full content corpus (every post inlined) is available at [https://jameskilby
 - [TrueNAS Scale CLI Reference: Storage & Kubernetes Commands](https://jameskilby.co.uk/2023/11/truenas-scale-useful-commands/): General Storage Application General ZFS I have very much fallen down the rabbit hole with TrueNAS and although the GUI is very good occasionally I need to
 - [Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/): I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.
 - [Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/): Late to the party or not, I have been using containers in my lab more and more and that has led me to Portainer ….
-- [Template Deployment with Packer](https://jameskilby.co.uk/2021/01/hashicorp-packer/): Packer is one of those tools I have heard about, and some of the cool people on Twitter that I follow have been using it for a while.
 - [My First GitHub Pull Request: Contributing to Open Source](https://jameskilby.co.uk/2020/12/my-first-pull/): I was initially going to add in the contents of this post to one that I have been writing about my exploits with HashiCorp Packer but I decided it probably
 - [VeeamON 2020: Highlights From Veeam’s Virtual Conference](https://jameskilby.co.uk/2020/06/veeamon2020/): As everyone knows by now the world has changed possibly forever. Due to Covid19 working from home has become the new normal.
 - [What’s In My Tech Bag? Everyday Carry for IT Consultants](https://jameskilby.co.uk/2019/01/whats-in-my-backpack/): I have seen a few posts online recently about the tools and technology people use on a day to day basis. A few components I have that no one seems to

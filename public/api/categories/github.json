@@ -3,76 +3,6 @@
   "slug": "github",
   "posts": [
     {
-      "slug": "how-i-moved-my-wordpress-site-to-cloudflare-pages",
-      "title": "Static WordPress hosting using Cloudflare",
-      "description": "For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product.",
-      "date": "2022-10-20T15:26:08Z",
-      "modified": "2026-06-01T21:58:44Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/",
-      "markdown_url": "/markdown/posts/how-i-moved-my-wordpress-site-to-cloudflare-pages.md",
-      "api_url": "/api/posts/how-i-moved-my-wordpress-site-to-cloudflare-pages.json",
-      "categories": [
-        "Cloudflare",
-        "Hosting",
-        "Wordpress",
-        "Docker",
-        "Homelab",
-        "Kubernetes",
-        "Devops",
-        "Github",
-        "Ansible",
-        "Automation",
-        "Traefik",
-        "VCF",
-        "VMware"
-      ],
-      "tags": [
-        null,
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg",
-      "excerpt": "![Iu](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Static WordPress hosting using Cloudflare\n\nBy[James](..."
-    },
-    {
-      "slug": "how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare",
-      "title": "How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare",
-      "description": "I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.",
-      "date": "2025-10-06T15:57:06Z",
-      "modified": "2026-06-01T21:07:11Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/",
-      "markdown_url": "/markdown/posts/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare.md",
-      "api_url": "/api/posts/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare.json",
-      "categories": [
-        "Cloudflare",
-        "Devops",
-        "Github",
-        "Wordpress",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "Hosting",
-        "Personal"
-      ],
-      "tags": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp",
-      "excerpt": "![Github Actions](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/c..."
-    },
-    {
       "slug": "automated-vcf-9-offline-depot",
       "title": "Automated VCF 9 Offline Depot",
       "description": "One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let's Encrypt wildcard certs via Cloudflare DNS.",
@@ -119,6 +49,113 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png",
       "excerpt": "![Automated VCF 9 Offline Depot architecture diagram showing Traefik reverse proxy and Nginx file server stack](https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/) |..."
+    },
+    {
+      "slug": "packer-vsphere-golden-images",
+      "title": "Automating vSphere Golden Images with Packer and GitHub Actions",
+      "description": "Automate your Packer vSphere golden-image pipeline: build 6 Ubuntu LTS templates (22.04, 24.04, 26.04) server & desktop flavours with GitHub Actions.",
+      "date": "2026-04-30T17:22:19Z",
+      "modified": "2026-06-04T20:39:00Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/",
+      "markdown_url": "/markdown/posts/packer-vsphere-golden-images.md",
+      "api_url": "/api/posts/packer-vsphere-golden-images.json",
+      "categories": [
+        "Automation",
+        "Github",
+        "TrueNAS Scale",
+        "VMware",
+        "vSAN",
+        "vSphere",
+        "Homelab",
+        "Hosting",
+        "Runecast",
+        "Networking",
+        "Artificial Intelligence",
+        "Docker",
+        "Kubernetes"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png)\n\n[Automation](https://jameskilby.co.uk/category/automation/) | [Github](https://jameskilby.co.uk/category/github/)\n\n# Automating vSphere Golden Images with Packer and GitHub Actions\n\nBy[James](https:/..."
+    },
+    {
+      "slug": "how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare",
+      "title": "How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare",
+      "description": "I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.",
+      "date": "2025-10-06T15:57:06Z",
+      "modified": "2026-06-01T21:07:11Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/",
+      "markdown_url": "/markdown/posts/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare.md",
+      "api_url": "/api/posts/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare.json",
+      "categories": [
+        "Cloudflare",
+        "Devops",
+        "Github",
+        "Wordpress",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "Hosting",
+        "Personal"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp",
+      "excerpt": "![Github Actions](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/c..."
+    },
+    {
+      "slug": "how-i-moved-my-wordpress-site-to-cloudflare-pages",
+      "title": "Static WordPress hosting using Cloudflare",
+      "description": "For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product.",
+      "date": "2022-10-20T15:26:08Z",
+      "modified": "2026-06-01T21:58:44Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/",
+      "markdown_url": "/markdown/posts/how-i-moved-my-wordpress-site-to-cloudflare-pages.md",
+      "api_url": "/api/posts/how-i-moved-my-wordpress-site-to-cloudflare-pages.json",
+      "categories": [
+        "Cloudflare",
+        "Hosting",
+        "Wordpress",
+        "Docker",
+        "Homelab",
+        "Kubernetes",
+        "Devops",
+        "Github",
+        "Ansible",
+        "Automation",
+        "Traefik",
+        "VCF",
+        "VMware"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg",
+      "excerpt": "![Iu](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Static WordPress hosting using Cloudflare\n\nBy[James](..."
     }
   ]
 }
