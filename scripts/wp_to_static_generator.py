@@ -3978,6 +3978,16 @@ document.addEventListener('DOMContentLoaded', function() {
             "# in order to see the directive. Blocking crawl leaves the URLs in",
             "# the index as URL-only entries and prevents clean removal.",
             "",
+            "# AI crawler policy",
+            "# ────────────────────",
+            "# GPTBot, ClaudeBot, PerplexityBot, Google-Extended, Applebot-Extended,",
+            "# Bytespider and the rest of the LLM ingestion fleet are deliberately",
+            "# NOT Disallowed. This site publishes a markdown mirror at /markdown/,",
+            "# a JSON API mirror at /api/, an llmstxt.org index at /llms.txt and a",
+            "# full-content corpus at /llms-full.txt — all built for AI ingestion.",
+            "# Blocking the crawlers would defeat that on-purpose investment.",
+            "# Steering happens via /llms.txt, not robots.txt.",
+            "",
             f"Sitemap: {self.target_domain}/sitemap.xml",
             ""
         ]

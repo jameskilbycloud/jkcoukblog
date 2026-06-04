@@ -91,6 +91,9 @@ class SEOFixer:
             if self.fix_homepage_title(soup, file_path):
                 modified = True
 
+            if self.fix_homepage_h1(soup, file_path):
+                modified = True
+
             if self.fix_title_drop_brand_suffix(soup, file_path):
                 modified = True
 
@@ -243,6 +246,43 @@ class SEOFixer:
             self.issues_fixed += 1
             print(f"   🏷️  Locked homepage title to canonical form ({len(HOMEPAGE_TITLE)} chars)")
         return modified
+
+    def fix_homepage_h1(self, soup, file_path):
+        """Replace the homepage <h1> with Config.HOMEPAGE_TITLE.
+
+        WordPress emits "James Kilby" (the site name) as the homepage h1
+        — fine for a personal home page but thin for a content-heavy
+        blog where the h1 is one of Google's strongest topic signals.
+        Lock it to the same canonical descriptive title we already use
+        for <title>/og:title so the heading conveys what the site is
+        actually about (VMware, homelab, cloud infrastructure).
+
+        Targets only the first/primary h1 in the document.
+        """
+        if not HOMEPAGE_TITLE:
+            return False
+        try:
+            rel = file_path.resolve().relative_to(self.public_dir.resolve())
+        except (ValueError, AttributeError):
+            return False
+        if str(rel) != 'index.html':
+            return False
+
+        h1 = soup.find('h1')
+        if not h1:
+            return False
+        current = h1.get_text(strip=True)
+        if current == HOMEPAGE_TITLE:
+            return False
+
+        # Replace inner content with a single text node; preserves any class
+        # / id attributes on the h1 element itself so styling doesn't break.
+        h1.clear()
+        h1.string = HOMEPAGE_TITLE
+
+        self.issues_fixed += 1
+        print(f"   🅷  Locked homepage <h1> to canonical form (was {current[:40]!r}, now {len(HOMEPAGE_TITLE)} chars)")
+        return True
 
     # Brand suffixes we strip from social-share titles. The leading separator
     # is intentional — only collapse the suffix when it appears at the END of
