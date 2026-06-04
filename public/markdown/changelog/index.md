@@ -15,7 +15,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-912
+914
 
 Git commits
 
@@ -35,7 +35,7 @@ Active contributors
 
 2026-06-04
 
-06:47:43
+09:04:18
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -58,6 +58,12 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-06-04 e3087d4Improvement
+
+refactor(headers): make repo-root _headers the single source of truth (#67)
+
+Until now `_headers` lived in two places that could drift:
 
 2026-06-04 9b261adFeature
 
@@ -227,11 +233,5 @@ fix(audit-followup): wire missing passes, fix `!` ordering, idempotent fonts
 
 Three real bugs found while verifying the audit fixes live:
 
-2026-06-01 5b47f1cFix
-
-fix(_headers): fold `!` strip lines into existing path blocks
-
-The previous attempt at #8 (strip HTML-only headers from asset responses)
-
-Page generated: 2026-06-04 06:51:15 UTC  
+Page generated: 2026-06-04 09:08:14 UTC  
 Changelog powered by Git history and Lighthouse CI
