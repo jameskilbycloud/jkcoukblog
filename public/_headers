@@ -31,6 +31,20 @@
 /
   Cache-Control: public, max-age=300, must-revalidate
 
+# Pretty-URL post pages: /YYYY/MM/<slug>/ — the `/*.html` rule
+# only matches literal `.html` paths, so directory-style permalinks
+# inherited Cloudflare Pages' implicit `max-age=0, must-revalidate`
+# default and browsers couldn't soft-cache repeat visits.
+# `/2*` is greedy and catches every year-prefixed post URL; no other
+# top-level path on this site starts with `/2`.
+# Cloudflare Pages applies _headers rules AFTER worker responses,
+# so this also overrides the worker's smart-TTL Cache-Control —
+# `_headers` is the single source of truth for the browser cache
+# budget. The worker's KV cache continues to use its own absolute-
+# expiry TTLs independently.
+/2*
+  Cache-Control: public, max-age=300, must-revalidate
+
 # Static assets - longer cache with immutable for versioned files.
 # `! Header-Name` strips HTML-only security headers set by the `/*`
 # block above — CSP / X-Frame-Options / Permissions-Policy don't
