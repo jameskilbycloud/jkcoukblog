@@ -15,7 +15,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-916
+917
 
 Git commits
 
@@ -35,7 +35,7 @@ Active contributors
 
 2026-06-04
 
-09:27:54
+08:32:30
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -227,11 +227,5 @@ Merge pull request #59 from jameskilbycloud/fix/featured-image-scaling-single-po
 
 fix(theme): split featured-image scaling between cards and single posts
 
-2026-06-01 634c47dFeature
-
-fix(theme): split featured-image scaling rule between cards and single posts
-
-Kadence's .post-thumbnail forces a fixed 3:2 box (height:0;
-
-Page generated: 2026-06-04 08:32:26 UTC  
+Page generated: 2026-06-04 21:45:31 UTC  
 Changelog powered by Git history and Lighthouse CI

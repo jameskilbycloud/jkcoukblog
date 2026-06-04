@@ -23403,5 +23403,105 @@
     "avif_created": true,
     "webp": "wp-content/uploads/2026/04/Packer-Workflow-150x150.webp",
     "avif": "wp-content/uploads/2026/04/Packer-Workflow-150x150.avif"
+  },
+  "wp-content/uploads/og/tag-devops.png": {
+    "hash": "5e0f9ba7a96798bcc51fbdd24b7bab42",
+    "optimized_at": "2026-06-04T20:49:21.340312",
+    "optimized_size": 8898,
+    "timestamp": 1780606161.3403378,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-devops.webp",
+    "avif": "wp-content/uploads/og/tag-devops.avif"
+  },
+  "wp-content/uploads/og/page-7.png": {
+    "hash": "8aee1c26fd9e61de6c96abb64e706d75",
+    "optimized_at": "2026-06-04T20:49:21.524243",
+    "optimized_size": 7526,
+    "timestamp": 1780606161.5242589,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/page-7.webp",
+    "avif": "wp-content/uploads/og/page-7.avif"
+  },
+  "wp-content/uploads/og/tag-github-actions.png": {
+    "hash": "e19b5179b1d2f15de77651b2a2306e90",
+    "optimized_at": "2026-06-04T20:49:21.695233",
+    "optimized_size": 10184,
+    "timestamp": 1780606161.6952562,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-github-actions.webp",
+    "avif": "wp-content/uploads/og/tag-github-actions.avif"
+  },
+  "wp-content/uploads/2026/04/SuccessfulPackerDeployment-1024x173.png": {
+    "hash": "7a8dcbf89d84ee3b01bd6b786c029310",
+    "optimized_at": "2026-06-04T20:49:22.403273",
+    "optimized_size": 6534,
+    "timestamp": 1780606162.4032893,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/04/SuccessfulPackerDeployment-1024x173.webp",
+    "avif": "wp-content/uploads/2026/04/SuccessfulPackerDeployment-1024x173.avif"
+  },
+  "wp-content/uploads/2026/04/SuccessfulPackerDeployment-1536x260.png": {
+    "hash": "18dcdbf033c097da2f50bd88206afafb",
+    "optimized_at": "2026-06-04T20:49:23.094291",
+    "optimized_size": 11032,
+    "timestamp": 1780606163.094306,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/04/SuccessfulPackerDeployment-1536x260.webp",
+    "avif": "wp-content/uploads/2026/04/SuccessfulPackerDeployment-1536x260.avif"
+  },
+  "wp-content/uploads/2026/04/SuccessfulPackerDeployment-768x130.png": {
+    "hash": "a8b335283f5d26313d8e028e3f06d305",
+    "optimized_at": "2026-06-04T20:49:23.116489",
+    "optimized_size": 4626,
+    "timestamp": 1780606163.1164985,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/04/SuccessfulPackerDeployment-768x130.webp",
+    "avif": "wp-content/uploads/2026/04/SuccessfulPackerDeployment-768x130.avif"
+  },
+  "wp-content/uploads/2026/04/SuccessfulPackerDeployment-300x51.png": {
+    "hash": "23560d9fc502ef6584f7aa2fde05f57a",
+    "optimized_at": "2026-06-04T20:49:23.406045",
+    "optimized_size": 1050,
+    "timestamp": 1780606163.40606,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/04/SuccessfulPackerDeployment-300x51.webp",
+    "avif": "wp-content/uploads/2026/04/SuccessfulPackerDeployment-300x51.avif"
+  },
+  "wp-content/uploads/2026/04/SuccessfulPackerDeployment-150x150.png": {
+    "hash": "bbc9a48172200527ef868069f2405ffe",
+    "optimized_at": "2026-06-04T20:49:23.514736",
+    "optimized_size": 1342,
+    "timestamp": 1780606163.5147498,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/04/SuccessfulPackerDeployment-150x150.webp",
+    "avif": "wp-content/uploads/2026/04/SuccessfulPackerDeployment-150x150.avif"
+  },
+  "wp-content/uploads/2026/04/SuccessfulPackerDeployment-2048x346.png": {
+    "hash": "a6820ab51a39ef8835c31420c2696d12",
+    "optimized_at": "2026-06-04T20:49:23.734156",
+    "optimized_size": 15946,
+    "timestamp": 1780606163.7341726,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/04/SuccessfulPackerDeployment-2048x346.webp",
+    "avif": "wp-content/uploads/2026/04/SuccessfulPackerDeployment-2048x346.avif"
+  },
+  "wp-content/uploads/2026/04/SuccessfulPackerDeployment.png": {
+    "hash": "f525c2b26977bb139acf5b989b490a20",
+    "optimized_at": "2026-06-04T20:49:24.163073",
+    "optimized_size": 22202,
+    "timestamp": 1780606164.163089,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/04/SuccessfulPackerDeployment.webp",
+    "avif": "wp-content/uploads/2026/04/SuccessfulPackerDeployment.avif"
   }
 }
