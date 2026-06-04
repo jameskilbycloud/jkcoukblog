@@ -20,15 +20,14 @@ categories:
   - Hosting
   - Wordpress
   - Ubuntu
-  - vSAN
   - VMware27
   - Homelab26
   - Hosting11
   - Personal10
   - VMware Cloud on AWS8
   - Artificial Intelligence7
+  - Automation7
   - Storage7
-  - Automation6
   - Cloudflare6
 url: https://jameskilby.co.uk/
 image: https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png
@@ -41,19 +40,19 @@ real money to run.
 
 jameskilby@blog ~ % cat blog.stats live
 
-posts.count.............72
+posts.count.............73
 
-words.total............45k
+words.total............48k
 
-last_post..........49d ago
+last_post..........35d ago
 
 categories..............34
 
-tags...................125
+tags...................128
 
 vexpert.years...........11
 
-deploys.month...........63
+deploys.month...........38
 
 last_deploy..........today
 
@@ -65,13 +64,23 @@ FILTER
 
 [All](/)[VMware](https://jameskilby.co.uk/category/vmware/)[Homelab](https://jameskilby.co.uk/category/homelab/)[Automation](https://jameskilby.co.uk/category/automation/)[AI](https://jameskilby.co.uk/category/artificial-intelligence/)
 
-[![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png)LATESTAnsibleAutomation
+[![Automating vSphere Golden Images with Packer and GitHub Actions](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline-768x452.png)LATESTAutomationGithub
 
-## Automating vSphere Power Management driven by Ansible and SemaphoreUI
+## Automating vSphere Golden Images with Packer and GitHub Actions
+
+A walk-through of an automated golden-image pipeline for vSphere: HashiCorp Packer builds six Ubuntu LTS templates (22.04, 24.04, 26.04 — server and desktop) driven by three GitHub Actions workflows covering PR validation, parallel template builds, and ISO management via a self-hosted runner.
+
+April 30, 2026Read post →](https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/)
+
+  * [ ![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png) ](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
+
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)
+
+## [Automating vSphere Power Management driven by Ansible and SemaphoreUI](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
+
+By[James](https://jameskilby.co.uk) April 15, 2026 · Updated June 1, 2026
 
 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introduction One of the larger costs of running my homelab is the electricity….
-
-April 15, 2026Read post →](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
   * [ ![Automated VCF 9 Offline Depot architecture diagram showing Traefik reverse proxy and Nginx file server stack](https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png) ](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
 
@@ -173,18 +182,8 @@ By[James](https://jameskilby.co.uk) December 8, 2025 · Updated May 25, 2026
 
 How to use the Amazon Time Sync Service in a VMC environment
 
-  * [ ![vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg) ](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
-
-[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
-
-## [vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
-
-By[James](https://jameskilby.co.uk) December 6, 2025 · Updated June 1, 2026
-
-How to safely shut down a vSAN Environment
-
 EXPLORE BY TOPIC
 
 ## Browse the archive
 
-[VMware27](https://jameskilby.co.uk/category/vmware/)[Homelab26](https://jameskilby.co.uk/category/homelab/)[Hosting11](https://jameskilby.co.uk/category/hosting/)[Personal10](https://jameskilby.co.uk/category/personal/)[VMware Cloud on AWS8](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)[Artificial Intelligence7](https://jameskilby.co.uk/category/artificial-intelligence/)[Storage7](https://jameskilby.co.uk/category/storage/)[Automation6](https://jameskilby.co.uk/category/automation/)[Cloudflare6](https://jameskilby.co.uk/category/cloudflare/)
+[VMware27](https://jameskilby.co.uk/category/vmware/)[Homelab26](https://jameskilby.co.uk/category/homelab/)[Hosting11](https://jameskilby.co.uk/category/hosting/)[Personal10](https://jameskilby.co.uk/category/personal/)[VMware Cloud on AWS8](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)[Artificial Intelligence7](https://jameskilby.co.uk/category/artificial-intelligence/)[Automation7](https://jameskilby.co.uk/category/automation/)[Storage7](https://jameskilby.co.uk/category/storage/)[Cloudflare6](https://jameskilby.co.uk/category/cloudflare/)

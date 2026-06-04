@@ -1,6 +1,6 @@
 {
-  "generated": "2026-06-04T08:30:29Z",
-  "total_files": 82,
+  "generated": "2026-06-04T21:43:38Z",
+  "total_files": 83,
   "posts": [
     {
       "file": "posts/100gb-s-in-my-homelab-sort-of.md",
@@ -289,6 +289,12 @@
       "title": "Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested",
       "date": "2026-03-09T23:39:37Z",
       "url": "https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/"
+    },
+    {
+      "file": "posts/packer-vsphere-golden-images.md",
+      "title": "Automating vSphere Golden Images with Packer and GitHub Actions",
+      "date": "2026-04-30T17:22:19Z",
+      "url": "https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/"
     },
     {
       "file": "posts/runecast-remediation-scripts.md",

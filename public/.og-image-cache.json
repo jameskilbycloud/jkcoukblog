@@ -426,5 +426,17 @@
   "tag-networking": {
     "title_hash": "dc1a132ac1aaf86c",
     "title": "Networking Archives"
+  },
+  "page-7": {
+    "title_hash": "6b19aa2368bb02a2",
+    "title": "James Kilby"
+  },
+  "tag-devops": {
+    "title_hash": "169ff835e872e609",
+    "title": "Devops Archives"
+  },
+  "tag-github-actions": {
+    "title_hash": "fe979bc1ea08e22f",
+    "title": "github-actions Archives"
   }
 }

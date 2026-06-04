@@ -15,7 +15,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-914
+916
 
 Git commits
 
@@ -35,7 +35,7 @@ Active contributors
 
 2026-06-04
 
-09:04:18
+09:27:54
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -58,6 +58,12 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-06-04 2fd0f8bFix
+
+fix(seo): bundle small audit items — homepage h1, /llms*.txt cache, AI crawler doc (#68)
+
+Closes three audit items in one PR to keep the deploy queue short.
 
 2026-06-04 e3087d4Improvement
 
@@ -227,11 +233,5 @@ fix(theme): split featured-image scaling rule between cards and single posts
 
 Kadence's .post-thumbnail forces a fixed 3:2 box (height:0;
 
-2026-06-01 f7b4fcdFix
-
-fix(audit-followup): wire missing passes, fix `!` ordering, idempotent fonts
-
-Three real bugs found while verifying the audit fixes live:
-
-Page generated: 2026-06-04 09:08:14 UTC  
+Page generated: 2026-06-04 08:32:26 UTC  
 Changelog powered by Git history and Lighthouse CI
