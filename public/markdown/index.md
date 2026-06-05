@@ -51,7 +51,7 @@ tags...................128
 
 vexpert.years...........11
 
-deploys.month...........56
+deploys.month...........50
 
 last_deploy..........today
 
