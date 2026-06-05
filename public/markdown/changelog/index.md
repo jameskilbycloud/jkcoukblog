@@ -15,7 +15,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-917
+918
 
 Git commits
 
@@ -35,7 +35,7 @@ Active contributors
 
 2026-06-04
 
-08:32:30
+21:45:36
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -221,11 +221,5 @@ chore(audit): site audit reports + WordPress typo-patch tooling
 
 \- Two site-audit reports in repo root: v1 (WebFetch-based, contains false
 
-2026-06-01 07f7383Feature
-
-Merge pull request #59 from jameskilbycloud/fix/featured-image-scaling-single-post
-
-fix(theme): split featured-image scaling between cards and single posts
-
-Page generated: 2026-06-04 21:45:31 UTC  
+Page generated: 2026-06-04 20:51:09 UTC  
 Changelog powered by Git history and Lighthouse CI
