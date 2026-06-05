@@ -23573,5 +23573,45 @@
     "avif_created": true,
     "webp": "wp-content/uploads/2026/04/PackerFullFlow-1824x2048.webp",
     "avif": "wp-content/uploads/2026/04/PackerFullFlow-1824x2048.avif"
+  },
+  "wp-content/uploads/2018/04/DeviceToUpdate-150x150.png": {
+    "hash": "d096548e05a8f1e2eabd6d1a36c44ded",
+    "optimized_at": "2026-06-05T18:54:45.167787",
+    "optimized_size": 954,
+    "timestamp": 1780682085.1678014,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2018/04/DeviceToUpdate-150x150.webp",
+    "avif": "wp-content/uploads/2018/04/DeviceToUpdate-150x150.avif"
+  },
+  "wp-content/uploads/2018/04/DeviceToUpdate-300x156.png": {
+    "hash": "edfcdb7b5154c002c01999bb35b1d857",
+    "optimized_at": "2026-06-05T18:54:45.462973",
+    "optimized_size": 1630,
+    "timestamp": 1780682085.462987,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2018/04/DeviceToUpdate-300x156.webp",
+    "avif": "wp-content/uploads/2018/04/DeviceToUpdate-300x156.avif"
+  },
+  "wp-content/uploads/2018/04/DeviceToUpdate-768x399.png": {
+    "hash": "1072ac0b602bababcd872b2a4e3e3043",
+    "optimized_at": "2026-06-05T18:54:46.222381",
+    "optimized_size": 8180,
+    "timestamp": 1780682086.2223952,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2018/04/DeviceToUpdate-768x399.webp",
+    "avif": "wp-content/uploads/2018/04/DeviceToUpdate-768x399.avif"
+  },
+  "wp-content/uploads/2018/04/DeviceToUpdate.png": {
+    "hash": "bd060b5acb53e568fb7b6d2eeaeeb93d",
+    "optimized_at": "2026-06-05T18:54:46.233630",
+    "optimized_size": 9766,
+    "timestamp": 1780682086.2336395,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2018/04/DeviceToUpdate.webp",
+    "avif": "wp-content/uploads/2018/04/DeviceToUpdate.avif"
   }
 }

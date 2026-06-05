@@ -1,0 +1,29 @@
+{
+  "year": 2018,
+  "month": 4,
+  "month_name": "April",
+  "posts": [
+    {
+      "slug": "nutanix-life-cycle-manager",
+      "title": "Nutanix Life Cycle Manager",
+      "description": "A practical walkthrough of Nutanix Life Cycle Manager (LCM) and how it simplifies firmware and hardware upgrades across your Nutanix cluster, step by step.",
+      "date": "2018-04-03T10:30:00Z",
+      "modified": "2026-06-05T17:41:37Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2018/04/nutanix-life-cycle-manager/",
+      "markdown_url": "/markdown/posts/nutanix-life-cycle-manager.md",
+      "api_url": "/api/posts/nutanix-life-cycle-manager.json",
+      "categories": [
+        "Nutanix",
+        "Homelab",
+        "VMware",
+        "Personal"
+      ],
+      "tags": [
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Nutanix Life Cycle Manager\n\nBy[James](https://jameskilby.co.uk) April 3, 2018 · Updated June 5, 2026 • 📖2 min read(432 words)\n\n📅 **Published:**..."
+    }
+  ]
+}

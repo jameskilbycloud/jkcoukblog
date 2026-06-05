@@ -1,8 +1,18 @@
 [
   {
+    "name": "Homelab",
+    "slug": "homelab",
+    "count": 61
+  },
+  {
     "name": "VMware",
     "slug": "vmware",
-    "count": 67
+    "count": 68
+  },
+  {
+    "name": "vSphere",
+    "slug": "vsphere",
+    "count": 26
   },
   {
     "name": "VMware Cloud on AWS",
@@ -10,39 +20,19 @@
     "count": 27
   },
   {
-    "name": "vSAN",
-    "slug": "vsan",
-    "count": 16
+    "name": "Runecast",
+    "slug": "runecast",
+    "count": 9
   },
   {
     "name": "Personal",
     "slug": "personal",
-    "count": 34
-  },
-  {
-    "name": "vSphere",
-    "slug": "vsphere",
-    "count": 25
-  },
-  {
-    "name": "Homelab",
-    "slug": "homelab",
-    "count": 60
-  },
-  {
-    "name": "Veeam",
-    "slug": "veeam",
-    "count": 19
-  },
-  {
-    "name": "Nutanix",
-    "slug": "nutanix",
-    "count": 22
+    "count": 37
   },
   {
     "name": "Networking",
     "slug": "networking",
-    "count": 22
+    "count": 21
   },
   {
     "name": "Storage",
@@ -50,99 +40,34 @@
     "count": 31
   },
   {
-    "name": "AWS",
-    "slug": "aws",
-    "count": 15
-  },
-  {
-    "name": "Hosting",
-    "slug": "hosting",
-    "count": 37
-  },
-  {
-    "name": "Cloudflare",
-    "slug": "cloudflare",
-    "count": 17
-  },
-  {
-    "name": "Wordpress",
-    "slug": "wordpress",
-    "count": 17
-  },
-  {
-    "name": "vExpert",
-    "slug": "vexpert",
-    "count": 7
-  },
-  {
-    "name": "Artificial Intelligence",
-    "slug": "artificial-intelligence",
-    "count": 37
-  },
-  {
-    "name": "Automation",
-    "slug": "automation",
-    "count": 39
-  },
-  {
-    "name": "Docker",
-    "slug": "docker",
-    "count": 45
-  },
-  {
-    "name": "NVIDIA",
-    "slug": "nvidia",
-    "count": 25
-  },
-  {
-    "name": "Traefik",
-    "slug": "traefik",
-    "count": 36
-  },
-  {
-    "name": "Ansible",
-    "slug": "ansible",
-    "count": 35
-  },
-  {
     "name": "TrueNAS Scale",
     "slug": "truenas-scale",
-    "count": 11
+    "count": 12
   },
   {
-    "name": "VCF",
-    "slug": "vcf",
-    "count": 19
-  },
-  {
-    "name": "Devops",
-    "slug": "devops",
-    "count": 15
-  },
-  {
-    "name": "Kubernetes",
-    "slug": "kubernetes",
-    "count": 11
-  },
-  {
-    "name": "Runecast",
-    "slug": "runecast",
-    "count": 10
-  },
-  {
-    "name": "Mikrotik",
-    "slug": "mikrotik",
-    "count": 6
-  },
-  {
-    "name": "Ubuntu",
-    "slug": "ubuntu",
-    "count": 1
+    "name": "vSAN",
+    "slug": "vsan",
+    "count": 17
   },
   {
     "name": "Synology",
     "slug": "synology",
     "count": 13
+  },
+  {
+    "name": "Artificial Intelligence",
+    "slug": "artificial-intelligence",
+    "count": 36
+  },
+  {
+    "name": "Ansible",
+    "slug": "ansible",
+    "count": 36
+  },
+  {
+    "name": "Nutanix",
+    "slug": "nutanix",
+    "count": 22
   },
   {
     "name": "Consulting",
@@ -155,9 +80,74 @@
     "count": 7
   },
   {
-    "name": "Github",
-    "slug": "github",
-    "count": 4
+    "name": "Devops",
+    "slug": "devops",
+    "count": 15
+  },
+  {
+    "name": "NVIDIA",
+    "slug": "nvidia",
+    "count": 24
+  },
+  {
+    "name": "Traefik",
+    "slug": "traefik",
+    "count": 35
+  },
+  {
+    "name": "Automation",
+    "slug": "automation",
+    "count": 40
+  },
+  {
+    "name": "Docker",
+    "slug": "docker",
+    "count": 45
+  },
+  {
+    "name": "VCF",
+    "slug": "vcf",
+    "count": 21
+  },
+  {
+    "name": "Veeam",
+    "slug": "veeam",
+    "count": 19
+  },
+  {
+    "name": "Hosting",
+    "slug": "hosting",
+    "count": 36
+  },
+  {
+    "name": "Kubernetes",
+    "slug": "kubernetes",
+    "count": 11
+  },
+  {
+    "name": "AWS",
+    "slug": "aws",
+    "count": 15
+  },
+  {
+    "name": "Cloudflare",
+    "slug": "cloudflare",
+    "count": 17
+  },
+  {
+    "name": "Wordpress",
+    "slug": "wordpress",
+    "count": 17
+  },
+  {
+    "name": "Mikrotik",
+    "slug": "mikrotik",
+    "count": 6
+  },
+  {
+    "name": "vExpert",
+    "slug": "vexpert",
+    "count": 8
   },
   {
     "name": "Money",
@@ -168,5 +158,15 @@
     "name": "Apple",
     "slug": "apple",
     "count": 2
+  },
+  {
+    "name": "Github",
+    "slug": "github",
+    "count": 4
+  },
+  {
+    "name": "Ubuntu",
+    "slug": "ubuntu",
+    "count": 1
   }
 ]
