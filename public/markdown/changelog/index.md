@@ -15,7 +15,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-919
+921
 
 Git commits
 
@@ -33,9 +33,9 @@ Active contributors
 
 ### Last Deployment
 
-2026-06-04
+2026-06-05
 
-20:51:13
+10:29:39
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -58,6 +58,14 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-06-05 3cfb27dFix
+
+fix(homepage): trim grid to a multiple of 3 to remove orphan slot (#69)
+
+Hero promotion (`_build_homepage_hero`) pulls the newest post out of the
+
+  
 
 2026-06-04 2fd0f8bFix
 
@@ -209,17 +217,5 @@ fix(apply-typo-patches): install deps into a venv (PEP 668)
 
 Previous fix used `pip install --user` on the system python3, but the
 
-2026-06-01 bd61cdcFix
-
-fix(apply-typo-patches): use system python3 + opt into Node.js 24
-
-The self-hosted runner is on Ubuntu 26.04 and actions/setup-python@v6 has no
-
-2026-06-01 58d939aFix
-
-chore(audit): site audit reports + WordPress typo-patch tooling
-
-\- Two site-audit reports in repo root: v1 (WebFetch-based, contains false
-
-Page generated: 2026-06-05 10:06:38 UTC  
+Page generated: 2026-06-05 10:33:54 UTC  
 Changelog powered by Git history and Lighthouse CI

@@ -23,6 +23,17 @@
 const PATH_MANIFEST_RAW = /*__PATH_MANIFEST_START__*/["/","/2017/05/money-saving-uk-version","/2018/01/lab-storage","/2018/01/nutanix-ce","/2018/03/aws-for-beginners1","/2018/03/cloudflare","/2018/05/aws-status-page-monitoring-included","/2018/06/nutanix-command-reference-guide","/2018/10/and-now-for-something-completely-different","/2018/12/new-laptop","/2019/01/whats-in-my-backpack","/2019/02/lab-storage-2","/2019/12/aws-solution-architect-associate","/2019/12/monitoring-vmc-part-1","/2020/06/veeamon2020","/2020/07/i3en","/2020/07/nutanix-ncp","/2020/09/vmc-host-errors","/2020/09/vmware-certified-master-specialist-hci-2020","/2020/12/my-first-pull","/2021/01/hashicorp-packer","/2021/01/my-home-office-setup-upgrades","/2021/02/apple-content-caching","/2022/01/cloudflare-workers-limits-of-the-free-tier","/2022/01/lab-update-part-1-compute","/2022/01/lab-update-part-2-storage","/2022/01/lab-update-part-3-network","/2022/01/lab-update-part-5-desired-workloads","/2022/01/web-development","/2022/01/wrangler-and-node-versions","/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages","/2022/10/starlink","/2022/11/homelab-bad-days-almost","/2022/12/100gb-s-in-my-homelab-sort-of","/2022/12/forcing-an-upgrade-to-vsphere-8","/2022/12/use-portainer-in-a-homelab-with-github","/2023/04/intel-optane","/2023/05/homelab-storage-refresh-part-1","/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages","/2023/05/runecast-remediation-scripts","/2023/10/going-out-with-a-bang","/2023/10/vgpu-setup-in-my-homelab","/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n","/2023/11/analytics-in-a-privacy-focused-world","/2023/11/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router","/2023/11/truenas-scale-useful-commands","/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc","/2024/01/holodeck-cpu-fixes","/2024/01/multihost-holodeck-vcf","/2024/06/unifi-dhcp-option-43","/2024/07/new-nodes","/2024/09/can-you-really-squeeze-96tb-in-1u","/2024/09/home-network-upgrade","/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu","/2024/12/zfs-on-vmware","/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way","/2025/04/warp-the-intelligent-terminal","/2025/05/vmc-quick-sizing-guide","/2025/08/vmc-host-deepdive","/2025/09/managing-my-homelab-with-semaphoreui","/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare","/2025/12/time-in-a-vmc-environment","/2025/12/ubuntu-disk-expansion-steps","/2025/12/vsan-cluster-shutdown","/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster","/2026/01/web-development-improvements","/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements","/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive","/2026/03/octopus-agile-battery-solar-calculator","/2026/04/automated-vcf-9-offline-depot","/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2","/2026/04/new-vmc-host-i7i-metal-24xl","/2026/04/packer-vsphere-golden-images","/2026/04/vsphere-power-management-driven-by-ansible","/404","/about-james-kilby-solution-architect","/category/ansible","/category/apple","/category/artificial-intelligence","/category/automation","/category/aws","/category/cloudflare","/category/consulting","/category/containers","/category/devops","/category/docker","/category/github","/category/homelab","/category/hosting","/category/kubernetes","/category/mikrotik","/category/money","/category/networking","/category/nutanix","/category/nvidia","/category/personal","/category/runecast","/category/storage","/category/synology","/category/traefik","/category/truenas-scale","/category/ubuntu","/category/veeam","/category/vexpert","/category/vmware","/category/vmware/vcf","/category/vmware/vmware-cloud-on-aws","/category/vmware/vsan-vmware","/category/vsphere","/category/wordpress","/changelog","/evs","/homelab-software","/lab","/media","/page/2","/page/3","/page/4","/page/5","/page/6","/page/7","/privacy-policy-2","/stats","/tag/account-setup","/tag/ai","/tag/analytics","/tag/ansible","/tag/apple","/tag/architecture","/tag/artificial-intelligence","/tag/automation","/tag/aws","/tag/bash","/tag/blog","/tag/blogging","/tag/brew","/tag/cache","/tag/certification","/tag/certifications","/tag/charity","/tag/city-fibre","/tag/cli","/tag/clickhouse","/tag/cloudflare","/tag/cloudflare-pages","/tag/comfyui","/tag/containers","/tag/content-library","/tag/cpu","/tag/desired-state","/tag/devops","/tag/dhcp","/tag/disk-expand","/tag/docker","/tag/energy","/tag/epic","/tag/failure","/tag/free","/tag/git","/tag/github","/tag/github-actions","/tag/hashicorp","/tag/hoarder","/tag/holodeck","/tag/homebrew","/tag/homelab","/tag/homeoffice","/tag/hosting","/tag/https","/tag/i7i","/tag/iac","/tag/infrastructure","/tag/ingress","/tag/intel","/tag/lambda","/tag/langfuse","/tag/lets-encrypt","/tag/macbook-air","/tag/mikrotik","/tag/minio","/tag/multihost","/tag/n8n","/tag/nas","/tag/networking","/vmc"]/*__PATH_MANIFEST_END__*/;
 const PATH_MANIFEST = PATH_MANIFEST_RAW ? new Set(PATH_MANIFEST_RAW) : null;
 
+// Build-time substitution: scripts/stamp_worker_manifest.py reads the
+// Content-Security-Policy line from the repo-root `_headers` file and
+// replaces the placeholder below with that string literal. `_headers`
+// stays the single source of truth — the worker just consumes it so
+// CSP ships on every worker-built Response (Pages does NOT layer
+// `_headers` rules over Response objects returned by `_worker.js`;
+// only `env.ASSETS.fetch()` responses get them). If the placeholder
+// is still `null` (template unchanged, local dev) CSP is omitted —
+// same as before, fail-open.
+const CSP_FROM_HEADERS = /*__CSP_FROM_HEADERS_START__*/"default-src 'self'; script-src 'self' 'unsafe-inline' plausible.jameskilby.cloud utteranc.es static.cloudflareinsights.com cdn.credly.com cdn.youracclaim.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' plausible.jameskilby.cloud cloudflareinsights.com; frame-src https://www.youtube.com https://player.vimeo.com https://embed.acast.com https://utteranc.es https://plausible.jameskilby.cloud https://www.credly.com https://www.youracclaim.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"/*__CSP_FROM_HEADERS_END__*/;
+
 /**
  * Is this path a known content URL?
  *
@@ -447,10 +458,12 @@ async function handleCacheAPI(request, env, ctx, path, hostname = '') {
 /**
  * Get security headers for all responses.
  *
- * Note: Content-Security-Policy is intentionally NOT set here. Cloudflare Pages
- * applies `_headers` rules AFTER worker responses, so any CSP set here would be
- * silently overridden — `_headers` (and `scripts/wp_to_static_generator.py`,
- * which generates `public/_headers`) is the single source of truth for CSP.
+ * Content-Security-Policy: stamped in from the repo-root `_headers` file at
+ * build time (see CSP_FROM_HEADERS above and scripts/stamp_worker_manifest.py).
+ * `_headers` remains the single source of truth — but Cloudflare Pages only
+ * applies its rules to responses fetched via `env.ASSETS.fetch()`. Brand-new
+ * `Response` objects returned by `_worker.js` (e.g. the KV-cached HTML path)
+ * don't get `_headers` layered on, so the worker must emit CSP itself.
  * Validation lives in scripts/test_csp.py.
  *
  * Pass hostname to automatically add X-Robots-Tag: noindex on the Pages preview domain.
@@ -463,6 +476,10 @@ function getSecurityHeaders(hostname = '') {
     'Referrer-Policy': 'strict-origin-when-cross-origin',
     'Permissions-Policy': 'geolocation=(), microphone=(), camera=()'
   };
+
+  if (CSP_FROM_HEADERS) {
+    headers['Content-Security-Policy'] = CSP_FROM_HEADERS;
+  }
 
   // Prevent the Cloudflare Pages preview domain from appearing in search results
   if (hostname === 'jkcoukblog.pages.dev') {
