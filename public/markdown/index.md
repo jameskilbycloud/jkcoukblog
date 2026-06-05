@@ -52,9 +52,9 @@ tags...................128
 
 vexpert.years...........11
 
-deploys.month...........39
+deploys.month...........66
 
-last_deploy..........today
+last_deploy.........1d ago
 
 lighthouse..........95/100
 
