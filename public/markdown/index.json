@@ -1,6 +1,6 @@
 {
-  "generated": "2026-06-05T13:15:34Z",
-  "total_files": 83,
+  "generated": "2026-06-05T18:54:30Z",
+  "total_files": 84,
   "posts": [
     {
       "file": "posts/100gb-s-in-my-homelab-sort-of.md",
@@ -277,6 +277,12 @@
       "title": "Nutanix Command Reference Guide",
       "date": "2018-06-05T20:59:24Z",
       "url": "https://jameskilby.co.uk/2018/06/nutanix-command-reference-guide/"
+    },
+    {
+      "file": "posts/nutanix-life-cycle-manager.md",
+      "title": "Nutanix Life Cycle Manager",
+      "date": "2018-04-03T10:30:00Z",
+      "url": "https://jameskilby.co.uk/2018/04/nutanix-life-cycle-manager/"
     },
     {
       "file": "posts/nutanix-ncp.md",

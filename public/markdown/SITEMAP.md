@@ -1,8 +1,8 @@
 # Markdown Content Sitemap
 
-Generated: 2026-06-05 13:15:34
+Generated: 2026-06-05 18:54:30
 
-Total Files: 83
+Total Files: 84
 
 ## Blog Posts
 
@@ -86,6 +86,9 @@ Total Files: 83
 
 - [Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/2020/07/nutanix-ncp/) - 2020-07-02 15:20:30+00:00
   - Markdown: `/markdown/posts/nutanix-ncp.md`
+
+- [Nutanix Life Cycle Manager](https://jameskilby.co.uk/2018/04/nutanix-life-cycle-manager/) - 2018-04-03 10:30:00+00:00
+  - Markdown: `/markdown/posts/nutanix-life-cycle-manager.md`
 
 - [Nutanix Command Reference Guide](https://jameskilby.co.uk/2018/06/nutanix-command-reference-guide/) - 2018-06-05 20:59:24+00:00
   - Markdown: `/markdown/posts/nutanix-command-reference-guide.md`

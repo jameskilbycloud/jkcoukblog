@@ -459,7 +459,7 @@
     "title": "Using Content Libraries in VMC to deploy software faster",
     "description": "Using VMware Cloud on AWS Content Libraries to deploy ISOs and OVAs to new SDDCs in minutes instead of hours. Setup, layout, and a working example.",
     "date": "2026-01-27T22:19:39Z",
-    "modified": "2026-05-25T17:18:27Z",
+    "modified": "2026-06-05T17:47:43Z",
     "author": "James Kilby",
     "url": "https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/",
     "markdown_url": "/markdown/posts/using-content-libraries-in-vmc-to-deploy-software-faster.md",
@@ -467,15 +467,13 @@
     "categories": [
       "VMware",
       "VMware Cloud on AWS",
-      "Homelab",
-      "Nutanix",
-      "Artificial Intelligence",
       "Automation",
-      "Docker",
-      "NVIDIA",
-      "Traefik",
-      "Networking",
-      "Storage"
+      "Homelab",
+      "Personal",
+      "Storage",
+      "vExpert",
+      "VCF",
+      "Ansible"
     ],
     "tags": [
       null,
@@ -484,7 +482,7 @@
       null
     ],
     "image": "https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash.png",
-    "excerpt": "![Firefly Gemini Flash](https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# Using Content Libraries in VMC to deploy software faste..."
+    "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# Using Content Libraries in VMC to deploy software faster\n\nBy[James](https:/..."
   },
   {
     "slug": "use-portainer-in-a-homelab-with-github",
@@ -609,9 +607,9 @@
   {
     "slug": "time-in-a-vmc-environment",
     "title": "VMware Cloud on AWS Time Sync & NTP Configuration",
-    "description": "One of the nice things about the VMC Service is that you dont have to worry about a number of the traditional infrastructure services that you typically",
+    "description": "How to configure Time Sync and NTP in VMware Cloud on AWS using the Amazon Time Sync Service — setup, firewall rules, and troubleshooting tips.",
     "date": "2025-12-08T14:03:44Z",
-    "modified": "2026-05-25T17:15:48Z",
+    "modified": "2026-06-05T17:52:07Z",
     "author": "James Kilby",
     "url": "https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/",
     "markdown_url": "/markdown/posts/time-in-a-vmc-environment.md",
@@ -626,7 +624,7 @@
       null
     ],
     "image": "https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png",
-    "excerpt": "![Picture 1 E1768509620339](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png)\n\n[VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# VMware Cloud on AWS Time Sync & NTP Configuration\n\nBy[James](https://jameskilby.co.uk)December 8, 202..."
+    "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png)\n\n[VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# VMware Cloud on AWS Time Sync & NTP Configuration\n\nBy[James](https://jameskilby.co.uk) December 8, 2025 · Updated June 5, 202..."
   },
   {
     "slug": "starlink",
@@ -815,6 +813,28 @@
     ],
     "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
     "excerpt": "![Nutanix Logo Hi Rez Reverse W Carrier](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# Passing the Nutanix NCP Exam: Free Training & My..."
+  },
+  {
+    "slug": "nutanix-life-cycle-manager",
+    "title": "Nutanix Life Cycle Manager",
+    "description": "A practical walkthrough of Nutanix Life Cycle Manager (LCM) and how it simplifies firmware and hardware upgrades across your Nutanix cluster, step by step.",
+    "date": "2018-04-03T10:30:00Z",
+    "modified": "2026-06-05T17:41:37Z",
+    "author": "James Kilby",
+    "url": "https://jameskilby.co.uk/2018/04/nutanix-life-cycle-manager/",
+    "markdown_url": "/markdown/posts/nutanix-life-cycle-manager.md",
+    "api_url": "/api/posts/nutanix-life-cycle-manager.json",
+    "categories": [
+      "Nutanix",
+      "Homelab",
+      "VMware",
+      "Personal"
+    ],
+    "tags": [
+      null
+    ],
+    "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
+    "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Nutanix Life Cycle Manager\n\nBy[James](https://jameskilby.co.uk) April 3, 2018 · Updated June 5, 2026 • 📖2 min read(432 words)\n\n📅 **Published:**..."
   },
   {
     "slug": "nutanix-command-reference-guide",
@@ -2013,9 +2033,9 @@
   {
     "slug": "automating-the-deployment-of-my-ai-homelab-and-other-improvements",
     "title": "Automating the Deployment of my Homelab AI Infrastructure",
-    "description": "Automate a complete AI homelab build with Ansible: Ubuntu, NVIDIA GPU passthrough, Docker, Traefik, and the full AI stack deployed via Semaphore.",
+    "description": "How I automated my homelab AI infrastructure with Ansible — NVIDIA vGPU passthrough, Docker, Traefik, and Semaphore for end-to-end deployment.",
     "date": "2026-02-09T11:54:54Z",
-    "modified": "2026-06-01T21:59:10Z",
+    "modified": "2026-06-05T17:46:09Z",
     "author": "James Kilby",
     "url": "https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/",
     "markdown_url": "/markdown/posts/automating-the-deployment-of-my-ai-homelab-and-other-improvements.md",
@@ -2029,9 +2049,14 @@
       "NVIDIA",
       "Traefik",
       "VMware",
-      "Hosting",
-      "VMware Cloud on AWS",
-      "Runecast"
+      "Automation",
+      "Docker",
+      "Personal",
+      "TrueNAS Scale",
+      "vSAN",
+      "vSphere",
+      "VCF",
+      "VMware Cloud on AWS"
     ],
     "tags": [
       null,
@@ -2041,7 +2066,7 @@
       null
     ],
     "image": "https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png",
-    "excerpt": "![Vmware Nvidia Logos Ee2F18Dc 615D 4C9E 8F11 9C3C2Ce2Bf37 Prv](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/a..."
+    "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Containers](https://jameskilby.c..."
   },
   {
     "slug": "automated-vcf-9-offline-depot",

@@ -4,6 +4,37 @@
   "month_name": "January",
   "posts": [
     {
+      "slug": "multihost-holodeck-vcf",
+      "title": "VMware Holodeck Multi-Host VCF: Lab Setup & Configuration",
+      "description": "Set up a multi-host VMware Holodeck lab with full VCF stack, networking and VSAN. Step-by-step config and the unsupported-but-it-works gotchas.",
+      "date": "2024-01-17T17:29:38Z",
+      "modified": "2026-06-01T19:02:58Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/",
+      "markdown_url": "/markdown/posts/multihost-holodeck-vcf.md",
+      "api_url": "/api/posts/multihost-holodeck-vcf.json",
+      "categories": [
+        "VMware",
+        "VCF",
+        "VMware Cloud on AWS",
+        "Homelab",
+        "Runecast",
+        "Veeam",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Traefik"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png",
+      "excerpt": "![Holodeck Overview](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/)\n\n# VMware Holodeck Multi-Host VCF: Lab Setup & Configuration\n\nBy[James](https://jameskilby.co.uk..."
+    },
+    {
       "slug": "holodeck-cpu-fixes",
       "title": "VMware Holodeck on Older CPUs: Fixing Compatibility Issues",
       "description": "Disclaimer: This is not a supported configuration by the Holodeck team, please don’t reach out to them for help.",
@@ -35,37 +66,6 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743.jpg",
       "excerpt": "![40Ood8Iippvtrpjs 1198788743](https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743.jpg)\n\n[VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# VMware Holodeck on Older CPUs: Fixing Compatibility Issues\n\nBy[James](htt..."
-    },
-    {
-      "slug": "multihost-holodeck-vcf",
-      "title": "VMware Holodeck Multi-Host VCF: Lab Setup & Configuration",
-      "description": "Set up a multi-host VMware Holodeck lab with full VCF stack, networking and VSAN. Step-by-step config and the unsupported-but-it-works gotchas.",
-      "date": "2024-01-17T17:29:38Z",
-      "modified": "2026-06-01T19:02:58Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/",
-      "markdown_url": "/markdown/posts/multihost-holodeck-vcf.md",
-      "api_url": "/api/posts/multihost-holodeck-vcf.json",
-      "categories": [
-        "VMware",
-        "VCF",
-        "VMware Cloud on AWS",
-        "Homelab",
-        "Runecast",
-        "Veeam",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Traefik"
-      ],
-      "tags": [
-        null,
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png",
-      "excerpt": "![Holodeck Overview](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/)\n\n# VMware Holodeck Multi-Host VCF: Lab Setup & Configuration\n\nBy[James](https://jameskilby.co.uk..."
     }
   ]
 }

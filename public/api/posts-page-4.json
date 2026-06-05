@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "slug": "new-vmc-host-i7i-metal-24xl",
+      "title": "New VMware Cloud on AWS Host: i7i.metal-24xl",
+      "description": "We’ve expanded the VMC fleet with the new i7i (i7i.24xlarge) host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it",
+      "date": "2026-04-01T08:06:00Z",
+      "modified": "2026-06-01T21:07:20Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/",
+      "markdown_url": "/markdown/posts/new-vmc-host-i7i-metal-24xl.md",
+      "api_url": "/api/posts/new-vmc-host-i7i-metal-24xl.json",
+      "categories": [
+        "VMware",
+        "VMware Cloud on AWS",
+        "Homelab",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "Automation",
+        "Docker",
+        "Nutanix"
+      ],
+      "tags": [
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp",
+      "excerpt": "![Vmconaws.Png](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# New VMware Cloud on AWS Host: i7i.metal-24xl\n\nBy[James](https://jamesk..."
+    },
+    {
       "slug": "new-nodes",
       "title": "New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix",
       "description": "I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExper",
@@ -278,45 +310,10 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/og/money-saving-uk-version.png",
       "excerpt": "[Money](https://jameskilby.co.uk/category/money/)\n\n# UK Money Saving Tips: Banking, Rewards & Travel Cards\n\nBy[James](https://jameskilby.co.uk)May 29, 2017 · Updated June 1, 2026 • 📖4 min read(778 words)\n\n📅 **Published:** May 29, 2017• **Updated:** June 01, 2026\n\nI recently got back from an amazing ..."
-    },
-    {
-      "slug": "managing-my-homelab-with-semaphoreui",
-      "title": "Managing my Homelab with SemaphoreUI",
-      "description": "How I use SemaphoreUI as the web frontend for Ansible, Terraform and PowerShell in my homelab. Setup, screenshots, lessons learned in production use.",
-      "date": "2025-09-02T16:01:48Z",
-      "modified": "2026-06-01T21:07:10Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/",
-      "markdown_url": "/markdown/posts/managing-my-homelab-with-semaphoreui.md",
-      "api_url": "/api/posts/managing-my-homelab-with-semaphoreui.json",
-      "categories": [
-        "Ansible",
-        "Homelab",
-        "Hosting",
-        "Automation",
-        "Docker",
-        "Traefik",
-        "VCF",
-        "VMware",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Storage",
-        "Synology",
-        "vExpert"
-      ],
-      "tags": [
-        null,
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png",
-      "excerpt": "![Semaphore](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Managing my Homelab with SemaphoreUI\n\nBy[James](https://jameskilby.co.uk)September 2, 2025 · Updated June ..."
     }
   ],
   "page": 4,
   "per_page": 10,
-  "total": 73,
+  "total": 74,
   "total_pages": 8
 }

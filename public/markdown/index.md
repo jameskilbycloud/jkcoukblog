@@ -39,11 +39,11 @@ real money to run.
 
 jameskilby@blog ~ % cat blog.stats live
 
-posts.count.............73
+posts.count.............74
 
-words.total............48k
+words.total............49k
 
-last_post..........35d ago
+last_post..........36d ago
 
 categories..............34
 
@@ -51,7 +51,7 @@ tags...................128
 
 vexpert.years...........11
 
-deploys.month...........55
+deploys.month...........56
 
 last_deploy..........today
 
@@ -137,7 +137,7 @@ I am quite a heavy consumer of electricity at home. This is primarily driven by 
 
 ## [Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
 
-By[James](https://jameskilby.co.uk) February 9, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) February 9, 2026 · Updated June 5, 2026
 
 Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere
 
@@ -147,7 +147,7 @@ Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI 
 
 ## [Using Content Libraries in VMC to deploy software faster](https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/)
 
-By[James](https://jameskilby.co.uk) January 27, 2026 · Updated May 25, 2026
+By[James](https://jameskilby.co.uk) January 27, 2026 · Updated June 5, 2026
 
 How to leverage Content Libraries to deploy into VMware Cloud on AWS faster.
 
