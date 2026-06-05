@@ -180,23 +180,28 @@ class LiveSiteFormattingTester:
         """Test that Plausible Analytics is properly configured."""
         print("\n🔍 Testing Plausible Analytics...")
         soup = BeautifulSoup(html, 'html.parser')
-        
-        # Find Plausible script
-        plausible_scripts = soup.find_all('script', src=lambda x: x and 'plausible' in x.lower())
-        
+
+        # Find Plausible script (same-origin proxy at /js/script.js or legacy upstream)
+        plausible_scripts = soup.find_all(
+            'script',
+            src=lambda x: x and 'script.js' in x and (
+                x == '/js/script.js' or 'plausible' in x.lower()
+            ),
+        )
+
         if not plausible_scripts:
             self.log_error("Plausible Analytics script not found")
             return False
-            
+
         if len(plausible_scripts) > 1:
             self.log_warning(f"Multiple Plausible scripts found ({len(plausible_scripts)})")
-            
+
         script = plausible_scripts[0]
         src = script.get('src', '')
         data_domain = script.get('data-domain', '')
-        
-        # Check script source
-        if 'plausible.jameskilby.cloud' not in src:
+
+        # Accept the same-origin proxy path or the legacy upstream URL.
+        if src != '/js/script.js' and 'plausible.jameskilby.cloud/js/script.js' not in src:
             self.log_error(f"Incorrect Plausible script source: {src}")
             return False
         else:
