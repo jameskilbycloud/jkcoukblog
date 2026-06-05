@@ -298,11 +298,11 @@ jobs:
     - name: Validate CSP configuration (Utterances, Plausible, Credly)
       run: |
         echo "🔒 Validating CSP allows all third-party services..."
-        echo "   (runs early — only reads _worker.template.js, no WP access needed)"
+        echo "   (runs early — only reads the repo-root _headers file, no WP access needed)"
         python3 scripts/test_csp.py || {
           echo ""
           echo "❌ CSP validation failed!"
-          echo "   Check _worker.template.js Content-Security-Policy header"
+          echo "   Check the Content-Security-Policy line in _headers (root)"
           echo ""
           exit 1
         }
