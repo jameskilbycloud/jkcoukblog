@@ -2712,6 +2712,12 @@ document.addEventListener('DOMContentLoaded', function() {
         # above the grid. Removed from the grid so it doesn't double-render.
         hero = self._build_homepage_hero(soup, posts_list)
 
+        # Hero extraction leaves the grid one short of a clean row in the
+        # 3-col layout (WP serves 12 → hero takes 1 → 11 cards = 3 full
+        # rows + 2 + an empty slot). Trim trailing cards down to the
+        # nearest multiple of 3 so the last row is always full.
+        self._trim_grid_to_columns(posts_list, columns=3)
+
         # ── 1. hero strap ───────────────────────────────────────────────
         strap = soup.new_tag('section', attrs={'class': 'jkr-strap'})
         strap_inner = soup.new_tag('div', attrs={'class': 'jkr-strap-inner'})
@@ -2976,6 +2982,23 @@ document.addEventListener('DOMContentLoaded', function() {
         to_remove.decompose()
 
         return hero
+
+    def _trim_grid_to_columns(self, posts_list, columns=3):
+        """Trim trailing grid items so the card count is a multiple of `columns`.
+
+        The post grid is a `columns`-wide CSS grid. Any orphan card on the
+        last row paints as an empty slot; drop them so the layout always
+        ends on a full row. No-ops when the count is already aligned.
+        """
+        items = posts_list.find_all('li', class_='entry-list-item', recursive=False)
+        if not items:
+            return
+        remainder = len(items) % columns
+        if remainder == 0:
+            return
+        for item in items[-remainder:]:
+            item.decompose()
+        print(f"   ✂️  Trimmed {remainder} orphan grid slot(s) to keep the {columns}-col layout balanced")
 
     def add_markdown_api_links(self, soup, current_url):
         """Add links to markdown and API versions in footer.
