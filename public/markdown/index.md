@@ -19,7 +19,6 @@ categories:
   - Cloudflare
   - Hosting
   - Wordpress
-  - Ubuntu
   - VMware27
   - Homelab26
   - Hosting11
@@ -52,9 +51,9 @@ tags...................128
 
 vexpert.years...........11
 
-deploys.month...........66
+deploys.month...........67
 
-last_deploy.........1d ago
+last_deploy..........today
 
 lighthouse..........95/100
 
@@ -161,26 +160,6 @@ How to leverage Content Libraries to deploy into VMware Cloud on AWS faster.
 By[James](https://jameskilby.co.uk) January 15, 2026 · Updated June 1, 2026
 
 I have spent the Christmas break making some improvements to this blog.
-
-  * [ ![How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png) ](https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/)
-
-[Ubuntu](https://jameskilby.co.uk/category/ubuntu/)
-
-## [How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step](https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/)
-
-By[James](https://jameskilby.co.uk) December 15, 2025 · Updated May 24, 2026
-
-How to expand disks from the command line in Ubuntu. This is something I do fairly frequently, and I can never remember the steps.
-
-  * [ ![VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png) ](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
-
-[VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
-
-## [VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
-
-By[James](https://jameskilby.co.uk) December 8, 2025 · Updated May 25, 2026
-
-How to use the Amazon Time Sync Service in a VMC environment
 
 EXPLORE BY TOPIC
 
