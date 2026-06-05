@@ -391,10 +391,12 @@ jobs:
       run: |
         echo "🚀 Testing ${{ steps.url.outputs.url }}..."
 
-        # Run the test and capture output
+        # Run the test and capture output. Use `|| TEST_EXIT_CODE=$?` so that
+        # `set -e` (bash default) does not abort the step on a non-zero exit
+        # before we get a chance to cat the output and surface the failure.
         OUTPUT_FILE="test_output_main.txt"
-        python3 scripts/test_live_site_formatting.py --url "${{ steps.url.outputs.url }}" > "$OUTPUT_FILE" 2>&1
-        TEST_EXIT_CODE=$?
+        TEST_EXIT_CODE=0
+        python3 scripts/test_live_site_formatting.py --url "${{ steps.url.outputs.url }}" > "$OUTPUT_FILE" 2>&1 || TEST_EXIT_CODE=$?
 
         # Save output for later use
         cat "$OUTPUT_FILE"
@@ -423,10 +425,11 @@ jobs:
       run: |
         echo "🚀 Testing post page: ${{ steps.url.outputs.test_post }}..."
 
-        # Run the test and capture output
+        # Run the test and capture output. See test_main for the rationale on
+        # `|| TEST_EXIT_CODE=$?` — keeps `set -e` from skipping the cat below.
         OUTPUT_FILE="test_output_post.txt"
-        python3 scripts/test_live_site_formatting.py --url "${{ steps.url.outputs.test_post }}" > "$OUTPUT_FILE" 2>&1
-        TEST_EXIT_CODE=$?
+        TEST_EXIT_CODE=0
+        python3 scripts/test_live_site_formatting.py --url "${{ steps.url.outputs.test_post }}" > "$OUTPUT_FILE" 2>&1 || TEST_EXIT_CODE=$?
 
         # Save output for later use
         cat "$OUTPUT_FILE"

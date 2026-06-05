@@ -23,6 +23,17 @@
 const PATH_MANIFEST_RAW = /*__PATH_MANIFEST_START__*/null/*__PATH_MANIFEST_END__*/;
 const PATH_MANIFEST = PATH_MANIFEST_RAW ? new Set(PATH_MANIFEST_RAW) : null;
 
+// Build-time substitution: scripts/stamp_worker_manifest.py reads the
+// Content-Security-Policy line from the repo-root `_headers` file and
+// replaces the placeholder below with that string literal. `_headers`
+// stays the single source of truth — the worker just consumes it so
+// CSP ships on every worker-built Response (Pages does NOT layer
+// `_headers` rules over Response objects returned by `_worker.js`;
+// only `env.ASSETS.fetch()` responses get them). If the placeholder
+// is still `null` (template unchanged, local dev) CSP is omitted —
+// same as before, fail-open.
+const CSP_FROM_HEADERS = /*__CSP_FROM_HEADERS_START__*/null/*__CSP_FROM_HEADERS_END__*/;
+
 /**
  * Is this path a known content URL?
  *
@@ -447,10 +458,12 @@ async function handleCacheAPI(request, env, ctx, path, hostname = '') {
 /**
  * Get security headers for all responses.
  *
- * Note: Content-Security-Policy is intentionally NOT set here. Cloudflare Pages
- * applies `_headers` rules AFTER worker responses, so any CSP set here would be
- * silently overridden — `_headers` (and `scripts/wp_to_static_generator.py`,
- * which generates `public/_headers`) is the single source of truth for CSP.
+ * Content-Security-Policy: stamped in from the repo-root `_headers` file at
+ * build time (see CSP_FROM_HEADERS above and scripts/stamp_worker_manifest.py).
+ * `_headers` remains the single source of truth — but Cloudflare Pages only
+ * applies its rules to responses fetched via `env.ASSETS.fetch()`. Brand-new
+ * `Response` objects returned by `_worker.js` (e.g. the KV-cached HTML path)
+ * don't get `_headers` layered on, so the worker must emit CSP itself.
  * Validation lives in scripts/test_csp.py.
  *
  * Pass hostname to automatically add X-Robots-Tag: noindex on the Pages preview domain.
@@ -463,6 +476,10 @@ function getSecurityHeaders(hostname = '') {
     'Referrer-Policy': 'strict-origin-when-cross-origin',
     'Permissions-Policy': 'geolocation=(), microphone=(), camera=()'
   };
+
+  if (CSP_FROM_HEADERS) {
+    headers['Content-Security-Policy'] = CSP_FROM_HEADERS;
+  }
 
   // Prevent the Cloudflare Pages preview domain from appearing in search results
   if (hostname === 'jkcoukblog.pages.dev') {
