@@ -84,12 +84,36 @@ class HTMLTransformer:
         elapsed = time.time() - start_time
         self._print_summary(elapsed)
 
+    # Pre-compiled at class load so the per-file strip avoids re-parsing.
+    # Kadence emits this inline `<script>` once per page — usually right
+    # after `<body>`, NOT in `<head>` — so the `_deep_clean_head` pass
+    # never sees it. Stripping it from the raw HTML before the head pass
+    # catches it wherever it lives. The body of the script is constrained
+    # to `[^<]*` so the match can't accidentally swallow neighbour tags.
+    _SCROLLBAR_OFFSET_SCRIPT_RE = re.compile(
+        r"<script\b[^>]*>[^<]*--scrollbar-offset[^<]*</script>",
+        re.IGNORECASE,
+    )
+
     def _process_file(self, file_path):
         """Apply all transforms to a single HTML file in one parse cycle."""
         original_html = file_path.read_text(encoding='utf-8')
         original_size = len(original_html.encode('utf-8'))
 
-        # ── Phase 0: Aggressive string-level cleanup ────────────────────
+        # ── Phase 0a: Strip the Kadence scrollbar-offset script ─────────
+        # window.innerWidth and document.documentElement.clientWidth both
+        # force layout during early page parse — Lighthouse flagged this
+        # as a 70 ms forced reflow on the homepage (June 2026 PSI). The
+        # script sits in <body> (line 6 of the live homepage), not <head>,
+        # so the `_deep_clean_head` pass missed it; run a whole-document
+        # strip here instead. Kadence's CSS uses `var(--scrollbar-offset,
+        # 0)` so the default of 0 is safe — only side effect is that on
+        # Windows (15–17 px vertical scrollbar) sticky-header alignment
+        # may be off when a drawer modal opens. macOS/iOS overlay
+        # scrollbars are already 0.
+        original_html = self._SCROLLBAR_OFFSET_SCRIPT_RE.sub('', original_html)
+
+        # ── Phase 0b: Aggressive string-level cleanup ───────────────────
         # Seeded files from public/ may carry accumulated corruption from
         # prior pipeline runs (orphaned </noscript> tags, preload links
         # missing onload handlers).  Fix this before BS4 parses.
@@ -207,25 +231,10 @@ class HTMLTransformer:
         )
         head_body = re.sub(r'</noscript>', '', head_body, flags=re.IGNORECASE)
 
-        # 1.5. Strip Kadence's inline scrollbar-offset script.
-        #      WordPress emits this on every page:
-        #        <script>document.documentElement.style.setProperty(
-        #          '--scrollbar-offset',
-        #          window.innerWidth - document.documentElement.clientWidth + 'px'
-        #        );</script>
-        #      window.innerWidth and document.documentElement.clientWidth both
-        #      force layout during <head> parsing — Lighthouse flagged this as
-        #      a 59 ms forced reflow on the homepage (June 2026 PSI).
-        #      Kadence's CSS uses `var(--scrollbar-offset, 0)`, so the default
-        #      of 0 is safe — only side effect is that on Windows (15–17 px
-        #      scrollbar) sticky-header alignment may be off when a drawer
-        #      modal opens. macOS/iOS overlay scrollbars are 0 anyway.
-        head_body = re.sub(
-            r"<script\b[^>]*>[^<]*--scrollbar-offset[^<]*</script>",
-            '',
-            head_body,
-            flags=re.IGNORECASE,
-        )
+        # (Kadence's `--scrollbar-offset` script is stripped by
+        # `_process_file` BEFORE this method runs — it lives in <body>
+        # on every page, not in <head>, so head-scoped substitution
+        # could never catch it. See _SCROLLBAR_OFFSET_SCRIPT_RE.)
 
         # 2a. Strip font preloads. A previous pipeline run injected
         #     <link rel="preload" as="font" fetchpriority="high"> for three
