@@ -43,7 +43,7 @@ posts.count.............74
 
 words.total............49k
 
-last_post..........36d ago
+last_post..........37d ago
 
 categories..............34
 
@@ -51,7 +51,7 @@ tags...................128
 
 vexpert.years...........11
 
-deploys.month...........62
+deploys.month...........58
 
 last_deploy..........today
 
