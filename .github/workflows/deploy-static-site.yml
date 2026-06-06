@@ -2,6 +2,21 @@ name: WordPress to Static Site Deploy
 
 on:
   workflow_dispatch:        # Manual trigger
+    inputs:
+      force_static_purge:
+        # When the build doesn't change a file under purge_static_cache.sh's
+        # URL list, the purge step is skipped — but the CF edge cache for
+        # those files may have been invalidated separately (e.g. subset_fonts
+        # rewrote a font in a prior deploy that didn't fire the purge gate).
+        # Setting this to "true" forces the purge to run on this dispatch
+        # regardless of the diff.
+        description: 'Force the static-asset CF purge even if nothing changed'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
   repository_dispatch:      # Webhook trigger
     types: [wordpress-update]
 
@@ -1224,13 +1239,22 @@ jobs:
       env:
         CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        FORCE_PURGE: ${{ github.event.inputs.force_static_purge }}
       run: |
-        # Only fire when one of the favicon / manifest files this script
-        # actually purges changed in this deploy. The script's URL list is
-        # hardcoded — keep this pattern in sync with scripts/purge_static_cache.sh.
-        STATIC_ASSET_PATTERN='^public/(favicon\.ico|favicon-16x16\.png|favicon-32x32\.png|apple-touch-icon\.png|site\.webmanifest)$'
+        # Only fire when one of the files purge_static_cache.sh actually
+        # purges changed in this deploy. Keep this pattern in sync with the
+        # URL list in scripts/purge_static_cache.sh.
+        #
+        # Fonts: subset_fonts.py rewrites them in-place on every build with
+        # the glyph set this build's HTML needs. The _headers rule on
+        # /assets/fonts/* says max-age=31536000 immutable, so without an
+        # explicit purge the CF edge serves the previous build's font forever.
+        STATIC_ASSET_PATTERN='^public/((favicon\.ico|favicon-16x16\.png|favicon-32x32\.png|apple-touch-icon\.png|site\.webmanifest)|assets/fonts/.*\.woff2)$'
 
-        if git rev-parse --verify HEAD~1 >/dev/null 2>&1; then
+        if [ "$FORCE_PURGE" = "true" ]; then
+          # Manual dispatch override — see the workflow_dispatch input.
+          CHANGED="force-static-purge=true"
+        elif git rev-parse --verify HEAD~1 >/dev/null 2>&1; then
           CHANGED=$(git diff --name-only HEAD~1 HEAD | grep -E "$STATIC_ASSET_PATTERN" || true)
         else
           # First commit on the branch — no previous deploy to diff against.
@@ -1239,7 +1263,7 @@ jobs:
         fi
 
         if [ -z "$CHANGED" ]; then
-          echo "ℹ️  No favicon / webmanifest files changed — skipping static asset purge"
+          echo "ℹ️  No favicon / webmanifest / font files changed — skipping static asset purge"
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## 🗑️ Static Asset Purge" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
