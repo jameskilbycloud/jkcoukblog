@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://jameskilby.co.uk/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <lastmod>2026-06-06</lastmod>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png</image:loc>
@@ -63,10 +63,12 @@
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2018/03/Screen-Shot-2018-03-10-at-20.41.50-300x156.png</image:loc>
       <image:title>Screen Shot 2018 03 10 At 20.41.50 300X156</image:title>
+      <image:caption>Screen Shot 2018 03 10 At 20.41.50 300X156</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2018/03/Screen-Shot-2018-02-14-at-22.25.32-300x160.png</image:loc>
       <image:title>Screen Shot 2018 02 14 At 22.25.32 300X160</image:title>
+      <image:caption>Screen Shot 2018 02 14 At 22.25.32 300X160</image:caption>
     </image:image>
   </url>
   <url>
