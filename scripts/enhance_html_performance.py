@@ -281,18 +281,29 @@ class HTMLPerformanceEnhancer:
 
         return modified
 
-    def optimize_fonts(self, soup):
-        """Preload WOFF2 fonts that need to render in the first viewport.
+    # Explicit allowlist of WOFF2 basenames that get a high-priority preload
+    # hint. Every other @font-face URL relies on `font-display: optional`
+    # silently falling back to the system stack if it misses the ~100 ms
+    # window — no CLS, no preload pressure on the LCP image.
+    #
+    # Why explicit instead of "all optional fonts"? brutalist-theme.css uses
+    # `font-display: optional` on ALL six weights to keep CLS at zero (June
+    # 2026 PSI showed JetBrains Mono + Space Grotesk 500/700 swaps causing a
+    # 0.27 shift on <main>). Preloading all six would burn ~570 KB of high-
+    # priority bandwidth on first visit and push the LCP image down the
+    # queue. Only the body font and the heading font are needed above the
+    # fold; the others can wait for the disk cache on repeat visits.
+    PRELOAD_FONT_BASENAMES = frozenset({
+        'spacegrotesk-v22-latin-400.woff2',  # body
+        'anton-v27-latin-400.woff2',         # h1–h6
+    })
 
-        Only fonts whose @font-face block declares `font-display: optional`
-        get a preload hint. Rationale:
-          - `optional` silently drops fonts that miss the short block
-            window, so they're only useful when preloaded.
-          - `swap` fonts render with a system fallback first and swap
-            in when loaded — preloading them just pushes them past the
-            LCP image in the priority queue for no visual win.
-        Promoting a font to `optional` in the CSS automatically opts it
-        into preloading; demoting to `swap` automatically opts out.
+    def optimize_fonts(self, soup):
+        """Preload the small allowlist of WOFF2 fonts that render above the fold.
+
+        See PRELOAD_FONT_BASENAMES for the policy. Only fonts whose
+        @font-face block declares `font-display: optional` AND whose URL
+        basename is in the allowlist get a preload hint.
 
         Idempotent: any existing `<link rel="preload" as="font">` tag is
         stripped first, so re-running this function (e.g. before AND
@@ -329,6 +340,8 @@ class HTMLPerformanceEnhancer:
 
                 for url_match in url_re.finditer(body):
                     font_url = url_match.group(1).strip()
+                    if font_url.rsplit('/', 1)[-1] not in self.PRELOAD_FONT_BASENAMES:
+                        continue
 
                     existing = soup.find('link', rel='preload', href=font_url)
                     if existing:

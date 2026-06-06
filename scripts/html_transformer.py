@@ -207,6 +207,26 @@ class HTMLTransformer:
         )
         head_body = re.sub(r'</noscript>', '', head_body, flags=re.IGNORECASE)
 
+        # 1.5. Strip Kadence's inline scrollbar-offset script.
+        #      WordPress emits this on every page:
+        #        <script>document.documentElement.style.setProperty(
+        #          '--scrollbar-offset',
+        #          window.innerWidth - document.documentElement.clientWidth + 'px'
+        #        );</script>
+        #      window.innerWidth and document.documentElement.clientWidth both
+        #      force layout during <head> parsing — Lighthouse flagged this as
+        #      a 59 ms forced reflow on the homepage (June 2026 PSI).
+        #      Kadence's CSS uses `var(--scrollbar-offset, 0)`, so the default
+        #      of 0 is safe — only side effect is that on Windows (15–17 px
+        #      scrollbar) sticky-header alignment may be off when a drawer
+        #      modal opens. macOS/iOS overlay scrollbars are 0 anyway.
+        head_body = re.sub(
+            r"<script\b[^>]*>[^<]*--scrollbar-offset[^<]*</script>",
+            '',
+            head_body,
+            flags=re.IGNORECASE,
+        )
+
         # 2a. Strip font preloads. A previous pipeline run injected
         #     <link rel="preload" as="font" fetchpriority="high"> for three
         #     WOFF2 weights — ~138 KB at high priority on mobile, competing
@@ -386,6 +406,16 @@ class HTMLTransformer:
     def _apply_picture_conversion(self, soup):
         """Convert img tags to picture elements using ImageToPictureConverter methods."""
         modified = False
+
+        # Inject EXTRA_WIDTHS (e.g. 480w) into every <img>'s srcset first.
+        # Both downstream paths — _update_existing_picture_srcsets and the
+        # standalone img → picture conversion loop below — derive AVIF/WebP
+        # <source> srcsets from img.srcset, so enriching the img.srcset once
+        # here ensures the extra width propagates to every modern source.
+        # See convert_images_to_picture._inject_extra_widths_into_img_srcset.
+        for img in soup.find_all('img'):
+            if self.pictures._inject_extra_widths_into_img_srcset(img):
+                modified = True
 
         # Update existing picture elements with responsive srcsets
         updated = self.pictures._update_existing_picture_srcsets(soup)

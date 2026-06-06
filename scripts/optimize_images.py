@@ -16,6 +16,7 @@ Requirements:
 """
 
 import os
+import re
 import sys
 import json
 import time
@@ -39,6 +40,24 @@ from bs4 import BeautifulSoup
 
 class ImageOptimizer:
     """Optimizes images for static site performance"""
+
+    # Extra responsive-image widths to emit beyond what WordPress shipped.
+    # WP's stock "medium" (300), "medium_large" (768) and "large" (1024) leave
+    # a gap between 300 and 768 that small archive cards (~400 px wide on
+    # desktop, ~95vw on small mobile) fall into — the browser picks 768w as
+    # the smallest variant ≥ display width, wasting ~50% of the bytes.
+    # Adding 480w plugs that gap. PSI June 2026 estimated ~175 KiB of waste
+    # on the homepage's archive cards from this single gap.
+    #
+    # We only generate widths smaller than the natural image; if the natural
+    # source is itself < EXTRA_WIDTH_MIN_SOURCE, generating an "extra" width
+    # close to the natural width is pointless (negligible savings).
+    EXTRA_WIDTHS = (480,)
+    EXTRA_WIDTH_MIN_SOURCE = 600  # natural must be ≥ this for a 480w to be worth it
+
+    # WP's resized variants follow `<basename>-<W>x<H>.<ext>`. Anything that
+    # does NOT match this pattern is treated as a full-size original.
+    _WP_RESIZE_SUFFIX_RE = re.compile(r'-\d+x\d+(?=\.[^.]+$)')
 
     def __init__(self, public_dir: str, wp_api_url: str = None, cache_dir: str = None):
         self.public_dir = Path(public_dir)
@@ -240,6 +259,17 @@ class ImageOptimizer:
                     # AVIF might fail on some systems
                     print(f"⚠️  AVIF generation failed for {image_path.name}: {e}")
 
+                # Emit extra responsive widths (480w) from full-size originals.
+                # Only fires for files whose name does NOT carry the WP
+                # `-WxH` suffix — i.e. the master image WordPress uploaded —
+                # so we don't recursively resize the resized variants. Each
+                # extra-width PNG is also encoded to AVIF + WebP inline so
+                # the caller doesn't need a second optimization pass.
+                # NOTE: pass image_path.name (with extension) — the regex
+                # lookahead requires the extension to anchor the match.
+                if not self._WP_RESIZE_SUFFIX_RE.search(image_path.name):
+                    self._generate_extra_width_variants(image_path, img, quality)
+
                 result['success'] = True
                 self.stats['optimized'] += 1
 
@@ -273,6 +303,68 @@ class ImageOptimizer:
         result['duration_ms'] = int((time.time() - start_time) * 1000)
         self.optimization_results.append(result)
         return result
+
+    def _generate_extra_width_variants(self, original_path: Path, img: 'Image.Image', quality: int):
+        """Emit smaller-width PNG + AVIF + WebP variants for a full-size original.
+
+        For each width in EXTRA_WIDTHS that is strictly smaller than the
+        original AND the original is at least EXTRA_WIDTH_MIN_SOURCE pixels
+        wide, write `<basename>-<W>x<H>.{png,avif,webp}` alongside the
+        original. Aspect ratio is preserved; height is rounded to the
+        nearest integer using the original's ratio.
+
+        Idempotent: if the resized PNG already exists with the same hash
+        on disk, we skip — same disk-cache contract as the main per-image
+        loop. Errors on AVIF are tolerated (some hosts lack the encoder);
+        WebP and PNG must succeed or the variant is rolled back so we
+        don't leave a partially-emitted srcset member.
+
+        Convert_images_to_picture.py picks the new files up by scanning
+        disk when it builds AVIF/WebP <source srcset>s — see the matching
+        EXTRA_WIDTHS reference there.
+        """
+        natural_width, natural_height = img.size
+        if natural_width < self.EXTRA_WIDTH_MIN_SOURCE:
+            return
+
+        for target_w in self.EXTRA_WIDTHS:
+            if target_w >= natural_width:
+                continue
+            target_h = max(1, round(natural_height * target_w / natural_width))
+            stem = f"{original_path.stem}-{target_w}x{target_h}"
+            resized_png = original_path.with_name(f"{stem}.png")
+            resized_avif = resized_png.with_suffix('.avif')
+            resized_webp = resized_png.with_suffix('.webp')
+
+            if resized_png.exists() and resized_avif.exists() and resized_webp.exists():
+                continue
+
+            try:
+                resized = img.resize((target_w, target_h), Image.LANCZOS)
+            except Exception as e:
+                print(f"⚠️  Resize to {target_w}w failed for {original_path.name}: {e}")
+                continue
+
+            try:
+                resized.save(resized_png, 'PNG', optimize=True)
+                resized.save(resized_webp, 'WEBP', quality=quality, method=6)
+                self.stats['webp_generated'] += 1
+            except Exception as e:
+                # Roll back any partial files so the srcset injection in
+                # convert_images_to_picture sees a clean "no variant" state.
+                for f in (resized_png, resized_webp):
+                    if f.exists():
+                        try: f.unlink()
+                        except OSError: pass
+                print(f"⚠️  PNG/WebP write failed for {resized_png.name}: {e}")
+                continue
+
+            try:
+                resized.save(resized_avif, 'AVIF', quality=quality, speed=4)
+                self.stats['avif_generated'] += 1
+            except Exception as e:
+                # AVIF is optional — leave the PNG + WebP in place.
+                print(f"⚠️  AVIF write failed for {resized_avif.name}: {e}")
 
     def find_all_images(self) -> List[Path]:
         """Find all images in the public directory"""

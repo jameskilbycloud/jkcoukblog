@@ -27,6 +27,12 @@ _DEBUG_PICTURE = os.environ.get('DEBUG_PICTURE', '').lower() in ('1', 'true', 'y
 class ImageToPictureConverter:
     """Converts img tags to picture elements with AVIF/WebP sources and responsive srcsets"""
 
+    # Extra responsive widths optimize_images.py emits beyond WordPress's
+    # stock 300/768/1024 set. Keep in sync with ImageOptimizer.EXTRA_WIDTHS.
+    # Injection is gated on the file existing on disk, so an out-of-sync
+    # value here just means we skip — never references a missing variant.
+    EXTRA_WIDTHS = (480,)
+
     def __init__(self, directory: str):
         self.directory = Path(directory)
         self.stats = {
@@ -34,12 +40,79 @@ class ImageToPictureConverter:
             'images_converted': 0,
             'images_skipped': 0,
             'responsive_srcsets_added': 0,
+            'extra_widths_injected': 0,
         }
         # Cap the trace to the first few images even when DEBUG_PICTURE is on
         # so a verbose run still produces a readable log.
         self.debug_count = 0
         self.debug_limit = 3 if _DEBUG_PICTURE else 0
     
+    # Match the WP-style `-<W>x<H>` suffix at the END of a basename stem
+    # (Path.stem has the extension already removed). Anchored to `$` so an
+    # in-name "-300x219-foo" wouldn't be misread as a resize marker.
+    _WP_RESIZE_STEM_RE = re.compile(r'-\d+x\d+$')
+
+    def _inject_extra_widths_into_img_srcset(self, img) -> bool:
+        """Append `<basename>-<W>x<H>.<ext> <W>w` entries to <img srcset> for
+        any EXTRA_WIDTHS file that exists on disk.
+
+        We resolve the base name from the img's `src` (which mirrors the
+        WP-selected default variant — usually 768w) by stripping its
+        `-<W>x<H>` suffix. We then glob `<basename>-<extra>x*.<ext>` in the
+        same uploads directory to discover the exact resized file emitted
+        by optimize_images.py (its height is computed at resize-time, so we
+        don't try to reproduce the arithmetic here).
+
+        Idempotent: only injects an entry if no entry with that width
+        descriptor already exists in the srcset.
+
+        Returns True if the srcset was modified.
+        """
+        src = img.get('src', '')
+        existing_srcset = (img.get('srcset') or '').strip()
+        if not src or '/wp-content/' not in src:
+            return False
+
+        # Normalise the URL path → on-disk path.
+        if src.startswith(('http://', 'https://')):
+            from urllib.parse import urlparse
+            src_path = urlparse(src).path.lstrip('/')
+        else:
+            src_path = src.lstrip('/')
+
+        src_disk = self.directory / src_path
+        suffix = src_disk.suffix.lower()
+        if suffix not in ('.png', '.jpg', '.jpeg'):
+            return False
+
+        # Strip the trailing `-WxH` from the stem to recover the WP base
+        # (no-op if `src` already points at the full-size original).
+        base_stem = self._WP_RESIZE_STEM_RE.sub('', src_disk.stem)
+        base_dir = src_disk.parent
+
+        # Widths already present in the srcset (e.g. "768w") — skip those.
+        existing_widths = set(re.findall(r'(\d+)w', existing_srcset))
+
+        injected = []
+        for target_w in self.EXTRA_WIDTHS:
+            if str(target_w) in existing_widths:
+                continue
+            # Glob for the resized file optimize_images.py emitted. Match
+            # any height so we don't have to re-derive the aspect ratio.
+            matches = list(base_dir.glob(f"{base_stem}-{target_w}x*{suffix}"))
+            if not matches:
+                continue
+            relative = '/' + str(matches[0].relative_to(self.directory))
+            injected.append(f"{relative} {target_w}w")
+
+        if not injected:
+            return False
+
+        new_srcset = (existing_srcset + ', ' if existing_srcset else '') + ', '.join(injected)
+        img['srcset'] = new_srcset
+        self.stats['extra_widths_injected'] += len(injected)
+        return True
+
     def _get_responsive_srcset(self, img_srcset: str, format_ext: str) -> Optional[str]:
         """
         Generate responsive srcset for modern formats based on original img srcset.
@@ -283,10 +356,19 @@ class ImageToPictureConverter:
             soup = BeautifulSoup(content, 'html.parser')
             images_converted = 0
             pictures_updated = 0
-            
+
+            # Inject EXTRA_WIDTHS entries (e.g. 480w) into every <img>'s
+            # srcset BEFORE the existing-picture repair or new-picture
+            # conversion runs. Both downstream paths derive AVIF/WebP
+            # <source> srcsets from the wrapped <img>'s srcset via
+            # _get_responsive_srcset, so enriching the img.srcset once
+            # here propagates the extra width to every modern source.
+            for img in soup.find_all('img'):
+                self._inject_extra_widths_into_img_srcset(img)
+
             # First, update existing picture elements with responsive srcsets
             pictures_updated = self._update_existing_picture_srcsets(soup)
-            
+
             # Find all img tags
             img_tags = soup.find_all('img')
             
