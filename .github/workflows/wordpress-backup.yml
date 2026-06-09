@@ -1,0 +1,316 @@
+name: WordPress Backup
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * 0'  # Weekly, Sunday 03:00 UTC
+
+concurrency:
+  group: wordpress-backup
+  cancel-in-progress: false
+
+jobs:
+  backup:
+    runs-on: self-hosted
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set backup timestamp
+        id: ts
+        run: echo "stamp=$(date -u +%Y-%m-%dT%H%M%SZ)" >> "$GITHUB_OUTPUT"
+
+      - name: Create backup directory
+        run: mkdir -p backup/${{ steps.ts.outputs.stamp }}/{posts,pages,media,raw}
+
+      # ── Posts ──────────────────────────────────────────────────────────────
+      - name: Export all posts
+        env:
+          WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+          WP_URL: https://wordpress.jameskilby.cloud
+        run: |
+          python3 - <<'EOF'
+          import os, json, requests, math
+
+          base  = os.environ["WP_URL"]
+          token = os.environ["WP_AUTH_TOKEN"]
+          out   = f"backup/{os.environ['STAMP']}/posts"
+          headers = {"Authorization": f"Bearer {token}"}
+          page, per_page, all_posts = 1, 100, []
+
+          while True:
+              r = requests.get(
+                  f"{base}/wp-json/wp/v2/posts",
+                  params={"per_page": per_page, "page": page, "status": "any", "_embed": 1},
+                  headers=headers, timeout=60,
+              )
+              r.raise_for_status()
+              batch = r.json()
+              if not batch:
+                  break
+              all_posts.extend(batch)
+              total = int(r.headers.get("X-WP-TotalPages", 1))
+              print(f"  posts page {page}/{total}")
+              if page >= total:
+                  break
+              page += 1
+
+          with open(f"{out}/posts.json", "w") as f:
+              json.dump(all_posts, f, indent=2)
+          print(f"Saved {len(all_posts)} posts")
+          EOF
+        env:
+          WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+          WP_URL: https://wordpress.jameskilby.cloud
+          STAMP: ${{ steps.ts.outputs.stamp }}
+
+      # ── Pages ──────────────────────────────────────────────────────────────
+      - name: Export all pages
+        env:
+          WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+          WP_URL: https://wordpress.jameskilby.cloud
+          STAMP: ${{ steps.ts.outputs.stamp }}
+        run: |
+          python3 - <<'EOF'
+          import os, json, requests
+
+          base  = os.environ["WP_URL"]
+          token = os.environ["WP_AUTH_TOKEN"]
+          out   = f"backup/{os.environ['STAMP']}/pages"
+          headers = {"Authorization": f"Bearer {token}"}
+          page, per_page, all_pages = 1, 100, []
+
+          while True:
+              r = requests.get(
+                  f"{base}/wp-json/wp/v2/pages",
+                  params={"per_page": per_page, "page": page, "status": "any", "_embed": 1},
+                  headers=headers, timeout=60,
+              )
+              r.raise_for_status()
+              batch = r.json()
+              if not batch:
+                  break
+              all_pages.extend(batch)
+              total = int(r.headers.get("X-WP-TotalPages", 1))
+              print(f"  pages page {page}/{total}")
+              if page >= total:
+                  break
+              page += 1
+
+          with open(f"{out}/pages.json", "w") as f:
+              json.dump(all_pages, f, indent=2)
+          print(f"Saved {len(all_pages)} pages")
+          EOF
+
+      # ── Media metadata + files ─────────────────────────────────────────────
+      - name: Export media metadata
+        env:
+          WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+          WP_URL: https://wordpress.jameskilby.cloud
+          STAMP: ${{ steps.ts.outputs.stamp }}
+        run: |
+          python3 - <<'EOF'
+          import os, json, requests
+
+          base  = os.environ["WP_URL"]
+          token = os.environ["WP_AUTH_TOKEN"]
+          out   = f"backup/{os.environ['STAMP']}/media"
+          headers = {"Authorization": f"Bearer {token}"}
+          page, per_page, all_media = 1, 100, []
+
+          while True:
+              r = requests.get(
+                  f"{base}/wp-json/wp/v2/media",
+                  params={"per_page": per_page, "page": page},
+                  headers=headers, timeout=60,
+              )
+              r.raise_for_status()
+              batch = r.json()
+              if not batch:
+                  break
+              all_media.extend(batch)
+              total = int(r.headers.get("X-WP-TotalPages", 1))
+              print(f"  media page {page}/{total}")
+              if page >= total:
+                  break
+              page += 1
+
+          with open(f"{out}/media_index.json", "w") as f:
+              json.dump(all_media, f, indent=2)
+          print(f"Found {len(all_media)} media items")
+
+          # Write URL list for wget
+          urls = [m.get("source_url", "") for m in all_media if m.get("source_url")]
+          with open(f"{out}/urls.txt", "w") as f:
+              f.write("\n".join(urls) + "\n")
+          print(f"Wrote {len(urls)} download URLs")
+          EOF
+
+      - name: Download media files
+        env:
+          WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+          STAMP: ${{ steps.ts.outputs.stamp }}
+        run: |
+          MEDIA_DIR="backup/${{ steps.ts.outputs.stamp }}/media/files"
+          mkdir -p "$MEDIA_DIR"
+          URL_FILE="backup/${{ steps.ts.outputs.stamp }}/media/urls.txt"
+
+          if [ ! -s "$URL_FILE" ]; then
+            echo "No media URLs to download."
+            exit 0
+          fi
+
+          # wget with Cloudflare Access headers; -nc skips already-present files on re-run
+          wget \
+            --header="Authorization: Bearer $WP_AUTH_TOKEN" \
+            --input-file="$URL_FILE" \
+            --directory-prefix="$MEDIA_DIR" \
+            --force-directories \
+            --no-host-directories=no \
+            --timeout=30 \
+            --tries=3 \
+            --wait=0.2 \
+            --continue \
+            --quiet \
+            --show-progress \
+            2>&1 | tail -20 || true
+
+          COUNT=$(find "$MEDIA_DIR" -type f | wc -l)
+          echo "Downloaded $COUNT media files"
+
+      # ── Database dump via WP-CLI (SSH) ────────────────────────────────────
+      # Requires: SSH_HOST, SSH_USER, SSH_KEY secrets and WP-CLI on the server.
+      # If your host doesn't support SSH, see the UpdraftPlus alternative below.
+      - name: Database dump via WP-CLI over SSH
+        id: db_dump
+        continue-on-error: true   # fall through to plugin-based dump if SSH unavailable
+        env:
+          SSH_HOST: ${{ secrets.WP_SSH_HOST }}
+          SSH_USER: ${{ secrets.WP_SSH_USER }}
+          SSH_KEY:  ${{ secrets.WP_SSH_KEY }}
+          WP_PATH:  ${{ secrets.WP_PATH }}
+          STAMP: ${{ steps.ts.outputs.stamp }}
+        run: |
+          if [ -z "$SSH_HOST" ]; then
+            echo "WP_SSH_HOST not set — skipping SSH dump"
+            exit 1
+          fi
+
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/wp_backup_key
+          chmod 600 ~/.ssh/wp_backup_key
+
+          REMOTE_DUMP="/tmp/wp_db_${STAMP}.sql"
+          LOCAL_DIR="backup/${STAMP}/raw"
+
+          ssh -i ~/.ssh/wp_backup_key \
+              -o StrictHostKeyChecking=no \
+              -o ConnectTimeout=30 \
+              "${SSH_USER}@${SSH_HOST}" \
+              "wp db export ${REMOTE_DUMP} --path=${WP_PATH:-/var/www/html} --add-drop-table && gzip ${REMOTE_DUMP}"
+
+          scp -i ~/.ssh/wp_backup_key \
+              -o StrictHostKeyChecking=no \
+              "${SSH_USER}@${SSH_HOST}:${REMOTE_DUMP}.gz" \
+              "${LOCAL_DIR}/database.sql.gz"
+
+          ssh -i ~/.ssh/wp_backup_key \
+              -o StrictHostKeyChecking=no \
+              "${SSH_USER}@${SSH_HOST}" \
+              "rm -f ${REMOTE_DUMP}.gz"
+
+          rm -f ~/.ssh/wp_backup_key
+          echo "ok=true" >> "$GITHUB_OUTPUT"
+          echo "Database dump saved to ${LOCAL_DIR}/database.sql.gz"
+
+      # ── Database dump via UpdraftPlus REST endpoint (fallback) ────────────
+      # Requires UpdraftPlus Premium with the Remote REST add-on enabled, or
+      # any plugin that exposes a /wp-json/… backup trigger + download endpoint.
+      # Set WP_BACKUP_PLUGIN_ENDPOINT and WP_BACKUP_PLUGIN_SECRET secrets if used.
+      - name: Trigger plugin backup (fallback)
+        id: plugin_backup
+        if: steps.db_dump.outputs.ok != 'true'
+        continue-on-error: true
+        env:
+          WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
+          WP_URL: https://wordpress.jameskilby.cloud
+          PLUGIN_ENDPOINT: ${{ secrets.WP_BACKUP_PLUGIN_ENDPOINT }}
+          PLUGIN_SECRET:   ${{ secrets.WP_BACKUP_PLUGIN_SECRET }}
+          STAMP: ${{ steps.ts.outputs.stamp }}
+        run: |
+          if [ -z "$PLUGIN_ENDPOINT" ]; then
+            echo "WP_BACKUP_PLUGIN_ENDPOINT not set — no database dump available"
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          python3 - <<'EOF'
+          import os, time, requests
+
+          url    = os.environ["PLUGIN_ENDPOINT"]
+          secret = os.environ["PLUGIN_SECRET"]
+          token  = os.environ["WP_AUTH_TOKEN"]
+          stamp  = os.environ["STAMP"]
+          headers = {"Authorization": f"Bearer {token}", "X-Backup-Secret": secret}
+
+          # Trigger backup
+          r = requests.post(f"{url}/trigger", headers=headers, timeout=30)
+          r.raise_for_status()
+          backup_id = r.json().get("backup_id")
+          print(f"Backup triggered: {backup_id}")
+
+          # Poll until ready (max 20 min)
+          for i in range(120):
+              time.sleep(10)
+              s = requests.get(f"{url}/status/{backup_id}", headers=headers, timeout=30)
+              status = s.json().get("status")
+              print(f"  [{i*10}s] status={status}")
+              if status == "complete":
+                  break
+          else:
+              raise RuntimeError("Backup did not complete within 20 minutes")
+
+          # Download
+          dl = requests.get(f"{url}/download/{backup_id}", headers=headers, timeout=120, stream=True)
+          dl.raise_for_status()
+          out_path = f"backup/{stamp}/raw/database_plugin.zip"
+          with open(out_path, "wb") as f:
+              for chunk in dl.iter_content(65536):
+                  f.write(chunk)
+          print(f"Saved plugin backup to {out_path}")
+          EOF
+          echo "ok=true" >> "$GITHUB_OUTPUT"
+
+      - name: Warn if no database dump
+        if: steps.db_dump.outputs.ok != 'true' && steps.plugin_backup.outputs.ok != 'true'
+        run: |
+          echo "::warning::No database dump was produced. Configure WP_SSH_HOST/WP_SSH_USER/WP_SSH_KEY/WP_PATH secrets for SSH-based dumps, or WP_BACKUP_PLUGIN_ENDPOINT/WP_BACKUP_PLUGIN_SECRET for plugin-based dumps."
+
+      # ── Package & upload ───────────────────────────────────────────────────
+      - name: Create archive
+        env:
+          STAMP: ${{ steps.ts.outputs.stamp }}
+        run: |
+          ARCHIVE="wordpress-backup-${STAMP}.tar.gz"
+          tar -czf "$ARCHIVE" -C backup "$STAMP"
+          SIZE=$(du -sh "$ARCHIVE" | cut -f1)
+          echo "Archive: $ARCHIVE ($SIZE)"
+          echo "ARCHIVE=$ARCHIVE" >> "$GITHUB_ENV"
+
+      - name: Upload backup artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wordpress-backup-${{ steps.ts.outputs.stamp }}
+          path: ${{ env.ARCHIVE }}
+          retention-days: 90
+          compression-level: 0   # already gzipped
+
+      - name: Cleanup local backup directory
+        if: always()
+        env:
+          STAMP: ${{ steps.ts.outputs.stamp }}
+        run: |
+          rm -rf backup/${{ steps.ts.outputs.stamp }}
+          rm -f "$ARCHIVE" ~/.ssh/wp_backup_key
