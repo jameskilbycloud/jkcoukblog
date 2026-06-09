@@ -38,7 +38,7 @@ jobs:
           base  = os.environ["WP_URL"]
           token = os.environ["WP_AUTH_TOKEN"]
           out   = f"backup/{os.environ['STAMP']}/posts"
-          headers = {"Authorization": f"Bearer {token}"}
+          headers = {"Authorization": f"Basic {token}"}
           page, per_page, all_posts = 1, 100, []
 
           while True:
@@ -76,7 +76,7 @@ jobs:
           base  = os.environ["WP_URL"]
           token = os.environ["WP_AUTH_TOKEN"]
           out   = f"backup/{os.environ['STAMP']}/pages"
-          headers = {"Authorization": f"Bearer {token}"}
+          headers = {"Authorization": f"Basic {token}"}
           page, per_page, all_pages = 1, 100, []
 
           while True:
@@ -114,7 +114,7 @@ jobs:
           base  = os.environ["WP_URL"]
           token = os.environ["WP_AUTH_TOKEN"]
           out   = f"backup/{os.environ['STAMP']}/media"
-          headers = {"Authorization": f"Bearer {token}"}
+          headers = {"Authorization": f"Basic {token}"}
           page, per_page, all_media = 1, 100, []
 
           while True:
@@ -161,7 +161,7 @@ jobs:
 
           # wget with Cloudflare Access headers; -nc skips already-present files on re-run
           wget \
-            --header="Authorization: Bearer $WP_AUTH_TOKEN" \
+            --header="Authorization: Basic $WP_AUTH_TOKEN" \
             --input-file="$URL_FILE" \
             --directory-prefix="$MEDIA_DIR" \
             --force-directories \
@@ -250,7 +250,7 @@ jobs:
           secret = os.environ["PLUGIN_SECRET"]
           token  = os.environ["WP_AUTH_TOKEN"]
           stamp  = os.environ["STAMP"]
-          headers = {"Authorization": f"Bearer {token}", "X-Backup-Secret": secret}
+          headers = {"Authorization": f"Basic {token}", "X-Backup-Secret": secret}
 
           # Trigger backup
           r = requests.post(f"{url}/trigger", headers=headers, timeout=30)
