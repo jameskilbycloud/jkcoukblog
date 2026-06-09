@@ -30,9 +30,10 @@ jobs:
         env:
           WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
           WP_URL: https://wordpress.jameskilby.cloud
+          STAMP: ${{ steps.ts.outputs.stamp }}
         run: |
           python3 - <<'EOF'
-          import os, json, requests, math
+          import os, json, requests
 
           base  = os.environ["WP_URL"]
           token = os.environ["WP_AUTH_TOKEN"]
@@ -61,10 +62,6 @@ jobs:
               json.dump(all_posts, f, indent=2)
           print(f"Saved {len(all_posts)} posts")
           EOF
-        env:
-          WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
-          WP_URL: https://wordpress.jameskilby.cloud
-          STAMP: ${{ steps.ts.outputs.stamp }}
 
       # ── Pages ──────────────────────────────────────────────────────────────
       - name: Export all pages
