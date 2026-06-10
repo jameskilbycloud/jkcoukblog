@@ -652,7 +652,7 @@ class LiveSiteFormattingTester:
         # Content-Security-Policy
         csp = headers.get('Content-Security-Policy', '')
         if csp:
-            self.log_success(f"Content-Security-Policy header present")
+            self.log_success("Content-Security-Policy header present")
 
             # Validate Credly badge domains are allowed
             credly_issues = []
@@ -694,7 +694,7 @@ class LiveSiteFormattingTester:
         # Strict-Transport-Security (HSTS)
         hsts = headers.get('Strict-Transport-Security', '')
         if hsts:
-            self.log_success(f"Strict-Transport-Security header present")
+            self.log_success("Strict-Transport-Security header present")
         else:
             self.log_warning("Strict-Transport-Security header missing (HTTPS enforcement)")
             all_good = False

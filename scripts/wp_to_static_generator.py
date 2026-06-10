@@ -41,16 +41,16 @@ class WordPressStaticGenerator:
         self.auth_token = auth_token
         self.output_dir = Path(output_dir)
         self.target_domain = target_domain.rstrip('/')
-        self.session = requests.Session()
-        self.session.headers.update({
-            'Authorization': f'Basic {auth_token}',
-            'User-Agent': 'StaticSiteGenerator/1.0'
-        })
-        # Ensure every request through this session has a timeout, so a hung
-        # WordPress instance can never block the build forever. Explicit
-        # `timeout=` kwargs at call sites still override this default.
-        self.session.request = functools.partial(
-            self.session.request, timeout=DEFAULT_HTTP_TIMEOUT
+        # Shared factory: Basic auth + retry/backoff on transient 429/5xx +
+        # session-wide default timeout (explicit `timeout=` kwargs at call
+        # sites still override it). accept=None because this session fetches
+        # rendered HTML pages and binary assets, not just JSON.
+        from wp_session import build_session
+        self.session = build_session(
+            auth_token,
+            user_agent='StaticSiteGenerator/1.0',
+            accept=None,
+            default_timeout=DEFAULT_HTTP_TIMEOUT,
         )
         self.downloaded_assets = set()
         self.processed_urls = set()
@@ -153,7 +153,7 @@ class WordPressStaticGenerator:
                     # Reached end of pagination
                     print(f"   ℹ️  Reached end of posts (page {page})")
                 elif posts_response.status_code == 401:
-                    print(f"   ❌ Authentication failed - check WP_AUTH_TOKEN")
+                    print("   ❌ Authentication failed - check WP_AUTH_TOKEN")
                 else:
                     print(f"   ❌ Error: {posts_response.text[:200]}")
                 break
@@ -561,7 +561,7 @@ class WordPressStaticGenerator:
             twitter_image['name'] = 'twitter:image'
             twitter_image['content'] = og_image.get('content', '')
             soup.head.append(twitter_image)
-            print(f"   🐦 Added twitter:image from og:image")
+            print("   🐦 Added twitter:image from og:image")
         
         # Fix meta tags with name attribute (Twitter Cards)
         for meta in soup.find_all('meta', attrs={'name': True}):
@@ -589,7 +589,7 @@ class WordPressStaticGenerator:
                 # Replace WordPress URLs
                 elif self.wp_url in href:
                     link['href'] = href.replace(self.wp_url, self.target_domain)
-                    print(f"   🔧 Fixed canonical URL")
+                    print("   🔧 Fixed canonical URL")
         
         # Fix RSS feed links: point to the generated XML feed and
         # remove WordPress comments feed (doesn't exist on static site)
@@ -622,7 +622,7 @@ class WordPressStaticGenerator:
                     if modified:
                         # Convert back to JSON and update
                         script.string = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
-                        print(f"   🔧 Enhanced JSON-LD with reading time and word count")
+                        print("   🔧 Enhanced JSON-LD with reading time and word count")
                         
                 except json.JSONDecodeError as e:
                     print(f"   ⚠️  Invalid JSON-LD: {str(e)}")
@@ -1049,12 +1049,12 @@ class WordPressStaticGenerator:
         for link in soup.find_all('link', rel='EditURI'):
             if link.get('href') and 'xmlrpc.php' in link.get('href'):
                 link.decompose()
-                print(f"   🗑️  Removed xmlrpc.php RSD link")
+                print("   🗑️  Removed xmlrpc.php RSD link")
         
         # Remove Windows Live Writer manifest links
         for link in soup.find_all('link', rel='wlwmanifest'):
             link.decompose()
-            print(f"   🗑️  Removed wlwmanifest link")
+            print("   🗑️  Removed wlwmanifest link")
         
         # Remove Rank Math HTML comments
         import re
@@ -1066,7 +1066,7 @@ class WordPressStaticGenerator:
         comments = soup.find_all(string=lambda text: isinstance(text, str) and '/Rank Math WordPress SEO plugin' in text)
         for comment in comments:
             comment.extract()
-            print(f"   🗑️  Removed Rank Math HTML comments")
+            print("   🗑️  Removed Rank Math HTML comments")
         
         # Remove Kadence WP footer credit/links
         for link in soup.find_all('a', href=lambda x: x and 'kadencewp.com' in x):
@@ -1074,7 +1074,7 @@ class WordPressStaticGenerator:
             parent = link.parent
             if parent and parent.name == 'p' and 'WordPress Theme by' in parent.get_text():
                 parent.decompose()
-                print(f"   🗑️  Removed Kadence WP footer credit")
+                print("   🗑️  Removed Kadence WP footer credit")
             else:
                 link.decompose()
     
@@ -1226,7 +1226,7 @@ class WordPressStaticGenerator:
                     )
                     if updated_content != script_content:
                         script.string = updated_content
-                        print(f"   🧹 Cleaned WordPress AJAX URL in script")
+                        print("   🧹 Cleaned WordPress AJAX URL in script")
     
     def fix_inline_css_urls(self, soup):
         """Fix inline CSS to convert font URLs from absolute to relative"""
@@ -1255,7 +1255,7 @@ class WordPressStaticGenerator:
                 
                 if updated_css != css_content:
                     style_tag.string = updated_css
-                    print(f"   🎨 Fixed inline CSS font URLs")
+                    print("   🎨 Fixed inline CSS font URLs")
     
     def extract_inline_css(self, soup, current_url):
         """Extract inline CSS to external files to reduce HTML payload"""
@@ -1442,7 +1442,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 """
         body.append(init_script)
-        print(f"   🎠 Added Splide carousel JS and initialization")
+        print("   🎠 Added Splide carousel JS and initialization")
 
     def add_utterances_comments(self, soup):
         """Add Utterances comments section to the page"""
@@ -1512,7 +1512,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             # Insert immediately after article content
             insertion_point.insert_after(comments_div)
-            print(f"   💬 Added Utterances comments section after article content")
+            print("   💬 Added Utterances comments section after article content")
     
     def add_static_optimizations(self, soup):
         """Add optimizations for static site performance"""
@@ -1539,11 +1539,11 @@ document.addEventListener('DOMContentLoaded', function() {
             theme_color_meta['name'] = 'theme-color'
             theme_color_meta['content'] = '#0a0a0a'  # Dark background - matches brutalist theme
             soup.head.append(theme_color_meta)
-            print(f"   🎨 Added theme-color meta tag")
+            print("   🎨 Added theme-color meta tag")
         else:
             # Update existing theme-color to match brutalist theme
             existing_theme_color['content'] = '#0a0a0a'
-            print(f"   🎨 Updated theme-color meta tag to dark theme")
+            print("   🎨 Updated theme-color meta tag to dark theme")
         
         # Add favicon links
         self.add_favicon_links(soup)
@@ -1620,7 +1620,7 @@ document.addEventListener('DOMContentLoaded', function() {
         manifest['href'] = '/site.webmanifest'
         soup.head.append(manifest)
         
-        print(f"   🐞 Added favicon links for browser support")
+        print("   🐞 Added favicon links for browser support")
     
     # WP-leaked inline CSS files we drop from the page entirely.
     # The brutalist theme already covers every visible element with !important
@@ -1731,7 +1731,7 @@ document.addEventListener('DOMContentLoaded', function() {
             link['media'] = 'all'
             soup.head.append(link)
             
-            print(f"   🎨 Added brutalist theme CSS with non-blocking load")
+            print("   🎨 Added brutalist theme CSS with non-blocking load")
         except Exception as e:
             print(f"   ❌ Failed to add brutalist theme CSS: {str(e)}")
     
@@ -1772,7 +1772,7 @@ document.addEventListener('DOMContentLoaded', function() {
             # Remove async if it exists
             if existing_plausible.get('async'):
                 del existing_plausible['async']
-            print(f"   📊 Updated existing Plausible analytics configuration")
+            print("   📊 Updated existing Plausible analytics configuration")
         else:
             # Add new Plausible script
             plausible_script = soup.new_tag('script')
@@ -1781,7 +1781,7 @@ document.addEventListener('DOMContentLoaded', function() {
             plausible_script['data-cfasync'] = 'false'  # Bypass Cloudflare Rocket Loader
             plausible_script['src'] = plausible_script_url
             soup.head.append(plausible_script)
-            print(f"   📊 Added Plausible analytics script to page")
+            print("   📊 Added Plausible analytics script to page")
     
     def add_lazy_loading(self, soup):
         """Add intelligent lazy loading based on image position and priority"""
@@ -1831,7 +1831,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     # These are far down the page, lowest priority
                     pass
         
-        print(f"   ✅ Image loading strategy:")
+        print("   ✅ Image loading strategy:")
         print(f"      🚀 High priority: {high_priority_count}")
         print(f"      ⚡ Eager: {eager_count - high_priority_count}")
         print(f"      📦 Lazy: {lazy_count}")
@@ -1917,7 +1917,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 new_sizes = '(max-width: 480px) 95vw, (max-width: 768px) 90vw, 400px'
                 img['sizes'] = new_sizes
                 optimized_count += 1
-                print(f"   📱 Optimized image sizes for mobile: added 480px breakpoint")
+                print("   📱 Optimized image sizes for mobile: added 480px breakpoint")
         
         if optimized_count > 0:
             print(f"   ✅ Optimized {optimized_count} featured image(s) with mobile-specific breakpoints")
@@ -2035,7 +2035,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 soup.body.append(script)
                 print(f"   📋 Added copy buttons to {button_count} code blocks")
         else:
-            print(f"   ℹ️  No code blocks found to add copy buttons")
+            print("   ℹ️  No code blocks found to add copy buttons")
     
     def add_content_freshness_indicator(self, soup):
         """Add visible content freshness indicator showing published and updated dates"""
@@ -2107,7 +2107,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 break
         
         if not insertion_point:
-            print(f"   ⚠️  Could not find insertion point for freshness indicator")
+            print("   ⚠️  Could not find insertion point for freshness indicator")
             return
         
         # Create the freshness indicator
@@ -2164,7 +2164,7 @@ document.addEventListener('DOMContentLoaded', function() {
         """
         articles = soup.find_all('article')
         if not articles:
-            print(f"   ℹ️  Skipping reading time indicator - no articles found")
+            print("   ℹ️  Skipping reading time indicator - no articles found")
             return
 
         added = 0
@@ -2229,7 +2229,7 @@ document.addEventListener('DOMContentLoaded', function() {
             print(f"   📖 Added reading time: {reading_minutes} min ({word_count:,} words)")
 
         if added == 0 and not any(a.find(class_='entry-content') for a in articles):
-            print(f"   ℹ️  Skipping reading time indicator - no articles with entry-content (list page)")
+            print("   ℹ️  Skipping reading time indicator - no articles with entry-content (list page)")
     
     def add_taxonomy_meta_description(self, soup, current_url):
         """Add meta descriptions to tag and category archive pages"""
@@ -2384,14 +2384,14 @@ document.addEventListener('DOMContentLoaded', function() {
         
         # Check if H1 already exists
         if soup.find('h1'):
-            print(f"   ℹ️  H1 already exists on homepage")
+            print("   ℹ️  H1 already exists on homepage")
             return
         
         # Find site-title elements (both desktop and mobile versions)
         site_titles = soup.find_all(class_='site-title')
         
         if not site_titles:
-            print(f"   ⚠️  Could not find site-title element on homepage")
+            print("   ⚠️  Could not find site-title element on homepage")
             return
         
         # Convert each site-title to H1
@@ -3046,7 +3046,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         formats_div.append(p)
         footer.append(formats_div)
-        print(f"   🔗 Added markdown and API links to footer")
+        print("   🔗 Added markdown and API links to footer")
     
     def fix_byline_dates(self, soup):
         """Insert a visible separator + 'Updated' label between adjacent
@@ -3170,7 +3170,7 @@ document.addEventListener('DOMContentLoaded', function() {
             tbody.insert_before(thead)
             
             fixed_count += 1
-            print(f"   📊 Converted table first row to proper header (thead with th elements)")
+            print("   📊 Converted table first row to proper header (thead with th elements)")
         
         if fixed_count > 0:
             print(f"   ✅ Fixed {fixed_count} table(s) with proper semantic structure")
@@ -3298,7 +3298,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     print(f"   ⚠️  Error parsing CSS {css_url}: {str(e)}")
         
         # Manually detect and queue WordPress minified cache files
-        print(f"   🔍 Manually detecting WordPress minified cache files...")
+        print("   🔍 Manually detecting WordPress minified cache files...")
         import re
         
         # Look for WPO minify CSS files
@@ -3468,12 +3468,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         # Show some example results
         if success_results:
-            print(f"   Recent downloads:")
+            print("   Recent downloads:")
             for result in success_results[:5]:
                 print(f"     {result}")
         
         if error_results:
-            print(f"   ⚠️  Some download errors:")
+            print("   ⚠️  Some download errors:")
             for result in error_results[:3]:
                 print(f"     {result}")
     
@@ -3923,7 +3923,7 @@ document.addEventListener('DOMContentLoaded', function() {
         # Insert after the entry-content
         entry_content.insert_after(social_section)
         
-        print(f"   🔗 Added social media links (GitHub, Twitter, LinkedIn)")
+        print("   🔗 Added social media links (GitHub, Twitter, LinkedIn)")
     
     def create_security_headers(self):
         """Copy the canonical _headers file (repo root) to public/_headers.
@@ -4524,20 +4524,21 @@ document.addEventListener('DOMContentLoaded', function() {
         js_dir = self.output_dir / 'js'
         js_dir.mkdir(exist_ok=True)
 
-        # Copy search.js from project root
-        search_script_src = Path(__file__).parent / 'search.js'
+        # Copy search.js from scripts/assets/js (shipped site assets live
+        # there, next to the fonts — not mixed in with the Python tooling)
+        search_script_src = Path(__file__).parent / 'assets' / 'js' / 'search.js'
         search_script_dest = js_dir / 'search.js'
 
         if search_script_src.exists():
             shutil.copy(search_script_src, search_script_dest)
-            print(f"   ✅ Copied search.js to public/js/search.js")
+            print("   ✅ Copied search.js to public/js/search.js")
         else:
             print(f"   ⚠️  search.js not found at {search_script_src}")
 
         # Vendor fuse.min.js and splide.min.js — both are loaded from /js/ to
         # avoid third-party CDN dependencies at runtime.
         for vendor_name in ('fuse.min.js', 'splide.min.js'):
-            vendor_src = Path(__file__).parent / vendor_name
+            vendor_src = Path(__file__).parent / 'assets' / 'js' / vendor_name
             vendor_dest = js_dir / vendor_name
             if vendor_src.exists():
                 shutil.copy(vendor_src, vendor_dest)
@@ -4636,7 +4637,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if injected_count > 0:
             print(f"   ✅ Injected search script into {injected_count} HTML files")
         else:
-            print(f"   ℹ️  No HTML files needed script injection")
+            print("   ℹ️  No HTML files needed script injection")
     
     def generate_search_index(self):
         """Generate search index for client-side search functionality"""
@@ -4762,7 +4763,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     def generate_static_site(self):
         """Main generation process"""
-        print(f"🚀 WordPress to Static Site Generator")
+        print("🚀 WordPress to Static Site Generator")
         print(f"Source: {self.wp_url}")
         print(f"Target: {self.target_domain}")
         print(f"Output: {self.output_dir}")
@@ -4773,9 +4774,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if cache_stats['last_build']:
                 print(f"Mode: Incremental (cache has {cache_stats['posts_cached'] + cache_stats['pages_cached']} entries)")
             else:
-                print(f"Mode: Full build (creating cache)")
+                print("Mode: Full build (creating cache)")
         else:
-            print(f"Mode: Full build (incremental disabled)")
+            print("Mode: Full build (incremental disabled)")
         
         print("=" * 60)
         
@@ -4798,7 +4799,7 @@ document.addEventListener('DOMContentLoaded', function() {
         urls = self.get_all_content_urls()
 
         # Discover all media assets via WordPress API
-        print(f"\\n🖼️  Media Asset Discovery:")
+        print("\\n🖼️  Media Asset Discovery:")
         media_assets = self.get_all_media_assets()
 
         # Build the post index used by add_related_posts(). Must happen
@@ -4815,22 +4816,22 @@ document.addEventListener('DOMContentLoaded', function() {
         success_count = len([r for r in results if r.startswith('✅')])
         failed_results = [r for r in results if not r.startswith('✅') and not r.startswith('⏭️')]
         error_count = len(failed_results)
-        print(f"\\n📊 Processing Results:")
+        print("\\n📊 Processing Results:")
         print(f"   ✅ Success: {success_count}")
         print(f"   ❌ Failed: {error_count}")
         for fail in failed_results:
             print(f"      {fail}")
         
         # Download assets
-        print(f"\\n📁 Asset Processing:")
+        print("\\n📁 Asset Processing:")
         self.download_assets()
         
         # Copy static assets (fonts, CSS, etc.)
-        print(f"\n📦 Static Assets:")
+        print("\n📦 Static Assets:")
         self.copy_assets()
         
         # Create additional files
-        print(f"\n📄 Creating additional files:")
+        print("\n📄 Creating additional files:")
         self.create_security_headers()
         self.create_robots_txt()
         self.create_redirects_file()
@@ -4845,7 +4846,7 @@ document.addEventListener('DOMContentLoaded', function() {
         end_time = time.time()
         duration = end_time - start_time
         
-        print(f"\\n🎉 GENERATION COMPLETE!")
+        print("\\n🎉 GENERATION COMPLETE!")
         print(f"Duration: {duration:.1f} seconds")
         print(f"Output directory: {self.output_dir}")
         
@@ -4854,7 +4855,7 @@ document.addEventListener('DOMContentLoaded', function() {
         print(f"Total size: {total_size / 1024 / 1024:.1f} MB")
         
         # Generate build metrics report
-        print(f"\n📊 Generating build report:")
+        print("\n📊 Generating build report:")
         try:
             from generate_build_report import generate_build_metrics
             generate_build_metrics(
@@ -4874,11 +4875,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             # Show cache statistics
             stats = self.incremental_builder.get_stats()
-            print(f"\n📦 Build Cache:")
+            print("\n📦 Build Cache:")
             print(f"   Cached posts: {stats['posts_cached']}")
             print(f"   Cached pages: {stats['pages_cached']}")
             if not is_full_build:
-                print(f"   ⚡ Incremental build — only changed content regenerated")
+                print("   ⚡ Incremental build — only changed content regenerated")
         
         return True
 
@@ -4918,14 +4919,14 @@ def main():
     success = generator.generate_static_site()
     
     if success:
-        print(f"\\n💡 Next steps:")
+        print("\\n💡 Next steps:")
         print(f"1. Review the generated files in: {output_dir}")
         print(f"2. Test locally: python -m http.server 8000 --directory {output_dir}")
-        print(f"3. Deploy to your hosting platform")
-        print(f"4. Verify old URLs redirect correctly")
+        print("3. Deploy to your hosting platform")
+        print("4. Verify old URLs redirect correctly")
         
         if deploy_flag:
-            print(f"\\n🚀 Deploy flag detected - implement your deployment logic here")
+            print("\\n🚀 Deploy flag detected - implement your deployment logic here")
             # You could add deployment logic here for Cloudflare, Netlify, etc.
     else:
         print("❌ Generation failed!")

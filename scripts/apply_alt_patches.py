@@ -115,7 +115,7 @@ def process_patch(session: requests.Session, patch: dict, apply_changes: bool) -
 
     media = find_media(session, pattern)
     if not media:
-        print(f'   ❌ no media attachment matched the pattern')
+        print('   ❌ no media attachment matched the pattern')
         return {'pattern': pattern, 'resolved': False, 'applied': False}
 
     media_id = media['id']
@@ -126,7 +126,7 @@ def process_patch(session: requests.Session, patch: dict, apply_changes: bool) -
     print(f'   new alt:     {new_alt!r}')
 
     if current_alt == new_alt:
-        print(f'   ✓ already correct — no change needed')
+        print('   ✓ already correct — no change needed')
         return {'pattern': pattern, 'resolved': True, 'applied': False, 'noop': True}
 
     if not apply_changes:
@@ -136,7 +136,7 @@ def process_patch(session: requests.Session, patch: dict, apply_changes: bool) -
     print(f'   → PATCHing alt_text on media {media_id}...')
     ok = patch_alt(session, media_id, new_alt)
     if ok:
-        print(f'   ✅ written')
+        print('   ✅ written')
         time.sleep(0.5)
         return {'pattern': pattern, 'resolved': True, 'applied': True, 'media_id': media_id}
     return {'pattern': pattern, 'resolved': True, 'applied': False, 'media_id': media_id, 'wp_error': True}
