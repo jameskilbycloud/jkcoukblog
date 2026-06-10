@@ -493,6 +493,7 @@ jobs:
           --with-full
 
     - name: Content quality validation
+      id: content_validation
       timeout-minutes: 5
       continue-on-error: true  # Non-blocking: warnings won't fail the build
       run: |
@@ -639,6 +640,7 @@ jobs:
         fi
 
     - name: Optimize CSS files (unused removal + minify)
+      id: optimize_css
       run: |
         echo "🎨 Optimizing CSS files..."
 
@@ -653,6 +655,7 @@ jobs:
       continue-on-error: true
 
     - name: Single-pass HTML transformer (SEO + pictures + perf + critical CSS + minify)
+      id: html_transformer
       timeout-minutes: 15
       run: |
         echo "🔄 Running single-pass HTML transformer..."
@@ -689,6 +692,7 @@ jobs:
         fi
 
     - name: Generate per-post Open Graph images
+      id: og_images
       # Replace the shared fallback og:image with a branded, title-specific
       # PNG so social shares of different posts look different. 60% of posts
       # currently ship the same generic image. Must run BEFORE Brotli so
@@ -700,6 +704,7 @@ jobs:
       continue-on-error: true
 
     - name: Subset Anton font to chars used in headings
+      id: font_subset
       # Anton ships at ~130 KB and is preloaded (LCP critical path), but
       # only ~90 of its glyphs are actually used across the site. Subset
       # to ~12 KB. Must run BEFORE Brotli so the .br/.gz sidecars get
@@ -720,6 +725,7 @@ jobs:
       run: python3 scripts/rewrite_vendored_urls.py ./static-output
 
     - name: Brotli + Gzip compress static files
+      id: compress
       timeout-minutes: 10
       run: |
         echo "🗜️  Compressing final optimized files with Brotli (primary) + Gzip (fallback)..."
@@ -817,6 +823,7 @@ jobs:
       continue-on-error: true
 
     - name: Interactive UI smoke tests (Playwright)
+      id: smoke_tests
       # Headless-Chromium walkthrough that exercises the JS-driven UI
       # (mobile drawer, Splide carousel layout, sticky-header behaviour
       # when configured). Specifically guards against the optimize_css
@@ -984,6 +991,7 @@ jobs:
         python3 scripts/convert_to_staging.py
 
     - name: Generate changelog, stats, and recompress
+      id: changelog_stats
       run: |
         echo "📋 Generating changelog page..."
         python3 scripts/generate_changelog.py || echo "⚠️  Changelog generation failed (non-blocking)"
@@ -1070,6 +1078,7 @@ jobs:
         node-version: '20'
 
     - name: Upload search index to Workers KV
+      id: search_index
       if: success()
       run: |
         echo "🔍 Uploading search index to Workers KV..."
@@ -1121,6 +1130,7 @@ jobs:
     # in the repo for emergency ad-hoc use.
 
     - name: Purge all HTML from KV cache
+      id: kv_purge
       if: success()
       env:
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -1235,6 +1245,7 @@ jobs:
     # cache" step above is the actual cache invalidation for HTML.
 
     - name: Purge static assets from Cloudflare cache
+      id: static_purge
       if: success()
       env:
         CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
@@ -1277,6 +1288,7 @@ jobs:
       continue-on-error: true
 
     - name: Submit URLs to IndexNow
+      id: indexnow
       if: success()
       run: |
         echo "🔔 Submitting URLs to IndexNow..."
@@ -1315,6 +1327,7 @@ jobs:
       continue-on-error: true
 
     - name: Ping Google sitemap on new post
+      id: google_ping
       if: success()
       run: |
         # Only ping Google when a genuinely new post page was added this build.
@@ -1352,6 +1365,49 @@ jobs:
         echo "- **Triggered by:** $(echo "$NEW_POSTS" | wc -l | tr -d ' ') new post(s)" >> $GITHUB_STEP_SUMMARY
       continue-on-error: true
 
+    - name: Report non-blocking step failures
+      id: nonblocking_report
+      if: always()
+      run: |
+        # The steps below are continue-on-error so a degraded build still
+        # deploys, but their failures must not be invisible: collect every
+        # outcome, write a summary, and feed the Slack notification.
+        FAILED=()
+        check() {
+          if [ "$2" = "failure" ]; then FAILED+=("$1"); fi
+        }
+        check "Content quality validation"  "${{ steps.content_validation.outcome }}"
+        check "CSS optimization"            "${{ steps.optimize_css.outcome }}"
+        check "HTML transformer"            "${{ steps.html_transformer.outcome }}"
+        check "OG image generation"         "${{ steps.og_images.outcome }}"
+        check "Font subsetting"             "${{ steps.font_subset.outcome }}"
+        check "Brotli/Gzip compression"     "${{ steps.compress.outcome }}"
+        check "Playwright smoke tests"      "${{ steps.smoke_tests.outcome }}"
+        check "Changelog/stats generation"  "${{ steps.changelog_stats.outcome }}"
+        check "Search index KV upload"      "${{ steps.search_index.outcome }}"
+        check "KV HTML cache purge"         "${{ steps.kv_purge.outcome }}"
+        check "Static asset cache purge"    "${{ steps.static_purge.outcome }}"
+        check "IndexNow submission"         "${{ steps.indexnow.outcome }}"
+        check "Google sitemap ping"         "${{ steps.google_ping.outcome }}"
+
+        COUNT=${#FAILED[@]}
+        echo "failed_count=$COUNT" >> "$GITHUB_OUTPUT"
+        if [ "$COUNT" -eq 0 ]; then
+          echo "failed_list=" >> "$GITHUB_OUTPUT"
+          echo "✅ All non-blocking steps succeeded"
+        else
+          LIST=$(printf '%s, ' "${FAILED[@]}"); LIST=${LIST%, }
+          echo "failed_list=$LIST" >> "$GITHUB_OUTPUT"
+          {
+            echo "## ⚠️ Non-blocking steps failed ($COUNT)"
+            echo ""
+            for s in "${FAILED[@]}"; do echo "- $s"; done
+            echo ""
+            echo "The deploy proceeded anyway (these steps are continue-on-error), but the failures need a look."
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "⚠️ $COUNT non-blocking step(s) failed: $LIST"
+        fi
+
     - name: Notify Slack on Success
       if: success()
       uses: slackapi/slack-github-action@v3.0.3
@@ -1365,10 +1421,15 @@ jobs:
             "icon_emoji": ":github:",
             "attachments": [
               {
-                "color": "good",
-                "title": "✅ jkcoukblog Build Success",
+                "color": "${{ steps.nonblocking_report.outputs.failed_count == '0' && 'good' || 'warning' }}",
+                "title": "${{ steps.nonblocking_report.outputs.failed_count == '0' && '✅ jkcoukblog Build Success' || '⚠️ jkcoukblog Build Success (with warnings)' }}",
                 "text": "jkcoukblog static site built and pushed successfully!",
                 "fields": [
+                  {
+                    "title": "Non-blocking step failures",
+                    "value": "${{ steps.nonblocking_report.outputs.failed_count == '0' && 'None' || steps.nonblocking_report.outputs.failed_list }}",
+                    "short": false
+                  },
                   {
                     "title": "HTML Pages",
                     "value": "${{ env.HTML_COUNT }}",
