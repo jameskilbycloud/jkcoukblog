@@ -10,6 +10,10 @@ on:
 
 jobs:
   notify-slack:
+    # Dependabot-triggered runs don't get repository secrets, so the Slack
+    # webhook resolves empty and the action hard-fails. Bot PRs don't need
+    # Slack noise anyway — skip the job entirely.
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Determine event details
