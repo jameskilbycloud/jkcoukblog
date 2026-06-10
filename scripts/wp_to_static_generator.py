@@ -127,7 +127,8 @@ class WordPressStaticGenerator:
                             pagination_page += 1
                         else:
                             break
-                    except Exception:
+                    except Exception as e:
+                        print(f"   ⚠️  Pagination discovery stopped at page {pagination_page}: {e}")
                         break
 
             print(f"\n✅ Incremental build: {len(urls)} URLs to process")
@@ -248,7 +249,8 @@ class WordPressStaticGenerator:
                     pagination_page += 1
                 else:
                     break
-            except Exception:
+            except Exception as e:
+                print(f"   ⚠️  Pagination discovery stopped at page {pagination_page}: {e}")
                 break
         if pagination_page > 2:
             print(f"   ✅ Found {pagination_page - 2} homepage pagination pages")
@@ -531,7 +533,8 @@ class WordPressStaticGenerator:
         og_image = soup.find('meta', property='og:image')
         if not og_image and soup.head:
             # Use the site logo as default Open Graph image
-            default_image_url = f"{self.target_domain}/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png"
+            from config import Config
+            default_image_url = f"{self.target_domain}{Config.DEFAULT_OG_IMAGE_PATH}"
             
             og_image = soup.new_tag('meta')
             og_image['property'] = 'og:image'
@@ -934,6 +937,8 @@ class WordPressStaticGenerator:
         if not soup.head:
             return
 
+        from config import Config as _org_config
+
         org_schema = {
             "@type": "Organization",
             "@id": f"{self.target_domain}/#organization",
@@ -941,12 +946,9 @@ class WordPressStaticGenerator:
             "url": self.target_domain,
             "logo": {
                 "@type": "ImageObject",
-                "url": f"{self.target_domain}/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png"
+                "url": f"{self.target_domain}{_org_config.DEFAULT_OG_IMAGE_PATH}"
             },
-            "sameAs": [
-                "https://github.com/jameskilbynet",
-                "https://www.linkedin.com/in/james-kilby/"
-            ]
+            "sameAs": list(_org_config.PERSON_SAME_AS)
         }
 
         # Try to enrich existing schema
@@ -1493,9 +1495,11 @@ document.addEventListener('DOMContentLoaded', function() {
             section = soup.new_tag('section')
             section['id'] = 'utterances-comments'
 
+            from config import Config as _utt_config
+
             script = soup.new_tag('script')
             script['src'] = 'https://utteranc.es/client.js'
-            script['data-repo'] = 'jameskilbynet/jkcoukblog'
+            script['data-repo'] = _utt_config.UTTERANCES_REPO
             script['data-issue-term'] = 'pathname'
             script['data-theme'] = 'github-dark'
             script['crossorigin'] = 'anonymous'
@@ -2527,8 +2531,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 payload = json.loads(cache.read_text(encoding='utf-8'))
                 if time.time() - payload.get('computed_at', 0) < 24 * 3600:
                     return payload.get('formatted', '—')
-        except Exception:
-            pass  # fall through to live compute
+        except Exception as e:
+            # Fall through to live compute — but say why the cache was unusable
+            print(f"   ⚠️  words.total cache unreadable ({e}), recomputing")
 
         try:
             total = 0
@@ -2567,8 +2572,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     'total': total,
                     'formatted': formatted,
                 }))
-            except Exception:
-                pass
+            except Exception as e:
+                print(f"   ⚠️  words.total cache write failed ({e}) — next build recomputes")
             return formatted
         except Exception as e:
             print(f"   ⚠️  words.total: {e}")
@@ -3894,24 +3899,10 @@ document.addEventListener('DOMContentLoaded', function() {
         links_container = soup.new_tag('div')
         links_container['style'] = 'display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;'
         
-        # Social media links data
-        social_links = [
-            {
-                'name': 'GitHub',
-                'url': 'https://github.com/jameskilbynet',
-                'color': '#333'
-            },
-            {
-                'name': 'Twitter',
-                'url': 'https://x.com/jameskilbynet',
-                'color': '#1da1f2'
-            },
-            {
-                'name': 'LinkedIn',
-                'url': 'https://linkedin.com/in/jameskilbynet',
-                'color': '#0077b5'
-            }
-        ]
+        # Social media links — Config.SOCIAL_PROFILES is the single source of
+        # truth, shared with the JSON-LD sameAs graph.
+        from config import Config as _social_config
+        social_links = list(_social_config.SOCIAL_PROFILES)
         
         # Create link for each platform
         for platform in social_links:
@@ -4282,7 +4273,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             return latest_date
 
-        except Exception:
+        except Exception as e:
+            print(f"   ⚠️  Could not determine latest post date: {e}")
             return None
 
     def _get_sitemap_priority(self, url_path):
@@ -4322,7 +4314,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 # Only read the first 4KB — robots meta is always in <head>
                 head_content = f.read(4096)
             return 'noindex' in head_content.lower() and 'name="robots"' in head_content.lower()
-        except Exception:
+        except Exception as e:
+            print(f"   ⚠️  noindex check failed for {html_file}: {e}")
             return False
 
     def _is_meta_refresh_shim(self, html_file):
@@ -4333,7 +4326,8 @@ document.addEventListener('DOMContentLoaded', function() {
             with open(html_file, 'r', encoding='utf-8', errors='ignore') as f:
                 head_content = f.read(2048)
             return 'http-equiv="refresh"' in head_content.lower()
-        except Exception:
+        except Exception as e:
+            print(f"   ⚠️  meta-refresh check failed for {html_file}: {e}")
             return False
 
     def _matches_noindex_pattern(self, url_path):
