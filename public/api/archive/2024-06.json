@@ -16,12 +16,16 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Ansible",
-        "Storage",
-        "Hosting",
         "VMware",
-        "Synology",
-        "vSphere"
+        "vSphere",
+        "Hosting",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Traefik",
+        "VCF",
+        "Veeam",
+        "Nutanix"
       ],
       "tags": [
         null,

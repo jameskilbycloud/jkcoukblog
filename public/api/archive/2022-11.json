@@ -17,14 +17,19 @@
         "Homelab",
         "Storage",
         "Synology",
+        "Networking",
+        "Ansible",
         "Artificial Intelligence",
-        "Nutanix",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
         "VMware",
+        "Mikrotik",
+        "vExpert",
         "VMware Cloud on AWS",
         "vSAN",
-        "Runecast",
-        "Hosting",
-        "TrueNAS Scale"
+        "Veeam"
       ],
       "tags": [
         null,

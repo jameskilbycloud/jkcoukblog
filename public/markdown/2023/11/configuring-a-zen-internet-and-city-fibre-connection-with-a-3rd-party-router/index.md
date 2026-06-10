@@ -7,9 +7,9 @@ author: James Kilby
 categories:
   - Networking
   - Homelab
+  - Mikrotik
   - Storage
   - VMware
-  - Mikrotik
 tags:
   - #City Fibre
   - #VLAN911
@@ -85,16 +85,6 @@ By[James](https://jameskilby.co.uk) June 26, 2024 · Updated June 5, 2026
 
 How to configure DHCP Option 43 for UniFi devices 
 
-  * [ ![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png) ](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
-
-By[James](https://jameskilby.co.uk) December 19, 2022 · Updated June 1, 2026
-
-For a while, I’ve been looking to update the networking at the core of my homelab.
-
   * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
 
 ### [Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense](https://jameskilby.co.uk/2022/01/lab-update-part-3-network/)
@@ -112,3 +102,13 @@ I have retired the WatchGuard Devices with the migration to PFSense running bare
 By[James](https://jameskilby.co.uk) September 9, 2024 · Updated June 5, 2026
 
 My journey to superfast networking in my homelab
+
+  * [ ![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png) ](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
+
+By[James](https://jameskilby.co.uk) December 19, 2022 · Updated June 1, 2026
+
+For a while, I’ve been looking to update the networking at the core of my homelab.

@@ -16,18 +16,15 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
-        "Docker",
         "Homelab",
+        "Personal",
+        "vSphere",
+        "Artificial Intelligence",
+        "Docker",
         "NVIDIA",
-        "Traefik",
-        "AWS",
-        "Veeam",
-        "Storage",
-        "vExpert",
-        "Networking",
-        "Nutanix"
+        "Traefik"
       ],
       "tags": [
         null,
@@ -52,16 +49,11 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
         "Personal",
-        "Devops",
-        "Github"
+        "Homelab",
+        "Artificial Intelligence",
+        "Docker",
+        "Kubernetes"
       ],
       "tags": [
         null,
