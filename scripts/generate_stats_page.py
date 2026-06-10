@@ -675,9 +675,9 @@ def main():
     output_file = output_dir / 'index.html'
     output_file.write_text(html, encoding='utf-8')
     
-    print(f"\n✅ Stats page generated successfully!")
+    print("\n✅ Stats page generated successfully!")
     print(f"   📄 Output: {output_file}")
-    print(f"   🌐 URL: https://jameskilby.co.uk/stats/")
+    print("   🌐 URL: https://jameskilby.co.uk/stats/")
     print(f"   📊 Lighthouse Performance: {lighthouse['performance']}/100")
     print(f"   📈 Total Pages: {build_metrics['total_pages']}")
     print(f"   🚀 Total Deployments: {git_stats['total_commits']}")

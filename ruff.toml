@@ -10,7 +10,12 @@ target-version = "py311"
 [lint]
 select = [
     "E9",   # syntax errors / IO errors
+    "E722", # bare except
     "F63",  # invalid comparisons (is-literal, etc.)
     "F7",   # syntax-adjacent logic errors (return outside function, etc.)
     "F82",  # undefined names
+    "F541", # f-strings without placeholders
 ]
+# Next ratchet candidates (not yet clean): F401 unused-import (careful —
+# `import pillow_avif` in optimize_images.py is a side-effect import that
+# registers the AVIF codec; needs a `# noqa: F401`), F841 unused-variable.

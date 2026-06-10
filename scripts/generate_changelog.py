@@ -24,7 +24,8 @@ def load_lighthouse_history():
         try:
             with open(history_file, 'r') as f:
                 return json.load(f)
-        except:
+        except (json.JSONDecodeError, OSError) as e:
+            print(f"⚠️  Lighthouse history unreadable ({e}) — starting fresh")
             return []
     return []
 
@@ -663,9 +664,9 @@ def main():
         cat = change.get('category', 'other')
         category_counts[cat] = category_counts.get(cat, 0) + 1
     
-    print(f"\n✅ Changelog generated successfully!")
+    print("\n✅ Changelog generated successfully!")
     print(f"   📄 Output: {output_file}")
-    print(f"   🌐 URL: https://jameskilby.co.uk/changelog/")
+    print("   🌐 URL: https://jameskilby.co.uk/changelog/")
     print(f"   📊 Lighthouse Performance: {lighthouse_scores['performance']}/100")
     print(f"   📈 Total Commits: {git_stats['total_commits']}")
     print(f"   📝 Recent Changes: {len(changes)}")

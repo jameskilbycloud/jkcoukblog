@@ -42,13 +42,16 @@ class WordPressSourceValidator:
         self.skip_seo = skip_seo
         self.verbose = verbose
 
-        # Set up HTTP session with authentication
-        self.session = requests.Session()
-        self.session.headers.update({
-            'Authorization': f'Basic {auth_token}',
-            'User-Agent': 'WordPressSourceValidator/1.0'
-        })
-        self.session.timeout = 30  # 30 second timeout per request
+        # Set up HTTP session with authentication. The shared factory adds
+        # retry/backoff and a real session-wide timeout — the previous
+        # `self.session.timeout = 30` set an attribute requests never reads,
+        # so these requests effectively had no timeout at all.
+        from wp_session import build_session
+        self.session = build_session(
+            auth_token,
+            user_agent='WordPressSourceValidator/1.0',
+            default_timeout=30,
+        )
 
         # Tracking structures (following ContentValidator pattern)
         self.errors: List[Dict] = []          # Critical issues (block deployment)
@@ -96,7 +99,7 @@ class WordPressSourceValidator:
             return response, None
 
         except requests.exceptions.Timeout:
-            return None, f"Request timeout after 30 seconds"
+            return None, "Request timeout after 30 seconds"
         except requests.exceptions.ConnectionError as e:
             return None, f"Connection error: {str(e)}"
         except requests.exceptions.RequestException as e:

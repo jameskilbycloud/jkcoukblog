@@ -79,6 +79,15 @@ AGENTS.md
 migrate-to-vmware-cloud-veeam-sobr.md
 seo-audit-april-2026.md
 
+# Secrets — first line of defense ahead of the gitleaks CI scan.
+# Tokens/credentials belong in environment variables / GitHub Secrets.
+.env
+.env.*
+*.env
+secrets.*
+credentials.json
+*.pem
+
 # Claude Code
 .claude/settings.local.json
 .claude/worktrees/

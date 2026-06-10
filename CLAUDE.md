@@ -41,14 +41,15 @@ make spell-check     # AI spell checker (needs OLLAMA_API_CREDENTIALS)
 
 ### Tests
 
-Test scripts live in `scripts/test_*.py` and are run individually, not via a framework:
+Two layers:
+
+1. **Unit tests** in `tests/` run with pytest (`make test` or `pytest tests/`). They cover the pure logic: incremental cache, critical-CSS truncation, typo-patch matching, the `wp_session` factory, and config invariants. Linting is `make lint` (`ruff check scripts/ tests/`, config in `ruff.toml` — critical rules only, tighten as files get touched). Both run in CI via `.github/workflows/python-checks.yml` on changes to `scripts/`/`tests/`.
+2. **Pipeline test scripts** in `scripts/test_*.py` are single-purpose, run individually, and exit non-zero on failure:
 
 ```bash
 python3 scripts/test_csp.py                                              # CSP validation
 python3 scripts/test_live_site_formatting.py --url https://jkcoukblog.pages.dev   # live-site checks
 ```
-
-There is no `pytest` suite. Each test script is single-purpose and exits non-zero on failure.
 
 ### GitHub Actions
 

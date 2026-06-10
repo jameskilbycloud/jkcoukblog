@@ -13,6 +13,7 @@ Usage:
     python3 validate_deployment.py <site_directory>
 """
 
+import re
 import sys
 from pathlib import Path
 import brotli
@@ -575,6 +576,55 @@ class DeploymentValidator:
                 f"{missing_plausible} pages missing Plausible script"
             )
 
+    def validate_worker_stamp(self):
+        """Verify the Advanced Mode Worker was stamped with CSP + path manifest.
+
+        test_csp.py validates _headers, but the worker emits its own CSP on
+        cache HITs from the value stamp_worker_manifest.py bakes into
+        _worker.js. If stamping silently failed, both placeholders stay
+        `null`: the worker would ship without a CSP and serve every path
+        (soft-404 guard disabled) — and nothing else in the pipeline would
+        notice.
+        """
+        print("\n🛡️  Validating Advanced Mode Worker stamp...")
+
+        worker_file = self.site_dir / '_worker.js'
+        if not worker_file.exists():
+            self.errors.append(
+                "_worker.js missing from output — Advanced Mode Worker "
+                "(KV cache, security headers, soft-404 guard) will not deploy"
+            )
+            return
+
+        source = worker_file.read_text(encoding='utf-8')
+
+        csp_match = re.search(
+            r'/\*__CSP_FROM_HEADERS_START__\*/(.*?)/\*__CSP_FROM_HEADERS_END__\*/',
+            source, re.DOTALL)
+        if not csp_match or csp_match.group(1).strip() == 'null':
+            self.errors.append(
+                "_worker.js CSP not stamped (placeholder still null) — "
+                "worker-served responses would ship without a CSP"
+            )
+        elif 'utteranc.es' not in csp_match.group(1):
+            self.errors.append(
+                "_worker.js stamped CSP does not allow utteranc.es — "
+                "comments would be blocked on cache HITs"
+            )
+        else:
+            print("   ✅ CSP stamped into _worker.js")
+
+        manifest_match = re.search(
+            r'/\*__PATH_MANIFEST_START__\*/(.*?)/\*__PATH_MANIFEST_END__\*/',
+            source, re.DOTALL)
+        if not manifest_match or manifest_match.group(1).strip() == 'null':
+            self.errors.append(
+                "_worker.js path manifest not stamped (placeholder still "
+                "null) — soft-404 guard would be disabled"
+            )
+        else:
+            print("   ✅ Path manifest stamped into _worker.js")
+
     def validate_all(self):
         """Run all validation checks."""
         print("🔍 Running comprehensive deployment validation...\n")
@@ -587,6 +637,7 @@ class DeploymentValidator:
         self.validate_critical_css()
         self.validate_utterances_comments()
         self.validate_plausible_analytics()
+        self.validate_worker_stamp()
 
         self.print_summary()
 

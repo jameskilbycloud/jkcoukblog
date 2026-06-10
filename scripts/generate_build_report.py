@@ -23,9 +23,9 @@ def generate_build_metrics(output_dir, duration, urls_processed, assets_download
     
     # Get git commit hash
     try:
-        git_commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], 
+        git_commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'],
                                             stderr=subprocess.DEVNULL).decode('utf-8').strip()
-    except:
+    except (subprocess.SubprocessError, OSError):
         git_commit = 'unknown'
     
     # Generate metrics
@@ -44,7 +44,7 @@ def generate_build_metrics(output_dir, duration, urls_processed, assets_download
     # Save current metrics
     metrics_file = output_path / 'build-metrics.json'
     metrics_file.write_text(json.dumps(metrics, indent=2))
-    print(f"   ✅ Created build-metrics.json")
+    print("   ✅ Created build-metrics.json")
     
     # Track metrics over time (in project root)
     history_file = Path('build-history.json')
@@ -56,7 +56,7 @@ def generate_build_metrics(output_dir, duration, urls_processed, assets_download
     print(f"   ✅ Updated build-history.json (tracking {len(history)} builds)")
     
     # Display summary
-    print(f"\n📊 Build Metrics:")
+    print("\n📊 Build Metrics:")
     print(f"   Duration: {metrics['generation_duration_seconds']}s")
     print(f"   URLs: {metrics['urls_processed']}")
     print(f"   Assets: {metrics['assets_downloaded']}")

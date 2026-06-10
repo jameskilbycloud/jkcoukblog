@@ -79,6 +79,23 @@ Secrets are stored in GitHub Secrets (repository settings) and accessed via envi
 | Directory | Purpose |
 |-----------|---------|
 | `scripts/` | Python automation scripts |
+| `scripts/assets/` | Site assets shipped at build time (fonts, `js/` with search.js + vendored fuse/splide) |
+| `tests/` | pytest unit tests (`make test`; ruff config in `ruff.toml`) |
 | `public/` | Generated static site (deployed by Cloudflare Pages) |
 | `docs/` | Project documentation |
 | `workers/` | Cloudflare Workers (search API, Slack notifier) |
+
+## Root-Level Working Artifacts
+
+Some files at the repo root are data, not documentation — know their lifecycle
+before deleting or editing them:
+
+| File | Lifecycle |
+|------|-----------|
+| `typo-patches.json` | **Consumed by CI** (`apply-typo-patches.yml` pushes fixes to WordPress). Entries are removed once applied. |
+| `alt-patches.json` | **Consumed by CI** (`apply-alt-patches.yml`). Same lifecycle as typo patches. |
+| `typo-patches.md`, `typo-patches-pending.md` | Human-readable companions to the JSON — keep in sync when editing patches by hand. |
+| `site-audit-*.md` | Point-in-time audit reports. Reference material only; safe to archive to `docs/audits/` once their findings are resolved. |
+
+Content fixes belong in WordPress (the source of truth) when possible — the
+patch files exist for batch corrections applied via the REST API.

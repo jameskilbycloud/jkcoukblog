@@ -115,7 +115,7 @@ def _query_slug(session: requests.Session, kind: str, slug: str, debug: bool = F
             if items:
                 return items[0]['id']
             if debug:
-                print(f'     [debug] (empty list returned)')
+                print('     [debug] (empty list returned)')
     return None
 
 

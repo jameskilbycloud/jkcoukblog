@@ -290,7 +290,7 @@ class MarkdownAPIGenerator:
         readme_file = self.api_dir / 'README.md'
         readme_file.write_text('\n'.join(readme_lines))
         
-        print(f"   📖 Generated API documentation")
+        print("   📖 Generated API documentation")
     
     def _parse_markdown_file(self, md_file, include_content=False):
         """Parse markdown file and extract metadata"""
@@ -393,7 +393,7 @@ def main():
     generator = MarkdownAPIGenerator(markdown_dir, api_dir)
     generator.generate_api()
     
-    print(f"\n💡 API endpoints available:")
+    print("\n💡 API endpoints available:")
     print(f"   - Documentation: {api_dir}/README.md")
     print(f"   - All posts: {api_dir}/posts.json")
     print(f"   - Categories: {api_dir}/categories/")
