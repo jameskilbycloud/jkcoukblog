@@ -12,13 +12,11 @@ categories:
   - NVIDIA
   - Traefik
   - VMware
-  - vSAN
-  - Storage
+  - Ansible
   - Personal
-  - TrueNAS Scale
-  - vSphere
-  - Synology
-  - Nutanix
+  - VMware Cloud on AWS
+  - Containers
+  - Devops
 tags:
   - #AI
   - #Artificial Intelligence
@@ -45,20 +43,20 @@ image: https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured.png
 
 # My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)
 
-By[James](https://jameskilby.co.uk)April 4, 2026 · Updated June 1, 2026 • 📖11 min read(2,139 words)
+By[James](https://jameskilby.co.uk) April 4, 2026 · Updated June 1, 2026 • 📖11 min read(2,139 words)
 
-📅 **Published:** April 04, 2026• **Updated:** June 01, 2026
+📅**Published:** April 04, 2026•**Updated:** June 01, 2026
 
- _This is Part 2 of a multi-part series on my self-hosted AI stack.[Part 1](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/) covers the application architecture and a layer-by-layer walkthrough of every service. If you haven’t read it yet, I’d recommend starting there — it gives the context that makes Part 2 make sense._
+_This is Part 2 of a multi-part series on my self-hosted AI stack.[Part 1](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/) covers the application architecture and a layer-by-layer walkthrough of every service. If you haven’t read it yet, I’d recommend starting there — it gives the context that makes Part 2 make sense._
 
 Part 2 goes deeper into the infrastructure side of things: how traffic is designed to route, how containers are sized and constrained, what databases and data stores are running under the hood.
 
 Specifically, this post covers:
 
-  *  **Resource limits and sizing** — CPU and memory constraints for every container, and the reasoning behind them
-  *  **Infrastructure and routing** — the dual-network design, Traefik reverse proxy configuration, Cloudflare Tunnels, and how external traffic is isolated from internal service communication
-  *  **Data layer** — every database and persistent store in the stack: PostgreSQL, SQLite, ChromaDB, Redis, and Minio
-  *  **Backups** — the sidecar backup strategy for PostgreSQL, n8n, and Open WebUI, with data landing on a NAS over SMB
+  * **Resource limits and sizing** — CPU and memory constraints for every container, and the reasoning behind them
+  * **Infrastructure and routing** — the dual-network design, Traefik reverse proxy configuration, Cloudflare Tunnels, and how external traffic is isolated from internal service communication
+  * **Data layer** — every database and persistent store in the stack: PostgreSQL, SQLite, ChromaDB, Redis, and Minio
+  * **Backups** — the sidecar backup strategy for PostgreSQL, n8n, and Open WebUI, with data landing on a NAS over SMB
 
 ## Table of Contents
 
@@ -72,33 +70,33 @@ If you read part one, you will have seen that there are a lot of components that
 
 Container| Role| Mem Limit| CPU Limit  
 ---|---|---|---  
- **ollama**|  LLM inference (GPU)| 24G| 12.0  
- **comfyui**|  Image generation (GPU)| 16G| 6.0  
- **whishper**|  Speech-to-text (GPU)| 4G| 4.0  
- **mongo**|  DB for Whishper only| 1G| 1.0  
- **ollama-exporter**|  Metrics scraper| 128M| 0.25  
- **postgres**|  Shared relational DB| 4G| 4.0  
- **qdrant**|  Vector DB for RAG| 6G| 4.0  
- **tika**|  Document parsing (JVM)| 2G| 2.0  
- **searxng**|  Metasearch engine| 1G| 1.0  
- **qdrant-backup**|  Periodic backup sidecar| 256M| 0.5  
- **langfuse-web**|  LLM observability UI| 2G| 2.0  
- **langfuse-worker**|  Background trace processing| 2G| 2.0  
- **clickhouse**|  Analytics DB for Langfuse| 6G| 4.0  
- **redis**|  Job queue for Langfuse| 512M| 0.5  
- **minio**|  S3-compatible object store| 1G| 1.0  
- **minio-init**|  One-shot bucket creation| –| –  
- **jaeger**|  Distributed tracing| 4G| 2.0  
- **otel-collector**|  Telemetry aggregation| 1G| 1.0  
- **nvidia-gpu-exporter**|  GPU metrics| 256M| 0.5  
- **prometheus**|  Metrics TSDB| 2G| 2.0  
- **grafana**|  Dashboards| 2G| 2.0  
- **smarterrouter**|  LLM routing| 2G| 2.0  
- **open-webui**|  Chat UI| 2G| 2.0  
- **open-webui-backup**|  Periodic SQLite backup| 256M| 0.25  
- **pipelines**|  Filter/plugin framework| 2G| 2.0  
- **open-terminal**|  Terminal server| 1G| 1.0  
- **n8n**|  Workflow automation| 4G| 4.0  
+**ollama**|  LLM inference (GPU)| 24G| 12.0  
+**comfyui**|  Image generation (GPU)| 16G| 6.0  
+**whishper**|  Speech-to-text (GPU)| 4G| 4.0  
+**mongo**|  DB for Whishper only| 1G| 1.0  
+**ollama-exporter**|  Metrics scraper| 128M| 0.25  
+**postgres**|  Shared relational DB| 4G| 4.0  
+**qdrant**|  Vector DB for RAG| 6G| 4.0  
+**tika**|  Document parsing (JVM)| 2G| 2.0  
+**searxng**|  Metasearch engine| 1G| 1.0  
+**qdrant-backup**|  Periodic backup sidecar| 256M| 0.5  
+**langfuse-web**|  LLM observability UI| 2G| 2.0  
+**langfuse-worker**|  Background trace processing| 2G| 2.0  
+**clickhouse**|  Analytics DB for Langfuse| 6G| 4.0  
+**redis**|  Job queue for Langfuse| 512M| 0.5  
+**minio**|  S3-compatible object store| 1G| 1.0  
+**minio-init**|  One-shot bucket creation| –| –  
+**jaeger**|  Distributed tracing| 4G| 2.0  
+**otel-collector**|  Telemetry aggregation| 1G| 1.0  
+**nvidia-gpu-exporter**|  GPU metrics| 256M| 0.5  
+**prometheus**|  Metrics TSDB| 2G| 2.0  
+**grafana**|  Dashboards| 2G| 2.0  
+**smarterrouter**|  LLM routing| 2G| 2.0  
+**open-webui**|  Chat UI| 2G| 2.0  
+**open-webui-backup**|  Periodic SQLite backup| 256M| 0.25  
+**pipelines**|  Filter/plugin framework| 2G| 2.0  
+**open-terminal**|  Terminal server| 1G| 1.0  
+**n8n**|  Workflow automation| 4G| 4.0  
   
 As can be seen from the docker containers above the resource requirements are not trivial.
 
@@ -221,8 +219,8 @@ If the Git credentials are not set, it will back up to the SMB repo like the oth
 
 ## Continue Reading
 
-  *  **[← Part 1: Architecture Overview](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)** – The big picture, layer-by-layer walkthrough from inference to observability.
-  *  **Part 3: Operations & Maintenance →** – Ansible deployment, monitoring with Uptime Kuma, and the Open WebUI backup strategy — coming soon 
+  * **[← Part 1: Architecture Overview](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)** – The big picture, layer-by-layer walkthrough from inference to observability.
+  * **Part 3: Operations & Maintenance →** – Ansible deployment, monitoring with Uptime Kuma, and the Open WebUI backup strategy — coming soon 
 
 ## 📚 Related Posts
 
@@ -232,62 +230,62 @@ If the Git credentials are not set, it will back up to the SMB repo like the oth
 
 ## Similar Posts
 
-  * [![vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
+  * [ ![Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore-768x768.png) ](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
-[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
-### [vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
+### [Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
-By[James](https://jameskilby.co.uk)December 6, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) September 2, 2025 · Updated June 5, 2026
 
-How to safely shut down a vSAN Environment
+An intro on how I use SemaphoreUI to manage my Homelab
 
-  * [![Lab Update – Part 2 Storage Truenas Scale](https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault-768x432.jpeg)](https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/)
+  * [ ![Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1-768x1024.jpg) ](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [Lab Update – Part 2 Storage Truenas Scale](https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/)
+### [Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
 
-By[James](https://jameskilby.co.uk)January 11, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) January 6, 2022 · Updated February 16, 2026
 
-The HP Z840 has changed its role to a permanent storage box running Truenas Scale.
+Quite a few changes have happened in the lab recently. I decided to do a multipart blog on the changes.
 
-  * [![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
+  * [ ![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png) ](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
 [Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
-By[James](https://jameskilby.co.uk)September 13, 2020 · Updated May 31, 2026
+By[James](https://jameskilby.co.uk) September 13, 2020 · Updated May 31, 2026
 
 I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.
 
-  * [![How to Run ZFS on VMware vSphere: Setup Guide and Best Practices](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg)](https://jameskilby.co.uk/2024/12/zfs-on-vmware/)
+  * [ ![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png) ](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
-[TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)
 
-### [How to Run ZFS on VMware vSphere: Setup Guide and Best Practices](https://jameskilby.co.uk/2024/12/zfs-on-vmware/)
+### [Automating vSphere Power Management driven by Ansible and SemaphoreUI](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
-By[James](https://jameskilby.co.uk)December 18, 2024 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) April 15, 2026 · Updated June 1, 2026
 
-Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the way back in 2010.
+In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introduction One of the larger costs of running my homelab is the electricity….
 
-  * [![Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1-768x403.jpg)](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
+  * [ ![VMware Cloud on AWS Storage Sizing Quick Reference Guide](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png) ](https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
-### [Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
+### [VMware Cloud on AWS Storage Sizing Quick Reference Guide](https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/)
 
-By[James](https://jameskilby.co.uk)November 21, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) May 21, 2025 · Updated June 1, 2026
 
-I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate.
+Quick reference guide to the available storage resources that you get in VMware Cloud on AWS
 
-  * [![New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg)](https://jameskilby.co.uk/2024/07/new-nodes/)
+  * [ ![Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv-768x432.png) ](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Containers](https://jameskilby.co.uk/category/containers/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/2024/07/new-nodes/)
+### [Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
 
-By[James](https://jameskilby.co.uk)July 2, 2024 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) February 9, 2026 · Updated June 5, 2026
 
-I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul .
+Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere

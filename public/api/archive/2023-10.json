@@ -8,7 +8,7 @@
       "title": "Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide",
       "description": "Step-by-step setup of Nvidia Tesla P4 vGPU on VMware ESXi for a homelab. Drivers, licence server, vGPU profiles, plus gotchas and performance notes.",
       "date": "2023-10-23T14:56:58Z",
-      "modified": "2026-06-01T21:58:55Z",
+      "modified": "2026-06-05T18:55:44Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/",
       "markdown_url": "/markdown/posts/vgpu-setup-in-my-homelab.md",
@@ -16,19 +16,12 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Networking",
-        "Ansible",
         "Automation",
-        "Docker",
-        "Traefik",
-        "VCF",
-        "AWS",
-        "Veeam",
-        "Artificial Intelligence",
-        "NVIDIA",
+        "VMware Cloud on AWS",
         "Storage",
         "vExpert",
-        "VMware Cloud on AWS"
+        "Networking",
+        "Personal"
       ],
       "tags": [
         null,
@@ -36,7 +29,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg",
-      "excerpt": "![Img 1107 768X403 1](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide\n\nBy[James](https://jameskilby.co...."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide\n\nBy[James](https://jameskilby.co.uk) October 23, 20..."
     },
     {
       "slug": "going-out-with-a-bang",
@@ -51,13 +44,14 @@
       "categories": [
         "VMware",
         "Personal",
-        "Homelab",
-        "Nutanix",
-        "vSphere",
         "Runecast",
-        "Networking",
-        "Storage",
-        "AWS"
+        "Hosting",
+        "Cloudflare",
+        "Wordpress",
+        "Homelab",
+        "vSphere",
+        "VMware Cloud on AWS",
+        "vSAN"
       ],
       "tags": [
         null,
@@ -66,7 +60,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo.png",
-      "excerpt": "![Rnli Logo](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# VMware – Going out with a Bang!\n\nBy[James](https://jameskilby.co.uk)October 7, 2023 · Updated June 1, 2026..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# VMware – Going out with a Bang!\n\nBy[James](https://jameskilby.co.uk) October 7, 2023 · Updated June 1, 2026 • 📖1 mi..."
     }
   ]
 }

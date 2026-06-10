@@ -7,7 +7,7 @@ author: James Kilby
 tags:
   - See related posts →
 url: https://jameskilby.co.uk/homelab-software/
-image: https://jameskilby.co.uk/wp-content/uploads/og/homelab-software.png
+image: https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png
 ---
 
-📅 **Published:** November 11, 2023• **Updated:** April 02, 2026
+📅**Published:** November 11, 2023•**Updated:** April 02, 2026

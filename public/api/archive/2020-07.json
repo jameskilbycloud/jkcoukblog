@@ -17,25 +17,24 @@
         "Nutanix",
         "Personal",
         "Consulting",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
-        "Homelab",
-        "VMware"
+        "Devops",
+        "AWS",
+        "VMware",
+        "Hosting"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
-      "excerpt": "![Nutanix Logo Hi Rez Reverse W Carrier](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# Passing the Nutanix NCP Exam: Free Training & My..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# Passing the Nutanix NCP Exam: Free Training & My Experience\n\nBy[James](https://jamesk..."
     },
     {
       "slug": "i3en",
       "title": "VMware Cloud on AWS i3en Host: Specs, Storage & Performance",
-      "description": "VMware Cloud on AWS (VMC) has introduced a new host to its lineup: the “i3en”. This is based on the i3en.metal AWS instance.",
+      "description": "A look at the new VMware Cloud on AWS i3en host — 96 cores, 768GiB RAM and ~46TiB of NVMe storage, and what that means for storage-bound clusters.",
       "date": "2020-07-02T22:01:39Z",
-      "modified": "2026-06-01T21:06:27Z",
+      "modified": "2026-06-05T19:07:48Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2020/07/i3en/",
       "markdown_url": "/markdown/posts/i3en.md",
@@ -43,14 +42,19 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
-        "vSphere",
         "Homelab",
+        "Networking",
+        "Storage",
+        "vSphere",
         "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
         "Automation",
         "Docker",
-        "Traefik",
-        "VCF"
+        "Veeam"
       ],
       "tags": [
         null,

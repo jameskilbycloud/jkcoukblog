@@ -8,15 +8,16 @@ categories:
   - Ansible
   - Automation
   - Homelab
-  - VMware
-  - Veeam
-  - Networking
-  - VMware Cloud on AWS
-  - AWS
+  - Storage
+  - TrueNAS Scale
+  - Hosting
   - Artificial Intelligence
   - Docker
   - NVIDIA
   - Traefik
+  - VMware
+  - vExpert
+  - Nutanix
 tags:
   - #Ansible
   - #Homelab
@@ -32,9 +33,9 @@ image: https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-managem
 
 # Automating vSphere Power Management driven by Ansible and SemaphoreUI
 
-By[James](https://jameskilby.co.uk)April 15, 2026 · Updated June 1, 2026 • 📖7 min read(1,465 words)
+By[James](https://jameskilby.co.uk) April 15, 2026 · Updated June 1, 2026 • 📖7 min read(1,465 words)
 
-📅 **Published:** April 15, 2026• **Updated:** June 01, 2026
+📅**Published:** April 15, 2026•**Updated:** June 01, 2026
 
 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. 
 
@@ -58,9 +59,9 @@ As I have been using Ansible a lot lately, I decided to create two playbooks tha
 
 ## How vSphere Power Management driven by Ansible Works
 
-vSphere’s default power policy is “ **Balanced** ,” which leverages P-states aggressively that govern frequency and voltage scaling, while preserving turbo boost and fast ramp-up behaviour. With C-states enabled which govern idle sleep states, the CPU can opportunistically run at higher frequencies during bursts, processing workloads more quickly.
+vSphere’s default power policy is “**Balanced** ,” which leverages P-states aggressively that govern frequency and voltage scaling, while preserving turbo boost and fast ramp-up behaviour. With C-states enabled which govern idle sleep states, the CPU can opportunistically run at higher frequencies during bursts, processing workloads more quickly.
 
- **Low Power** mode tells vSphere to choose efficiency over speed. The CPU spends more time in deep C-states when idle, sits at lower P-states when active, and is far less willing to ramp up frequency or engage turbo boost. The result is reduced power draw and heat output, at the cost of slower response to sudden workload spikes.
+**Low Power** mode tells vSphere to choose efficiency over speed. The CPU spends more time in deep C-states when idle, sits at lower P-states when active, and is far less willing to ramp up frequency or engage turbo boost. The result is reduced power draw and heat output, at the cost of slower response to sudden workload spikes.
 
 On my HP Z840 which is my box that stays on 24×7 and contains 2x Xeon E5-2673v3 I am expecting an approximate 30w difference between the two modes. (I will likely try and measure this in the future.) The average price I’ve paid over the 1600-1900hrs time period for the last year is 33.10p/kWh. This gives me an approximate saving of £11.00 a year. Nothing huge, but I often will have 3 more additional vSphere servers on at the same time. I will use this setting globally. It’s nice to save some money and be a bit greener at the same time. 
 
@@ -212,10 +213,10 @@ This playbook switches all hosts in the specified clusters back to **Balanced** 
 
 Each playbook expects the following variables to be passed in via Semaphore:
 
-  *  **vcenter_host** — the FQDN or IP of your vCenter Server
-  *  **vcenter_user** — a vCenter user with host configuration privileges
-  *  **vcenter_pass** — the password for the above user (mark as secret in Semaphore)
-  *  **cluster_names** — the vSphere cluster(s) to target, either a single name (e.g. `"GPU"`) or a list (e.g. `["GPU", "Compute"]`)
+  * **vcenter_host** — the FQDN or IP of your vCenter Server
+  * **vcenter_user** — a vCenter user with host configuration privileges
+  * **vcenter_pass** — the password for the above user (mark as secret in Semaphore)
+  * **cluster_names** — the vSphere cluster(s) to target, either a single name (e.g. `"GPU"`) or a list (e.g. `["GPU", "Compute"]`)
 
 These can be set in the Semaphore task template as variables. Semaphore injects them at runtime, so you never need to store sensitive vCenter credentials alongside your playbook code.
 
@@ -253,58 +254,62 @@ Before running these playbooks, make sure you have the following in place:
 
 ## Similar Posts
 
-  * [![Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1-768x1024.jpg)](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
+  * [ ![Can you really squeeze 96TB in 1U ?](https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png) ](https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/)
 
-### [Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
+### [Can you really squeeze 96TB in 1U ?](https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/)
 
-By[James](https://jameskilby.co.uk)January 6, 2022 · Updated February 16, 2026
+By[James](https://jameskilby.co.uk) September 12, 2024 · Updated June 1, 2026
 
-Quite a few changes have happened in the lab recently. I decided to do a multipart blog on the changes.
+Yes, that’s a clickbait title. But technically it’s possible if I dropped all drive redundancy… I recently saw an advert for a server that was just too good to be true.
 
-  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+  * [ ![Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920-768x432.jpg) ](https://jameskilby.co.uk/2022/10/starlink/)
 
-### [Lab Update – Desired Workloads](https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
 
-By[James](https://jameskilby.co.uk)January 6, 2022 · Updated June 1, 2026
+### [Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/2022/10/starlink/)
 
-My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.
+By[James](https://jameskilby.co.uk) October 11, 2022 · Updated June 1, 2026
 
-  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
+Since moving to Dorset last year internet connectivity has been the bane of my existence. Currently, I have an ADSL connection provided by my old employer Zen and a 5G connection provided by Three.
 
-### [Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense](https://jameskilby.co.uk/2022/01/lab-update-part-3-network/)
-
-By[James](https://jameskilby.co.uk)January 6, 2022 · Updated May 31, 2026
-
-I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes.
-
-  * [![Using Content Libraries in VMC to deploy software faster](https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash-768x417.png)](https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/)
-
-[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
-
-### [Using Content Libraries in VMC to deploy software faster](https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/)
-
-By[James](https://jameskilby.co.uk)January 27, 2026 · Updated May 25, 2026
-
-How to leverage Content Libraries to deploy into VMware Cloud on AWS faster.
-
-  * [![Monitoring VMware Cloud on AWS: Tools & Approaches \(Part 1\)](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)](https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/)
-
-[VMware](https://jameskilby.co.uk/category/vmware/) | [AWS](https://jameskilby.co.uk/category/aws/) | [Veeam](https://jameskilby.co.uk/category/veeam/)
-
-### [Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1)](https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/)
-
-By[James](https://jameskilby.co.uk)December 17, 2019 · Updated June 1, 2026
-
-As previously mentioned I have been working a lot with VMware Cloud on AWS and one of the questions that often crops up is around an approach to monitoring.
-
-  * [![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
+  * [ ![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png) ](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
-By[James](https://jameskilby.co.uk)April 4, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) April 4, 2026 · Updated June 1, 2026
 
 Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each.
+
+  * [ ![Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1-768x1024.jpg) ](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
+
+By[James](https://jameskilby.co.uk) January 6, 2022 · Updated February 16, 2026
+
+Quite a few changes have happened in the lab recently. I decided to do a multipart blog on the changes.
+
+  * [ ![Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png) ](https://jameskilby.co.uk/2023/04/intel-optane/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://jameskilby.co.uk/category/vexpert/)
+
+### [Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/2023/04/intel-optane/)
+
+By[James](https://jameskilby.co.uk) April 17, 2023 · Updated June 1, 2026
+
+I have been a VMware vExpert for many years and it has brought me many benefits over the years.
+
+  * [ ![New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg) ](https://jameskilby.co.uk/2024/07/new-nodes/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/2024/07/new-nodes/)
+
+By[James](https://jameskilby.co.uk) July 2, 2024 · Updated June 5, 2026
+
+I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul .

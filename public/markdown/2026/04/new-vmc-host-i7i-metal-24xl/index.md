@@ -1,22 +1,20 @@
 ---
 title: "New VMware Cloud on AWS Host: i7i.metal-24xl"
-description: "We’ve expanded the VMC fleet with the new i7i (i7i.24xlarge) host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it"
+description: "We’ve expanded the VMC fleet with the new i7i (i7i."
 date: 2026-04-01T08:06:00+00:00
 modified: 2026-06-01T21:07:20+00:00
 author: James Kilby
 categories:
   - VMware
   - VMware Cloud on AWS
-  - Homelab
-  - Ansible
+  - vSAN
   - Artificial Intelligence
-  - Containers
-  - Devops
-  - NVIDIA
-  - Traefik
   - Automation
   - Docker
-  - Nutanix
+  - Homelab
+  - NVIDIA
+  - Traefik
+  - VCF
 tags:
   - #I7i
   - #VMware
@@ -25,32 +23,32 @@ url: https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/
 image: https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp
 ---
 
-![Vmconaws.Png](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)
+![](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
 # New VMware Cloud on AWS Host: i7i.metal-24xl
 
-By[James](https://jameskilby.co.uk)April 1, 2026 · Updated June 1, 2026 • 📖4 min read(869 words)
+By[James](https://jameskilby.co.uk) April 1, 2026 · Updated June 1, 2026 • 📖4 min read(869 words)
 
-📅 **Published:** April 01, 2026• **Updated:** June 01, 2026
+📅**Published:** April 01, 2026•**Updated:** June 01, 2026
 
-We’ve expanded the VMC fleet with the new **i7i**[ **(i7i.24xlarge)**](https://aws.amazon.com/ec2/instance-types/i7i/)host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it delivers the fleet’s highest single-core performance and memory bandwidth, making it well suited for latency-sensitive workloads and high-performance vSAN configurations.
+We’ve expanded the VMC fleet with the new **i7i**[**(i7i.24xlarge)** ](https://aws.amazon.com/ec2/instance-types/i7i/)host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it delivers the fleet’s highest single-core performance and memory bandwidth, making it well suited for latency-sensitive workloads and high-performance vSAN configurations.
 
 ## Key Technical Specs:
 
-  *  **Performance:** Intel Emerald Rapids CPUs + PCIe Gen5, offering the fleet’s highest clock speeds and memory bandwidth.
-  *  **Storage:** Optimized for vSAN with the fastest available NVMe devices. Support for both vSAN OSA and ESA
-  *  **Security:** Enhanced security based on [Intel Total Memory Encryption](https://www.intel.com/content/dam/www/central-libraries/us/en/documents/white-paper-intel-tme.pdf)
+  * **Performance:** Intel Emerald Rapids CPUs + PCIe Gen5, offering the fleet’s highest clock speeds and memory bandwidth.
+  * **Storage:** Optimized for vSAN with the fastest available NVMe devices. Support for both vSAN OSA and ESA
+  * **Security:** Enhanced security based on [Intel Total Memory Encryption](https://www.intel.com/content/dam/www/central-libraries/us/en/documents/white-paper-intel-tme.pdf)
 
 This host brings a blend of usable options to complement the existing VMC fleet ranging from bleeding edge performance for tier one applications. It also supports expanded DR capabilities with SCFS via [VLR](https://techdocs.broadcom.com/us/en/vmware-cis/live-recovery.html).
 
 The below table compares the specifications of all nodes currently running in VMC.
 
-|  **I3**|  **I3en**|  **I4i**|  **I7i**  
+| **I3**| **I3en**| **I4i**| **I7i**  
 ---|---|---|---|---  
 AWS Nitro Version| v2| v3| v4| v4  
- **CPU**| | | |   
+**CPU**| | | |   
 Processor Name| Intel Xeon E5-2686 v4 | Intel Xeon Platinum 8175| Intel Xeon 8375c| Intel Xeon 8559c  
 No of Physical Cores| 36| 48| 64| 48  
 Hyperthreading| No| Yes| Yes| Yes  
@@ -60,13 +58,13 @@ Processor Family| Broadwell| Skylake| Ice Lake| Emerald Rapids
 Supported Custom Core Counts| 8 16 36| 8 16 24   
 30 36 48| 8 16 24   
 30 36 48 64| 8 16 24 30 36  
- **Memory**| | | |   
+**Memory** | | | |   
 Capacity GiB| 512| 768| 1024| 768  
 Memory Speed| DDR4-2400| DDR4-2666| DDR4-3200| DDR5-5600  
- **Networking**| | | |   
+**Networking**| | | |   
 Network Adaptor Speed Gb/s| 25| 100| 75 | 56.25  
 Hardware Network Encryption | No| Yes| Yes| Yes  
- **Storage**| | | |   
+**Storage**| | | |   
 Drive Connection| PCIe Gen3| PCIe Gen3| PCIe Gen4| PCIe Gen5  
 Physical Drives| 8×1900| 8×7500| 8×3570| 6×3750  
 Physical Raw Space GiB| 15,200| 60,000| 28,560| 22,500  
@@ -89,20 +87,20 @@ Underlying Storage Performance Throughput*| –| 2375| 5000| 3750
 
 The i7i.metal-24xl is optimised for I/O-intensive enterprise workloads that demand the highest possible random IOPS with predictable, sub-millisecond latency. It is particularly well-suited for:
 
-  *  **SQL Server and Oracle databases** — DDR5-5600 memory bandwidth and Gen5 NVMe deliver measurable query throughput gains over i4i hosts
-  *  **High-frequency messaging platforms** — Kafka and Redis workloads benefit from low-latency NVMe and improved single-core turbo performance up to 4.0 GHz
-  *  **AI/ML inference** — large model serving with high memory bandwidth maps well to the 768 GiB DDR5 configuration
-  *  **VDI and virtualised desktop workloads** — the Custom CPU Core Count option (8, 16, 24, 30, or 36 physical cores) allows cost-effective right-sizing per host
-  *  **Workloads currently on i3 or i3en** — the i7i offers significantly better compute, memory bandwidth, and storage performance
+  * **SQL Server and Oracle databases** — DDR5-5600 memory bandwidth and Gen5 NVMe deliver measurable query throughput gains over i4i hosts
+  * **High-frequency messaging platforms** — Kafka and Redis workloads benefit from low-latency NVMe and improved single-core turbo performance up to 4.0 GHz
+  * **AI/ML inference** — large model serving with high memory bandwidth maps well to the 768 GiB DDR5 configuration
+  * **VDI and virtualised desktop workloads** — the Custom CPU Core Count option (8, 16, 24, 30, or 36 physical cores) allows cost-effective right-sizing per host
+  * **Workloads currently on i3 or i3en** — the i7i offers significantly better compute, memory bandwidth, and storage performance
 
 ## vSAN Configuration and Deployment Requirements
 
 The i7i.metal-24xl supports both **vSAN OSA** (Original Storage Architecture) and **vSAN ESA** (Express Storage Architecture). ESA is the recommended configuration for new deployments — it treats all six NVMe drives as a single-tier pool, delivering superior throughput and compression compared to OSA.
 
-  *  **SDDC version 1.26v2 or later** required for cluster conversions and new secondary cluster deployments
-  *  **Minimum 3-node cluster** — with vSAN compression enabled, a 3-node i7i cluster delivers strong usable capacity from the 6 × 3,750 GiB NVMe drives per host
-  *  **Stretched Cluster support** — opt-in multi-AZ stretched cluster deployments supported, providing HA across two AWS Availability Zones in a single region
-  *  **Custom CPU Core Count** — 8, 16, 24, 30, or 36 physical cores per host, useful for Oracle licensing optimisation
+  * **SDDC version 1.26v2 or later** required for cluster conversions and new secondary cluster deployments
+  * **Minimum 3-node cluster** — with vSAN compression enabled, a 3-node i7i cluster delivers strong usable capacity from the 6 × 3,750 GiB NVMe drives per host
+  * **Stretched Cluster support** — opt-in multi-AZ stretched cluster deployments supported, providing HA across two AWS Availability Zones in a single region
+  * **Custom CPU Core Count** — 8, 16, 24, 30, or 36 physical cores per host, useful for Oracle licensing optimisation
 
 ## Frequently Asked Questions
 
@@ -132,62 +130,62 @@ The official announcement can be found [here](https://blogs.vmware.com/cloud-fou
 
 ## Similar Posts
 
-  * [![An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png)](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
+  * [ ![An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png) ](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
 ### [An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
 
-By[James](https://jameskilby.co.uk)August 14, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) August 14, 2025 · Updated June 5, 2026
 
 This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison.
 
-  * [![Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1-768x1024.jpg)](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
+  * [ ![vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg) ](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
 
-### [Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
+### [vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
 
-By[James](https://jameskilby.co.uk)January 6, 2022 · Updated February 16, 2026
+By[James](https://jameskilby.co.uk) December 6, 2025 · Updated June 1, 2026
 
-Quite a few changes have happened in the lab recently. I decided to do a multipart blog on the changes.
+How to safely shut down a vSAN Environment
 
-  * [![Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv-768x432.png)](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
-
-[Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Containers](https://jameskilby.co.uk/category/containers/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
-
-By[James](https://jameskilby.co.uk)February 9, 2026 · Updated June 1, 2026
-
-Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere
-
-  * [![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
-
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [My Self-Hosted AI Stack: Architecture Overview (Part 1)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
-
-By[James](https://jameskilby.co.uk)March 27, 2026 · Updated May 31, 2026
-
-A walkthrough of my self-hosted AI stack: Ollama, Open WebUI, ComfyUI, Whishper, n8n, Qdrant, SearxNG, and a full observability layer — all running on my own hardware with Docker Compose.
-
-  * [![New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg)](https://jameskilby.co.uk/2024/07/new-nodes/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/2024/07/new-nodes/)
-
-By[James](https://jameskilby.co.uk)July 2, 2024 · Updated June 1, 2026
-
-I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul .
-
-  * [![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
+  * [ ![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png) ](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
-By[James](https://jameskilby.co.uk)April 4, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) April 4, 2026 · Updated June 1, 2026
 
 Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each.
+
+  * [ ![Template Deployment with Packer](https://jameskilby.co.uk/wp-content/uploads/2021/01/logo_packer.png) ](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
+
+[Automation](https://jameskilby.co.uk/category/automation/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [Template Deployment with Packer](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
+
+By[James](https://jameskilby.co.uk) January 21, 2021 · Updated June 5, 2026
+
+Packer is one of those tools I have heard about, and some of the cool people on Twitter that I follow have been using it for a while.
+
+  * [ ![vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg) ](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
+
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
+
+### [vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
+
+By[James](https://jameskilby.co.uk) November 17, 2023 · Updated June 1, 2026
+
+An Overview of vSAN ESA in VMC 
+
+  * [ ![VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png) ](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
+
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/)
+
+### [VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
+
+By[James](https://jameskilby.co.uk) January 17, 2024 · Updated June 1, 2026
+
+How to Deploy VMware Holodeck on multiple hosts

@@ -1,23 +1,25 @@
 ---
 title: "How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare"
-description: "I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made."
+description: "How I deploy my blog as a static site using GitHub Actions and Cloudflare — the WordPress API, build pipeline, Slack notifications, and comments setup."
 date: 2025-10-06T15:57:06+00:00
-modified: 2026-06-01T21:07:11+00:00
+modified: 2026-06-05T18:40:41+00:00
 author: James Kilby
 categories:
   - Cloudflare
   - Devops
   - Github
   - Wordpress
-  - Ansible
-  - Artificial Intelligence
-  - Containers
-  - Homelab
-  - NVIDIA
-  - Traefik
-  - VMware
-  - Hosting
   - Personal
+  - Hosting
+  - Ansible
+  - Automation
+  - Docker
+  - Homelab
+  - Traefik
+  - VCF
+  - VMware
+  - Artificial Intelligence
+  - NVIDIA
 tags:
   - #Blog
   - #Cloudflare
@@ -29,17 +31,17 @@ url: https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-w
 image: https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp
 ---
 
-![Github Actions](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)
+![](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)
 
 [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
 
 # How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare
 
-By[James](https://jameskilby.co.uk)October 6, 2025 · Updated June 1, 2026 • 📖7 min read(1,382 words)
+By[James](https://jameskilby.co.uk) October 6, 2025 · Updated June 5, 2026 • 📖7 min read(1,406 words)
 
-📅 **Published:** October 06, 2025• **Updated:** June 01, 2026
+📅**Published:** October 06, 2025•**Updated:** June 05, 2026
 
-I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.
+Here is how I rebuilt my blog as a static site, using GitHub Actions and Cloudflare to automate the whole publish pipeline. I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.
 
 ## Table of Contents
 
@@ -57,9 +59,9 @@ The new setup is conceptually similar in that I have maintained the authoring Wo
 
 I have introduced a GitHub runner that runs alongside the WordPress Instance. This runner has permissions to query the WordPress API to get data. Now when I have finished updating my site, I can start the runner. It then scans the site making a local copy of it and performs an automated check-in to Github.
 
- **Disclaimer:** I used a fair bit of AI to help with some of the python and API calls. It also wrote the documentation for me.
+**Disclaimer:** I used a fair bit of AI to help with some of the python and API calls. It also wrote the documentation for me.
 
-## How I got there
+## How I Built the Static Site
 
 First things first, I created a new GitHub repo so that if I messed anything up, I could point Cloudflare back to the previous WordPress Repo.
 
@@ -243,7 +245,7 @@ Within WordPress I changed comments.php to the following
 
 I also wanted a Slack notification if anyone posted comments on one of my pages. Unfortunately the payload Slack is expecting is a JSON payload in a specific format that GitHub doesn’t do by default. I therefore created a new GitHub Action to trigger the notification
 
-###  **Use GitHub Actions**
+### **Use GitHub Actions**
 
 You can trigger Slack messages directly via GitHub Actions:
 
@@ -284,62 +286,62 @@ I am using the same SLACK_WEBHOOK_URL as defined previously so these get posted 
 
 ## Similar Posts
 
-  * [![Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv-768x432.png)](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
-
-[Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Containers](https://jameskilby.co.uk/category/containers/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
-
-By[James](https://jameskilby.co.uk)February 9, 2026 · Updated June 1, 2026
-
-Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere
-
-  * [![Fixing Wrangler Node.js Version Conflicts After Brew Upgrade](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1-768x256.png)](https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/)
-
-[Cloudflare](https://jameskilby.co.uk/category/cloudflare/)
-
-### [Fixing Wrangler Node.js Version Conflicts After Brew Upgrade](https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/)
-
-By[James](https://jameskilby.co.uk)January 15, 2022 · Updated June 1, 2026
-
-I am a massive fan of the brew package management system for macOS and use it on all of my Macs. I typically just upgrade everything blindly and have never had an issue.
-
-  * [![Blog Performance & SEO Improvements: Cloudflare, Privacy & More](https://jameskilby.co.uk/wp-content/uploads/2026/01/Website-Optimisations-768x560.png)](https://jameskilby.co.uk/2026/01/web-development-improvements/)
-
-[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
-
-### [Blog Performance & SEO Improvements: Cloudflare, Privacy & More](https://jameskilby.co.uk/2026/01/web-development-improvements/)
-
-By[James](https://jameskilby.co.uk)January 15, 2026 · Updated June 1, 2026
-
-I have spent the Christmas break making some improvements to this blog.
-
-  * [![WordPress Hosting with Cloudflare Pages](https://jameskilby.co.uk/wp-content/uploads/2023/05/simply-static-logo.png)](https://jameskilby.co.uk/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages/)
-
-[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
-
-### [WordPress Hosting with Cloudflare Pages](https://jameskilby.co.uk/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages/)
-
-By[James](https://jameskilby.co.uk)May 14, 2023 · Updated June 1, 2026
-
-Table of Contents The Tooling The Process WordPress Plugin Install GitHub setup Cloudflare setup I have been using Cloudflare to protect my web assets for a really long time.
-
-  * [![Static WordPress hosting using Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu-768x450.jpeg)](https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/)
-
-[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
-
-### [Static WordPress hosting using Cloudflare](https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/)
-
-By[James](https://jameskilby.co.uk)October 20, 2022 · Updated June 1, 2026
-
-For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product.
-
-  * [![My First GitHub Pull Request: Contributing to Open Source](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg)](https://jameskilby.co.uk/2020/12/my-first-pull/)
+  * [ ![My First GitHub Pull Request: Contributing to Open Source](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg) ](https://jameskilby.co.uk/2020/12/my-first-pull/)
 
 [Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
 ### [My First GitHub Pull Request: Contributing to Open Source](https://jameskilby.co.uk/2020/12/my-first-pull/)
 
-By[James](https://jameskilby.co.uk)December 22, 2020 · Updated May 31, 2026
+By[James](https://jameskilby.co.uk) December 22, 2020 · Updated June 5, 2026
 
 I was initially going to add in the contents of this post to one that I have been writing about my exploits with HashiCorp Packer but I decided it probably warranted being separated out.
+
+  * [ ![Hosting This Blog on Cloudflare Workers: Why & How I Did It](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2-768x229.png) ](https://jameskilby.co.uk/2022/01/web-development/)
+
+[Hosting](https://jameskilby.co.uk/category/hosting/) | [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Personal](https://jameskilby.co.uk/category/personal/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
+
+### [Hosting This Blog on Cloudflare Workers: Why & How I Did It](https://jameskilby.co.uk/2022/01/web-development/)
+
+By[James](https://jameskilby.co.uk) January 4, 2022 · Updated May 25, 2026
+
+A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them.
+
+  * [ ![Automated VCF 9 Offline Depot architecture diagram showing Traefik reverse proxy and Nginx file server stack](https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png) ](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
+
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [Automated VCF 9 Offline Depot](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
+
+By[James](https://jameskilby.co.uk) April 10, 2026 · Updated June 1, 2026
+
+One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS.
+
+  * [ ![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png) ](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
+
+[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
+
+By[James](https://jameskilby.co.uk) April 4, 2026 · Updated June 1, 2026
+
+Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each.
+
+  * [ ![Static WordPress hosting using Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu-768x450.jpeg) ](https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/)
+
+[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
+
+### [Static WordPress hosting using Cloudflare](https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/)
+
+By[James](https://jameskilby.co.uk) October 20, 2022 · Updated June 1, 2026
+
+For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product.
+
+  * [ ![Automating vSphere Golden Images with Packer and GitHub Actions](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline-768x452.png) ](https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/)
+
+[Automation](https://jameskilby.co.uk/category/automation/) | [Github](https://jameskilby.co.uk/category/github/)
+
+### [Automating vSphere Golden Images with Packer and GitHub Actions](https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/)
+
+By[James](https://jameskilby.co.uk) April 30, 2026 · Updated June 5, 2026
+
+A walk-through of an automated golden-image pipeline for vSphere: HashiCorp Packer builds six Ubuntu LTS templates (22.04, 24.04, 26.04 — server and desktop) driven by three GitHub Actions workflows covering PR validation, parallel template builds, and ISO management via a self-hosted runner.

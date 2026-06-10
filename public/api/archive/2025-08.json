@@ -6,9 +6,9 @@
     {
       "slug": "vmc-host-deepdive",
       "title": "An in-depth look at VMware Cloud on AWS hosts",
-      "description": "This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison.",
+      "description": "A full side-by-side comparison of every VMware Cloud on AWS host type — I3.metal, I3en.metal and I4i.metal — covering CPU, memory, storage and networking specs.",
       "date": "2025-08-14T12:32:01Z",
-      "modified": "2026-06-01T21:59:06Z",
+      "modified": "2026-06-05T18:44:50Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/08/vmc-host-deepdive/",
       "markdown_url": "/markdown/posts/vmc-host-deepdive.md",
@@ -16,21 +16,22 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "VCF",
-        "Homelab",
-        "Personal",
-        "Networking",
-        "Storage",
         "Ansible",
-        "Automation",
-        "Docker",
-        "Traefik"
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "AWS",
+        "Veeam",
+        "Automation"
       ],
       "tags": [
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png",
-      "excerpt": "![Picture 1 E1768509620339](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# An in-depth look at VMware Cloud on AWS hosts\n\n..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# An in-depth look at VMware Cloud on AWS hosts\n\nBy[James](https://jamesk..."
     }
   ]
 }

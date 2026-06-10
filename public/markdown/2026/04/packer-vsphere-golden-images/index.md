@@ -2,21 +2,22 @@
 title: "Automating vSphere Golden Images with Packer and GitHub Actions"
 description: "Automate your Packer vSphere golden-image pipeline: build 6 Ubuntu LTS templates (22.04, 24.04, 26.04) server & desktop flavours with GitHub Actions."
 date: 2026-04-30T17:22:19+00:00
-modified: 2026-06-04T20:39:00+00:00
+modified: 2026-06-05T10:10:32+00:00
 author: James Kilby
 categories:
   - Automation
   - Github
-  - TrueNAS Scale
-  - VMware
-  - vSAN
-  - vSphere
-  - Homelab
-  - Hosting
   - Runecast
-  - Networking
+  - VMware
   - Artificial Intelligence
   - Docker
+  - Homelab
+  - NVIDIA
+  - Traefik
+  - Storage
+  - vExpert
+  - Networking
+  - Hosting
   - Kubernetes
 tags:
   - #Automation
@@ -30,15 +31,15 @@ url: https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/
 image: https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png
 ---
 
-![Packer Github Actions Vsphere Pipeline](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png)
+![](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png)
 
 [Automation](https://jameskilby.co.uk/category/automation/) | [Github](https://jameskilby.co.uk/category/github/)
 
 # Automating vSphere Golden Images with Packer and GitHub Actions
 
-By[James](https://jameskilby.co.uk)April 30, 2026 · Updated June 4, 2026 • 📖14 min read(2,744 words)
+By[James](https://jameskilby.co.uk) April 30, 2026 · Updated June 5, 2026 • 📖14 min read(2,760 words)
 
-📅 **Published:** April 30, 2026• **Updated:** June 04, 2026
+📅**Published:** April 30, 2026•**Updated:** June 05, 2026
 
 Building VM templates by hand is slow, error-prone, and impossible to audit. This post walks through how I built this Packer vSphere pipeline to automate golden-image deployment for my homelab using [HashiCorp Packer](https://www.packer.io/) and [GitHub Actions](https://github.com/features/actions). Inspiration originally taken from the repo that Ryan [built](https://github.com/vmware/packer-examples-for-vsphere) that I have discussed [previously](https://jameskilby.co.uk/2021/01/hashicorp-packer/). 
 
@@ -63,8 +64,10 @@ All templates use EFI firmware, pvscsi storage, vmxnet3 networking, thin-provisi
 The pipeline has three major logical stages: 
 
   * Retrieve downloads from Ubuntu.com and upload them to vSphere Content Library
-  * Build Ubuntu Server and Desktop templates
-  * Validate the template is healthy
+  * Build Ubuntu Server and Desktop templates and validate the template is healthy
+  * Lifecycle the template
+
+![](https://jameskilby.co.uk/wp-content/uploads/2026/04/PackerFullFlow-912x1024.png)Full Packer Flow
 
 ### Upload ISOs to Content Library
 
@@ -78,7 +81,7 @@ This script is idempotent — if an ISO already exists it will be skipped. This 
 
 The build process is a multi-step process. When running the action manually you are asked which VMs you want to provision. It’s possible to select individual VMs, a whole Ubuntu family, or all six. The same workflow also runs on a weekly cron so your templates stay up to date without manual effort.
 
-![Buildselection](https://jameskilby.co.uk/wp-content/uploads/2026/04/BuildSelection.png)
+![](https://jameskilby.co.uk/wp-content/uploads/2026/04/BuildSelection.png)Template Selection
 
 Once the selection is done the first build step just determines which files are required for the provisioner. The next step validates that the VMware environment is available and healthy and that sufficient disk space is available for the build. It also checks that all required secrets are defined within GitHub
 
@@ -94,7 +97,7 @@ Once provisioning completes, Packer converts the finished VM to a vSphere templa
 
 After the provisioning step is complete, GitHub Actions deploys the VM from the newly created template and executes a smoke test plan against them. This validates that not only was the VM built, but that it is usable.
 
-![Packer Workflow 1024X160](https://jameskilby.co.uk/wp-content/uploads/2026/04/Packer-Workflow-1024x160.png)
+![](https://jameskilby.co.uk/wp-content/uploads/2026/04/Packer-Workflow-1024x160.png)Build Workflow
 
 An example failure that I discovered in testing was
     
@@ -111,7 +114,7 @@ An example failure that I discovered in testing was
 
 On failure during testing the system will also take a screenshot and save it, this can help with troubleshooting later. In this particular instance it was a Netplan issue. Netplan at install time rendered a config with the install-time MAC baked in. On the clone, ens33 had a fresh MAC, neither renderer’s config matches it. 
 
-![Smoke Ubuntu 2404 Desktop 20260529 26645739266 Midwait 1024X614](https://jameskilby.co.uk/wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-1024x614.png)
+![](https://jameskilby.co.uk/wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-1024x614.png)Failure Screenshot
 
 ## Concurrency and safety
 
@@ -180,11 +183,11 @@ Two optional secrets control admin account creation in the template: `ADMIN_USER
 
 A few things this pipeline gives you that manual template builds don’t:
 
-  *  **Reproducibility** — every template is built from the same HCL source, the same provisioner scripts, and the same Ubuntu ISO. No “I think I installed that manually last time.”
-  *  **Up-to-date templates** — the weekly cron rebuild means templates always include the latest security patches from `apt upgrade`, without any manual effort.
-  *  **Auditability** — every build is tied to a git commit. The Packer log and manifest are retained as workflow artifacts. You can see exactly what changed and when.
-  *  **PR validation** — format and syntax checks on every pull request mean broken HCL never reaches `main`.
-  *  **No local tooling required day-to-day** — after the one-time secrets setup, builds run entirely in the cloud. Useful if you work across multiple machines.
+  * **Reproducibility** — every template is built from the same HCL source, the same provisioner scripts, and the same Ubuntu ISO. No “I think I installed that manually last time.”
+  * **Up-to-date templates** — the weekly cron rebuild means templates always include the latest security patches from `apt upgrade`, without any manual effort.
+  * **Auditability** — every build is tied to a git commit. The Packer log and manifest are retained as workflow artifacts. You can see exactly what changed and when.
+  * **PR validation** — format and syntax checks on every pull request mean broken HCL never reaches `main`.
+  * **No local tooling required day-to-day** — after the one-time secrets setup, builds run entirely in the cloud. Useful if you work across multiple machines.
 
 ## How to build this
 
@@ -274,8 +277,8 @@ Keep the plaintext password to hand: `BUILD_PASSWORD` takes the plaintext, `BUIL
 
 Open **Settings → Secrets and variables → Actions → New repository secret** in your forked repo and add each value below. The full reference (every secret + which workflow uses it) lives in `docs/operations.md → GitHub Secrets`. Minimum set:
 
-  *  **vCenter connection** — `VSPHERE_SERVER`, `VSPHERE_USER`, `VSPHERE_PASSWORD`, `VSPHERE_DATACENTER`, `VSPHERE_CLUSTER` (or `VSPHERE_HOST`), `VSPHERE_DATASTORE`, `VSPHERE_NETWORK`, `VSPHERE_FOLDER`, `VSPHERE_ISO_LIBRARY_DATASTORE`
-  *  **Build credentials** — `BUILD_USERNAME`, `BUILD_PASSWORD`, `BUILD_PASSWORD_ENCRYPTED` (the `$6$…` hash from Step 3)
+  * **vCenter connection** — `VSPHERE_SERVER`, `VSPHERE_USER`, `VSPHERE_PASSWORD`, `VSPHERE_DATACENTER`, `VSPHERE_CLUSTER` (or `VSPHERE_HOST`), `VSPHERE_DATASTORE`, `VSPHERE_NETWORK`, `VSPHERE_FOLDER`, `VSPHERE_ISO_LIBRARY_DATASTORE`
+  * **Build credentials** — `BUILD_USERNAME`, `BUILD_PASSWORD`, `BUILD_PASSWORD_ENCRYPTED` (the `$6$…` hash from Step 3)
 
 If you prefer the CLI, authenticate once with `gh auth login` and then set each value:
     
@@ -319,6 +322,8 @@ That is the end of the setup. From here on:
   * You can rebuild any template on demand from the Actions UI at any time.
   * The **Check ISO updates** workflow runs every Monday and opens a GitHub pull request with the new ISO filenames when Ubuntu ships a point release — no manual re-upload needed.
 
+![](https://jameskilby.co.uk/wp-content/uploads/2026/04/SuccessfulPackerDeployment-1024x173.png)Successful Packer Deployment
+
 ## 26.04 failures
 
 Getting 22.04 and 24.04 to build was a fairly quick process — the newest version of Ubuntu has been a nightmare. I went through many builds trying to get this to work reliably.
@@ -347,60 +352,62 @@ The process of building this used some AI to help me with parts of the Packer si
 
 ## Similar Posts
 
-  * [![How to Run ZFS on VMware vSphere: Setup Guide and Best Practices](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg)](https://jameskilby.co.uk/2024/12/zfs-on-vmware/)
-
-[TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
-
-### [How to Run ZFS on VMware vSphere: Setup Guide and Best Practices](https://jameskilby.co.uk/2024/12/zfs-on-vmware/)
-
-By[James](https://jameskilby.co.uk)December 18, 2024 · Updated June 1, 2026
-
-Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the way back in 2010.
-
-  * [![Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920-768x432.jpg)](https://jameskilby.co.uk/2022/10/starlink/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
-
-### [Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/2022/10/starlink/)
-
-By[James](https://jameskilby.co.uk)October 11, 2022 · Updated June 1, 2026
-
-Since moving to Dorset last year internet connectivity has been the bane of my existence. Currently, I have an ADSL connection provided by my old employer Zen and a 5G connection provided by Three.
-
-  * [![Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
+  * [ ![Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png) ](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
 
 [Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
 
-By[James](https://jameskilby.co.uk)May 16, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) May 16, 2023 · Updated June 1, 2026
 
 I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.
 
-  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
+  * [ ![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png) ](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
 
-### [Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense](https://jameskilby.co.uk/2022/01/lab-update-part-3-network/)
+[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-By[James](https://jameskilby.co.uk)January 6, 2022 · Updated May 31, 2026
+### [My Self-Hosted AI Stack: Architecture Overview (Part 1)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
 
-I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes.
+By[James](https://jameskilby.co.uk) March 27, 2026 · Updated May 31, 2026
 
-  * [![Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU](https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-768x512.jpg)](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/)
+A walkthrough of my self-hosted AI stack: Ollama, Open WebUI, ComfyUI, Whishper, n8n, Qdrant, SearxNG, and a full observability layer — all running on my own hardware with Docker Compose.
 
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
+  * [ ![Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png) ](https://jameskilby.co.uk/2023/04/intel-optane/)
 
-### [Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://jameskilby.co.uk/category/vexpert/)
 
-By[James](https://jameskilby.co.uk)October 11, 2024 · Updated June 1, 2026
+### [Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/2023/04/intel-optane/)
 
-Artificial intelligence is all the rage at the moment, It’s getting included in every product announcement from pretty much every vendor under the sun.
+By[James](https://jameskilby.co.uk) April 17, 2023 · Updated June 1, 2026
 
-  * [![Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png)](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
+I have been a VMware vExpert for many years and it has brought me many benefits over the years.
+
+  * [ ![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png) ](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
+
+By[James](https://jameskilby.co.uk) December 19, 2022 · Updated June 1, 2026
+
+For a while, I’ve been looking to update the networking at the core of my homelab.
+
+  * [ ![Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png) ](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
 
 [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernetes/)
 
 ### [Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
 
-By[James](https://jameskilby.co.uk)December 9, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) December 9, 2022 · Updated June 5, 2026
 
 Late to the party or not, I have been using containers in my lab more and more and that has led me to Portainer ….
+
+  * [ ![Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested](https://jameskilby.co.uk/wp-content/uploads/2026/03/Octopus-Energy-logo.jpg) ](https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/)
+
+[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/)
+
+### [Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested](https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/)
+
+By[James](https://jameskilby.co.uk) March 9, 2026 · Updated June 1, 2026
+
+I am quite a heavy consumer of electricity at home. This is primarily driven by my lab but having a young son and two golden retrievers means more washing and drying.
