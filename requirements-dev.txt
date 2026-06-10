@@ -5,4 +5,4 @@
 # Image optimisation extras are in requirements-images.txt
 
 # Spell checking (CI spell-check workflow only)
-pyspellchecker
+pyspellchecker==0.9.0

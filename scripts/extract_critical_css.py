@@ -23,6 +23,9 @@ class CriticalCSSExtractor:
         self.public_dir = Path(public_dir)
         self.files_processed = 0
         self.css_inlined = 0
+        self.css_truncated = 0
+        # Hard cap on critical CSS per page; rules beyond this are dropped.
+        self.max_critical_css = 15000
         # ~16 KB raw → ~5 KB on the wire after brotli. Below this we always
         # inline so the browser doesn't pay a render-blocking round-trip for
         # critical CSS. Measured: p90 page produces ~15 KB of critical CSS.
@@ -40,6 +43,9 @@ class CriticalCSSExtractor:
 
         print(f"\n✅ Processed {self.files_processed} files")
         print(f"   Inlined critical CSS in {self.css_inlined} files")
+        if self.css_truncated:
+            print(f"   ⚠️  Truncated critical CSS in {self.css_truncated} files "
+                  f"(over {self.max_critical_css} byte cap)")
 
     def process_file(self, file_path):
         """Process a single HTML file"""
@@ -54,7 +60,7 @@ class CriticalCSSExtractor:
             soup = BeautifulSoup(html, 'html.parser')
 
             # Extract critical CSS
-            critical_css = self._extract_critical_css(soup)
+            critical_css = self._extract_critical_css(soup, file_path)
 
             if not critical_css:
                 return False
@@ -77,7 +83,7 @@ class CriticalCSSExtractor:
             print(f"⚠️  Error processing {file_path}: {e}")
             return False
 
-    def _extract_critical_css(self, soup):
+    def _extract_critical_css(self, soup, file_path=None):
         """
         Extract critical above-the-fold CSS
         Uses a simple heuristic: CSS rules for elements in first ~800px of content
@@ -136,11 +142,11 @@ class CriticalCSSExtractor:
         critical_selectors.update(base_selectors)
 
         # Extract CSS rules that match critical selectors
-        critical_css = self._extract_matching_css_rules(soup, critical_selectors)
+        critical_css = self._extract_matching_css_rules(soup, critical_selectors, file_path)
 
         return critical_css
 
-    def _extract_matching_css_rules(self, soup, selectors):
+    def _extract_matching_css_rules(self, soup, selectors, file_path=None):
         """Extract CSS rules that match the given selectors"""
         critical_rules = []
 
@@ -166,19 +172,28 @@ class CriticalCSSExtractor:
                         # Silently skip if we can't read the file
                         pass
 
-        # Combine and minify
-        combined_css = '\n'.join(critical_rules)
-        minified_css = self._minify_css(combined_css)
+        # Minify each rule separately, then keep whole rules until the size
+        # cap is reached. Each entry in critical_rules is a complete,
+        # brace-balanced rule, so this can never cut inside a @media block —
+        # the old slice-at-15000-chars approach could, leaving an unbalanced
+        # brace that made the browser discard every rule after it.
+        minified_rules = [r for r in (self._minify_css(rule) for rule in critical_rules) if r]
 
-        # Limit to ~15KB of critical CSS
-        if len(minified_css) > 15000:
-            minified_css = minified_css[:15000]
-            # Find last complete rule
-            last_brace = minified_css.rfind('}')
-            if last_brace > 0:
-                minified_css = minified_css[:last_brace + 1]
+        kept = []
+        size = 0
+        for i, rule in enumerate(minified_rules):
+            if size + len(rule) > self.max_critical_css:
+                dropped_bytes = sum(len(r) for r in minified_rules[i:])
+                where = f" in {file_path}" if file_path else ""
+                print(f"   ⚠️  Critical CSS over {self.max_critical_css}B cap{where}: "
+                      f"dropped {len(minified_rules) - i}/{len(minified_rules)} rules "
+                      f"({dropped_bytes}B)")
+                self.css_truncated += 1
+                break
+            kept.append(rule)
+            size += len(rule)
 
-        return minified_css
+        return ''.join(kept)
 
     def _parse_css_rules(self, css_content, critical_selectors):
         """Parse CSS and extract rules matching critical selectors.

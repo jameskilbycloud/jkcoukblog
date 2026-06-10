@@ -1,0 +1,12 @@
+# Keeps the exact pins in requirements*.txt and the GitHub Action versions
+# current via weekly bump PRs.
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
