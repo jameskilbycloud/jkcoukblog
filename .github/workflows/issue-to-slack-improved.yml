@@ -14,7 +14,16 @@ jobs:
     steps:
       - name: Determine event details
         id: event_info
+        env:
+          # User-controlled text must enter the script via env vars, never via
+          # ${{ }} interpolation in the script body — a crafted issue/PR title
+          # would otherwise run as shell code (script injection).
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
+          # Strip CR/LF so a multi-line value can't inject extra step outputs.
+          ISSUE_TITLE=$(printf '%s' "$ISSUE_TITLE" | tr '\r\n' '  ')
+          PR_TITLE=$(printf '%s' "$PR_TITLE" | tr '\r\n' '  ')
           case "${{ github.event_name }}" in
             issues)
               if [ "${{ github.event.action }}" = "opened" ]; then
@@ -31,7 +40,7 @@ jobs:
                 echo "color=warning" >> $GITHUB_OUTPUT
               fi
               echo "url=${{ github.event.issue.html_url }}" >> $GITHUB_OUTPUT
-              echo "item_title=${{ github.event.issue.title }}" >> $GITHUB_OUTPUT
+              printf 'item_title=%s\n' "$ISSUE_TITLE" >> "$GITHUB_OUTPUT"
               echo "item_user=${{ github.event.issue.user.login }}" >> $GITHUB_OUTPUT
               echo "item_number=#${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
               ;;
@@ -40,7 +49,7 @@ jobs:
               echo "emoji=💬" >> $GITHUB_OUTPUT
               echo "color=#808080" >> $GITHUB_OUTPUT
               echo "url=${{ github.event.comment.html_url }}" >> $GITHUB_OUTPUT
-              echo "item_title=${{ github.event.issue.title }}" >> $GITHUB_OUTPUT
+              printf 'item_title=%s\n' "$ISSUE_TITLE" >> "$GITHUB_OUTPUT"
               echo "item_user=${{ github.event.comment.user.login }}" >> $GITHUB_OUTPUT
               echo "item_number=#${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
               ;;
@@ -65,7 +74,7 @@ jobs:
                 echo "color=warning" >> $GITHUB_OUTPUT
               fi
               echo "url=${{ github.event.pull_request.html_url }}" >> $GITHUB_OUTPUT
-              echo "item_title=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
+              printf 'item_title=%s\n' "$PR_TITLE" >> "$GITHUB_OUTPUT"
               echo "item_user=${{ github.event.pull_request.user.login }}" >> $GITHUB_OUTPUT
               echo "item_number=#${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
               ;;
@@ -86,7 +95,7 @@ jobs:
                   "color": "${{ steps.event_info.outputs.color }}",
                   "title": "${{ steps.event_info.outputs.emoji }} ${{ steps.event_info.outputs.title }}",
                   "title_link": "${{ steps.event_info.outputs.url }}",
-                  "text": "*${{ steps.event_info.outputs.item_number }}:* ${{ steps.event_info.outputs.item_title }}",
+                  "text": ${{ toJSON(format('*{0}:* {1}', steps.event_info.outputs.item_number, steps.event_info.outputs.item_title)) }},
                   "fields": [
                     {
                       "title": "Repository",
