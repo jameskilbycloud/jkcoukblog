@@ -198,10 +198,12 @@ def _collect_chars(site_dir: Path, spec: FontSpec) -> set:
     inside elements styled with this font."""
     chars = set()
     html_files = list(site_dir.rglob('*.html'))
+    bad_selectors = set()
     for f in html_files:
         try:
             body = f.read_text(encoding='utf-8', errors='ignore')
-        except Exception:
+        except Exception as e:
+            print(f"   ⚠️  Skipping unreadable {f}: {e}")
             continue
         soup = BeautifulSoup(body, 'html.parser')
         for tag in spec.tag_selectors:
@@ -211,8 +213,16 @@ def _collect_chars(site_dir: Path, spec: FontSpec) -> set:
             try:
                 for el in soup.select(sel):
                     chars.update(el.get_text())
-            except Exception:
-                # Bad selector syntax shouldn't kill the whole subset run.
+            except Exception as e:
+                # Bad selector syntax shouldn't kill the whole subset run —
+                # but a silently skipped selector means its characters are
+                # missing from the subset and render as .notdef boxes. Warn
+                # once per selector, not once per file.
+                if sel not in bad_selectors:
+                    bad_selectors.add(sel)
+                    print(f"   ⚠️  Selector {sel!r} failed ({e}) — its glyphs "
+                          f"will be missing from the subset unless covered "
+                          f"by another selector")
                 continue
     return chars
 

@@ -35,26 +35,19 @@ from urllib.parse import urlparse
 
 import requests
 
+from config import Config
+from wp_session import build_session as _build_session
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 PATCHES_PATH = REPO_ROOT / 'typo-patches.json'
 
-# Single source of truth for these URLs is scripts/config.py — kept inline here
-# for runner-side portability (this script can run standalone).
-WP_URL = 'https://wordpress.jameskilby.cloud'
-TARGET_DOMAIN = 'https://jameskilby.co.uk'
+WP_URL = Config.WP_URL
+TARGET_DOMAIN = Config.TARGET_DOMAIN
 
 
 def build_session(auth_token: str, cf_id: str | None, cf_secret: str | None) -> requests.Session:
-    s = requests.Session()
-    s.headers.update({
-        'Authorization': f'Basic {auth_token}',
-        'User-Agent': 'apply-typo-patches/1.0',
-        'Accept': 'application/json',
-    })
-    if cf_id and cf_secret:
-        s.headers['CF-Access-Client-Id'] = cf_id
-        s.headers['CF-Access-Client-Secret'] = cf_secret
-    return s
+    return _build_session(auth_token, cf_id, cf_secret,
+                          user_agent='apply-typo-patches/1.0')
 
 
 def slug_from_url(url: str) -> str:

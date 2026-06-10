@@ -611,11 +611,12 @@ def main():
     
     args = parser.parse_args()
     
-    # Configuration
-    OLLAMA_URL = os.getenv('OLLAMA_URL', 'https://ollama.jameskilby.cloud')
-    WP_URL = os.getenv('WP_URL', 'https://wordpress.jameskilby.cloud')
+    # Configuration — env vars override, Config supplies the defaults
+    from config import Config
+    OLLAMA_URL = os.getenv('OLLAMA_URL', Config.OLLAMA_URL)
+    WP_URL = os.getenv('WP_URL', Config.WP_URL)
     AUTH_TOKEN = os.getenv('WP_AUTH_TOKEN')
-    MODEL = os.getenv('OLLAMA_MODEL', 'llama3.1:8b')
+    MODEL = os.getenv('OLLAMA_MODEL', Config.OLLAMA_MODEL)
     OLLAMA_AUTH = os.getenv('OLLAMA_API_CREDENTIALS')
     SINCE_TIMESTAMP = os.getenv('SINCE_TIMESTAMP')
     

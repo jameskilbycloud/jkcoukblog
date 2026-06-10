@@ -32,6 +32,13 @@ import tempfile
 from hashlib import blake2b
 from pathlib import Path
 
+from config import Config
+
+# Domain shown on the card and used in the rewritten og:image URL —
+# never hardcode jameskilby.co.uk here, Config is the source of truth.
+TARGET_DOMAIN = Config.TARGET_DOMAIN
+DOMAIN_NAME = TARGET_DOMAIN.replace('https://', '').replace('http://', '')
+
 # Import dependencies with a graceful fallback. The deploy pipeline shouldn't
 # fail just because the runner is missing image tooling — we'd rather skip
 # og:image generation and keep deploying than crash the build.
@@ -262,7 +269,7 @@ class OGImageGenerator:
         bottom_y = CANVAS_HEIGHT - 60
         draw.text((padding_x, bottom_y - 8), "JAMES KILBY", font=brand_font, fill=COLOR_ACCENT)
         # Right-aligned domain
-        domain = "jameskilby.co.uk"
+        domain = DOMAIN_NAME
         domain_w = draw.textlength(domain, font=domain_font)
         draw.text(
             (CANVAS_WIDTH - padding_x - domain_w, bottom_y),
@@ -352,7 +359,7 @@ class OGImageGenerator:
         title_hash = blake2b(title.encode('utf-8'), digest_size=8).hexdigest()
         output_filename = f"{slug}.png"
         output_path = self.output_dir / output_filename
-        new_url = f"https://jameskilby.co.uk/{OG_OUTPUT_REL}/{output_filename}"
+        new_url = f"{TARGET_DOMAIN}/{OG_OUTPUT_REL}/{output_filename}"
 
         prior = self.cache.get(cache_key, {})
         if (prior.get('title_hash') == title_hash
