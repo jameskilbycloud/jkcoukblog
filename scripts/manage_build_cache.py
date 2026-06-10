@@ -59,7 +59,7 @@ def print_stats(builder):
         except ValueError:
             print(f"Last build:        {stats['last_build']}")
     else:
-        print(f"Last build:        Never")
+        print("Last build:        Never")
     
     if stats['last_full_build']:
         try:
@@ -68,7 +68,7 @@ def print_stats(builder):
         except ValueError:
             print(f"Last full build:   {stats['last_full_build']}")
     else:
-        print(f"Last full build:   Never")
+        print("Last full build:   Never")
     
     print("=" * 60)
 

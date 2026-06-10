@@ -91,7 +91,7 @@ class WordPressSpellCheckFixer:
             if response.status_code == 200:
                 result = response.json()
                 models = result.get('models', [])
-                print(f"✅ Ollama connected. Available models:")
+                print("✅ Ollama connected. Available models:")
                 for model in models:
                     model_name = model.get('name', 'unknown')
                     print(f"   - {model_name}")
@@ -202,10 +202,10 @@ If no actual errors, return: {{"has_errors": false, "corrections": []}}
             # Handle 404 - model might not exist or wrong format
             if response.status_code == 404:
                 print(f"⚠️  404 Error - Model '{self.model}' not found")
-                print(f"   This usually means:")
-                print(f"   1. The model name format is incorrect")
-                print(f"   2. The model hasn't been pulled on the Ollama server")
-                print(f"   3. Try 'llama3.1' instead of 'llama3.1:8b' or vice versa")
+                print("   This usually means:")
+                print("   1. The model name format is incorrect")
+                print("   2. The model hasn't been pulled on the Ollama server")
+                print("   3. Try 'llama3.1' instead of 'llama3.1:8b' or vice versa")
                 
                 # Try alternative model name format
                 alternative_model = None
@@ -337,7 +337,7 @@ If no actual errors, return: {{"has_errors": false, "corrections": []}}
             sections = self.extract_text_sections(post)
             
             # Stage 1: Fast traditional spell check on all sections
-            print(f"   ⚡ Stage 1: Fast spell check...")
+            print("   ⚡ Stage 1: Fast spell check...")
             all_candidate_errors = set()
             section_texts = {}
             
@@ -349,7 +349,7 @@ If no actual errors, return: {{"has_errors": false, "corrections": []}}
                 all_candidate_errors.update(candidates)
             
             if not all_candidate_errors:
-                print(f"   ✅ No potential errors found")
+                print("   ✅ No potential errors found")
                 return None
             
             print(f"   🔍 Stage 2: Validating {len(all_candidate_errors)} candidates with Ollama...")
@@ -394,7 +394,7 @@ If no actual errors, return: {{"has_errors": false, "corrections": []}}
                     # Note: Don't store post_data - we fetch fresh with context=edit when applying
                 }
             else:
-                print(f"   ✅ All candidates were false positives")
+                print("   ✅ All candidates were false positives")
             
             return None
             
@@ -404,7 +404,7 @@ If no actual errors, return: {{"has_errors": false, "corrections": []}}
     
     def check_recent_posts(self, count: int = 5, since: str = None) -> List[Dict]:
         """Check recent posts and return those needing corrections"""
-        print(f"🔍 Checking posts...")
+        print("🔍 Checking posts...")
         
         # Check Ollama connection first
         if not self.check_ollama_connection():
@@ -514,7 +514,7 @@ If no actual errors, return: {{"has_errors": false, "corrections": []}}
             title_data = post_data.get('title', {})
             original_title = title_data.get('raw') or title_data.get('rendered', '')
             if not original_title:
-                print(f"   ⚠️  Could not get title content")
+                print("   ⚠️  Could not get title content")
             else:
                 corrected_title = self.apply_corrections_to_text(
                     original_title,
@@ -533,7 +533,7 @@ If no actual errors, return: {{"has_errors": false, "corrections": []}}
                     section_corrections['excerpt']
                 )
                 updated_data['excerpt'] = corrected_excerpt
-                print(f"   Excerpt corrected")
+                print("   Excerpt corrected")
         
         # Content (paragraphs)
         content_corrections = [c for c in corrections if c['section'].startswith('paragraph_')]
@@ -541,7 +541,7 @@ If no actual errors, return: {{"has_errors": false, "corrections": []}}
             content_data = post_data.get('content', {})
             original_content = content_data.get('raw') or content_data.get('rendered', '')
             if not original_content:
-                print(f"   ⚠️  Could not get content")
+                print("   ⚠️  Could not get content")
                 return False
             corrected_content = self.apply_corrections_to_text(
                 original_content,
@@ -558,7 +558,7 @@ If no actual errors, return: {{"has_errors": false, "corrections": []}}
             )
             
             if response.status_code == 200:
-                print(f"   ✅ Post updated successfully")
+                print("   ✅ Post updated successfully")
                 return True
             else:
                 print(f"   ❌ Failed to update: {response.status_code}")

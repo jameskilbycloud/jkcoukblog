@@ -15,6 +15,7 @@ Usage:
     session = build_session_from_env()
 """
 
+import functools
 import os
 
 import requests
@@ -31,7 +32,9 @@ def build_session(auth_token: str | None = None,
                   cf_id: str | None = None,
                   cf_secret: str | None = None,
                   user_agent: str = 'jkcoukblog-scripts/1.0',
-                  retries: int = 3) -> requests.Session:
+                  retries: int = 3,
+                  accept: str | None = 'application/json',
+                  default_timeout: float | None = None) -> requests.Session:
     """Build a requests.Session for the WordPress REST API.
 
     auth_token: base64 of "user:application-password" (Basic auth), or None
@@ -40,12 +43,16 @@ def build_session(auth_token: str | None = None,
                 running off the self-hosted runner.
     retries: attempts per request on connect errors and _RETRY_STATUSES,
              with exponential backoff (0.5s, 1s, 2s ...).
+    accept: Accept header, or None to omit (e.g. when the session also
+            fetches rendered HTML pages and binary assets).
+    default_timeout: applied to every request through this session so a hung
+            server can never block a build forever; explicit `timeout=`
+            kwargs at call sites still override it.
     """
     s = requests.Session()
-    s.headers.update({
-        'User-Agent': user_agent,
-        'Accept': 'application/json',
-    })
+    s.headers['User-Agent'] = user_agent
+    if accept:
+        s.headers['Accept'] = accept
     if auth_token:
         s.headers['Authorization'] = f'Basic {auth_token}'
     if cf_id and cf_secret:
@@ -62,6 +69,10 @@ def build_session(auth_token: str | None = None,
     adapter = HTTPAdapter(max_retries=retry)
     s.mount('https://', adapter)
     s.mount('http://', adapter)
+
+    if default_timeout is not None:
+        s.request = functools.partial(s.request, timeout=default_timeout)
+
     return s
 
 

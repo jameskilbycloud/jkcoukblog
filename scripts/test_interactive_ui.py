@@ -434,9 +434,9 @@ def main():
         # We don't want missing test infra to block deploys — track this
         # separately via the banner in build logs.
         print("=" * 72)
-        print(f"⚠️  Interactive UI tests SKIPPED — playwright unavailable")
+        print("⚠️  Interactive UI tests SKIPPED — playwright unavailable")
         print(f"    ({_PW_ERROR})")
-        print(f"    Install with: pip install playwright && playwright install chromium")
+        print("    Install with: pip install playwright && playwright install chromium")
         print("=" * 72)
         sys.exit(0)
 
@@ -457,10 +457,10 @@ def main():
 
     if tests.launch_failed:
         print("=" * 72)
-        print(f"⚠️  Interactive UI tests SKIPPED — chromium failed to launch")
+        print("⚠️  Interactive UI tests SKIPPED — chromium failed to launch")
         print(f"    ({tests.launch_error})")
-        print(f"    Likely missing system libs (libatk-1.0.so.0 etc).")
-        print(f"    Install with: sudo playwright install-deps chromium")
+        print("    Likely missing system libs (libatk-1.0.so.0 etc).")
+        print("    Install with: sudo playwright install-deps chromium")
         print("=" * 72)
         sys.exit(0)
 

@@ -54,7 +54,7 @@ class MarkdownExporter:
         # Create markdown sitemap
         self._create_markdown_sitemap()
         
-        print(f"\n✅ Markdown export complete!")
+        print("\n✅ Markdown export complete!")
         print(f"   Posts: {self.stats['posts_exported']}")
         print(f"   Pages: {self.stats['pages_exported']}")
         print(f"   Errors: {self.stats['errors']}")
@@ -393,12 +393,12 @@ class MarkdownExporter:
             frontmatter.append(f"author: {metadata['author']}")
         
         if 'categories' in metadata:
-            frontmatter.append(f"categories:")
+            frontmatter.append("categories:")
             for cat in metadata['categories']:
                 frontmatter.append(f"  - {cat}")
         
         if 'tags' in metadata:
-            frontmatter.append(f"tags:")
+            frontmatter.append("tags:")
             for tag in metadata['tags']:
                 frontmatter.append(f"  - {tag}")
         
@@ -515,7 +515,7 @@ def main():
     # Export all content
     exporter.export_all_content()
     
-    print(f"\n💡 Access markdown files:")
+    print("\n💡 Access markdown files:")
     print(f"   - All posts: {markdown_dir}/posts/")
     print(f"   - Index: {markdown_dir}/index.json")
     print(f"   - Sitemap: {markdown_dir}/SITEMAP.md")

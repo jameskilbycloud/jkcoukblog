@@ -175,14 +175,17 @@ class ImageToPictureConverter:
                 from urllib.parse import urlparse
                 parsed = urlparse(img_src)
                 img_path = parsed.path.lstrip('/')
-            except:
+            except Exception as e:
+                print(f"   ⚠️  Could not parse image URL {img_src!r}: {e}")
                 return False, False
         elif img_src.startswith('//'):
             # Protocol-relative URLs
             return False, False
         else:
-            # Relative path
-            img_path = img_src.lstrip('/')
+            # Relative path — strip any ?v=… cache-buster, it's not part of
+            # the on-disk filename (with it, exists() was always False and
+            # cache-busted images never got a <picture> element at all).
+            img_path = img_src.split('?', 1)[0].lstrip('/')
         
         full_path = base_path / img_path
 
@@ -200,7 +203,7 @@ class ImageToPictureConverter:
             print(f"   full_path exists: {full_path.exists()}")
 
         if debug_this and not full_path.exists():
-            print(f"   ⚠️  Original image not found, checking for modern formats...")
+            print("   ⚠️  Original image not found, checking for modern formats...")
 
         # Check for AVIF and WebP versions
         avif_path = full_path.with_suffix('.avif')
@@ -247,7 +250,12 @@ class ImageToPictureConverter:
         
         src = img.get('src', '')
         img_srcset = img.get('srcset', '')
-        base_src = re.sub(r'\.(png|jpg|jpeg)($|\?)', '', src, flags=re.IGNORECASE)
+        # Split the query string off before deriving the variant basename and
+        # re-append it to the variant URLs. The old single-regex approach
+        # glued the query onto the basename (/img.png?v=1 → /imgv=1.avif).
+        src_path, _, src_query = src.partition('?')
+        base_src = re.sub(r'\.(png|jpg|jpeg)$', '', src_path, flags=re.IGNORECASE)
+        query_suffix = f'?{src_query}' if src_query else ''
         
         # Track if we added responsive srcsets
         added_responsive = False
@@ -264,7 +272,7 @@ class ImageToPictureConverter:
                 added_responsive = True
             else:
                 # Fall back to single file
-                source_avif['srcset'] = f"{base_src}.avif"
+                source_avif['srcset'] = f"{base_src}.avif{query_suffix}"
             
             picture.append(source_avif)
         
@@ -280,7 +288,7 @@ class ImageToPictureConverter:
                 added_responsive = True
             else:
                 # Fall back to single file
-                source_webp['srcset'] = f"{base_src}.webp"
+                source_webp['srcset'] = f"{base_src}.webp{query_suffix}"
             
             picture.append(source_webp)
         
@@ -396,7 +404,7 @@ class ImageToPictureConverter:
                 if not (has_avif or has_webp):
                     self.stats['images_skipped'] += 1
                     if self.debug_count <= 3:
-                        print(f"   ⚠️  No AVIF or WebP found for this image")
+                        print("   ⚠️  No AVIF or WebP found for this image")
                     continue
                 
                 # Create picture element and replace img

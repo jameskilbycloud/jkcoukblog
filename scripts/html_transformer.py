@@ -684,7 +684,7 @@ class HTMLTransformer:
     def _print_summary(self, elapsed):
         """Print combined summary from all transform phases."""
         print(f"\n{'='*60}")
-        print(f"🔄 SINGLE-PASS HTML TRANSFORMER SUMMARY")
+        print("🔄 SINGLE-PASS HTML TRANSFORMER SUMMARY")
         print(f"{'='*60}")
         print(f"📄 Files processed:     {self.files_processed}")
         print(f"✏️  Files modified:      {self.files_modified}")

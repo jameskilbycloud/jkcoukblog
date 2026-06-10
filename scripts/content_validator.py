@@ -453,7 +453,7 @@ class ContentValidator:
         report_file.write_text(json.dumps(report, indent=2))
         
         # Print summary
-        print(f"\n📋 Content Validation Report")
+        print("\n📋 Content Validation Report")
         print(f"{'=' * 50}")
         print(f"Files checked: {self.checks_run}")
         print(f"Status: {'✅ PASS' if report['summary']['status'] == 'PASS' else '❌ FAIL'}")
@@ -481,7 +481,7 @@ class ContentValidator:
             if len(actionable) > 10:
                 print(f"   ... and {len(actionable) - 10} more warnings\n")
         
-        print(f"\n📄 Full report saved to: validation-report.json\n")
+        print("\n📄 Full report saved to: validation-report.json\n")
         
         return report
 

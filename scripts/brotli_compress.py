@@ -297,7 +297,7 @@ class BrotliCompressor:
                             print(r['log'])
 
         # Print summary
-        print(f"\n📊 Compression Summary:")
+        print("\n📊 Compression Summary:")
         print(f"   Brotli — compressed: {self.stats['files_compressed']}, "
               f"skipped: {self.stats['files_skipped']}")
         print(f"   Gzip   — compressed: {self.gzip_stats['files_compressed']}, "
@@ -309,7 +309,7 @@ class BrotliCompressor:
             total_saved = total_original - total_compressed
             total_ratio = (1 - total_compressed / total_original) * 100
 
-            print(f"\n💾 Brotli Space Savings:")
+            print("\n💾 Brotli Space Savings:")
             print(f"   Original size: {total_original:,} bytes ({total_original/1024/1024:.2f} MB)")
             print(f"   Compressed size: {total_compressed:,} bytes ({total_compressed/1024/1024:.2f} MB)")
             print(f"   Space saved: {total_saved:,} bytes ({total_saved/1024/1024:.2f} MB)")
@@ -321,7 +321,7 @@ class BrotliCompressor:
             gz_saved = gz_original - gz_compressed
             gz_ratio = (1 - gz_compressed / gz_original) * 100
 
-            print(f"\n💾 Gzip Space Savings:")
+            print("\n💾 Gzip Space Savings:")
             print(f"   Original size: {gz_original:,} bytes ({gz_original/1024/1024:.2f} MB)")
             print(f"   Compressed size: {gz_compressed:,} bytes ({gz_compressed/1024/1024:.2f} MB)")
             print(f"   Space saved: {gz_saved:,} bytes ({gz_saved/1024/1024:.2f} MB)")

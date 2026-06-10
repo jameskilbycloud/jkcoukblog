@@ -58,6 +58,14 @@ validate-deployment: ## Post-optimisation deployment validation
 
 validate: test-csp validate-html validate-deployment ## Run all validation checks
 
+# ─── Lint + Unit Tests (mirrors .github/workflows/python-checks.yml) ──
+
+lint: ## Ruff lint over scripts/ and tests/
+	ruff check scripts/ tests/
+
+test: ## Run the pytest unit test suite
+	pytest tests/ -v
+
 # ─── Optimisation ─────────────────────────────────────────────────
 
 optimize-images: ## Optimise images (AVIF/WebP)
