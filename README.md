@@ -12,11 +12,12 @@ This repository contains a complete automation pipeline that:
 - ✅ **Generates a static site** with all content, assets, and metadata — **incrementally** (only posts modified since last build are re-fetched)
 - ✅ **Applies AI spell-checking** via Ollama (non-blocking, incremental)
 - ✅ **Optimises images** to AVIF/WebP with `<picture>` elements and intelligent caching
+- ✅ **Transforms HTML in a single pass** — SEO fixes, `<picture>` conversion, performance hints, critical CSS inlining, and minification in one parse cycle per file
 - ✅ **Compresses assets** with Brotli (primary) + Gzip (fallback), pre-encoded at build time
-- ✅ **Inlines critical CSS** for faster first paint
-- ✅ **Validates content** — SEO, accessibility, JSON-LD, og:image, security headers
-- ✅ **Deploys to Cloudflare Pages** via git commit, with selective KV cache purge
-- ✅ **Submits to IndexNow** after deployment so crawlers see fresh content immediately
+- ✅ **Generates extras** — per-post Open Graph images, `llms.txt`, Markdown export + JSON API, subsetted heading font
+- ✅ **Validates content** — SEO, accessibility, JSON-LD, og:image, security headers, plus Playwright UI smoke tests
+- ✅ **Deploys to Cloudflare Pages** via git commit, with KV HTML cache purge after deploy
+- ✅ **Submits to IndexNow** (and pings Google on new posts) so crawlers see fresh content immediately
 
 ## 🏗️ Architecture
 
@@ -36,10 +37,15 @@ wordpress.jameskilby.cloud  |                         |                      jam
 ├── .github/
 │   ├── workflows/
 │   │   ├── deploy-static-site.yml         # Main build + deploy pipeline
-│   │   ├── quality-checks.yml             # Lighthouse + live site formatting tests
+│   │   ├── force-full-deploy.yml          # Full (non-incremental) rebuild trigger
+│   │   ├── quality-checks.yml             # Lighthouse + live site formatting tests (daily)
+│   │   ├── lighthouse-pr.yml              # Lighthouse audit on pull requests
 │   │   ├── spell-check-consolidated.yml   # AI spell checking (Ollama/Llama)
 │   │   ├── spell-check-approval-handler.yml # Spell check approval flow
-│   │   ├── secret-scan.yml                # Gitleaks secret scanning
+│   │   ├── apply-typo-patches.yml         # Apply approved typo fixes to WordPress
+│   │   ├── apply-alt-patches.yml          # Apply approved image alt-text fixes
+│   │   ├── wordpress-backup.yml           # WordPress backup (1st + 15th of month)
+│   │   ├── secret-scan.yml                # Gitleaks secret scanning (weekly)
 │   │   ├── rollback-site.yml              # Deployment rollback
 │   │   ├── issue-to-slack-improved.yml    # GitHub issue → Slack notifications
 │   │   └── enable-cloudflare-indexing.yml # Cloudflare indexing setup
@@ -49,18 +55,28 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── incremental_builder.py             # BLAKE2b incremental build cache
 │   ├── config.py                          # Centralised configuration
 │   ├── optimize_images.py                 # AVIF/WebP generation (parallel, cached)
-│   ├── convert_images_to_picture.py       # Wraps <img> in <picture> elements
-│   ├── extract_critical_css.py            # Extracts and inlines above-fold CSS
-│   ├── optimize_css.py                    # CSS optimisation and minification
-│   ├── enhance_html_performance.py        # fetchpriority, lazy loading, preconnect
-│   ├── fix_seo_issues.py                  # SEO auto-fixer (title, meta, H1)
-│   ├── minify_html.py                     # HTML minification
+│   ├── optimize_css.py                    # CSS unused-selector removal + minification
+│   ├── html_transformer.py                # Single-pass HTML transformer (SEO, <picture>,
+│   │                                      #   perf hints, critical CSS, minify)
+│   ├── convert_images_to_picture.py       # <picture> conversion (used by transformer)
+│   ├── extract_critical_css.py            # Critical CSS extraction (used by transformer)
+│   ├── enhance_html_performance.py        # Performance hints (used by transformer)
+│   ├── fix_seo_issues.py                  # SEO auto-fixer (used by transformer)
+│   ├── minify_html.py                     # HTML minification (used by transformer)
 │   ├── brotli_compress.py                 # Brotli + Gzip pre-encoding
+│   ├── generate_og_images.py              # Per-post Open Graph image generation
+│   ├── generate_llms_txt.py               # llms.txt generation for AI crawlers
+│   ├── generate_soft404_artefacts.py      # Soft-404 detection artefacts
+│   ├── stamp_worker_manifest.py           # Stamps Advanced Mode Worker manifest
+│   ├── subset_fonts.py                    # Subsets heading font to used characters
+│   ├── rewrite_vendored_urls.py           # Rewrites stale vendored-CDN URLs
 │   ├── content_validator.py               # SEO, JSON-LD, accessibility, security
 │   ├── validate_html.py                   # HTML structural validation
 │   ├── validate_deployment.py             # Post-optimisation deployment checks
+│   ├── validate_seo.py                    # SEO validation
 │   ├── validate_wordpress_source.py       # Pre-build WordPress health check
 │   ├── test_csp.py                        # CSP validation (Utterances, Credly, Plausible)
+│   ├── test_interactive_ui.py             # Playwright interactive UI smoke tests
 │   ├── test_live_site_formatting.py       # Live site formatting + performance tests
 │   ├── markdown_exporter.py               # Exports content as Markdown
 │   ├── markdown_api.py                    # Generates /api/ JSON endpoints
@@ -71,19 +87,20 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── convert_to_staging.py              # Converts URLs for staging deployment
 │   ├── ollama_spell_checker.py            # AI spell checker (Ollama/Llama)
 │   ├── wp_spell_check_and_fix.py          # WordPress spell check + auto-fix
+│   ├── apply_typo_patches.py              # Applies approved typo patches to WordPress
+│   ├── apply_alt_patches.py               # Applies approved alt-text patches
 │   ├── manage_build_cache.py              # Build cache management tool
 │   ├── purge_html_kv_cache.py             # Bulk-delete html:* entries from KV
+│   ├── purge_soft404_kv_cache.py          # Ad-hoc soft-404 KV purge
 │   ├── restore_seeded_urls.py             # Restore seeded URLs after build
 │   ├── fix_duplicate_resource_hints.py    # Deduplicate preconnect/prefetch hints
 │   ├── purge_static_cache.sh              # Cloudflare edge cache purge
-│   ├── streamdeck-deploy.sh               # Stream Deck deployment trigger
-│   └── archive/                           # Archived one-time setup scripts
+│   └── streamdeck-deploy.sh               # Stream Deck deployment trigger
 ├── _worker.template.js                    # Cloudflare Pages Advanced Mode Worker
 │                                          #   → copied to public/_worker.js at deploy
 │                                          #   KV cache, smart TTL, view tracking,
-│                                          #   selective purge, security headers,
-│                                          #   /diagnostic, /trace, /test endpoints
-├── docs/                                  # Documentation hub (20+ files)
+│                                          #   security headers, /markdown/ + /api/ routing
+├── docs/                                  # Documentation hub
 │   ├── README.md                          # Documentation index
 │   ├── DEPLOYMENT.md                      # Deployment guide
 │   ├── OPTIMIZATION.md                    # Performance optimisation reference
@@ -98,13 +115,11 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── STREAMDECK_DEPLOY_SETUP.md         # Stream Deck integration
 │   ├── STREAMDECK_QUICK_REFERENCE.md      # Stream Deck quick reference card
 │   ├── STREAMDECK_README.md               # Stream Deck overview
-│   ├── ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md  # Extra performance tips
-│   └── archive/                           # Historical docs
+│   └── ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md  # Extra performance tips
 ├── public/                                # Generated static site (Cloudflare Pages)
 ├── workers/                               # Cloudflare Workers (deployed independently)
 │   ├── search-api.js                      # Search API endpoint
-│   ├── slack-notification-handler.js      # Slack webhook handler
-│   └── archive/                           # Superseded worker versions
+│   └── slack-notification-handler.js      # Slack webhook handler
 ├── assets/fonts/                          # Font assets
 ├── Makefile                               # Build pipeline targets (make help)
 ├── CONTRIBUTING.md                        # Contribution guidelines
@@ -128,6 +143,7 @@ wordpress.jameskilby.cloud  |                         |                      jam
    - `OLLAMA_API_CREDENTIALS` — AI spell check (optional)
    - `CACHE_PURGE_TOKEN` — KV cache purge (optional)
    - `CLOUDFLARE_API_TOKEN` — Cloudflare API (optional, for cache purge + KV)
+   - `CLOUDFLARE_ACCOUNT_ID` — Account ID for KV operations (optional)
    - `CLOUDFLARE_ZONE_ID` — Zone ID for static asset purge (optional)
    - `KV_SEARCH_INDEX_ID` — KV namespace for search index (optional)
    - `PLAUSIBLE_SHARE_LINK` — Plausible stats page (optional)
@@ -153,36 +169,37 @@ python3 scripts/wp_to_static_generator.py ./static-output
 
 ## 🔄 Build Pipeline
 
-The `deploy-static-site.yml` workflow runs these steps in order:
+The `deploy-static-site.yml` workflow runs a non-blocking spell-check job, then the main build job:
 
 | # | Step | Notes |
 |---|------|-------|
+| 0 | AI spell check | Separate job, Ollama/Llama, `continue-on-error` — never blocks the build |
 | 1 | Validate environment variables | Fails fast on missing secrets |
-| 2 | Restore build caches | `actions/cache@v4` — image cache + incremental build cache + spell-check timestamp |
-| 3 | Install system dependencies | apt packages: `avifenc`, `optipng`, `jpegoptim`, `jq`, `bc` |
-| 4 | Install Python dependencies | `pip install -r requirements.txt` |
+| 2 | Restore build caches | `actions/cache` — image cache + incremental build cache + spell-check timestamp |
+| 3 | Install system + Python dependencies | apt packages (`avifenc`, `optipng`, `jpegoptim`, `jq`, `bc`) + `pip install -r requirements.txt` |
+| 4 | Validate CSP (Utterances, Plausible, Credly) | `test_csp.py` — fails build if the CSP would block them |
 | 5 | Validate WordPress source health | Pre-flight check before generation |
 | 6 | Generate static site | `wp_to_static_generator.py` — incremental (WP `modified_after`) or full build; HTML, assets, sitemap, search index |
-| 7 | Export to Markdown | `markdown_exporter.py` |
-| 8 | Generate Markdown API | `markdown_api.py` |
-| 9 | Validate CSP (Utterances, Plausible, Credly) | `test_csp.py` — fails build if CSP would block them |
-| 10 | Content quality validation | `content_validator.py` — non-blocking |
-| 11 | Optimise images | AVIF + WebP, 4 parallel workers, BLAKE2b cache |
-| 12 | Convert `<img>` → `<picture>` | Adds AVIF/WebP sources with fallbacks |
-| 13 | Optimise CSS | Remove unused selectors |
-| 14 | Apply SEO fixes | Title length, meta description scoped to article, H1 deduplication |
-| 15 | Extract and inline critical CSS | Above-fold CSS inlined in `<head>` |
-| 16 | Apply performance enhancements | `fetchpriority` for LCP image, lazy loading, preconnect, CSS preload |
-| 17 | Minify CSS | Minification pass |
-| 18 | Minify HTML | `minify_html.py` |
-| 19 | Brotli + Gzip compression | `.br` (primary) + `.gz` (fallback) for all text assets |
-| 20 | Validate final HTML | Structural validation |
-| 21 | Comprehensive deployment validation | Brotli integrity, AVIF/WebP presence, picture structure |
-| 22 | Commit and push to git | Triggers Cloudflare Pages auto-deploy |
-| 23 | Upload search index to Workers KV | `wrangler kv:key put` |
-| 24 | Selective KV cache purge | Purges only changed HTML pages |
-| 25 | Purge static assets from Cloudflare | Edge cache purge via Cloudflare API |
-| 26 | Submit URLs to IndexNow | Runs after deployment so crawlers see fresh content |
+| 7 | Export to Markdown + Markdown API | `markdown_exporter.py`, `markdown_api.py` — `/markdown/` and `/api/` paths |
+| 8 | Generate llms.txt | `generate_llms_txt.py` |
+| 9 | Content quality validation | `content_validator.py` — non-blocking |
+| 10 | Optimise images | AVIF + WebP, 4 parallel workers, BLAKE2b cache |
+| 11 | Optimise CSS | Remove unused selectors + minify |
+| 12 | Single-pass HTML transformer | `html_transformer.py` — SEO fixes, `<img>` → `<picture>`, performance hints, critical CSS inlining, and HTML minification in one parse cycle per file |
+| 13 | Soft-404 artefacts + worker stamp | `generate_soft404_artefacts.py`, `stamp_worker_manifest.py` |
+| 14 | Generate per-post Open Graph images | `generate_og_images.py` |
+| 15 | Subset heading font | `subset_fonts.py` — Anton subset to characters used in headings |
+| 16 | Rewrite stale vendored-CDN URLs | `rewrite_vendored_urls.py` |
+| 17 | Brotli + Gzip compression | `.br` (primary) + `.gz` (fallback) for all text assets |
+| 18 | Interactive UI smoke tests | Playwright (`test_interactive_ui.py`) |
+| 19 | Validate HTML + deployment | `validate_html.py` + `validate_deployment.py` in parallel — Brotli integrity, AVIF/WebP presence, picture structure |
+| 20 | Prepare output + changelog/stats | Copies to `public/`, generates changelog and stats pages, recompresses |
+| 21 | Commit and push to git | Triggers Cloudflare Pages auto-deploy |
+| 22 | Upload search index to Workers KV | `wrangler kv key put` |
+| 23 | Purge all HTML from KV cache | Waits for the Pages deploy of the pushed commit, then wipes `html:*` entries |
+| 24 | Purge static assets from Cloudflare | Edge cache purge via Cloudflare API |
+| 25 | Submit URLs to IndexNow | Runs after deployment so crawlers see fresh content |
+| 26 | Ping Google sitemap | Only when a new post was published |
 | 27 | Notify Slack | Success or failure notification |
 | 28 | Clean up on failure | Removes `./static-output` if build failed |
 
@@ -194,6 +211,7 @@ The `deploy-static-site.yml` workflow runs these steps in order:
 - 4 parallel workers for fast processing
 - `fetchpriority="high"` on the first `<main>`/`<article>` image (LCP candidate)
 - `loading="lazy"` + `decoding="async"` on all other images
+- Per-post Open Graph images generated at build time
 
 ### 🗜️ Compression
 - **Brotli** (quality 11, `MODE_TEXT` for HTML/CSS/JS, `MODE_GENERIC` for JSON/SVG/XML)
@@ -202,8 +220,9 @@ The `deploy-static-site.yml` workflow runs these steps in order:
 - Minimum 5% size reduction threshold before writing compressed file
 
 ### ⚡ Performance
+- Single-pass HTML transformer — one BeautifulSoup parse/serialise cycle per file instead of 5–6 separate passes
 - Critical CSS extracted and inlined for zero render-blocking on first paint
-- CSS preload hints for primary stylesheet (exact filename match: `critical.css`, `main.css`, `styles.css`)
+- Heading font subsetted to only the characters actually used
 - DNS prefetch + preconnect for Plausible Analytics
 - Cloudflare KV HTML cache with smart TTL (5 min homepage, 15 min recent posts, 1 hr older)
 - KV TTL uses absolute expiry — view-count updates do not reset the cache clock
@@ -214,19 +233,21 @@ The `deploy-static-site.yml` workflow runs these steps in order:
 - Meta description expansion scoped to `<article>`/`<main>` (not nav or footer)
 - Canonical URL warnings
 - H1 deduplication
-- IndexNow submission after deployment
+- `llms.txt` for AI crawlers
+- IndexNow submission after deployment + Google sitemap ping on new posts
 
 ### 🔒 Security
 - Content Security Policy headers (via `_worker.template.js`)
 - Inline script detection in content validator
 - Mixed content detection
-- `/markdown/` and `/api/` path handling in the worker
+- Gitleaks secret scanning (pre-commit hook + weekly workflow)
 
 ### 📊 Analytics & Monitoring
 - **Plausible Analytics** auto-injected on every page
 - **Utterances** comments (GitHub Issues backed, dark theme)
 - **Slack notifications** on success and failure
 - **GitHub Actions summary** with per-step metrics
+- **Playwright UI smoke tests** before every deploy
 
 ## ⚙️ Configuration
 
@@ -251,17 +272,22 @@ Secrets (tokens, credentials) remain in environment variables and GitHub Secrets
 
 ### Workflow Status Badges
 
-[![Deploy Static Site](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/deploy-static-site.yml/badge.svg)](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/deploy-static-site.yml)
-[![Quality Checks](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml/badge.svg)](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml)
-[![Secret Scan](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/secret-scan.yml/badge.svg)](https://github.com/jameskilbynet/jkcoukblog/actions/workflows/secret-scan.yml)
+[![Deploy Static Site](https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/deploy-static-site.yml/badge.svg)](https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/deploy-static-site.yml)
+[![Quality Checks](https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/quality-checks.yml/badge.svg)](https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/quality-checks.yml)
+[![Secret Scan](https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/secret-scan.yml/badge.svg)](https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/secret-scan.yml)
 
 | Workflow | Purpose |
 |----------|---------|
-| `deploy-static-site.yml` | Main 28-step build + deploy pipeline |
-| `quality-checks.yml` | Lighthouse audits + live site formatting tests (daily) |
+| `deploy-static-site.yml` | Main build + deploy pipeline |
+| `force-full-deploy.yml` | Force a full (non-incremental) rebuild |
+| `quality-checks.yml` | Lighthouse audits + live site formatting tests (daily, 03:00 UTC) |
+| `lighthouse-pr.yml` | Lighthouse audit on pull requests |
 | `spell-check-consolidated.yml` | AI spell checking via Ollama/Llama |
 | `spell-check-approval-handler.yml` | PR-based spell correction approval |
-| `secret-scan.yml` | Gitleaks secret scanning |
+| `apply-typo-patches.yml` | Apply approved typo fixes back to WordPress |
+| `apply-alt-patches.yml` | Apply approved image alt-text fixes |
+| `wordpress-backup.yml` | WordPress backup (1st + 15th of month) |
+| `secret-scan.yml` | Gitleaks secret scanning (weekly) |
 | `rollback-site.yml` | Deployment rollback |
 | `issue-to-slack-improved.yml` | GitHub issue → Slack notifications |
 

@@ -7,6 +7,7 @@ Massive time savings by tracking what's already been built
 import json
 import hashlib
 import re
+import threading
 from pathlib import Path
 from datetime import datetime
 
@@ -16,10 +17,44 @@ from datetime import datetime
 _POST_URL_RE = re.compile(r'^/\d{4}/\d{2}/[^/]+')
 
 class IncrementalBuilder:
+    # Files whose contents determine the generated HTML. The cache only says
+    # "this WordPress content was already rendered" — if the code that renders
+    # it changes, every cached page is potentially stale, so any change here
+    # invalidates the whole cache and forces a full rebuild.
+    FINGERPRINT_FILES = ('config.py', 'wp_to_static_generator.py')
+
     def __init__(self, cache_file='.build-cache.json'):
         self.cache_file = Path(cache_file)
+        # mark_processed() is called from ThreadPoolExecutor workers in
+        # wp_to_static_generator.py — guard all cache mutation/serialisation.
+        self._lock = threading.Lock()
         self.cache = self._load_cache()
-    
+        self._check_environment_fingerprint()
+
+    def _environment_fingerprint(self):
+        """Hash the generator code + config that shape the rendered output."""
+        h = hashlib.blake2b(digest_size=16)
+        script_dir = Path(__file__).resolve().parent
+        for name in self.FINGERPRINT_FILES:
+            try:
+                h.update((script_dir / name).read_bytes())
+            except OSError:
+                h.update(f'missing:{name}'.encode())
+        return h.hexdigest()
+
+    def _check_environment_fingerprint(self):
+        """Invalidate the cache when config.py or the generator changed."""
+        fingerprint = self._environment_fingerprint()
+        cached = self.cache.get('environment_fingerprint')
+        if cached != fingerprint:
+            had_entries = bool(self.cache['posts'] or self.cache['pages'])
+            if cached is not None or had_entries:
+                print("♻️  config.py / generator changed since last build — "
+                      "clearing build cache, this build will be full")
+                self.cache = self._empty_cache()
+        self.cache['environment_fingerprint'] = fingerprint
+
+
     def _load_cache(self):
         """Load build cache from disk"""
         if self.cache_file.exists():
@@ -43,7 +78,9 @@ class IncrementalBuilder:
     def _save_cache(self):
         """Save build cache to disk"""
         try:
-            self.cache_file.write_text(json.dumps(self.cache, indent=2))
+            with self._lock:
+                serialized = json.dumps(self.cache, indent=2)
+            self.cache_file.write_text(serialized)
         except IOError as e:
             print(f"⚠️  Failed to save cache: {e}")
     
@@ -245,14 +282,15 @@ class IncrementalBuilder:
         return all_pages
     
     def mark_processed(self, url, content_hash, modified_date):
-        """Mark content as processed"""
+        """Mark content as processed (thread-safe — called from worker threads)"""
         cache_type = self._get_cache_type(url)
-        
-        self.cache[cache_type][url] = {
-            'hash': content_hash,
-            'modified': modified_date,
-            'processed': datetime.now().isoformat()
-        }
+
+        with self._lock:
+            self.cache[cache_type][url] = {
+                'hash': content_hash,
+                'modified': modified_date,
+                'processed': datetime.now().isoformat()
+            }
     
     def should_rebuild_archives(self):
         """Determine if archive pages (categories, tags, home) need rebuild"""
@@ -299,13 +337,14 @@ class IncrementalBuilder:
     def remove_stale_entries(self, current_urls):
         """Remove cache entries for URLs that no longer exist"""
         removed = 0
-        
-        for cache_type in ['posts', 'pages']:
-            cached_urls = list(self.cache[cache_type].keys())
-            for url in cached_urls:
-                if url not in current_urls:
-                    del self.cache[cache_type][url]
-                    removed += 1
+
+        with self._lock:
+            for cache_type in ['posts', 'pages']:
+                cached_urls = list(self.cache[cache_type].keys())
+                for url in cached_urls:
+                    if url not in current_urls:
+                        del self.cache[cache_type][url]
+                        removed += 1
         
         if removed > 0:
             print(f"🧹 Removed {removed} stale cache entries")
