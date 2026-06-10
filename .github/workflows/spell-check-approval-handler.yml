@@ -20,7 +20,7 @@ jobs:
     steps:
     - name: Check for approval command
       id: check-command
-      uses: actions/github-script@v7
+      uses: actions/github-script@v9
       with:
         script: |
           const comment = context.payload.comment.body.trim().toLowerCase();
@@ -36,7 +36,7 @@ jobs:
     - name: Extract run ID from issue
       if: fromJSON(steps.check-command.outputs.result).approve
       id: extract-run-id
-      uses: actions/github-script@v7
+      uses: actions/github-script@v9
       with:
         script: |
           const issueBody = context.payload.issue.body;
@@ -89,7 +89,7 @@ jobs:
     
     - name: Trigger corrections application
       if: fromJSON(steps.check-command.outputs.result).approve
-      uses: actions/github-script@v7
+      uses: actions/github-script@v9
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
@@ -132,7 +132,7 @@ jobs:
     
     - name: Handle rejection
       if: fromJSON(steps.check-command.outputs.result).reject
-      uses: actions/github-script@v7
+      uses: actions/github-script@v9
       with:
         script: |
           // Add a comment
