@@ -67,6 +67,15 @@ class Config:
     # person name). Both refer to the same Person.
     PERSON_CANONICAL_NAMES = ('James Kilby', 'James')
 
+    # Canonical social/professional profiles. Single source of truth for the
+    # footer "Connect with me" links (wp_to_static_generator.add_social_links)
+    # AND the JSON-LD sameAs graph below. name/color feed the rendered links.
+    SOCIAL_PROFILES = (
+        {'name': 'GitHub',   'url': 'https://github.com/jameskilbynet',         'color': '#333'},
+        {'name': 'Twitter',  'url': 'https://x.com/jameskilbynet',              'color': '#1da1f2'},
+        {'name': 'LinkedIn', 'url': 'https://www.linkedin.com/in/james-kilby/', 'color': '#0077b5'},
+    )
+
     # sameAs URLs — the canonical professional profile graph for entity linking.
     # Pre-existing JSON-LD links to wordpress.jameskilby.cloud (the private CMS),
     # which is wrong on a public schema; this list replaces that.
@@ -75,11 +84,16 @@ class Config:
     # fix_person_enrichment and fix_organization_sameas respectively) — this
     # is a single-author blog so Person.sameAs and Organization.sameAs should
     # describe the same identity graph.
-    PERSON_SAME_AS = (
-        'https://github.com/jameskilbynet',
-        'https://x.com/jameskilbynet',
-        'https://www.linkedin.com/in/james-kilby/',
-    )
+    PERSON_SAME_AS = tuple(p['url'] for p in SOCIAL_PROFILES)
+
+    # GitHub repo (owner/name) whose issues back Utterances comments. The
+    # Utterances app must stay installed on this exact repo — do not change
+    # this to the code repo without migrating the comment issues.
+    UTTERANCES_REPO = 'jameskilbynet/jkcoukblog'
+
+    # Site logo, used as the default og:image fallback and the Organization
+    # JSON-LD logo. Path is relative to TARGET_DOMAIN.
+    DEFAULT_OG_IMAGE_PATH = '/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png'
 
     PERSON_JOB_TITLE = 'Cloud / Infrastructure Architect'
 

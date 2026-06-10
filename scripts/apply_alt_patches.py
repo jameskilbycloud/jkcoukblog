@@ -43,24 +43,18 @@ from pathlib import Path
 
 import requests
 
+from config import Config
+from wp_session import build_session as _build_session
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 PATCHES_PATH = REPO_ROOT / 'alt-patches.json'
 
-# Single source of truth (mirrors apply_typo_patches.py + scripts/config.py)
-WP_URL = 'https://wordpress.jameskilby.cloud'
+WP_URL = Config.WP_URL
 
 
 def build_session(auth_token: str, cf_id: str | None, cf_secret: str | None) -> requests.Session:
-    s = requests.Session()
-    s.headers.update({
-        'Authorization': f'Basic {auth_token}',
-        'User-Agent': 'apply-alt-patches/1.0',
-        'Accept': 'application/json',
-    })
-    if cf_id and cf_secret:
-        s.headers['CF-Access-Client-Id'] = cf_id
-        s.headers['CF-Access-Client-Secret'] = cf_secret
-    return s
+    return _build_session(auth_token, cf_id, cf_secret,
+                          user_agent='apply-alt-patches/1.0')
 
 
 def find_media(session: requests.Session, file_pattern: str) -> dict | None:

@@ -174,8 +174,12 @@ class MarkdownAPIGenerator:
                                 'posts': []
                             }
                         archives[year_month]['posts'].append(post_data)
-                    except:
-                        pass
+                    except (ValueError, TypeError, KeyError) as e:
+                        # A post with an unparseable date would otherwise
+                        # silently vanish from the archive API.
+                        print(f"   ⚠️  Skipping post in archive (bad date "
+                              f"{post_data.get('date')!r}): "
+                              f"{post_data.get('slug', 'unknown')} — {e}")
         
         # Save each month
         for year_month, data in archives.items():
