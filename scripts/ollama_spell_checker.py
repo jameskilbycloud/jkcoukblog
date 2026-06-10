@@ -24,12 +24,14 @@ class OllamaSpellChecker:
         self.model = model
         self.ollama_auth = ollama_auth
         
-        # Session for WordPress API
-        self.session = requests.Session()
-        self.session.headers.update({
-            'Authorization': f'Basic {auth_token}',
-            'User-Agent': 'SpellChecker/1.0'
-        })
+        # Session for WordPress API — shared factory adds retry/backoff and
+        # a session-wide default timeout.
+        from wp_session import build_session
+        self.session = build_session(
+            auth_token,
+            user_agent='SpellChecker/1.0',
+            default_timeout=30,
+        )
         
         # Initialize traditional spell checker
         self.spell = SpellChecker()
@@ -272,7 +274,7 @@ If no actual errors, return: {{"has_errors": false, "errors": []}}
                 print(f"   🐛 Debug: Extracted content saved to {debug_file}")
             
             # Stage 1: Fast traditional spell check on all sections
-            print(f"   ⚡ Stage 1: Fast spell check...")
+            print("   ⚡ Stage 1: Fast spell check...")
             all_candidate_errors = set()
             section_texts = {}
             
@@ -284,7 +286,7 @@ If no actual errors, return: {{"has_errors": false, "errors": []}}
                 all_candidate_errors.update(candidates)
             
             if not all_candidate_errors:
-                print(f"   ✅ No potential errors found")
+                print("   ✅ No potential errors found")
                 return {
                     'post_id': post_id,
                     'title': post_title,
@@ -349,7 +351,7 @@ If no actual errors, return: {{"has_errors": false, "errors": []}}
             if all_errors:
                 print(f"   ⚠️  Found {len(all_errors)} confirmed errors")
             else:
-                print(f"   ✅ All candidates were false positives")
+                print("   ✅ All candidates were false positives")
             
             return {
                 'post_id': post_id,
@@ -426,7 +428,7 @@ If no actual errors, return: {{"has_errors": false, "errors": []}}
         posts_with_errors = [r for r in results if r.get('has_errors')]
         posts_clean = [r for r in results if not r.get('has_errors') and 'error' not in r]
         
-        report.append(f"## Summary\n")
+        report.append("## Summary\n")
         report.append(f"- Total posts checked: {len(results)}")
         report.append(f"- Posts with errors: {len(posts_with_errors)}")
         report.append(f"- Posts clean: {len(posts_clean)}\n")
@@ -488,7 +490,7 @@ def main():
             print(f"Usage: {sys.argv[0]} [number_of_posts]")
             sys.exit(1)
     
-    print(f"🚀 Ollama Spell Checker")
+    print("🚀 Ollama Spell Checker")
     print(f"Ollama: {OLLAMA_URL}")
     print(f"WordPress: {WP_URL}")
     print(f"Model: {MODEL}")

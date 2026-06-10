@@ -321,7 +321,7 @@ class OGImageGenerator:
     def process_all(self):
         if not _DEPS_OK:
             print(f"⚠️  og:image generator skipped — {_DEPS_ERROR}")
-            print(f"   Install dependencies with: pip install Pillow 'fonttools[woff]'")
+            print("   Install dependencies with: pip install Pillow 'fonttools[woff]'")
             return
 
         html_files = sorted(self.site_dir.rglob('*.html'))
@@ -334,7 +334,7 @@ class OGImageGenerator:
                 print(f"   ⚠️  {html_file.relative_to(self.site_dir)}: {e}")
 
         self._save_cache()
-        print(f"\n✅ og:image generation complete")
+        print("\n✅ og:image generation complete")
         print(f"   Generated: {self.generated}")
         print(f"   Cached:    {self.cached}")
         print(f"   Skipped (no fallback): {self.skipped_no_fallback}")

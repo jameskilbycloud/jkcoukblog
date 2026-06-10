@@ -135,7 +135,7 @@ def main():
         print(f"✅ All {len(providers_to_test)} CSP check(s) passed!")
     else:
         print(f"\n{'='*50}")
-        print(f"❌ Some CSP checks failed!")
+        print("❌ Some CSP checks failed!")
 
     sys.exit(0 if all_passed else 1)
 
