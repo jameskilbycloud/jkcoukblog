@@ -22,6 +22,7 @@ import json
 import time
 import requests
 from pathlib import Path
+import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, List, Tuple, Optional
 import hashlib
@@ -82,6 +83,9 @@ class ImageOptimizer:
         }
         self.optimization_results = []  # For JSON output
         self.optimization_cache = {}
+        # optimize_image() runs in ThreadPoolExecutor workers — guard every
+        # mutation of the shared cache/stats/results structures.
+        self._lock = threading.Lock()
         self.load_optimization_cache()
 
     def load_optimization_cache(self):
@@ -131,7 +135,7 @@ class ImageOptimizer:
             # Populate cache if missing so future runs are fast
             cache_key = str(image_path.relative_to(self.public_dir))
             if cache_key not in self.optimization_cache:
-                self.optimization_cache[cache_key] = {
+                entry = {
                     'hash': self.get_image_hash(image_path),
                     'optimized_at': '',
                     'optimized_size': 0,
@@ -141,6 +145,8 @@ class ImageOptimizer:
                     'webp': str(webp_path.relative_to(self.public_dir)),
                     'avif': str(avif_path.relative_to(self.public_dir))
                 }
+                with self._lock:
+                    self.optimization_cache.setdefault(cache_key, entry)
             return False
 
         # Check cache for unchanged images that need AVIF/WebP created
@@ -200,16 +206,18 @@ class ImageOptimizer:
 
             # Check if should optimize
             if not self.should_optimize_image(image_path):
-                self.stats['skipped'] += 1
                 result['was_cached'] = True
                 result['duration_ms'] = int((time.time() - start_time) * 1000)
-                self.optimization_results.append(result)
+                with self._lock:
+                    self.stats['skipped'] += 1
+                    self.optimization_results.append(result)
                 return result
 
             # Get original size
             original_size = image_path.stat().st_size
             result['original_size'] = original_size
-            self.stats['original_size'] += original_size
+            with self._lock:
+                self.stats['original_size'] += original_size
 
             # Open image
             with Image.open(image_path) as img:
@@ -235,8 +243,9 @@ class ImageOptimizer:
                 result['webp'] = str(webp_path)
                 result['webp_size'] = webp_size
                 result['webp_created'] = True
-                self.stats['webp_generated'] += 1
-                self.stats['optimized_size'] += webp_size
+                with self._lock:
+                    self.stats['webp_generated'] += 1
+                    self.stats['optimized_size'] += webp_size
 
                 # Generate AVIF version (best compression)
                 avif_created = False
@@ -253,8 +262,9 @@ class ImageOptimizer:
                     result['avif_size'] = avif_size
                     result['avif_created'] = True
                     avif_created = True
-                    self.stats['avif_generated'] += 1
-                    self.stats['optimized_size'] += avif_size
+                    with self._lock:
+                        self.stats['avif_generated'] += 1
+                        self.stats['optimized_size'] += avif_size
                 except Exception as e:
                     # AVIF might fail on some systems
                     print(f"⚠️  AVIF generation failed for {image_path.name}: {e}")
@@ -271,7 +281,6 @@ class ImageOptimizer:
                     self._generate_extra_width_variants(image_path, img, quality)
 
                 result['success'] = True
-                self.stats['optimized'] += 1
 
                 # Calculate savings (use smallest modern format vs original)
                 smallest_size = min(webp_size, avif_size if avif_created else webp_size)
@@ -279,16 +288,18 @@ class ImageOptimizer:
 
                 # Update cache with new format tracking
                 cache_key = str(image_path.relative_to(self.public_dir))
-                self.optimization_cache[cache_key] = {
-                    'hash': self.get_image_hash(image_path),
-                    'optimized_at': datetime.now().isoformat(),
-                    'optimized_size': webp_size,
-                    'timestamp': time.time(),
-                    'webp_created': True,
-                    'avif_created': avif_created,
-                    'webp': str(webp_path.relative_to(self.public_dir)),
-                    'avif': str(avif_path.relative_to(self.public_dir)) if avif_created else None
-                }
+                with self._lock:
+                    self.stats['optimized'] += 1
+                    self.optimization_cache[cache_key] = {
+                        'hash': self.get_image_hash(image_path),
+                        'optimized_at': datetime.now().isoformat(),
+                        'optimized_size': webp_size,
+                        'timestamp': time.time(),
+                        'webp_created': True,
+                        'avif_created': avif_created,
+                        'webp': str(webp_path.relative_to(self.public_dir)),
+                        'avif': str(avif_path.relative_to(self.public_dir)) if avif_created else None
+                    }
 
                 # Calculate savings for display
                 savings = original_size - webp_size
@@ -297,11 +308,13 @@ class ImageOptimizer:
 
         except Exception as e:
             result['error'] = str(e)
-            self.stats['errors'] += 1
+            with self._lock:
+                self.stats['errors'] += 1
             print(f"❌ Error optimizing {image_path.name}: {e}")
 
         result['duration_ms'] = int((time.time() - start_time) * 1000)
-        self.optimization_results.append(result)
+        with self._lock:
+            self.optimization_results.append(result)
         return result
 
     def _generate_extra_width_variants(self, original_path: Path, img: 'Image.Image', quality: int):
@@ -348,7 +361,8 @@ class ImageOptimizer:
             try:
                 resized.save(resized_png, 'PNG', optimize=True)
                 resized.save(resized_webp, 'WEBP', quality=quality, method=6)
-                self.stats['webp_generated'] += 1
+                with self._lock:
+                    self.stats['webp_generated'] += 1
             except Exception as e:
                 # Roll back any partial files so the srcset injection in
                 # convert_images_to_picture sees a clean "no variant" state.
@@ -361,7 +375,8 @@ class ImageOptimizer:
 
             try:
                 resized.save(resized_avif, 'AVIF', quality=quality, speed=4)
-                self.stats['avif_generated'] += 1
+                with self._lock:
+                    self.stats['avif_generated'] += 1
             except Exception as e:
                 # AVIF is optional — leave the PNG + WebP in place.
                 print(f"⚠️  AVIF write failed for {resized_avif.name}: {e}")
