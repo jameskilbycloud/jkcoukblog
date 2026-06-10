@@ -11,7 +11,7 @@ Pillow==12.2.0
 # (PIL can't render woff2 directly). [woff] extra pulls brotli decompression.
 fonttools[woff]==4.63.0
 html2text==2020.1.16
-pyyaml==6.0.1
+pyyaml==6.0.3
 
 # Dev/CI-only deps are in requirements-dev.txt
 # Image optimisation extras are in requirements-images.txt
