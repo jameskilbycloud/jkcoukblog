@@ -218,9 +218,17 @@ jobs:
               "${SSH_USER}@${SSH_HOST}" \
               "rm -f ${REMOTE_DUMP}.gz"
 
-          rm -f ~/.ssh/wp_backup_key
           echo "ok=true" >> "$GITHUB_OUTPUT"
           echo "Database dump saved to ${LOCAL_DIR}/database.sql.gz"
+
+      # Remove the key IMMEDIATELY after the SSH step, success or failure —
+      # not only in the end-of-job cleanup. Otherwise the private key sits on
+      # the (shared, self-hosted) runner's disk through the archive/upload
+      # steps, and indefinitely if the job is cancelled before the final
+      # cleanup step runs.
+      - name: Remove SSH key
+        if: always()
+        run: rm -f ~/.ssh/wp_backup_key
 
       # ── Database dump via UpdraftPlus REST endpoint (fallback) ────────────
       # Requires UpdraftPlus Premium with the Remote REST add-on enabled, or

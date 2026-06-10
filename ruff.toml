@@ -1,0 +1,16 @@
+# Lint gate for scripts/ and tests/ (run by .github/workflows/python-checks.yml).
+#
+# Deliberately starts with the "critical" subset only — syntax errors,
+# undefined names, broken f-strings/comparisons — so the existing 40+ scripts
+# pass without a big-bang cleanup. Tighten incrementally (add "E", "W", "I",
+# full "F") as files get touched.
+
+target-version = "py311"
+
+[lint]
+select = [
+    "E9",   # syntax errors / IO errors
+    "F63",  # invalid comparisons (is-literal, etc.)
+    "F7",   # syntax-adjacent logic errors (return outside function, etc.)
+    "F82",  # undefined names
+]
