@@ -16,14 +16,13 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Networking",
-        "Veeam",
-        "VMware",
-        "Mikrotik",
-        "Docker",
-        "Hosting",
         "Storage",
-        "vExpert"
+        "Synology",
+        "Networking",
+        "Automation",
+        "VMware",
+        "Nutanix",
+        "Docker"
       ],
       "tags": [
         null,

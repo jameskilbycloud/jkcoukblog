@@ -17,15 +17,15 @@
         "Hosting",
         "Personal",
         "Cloudflare",
-        "Artificial Intelligence",
-        "Docker",
-        "Automation",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
         "Wordpress",
-        "Nutanix"
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Homelab",
+        "Traefik",
+        "VCF",
+        "VMware",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -52,12 +52,12 @@
       "categories": [
         "Kubernetes",
         "TrueNAS Scale",
-        "VMware",
-        "vSAN",
-        "vSphere",
         "Homelab",
         "Storage",
         "vExpert",
+        "VMware",
+        "vSAN",
+        "vSphere",
         "Docker",
         "Hosting"
       ],
@@ -81,9 +81,9 @@
       "categories": [
         "Networking",
         "Homelab",
+        "Mikrotik",
         "Storage",
-        "VMware",
-        "Mikrotik"
+        "VMware"
       ],
       "tags": [
         null,
@@ -108,12 +108,19 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
-        "Homelab",
-        "Storage",
-        "Synology",
+        "Artificial Intelligence",
         "Automation",
-        "vSphere",
-        "Networking"
+        "Docker",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "Ansible",
+        "Containers",
+        "Devops",
+        "VCF",
+        "Networking",
+        "Storage",
+        "Synology"
       ],
       "tags": [
         null,
@@ -138,17 +145,16 @@
         "VMware",
         "Personal",
         "vSphere",
-        "VMware Cloud on AWS",
-        "Homelab",
-        "VCF",
-        "vSAN",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
         "Docker",
-        "NVIDIA",
+        "Homelab",
         "Traefik",
-        "Networking",
-        "Storage"
+        "VCF",
+        "Artificial Intelligence",
+        "NVIDIA",
+        "VMware Cloud on AWS",
+        "Veeam"
       ],
       "tags": [
         null,

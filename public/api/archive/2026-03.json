@@ -16,14 +16,15 @@
       "categories": [
         "Artificial Intelligence",
         "Automation",
-        "Ansible",
-        "Containers",
-        "Devops",
+        "Docker",
         "Homelab",
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Docker"
+        "Github",
+        "Ansible",
+        "Containers",
+        "Devops"
       ],
       "tags": [
         null,
@@ -51,8 +52,13 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VMware Cloud on AWS",
-        "Personal"
+        "Ansible",
+        "Personal",
+        "vSphere",
+        "Networking",
+        "Storage",
+        "Synology",
+        "Github"
       ],
       "tags": [
         null,

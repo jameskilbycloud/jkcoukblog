@@ -16,12 +16,14 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Automation",
-        "VMware Cloud on AWS",
-        "Storage",
-        "vExpert",
+        "Artificial Intelligence",
+        "Docker",
         "Networking",
-        "Personal"
+        "Automation",
+        "NVIDIA",
+        "Traefik",
+        "Storage",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -44,14 +46,11 @@
       "categories": [
         "VMware",
         "Personal",
-        "Runecast",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
         "Homelab",
-        "vSphere",
+        "Veeam",
         "VMware Cloud on AWS",
-        "vSAN"
+        "AWS",
+        "Devops"
       ],
       "tags": [
         null,

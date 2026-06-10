@@ -18,14 +18,18 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "Personal",
         "Ansible",
-        "Automation",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
         "Homelab",
+        "NVIDIA",
+        "Traefik",
         "VMware Cloud on AWS",
-        "Docker",
-        "Hosting",
-        "Kubernetes"
+        "VCF",
+        "Storage",
+        "vExpert",
+        "Docker"
       ],
       "tags": [
         null,

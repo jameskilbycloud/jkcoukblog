@@ -17,20 +17,10 @@
         "VMware",
         "AWS",
         "Veeam",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "Storage",
-        "vExpert",
-        "Automation",
-        "Docker",
-        "VCF",
-        "VMware Cloud on AWS",
         "Personal",
+        "VMware Cloud on AWS",
+        "vSAN",
+        "Homelab",
         "vSphere"
       ],
       "tags": [
@@ -54,10 +44,10 @@
       "categories": [
         "AWS",
         "Personal",
-        "Nutanix",
         "VMware",
-        "Hosting",
-        "VMware Cloud on AWS"
+        "vSphere",
+        "Nutanix",
+        "Devops"
       ],
       "tags": [
         null,

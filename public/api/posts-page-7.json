@@ -13,9 +13,9 @@
       "categories": [
         "Networking",
         "Homelab",
+        "Mikrotik",
         "Storage",
-        "VMware",
-        "Mikrotik"
+        "VMware"
       ],
       "tags": [
         null,
@@ -38,17 +38,17 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
+        "Cloudflare",
         "Wordpress",
+        "Personal",
+        "AWS",
         "Ansible",
         "Automation",
         "Docker",
         "Homelab",
         "Traefik",
         "VCF",
-        "VMware",
-        "Personal",
-        "Cloudflare",
-        "Artificial Intelligence"
+        "VMware"
       ],
       "tags": [
         null
@@ -69,13 +69,17 @@
       "categories": [
         "Hosting",
         "Wordpress",
-        "Cloudflare",
-        "Devops",
-        "Github",
         "Artificial Intelligence",
         "Docker",
-        "AWS",
-        "Homelab"
+        "Homelab",
+        "Kubernetes",
+        "Cloudflare",
+        "Ansible",
+        "Automation",
+        "Traefik",
+        "VCF",
+        "VMware",
+        "Personal"
       ],
       "tags": [
         null,
@@ -99,16 +103,14 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
         "Ansible",
         "Automation",
+        "VMware",
+        "Hosting",
+        "Docker",
         "Traefik",
         "VCF",
-        "VMware",
-        "Networking",
-        "Veeam"
+        "Github"
       ],
       "tags": [
         null,
@@ -130,13 +132,13 @@
       "categories": [
         "AWS",
         "Hosting",
-        "Cloudflare",
         "Wordpress",
+        "VMware",
+        "Veeam",
         "Artificial Intelligence",
         "Docker",
-        "Homelab",
-        "VMware",
-        "VMware Cloud on AWS"
+        "Cloudflare",
+        "Personal"
       ],
       "tags": [
         null,
@@ -158,10 +160,10 @@
       "categories": [
         "AWS",
         "Personal",
-        "Nutanix",
         "VMware",
-        "Hosting",
-        "VMware Cloud on AWS"
+        "vSphere",
+        "Nutanix",
+        "Devops"
       ],
       "tags": [
         null,
@@ -182,10 +184,10 @@
       "api_url": "/api/posts/aws-for-beginners1.json",
       "categories": [
         "AWS",
-        "VMware",
-        "Veeam",
-        "VMware Cloud on AWS",
         "Personal",
+        "VMware",
+        "VMware Cloud on AWS",
+        "Veeam",
         "Hosting"
       ],
       "tags": [
@@ -214,12 +216,13 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Automation",
-        "Personal",
-        "vSphere",
-        "Nutanix",
         "VMware Cloud on AWS",
-        "Github"
+        "Docker",
+        "Hosting",
+        "Storage",
+        "Synology",
+        "vSAN",
+        "Networking"
       ],
       "tags": [
         null,
@@ -249,12 +252,14 @@
         "Traefik",
         "VCF",
         "VMware",
-        "vSAN",
-        "Personal",
-        "vSphere",
-        "VMware Cloud on AWS",
+        "AWS",
+        "Veeam",
         "Github",
-        "Hosting"
+        "VMware Cloud on AWS",
+        "Hosting",
+        "vSAN",
+        "Storage",
+        "Synology"
       ],
       "tags": [
         null,

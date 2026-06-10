@@ -385,7 +385,12 @@ async function handleCacheAPI(request, env, ctx, path, hostname = '') {
   }
 
   const cache = caches.default;
-  const cacheKey = new Request(request.url, request);
+  // Key on the path only, mirroring the KV path's pathname-based keys —
+  // otherwise ?utm_source=… style tracking params fragment the cache into
+  // unlimited per-query copies that each go stale on their own clock.
+  const cacheKeyUrl = new URL(request.url);
+  cacheKeyUrl.search = '';
+  const cacheKey = new Request(cacheKeyUrl.toString(), { method: 'GET' });
 
   let response = await cache.match(cacheKey);
 
@@ -474,7 +479,9 @@ function getSecurityHeaders(hostname = '') {
     'X-Content-Type-Options': 'nosniff',
     'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
     'Referrer-Policy': 'strict-origin-when-cross-origin',
-    'Permissions-Policy': 'geolocation=(), microphone=(), camera=()'
+    // Keep in sync with the Permissions-Policy line in _headers — the worker
+    // emits headers for cache HITs, _headers covers direct ASSETS responses.
+    'Permissions-Policy': 'geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=()'
   };
 
   if (CSP_FROM_HEADERS) {
