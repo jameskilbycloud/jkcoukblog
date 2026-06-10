@@ -454,6 +454,9 @@ class WordPressStaticGenerator:
         # Add BlogPosting JSON-LD schema to article pages
         self.add_blogposting_schema(soup, current_url)
 
+        # Add FAQPage JSON-LD when the article contains an FAQ section
+        self.add_faq_schema(soup)
+
         # Add site-level WebSite + Organization schema (all pages)
         self.add_site_schema(soup)
 
@@ -925,6 +928,139 @@ class WordPressStaticGenerator:
             script_tag.string = json.dumps(schema, ensure_ascii=False, separators=(',', ':'))
             soup.head.append(script_tag)
             print(f"   📋 Added BlogPosting schema: {title[:60]}")
+
+    @staticmethod
+    def _extract_faq_pairs(soup):
+        """Find an FAQ section in the article and return an ordered list of
+        ``{'question': str, 'answer': str}`` dicts.
+
+        Conservative by design — it only fires when a heading explicitly marks
+        a "FAQ" / "Frequently Asked Questions" section, so we never invent
+        FAQ structured data for content that isn't actually a FAQ (which would
+        violate Google's structured-data guidelines). Returns ``[]`` when no
+        FAQ section is found.
+
+        Two question/answer shapes are recognised inside that section:
+          * a definition list — ``<dt>`` question, ``<dd>`` answer; and
+          * sub-headings deeper than the section heading whose text ends with
+            "?", followed by their answer paragraphs/lists.
+        """
+        def _level(tag):
+            name = getattr(tag, 'name', '') or ''
+            if len(name) == 2 and name[0] == 'h' and name[1].isdigit():
+                return int(name[1])
+            return None
+
+        # Locate the FAQ section heading.
+        faq_heading = None
+        for h in soup.find_all(['h2', 'h3', 'h4']):
+            text = h.get_text(strip=True).lower()
+            if 'frequently asked question' in text or re.search(r'\bfaqs?\b', text):
+                faq_heading = h
+                break
+        if not faq_heading:
+            return []
+
+        section_level = _level(faq_heading)
+        pairs = []
+        current_q = None
+        current_answer_parts = []
+
+        def _flush():
+            if current_q:
+                answer = ' '.join(p for p in current_answer_parts if p).strip()
+                if answer:
+                    pairs.append({'question': current_q, 'answer': answer})
+
+        for el in faq_heading.find_all_next(
+            ['h2', 'h3', 'h4', 'h5', 'h6', 'p', 'ul', 'ol', 'dl']
+        ):
+            lvl = _level(el)
+            # A heading at or above the section level ends the FAQ section.
+            if lvl is not None and lvl <= section_level:
+                break
+            if el.name == 'dl':
+                for dt in el.find_all('dt'):
+                    q = dt.get_text(strip=True)
+                    dd = dt.find_next_sibling('dd')
+                    a = dd.get_text(' ', strip=True) if dd else ''
+                    if q and a:
+                        pairs.append({'question': q, 'answer': a})
+                continue
+            if lvl is not None:
+                # A deeper heading starts a new question.
+                _flush()
+                current_answer_parts = []
+                q_text = el.get_text(strip=True)
+                current_q = q_text if q_text.endswith('?') else None
+            elif current_q:
+                current_answer_parts.append(el.get_text(' ', strip=True))
+        _flush()
+
+        # Deduplicate by question text, preserving order.
+        seen = set()
+        unique = []
+        for pair in pairs:
+            key = pair['question'].lower()
+            if key not in seen:
+                seen.add(key)
+                unique.append(pair)
+        return unique
+
+    def add_faq_schema(self, soup):
+        """Inject FAQPage JSON-LD when an article contains a FAQ section.
+
+        Purely additive: a no-op when no FAQ is detected, when a FAQPage
+        schema is already present, or when fewer than two Q&A pairs are found
+        (a single question is too thin for FAQ rich results and risks a
+        structured-data / visible-content mismatch).
+        """
+        body = soup.find('body')
+        if not body:
+            return
+        body_class_str = ' '.join(body.get('class', [])).lower()
+        if 'single-post' not in body_class_str and 'page' not in body_class_str:
+            return
+
+        # Skip if a FAQPage schema already exists (e.g. supplied by Rank Math).
+        for script in soup.find_all('script', type='application/ld+json'):
+            try:
+                data = json.loads(script.string or '')
+                items = data.get('@graph', [data]) if isinstance(data, dict) else data
+                if any(
+                    isinstance(i, dict) and i.get('@type') == 'FAQPage'
+                    for i in items
+                ):
+                    return  # Already present – nothing to do
+            except (json.JSONDecodeError, TypeError):
+                pass
+
+        pairs = self._extract_faq_pairs(soup)
+        if len(pairs) < 2:
+            return
+
+        schema = {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": pair['question'],
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": pair['answer'],
+                    },
+                }
+                for pair in pairs
+            ],
+        }
+
+        if soup.head:
+            script_tag = soup.new_tag('script')
+            script_tag['type'] = 'application/ld+json'
+            script_tag.string = json.dumps(schema, ensure_ascii=False, separators=(',', ':'))
+            soup.head.append(script_tag)
+            print(f"   ❓ Added FAQPage schema: {len(pairs)} Q&A pairs")
 
     def add_site_schema(self, soup):
         """Enrich or inject WebSite and Organization JSON-LD schema.
