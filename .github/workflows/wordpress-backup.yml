@@ -165,7 +165,7 @@ jobs:
             --input-file="$URL_FILE" \
             --directory-prefix="$MEDIA_DIR" \
             --force-directories \
-            --no-host-directories=no \
+            --no-host-directories \
             --timeout=30 \
             --tries=3 \
             --wait=0.2 \
