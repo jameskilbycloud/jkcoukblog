@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://jameskilby.co.uk/</loc>
-    <lastmod>2026-06-06</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png</image:loc>
@@ -63,12 +63,10 @@
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2018/03/Screen-Shot-2018-03-10-at-20.41.50-300x156.png</image:loc>
       <image:title>Screen Shot 2018 03 10 At 20.41.50 300X156</image:title>
-      <image:caption>Screen Shot 2018 03 10 At 20.41.50 300X156</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2018/03/Screen-Shot-2018-02-14-at-22.25.32-300x160.png</image:loc>
       <image:title>Screen Shot 2018 02 14 At 22.25.32 300X160</image:title>
-      <image:caption>Screen Shot 2018 02 14 At 22.25.32 300X160</image:caption>
     </image:image>
   </url>
   <url>
@@ -103,7 +101,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2019/02/lab-storage-2/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-05</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/iu-768x432-1.jpg</image:loc>
@@ -118,7 +116,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-05</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/VMC-Vms-1024x296.png</image:loc>
@@ -143,7 +141,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2020/07/i3en/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-05</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -153,7 +151,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2020/09/vmc-host-errors/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-05</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2020-08-27-at-16.56.37-1536x182-2-1024x121.png</image:loc>
@@ -168,12 +166,12 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2020/12/my-first-pull/</loc>
-    <lastmod>2026-05-31</lastmod>
+    <lastmod>2026-06-05</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2021/01/hashicorp-packer/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-05</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -403,7 +401,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-05</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-11-21-at-17.36.13-1024x638.png</image:loc>
@@ -498,7 +496,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-05</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/10/Screenshot-2023-10-23-at-15.00.32-1024x435.png</image:loc>
@@ -638,12 +636,12 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-05</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2024/07/new-nodes/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-05</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/04/Screenshot-2024-04-06-at-22.50.57.png</image:loc>
@@ -713,7 +711,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2024/09/home-network-upgrade/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-05</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/01/Home-Net-overview-1024x633.png</image:loc>
@@ -783,7 +781,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-05</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/01/HoarderApp-1024x491.png</image:loc>
@@ -828,17 +826,17 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/08/vmc-host-deepdive/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-05</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-05</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/09/Ansible-Inventory.png</image:loc>
-      <image:title>Ansible Inventory</image:title>
-      <image:caption>Ansible Inventory</image:caption>
+      <image:title>Semaphore web UI dashboard managing Ansible playbooks in my homelab</image:title>
+      <image:caption>Semaphore web UI dashboard managing Ansible playbooks in my homelab</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/07/Semaphore-Repo-1024x80.png</image:loc>
@@ -873,7 +871,7 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-06-05</lastmod>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/10/Wordpress-Authoring-2-1024x677.png</image:loc>
@@ -1173,22 +1171,27 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-05</lastmod>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/PackerFullFlow-912x1024.png</image:loc>
+      <image:title>Packerfullflow 912X1024</image:title>
+    </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/BuildSelection.png</image:loc>
       <image:title>Buildselection</image:title>
-      <image:caption>Buildselection</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/Packer-Workflow-1024x160.png</image:loc>
       <image:title>Packer Workflow 1024X160</image:title>
-      <image:caption>Packer Workflow 1024X160</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-1024x614.png</image:loc>
       <image:title>Smoke Ubuntu 2404 Desktop 20260529 26645739266 Midwait 1024X614</image:title>
-      <image:caption>Smoke Ubuntu 2404 Desktop 20260529 26645739266 Midwait 1024X614</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/SuccessfulPackerDeployment-1024x173.png</image:loc>
+      <image:title>Successfulpackerdeployment 1024X173</image:title>
     </image:image>
   </url>
   <url>
@@ -1217,7 +1220,6 @@
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/02/55f91c39-f0dd-42e1-939a-cdffc92c0b52-1024x768.jpeg</image:loc>
       <image:title>55F91C39 F0Dd 42E1 939A Cdffc92C0B52 1024X768</image:title>
-      <image:caption>55F91C39 F0Dd 42E1 939A Cdffc92C0B52 1024X768</image:caption>
     </image:image>
   </url>
   <url>
@@ -1230,12 +1232,10 @@
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/vSphere-Overview-1024x530.png</image:loc>
       <image:title>Vsphere Overview 1024X530</image:title>
-      <image:caption>Vsphere Overview 1024X530</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/02/HouseNetworkOverview-1024x634.png</image:loc>
       <image:title>Housenetworkoverview 1024X634</image:title>
-      <image:caption>Housenetworkoverview 1024X634</image:caption>
     </image:image>
   </url>
   <url>
@@ -1244,6 +1244,6 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/vmc/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-06-10</lastmod>
   </url>
 </urlset>

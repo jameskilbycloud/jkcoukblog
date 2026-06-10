@@ -43,7 +43,7 @@ posts.count.............74
 
 words.total............49k
 
-last_post..........37d ago
+last_post..........41d ago
 
 categories..............34
 
@@ -51,11 +51,11 @@ tags...................128
 
 vexpert.years...........11
 
-deploys.month...........56
+deploys.month...........72
 
 last_deploy..........today
 
-lighthouse..........95/100
+lighthouse...............—
 
 $_
 
@@ -63,13 +63,7 @@ FILTER
 
 [All](/)[VMware](https://jameskilby.co.uk/category/vmware/)[Homelab](https://jameskilby.co.uk/category/homelab/)[Automation](https://jameskilby.co.uk/category/automation/)[AI](https://jameskilby.co.uk/category/artificial-intelligence/)
 
-[![Automating vSphere Golden Images with Packer and GitHub Actions](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline-768x452.png)LATESTAutomationGithub
-
-## Automating vSphere Golden Images with Packer and GitHub Actions
-
-A walk-through of an automated golden-image pipeline for vSphere: HashiCorp Packer builds six Ubuntu LTS templates (22.04, 24.04, 26.04 — server and desktop) driven by three GitHub Actions workflows covering PR validation, parallel template builds, and ISO management via a self-hosted runner.
-
-April 30, 2026Read post →](https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/)
+[![Automating vSphere Golden Images with Packer and GitHub Actions](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline-768x452.png)LATESTAutomationGithubAutomating vSphere Golden Images with Packer and GitHub ActionsA walk-through of an automated golden-image pipeline for vSphere: HashiCorp Packer builds six Ubuntu LTS templates (22.04, 24.04, 26.04 — server and desktop) driven by three GitHub Actions workflows covering PR validation, parallel template builds, and ISO management via a self-hosted runner.April 30, 2026Read post →](https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/)
 
   * [ ![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png) ](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 

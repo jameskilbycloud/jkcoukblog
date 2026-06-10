@@ -8,4 +8,4 @@ url: https://jameskilby.co.uk/about-james-kilby-solution-architect/
 image: https://jameskilby.co.uk/wp-content/uploads/2026/02/vexpert-badge_Years-12.png
 ---
 
-📅 **Published:** June 27, 2020• **Updated:** June 01, 2026
+📅**Published:** June 27, 2020•**Updated:** June 01, 2026
