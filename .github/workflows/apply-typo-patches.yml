@@ -68,7 +68,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       # Runner is Ubuntu 26.04 with system Python 3.14. setup-python@v6 has no
       # 3.11 build for this OS, and the system Python's ensurepip / venv are
