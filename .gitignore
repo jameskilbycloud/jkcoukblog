@@ -76,3 +76,7 @@ node_modules/
 AGENTS.md
 migrate-to-vmware-cloud-veeam-sobr.md
 seo-audit-april-2026.md
+
+# Claude Code
+.claude/settings.local.json
+.claude/worktrees/
