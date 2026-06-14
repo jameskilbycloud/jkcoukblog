@@ -23613,5 +23613,75 @@
     "avif_created": true,
     "webp": "wp-content/uploads/2018/04/DeviceToUpdate.webp",
     "avif": "wp-content/uploads/2018/04/DeviceToUpdate.avif"
+  },
+  "wp-content/uploads/2026/06/NewHouseNet-2-150x150.png": {
+    "hash": "48013874e133652f2ef2bcca2aafd6ed",
+    "optimized_at": "2026-06-14T23:57:27.412550",
+    "optimized_size": 3072,
+    "timestamp": 1781477847.4125986,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/NewHouseNet-2-150x150.webp",
+    "avif": "wp-content/uploads/2026/06/NewHouseNet-2-150x150.avif"
+  },
+  "wp-content/uploads/2026/06/NewHouseNet-2-300x186.png": {
+    "hash": "6fb9770404e5287bb79586f36f731979",
+    "optimized_at": "2026-06-14T23:57:27.647120",
+    "optimized_size": 6440,
+    "timestamp": 1781477847.6471436,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/NewHouseNet-2-300x186.webp",
+    "avif": "wp-content/uploads/2026/06/NewHouseNet-2-300x186.avif"
+  },
+  "wp-content/uploads/2026/06/NewHouseNet-2-768x475.png": {
+    "hash": "d200aefb4f49a28b17c1065442af2303",
+    "optimized_at": "2026-06-14T23:57:29.612989",
+    "optimized_size": 29282,
+    "timestamp": 1781477849.613003,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/NewHouseNet-2-768x475.webp",
+    "avif": "wp-content/uploads/2026/06/NewHouseNet-2-768x475.avif"
+  },
+  "wp-content/uploads/2026/06/NewHouseNet-2-1024x634.png": {
+    "hash": "5215e9883e3ed7baf7fec71f6cff6d4d",
+    "optimized_at": "2026-06-14T23:57:30.165105",
+    "optimized_size": 42228,
+    "timestamp": 1781477850.1651294,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/NewHouseNet-2-1024x634.webp",
+    "avif": "wp-content/uploads/2026/06/NewHouseNet-2-1024x634.avif"
+  },
+  "wp-content/uploads/2026/06/NewHouseNet-2-1536x950.png": {
+    "hash": "fe22a657e0b3afc131c7c78dbe9a9198",
+    "optimized_at": "2026-06-14T23:57:36.204788",
+    "optimized_size": 69000,
+    "timestamp": 1781477856.2048063,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/NewHouseNet-2-1536x950.webp",
+    "avif": "wp-content/uploads/2026/06/NewHouseNet-2-1536x950.avif"
+  },
+  "wp-content/uploads/2026/06/NewHouseNet-2-2048x1267.png": {
+    "hash": "64052caaf98a0aca2df286063b94a02c",
+    "optimized_at": "2026-06-14T23:57:37.059043",
+    "optimized_size": 94956,
+    "timestamp": 1781477857.0590575,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/NewHouseNet-2-2048x1267.webp",
+    "avif": "wp-content/uploads/2026/06/NewHouseNet-2-2048x1267.avif"
+  },
+  "wp-content/uploads/2026/06/NewHouseNet-2-scaled.png": {
+    "hash": "477f0e4128c06a2880275d191a4e3872",
+    "optimized_at": "2026-06-14T23:57:38.400577",
+    "optimized_size": 122216,
+    "timestamp": 1781477858.4005914,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/NewHouseNet-2-scaled.webp",
+    "avif": "wp-content/uploads/2026/06/NewHouseNet-2-scaled.avif"
   }
 }
