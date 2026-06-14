@@ -19,10 +19,8 @@
         "Storage",
         "Synology",
         "Networking",
-        "Automation",
         "VMware",
-        "Nutanix",
-        "Docker"
+        "vSphere"
       ],
       "tags": [
         null,

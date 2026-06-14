@@ -13,17 +13,16 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
-        "vSphere",
+        "AWS",
+        "Veeam",
         "Ansible",
         "Automation",
         "Docker",
         "Homelab",
         "Traefik",
         "VCF",
-        "Veeam",
-        "Storage",
-        "vExpert"
+        "Artificial Intelligence",
+        "NVIDIA"
       ],
       "tags": [
         null,
@@ -47,12 +46,11 @@
         "Homelab",
         "Nutanix",
         "VMware",
+        "VMware Cloud on AWS",
+        "Networking",
         "Artificial Intelligence",
         "Docker",
-        "Networking",
-        "Storage",
-        "VMware Cloud on AWS",
-        "vSphere"
+        "Storage"
       ],
       "tags": [
         null,
@@ -102,9 +100,10 @@
         "Traefik",
         "VMware",
         "VMware Cloud on AWS",
-        "VCF",
-        "vSAN",
-        "Github"
+        "Veeam",
+        "Nutanix",
+        "AWS",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -144,13 +143,9 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Ansible",
-        "Personal",
-        "vSphere",
-        "Networking",
+        "vSAN",
         "Storage",
-        "Synology",
-        "Github"
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -186,8 +181,9 @@
         "Hosting",
         "Cloudflare",
         "Wordpress",
+        "Nutanix",
         "VMware",
-        "vSphere"
+        "AWS"
       ],
       "tags": [
         null,
@@ -210,11 +206,19 @@
       "categories": [
         "Devops",
         "Personal",
-        "AWS",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
         "VMware",
         "Automation",
-        "Homelab",
-        "Github"
+        "Github",
+        "Cloudflare",
+        "Wordpress",
+        "Hosting",
+        "AWS"
       ],
       "tags": [
         null,
@@ -237,11 +241,19 @@
       "categories": [
         "VMware",
         "VCF",
-        "VMware Cloud on AWS",
-        "Personal",
-        "vSAN",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
         "Homelab",
-        "Automation"
+        "NVIDIA",
+        "Traefik",
+        "VMware Cloud on AWS",
+        "Runecast",
+        "Ansible",
+        "Containers",
+        "Devops",
+        "Storage",
+        "vExpert"
       ],
       "tags": [
         null,
@@ -267,10 +279,10 @@
         "AWS",
         "Veeam",
         "Personal",
-        "VMware Cloud on AWS",
-        "vSAN",
         "Homelab",
-        "vSphere"
+        "Nutanix",
+        "VMware Cloud on AWS",
+        "vSAN"
       ],
       "tags": [
         null,

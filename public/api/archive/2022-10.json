@@ -16,16 +16,16 @@
       "categories": [
         "Homelab",
         "Hosting",
-        "Networking",
-        "Storage",
+        "AWS",
+        "Nutanix",
         "VMware",
-        "Automation",
-        "Github",
-        "vSphere",
-        "TrueNAS Scale",
-        "vSAN",
         "Artificial Intelligence",
-        "Mikrotik"
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "Wordpress",
+        "Networking"
       ],
       "tags": [
         null,
@@ -48,11 +48,17 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Personal",
-        "Devops",
-        "Github",
+        "Docker",
+        "Homelab",
+        "Kubernetes",
         "AWS",
-        "Homelab"
+        "Artificial Intelligence",
+        "Automation",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "Ansible",
+        "VCF"
       ],
       "tags": [
         null,

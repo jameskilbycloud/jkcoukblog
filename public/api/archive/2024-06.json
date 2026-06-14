@@ -16,16 +16,16 @@
       "categories": [
         "Homelab",
         "Networking",
+        "Storage",
         "VMware",
-        "vSphere",
-        "Hosting",
+        "TrueNAS Scale",
         "Ansible",
-        "Automation",
-        "Docker",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
         "Traefik",
-        "VCF",
-        "Veeam",
-        "Nutanix"
+        "Synology"
       ],
       "tags": [
         null,

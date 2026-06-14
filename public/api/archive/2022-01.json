@@ -17,15 +17,22 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "Networking",
-        "VMware Cloud on AWS",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "Ansible",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
+        "Containers",
+        "Devops",
         "NVIDIA",
         "Traefik",
-        "vSAN",
-        "Personal"
+        "Nutanix",
+        "Docker",
+        "Hosting",
+        "Kubernetes",
+        "Mikrotik",
+        "Networking",
+        "Automation"
       ],
       "tags": [
         null,
@@ -47,18 +54,18 @@
       "api_url": "/api/posts/wrangler-and-node-versions.json",
       "categories": [
         "Cloudflare",
-        "Ansible",
+        "Hosting",
+        "Wordpress",
+        "Personal",
+        "Devops",
+        "Github",
+        "Artificial Intelligence",
         "Automation",
         "Docker",
         "Homelab",
+        "NVIDIA",
         "Traefik",
-        "VCF",
-        "VMware",
-        "Hosting",
-        "Wordpress",
-        "Devops",
-        "Github",
-        "Personal"
+        "VMware"
       ],
       "tags": [
         null,
@@ -82,16 +89,14 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Storage",
-        "VMware",
-        "Mikrotik",
-        "Ansible",
+        "Artificial Intelligence",
         "Automation",
         "Docker",
+        "NVIDIA",
         "Traefik",
-        "VCF",
-        "Veeam",
-        "Synology"
+        "VMware",
+        "Mikrotik",
+        "Runecast"
       ],
       "tags": [
         null,
@@ -113,13 +118,11 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Personal",
-        "VMware Cloud on AWS",
         "Nutanix",
-        "Runecast",
-        "vSAN",
-        "Mikrotik",
-        "Networking"
+        "VMware Cloud on AWS",
+        "VCF",
+        "Ansible",
+        "Storage"
       ],
       "tags": [
         null,
@@ -144,8 +147,10 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "AWS",
-        "Nutanix"
+        "Devops",
+        "Github",
+        "VMware",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -167,13 +172,14 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Kubernetes",
-        "TrueNAS Scale",
-        "Networking",
         "VMware",
-        "Ansible",
         "Artificial Intelligence",
-        "Synology"
+        "Docker",
+        "Automation",
+        "NVIDIA",
+        "Traefik",
+        "Networking",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -197,17 +203,18 @@
       "categories": [
         "Hosting",
         "Wordpress",
-        "Artificial Intelligence",
-        "Docker",
-        "Homelab",
-        "Kubernetes",
         "Cloudflare",
+        "Personal",
+        "Devops",
+        "Github",
+        "AWS",
         "Ansible",
         "Automation",
+        "Docker",
+        "Homelab",
         "Traefik",
         "VCF",
-        "VMware",
-        "Personal"
+        "VMware"
       ],
       "tags": [
         null,

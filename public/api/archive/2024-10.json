@@ -17,14 +17,13 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "Hosting",
-        "Kubernetes",
         "Storage",
         "Synology",
-        "Runecast",
+        "Networking",
         "VMware",
         "Automation",
-        "Github"
+        "Hosting",
+        "Ansible"
       ],
       "tags": [
         null,
