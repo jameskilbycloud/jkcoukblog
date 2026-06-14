@@ -22,13 +22,13 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VMware Cloud on AWS",
-        "Docker",
-        "Hosting",
+        "Networking",
         "Storage",
         "Synology",
-        "vSAN",
-        "Networking"
+        "Automation",
+        "Github",
+        "Docker",
+        "Hosting"
       ],
       "tags": [
         null,

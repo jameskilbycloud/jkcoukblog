@@ -18,10 +18,10 @@
         "AWS",
         "Veeam",
         "Personal",
-        "VMware Cloud on AWS",
-        "vSAN",
         "Homelab",
-        "vSphere"
+        "Nutanix",
+        "VMware Cloud on AWS",
+        "vSAN"
       ],
       "tags": [
         null,
@@ -44,9 +44,10 @@
       "categories": [
         "AWS",
         "Personal",
+        "Consulting",
         "VMware",
-        "vSphere",
-        "Nutanix",
+        "Veeam",
+        "VMware Cloud on AWS",
         "Devops"
       ],
       "tags": [

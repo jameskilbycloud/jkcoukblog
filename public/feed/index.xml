@@ -5,7 +5,7 @@
     <link>https://jameskilby.co.uk/</link>
     <description>VMware and cloud infrastructure tutorials, homelab guides, and DevOps insights</description>
     <language>en-gb</language>
-    <lastBuildDate>Wed, 10 Jun 2026 23:12:27 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 14 Jun 2026 10:35:21 +0000</lastBuildDate>
     <atom:link href="https://jameskilby.co.uk/feed/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Automating vSphere Power Management driven by Ansible and SemaphoreUI</title>

@@ -17,11 +17,12 @@
         "Homelab",
         "VMware",
         "vSphere",
-        "Nutanix",
-        "VMware Cloud on AWS",
-        "VCF",
+        "Storage",
         "vSAN",
-        "Automation"
+        "VCF",
+        "TrueNAS Scale",
+        "Networking",
+        "vExpert"
       ],
       "tags": [
         null,
@@ -45,12 +46,19 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Nutanix",
+        "Ansible",
+        "Automation",
+        "Traefik",
+        "VCF",
         "VMware",
         "Storage",
-        "Synology",
+        "vExpert",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "Networking",
         "Artificial Intelligence",
-        "Automation"
+        "NVIDIA"
       ],
       "tags": [
         null,
@@ -75,12 +83,16 @@
         "Networking",
         "Storage",
         "VMware",
+        "VMware Cloud on AWS",
+        "vSAN",
         "Artificial Intelligence",
-        "Runecast",
-        "Hosting",
-        "vSphere",
-        "vExpert",
-        "VMware Cloud on AWS"
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "Ansible",
+        "Veeam",
+        "Nutanix"
       ],
       "tags": [
         null,

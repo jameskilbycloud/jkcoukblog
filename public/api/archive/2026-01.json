@@ -16,15 +16,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Ansible",
-        "Automation",
         "Homelab",
-        "Personal",
-        "vSphere",
-        "Artificial Intelligence",
-        "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Networking",
+        "Storage",
+        "vSAN",
+        "VCF",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -50,10 +47,15 @@
         "Hosting",
         "Wordpress",
         "Personal",
-        "Homelab",
-        "Artificial Intelligence",
+        "Ansible",
+        "Automation",
         "Docker",
-        "Kubernetes"
+        "Homelab",
+        "Traefik",
+        "VCF",
+        "VMware",
+        "Devops",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,

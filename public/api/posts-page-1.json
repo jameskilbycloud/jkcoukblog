@@ -15,18 +15,12 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
         "VMware Cloud on AWS",
-        "VCF",
+        "Homelab",
         "Storage",
-        "vExpert",
-        "Docker"
+        "Docker",
+        "Hosting",
+        "Kubernetes"
       ],
       "tags": [
         null,
@@ -50,18 +44,18 @@
       "api_url": "/api/posts/wrangler-and-node-versions.json",
       "categories": [
         "Cloudflare",
-        "Ansible",
+        "Hosting",
+        "Wordpress",
+        "Personal",
+        "Devops",
+        "Github",
+        "Artificial Intelligence",
         "Automation",
         "Docker",
         "Homelab",
+        "NVIDIA",
         "Traefik",
-        "VCF",
-        "VMware",
-        "Hosting",
-        "Wordpress",
-        "Devops",
-        "Github",
-        "Personal"
+        "VMware"
       ],
       "tags": [
         null,
@@ -104,8 +98,10 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "AWS",
-        "Nutanix"
+        "Devops",
+        "Github",
+        "VMware",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -129,10 +125,15 @@
         "Hosting",
         "Wordpress",
         "Personal",
-        "Homelab",
-        "Artificial Intelligence",
+        "Ansible",
+        "Automation",
         "Docker",
-        "Kubernetes"
+        "Homelab",
+        "Traefik",
+        "VCF",
+        "VMware",
+        "Devops",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -159,10 +160,8 @@
         "Storage",
         "Synology",
         "Networking",
-        "Automation",
         "VMware",
-        "Nutanix",
-        "Docker"
+        "vSphere"
       ],
       "tags": [
         null,
@@ -185,14 +184,14 @@
       "categories": [
         "Ansible",
         "Automation",
-        "Homelab",
-        "Hosting",
-        "VCF",
-        "VMware",
         "Runecast",
-        "Personal",
+        "VMware",
+        "Homelab",
         "Networking",
-        "Mikrotik"
+        "Storage",
+        "Personal",
+        "vSphere",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
@@ -217,19 +216,11 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "Ansible",
-        "Containers",
-        "Devops",
-        "VCF",
-        "Networking",
+        "Nutanix",
         "Storage",
-        "Synology"
+        "Synology",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -253,15 +244,11 @@
       "categories": [
         "VMware",
         "vSAN",
-        "Personal",
-        "vSphere",
-        "VMware Cloud on AWS",
         "Homelab",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Veeam",
+        "VMware Cloud on AWS",
+        "vSphere",
+        "AWS"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n# vSAN Cluster Shutdown – Orchestration\n\nBy[James](https://jameskilby.co.uk) December 6,..."
@@ -279,18 +266,16 @@
       "categories": [
         "Personal",
         "VMware",
-        "Homelab",
-        "vSphere",
-        "AWS",
         "Artificial Intelligence",
         "Automation",
         "Docker",
+        "Homelab",
         "NVIDIA",
         "Traefik",
-        "Hosting",
-        "TrueNAS Scale",
-        "vSAN",
-        "Consulting"
+        "Devops",
+        "VMware Cloud on AWS",
+        "Ansible",
+        "VCF"
       ],
       "tags": [
         null,

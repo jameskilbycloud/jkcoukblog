@@ -17,14 +17,15 @@
         "Homelab",
         "Storage",
         "Synology",
-        "TrueNAS Scale",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
+        "Nutanix",
+        "Artificial Intelligence",
         "Automation",
-        "Github",
-        "VCF",
-        "VMware"
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "vSphere",
+        "Networking"
       ],
       "tags": [
         null,
@@ -47,11 +48,12 @@
         "Homelab",
         "Nutanix",
         "Artificial Intelligence",
-        "Docker",
         "Storage",
+        "vExpert",
         "Networking",
+        "VMware",
         "Automation",
-        "VMware"
+        "Personal"
       ],
       "tags": [
         null
