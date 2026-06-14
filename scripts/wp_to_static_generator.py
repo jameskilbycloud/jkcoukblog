@@ -3034,13 +3034,17 @@ document.addEventListener('DOMContentLoaded', function() {
         p = soup.new_tag('p')
         p.string = 'Content also available in: '
 
-        md_link = soup.new_tag('a', href=md_href)
+        # rel="nofollow": these mirrors are noindex'd via X-Robots-Tag (see
+        # _headers) and exist for AI ingestion, not search. nofollow stops
+        # Googlebot following the link and wasting crawl budget re-fetching
+        # the ~80 .md / JSON duplicates of the HTML posts.
+        md_link = soup.new_tag('a', href=md_href, rel='nofollow')
         md_link.string = 'Markdown'
         p.append(md_link)
 
         p.append(' | ')
 
-        api_link = soup.new_tag('a', href=api_href)
+        api_link = soup.new_tag('a', href=api_href, rel='nofollow')
         api_link.string = 'JSON API'
         p.append(api_link)
 
