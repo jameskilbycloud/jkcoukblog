@@ -102,10 +102,19 @@
   ! X-Frame-Options
   ! Permissions-Policy
 
-# Markdown files - allow CORS for API access
+# Markdown files - allow CORS for API access.
+# X-Robots-Tag: noindex keeps this AI-ingestion mirror out of Google's
+# index — the .md files duplicate the HTML posts, and Googlebot was
+# following the in-page "Markdown" links, crawling all ~80 mirrors and
+# parking them under "Crawled - currently not indexed" (wasted crawl
+# budget). noindex only governs SEARCH indexing, not fetching, so AI
+# crawlers (GPTBot/ClaudeBot/etc., deliberately allowed in robots.txt)
+# can still ingest the corpus. Pairs with rel="nofollow" on the footer
+# links emitted by wp_to_static_generator.py.
 /markdown/*
   Content-Type: text/markdown; charset=utf-8
   Cache-Control: public, max-age=3600
+  X-Robots-Tag: noindex
   Access-Control-Allow-Origin: *
   Access-Control-Allow-Methods: GET, HEAD, OPTIONS
   ! Content-Security-Policy
@@ -138,10 +147,15 @@
   ! X-Frame-Options
   ! Permissions-Policy
 
-# API endpoints - JSON with CORS
+# API endpoints - JSON with CORS.
+# X-Robots-Tag: noindex for the same reason as /markdown/* — these JSON
+# mirrors duplicate post content and must never appear in search. robots.txt
+# already Disallows /api/, so this is belt-and-braces for any URL Google
+# learned before that rule (or via the footer "JSON API" link).
 /api/*
   Content-Type: application/json; charset=utf-8
   Cache-Control: public, max-age=600
+  X-Robots-Tag: noindex
   Access-Control-Allow-Origin: *
   Access-Control-Allow-Methods: GET, HEAD, OPTIONS
   Access-Control-Allow-Headers: Content-Type
