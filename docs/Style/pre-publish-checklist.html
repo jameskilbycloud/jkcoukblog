@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>jameskilby.co.uk — Pre-publish checklist</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f3; color: #1a1a18; min-height: 100vh; padding: 2rem 1rem; }
+  .container { max-width: 720px; margin: 0 auto; }
+  header { margin-bottom: 2rem; }
+  h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: #888780; }
+  .progress-bar-wrap { background: #e0ded8; border-radius: 99px; height: 6px; margin: 1.5rem 0; }
+  .progress-bar { background: #639922; height: 6px; border-radius: 99px; transition: width 0.3s ease; }
+  .progress-label { font-size: 13px; color: #5F5E5A; margin-bottom: 1.5rem; }
+  .section { margin-bottom: 1.5rem; }
+  .section-title { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: #888780; margin-bottom: 8px; padding: 0 4px; }
+  .card { background: #fff; border: 0.5px solid #d3d1c7; border-radius: 12px; overflow: hidden; }
+  .item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border-bottom: 0.5px solid #e8e6e0; cursor: pointer; transition: background 0.1s; user-select: none; }
+  .item:last-child { border-bottom: none; }
+  .item:hover { background: #f9f8f5; }
+  .item.checked { opacity: 0.55; }
+  .item.checked .item-text { text-decoration: line-through; }
+  .checkbox { width: 18px; height: 18px; border: 1.5px solid #b4b2a9; border-radius: 4px; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .item.checked .checkbox { background: #639922; border-color: #639922; }
+  .checkmark { display: none; color: #fff; font-size: 11px; font-weight: 700; line-height: 1; }
+  .item.checked .checkmark { display: block; }
+  .item-text { font-size: 14px; line-height: 1.5; color: #1a1a18; }
+  .item-sub { font-size: 12px; color: #888780; margin-top: 2px; }
+  .badge { font-size: 10px; padding: 2px 7px; border-radius: 6px; font-weight: 500; margin-left: 6px; vertical-align: middle; }
+  .badge-warn { background: #FAECE7; color: #993C1D; }
+  .badge-req { background: #EAF3DE; color: #3B6D11; }
+  .reset-btn { margin-top: 1.5rem; padding: 8px 18px; font-size: 13px; background: transparent; border: 0.5px solid #b4b2a9; border-radius: 8px; cursor: pointer; color: #5F5E5A; }
+  .reset-btn:hover { background: #f0ede8; }
+  .done-banner { display: none; background: #EAF3DE; border: 0.5px solid #97C459; border-radius: 10px; padding: 14px 18px; margin-bottom: 1.5rem; font-size: 14px; color: #27500A; font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Pre-publish checklist</h1>
+    <p class="subtitle">jameskilby.co.uk — run through before every post goes live</p>
+  </header>
+
+  <div class="done-banner" id="doneBanner">✓ All done — ready to publish.</div>
+
+  <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+  <p class="progress-label" id="progressLabel">0 of 20 complete</p>
+
+  <div class="section">
+    <div class="section-title">Content</div>
+    <div class="card">
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">Post opens with a clear problem statement — no filler opener</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">Version stamp included near the top <span class="badge badge-req">required</span></div><div class="item-sub">e.g. vSphere 8.0 U3 · Ubuntu 24.04 · Portainer 2.40.0</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">Structure follows: Problem → Context → Steps → Result</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">No hype language — "game-changing", "revolutionary" etc. removed</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">British English spelling throughout (colour, centre, authorise)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">SEO & metadata</div>
+    <div class="card">
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">Meta description written — 140–155 chars, keyword in first 60 <span class="badge badge-req">required</span></div></div>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">OG image set — 1200×630px, branded template</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">OG image URL is absolute <span class="badge badge-warn">common mistake</span></div><div class="item-sub">Must start with https://jameskilby.co.uk/ — relative paths break previews</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">Post slug is concise and keyword-rich (no stop words)</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">Categories and tags applied</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Code & technical</div>
+    <div class="card">
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">All code blocks have a language specified (bash, yaml, python…) <span class="badge badge-req">required</span></div></div>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">All snippets have a comment header explaining what the file/block does</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">No real credentials, IPs, or internal hostnames — placeholders used <span class="badge badge-warn">security</span></div></div>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">Commands and expected output are in separate code blocks</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">All inline commands, paths, and config keys wrapped in backticks</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Images</div>
+    <div class="card">
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">All images converted to WebP <span class="badge badge-req">required</span></div><div class="item-sub">Lossless for screenshots/diagrams, lossy for photos. Max 200 KB.</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">All images have descriptive alt text</div><div class="item-sub">Describe what it shows — not just "screenshot of vCenter"</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">Image filenames are kebab-case and descriptive</div><div class="item-sub">e.g. vcenter-error-928-nic-slot5.webp — not screenshot1.png</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">Screenshots cropped tightly to the relevant UI area</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Publishing</div>
+    <div class="card">
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">Scheduled for Tue–Thu, 9–10 AM GMT</div></div>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <div class="checkbox"><span class="checkmark">✓</span></div>
+        <div><div class="item-text">Preview checked on mobile</div></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="reset-btn" onclick="resetAll()">Reset checklist</button>
+</div>
+
+<script>
+  const TOTAL = 20;
+
+  function toggle(el) {
+    el.classList.toggle('checked');
+    update();
+  }
+
+  function update() {
+    const checked = document.querySelectorAll('.item.checked').length;
+    const pct = Math.round((checked / TOTAL) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = checked + ' of ' + TOTAL + ' complete';
+    document.getElementById('doneBanner').style.display = checked === TOTAL ? 'block' : 'none';
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.item.checked').forEach(el => el.classList.remove('checked'));
+    update();
+  }
+</script>
+</body>
+</html>
