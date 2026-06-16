@@ -118,6 +118,46 @@ class Config:
         'VMware vExpert',
     )
 
+    # ── Topic → entity map for Article about/mentions enrichment ──────────────
+    # Applied at build time by scripts/fix_seo_issues.py:fix_article_entity_links.
+    # Each post's articleSection + keywords + headline are matched (whole-word,
+    # case-insensitive) against the keys below; matches become schema.org
+    # `about` (the primary topic) and `mentions` (all matched topics) entities
+    # with `sameAs` pointing at the authoritative Wikipedia/Wikidata record.
+    #
+    # This connects free-text topics to recognised entities in Google's and AI
+    # engines' knowledge graphs — the same E-E-A-T entity-reconciliation play as
+    # PERSON_SAME_AS, but for the *subject matter* rather than the author.
+    #
+    # Conservative by design: only emit entities we have an explicit, verified
+    # mapping for. Every sameAs URL below is a stable Wikipedia article (and a
+    # Wikidata QID where confidently known); do NOT add an entry on a guess — a
+    # wrong sameAs is worse than an absent one. Keys are lowercase match terms;
+    # keep them aligned with PERSON_KNOWS_ABOUT and the real category taxonomy.
+    TOPIC_ENTITIES = {
+        'vmware':     {'name': 'VMware',
+                       'sameAs': ('https://en.wikipedia.org/wiki/VMware',
+                                  'https://www.wikidata.org/wiki/Q14958')},
+        'vsphere':    {'name': 'VMware vSphere',
+                       'sameAs': ('https://en.wikipedia.org/wiki/VSphere',)},
+        'kubernetes': {'name': 'Kubernetes',
+                       'sameAs': ('https://en.wikipedia.org/wiki/Kubernetes',)},
+        'cloudflare': {'name': 'Cloudflare',
+                       'sameAs': ('https://en.wikipedia.org/wiki/Cloudflare',)},
+        'ansible':    {'name': 'Ansible',
+                       'sameAs': ('https://en.wikipedia.org/wiki/Ansible_(software)',)},
+        'docker':     {'name': 'Docker',
+                       'sameAs': ('https://en.wikipedia.org/wiki/Docker_(software)',)},
+        'aws':        {'name': 'Amazon Web Services',
+                       'sameAs': ('https://en.wikipedia.org/wiki/Amazon_Web_Services',)},
+        'proxmox':    {'name': 'Proxmox Virtual Environment',
+                       'sameAs': ('https://en.wikipedia.org/wiki/Proxmox_Virtual_Environment',)},
+        'terraform':  {'name': 'Terraform',
+                       'sameAs': ('https://en.wikipedia.org/wiki/Terraform_(software)',)},
+        'nvidia':     {'name': 'Nvidia',
+                       'sameAs': ('https://en.wikipedia.org/wiki/Nvidia',)},
+    }
+
     # Paths that should carry <meta name="robots" content="noindex,follow">
     # at serve time AND be excluded from sitemap.xml. "follow" preserves
     # link discovery so Google still crawls posts linked from these pages;

@@ -99,3 +99,95 @@ class TestFixTitleLength:
         soup = _soup('<head><title>Broken title that ends with...</title></head>')
         assert fixer.fix_title_length(soup, Path('x.html')) is False
         assert soup.find('title').get_text() == 'Broken title that ends with...'
+
+
+class TestFixArticleEntityLinks:
+    """M1 (author → Person @id) + L3 (about/mentions topic entities)."""
+
+    def _article_page(self, *, graph):
+        import json
+        return _soup(
+            '<head><script type="application/ld+json">'
+            + json.dumps({"@graph": graph})
+            + '</script></head>'
+        )
+
+    def _graph_of(self, soup):
+        import json
+        return json.loads(soup.find('script', type='application/ld+json').string)['@graph']
+
+    def test_author_linked_to_person_id_when_person_node_present(self, fixer):
+        soup = self._article_page(graph=[
+            {"@type": "Person", "@id": "https://jameskilby.co.uk/#person",
+             "name": "James Kilby"},
+            {"@type": "TechArticle", "headline": "A post",
+             "author": {"@type": "Person", "name": "James Kilby"}},
+        ])
+        assert fixer.fix_article_entity_links(soup, Path('x.html')) is True
+        article = next(i for i in self._graph_of(soup) if i["@type"] == "TechArticle")
+        assert article["author"]["@id"] == "https://jameskilby.co.uk/#person"
+
+    def test_author_not_fabricated_without_person_node(self, fixer):
+        # No Person node in the graph → never emit a dangling author reference.
+        soup = self._article_page(graph=[
+            {"@type": "TechArticle", "headline": "A post about nothing matched"},
+        ])
+        assert fixer.fix_article_entity_links(soup, Path('x.html')) is False
+        article = self._graph_of(soup)[0]
+        assert "author" not in article
+
+    def test_existing_author_id_is_left_untouched(self, fixer):
+        soup = self._article_page(graph=[
+            {"@type": "Person", "@id": "https://jameskilby.co.uk/#person",
+             "name": "James Kilby"},
+            {"@type": "TechArticle", "headline": "A post",
+             "author": {"@id": "https://jameskilby.co.uk/#someone-else"}},
+        ])
+        # author already has an @id, and headline matches no topic → no change.
+        assert fixer.fix_article_entity_links(soup, Path('x.html')) is False
+
+    def test_about_and_mentions_from_section_and_keywords(self, fixer):
+        soup = self._article_page(graph=[
+            {"@type": "TechArticle",
+             "headline": "Tuning the homelab",
+             "articleSection": "VMware",
+             "keywords": ["vSphere", "Kubernetes", "homelab"]},
+        ])
+        assert fixer.fix_article_entity_links(soup, Path('x.html')) is True
+        article = self._graph_of(soup)[0]
+        # primary `about` comes from the section (VMware)
+        assert article["about"]["name"] == "VMware"
+        assert "wikidata.org/wiki/Q14958" in article["about"]["@id"]
+        names = {m["name"] for m in article["mentions"]}
+        assert {"VMware", "VMware vSphere", "Kubernetes"} <= names
+
+    def test_no_topic_match_means_no_about_mentions(self, fixer):
+        soup = self._article_page(graph=[
+            {"@type": "Person", "@id": "https://jameskilby.co.uk/#person",
+             "name": "James Kilby"},
+            {"@type": "TechArticle", "headline": "A quiet day in the garden",
+             "author": {"@type": "Person", "name": "James Kilby"}},
+        ])
+        # author still gets linked, but no topic entities are invented.
+        assert fixer.fix_article_entity_links(soup, Path('x.html')) is True
+        article = next(i for i in self._graph_of(soup) if i["@type"] == "TechArticle")
+        assert "about" not in article
+        assert "mentions" not in article
+
+    def test_idempotent(self, fixer):
+        soup = self._article_page(graph=[
+            {"@type": "Person", "@id": "https://jameskilby.co.uk/#person",
+             "name": "James Kilby"},
+            {"@type": "TechArticle", "headline": "Cloudflare workers",
+             "articleSection": "Cloudflare",
+             "author": {"@type": "Person", "name": "James Kilby"}},
+        ])
+        assert fixer.fix_article_entity_links(soup, Path('x.html')) is True
+        # second pass over the now-enriched soup is a no-op
+        assert fixer.fix_article_entity_links(soup, Path('x.html')) is False
+
+    def test_whole_word_matching_avoids_substrings(self):
+        # 'aws' must not match inside 'laws'; 'docker' must not match 'dockers'
+        # appearing only as a substring of another token is fine to skip.
+        matched = SEOFixer._match_topic_entities("new laws about flaws", "")
+        assert matched == []

@@ -11,7 +11,8 @@ STATIC_DIR ?= ./static-output
 WORKERS ?= 4
 
 .PHONY: help build generate optimize validate validate-source test-csp \
-        spell-check deploy-local clean install purge-kv-cache
+        spell-check deploy-local clean install purge-kv-cache \
+        crux drift drift-snapshot
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -94,6 +95,17 @@ changelog: ## Generate changelog page
 
 stats: ## Generate stats page (requires PLAUSIBLE_SHARE_LINK)
 	python3 scripts/generate_stats_page.py $(OUTPUT_DIR)
+
+# ─── SEO Monitoring ───────────────────────────────────────────────
+
+crux: ## Fetch real Core Web Vitals field data from CrUX (requires CRUX_API_KEY)
+	python3 scripts/fetch_crux_metrics.py --out docs/seo-audit-2026-06/crux-latest.json
+
+drift: ## Check the built site for SEO drift against the committed baseline
+	python3 scripts/drift_baseline.py --check $(OUTPUT_DIR)
+
+drift-snapshot: ## Re-baseline SEO signals from the built site (commit the result)
+	python3 scripts/drift_baseline.py --snapshot $(OUTPUT_DIR)
 
 # ─── Spell Check ──────────────────────────────────────────────────
 
