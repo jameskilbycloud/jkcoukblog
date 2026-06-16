@@ -6,6 +6,7 @@ This document covers all SEO-related features and optimizations.
 - [Soft-404 guard](#soft-404-guard)
 - [IndexNow](#indexnow)
 - [Rich Results](#rich-results)
+- [Monitoring (Core Web Vitals + drift)](#monitoring-core-web-vitals--drift)
 - [Security Headers](#security-headers)
 - [SEO Quick Wins](#seo-quick-wins)
 - [WWW Redirect](#www-redirect)
@@ -179,6 +180,52 @@ Use Google's Rich Results Test:
 ```
 https://search.google.com/test/rich-results
 ```
+
+---
+
+## Monitoring (Core Web Vitals + drift)
+
+Two repo-native monitoring tools replace the lab/estimate guesswork from the
+June 2026 audit with measured signals.
+
+### Core Web Vitals — field data (CrUX)
+
+`scripts/fetch_crux_metrics.py` pulls **real** p75 LCP / INP / CLS from the
+Chrome UX Report API — the same field data Google uses for the
+page-experience signal. This is the only perf number worth tuning against;
+Lighthouse/PSI lab scores are estimates.
+
+```bash
+export CRUX_API_KEY=...        # free key: https://goo.gle/crux-api-key
+make crux                      # origin, PHONE form factor → docs/seo-audit-2026-06/crux-latest.json
+python3 scripts/fetch_crux_metrics.py --form-factor DESKTOP
+python3 scripts/fetch_crux_metrics.py --url https://jameskilby.co.uk/some/post/
+```
+
+- **Setup:** add `CRUX_API_KEY` as a GitHub secret to run it in CI. The CrUX
+  API needs only this key (no OAuth).
+- Low-traffic URLs legitimately return "no field data" — that's reported, not
+  treated as an error. Origin-level data is the most reliable for this site.
+- GSC query-level data (OAuth) is a possible follow-up; CrUX covers CWV.
+
+### SEO drift baseline
+
+`scripts/drift_baseline.py` snapshots key SEO signals (title, meta
+description, canonical, robots, JSON-LD `@type`s, H1, OG tags) for a set of
+representative pages from the built `public/` tree into a committed baseline
+(`docs/seo-audit-2026-06/seo-baseline.json`). A `--check` run diffs the
+current build against it so a silent regression on an unattended auto-deploy
+gets flagged.
+
+```bash
+make drift                     # check current build against baseline (non-blocking warn)
+make drift-snapshot            # re-baseline after an intentional change, then commit it
+```
+
+Because `main` auto-deploys generated artifacts, `make drift` is intended as a
+**non-blocking** step in `deploy-static-site.yml` — it surfaces drift in the
+log without failing production. Re-baseline (`make drift-snapshot`) whenever a
+change deliberately alters these signals.
 
 ---
 
