@@ -33,6 +33,7 @@ try:
     PERSON_JOB_TITLE = getattr(Config, 'PERSON_JOB_TITLE', None)
     PERSON_KNOWS_ABOUT = tuple(getattr(Config, 'PERSON_KNOWS_ABOUT', ()))
     PERSON_AWARDS = tuple(getattr(Config, 'PERSON_AWARDS', ()))
+    TOPIC_ENTITIES = dict(getattr(Config, 'TOPIC_ENTITIES', {}))
     WP_HOST = _hostname(getattr(Config, 'WP_URL', None))
     TARGET_HOST = _hostname(TARGET_DOMAIN)
 except (ImportError, AttributeError):
@@ -45,6 +46,7 @@ except (ImportError, AttributeError):
     PERSON_JOB_TITLE = None
     PERSON_KNOWS_ABOUT = ()
     PERSON_AWARDS = ()
+    TOPIC_ENTITIES = {}
     WP_HOST = None
     TARGET_HOST = _hostname(TARGET_DOMAIN)
 
@@ -128,6 +130,9 @@ class SEOFixer:
                 modified = True
 
             if self.fix_techarticle_dedupe_and_dates(soup, file_path):
+                modified = True
+
+            if self.fix_article_entity_links(soup, file_path):
                 modified = True
 
             if self.fix_person_name(soup, file_path):
@@ -1027,6 +1032,170 @@ class SEOFixer:
             self.issues_fixed += 1
             print(f"   🧬 Cleaned JSON-LD Article duplicates/dates: {file_path.name}")
         return blocks_modified > 0
+
+    # Cap on `mentions` entities per article — past a handful it stops helping
+    # entity reconciliation and just bloats the @graph.
+    _MAX_MENTIONS = 8
+
+    def _is_article_node(self, item):
+        """True if item is an Article-family JSON-LD node (see _ARTICLE_TYPES)."""
+        if not isinstance(item, dict):
+            return False
+        t = item.get('@type')
+        types = t if isinstance(t, list) else [t]
+        return any(tt in self._ARTICLE_TYPES for tt in types if isinstance(tt, str))
+
+    @staticmethod
+    def _match_topic_entities(*texts):
+        """Match Config.TOPIC_ENTITIES keys (whole-word, case-insensitive)
+        against the given text fragments.
+
+        Returns an ordered, name-deduplicated list of ``(match_term, entity)``
+        tuples in TOPIC_ENTITIES declaration order.
+        """
+        if not TOPIC_ENTITIES:
+            return []
+        haystacks = [t for t in texts if t]
+        if not haystacks:
+            return []
+        matched = []
+        seen = set()
+        for term, entity in TOPIC_ENTITIES.items():
+            pattern = re.compile(r'\b' + re.escape(term) + r'\b', re.IGNORECASE)
+            if any(pattern.search(h) for h in haystacks):
+                key = entity['name'].lower()
+                if key not in seen:
+                    seen.add(key)
+                    matched.append((term, entity))
+        return matched
+
+    @staticmethod
+    def _entity_node(entity):
+        """Build a schema.org Thing node from a TOPIC_ENTITIES entry.
+
+        `@id` points at the most authoritative identifier (Wikidata URI when
+        present — it makes the most stable IRI); `sameAs` carries the full list.
+        """
+        same_as = list(entity.get('sameAs', ()))
+        node = {'@type': 'Thing', 'name': entity['name']}
+        if same_as:
+            wikidata = next((u for u in same_as if 'wikidata.org' in u), None)
+            node['@id'] = wikidata or same_as[0]
+            node['sameAs'] = same_as if len(same_as) > 1 else same_as[0]
+        return node
+
+    @staticmethod
+    def _link_author_to_person(item, person_id):
+        """Point item['author'](s) at the canonical Person ``@id``.
+
+        Adds ``@id`` to any author object that lacks one, or — when the article
+        has no author at all — sets a reference to the known Person (safe only
+        because the caller has confirmed that Person node exists in the graph;
+        single-author blog). Idempotent. Returns True if anything changed.
+        """
+        author = item.get('author')
+        if author is None:
+            item['author'] = {'@id': person_id}
+            return True
+        authors = author if isinstance(author, list) else [author]
+        changed = False
+        for a in authors:
+            if isinstance(a, dict) and not a.get('@id'):
+                a['@id'] = person_id
+                changed = True
+        return changed
+
+    def fix_article_entity_links(self, soup, file_path):
+        """Tighten Article entity links — audit items M1 + L3.
+
+        M1 — link the article's ``author`` to the canonical Person ``@id`` so
+             the post resolves to the same author entity the site already
+             declares, not a free-floating name string. (Only when a matching
+             Person node is actually present in the graph, so we never emit a
+             dangling reference.)
+        L3 — attach ``about`` (primary topic) and ``mentions`` (all matched
+             topics), each with ``sameAs`` to its Wikipedia/Wikidata record, so
+             search and AI engines connect the post to known subject entities.
+
+        Topics are matched from the article's own articleSection + keywords +
+        headline against Config.TOPIC_ENTITIES (whole-word). Purely additive and
+        idempotent: never overwrites an existing author ``@id`` / ``about`` /
+        ``mentions``, and only emits entities we have a verified mapping for.
+        """
+        canonical_set = {n.lower() for n in PERSON_CANONICAL_NAMES}
+        modified = False
+
+        for script in soup.find_all('script', type='application/ld+json'):
+            raw = script.string or ''
+            if not raw.strip():
+                continue
+            try:
+                data = json.loads(raw)
+            except json.JSONDecodeError:
+                continue
+            graph = (
+                data.get('@graph')
+                if isinstance(data, dict) and isinstance(data.get('@graph'), list)
+                else ([data] if isinstance(data, dict) else None)
+            )
+            if not graph:
+                continue
+
+            # Resolve the canonical Person @id from a top-level Person node.
+            person_id = None
+            for item in graph:
+                if not isinstance(item, dict):
+                    continue
+                t = item.get('@type')
+                types = t if isinstance(t, list) else [t]
+                if not any('Person' in str(x) for x in types if x):
+                    continue
+                name = (item.get('name') or '').strip().lower()
+                if (not canonical_set or name in canonical_set) and item.get('@id'):
+                    person_id = item['@id']
+                    break
+
+            block_changed = False
+            for item in graph:
+                if not self._is_article_node(item):
+                    continue
+
+                # ── M1: author → Person @id (only if Person node exists) ─────
+                if person_id and self._link_author_to_person(item, person_id):
+                    block_changed = True
+
+                # ── L3: about (primary) + mentions (all matched) ─────────────
+                keywords = item.get('keywords')
+                kw_text = ' '.join(keywords) if isinstance(keywords, list) else (keywords or '')
+                section = item.get('articleSection')
+                section_text = ' '.join(section) if isinstance(section, list) else (section or '')
+                headline = item.get('headline') or ''
+                matched = self._match_topic_entities(section_text, kw_text, headline)
+                if not matched:
+                    continue
+
+                if 'about' not in item:
+                    primary = next(
+                        (e for term, e in matched
+                         if re.search(r'\b' + re.escape(term) + r'\b', section_text, re.IGNORECASE)),
+                        matched[0][1],
+                    )
+                    item['about'] = self._entity_node(primary)
+                    block_changed = True
+                if 'mentions' not in item:
+                    item['mentions'] = [
+                        self._entity_node(e) for _, e in matched[:self._MAX_MENTIONS]
+                    ]
+                    block_changed = True
+
+            if block_changed:
+                script.string = json.dumps(data, separators=(',', ':'), ensure_ascii=False)
+                modified = True
+
+        if modified:
+            self.issues_fixed += 1
+            print(f"   🔖 Linked article author + topic entities: {file_path.name}")
+        return modified
 
     def fix_person_name(self, soup, file_path):
         """Fix incorrect Person/Organization name 'Jameskilbycouk' → 'James Kilby'.

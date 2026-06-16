@@ -930,6 +930,19 @@ jobs:
           exit 1
         fi
 
+    - name: SEO drift check (non-blocking)
+      # Diffs policy-driven SEO signals (canonical, schema types, robots, WP
+      # host leak, title policy, OG tags) against the committed baseline so a
+      # silent pipeline regression on this auto-deploy surfaces in the log.
+      # Non-blocking by design — re-baseline with `make drift-snapshot` when a
+      # change deliberately alters these signals.
+      continue-on-error: true
+      run: |
+        echo "## 🔎 SEO drift" >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        python3 scripts/drift_baseline.py --check ./static-output | tee -a $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+
     - name: Prepare output for deployment
       run: |
         # Configure git
