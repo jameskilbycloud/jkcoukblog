@@ -16,6 +16,7 @@
       "categories": [
         "Devops",
         "Personal",
+        "AWS",
         "Ansible",
         "Artificial Intelligence",
         "Containers",
@@ -23,12 +24,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Automation",
-        "Github",
+        "Hosting",
         "Cloudflare",
         "Wordpress",
-        "Hosting",
-        "AWS"
+        "Automation",
+        "Github"
       ],
       "tags": [
         null,
@@ -36,7 +36,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg",
-      "excerpt": "![175Jvbleoqfazjc3Sgtspqa](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg)\n\n[Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# My First GitHub Pull Request: Contributing to Open Source\n\nBy[James](https://j..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg)\n\n[Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# My First GitHub Pull Request: Contributing to Open Source\n\nBy[James](https://jameskilby.co.uk) Decemb..."
     }
   ]
 }

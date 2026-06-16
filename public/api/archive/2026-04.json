@@ -21,11 +21,15 @@
         "NVIDIA",
         "Traefik",
         "VMware",
+        "Networking",
+        "Ansible",
+        "Containers",
+        "Devops",
+        "Cloudflare",
+        "Github",
+        "Wordpress",
         "VMware Cloud on AWS",
-        "Veeam",
-        "Nutanix",
-        "AWS",
-        "Ansible"
+        "vSphere"
       ],
       "tags": [
         null,
@@ -65,13 +69,12 @@
         "Traefik",
         "VCF",
         "VMware",
+        "Hosting",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Storage",
+        "Cloudflare",
+        "Wordpress",
         "VMware Cloud on AWS",
-        "Hosting"
+        "Personal"
       ],
       "tags": [
         null,
@@ -96,7 +99,7 @@
     {
       "slug": "new-vmc-host-i7i-metal-24xl",
       "title": "New VMware Cloud on AWS Host: i7i.metal-24xl",
-      "description": "We’ve expanded the VMC fleet with the new i7i (i7i.24xlarge) host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it",
+      "description": "We’ve expanded the VMC fleet with the new i7i (i7i.",
       "date": "2026-04-01T08:06:00Z",
       "modified": "2026-06-01T21:07:20Z",
       "author": "James Kilby",
@@ -106,16 +109,21 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "Homelab",
+        "vSAN",
+        "Storage",
+        "vExpert",
         "AWS",
         "Veeam",
         "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
         "Automation",
         "Docker",
-        "Homelab",
-        "Traefik",
-        "VCF",
-        "Artificial Intelligence",
-        "NVIDIA"
+        "VCF"
       ],
       "tags": [
         null,
@@ -123,7 +131,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp",
-      "excerpt": "![Vmconaws.Png](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# New VMware Cloud on AWS Host: i7i.metal-24xl\n\nBy[James](https://jamesk..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# New VMware Cloud on AWS Host: i7i.metal-24xl\n\nBy[James](https://jameskilby.co.uk) ..."
     },
     {
       "slug": "packer-vsphere-golden-images",
@@ -139,15 +147,14 @@
         "Automation",
         "Github",
         "Homelab",
+        "VMware",
         "Storage",
         "Synology",
-        "TrueNAS Scale",
-        "VMware",
-        "vSAN",
-        "vSphere",
-        "vExpert",
         "Ansible",
-        "Networking"
+        "vExpert",
+        "Artificial Intelligence",
+        "Docker",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -159,7 +166,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png",
-      "excerpt": "![Packer Github Actions Vsphere Pipeline](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png)\n\n[Automation](https://jameskilby.co.uk/category/automation/) | [Github](https://jameskilby.co.uk/category/github/)\n\n# Automating vSphere Golden Images with Packer..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png)\n\n[Automation](https://jameskilby.co.uk/category/automation/) | [Github](https://jameskilby.co.uk/category/github/)\n\n# Automating vSphere Golden Images with Packer and GitHub Actions\n\nBy[James](https:/..."
     },
     {
       "slug": "vsphere-power-management-driven-by-ansible",
@@ -174,14 +181,15 @@
       "categories": [
         "Ansible",
         "Automation",
-        "Runecast",
-        "VMware",
         "Homelab",
-        "Networking",
-        "Storage",
+        "Nutanix",
+        "VMware",
         "Personal",
-        "vSphere",
-        "TrueNAS Scale"
+        "Docker",
+        "Traefik",
+        "VCF",
+        "Hosting",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
