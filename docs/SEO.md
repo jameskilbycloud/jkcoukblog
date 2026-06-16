@@ -287,7 +287,7 @@ https://securityheaders.com/?q=jameskilby.co.uk
 ### Remaining Tasks
 
 #### Content
-- [ ] Add FAQ schema markup
+- [x] Add FAQ schema markup (auto-injected `FAQPage` JSON-LD when a post has a FAQ section — see `add_faq_schema` in `scripts/wp_to_static_generator.py`)
 - [ ] Implement article series/collection pages
 - [ ] Create cornerstone content
 
