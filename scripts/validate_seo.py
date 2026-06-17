@@ -23,10 +23,20 @@ Usage:
 import json
 import sys
 import re
+import xml.etree.ElementTree as ET
 from collections import defaultdict
+from datetime import datetime
 from pathlib import Path
 
 from bs4 import BeautifulSoup
+
+# config.py is the single source of truth for the live/WP hostnames used by
+# the sitemap/robots/feed checks below.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+try:
+    from config import Config
+except ImportError:  # pragma: no cover - config.py always ships alongside
+    Config = None
 
 
 # ── thresholds ───────────────────────────────────────────────────────────────
@@ -74,6 +84,71 @@ class Issue:
 
     def __str__(self) -> str:
         return f'{self.severity.upper():7}  {self.category:30}  {self.path}  — {self.detail}'
+
+
+# Article-family @types that Google treats as an Article rich result, and the
+# fields it requires on that node. The pipeline mutates JSON-LD in ~10 places
+# with no semantic checking, so a node that *parses* but is missing headline /
+# datePublished / author / image silently loses rich-result eligibility — the
+# class of regression validate_seo previously couldn't see.
+ARTICLE_TYPES = (
+    'Article', 'BlogPosting', 'TechArticle', 'NewsArticle',
+    'Report', 'ScholarlyArticle', 'AdvertiserContentArticle',
+)
+# headline + datePublished are the schema backbone — their absence means a real
+# break (e.g. a pipeline pass stripped them), so fail the build. author + image
+# are Google-*recommended* (not required) and legitimately absent on old
+# imageless posts, so warn rather than block every future deploy.
+ARTICLE_REQUIRED_ERROR = ('headline', 'datePublished')
+ARTICLE_RECOMMENDED_WARN = ('author', 'image')
+
+
+def _node_types(node: dict) -> list:
+    t = node.get('@type', '')
+    if isinstance(t, str):
+        return [t]
+    if isinstance(t, (list, tuple)):
+        return [str(x) for x in t]
+    return []
+
+
+def _validate_article_jsonld(ld_nodes: list, html_path: Path) -> list:
+    """Assert the post's Article-family JSON-LD node carries the fields Google
+    requires for an Article rich result, and that references resolve."""
+    issues = []
+    articles = [
+        n for n in ld_nodes
+        if isinstance(n, dict) and any(t in ARTICLE_TYPES for t in _node_types(n))
+    ]
+    if not articles:
+        issues.append(Issue('error', 'jsonld-article-missing',
+                            'no Article/BlogPosting/TechArticle JSON-LD node on post page',
+                            html_path))
+        return issues
+
+    ids = {n.get('@id') for n in ld_nodes if isinstance(n, dict) and n.get('@id')}
+
+    for art in articles:
+        atype = '/'.join(_node_types(art)) or 'Article'
+        for field in ARTICLE_REQUIRED_ERROR:
+            if art.get(field) in (None, '', [], {}):
+                issues.append(Issue('error', 'jsonld-article-incomplete',
+                                    f'{atype} JSON-LD missing required "{field}"', html_path))
+        for field in ARTICLE_RECOMMENDED_WARN:
+            if art.get(field) in (None, '', [], {}):
+                issues.append(Issue('warning', 'jsonld-article-recommended',
+                                    f'{atype} JSON-LD missing recommended "{field}"', html_path))
+        # author may be inline or an @id reference into the same @graph.
+        author = art.get('author')
+        if isinstance(author, dict) and list(author.keys()) == ['@id'] and author['@id'] not in ids:
+            issues.append(Issue('warning', 'jsonld-author-dangling',
+                                f'{atype} author @id {author["@id"]!r} not defined in @graph',
+                                html_path))
+        node_id = art.get('@id', '')
+        if node_id and not str(node_id).startswith('http'):
+            issues.append(Issue('warning', 'jsonld-id-relative',
+                                f'{atype} @id is not an absolute URL: {node_id!r}', html_path))
+    return issues
 
 
 def _is_post_page(rel_path: str) -> bool:
@@ -167,14 +242,24 @@ def validate_page(html_path: Path, public_dir: Path) -> list:
             issues.append(Issue('error', 'h1-duplicate',
                                 f'post page has {len(h1s)} <h1> tags', html_path))
 
-    # ── JSON-LD parseability ─────────────────────────────────────────────────
+    # ── JSON-LD parseability + semantic required-fields ──────────────────────
+    ld_nodes = []
     for script in soup.find_all('script', type='application/ld+json'):
         try:
-            json.loads(script.string or '')
+            data = json.loads(script.string or '')
         except Exception as exc:
             issues.append(Issue('error', 'jsonld-parse-error',
                                 f'JSON-LD block failed to parse: {exc}', html_path))
             break  # one bad block is enough to surface
+        else:
+            if isinstance(data, dict):
+                ld_nodes.extend(data.get('@graph', [data]))
+            elif isinstance(data, list):
+                ld_nodes.extend(data)
+    else:
+        # No parse error — check that post pages carry a complete Article node.
+        if is_post:
+            issues.extend(_validate_article_jsonld(ld_nodes, html_path))
 
     # ── robots noindex on a post page ────────────────────────────────────────
     robots = soup.find('meta', attrs={'name': 'robots'})
@@ -207,6 +292,123 @@ def validate_page(html_path: Path, public_dir: Path) -> list:
     return issues
 
 
+def validate_site_artifacts(public_dir: Path) -> list:
+    """Validate sitemap.xml, robots.txt and the RSS feed — site-wide artifacts
+    that nothing else in the pipeline checks. A sitemap that lost half its URLs,
+    gained a wrong-host <loc>, referenced a 404, or shipped a future <lastmod>
+    would otherwise sail through the entire build.
+    """
+    if Config is None:
+        return [Issue('warning', 'config-unavailable',
+                      'config.py not importable — skipping sitemap/robots/feed checks',
+                      public_dir)]
+
+    issues = []
+    target = Config.TARGET_DOMAIN.rstrip('/')
+    wp_host = Config.WP_URL.replace('https://', '').replace('http://', '').split('/')[0]
+    today = datetime.now().date()
+
+    # ── sitemap.xml ──────────────────────────────────────────────────────────
+    sitemap = public_dir / 'sitemap.xml'
+    if not sitemap.exists():
+        issues.append(Issue('error', 'sitemap-missing', 'public/sitemap.xml not found', sitemap))
+    else:
+        try:
+            root = ET.fromstring(sitemap.read_text(encoding='utf-8', errors='ignore'))
+        except ET.ParseError as exc:
+            issues.append(Issue('error', 'sitemap-parse-error',
+                                f'sitemap.xml is not valid XML: {exc}', sitemap))
+            root = None
+        if root is not None:
+            # Page URLs (<url><loc>) and image-sitemap URLs (<image:image>
+            # <image:loc>) live in different namespaces — keep them apart so an
+            # image is never validated as if it were a crawlable page.
+            sm_ns = 'http://www.sitemaps.org/schemas/sitemap/0.9'
+            img_ns = 'http://www.google.com/schemas/sitemap-image/1.1'
+            page_locs = [e.text.strip() for e in root.iter(f'{{{sm_ns}}}loc') if e.text]
+            image_locs = [e.text.strip() for e in root.iter(f'{{{img_ns}}}loc') if e.text]
+            if not page_locs:
+                issues.append(Issue('error', 'sitemap-empty',
+                                    'sitemap.xml has zero page <loc> entries', sitemap))
+
+            def _on_host(u):  # host + scheme check
+                return u == target or u.startswith(target + '/')
+
+            def _exists(u):   # does the URL map to a file under public/?
+                rel = u[len(target):].lstrip('/')
+                if rel == '' or u.endswith('/'):
+                    return (public_dir / rel / 'index.html').exists()
+                return (public_dir / rel).exists()
+
+            for u in page_locs:
+                if not _on_host(u):
+                    issues.append(Issue('error', 'sitemap-wrong-host',
+                                        f'page <loc> not on {target}: {u}', sitemap))
+                elif not _exists(u):
+                    issues.append(Issue('error', 'sitemap-url-404',
+                                        f'page <loc> has no file on disk: {u}', sitemap))
+                if wp_host in u:
+                    issues.append(Issue('error', 'sitemap-wp-host-leak',
+                                        f'page <loc> references the WordPress host: {u}', sitemap))
+
+            for u in image_locs:
+                if not _on_host(u):
+                    issues.append(Issue('error', 'sitemap-image-wrong-host',
+                                        f'image <loc> not on {target}: {u}', sitemap))
+                elif not _exists(u):
+                    # Image sitemap pointing at a missing file is a real but
+                    # low-severity issue (broken image-search entry), not a
+                    # reason to block the deploy.
+                    issues.append(Issue('warning', 'sitemap-image-404',
+                                        f'image <loc> has no file on disk: {u}', sitemap))
+
+            # No <lastmod> may be in the future.
+            for e in root.iter(f'{{{sm_ns}}}lastmod'):
+                if not e.text:
+                    continue
+                try:
+                    d = datetime.fromisoformat(e.text.strip().replace('Z', '+00:00')).date()
+                except (ValueError, AttributeError):
+                    continue
+                if d > today:
+                    issues.append(Issue('error', 'sitemap-future-lastmod',
+                                        f'<lastmod> {e.text.strip()} is in the future', sitemap))
+
+    # ── robots.txt ───────────────────────────────────────────────────────────
+    robots = public_dir / 'robots.txt'
+    if not robots.exists():
+        issues.append(Issue('error', 'robots-missing', 'public/robots.txt not found', robots))
+    else:
+        txt = robots.read_text(encoding='utf-8', errors='ignore')
+        if f'Sitemap: {target}/sitemap.xml' not in txt:
+            issues.append(Issue('error', 'robots-sitemap-directive',
+                                f'robots.txt lacks "Sitemap: {target}/sitemap.xml"', robots))
+        # A bare "Disallow: /" under a global User-agent would deindex the site.
+        if re.search(r'(?im)^\s*Disallow:\s*/\s*$', txt):
+            issues.append(Issue('error', 'robots-disallow-all',
+                                'robots.txt contains a blanket "Disallow: /"', robots))
+        if wp_host in txt:
+            issues.append(Issue('error', 'robots-wp-host-leak',
+                                f'robots.txt references the WordPress host {wp_host}', robots))
+
+    # ── RSS feed ─────────────────────────────────────────────────────────────
+    feed = public_dir / 'feed' / 'index.xml'
+    if not feed.exists():
+        issues.append(Issue('warning', 'feed-missing', 'public/feed/index.xml not found', feed))
+    else:
+        feed_txt = feed.read_text(encoding='utf-8', errors='ignore')
+        try:
+            ET.fromstring(feed_txt)
+        except ET.ParseError as exc:
+            issues.append(Issue('error', 'feed-parse-error',
+                                f'feed/index.xml is not valid XML: {exc}', feed))
+        if wp_host in feed_txt:
+            issues.append(Issue('error', 'feed-wp-host-leak',
+                                f'RSS feed references the WordPress host {wp_host}', feed))
+
+    return issues
+
+
 def main(argv):
     public_dir = Path(argv[1] if len(argv) > 1 else 'public').resolve()
     if not public_dir.is_dir():
@@ -221,6 +423,9 @@ def main(argv):
     all_issues: list = []
     for f in html_files:
         all_issues.extend(validate_page(f, public_dir))
+
+    # Site-wide artifacts (sitemap.xml, robots.txt, RSS feed).
+    all_issues.extend(validate_site_artifacts(public_dir))
 
     errors    = [i for i in all_issues if i.severity == 'error']
     warnings  = [i for i in all_issues if i.severity == 'warning']
