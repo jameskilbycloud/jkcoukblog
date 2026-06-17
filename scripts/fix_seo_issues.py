@@ -132,6 +132,9 @@ class SEOFixer:
             if self.fix_techarticle_dedupe_and_dates(soup, file_path):
                 modified = True
 
+            if self.fix_jsonld_headline_brand_suffix(soup, file_path):
+                modified = True
+
             if self.fix_article_entity_links(soup, file_path):
                 modified = True
 
@@ -402,10 +405,82 @@ class SEOFixer:
                     tag['content'] = desc_text
                     modified = True
 
+        # Mirror og:image:alt → twitter:image:alt. Rank Math sets the former
+        # but not the latter, so X/Twitter cards ship without image alt text.
+        # Only when a twitter:image is actually present (no orphan alt tags).
+        og_img_alt = soup.find('meta', attrs={'property': 'og:image:alt'})
+        alt_text = (og_img_alt.get('content') or '').strip() if og_img_alt else ''
+        twitter_image = soup.find('meta', attrs={'name': 'twitter:image'})
+        if alt_text and twitter_image:
+            tw_alt = soup.find('meta', attrs={'name': 'twitter:image:alt'})
+            if tw_alt:
+                if (tw_alt.get('content') or '') != alt_text:
+                    tw_alt['content'] = alt_text
+                    modified = True
+            else:
+                twitter_image.insert_after(
+                    soup.new_tag('meta', attrs={'name': 'twitter:image:alt', 'content': alt_text})
+                )
+                modified = True
+
         if modified:
             self.issues_fixed += 1
-            print(f"   🔗 Aligned og:/twitter: title+description with canonical: {file_path.name}")
+            print(f"   🔗 Aligned og:/twitter: social tags with canonical: {file_path.name}")
         return modified
+
+    def fix_jsonld_headline_brand_suffix(self, soup, file_path):
+        """Strip the " - James Kilby" site-name suffix from JSON-LD Article
+        headline / name.
+
+        Rank Math sets the structured-data headline to the full browser
+        <title>, including the site-name suffix. Google's Article guidance is
+        that `headline` should be the article headline as users see it, without
+        the publisher name (the publisher is already expressed by the
+        publisher/isPartOf nodes). Keeping the suffix pollutes the headline
+        entity and can read oddly in rich results.
+
+        Note this only cleans the machine-readable headline; the visible
+        <title> deliberately keeps the suffix on short titles for brand recall
+        (see fix_title_drop_brand_suffix).
+
+        Idempotent.
+        """
+        ARTICLE_TYPES = {'Article', 'BlogPosting', 'TechArticle', 'NewsArticle'}
+        any_modified = False
+
+        for script in soup.find_all('script', type='application/ld+json'):
+            try:
+                data = json.loads(script.string or '')
+            except (json.JSONDecodeError, TypeError):
+                continue
+
+            script_changed = False
+            stack = [data]
+            while stack:
+                obj = stack.pop()
+                if isinstance(obj, dict):
+                    t = obj.get('@type', '')
+                    types = {t} if isinstance(t, str) else set(t) if isinstance(t, (list, tuple)) else set()
+                    if types & ARTICLE_TYPES:
+                        for field in ('headline', 'name'):
+                            val = obj.get(field)
+                            if isinstance(val, str):
+                                cleaned = self._BRAND_SUFFIX_RE.sub('', val).strip()
+                                if cleaned and cleaned != val:
+                                    obj[field] = cleaned
+                                    script_changed = True
+                    stack.extend(v for v in obj.values() if isinstance(v, (dict, list)))
+                elif isinstance(obj, list):
+                    stack.extend(obj)
+
+            if script_changed:
+                script.string = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+                any_modified = True
+
+        if any_modified:
+            self.issues_fixed += 1
+            print(f"   🏷️  Stripped brand suffix from JSON-LD headline: {file_path.name}")
+        return any_modified
 
     def fix_dedupe_breadcrumblist(self, soup, file_path):
         """Drop standalone BreadcrumbList JSON-LD blocks when an @graph
@@ -1555,10 +1630,20 @@ class SEOFixer:
 
         modified = False
 
-        # ── 1. Strip oEmbed discovery <link> tags ─────────────────────────
+        # ── 1. Strip WordPress /wp-json/ discovery <link> tags ────────────
+        # Two flavours, both pointing at /wp-json/ which 404s on the static
+        # site (the worker has no wp-json route):
+        #   • oEmbed:  <link rel="alternate" type="application/json+oembed" …>
+        #   • REST API: <link rel="alternate" type="application/json"
+        #               href="/wp-json/wp/v2/posts/N" title="JSON">
+        # The real JSON mirror is /api/posts/<slug>.json (discoverable via
+        # llms.txt), so both are dead links and a WordPress fingerprint. The
+        # legitimate RSS alternate (/feed/index.xml) has no /wp-json/ in its
+        # href and is left untouched.
         for link in list(soup.find_all('link', rel='alternate')):
             link_type = (link.get('type') or '').lower()
-            if 'oembed' in link_type:
+            href = link.get('href') or ''
+            if 'oembed' in link_type or '/wp-json/' in href:
                 link.decompose()
                 modified = True
 
