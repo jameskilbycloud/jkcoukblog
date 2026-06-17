@@ -232,6 +232,24 @@ def validate_page(html_path: Path, public_dir: Path) -> list:
     if canonical is None and is_post:
         issues.append(Issue('error', 'canonical-missing',
                             'post page has no <link rel="canonical">', html_path))
+    elif canonical is not None and Config is not None:
+        # Presence isn't enough — a canonical on the wrong host (e.g. the
+        # pages.dev preview or the WP host) or pointing at a different page
+        # silently de-indexes the page or hands ranking to the wrong URL, and
+        # the old check couldn't see either.
+        href = (canonical.get('href') or '').strip()
+        target = Config.TARGET_DOMAIN.rstrip('/')
+        if href and href != target and not href.startswith(target + '/'):
+            issues.append(Issue('error', 'canonical-wrong-host',
+                                f'canonical not on {target}: {href}', html_path))
+        elif is_post and href:
+            # A /YYYY/MM/slug/ post must canonicalise to its own pretty URL.
+            expected = (target + rel)
+            if expected.endswith('index.html'):
+                expected = expected[:-len('index.html')]
+            if href.rstrip('/') != expected.rstrip('/'):
+                issues.append(Issue('error', 'canonical-not-self',
+                                    f'post canonical {href!r} != self URL {expected!r}', html_path))
 
     # ── h1 ───────────────────────────────────────────────────────────────────
     h1s = soup.find_all('h1')
