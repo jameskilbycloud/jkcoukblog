@@ -68,12 +68,12 @@ jobs:
         fi
     
     - name: Checkout repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
       with:
         fetch-depth: 0  # Fetch full history
       
     - name: Restore spell check cache
-      uses: actions/cache@v5
+      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
       with:
         path: .last_spell_check_timestamp
         key: spell-check-${{ github.sha }}
@@ -82,9 +82,15 @@ jobs:
       
     - name: Install dependencies
       run: |
-        # pip and system packages already installed by build-and-deploy on this runner (#14)
+        # pip and system packages already installed by build-and-deploy on this runner (#14).
+        # This job `needs` build-and-deploy and runs on the same self-hosted runner, so a
+        # probe import is enough — only reinstall if the environment is somehow missing them.
         echo "🔧 Ensuring Python dependencies are installed..."
-        python3 -m pip install -r requirements.txt --break-system-packages --quiet
+        if python3 -c "import requests, bs4" 2>/dev/null; then
+          echo "✅ Dependencies already present on this runner — skipping pip install"
+        else
+          python3 -m pip install -r requirements.txt --break-system-packages --quiet
+        fi
 
     - name: Run spell check
       env:
@@ -184,7 +190,7 @@ jobs:
         fi
     
     - name: Checkout repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
       with:
         fetch-depth: 0  # Fetch full history for accurate git stats in changelog
       
@@ -197,7 +203,7 @@ jobs:
 
     - name: Restore incremental build cache
       id: incremental-cache-restore
-      uses: actions/cache/restore@v5
+      uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
       with:
         path: .build-cache.json
         # Include run_attempt so re-runs of the same workflow (e.g. after a
@@ -286,11 +292,26 @@ jobs:
         
     - name: Install dependencies
       run: |
-        echo "🔧 Installing Python dependencies..."
-        python3 -m pip install --upgrade pip --break-system-packages
-        python3 -m pip install -r requirements.txt --break-system-packages
-        python3 -m pip install Pillow pillow-avif-plugin --break-system-packages
-        echo "✅ Dependencies installed"
+        echo "🔧 Ensuring Python dependencies are installed..."
+        # The self-hosted runner's Python environment persists between runs, so a
+        # full reinstall every build is wasted network + time. Reinstall only when
+        # requirements change or a probe import is missing: stamp the requirements
+        # hash in $HOME (survives the later `git reset --hard origin/main`, which a
+        # repo-local stamp would not) and skip when it matches AND the key packages
+        # import cleanly. Mirrors the "check before touching apt" gate above.
+        DEPS_SIG="$(sha256sum requirements.txt | awk '{print $1}')-pillow-avif-plugin"
+        STAMP="$HOME/.jkcoukblog_deps_stamp"
+        if [ "$(cat "$STAMP" 2>/dev/null)" = "$DEPS_SIG" ] \
+           && python3 -c "import requests, bs4, PIL, pillow_avif" 2>/dev/null; then
+          echo "✅ Dependencies already satisfied (requirements unchanged) — skipping pip install"
+        else
+          echo "📦 Installing/updating Python dependencies..."
+          python3 -m pip install --upgrade pip --break-system-packages
+          python3 -m pip install -r requirements.txt --break-system-packages
+          python3 -m pip install Pillow pillow-avif-plugin --break-system-packages
+          echo "$DEPS_SIG" > "$STAMP"
+          echo "✅ Dependencies installed"
+        fi
         echo "📋 Installed packages:"
         python3 -m pip list | grep -E "(requests|beautifulsoup4|Pillow)"
         
@@ -349,7 +370,7 @@ jobs:
 
     - name: Upload WordPress validation report
       if: always()
-      uses: actions/upload-artifact@v7
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
       with:
         name: wordpress-validation-report
         path: wordpress-source-validation.json
@@ -460,7 +481,7 @@ jobs:
 
     - name: Save incremental build cache
       if: success()
-      uses: actions/cache/save@v5
+      uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
       with:
         path: .build-cache.json
         # Must match the restore key above — include run_attempt so re-runs
@@ -534,7 +555,7 @@ jobs:
 
     - name: Upload content validation report
       if: always()
-      uses: actions/upload-artifact@v7
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
       with:
         name: content-validation-report
         path: validation-report.json
@@ -1097,7 +1118,7 @@ jobs:
 
     - name: Setup Node.js (for Wrangler)
       if: success()
-      uses: actions/setup-node@v6
+      uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
       with:
         node-version: '20'
 
@@ -1400,7 +1421,7 @@ jobs:
 
     - name: Notify Slack on Success
       if: success()
-      uses: slackapi/slack-github-action@v3.0.3
+      uses: slackapi/slack-github-action@45a88b9581bfab2566dc881e2cd66d334e621e2c # v3.0.3
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
@@ -1481,7 +1502,7 @@ jobs:
         
     - name: Notify Slack on Failure  
       if: failure()
-      uses: slackapi/slack-github-action@v3.0.3
+      uses: slackapi/slack-github-action@45a88b9581bfab2566dc881e2cd66d334e621e2c # v3.0.3
       with:
         webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
         webhook-type: incoming-webhook
