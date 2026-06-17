@@ -15,13 +15,15 @@
         "VMware",
         "vSAN",
         "vSphere",
+        "VMware Cloud on AWS",
         "Artificial Intelligence",
         "Homelab",
+        "Docker",
+        "Hosting",
+        "Kubernetes",
         "Storage",
-        "Veeam",
-        "VMware Cloud on AWS",
-        "Ansible",
-        "Automation"
+        "Mikrotik",
+        "Networking"
       ],
       "tags": [
         null,
@@ -47,16 +49,16 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Personal",
-        "Devops",
-        "Github",
         "Ansible",
         "Automation",
         "Docker",
         "Homelab",
         "Traefik",
         "VCF",
-        "VMware"
+        "VMware",
+        "Personal",
+        "Artificial Intelligence",
+        "NVIDIA"
       ],
       "tags": [
         null,
@@ -99,12 +101,15 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "Ansible",
-        "Automation",
+        "Nutanix",
+        "Devops",
+        "Artificial Intelligence",
         "Docker",
         "Homelab",
+        "Kubernetes",
+        "Automation",
+        "NVIDIA",
         "Traefik",
-        "VCF",
         "VMware"
       ],
       "tags": [
@@ -128,9 +133,14 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
+        "Artificial Intelligence",
+        "Docker",
         "AWS",
-        "Personal",
-        "Devops"
+        "Automation",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "VMware"
       ],
       "tags": [
         null,
@@ -154,18 +164,15 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
+        "VCF",
         "VMware",
         "Automation",
-        "Runecast",
-        "Ansible",
-        "Containers",
-        "Devops",
+        "Docker",
         "NVIDIA",
         "Traefik",
-        "Mikrotik",
         "Networking",
         "Storage",
-        "Synology"
+        "Ansible"
       ],
       "tags": [
         null,
@@ -189,14 +196,19 @@
         "Ansible",
         "Automation",
         "Homelab",
-        "Nutanix",
         "VMware",
-        "Personal",
-        "Docker",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
         "Traefik",
+        "Docker",
         "VCF",
-        "Hosting",
-        "Artificial Intelligence"
+        "AWS",
+        "Veeam",
+        "Personal",
+        "Storage",
+        "Synology"
       ],
       "tags": [
         null,
@@ -221,15 +233,15 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
-        "VCF",
-        "Homelab",
-        "Storage",
-        "Synology",
         "Artificial Intelligence",
         "Automation",
         "Docker",
+        "Homelab",
         "NVIDIA",
-        "Traefik"
+        "Traefik",
+        "VCF",
+        "Nutanix",
+        "Runecast"
       ],
       "tags": [
         null,
@@ -254,10 +266,12 @@
         "VMware",
         "vSAN",
         "Homelab",
-        "VCF",
-        "Nutanix",
-        "Veeam",
-        "VMware Cloud on AWS"
+        "Networking",
+        "Storage",
+        "Personal",
+        "VMware Cloud on AWS",
+        "TrueNAS Scale",
+        "vSphere"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n# vSAN Cluster Shutdown – Orchestration\n\nBy[James](https://jameskilby.co.uk) December 6,..."
@@ -275,18 +289,12 @@
       "categories": [
         "Personal",
         "VMware",
-        "Homelab",
-        "Nutanix",
-        "Storage",
-        "vExpert",
-        "Consulting",
         "VMware Cloud on AWS",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik"
+        "vSAN",
+        "Hosting",
+        "Cloudflare",
+        "Wordpress",
+        "vSphere"
       ],
       "tags": [
         null,

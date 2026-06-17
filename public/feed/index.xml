@@ -5,16 +5,8 @@
     <link>https://jameskilby.co.uk/</link>
     <description>VMware and cloud infrastructure tutorials, homelab guides, and DevOps insights</description>
     <language>en-gb</language>
-    <lastBuildDate>Tue, 16 Jun 2026 21:49:44 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jun 2026 22:31:23 +0000</lastBuildDate>
     <atom:link href="https://jameskilby.co.uk/feed/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Automating vSphere Power Management driven by Ansible and SemaphoreUI</title>
-      <link>https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/</link>
-      <description>Learn how to automate vSphere power management using Ansible and SemaphoreUI, scheduling ESXi host shutdowns based on Octopus Agile energy tariffs to cut costs.</description>
-      <author>James</author>
-      <guid isPermaLink="true">https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/</guid>
-      <pubDate>Wed, 15 Apr 2026 21:36:41 +0000</pubDate>
-    </item>
     <item>
       <title>Automating vSphere Golden Images with Packer and GitHub Actions</title>
       <link>https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/</link>
@@ -22,6 +14,14 @@
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/</guid>
       <pubDate>Thu, 30 Apr 2026 17:22:19 +0000</pubDate>
+    </item>
+    <item>
+      <title>Automating vSphere Power Management driven by Ansible and SemaphoreUI</title>
+      <link>https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/</link>
+      <description>Learn how to automate vSphere power management using Ansible and SemaphoreUI, scheduling ESXi host shutdowns based on Octopus Agile energy tariffs to cut costs.</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/</guid>
+      <pubDate>Wed, 15 Apr 2026 21:36:41 +0000</pubDate>
     </item>
     <item>
       <title>Automated VCF 9 Offline Depot</title>
@@ -72,14 +72,6 @@
       <pubDate>Mon, 09 Feb 2026 11:54:54 +0000</pubDate>
     </item>
     <item>
-      <title>Blog Performance &amp; SEO Improvements: Cloudflare, Privacy &amp; More</title>
-      <link>https://jameskilby.co.uk/2026/01/web-development-improvements/</link>
-      <description>I have spent the Christmas break making some improvements to this blog.</description>
-      <author>James</author>
-      <guid isPermaLink="true">https://jameskilby.co.uk/2026/01/web-development-improvements/</guid>
-      <pubDate>Thu, 15 Jan 2026 15:12:16 +0000</pubDate>
-    </item>
-    <item>
       <title>Using Content Libraries in VMC to deploy software faster</title>
       <link>https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/</link>
       <description>Using VMware Cloud on AWS Content Libraries to deploy ISOs and OVAs to new SDDCs in minutes instead of hours. Setup, layout, and a working example.</description>
@@ -88,12 +80,12 @@
       <pubDate>Tue, 27 Jan 2026 22:19:39 +0000</pubDate>
     </item>
     <item>
-      <title>vSAN Cluster Shutdown – Orchestration</title>
-      <link>https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/</link>
-      <description>As can be seen on my Lab Overview page. I have a GPU/Management cluster that is usually running 24x7.</description>
+      <title>Blog Performance &amp; SEO Improvements: Cloudflare, Privacy &amp; More</title>
+      <link>https://jameskilby.co.uk/2026/01/web-development-improvements/</link>
+      <description>I have spent the Christmas break making some improvements to this blog.</description>
       <author>James</author>
-      <guid isPermaLink="true">https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/</guid>
-      <pubDate>Sat, 06 Dec 2025 10:59:14 +0000</pubDate>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2026/01/web-development-improvements/</guid>
+      <pubDate>Thu, 15 Jan 2026 15:12:16 +0000</pubDate>
     </item>
     <item>
       <title>How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step</title>
@@ -110,6 +102,14 @@
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/</guid>
       <pubDate>Mon, 08 Dec 2025 14:03:44 +0000</pubDate>
+    </item>
+    <item>
+      <title>vSAN Cluster Shutdown – Orchestration</title>
+      <link>https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/</link>
+      <description>As can be seen on my Lab Overview page. I have a GPU/Management cluster that is usually running 24x7.</description>
+      <author>James</author>
+      <guid isPermaLink="true">https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/</guid>
+      <pubDate>Sat, 06 Dec 2025 10:59:14 +0000</pubDate>
     </item>
     <item>
       <title>How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare</title>

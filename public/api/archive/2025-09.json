@@ -17,15 +17,16 @@
         "Ansible",
         "Homelab",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
+        "Containers",
+        "Devops",
         "NVIDIA",
         "Traefik",
         "VMware",
-        "vSphere",
-        "Veeam",
         "Storage",
-        "TrueNAS Scale"
+        "Synology",
+        "Automation",
+        "Github",
+        "Runecast"
       ],
       "tags": [
         null,

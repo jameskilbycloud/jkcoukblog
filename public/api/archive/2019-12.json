@@ -19,18 +19,13 @@
         "Veeam",
         "VMware Cloud on AWS",
         "vSAN",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
         "Docker",
         "Homelab",
-        "NVIDIA",
         "Traefik",
-        "Ansible",
-        "Containers",
-        "Devops",
-        "Personal",
-        "Networking",
-        "Storage"
+        "VCF",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -55,12 +50,8 @@
         "Personal",
         "VMware",
         "vSphere",
-        "Consulting",
-        "Devops",
-        "Veeam",
         "Hosting",
-        "Cloudflare",
-        "Wordpress"
+        "Consulting"
       ],
       "tags": [
         null,

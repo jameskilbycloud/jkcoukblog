@@ -16,15 +16,10 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Ansible",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
         "VMware",
         "Synology",
-        "vSphere"
+        "Networking",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -48,17 +43,18 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Artificial Intelligence",
-        "Automation",
+        "Personal",
+        "Devops",
+        "Github",
         "Docker",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
+        "Kubernetes",
         "Ansible",
+        "Automation",
+        "Traefik",
         "VCF",
-        "Devops",
-        "Github"
+        "VMware",
+        "AWS"
       ],
       "tags": [
         null,
@@ -82,18 +78,18 @@
       "categories": [
         "Runecast",
         "VMware",
-        "Homelab",
-        "Storage",
-        "Synology",
-        "vSphere",
-        "vSAN",
-        "TrueNAS Scale",
-        "Artificial Intelligence",
-        "Automation",
         "Docker",
+        "Homelab",
+        "Hosting",
+        "Kubernetes",
+        "Mikrotik",
+        "Networking",
+        "VMware Cloud on AWS",
+        "Artificial Intelligence",
+        "Personal",
+        "Automation",
         "NVIDIA",
-        "Traefik",
-        "VCF"
+        "Traefik"
       ],
       "tags": [
         null,

@@ -21,7 +21,9 @@
         "Traefik",
         "VCF",
         "VMware",
-        "AWS"
+        "Personal",
+        "Devops",
+        "Github"
       ],
       "tags": [
         null,
@@ -47,14 +49,10 @@
         "Docker",
         "Hosting",
         "Homelab",
+        "Ansible",
         "Storage",
         "vExpert",
-        "Automation",
-        "Github",
-        "Networking",
-        "NVIDIA",
-        "Traefik",
-        "VMware"
+        "Synology"
       ],
       "tags": [
         null,
@@ -81,17 +79,16 @@
         "Devops",
         "Github",
         "Wordpress",
+        "Hosting",
+        "Ansible",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
+        "Containers",
         "Homelab",
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Hosting",
-        "Personal",
-        "Ansible",
-        "Containers"
+        "Automation",
+        "Personal"
       ],
       "tags": [
         null,
@@ -117,15 +114,10 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Ansible",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
         "VMware",
         "Synology",
-        "vSphere"
+        "Networking",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -149,16 +141,17 @@
         "Homelab",
         "Storage",
         "Synology",
-        "VMware",
         "Artificial Intelligence",
-        "Docker",
-        "Hosting",
-        "Ansible",
         "Automation",
-        "Traefik",
-        "VCF",
+        "Docker",
         "NVIDIA",
-        "Networking"
+        "Traefik",
+        "VMware",
+        "Nutanix",
+        "Runecast",
+        "VMware Cloud on AWS",
+        "vSAN",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -180,20 +173,12 @@
       "categories": [
         "Mikrotik",
         "Networking",
-        "TrueNAS Scale",
-        "VMware",
-        "vSAN",
-        "vSphere",
         "Homelab",
+        "Storage",
+        "Synology",
         "Runecast",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
-        "Automation",
-        "Github",
-        "Ansible",
-        "Traefik",
-        "VCF"
+        "VMware",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
@@ -217,11 +202,17 @@
         "VCF",
         "VMware",
         "VMware Cloud on AWS",
+        "vSAN",
+        "Ansible",
         "Automation",
-        "Github",
         "Homelab",
-        "Hosting",
-        "Networking"
+        "Networking",
+        "Storage",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,
@@ -246,15 +237,13 @@
         "Automation",
         "Homelab",
         "VMware",
-        "Artificial Intelligence",
-        "Docker",
-        "Hosting",
-        "Ansible",
-        "Networking",
+        "VMware Cloud on AWS",
+        "Devops",
+        "Personal",
+        "VCF",
         "Storage",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere"
+        "Synology",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -279,13 +268,15 @@
         "VMware",
         "Personal",
         "VMware Cloud on AWS",
-        "TrueNAS Scale",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Homelab",
+        "Traefik",
+        "VCF",
+        "Veeam",
         "vSAN",
-        "vSphere",
-        "Devops",
-        "Hosting",
-        "AWS",
-        "Veeam"
+        "Runecast"
       ],
       "tags": [
         null,
@@ -310,19 +301,16 @@
         "Homelab",
         "VMware",
         "vSphere",
-        "Networking",
         "Storage",
+        "vExpert",
         "Synology",
-        "Runecast",
         "VMware Cloud on AWS",
-        "Ansible",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "Automation",
+        "Docker",
         "NVIDIA",
         "Traefik",
-        "AWS",
-        "Veeam"
+        "Runecast"
       ],
       "tags": [
         null,

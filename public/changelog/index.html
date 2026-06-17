@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changelog - James Kilby</title>
+    <meta name="description" content="Site improvements, deployments, and performance metrics for James Kilby's technical blog.">
+    <!--
+        noindex,follow: /changelog/ is an auto-generated build artifact, not
+        content meant to rank. Follow keeps internal-link discovery alive.
+        Matches Config.NOINDEX_PATH_PATTERNS — this template runs AFTER
+        html_transformer (which would also have injected this), so baking it
+        in at source prevents the post-transform overwrite from undoing it.
+    -->
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="https://jameskilby.co.uk/changelog/">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+        
+        :root {
+            --bg-dark: #0a0a0a;
+            --text-light: #fafafa;
+            --accent-orange: #f6821f;
+            --gray-mid: #404040;
+            --gray-light: #666666;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background: var(--bg-dark);
+            padding: 20px;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 40px;
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-family: 'Anton', sans-serif;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+        
+        h2 {
+            font-family: 'Anton', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+        
+        .subtitle {
+            color: var(--gray-light);
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .build-status {
+            margin-bottom: 30px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .build-status img {
+            display: block;
+            height: 20px;
+            width: auto;
+        }
+        
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .metric-card {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
+            border-left: 4px solid var(--accent-orange);
+        }
+        
+        .metric-card h3 {
+            color: var(--gray-light);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--accent-orange);
+        }
+        
+        .metric-label {
+            color: var(--gray-light);
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .lighthouse-scores {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .score-card {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
+        }
+        
+        .score-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--bg-dark);
+        }
+        
+        .score-excellent { background: var(--accent-orange); }
+        .score-good { background: var(--gray-light); }
+        .score-poor { background: var(--gray-mid); }
+        
+        .score-label {
+            color: var(--gray-light);
+            font-weight: 600;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .changelog-section {
+            margin-top: 40px;
+        }
+        
+        .changelog-section h2 {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gray-mid);
+        }
+        
+        .changelog-section p {
+            color: var(--gray-light);
+        }
+        
+        .change-entry {
+            margin-bottom: 30px;
+            padding-left: 20px;
+            border-left: 3px solid var(--gray-mid);
+            transition: border-color 0.2s;
+        }
+        
+        .change-entry:hover {
+            border-left-color: var(--accent-orange);
+        }
+        
+        .change-date {
+            color: var(--accent-orange);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .change-title {
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .change-details {
+            color: var(--gray-light);
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+        
+        .change-hash {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2px 8px;
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 0.85em;
+            color: var(--gray-light);
+            margin-left: 10px;
+        }
+        
+        .category-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 0;
+            border: 1px solid var(--gray-mid);
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 10px;
+        }
+        
+        .badge-feature { background: rgba(246, 130, 31, 0.2); color: var(--accent-orange); border-color: var(--accent-orange); }
+        .badge-fix { background: rgba(255, 255, 255, 0.05); color: var(--gray-light); }
+        .badge-improvement { background: rgba(246, 130, 31, 0.1); color: var(--text-light); }
+        .badge-docs { background: rgba(255, 255, 255, 0.02); color: var(--gray-light); }
+        .badge-removal { background: rgba(255, 255, 255, 0.05); color: var(--gray-light); border-color: var(--gray-light); }
+        .badge-other { background: transparent; color: var(--gray-light); }
+        
+        .back-link {
+            display: inline-block;
+            color: var(--accent-orange);
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.9rem;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+            opacity: 0.8;
+        }
+        
+        .timestamp {
+            text-align: right;
+            color: var(--gray-light);
+            font-size: 0.85em;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-mid);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .metrics, .lighthouse-scores {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script defer data-cfasync="false" data-domain="jameskilby.co.uk" src="/js/script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← Back to Home</a>
+        
+        <h1>📋 Changelog</h1>
+        <p class="subtitle">Site improvements, deployments, and performance metrics</p>
+
+        <div class="build-status">
+            <a href="https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="View Quality Checks workflow on GitHub">
+                <img src="https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml/badge.svg"
+                     alt="Quality Checks workflow status"
+                     loading="lazy" decoding="async" width="148" height="20">
+            </a>
+        </div>
+
+        <div class="metrics">
+            <div class="metric-card">
+                <h3>Total Deployments</h3>
+                <div class="metric-value">974</div>
+                <div class="metric-label">Git commits</div>
+            </div>
+            
+            <div class="metric-card">
+                <h3>Repository Age</h3>
+                <div class="metric-value">257</div>
+                <div class="metric-label">Days active</div>
+            </div>
+            
+            <div class="metric-card">
+                <h3>Contributors</h3>
+                <div class="metric-value">4</div>
+                <div class="metric-label">Active contributors</div>
+            </div>
+            
+            <div class="metric-card">
+                <h3>Last Deployment</h3>
+                <div class="metric-value">2026-06-17</div>
+                <div class="metric-label">22:21:27</div>
+            </div>
+        </div>
+        
+        <h2>🚀 Lighthouse Performance Scores</h2>
+        <p class="metric-label" style="margin-bottom: 15px;">Last checked: Estimated</p>
+        
+        <div class="lighthouse-scores">
+            <div class="score-card">
+                <div class="score-circle score-excellent">
+                    95
+                </div>
+                <div class="score-label">Performance</div>
+            </div>
+            
+            <div class="score-card">
+                <div class="score-circle score-excellent">
+                    95
+                </div>
+                <div class="score-label">Accessibility</div>
+            </div>
+            
+            <div class="score-card">
+                <div class="score-circle score-excellent">
+                    100
+                </div>
+                <div class="score-label">Best Practices</div>
+            </div>
+            
+            <div class="score-card">
+                <div class="score-circle score-excellent">
+                    100
+                </div>
+                <div class="score-label">SEO</div>
+            </div>
+        </div>
+        
+        <div class="changelog-section">
+            <h2>Recent Changes</h2>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-17 <span class="change-hash">4d6eed5</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore(ci): run force-full-deploy weekly to backfill back-catalogue schema (#100)</div>
+                <div class="change-details">Incremental builds skip unchanged posts, so generator-stage-only SEO/schema</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-17 <span class="change-hash">fbc122e</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix(seo): dead wp-json links, JSON-LD headline, twitter:image:alt, canonical validation (#99)</div>
+                <div class="change-details">* fix(seo): trustworthy sitemap lastmod, drop dead SearchAction, sort RSS, harden validator</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-17 <span class="change-hash">a5a43d1</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix(seo): trustworthy sitemap lastmod, drop dead SearchAction, sort RSS, harden validator (#98)</div>
+                <div class="change-details">Five SEO fixes surfaced by the content/code review.</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-17 <span class="change-hash">163a69b</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix(ci): pin actions to commit SHAs and gate redundant pip installs (#97)</div>
+                <div class="change-details">#2 Supply-chain hardening: pin every action in the deploy workflow to a full</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-17 <span class="change-hash">1aaa68e</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore(deps-dev): Bump ruff from 0.15.16 to 0.15.17 (#94)</div>
+                <div class="change-details">Bumps [ruff](https://github.com/astral-sh/ruff) from 0.15.16 to 0.15.17.</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-17 <span class="change-hash">ac36887</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix(ci): correct compression ordering, drop dead Google ping, prune redundant cache (#96)</div>
+                <div class="change-details">Four fixes to the WordPress→static deploy workflow:</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-17 <span class="change-hash">b65b302</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore(deps-dev): Bump pytest from 9.0.3 to 9.1.0 (#95)</div>
+                <div class="change-details">Bumps [pytest](https://github.com/pytest-dev/pytest) from 9.0.3 to 9.1.0.</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-17 <span class="change-hash">614e44d</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore(deps): Bump treosh/lighthouse-ci-action from 11 to 12 (#93)</div>
+                <div class="change-details">Bumps [treosh/lighthouse-ci-action](https://github.com/treosh/lighthouse-ci-action) from 11 to 12.</div>
+            </div>
+            <br>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-16 <span class="change-hash">122445e</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">feat(seo): CrUX field metrics, drift baseline, JSON-LD entity enrichment (H3/M4/M1/L3) (#92)</div>
+                <div class="change-details">* feat(seo): link article author to Person @id + topic about/mentions entities</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-16 <span class="change-hash">aa7f754</span><span class="category-badge badge-feature">Feature</span></div>
+                <div class="change-title">Add Style Guide and checlist</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-16 <span class="change-hash">e6d8d47</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">feat: auto-inject FAQPage JSON-LD for posts with FAQ sections (#91)</div>
+                <div class="change-details">Implements the &quot;Add FAQ schema markup&quot; item from the SEO checklist</div>
+            </div>
+            <br>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-15 <span class="change-hash">47bbb77</span><span class="category-badge badge-removal">Removal</span></div>
+                <div class="change-title">chore: remove dead workflow and trigger cruft (#90)</div>
+                <div class="change-details">* fix(seo): noindex markdown/JSON mirrors to stop crawl-budget waste</div>
+            </div>
+            <br>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-14 <span class="change-hash">a760ed2</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix(seo): noindex markdown/JSON mirrors to stop crawl-budget waste (#89)</div>
+                <div class="change-details">Google Search Console flagged ~80 /markdown/*.md mirror files under</div>
+            </div>
+            <br>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">7c002de</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">feat: review round 3 — docs sync, session migration, stamp validation, picture query fix, more tests, hygiene (#88)</div>
+                <div class="change-details">1. Docs/Makefile: CLAUDE.md no longer claims there is no pytest suite;</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">4d666ba</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">feat: shared WP session module, exception logging, worker cache fixes, pytest+ruff CI (#87)</div>
+                <div class="change-details">Fix 7 — shared module + config enforcement:</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">c2f365e</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore(deps): Bump html2text from 2020.1.16 to 2025.4.15 (#82)</div>
+                <div class="change-details">Bumps [html2text](https://github.com/Alir3z4/html2text) from 2020.1.16 to 2025.4.15.</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">2cb7035</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore(deps): Bump gitleaks/gitleaks-action from 2 to 3 (#79)</div>
+                <div class="change-details">Bumps [gitleaks/gitleaks-action](https://github.com/gitleaks/gitleaks-action) from 2 to 3.</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">a3bd318</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore(deps): Bump actions/upload-artifact from 4 to 7 (#81)</div>
+                <div class="change-details">Bumps [actions/upload-artifact](https://github.com/actions/upload-artifact) from 4 to 7.</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">9928939</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore(deps): Bump actions/download-artifact from 7 to 8 (#83)</div>
+                <div class="change-details">Bumps [actions/download-artifact](https://github.com/actions/download-artifact) from 7 to 8.</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">d2249d8</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore(deps): Bump actions/github-script from 7 to 9 (#84)</div>
+                <div class="change-details">Bumps [actions/github-script](https://github.com/actions/github-script) from 7 to 9.</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">de845c0</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore(deps): Bump actions/checkout from 5 to 6 (#78)</div>
+                <div class="change-details">Bumps [actions/checkout](https://github.com/actions/checkout) from 5 to 6.</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">2c6cc8b</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore(deps): Bump pyyaml from 6.0.1 to 6.0.3 (#80)</div>
+                <div class="change-details">Bumps [pyyaml](https://github.com/yaml/pyyaml) from 6.0.1 to 6.0.3.</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">94ad7d9</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix: surface non-blocking CI failures, thread-safe caches, config-aware cache invalidation (#85)</div>
+                <div class="change-details">- deploy-static-site.yml: give all 13 continue-on-error steps ids and add a</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">cd62e99</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix: make Slack notify and secret-scan workflows survive Dependabot PRs (#86)</div>
+                <div class="change-details">Dependabot-triggered runs don&#x27;t receive repository secrets, so every</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">0f9819c</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix: harden Slack workflow, pin Python deps, fix critical CSS truncation (#77)</div>
+                <div class="change-details">- issue-to-slack-improved.yml: pass issue/PR titles via env vars instead of</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">22e258a</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore: change backup schedule from weekly to every 14 days</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">8e4a9b4</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore: bump actions to Node 24 compatible versions</div>
+                <div class="change-details">checkout v5 -&gt; v6, upload-artifact v4.6.2 -&gt; v7</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">6bd8d11</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix: remove invalid =no argument from --no-host-directories wget flag</div>
+                <div class="change-details">Caused wget to error and download 0 media files.</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">da941df</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore: bump upload-artifact to v4.6.2 to avoid Node 20 deprecation warning</div>
+                <div class="change-details">Node 20 actions are being deprecated on 2026-06-16. v4.6.2 runs on Node 24.</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-10 <span class="change-hash">7b76d36</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore: exclude .claude local files from git</div>
+                <div class="change-details">Remove tracked settings.local.json and add .claude/settings.local.json</div>
+            </div>
+
+        </div>
+        
+        <div class="timestamp">
+            Page generated: 2026-06-17 22:34:42 UTC<br>
+            Changelog powered by Git history and Lighthouse CI
+        </div>
+    </div>
+</body>
+</html>

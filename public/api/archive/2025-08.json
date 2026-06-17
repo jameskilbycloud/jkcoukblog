@@ -17,8 +17,14 @@
         "VMware",
         "VMware Cloud on AWS",
         "Homelab",
+        "Veeam",
         "vSAN",
-        "VCF"
+        "vSphere",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null
