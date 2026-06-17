@@ -22,6 +22,17 @@ name: Force Full Deploy (no cache)
 
 on:
   workflow_dispatch:
+  # Weekly full rebuild — Sundays 03:00 UTC.
+  #
+  # Incremental builds skip unchanged back-catalogue posts, so any SEO/schema
+  # logic that only runs in the generator stage (FAQ / BlogPosting / breadcrumb
+  # / site-schema injection) never reaches a post until it's next edited in
+  # WordPress. A weekly cache-busting rebuild backfills the whole catalogue so
+  # newly-shipped schema features land site-wide without waiting for every post
+  # to be touched. Off-peak to avoid contending with normal content deploys on
+  # the self-hosted runner. Scheduled runs fire from the default branch (main).
+  schedule:
+    - cron: '0 3 * * 0'
 
 permissions:
   actions: write   # delete caches + trigger sibling workflow
