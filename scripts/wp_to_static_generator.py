@@ -1106,15 +1106,14 @@ class WordPressStaticGenerator:
                     if item.get('@type') == 'WebSite':
                         if 'inLanguage' not in item:
                             item['inLanguage'] = 'en-GB'
-                        if 'potentialAction' not in item:
-                            item['potentialAction'] = {
-                                "@type": "SearchAction",
-                                "target": {
-                                    "@type": "EntryPoint",
-                                    "urlTemplate": f"{self.target_domain}/?s={{search_term_string}}"
-                                },
-                                "query-input": "required name=search_term_string"
-                            }
+                        # Drop any SearchAction (Rank Math injects one pointing at
+                        # the WordPress "/?s=" endpoint). The static site has no
+                        # server-side search route — search is client-side JS with
+                        # no deep-linkable results page — so a Sitelinks Search Box
+                        # action would resolve to a dead URL. No action is better
+                        # than a broken one. Re-add only if a real /search?q= route
+                        # with query-param deep-linking is ever shipped.
+                        item.pop('potentialAction', None)
                         if 'publisher' not in item:
                             item['publisher'] = {"@id": f"{self.target_domain}/#organization"}
                         enriched = True
@@ -1142,15 +1141,11 @@ class WordPressStaticGenerator:
                     "name": "James Kilby",
                     "description": "Technical blog covering VMware, homelab, AI, and cloud computing",
                     "inLanguage": "en-GB",
-                    "publisher": {"@id": f"{self.target_domain}/#organization"},
-                    "potentialAction": {
-                        "@type": "SearchAction",
-                        "target": {
-                            "@type": "EntryPoint",
-                            "urlTemplate": f"{self.target_domain}/?s={{search_term_string}}"
-                        },
-                        "query-input": "required name=search_term_string"
-                    }
+                    "publisher": {"@id": f"{self.target_domain}/#organization"}
+                    # No SearchAction: the static site has no server-side search
+                    # route (search is client-side JS, no deep-linkable results
+                    # page), so a Sitelinks Search Box action would point at a
+                    # dead "/?s=" URL. See the enrich path above.
                 },
                 org_schema
             ]
@@ -4341,41 +4336,81 @@ document.addEventListener('DOMContentLoaded', function() {
         print(f"✅ Created sitemap.xml with {len(seen_urls)} URLs and {total_images} image entries")
 
     def _extract_modified_date(self, html_file):
-        """Extract modification date from HTML file's Schema.org JSON-LD"""
+        """Best <lastmod> date for the sitemap, most-trustworthy source first.
+
+        Order of preference:
+          1. <meta property="article:modified_time"> — the real WordPress
+             "last edited" timestamp from Rank Math. Present on every post and,
+             crucially, available even on incrementally-seeded HTML that skipped
+             JSON-LD re-injection.
+          2. JSON-LD dateModified on any Article-family / WebPage node
+             (TechArticle, Article, BlogPosting, WebPage, …). The previous code
+             only matched Article/BlogPosting/WebPage, so posts (typed
+             TechArticle) never matched and silently fell through to mtime.
+          3. <meta property="article:published_time"> — fall back to the publish
+             date rather than inventing one.
+          4. File mtime — last resort. For a freshly generated file this is the
+             BUILD date, so the old behaviour stamped every post with "today",
+             clustering all <lastmod> on the deploy date and training Google to
+             distrust the freshness signal.
+
+        Any future date (clock skew / bad CMS data) is clamped to today — a
+        future <lastmod> is an SEO red flag.
+        """
+        def _to_date(value):
+            if not value:
+                return None
+            try:
+                parsed = datetime.fromisoformat(str(value).strip().replace('Z', '+00:00'))
+            except (ValueError, AttributeError, TypeError):
+                return None
+            # Compare on the naive date so aware/naive datetimes never clash.
+            return min(parsed.date(), datetime.now().date())
+
         try:
             with open(html_file, 'r', encoding='utf-8', errors='ignore') as f:
                 html_content = f.read()
-
             soup = BeautifulSoup(html_content, 'html.parser')
 
-            # Look for Schema.org JSON-LD script
-            json_ld_scripts = soup.find_all('script', type='application/ld+json')
+            # 1. article:modified_time meta (primary)
+            tag = soup.find('meta', attrs={'property': 'article:modified_time'})
+            d = _to_date(tag.get('content')) if tag else None
+            if d:
+                return d.strftime('%Y-%m-%d')
 
-            for script in json_ld_scripts:
+            # 2. JSON-LD dateModified on any *Article / WebPage node
+            for script in soup.find_all('script', type='application/ld+json'):
                 try:
                     data = json.loads(script.string)
-
-                    # Handle both single objects and @graph arrays
-                    items = data.get('@graph', [data]) if isinstance(data, dict) else [data]
-
-                    for item in items:
-                        if isinstance(item, dict):
-                            # Look for dateModified in Article, BlogPosting, or WebPage
-                            if item.get('@type') in ['Article', 'BlogPosting', 'WebPage']:
-                                date_modified = item.get('dateModified')
-                                if date_modified:
-                                    # Parse and format date (handle ISO8601 format)
-                                    parsed_date = datetime.fromisoformat(date_modified.replace('Z', '+00:00'))
-                                    return parsed_date.strftime('%Y-%m-%d')
-                except (json.JSONDecodeError, ValueError, AttributeError):
+                except (json.JSONDecodeError, TypeError):
                     continue
+                if isinstance(data, dict):
+                    items = data.get('@graph', [data])
+                elif isinstance(data, list):
+                    items = data
+                else:
+                    items = [data]
+                for item in items:
+                    if not isinstance(item, dict):
+                        continue
+                    t = item.get('@type', '')
+                    types = t if isinstance(t, list) else [t]
+                    if any(str(x).endswith('Article') or x == 'WebPage' for x in types):
+                        d = _to_date(item.get('dateModified'))
+                        if d:
+                            return d.strftime('%Y-%m-%d')
 
-            # Fallback: try to get file modification time
-            file_mtime = html_file.stat().st_mtime
-            return datetime.fromtimestamp(file_mtime).strftime('%Y-%m-%d')
+            # 3. article:published_time meta
+            tag = soup.find('meta', attrs={'property': 'article:published_time'})
+            d = _to_date(tag.get('content')) if tag else None
+            if d:
+                return d.strftime('%Y-%m-%d')
 
-        except Exception as e:
-            # Ultimate fallback: use current date
+            # 4. file mtime (build date — last resort)
+            return datetime.fromtimestamp(html_file.stat().st_mtime).strftime('%Y-%m-%d')
+
+        except Exception:
+            # Ultimate fallback: today.
             return datetime.now().strftime('%Y-%m-%d')
 
     def _get_archive_latest_post_date(self, html_file, post_dates):
@@ -4544,19 +4579,34 @@ document.addEventListener('DOMContentLoaded', function() {
                                         words = text.split()[:50]
                                         description = ' '.join(words) + ('...' if len(words) >= 50 else '')
                                 
-                                # Extract date
+                                # Extract date — prefer the <time class=published>
+                                # element, fall back to the article:published_time
+                                # meta (always present from Rank Math). Keep a
+                                # parsed datetime (pub_dt) so the feed can be sorted
+                                # reliably before it is truncated to the latest 20.
+                                from email.utils import format_datetime
+                                from datetime import datetime as dt, timezone
+                                datetime_str = ''
                                 date_elem = soup.find('time', class_=re.compile(r'published', re.I))
-                                pub_date = ''
                                 if date_elem:
-                                    datetime_str = date_elem.get('datetime', '')
-                                    if datetime_str:
-                                        try:
-                                            from email.utils import format_datetime
-                                            from datetime import datetime as dt
-                                            dt_obj = dt.fromisoformat(datetime_str.replace('Z', '+00:00'))
-                                            pub_date = format_datetime(dt_obj)
-                                        except (ValueError, AttributeError, TypeError):
-                                            pub_date = datetime_str
+                                    datetime_str = date_elem.get('datetime', '') or ''
+                                if not datetime_str:
+                                    meta_pub = soup.find('meta', attrs={'property': 'article:published_time'})
+                                    if meta_pub:
+                                        datetime_str = (meta_pub.get('content') or '').strip()
+                                pub_date = ''
+                                pub_dt = None
+                                if datetime_str:
+                                    try:
+                                        dt_obj = dt.fromisoformat(datetime_str.replace('Z', '+00:00'))
+                                        # Normalise to aware UTC so the later sort
+                                        # never mixes aware and naive datetimes.
+                                        if dt_obj.tzinfo is None:
+                                            dt_obj = dt_obj.replace(tzinfo=timezone.utc)
+                                        pub_dt = dt_obj
+                                        pub_date = format_datetime(dt_obj)
+                                    except (ValueError, AttributeError, TypeError):
+                                        pub_date = datetime_str
                                 
                                 # Extract author
                                 author_elem = soup.find('a', class_=re.compile(r'author|fn', re.I))
@@ -4571,13 +4621,20 @@ document.addEventListener('DOMContentLoaded', function() {
                                     'description': description,
                                     'link': url,
                                     'pub_date': pub_date,
+                                    'pub_dt': pub_dt,
                                     'author': author
                                 })
                             except Exception as e:
                                 print(f"   ⚠️  Error processing {post_dir}: {str(e)}")
                                 continue
         
-        # Sort posts by date (newest first) - take top 20
+        # Sort posts by publication date (newest first), THEN take the top 20.
+        # post_dir.iterdir() yields posts in arbitrary order, so without this
+        # the "latest 20" could omit genuinely recent posts and mis-order the
+        # feed. Posts with an unparseable/absent date sink to the bottom.
+        from datetime import timezone
+        _oldest = datetime.min.replace(tzinfo=timezone.utc)
+        posts.sort(key=lambda p: p.get('pub_dt') or _oldest, reverse=True)
         posts = posts[:20]
         
         if not posts:
