@@ -84,7 +84,7 @@ jobs:
       # blocking the main thread on lower-powered devices.
       - name: Run Lighthouse CI — DESKTOP (with configs)
         if: steps.check_configs.outputs.budget_exists == 'true' && steps.check_configs.outputs.config_exists == 'true'
-        uses: treosh/lighthouse-ci-action@v11
+        uses: treosh/lighthouse-ci-action@v12
         with:
           urls: |
             https://jameskilby.co.uk
@@ -101,7 +101,7 @@ jobs:
           steps.check_configs.outputs.config_exists == 'true' &&
           hashFiles('.github/lighthouse/budget-mobile.json') != '' &&
           hashFiles('.github/lighthouse/lighthouse-config-mobile.json') != ''
-        uses: treosh/lighthouse-ci-action@v11
+        uses: treosh/lighthouse-ci-action@v12
         with:
           urls: |
             https://jameskilby.co.uk
@@ -114,7 +114,7 @@ jobs:
 
       - name: Run Lighthouse CI (without configs — fallback)
         if: steps.check_configs.outputs.budget_exists == 'false' || steps.check_configs.outputs.config_exists == 'false'
-        uses: treosh/lighthouse-ci-action@v11
+        uses: treosh/lighthouse-ci-action@v12
         with:
           urls: |
             https://jameskilby.co.uk
