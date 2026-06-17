@@ -16,12 +16,15 @@
       "categories": [
         "Artificial Intelligence",
         "Automation",
-        "Ansible",
         "Homelab",
         "VMware",
+        "Ansible",
         "Docker",
-        "Hosting",
-        "Github"
+        "Traefik",
+        "VCF",
+        "NVIDIA",
+        "Github",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -49,10 +52,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Ansible",
         "VMware Cloud on AWS",
-        "Nutanix",
-        "Personal"
+        "Storage",
+        "Synology",
+        "Nutanix"
       ],
       "tags": [
         null,

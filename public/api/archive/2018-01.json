@@ -18,15 +18,10 @@
         "Storage",
         "Synology",
         "Networking",
-        "Ansible",
-        "Automation",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
         "VMware",
-        "Veeam"
+        "Mikrotik",
+        "vExpert",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -48,16 +43,14 @@
       "categories": [
         "Homelab",
         "Nutanix",
-        "Personal",
         "Artificial Intelligence",
         "Storage",
-        "Networking",
-        "Ansible",
-        "Containers",
-        "Devops",
+        "Docker",
+        "Automation",
         "NVIDIA",
         "Traefik",
-        "VMware"
+        "VMware",
+        "vExpert"
       ],
       "tags": [
         null

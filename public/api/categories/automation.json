@@ -3,35 +3,36 @@
   "slug": "automation",
   "posts": [
     {
-      "slug": "homelab-storage-refresh-part-1",
-      "title": "Homelab Storage Refresh (Part 1)",
-      "description": "Table of Contents Background ZFS Overview Read Cache (ARC and L2ARC) ZIL (ZFS Intent Log) Hardware Background I have just completed the move of all my prod",
-      "date": "2023-05-23T12:07:09Z",
-      "modified": "2026-06-01T21:58:50Z",
+      "slug": "forcing-an-upgrade-to-vsphere-8",
+      "title": "Forcing an Upgrade to vSphere 8",
+      "description": "I run a reasonably extensive homelab that is of course built around the VMware ecosystem.",
+      "date": "2022-12-14T21:43:39Z",
+      "modified": "2026-06-01T19:02:43Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2023/05/homelab-storage-refresh-part-1/",
-      "markdown_url": "/markdown/posts/homelab-storage-refresh-part-1.md",
-      "api_url": "/api/posts/homelab-storage-refresh-part-1.json",
+      "url": "https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/",
+      "markdown_url": "/markdown/posts/forcing-an-upgrade-to-vsphere-8.md",
+      "api_url": "/api/posts/forcing-an-upgrade-to-vsphere-8.json",
       "categories": [
         "Homelab",
+        "VMware",
+        "vSphere",
         "Storage",
-        "Ansible",
+        "vExpert",
+        "Synology",
+        "VMware Cloud on AWS",
         "Artificial Intelligence",
         "Automation",
         "Docker",
         "NVIDIA",
         "Traefik",
-        "VMware",
-        "Synology",
-        "vSphere"
+        "Runecast"
       ],
       "tags": [
         null,
-        null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22-at-18.49.21.png",
-      "excerpt": "![TrueNAS Logo](https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22-at-18.49.21.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)\n\n# Homelab Storage Refresh (Part 1)\n\nBy[James](https://jameskilby.co.uk) May 23, 2..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.24.32.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.45.23.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)\n\n# Forcing an Upgrade to vSphere 8\n\nBy[J..."
     },
     {
       "slug": "monitoring-vmc-part-1",
@@ -49,18 +50,13 @@
         "Veeam",
         "VMware Cloud on AWS",
         "vSAN",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
         "Docker",
         "Homelab",
-        "NVIDIA",
         "Traefik",
-        "Ansible",
-        "Containers",
-        "Devops",
-        "Personal",
-        "Networking",
-        "Storage"
+        "VCF",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -83,15 +79,15 @@
       "categories": [
         "Hosting",
         "Personal",
-        "Cloudflare",
-        "Wordpress",
-        "VMware",
         "Ansible",
         "Automation",
         "Docker",
         "Homelab",
         "Traefik",
-        "VCF"
+        "VCF",
+        "VMware",
+        "Cloudflare",
+        "Wordpress"
       ],
       "tags": [
         null,
@@ -117,17 +113,17 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "VMware",
-        "VMware Cloud on AWS",
-        "vSAN",
-        "Artificial Intelligence",
+        "Networking",
         "Automation",
+        "Github",
+        "Ansible",
         "Docker",
-        "NVIDIA",
         "Traefik",
-        "Hosting",
-        "Storage",
-        "VCF"
+        "VCF",
+        "VMware",
+        "Artificial Intelligence",
+        "Mikrotik",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -151,16 +147,17 @@
         "Homelab",
         "Storage",
         "Synology",
-        "VMware",
         "Artificial Intelligence",
-        "Docker",
-        "Hosting",
-        "Ansible",
         "Automation",
-        "Traefik",
-        "VCF",
+        "Docker",
         "NVIDIA",
-        "Networking"
+        "Traefik",
+        "VMware",
+        "Nutanix",
+        "Runecast",
+        "VMware Cloud on AWS",
+        "vSAN",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -182,7 +179,10 @@
       "categories": [
         "Devops",
         "Personal",
-        "AWS",
+        "Cloudflare",
+        "Hosting",
+        "Wordpress",
+        "Nutanix",
         "Ansible",
         "Artificial Intelligence",
         "Containers",
@@ -190,11 +190,9 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
         "Automation",
-        "Github"
+        "Github",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -218,15 +216,13 @@
         "Automation",
         "Homelab",
         "VMware",
-        "Artificial Intelligence",
-        "Docker",
-        "Hosting",
-        "Ansible",
-        "Networking",
+        "VMware Cloud on AWS",
+        "Devops",
+        "Personal",
+        "VCF",
         "Storage",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere"
+        "Synology",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -249,25 +245,86 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
+        "Cloudflare",
+        "Devops",
+        "Github",
+        "Wordpress",
         "Artificial Intelligence",
         "Docker",
-        "Cloudflare",
-        "Personal",
-        "Wordpress",
-        "Homelab",
-        "Kubernetes",
-        "Ansible",
         "Automation",
+        "Homelab",
+        "NVIDIA",
         "Traefik",
-        "VCF",
         "VMware",
-        "AWS"
+        "Kubernetes"
       ],
       "tags": [
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained\n\nBy[James](https://jameskilby.co.uk) March 27, 2018 · Updated June 1, 2026 • 📖1 min read(287 words)\n\n📅**Published:..."
+    },
+    {
+      "slug": "can-you-really-squeeze-96tb-in-1u",
+      "title": "Can you really squeeze 96TB in 1U ?",
+      "description": "Yes, that’s a clickbait title.",
+      "date": "2024-09-12T12:39:16Z",
+      "modified": "2026-06-01T19:03:02Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/",
+      "markdown_url": "/markdown/posts/can-you-really-squeeze-96tb-in-1u.md",
+      "api_url": "/api/posts/can-you-really-squeeze-96tb-in-1u.json",
+      "categories": [
+        "Homelab",
+        "Storage",
+        "TrueNAS Scale",
+        "VMware",
+        "vSAN",
+        "vSphere",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Traefik",
+        "VCF",
+        "Artificial Intelligence",
+        "Hosting",
+        "Networking"
+      ],
+      "tags": [
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/)\n\n# Can you really s..."
+    },
+    {
+      "slug": "vmc-host-deepdive",
+      "title": "An in-depth look at VMware Cloud on AWS hosts",
+      "description": "A full side-by-side comparison of every VMware Cloud on AWS host type — I3.metal, I3en.metal and I4i.metal — covering CPU, memory, storage and networking specs.",
+      "date": "2025-08-14T12:32:01Z",
+      "modified": "2026-06-05T18:44:50Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2025/08/vmc-host-deepdive/",
+      "markdown_url": "/markdown/posts/vmc-host-deepdive.md",
+      "api_url": "/api/posts/vmc-host-deepdive.json",
+      "categories": [
+        "VMware",
+        "VMware Cloud on AWS",
+        "Homelab",
+        "Veeam",
+        "vSAN",
+        "vSphere",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik"
+      ],
+      "tags": [
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# An in-depth look at VMware Cloud on AWS hosts\n\nBy[James](https://jamesk..."
     },
     {
       "slug": "multihost-holodeck-vcf",
@@ -282,14 +339,14 @@
       "categories": [
         "VMware",
         "VCF",
-        "Personal",
-        "vSphere",
+        "VMware Cloud on AWS",
+        "Homelab",
+        "Networking",
+        "Storage",
         "Ansible",
         "Automation",
         "Docker",
-        "Homelab",
-        "Traefik",
-        "VMware Cloud on AWS"
+        "Traefik"
       ],
       "tags": [
         null,
@@ -301,35 +358,38 @@
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/)\n\n# VMware Holodeck Multi-Host VCF: Lab Setup & Configuration\n\nBy[James](https://jameskilby.co.uk) January 17, 202..."
     },
     {
-      "slug": "using-content-libraries-in-vmc-to-deploy-software-faster",
-      "title": "Using Content Libraries in VMC to deploy software faster",
-      "description": "Using VMware Cloud on AWS Content Libraries to deploy ISOs and OVAs to new SDDCs in minutes instead of hours. Setup, layout, and a working example.",
-      "date": "2026-01-27T22:19:39Z",
-      "modified": "2026-06-05T17:47:43Z",
+      "slug": "vmc-quick-sizing-guide",
+      "title": "VMware Cloud on AWS Storage Sizing Quick Reference Guide",
+      "description": "Quick reference guide to the available storage resources that you get in VMware Cloud on AWS",
+      "date": "2025-05-21T09:33:04Z",
+      "modified": "2026-06-01T21:07:07Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/",
-      "markdown_url": "/markdown/posts/using-content-libraries-in-vmc-to-deploy-software-faster.md",
-      "api_url": "/api/posts/using-content-libraries-in-vmc-to-deploy-software-faster.json",
+      "url": "https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/",
+      "markdown_url": "/markdown/posts/vmc-quick-sizing-guide.md",
+      "api_url": "/api/posts/vmc-quick-sizing-guide.json",
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Homelab",
-        "vSAN",
         "Ansible",
-        "Automation",
-        "Docker",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "Homelab",
+        "NVIDIA",
         "Traefik",
+        "AWS",
+        "Veeam",
+        "vSAN",
         "VCF",
-        "Personal"
+        "Automation"
       ],
       "tags": [
         null,
         null,
-        null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# Using Content Libraries in VMC to deploy software faster\n\nBy[James](https:/..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# VMware Cloud on AWS Storage Sizing Quick Reference Guide\n\nBy[James](htt..."
     },
     {
       "slug": "starlink",
@@ -344,15 +404,14 @@
       "categories": [
         "Homelab",
         "Hosting",
+        "Storage",
+        "Veeam",
+        "VMware",
+        "Nutanix",
         "Ansible",
         "Automation",
-        "Mikrotik",
-        "Networking",
-        "Storage",
-        "Synology",
-        "TrueNAS Scale",
-        "Github",
-        "Artificial Intelligence"
+        "VCF",
+        "Synology"
       ],
       "tags": [
         null,
@@ -375,17 +434,18 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Artificial Intelligence",
-        "Automation",
+        "Personal",
+        "Devops",
+        "Github",
         "Docker",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
+        "Kubernetes",
         "Ansible",
+        "Automation",
+        "Traefik",
         "VCF",
-        "Devops",
-        "Github"
+        "VMware",
+        "AWS"
       ],
       "tags": [
         null,
@@ -397,69 +457,37 @@
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/simply-static-logo.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# WordPress Hosting with Cloudflare Pages\n..."
     },
     {
-      "slug": "zfs-on-vmware",
-      "title": "How to Run ZFS on VMware vSphere: Setup Guide and Best Practices",
-      "description": "Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the",
-      "date": "2024-12-18T17:47:57Z",
-      "modified": "2026-06-01T21:07:03Z",
+      "slug": "vgpu-setup-in-my-homelab",
+      "title": "Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide",
+      "description": "Step-by-step setup of Nvidia Tesla P4 vGPU on VMware ESXi for a homelab. Drivers, licence server, vGPU profiles, plus gotchas and performance notes.",
+      "date": "2023-10-23T14:56:58Z",
+      "modified": "2026-06-05T18:55:44Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2024/12/zfs-on-vmware/",
-      "markdown_url": "/markdown/posts/zfs-on-vmware.md",
-      "api_url": "/api/posts/zfs-on-vmware.json",
+      "url": "https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/",
+      "markdown_url": "/markdown/posts/vgpu-setup-in-my-homelab.md",
+      "api_url": "/api/posts/vgpu-setup-in-my-homelab.json",
       "categories": [
-        "TrueNAS Scale",
+        "Homelab",
         "VMware",
-        "vSAN",
-        "vSphere",
-        "Artificial Intelligence",
-        "Homelab",
         "Storage",
-        "Veeam",
-        "VMware Cloud on AWS",
-        "Ansible",
-        "Automation"
-      ],
-      "tags": [
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/12/IMG_20140330_210511-1024x845.jpeg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg)\n\n[TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/) | [vSphere](https://jameskilby.co.uk/category/vsph..."
-    },
-    {
-      "slug": "lab-storage",
-      "title": "My First Homelab Storage Setup: HP Gen8 & Xpenology",
-      "description": "I have been meaning to post around some of the lab setup for a while. Although it changes frequently at present it's as below.",
-      "date": "2018-01-06T17:39:20Z",
-      "modified": "2026-06-01T21:58:16Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2018/01/lab-storage/",
-      "markdown_url": "/markdown/posts/lab-storage.md",
-      "api_url": "/api/posts/lab-storage.json",
-      "categories": [
-        "Homelab",
-        "Storage",
-        "Synology",
+        "Mikrotik",
         "Networking",
-        "Ansible",
-        "Automation",
+        "Runecast",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "Automation",
+        "Docker",
         "NVIDIA",
         "Traefik",
-        "VMware",
-        "Veeam"
+        "Nutanix",
+        "Personal"
       ],
       "tags": [
         null,
+        null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
-      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)\n\n# My First Homelab Storage Setup: HP Gen8 & Xpenology\n\nBy[James](https://jameskilby.co.uk) January 6, 2018 · Updated June 1, 2026 •..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide\n\nBy[James](https://jameskilby.co.uk) October 23, 20..."
     },
     {
       "slug": "managing-my-homelab-with-semaphoreui",
@@ -475,15 +503,16 @@
         "Ansible",
         "Homelab",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
+        "Containers",
+        "Devops",
         "NVIDIA",
         "Traefik",
         "VMware",
-        "vSphere",
-        "Veeam",
         "Storage",
-        "TrueNAS Scale"
+        "Synology",
+        "Automation",
+        "Github",
+        "Runecast"
       ],
       "tags": [
         null,
@@ -507,12 +536,15 @@
       "categories": [
         "Artificial Intelligence",
         "Automation",
-        "Ansible",
         "Homelab",
         "VMware",
+        "Ansible",
         "Docker",
-        "Hosting",
-        "Github"
+        "Traefik",
+        "VCF",
+        "NVIDIA",
+        "Github",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -536,16 +568,16 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Personal",
-        "Devops",
-        "Github",
         "Ansible",
         "Automation",
         "Docker",
         "Homelab",
         "Traefik",
         "VCF",
-        "VMware"
+        "VMware",
+        "Personal",
+        "Artificial Intelligence",
+        "NVIDIA"
       ],
       "tags": [
         null,
@@ -574,15 +606,14 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Networking",
+        "Nutanix",
+        "Hosting",
+        "Wordpress",
         "Ansible",
         "Containers",
         "Devops",
-        "Cloudflare",
-        "Github",
-        "Wordpress",
         "VMware Cloud on AWS",
-        "vSphere"
+        "VCF"
       ],
       "tags": [
         null,
@@ -622,12 +653,13 @@
         "Traefik",
         "VCF",
         "VMware",
-        "Hosting",
-        "Artificial Intelligence",
         "Cloudflare",
+        "Hosting",
         "Wordpress",
-        "VMware Cloud on AWS",
-        "Personal"
+        "vSAN",
+        "Nutanix",
+        "Storage",
+        "Synology"
       ],
       "tags": [
         null,
@@ -664,18 +696,15 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Artificial Intelligence",
-        "Automation",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "Cloudflare",
-        "Personal",
-        "Wordpress",
-        "Storage",
+        "Nutanix",
         "TrueNAS Scale",
-        "Networking",
-        "Github"
+        "VMware",
+        "vSAN",
+        "vSphere",
+        "Automation",
+        "Github",
+        "Artificial Intelligence",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -686,37 +715,37 @@
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png)\n\n[Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernetes/)\n\n# ..."
     },
     {
-      "slug": "self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu",
-      "title": "Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU",
-      "description": "Artificial intelligence is all the rage at the moment, It’s getting included in every product announcement from pretty much every vendor under the su",
-      "date": "2024-10-11T15:03:26Z",
-      "modified": "2026-06-01T21:07:02Z",
+      "slug": "going-out-with-a-bang",
+      "title": "VMware – Going out with a Bang!",
+      "description": "There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom.",
+      "date": "2023-10-07T12:37:14Z",
+      "modified": "2026-06-01T19:02:50Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/",
-      "markdown_url": "/markdown/posts/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu.md",
-      "api_url": "/api/posts/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu.json",
+      "url": "https://jameskilby.co.uk/2023/10/going-out-with-a-bang/",
+      "markdown_url": "/markdown/posts/going-out-with-a-bang.md",
+      "api_url": "/api/posts/going-out-with-a-bang.json",
       "categories": [
-        "Artificial Intelligence",
+        "VMware",
+        "Personal",
+        "VMware Cloud on AWS",
+        "Ansible",
+        "Automation",
         "Docker",
         "Homelab",
-        "Automation",
-        "NVIDIA",
         "Traefik",
-        "VMware",
-        "Storage",
-        "TrueNAS Scale",
-        "Synology",
-        "Ansible",
-        "Containers",
-        "Devops"
+        "VCF",
+        "Veeam",
+        "vSAN",
+        "Runecast"
       ],
       "tags": [
         null,
         null,
+        null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-1024x683.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-scaled.jpg)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Sel..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# VMware – Going out with a Bang!\n\nBy[James](https://jameskilby.co.uk) October 7, 2023 · Updated June 1, 2026 • 📖1 mi..."
     },
     {
       "slug": "lab-update-part-3-network",
@@ -731,17 +760,12 @@
       "categories": [
         "Homelab",
         "Networking",
-        "VCF",
-        "VMware",
-        "Storage",
-        "Synology",
         "Ansible",
         "Automation",
-        "Docker",
-        "Traefik",
-        "Artificial Intelligence",
-        "Hosting",
-        "Runecast"
+        "Storage",
+        "Synology",
+        "VMware",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -763,21 +787,14 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Homelab",
-        "vSAN",
-        "Storage",
-        "vExpert",
-        "AWS",
-        "Veeam",
-        "Ansible",
+        "Personal",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
         "Automation",
         "Docker",
-        "VCF"
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -786,6 +803,34 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# New VMware Cloud on AWS Host: i7i.metal-24xl\n\nBy[James](https://jameskilby.co.uk) ..."
+    },
+    {
+      "slug": "lab-update-part-1-compute",
+      "title": "Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup",
+      "description": "Quite a few changes have happened in the lab recently. I decided to do a multipart blog on the changes.",
+      "date": "2022-01-06T11:12:00Z",
+      "modified": "2026-02-16T16:15:03Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/",
+      "markdown_url": "/markdown/posts/lab-update-part-1-compute.md",
+      "api_url": "/api/posts/lab-update-part-1-compute.json",
+      "categories": [
+        "Homelab",
+        "VMware",
+        "Personal",
+        "Runecast",
+        "Ansible",
+        "Automation",
+        "VCF",
+        "VMware Cloud on AWS"
+      ],
+      "tags": [
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1-768x1024.jpg",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup\n\nBy[James](https://jameskilby.co.uk) January 6, 2..."
     },
     {
       "slug": "web-development",
@@ -802,12 +847,15 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "Ansible",
-        "Automation",
+        "Nutanix",
+        "Devops",
+        "Artificial Intelligence",
         "Docker",
         "Homelab",
+        "Kubernetes",
+        "Automation",
+        "NVIDIA",
         "Traefik",
-        "VCF",
         "VMware"
       ],
       "tags": [
@@ -830,18 +878,18 @@
       "categories": [
         "Runecast",
         "VMware",
-        "Homelab",
-        "Storage",
-        "Synology",
-        "vSphere",
-        "vSAN",
-        "TrueNAS Scale",
-        "Artificial Intelligence",
-        "Automation",
         "Docker",
+        "Homelab",
+        "Hosting",
+        "Kubernetes",
+        "Mikrotik",
+        "Networking",
+        "VMware Cloud on AWS",
+        "Artificial Intelligence",
+        "Personal",
+        "Automation",
         "NVIDIA",
-        "Traefik",
-        "VCF"
+        "Traefik"
       ],
       "tags": [
         null,
@@ -851,42 +899,6 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)\n\n[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Runecast Remediation Scripts: Auto-Fix VMware Storage Issues\n\nBy[James](https://jameskilby.co.uk) May ..."
-    },
-    {
-      "slug": "home-network-upgrade",
-      "title": "Home Network Upgrade to 25Gb/s with MikroTik Switching",
-      "description": "My home network upgrade to 25Gb/s: MikroTik CRS504 switching, DACs, optics, and the gotchas I hit going beyond 10Gb at home.",
-      "date": "2024-09-09T08:25:08Z",
-      "modified": "2026-06-05T18:49:23Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2024/09/home-network-upgrade/",
-      "markdown_url": "/markdown/posts/home-network-upgrade.md",
-      "api_url": "/api/posts/home-network-upgrade.json",
-      "categories": [
-        "Mikrotik",
-        "Networking",
-        "TrueNAS Scale",
-        "VMware",
-        "vSAN",
-        "vSphere",
-        "Homelab",
-        "Runecast",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
-        "Automation",
-        "Github",
-        "Ansible",
-        "Traefik",
-        "VCF"
-      ],
-      "tags": [
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg",
-      "excerpt": "![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg)\n\n[Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Home Network Upgrade to 25Gb/s with MikroTik Switching\n\nBy[James](https://jameskilby.co.uk) September ..."
     },
     {
       "slug": "vsan-esa-and-the-improvements-it-brings-to-vmc",
@@ -902,15 +914,15 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
-        "VCF",
-        "Homelab",
-        "Storage",
-        "Synology",
         "Artificial Intelligence",
         "Automation",
         "Docker",
+        "Homelab",
         "NVIDIA",
-        "Traefik"
+        "Traefik",
+        "VCF",
+        "Nutanix",
+        "Runecast"
       ],
       "tags": [
         null,
@@ -922,38 +934,32 @@
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n#..."
     },
     {
-      "slug": "how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way",
-      "title": "How I Migrated from Pocket to Hoarder with AI Integration",
-      "description": "How I migrated my saved articles from Pocket to Hoarder (now Karakeep), self-hosted it with Docker, and added AI tagging to organise everything.",
-      "date": "2025-01-29T23:31:56Z",
-      "modified": "2026-06-05T18:46:47Z",
+      "slug": "new-nodes",
+      "title": "New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix",
+      "description": "I refreshed my homelab nodes with SuperMicro BigTwin hardware — building a Nutanix CE cluster and an ESXi host, all at very little cost.",
+      "date": "2024-07-02T08:01:04Z",
+      "modified": "2026-06-05T18:51:29Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/",
-      "markdown_url": "/markdown/posts/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way.md",
-      "api_url": "/api/posts/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way.json",
+      "url": "https://jameskilby.co.uk/2024/07/new-nodes/",
+      "markdown_url": "/markdown/posts/new-nodes.md",
+      "api_url": "/api/posts/new-nodes.json",
       "categories": [
-        "Artificial Intelligence",
-        "Docker",
-        "Hosting",
         "Homelab",
-        "Storage",
-        "vExpert",
+        "Nutanix",
+        "VMware",
+        "Veeam",
+        "VMware Cloud on AWS",
+        "Ansible",
         "Automation",
-        "Github",
-        "Networking",
-        "NVIDIA",
-        "Traefik",
-        "VMware"
+        "Personal"
       ],
       "tags": [
         null,
         null,
-        null,
-        null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-1024x547.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47.png)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# How I..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/04/Screenshot-2024-04-06-at-22.50.57.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-scaled.jpeg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# New Homelab Nodes: SuperMicro BigTwin for VMware & Nut..."
     },
     {
       "slug": "intel-optane",
@@ -969,18 +975,18 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "VMware",
-        "VMware Cloud on AWS",
-        "Ansible",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "Automation",
+        "Docker",
         "NVIDIA",
         "Traefik",
-        "Docker",
-        "Hosting",
-        "Automation",
-        "Nutanix"
+        "VMware",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "Veeam",
+        "Ansible",
+        "Networking"
       ],
       "tags": [
         null,
@@ -995,39 +1001,36 @@
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://jameskilby.co.uk/category/vexpert/)\n\n# Using Intel Opta..."
     },
     {
-      "slug": "vmc-host-errors",
-      "title": "How VMware Cloud on AWS Handles Host Failures Automatically",
-      "description": "How VMware Cloud on AWS automatically detects and remediates a host failure — I watched it provision a replacement and evacuate the faulty host seamlessly.",
-      "date": "2020-09-15T10:56:32Z",
-      "modified": "2026-06-05T19:05:19Z",
+      "slug": "web-development-improvements",
+      "title": "Blog Performance & SEO Improvements: Cloudflare, Privacy & More",
+      "description": "I have spent the Christmas break making some improvements to this blog.",
+      "date": "2026-01-15T15:12:16Z",
+      "modified": "2026-06-01T21:59:08Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2020/09/vmc-host-errors/",
-      "markdown_url": "/markdown/posts/vmc-host-errors.md",
-      "api_url": "/api/posts/vmc-host-errors.json",
+      "url": "https://jameskilby.co.uk/2026/01/web-development-improvements/",
+      "markdown_url": "/markdown/posts/web-development-improvements.md",
+      "api_url": "/api/posts/web-development-improvements.json",
       "categories": [
-        "VMware",
-        "VMware Cloud on AWS",
+        "Cloudflare",
+        "Hosting",
+        "Wordpress",
         "Artificial Intelligence",
-        "Automation",
         "Docker",
+        "AWS",
+        "Automation",
         "Homelab",
         "NVIDIA",
         "Traefik",
-        "vSAN",
-        "Ansible",
-        "Containers",
-        "Devops"
+        "VMware"
       ],
       "tags": [
         null,
         null,
         null,
-        null,
-        null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-1024x526.png",
-      "excerpt": "![VMware Cloud on AWS \\(VMC\\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# How VMware Cloud on AWS Handles Host Failures Autom..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2026/01/Website-Optimisations.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/01/Website-Optimisations.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Blog Performance & SEO Improvements: ..."
     },
     {
       "slug": "warp-the-intelligent-terminal",
@@ -1042,18 +1045,15 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
+        "VCF",
         "VMware",
         "Automation",
-        "Runecast",
-        "Ansible",
-        "Containers",
-        "Devops",
+        "Docker",
         "NVIDIA",
         "Traefik",
-        "Mikrotik",
         "Networking",
         "Storage",
-        "Synology"
+        "Ansible"
       ],
       "tags": [
         null,
@@ -1076,17 +1076,13 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Networking",
-        "Synology",
-        "Kubernetes",
-        "TrueNAS Scale",
-        "Ansible",
-        "Automation",
+        "Artificial Intelligence",
         "Docker",
-        "Traefik",
-        "VCF",
+        "Veeam",
         "VMware",
-        "Artificial Intelligence"
+        "Automation",
+        "Synology",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
@@ -1111,15 +1107,17 @@
         "VMware",
         "Personal",
         "vSphere",
-        "Nutanix",
-        "VMware Cloud on AWS",
+        "Homelab",
+        "Storage",
+        "vExpert",
         "vSAN",
         "Artificial Intelligence",
         "Automation",
         "Docker",
-        "Homelab",
         "NVIDIA",
-        "Traefik"
+        "Traefik",
+        "VMware Cloud on AWS",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -1128,6 +1126,34 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)\n\n# Advanced Deploy VMware vSphere 7.x 3V0-22.21N\n\nBy[James](https:..."
+    },
+    {
+      "slug": "nutanix-ce",
+      "title": "Running Nutanix CE at Home: AHV Setup & First Impressions",
+      "description": "I ran a Nutanix CE server at home for a little while when it first came out.",
+      "date": "2018-01-06T17:28:56Z",
+      "modified": "2026-06-01T21:58:18Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2018/01/nutanix-ce/",
+      "markdown_url": "/markdown/posts/nutanix-ce.md",
+      "api_url": "/api/posts/nutanix-ce.json",
+      "categories": [
+        "Homelab",
+        "Nutanix",
+        "Artificial Intelligence",
+        "Storage",
+        "Docker",
+        "Automation",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "vExpert"
+      ],
+      "tags": [
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Running Nutanix CE at Home: AHV Setup & First Impressions\n\nBy[James](https://jameskilby..."
     },
     {
       "slug": "holodeck-cpu-fixes",
@@ -1143,11 +1169,17 @@
         "VCF",
         "VMware",
         "VMware Cloud on AWS",
+        "vSAN",
+        "Ansible",
         "Automation",
-        "Github",
         "Homelab",
-        "Hosting",
-        "Networking"
+        "Networking",
+        "Storage",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,
@@ -1157,6 +1189,35 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743.jpg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743.jpg)\n\n[VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# VMware Holodeck on Older CPUs: Fixing Compatibility Issues\n\nBy[James](https://jameskilby.co.uk) Janu..."
+    },
+    {
+      "slug": "unifi-dhcp-option-43",
+      "title": "Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets",
+      "description": "Configure DHCP Option 43 so UniFi APs and switches auto-adopt across subnets. Includes the hex converter, OPNsense + Mikrotik examples, and a UDM guide.",
+      "date": "2024-06-26T10:50:17Z",
+      "modified": "2026-06-05T18:53:38Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/",
+      "markdown_url": "/markdown/posts/unifi-dhcp-option-43.md",
+      "api_url": "/api/posts/unifi-dhcp-option-43.json",
+      "categories": [
+        "Homelab",
+        "Networking",
+        "Artificial Intelligence",
+        "Docker",
+        "Veeam",
+        "VMware",
+        "Automation",
+        "Storage",
+        "vExpert"
+      ],
+      "tags": [
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_-1024x683.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets\n\nBy[Ja..."
     },
     {
       "slug": "ubuntu-disk-expansion-steps",
@@ -1200,14 +1261,14 @@
         "Automation",
         "Github",
         "Homelab",
+        "Veeam",
         "VMware",
         "Storage",
-        "Synology",
-        "Ansible",
         "vExpert",
-        "Artificial Intelligence",
-        "Docker",
-        "Hosting"
+        "Ansible",
+        "Ubuntu",
+        "Mikrotik",
+        "Networking"
       ],
       "tags": [
         null,
@@ -1236,17 +1297,16 @@
         "Devops",
         "Github",
         "Wordpress",
+        "Hosting",
+        "Ansible",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
+        "Containers",
         "Homelab",
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Hosting",
-        "Personal",
-        "Ansible",
-        "Containers"
+        "Automation",
+        "Personal"
       ],
       "tags": [
         null,
@@ -1277,10 +1337,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Ansible",
         "VMware Cloud on AWS",
-        "Nutanix",
-        "Personal"
+        "Storage",
+        "Synology",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -1321,7 +1381,9 @@
         "Traefik",
         "VCF",
         "VMware",
-        "AWS"
+        "Personal",
+        "Devops",
+        "Github"
       ],
       "tags": [
         null,
@@ -1331,38 +1393,6 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Static WordPress hosting using Cloudflare\n\nBy[James](ht..."
-    },
-    {
-      "slug": "cloudflare-workers-limits-of-the-free-tier",
-      "title": "Cloudflare Workers – Limits of the free tier",
-      "description": "I have been making several changes (mainly cosmetic to this site over the last day or so) On most changes I have been doing an export and then uploading th",
-      "date": "2022-01-04T21:11:23Z",
-      "modified": "2026-06-01T21:58:35Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/",
-      "markdown_url": "/markdown/posts/cloudflare-workers-limits-of-the-free-tier.md",
-      "api_url": "/api/posts/cloudflare-workers-limits-of-the-free-tier.json",
-      "categories": [
-        "Hosting",
-        "Wordpress",
-        "Personal",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Homelab",
-        "Traefik",
-        "VCF",
-        "VMware",
-        "Kubernetes",
-        "Cloudflare"
-      ],
-      "tags": [
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Cloudflare Workers – Limits of the free tier\n\nBy[James](https://jameskilby.co.uk) January 4, 2022 · Updated June 1, 2..."
     },
     {
       "slug": "vsphere-power-management-driven-by-ansible",
@@ -1378,14 +1408,19 @@
         "Ansible",
         "Automation",
         "Homelab",
-        "Nutanix",
         "VMware",
-        "Personal",
-        "Docker",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
         "Traefik",
+        "Docker",
         "VCF",
-        "Hosting",
-        "Artificial Intelligence"
+        "AWS",
+        "Veeam",
+        "Personal",
+        "Storage",
+        "Synology"
       ],
       "tags": [
         null,

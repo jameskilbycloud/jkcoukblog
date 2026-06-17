@@ -17,13 +17,11 @@
         "Homelab",
         "Nutanix",
         "VMware",
+        "Veeam",
         "VMware Cloud on AWS",
-        "vSAN",
-        "Personal",
-        "vSphere",
-        "Storage",
-        "Synology",
-        "VCF"
+        "Ansible",
+        "Automation",
+        "Personal"
       ],
       "tags": [
         null,

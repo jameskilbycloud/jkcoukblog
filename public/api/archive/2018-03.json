@@ -15,19 +15,18 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
+        "Cloudflare",
+        "Devops",
+        "Github",
+        "Wordpress",
         "Artificial Intelligence",
         "Docker",
-        "Cloudflare",
-        "Personal",
-        "Wordpress",
-        "Homelab",
-        "Kubernetes",
-        "Ansible",
         "Automation",
+        "Homelab",
+        "NVIDIA",
         "Traefik",
-        "VCF",
         "VMware",
-        "AWS"
+        "Kubernetes"
       ],
       "tags": [
         null
@@ -49,9 +48,9 @@
         "AWS",
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
+        "Veeam",
         "Hosting",
-        "Veeam"
+        "Personal"
       ],
       "tags": [
         null,

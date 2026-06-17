@@ -16,15 +16,14 @@
       "categories": [
         "Homelab",
         "Hosting",
+        "Storage",
+        "Veeam",
+        "VMware",
+        "Nutanix",
         "Ansible",
         "Automation",
-        "Mikrotik",
-        "Networking",
-        "Storage",
-        "Synology",
-        "TrueNAS Scale",
-        "Github",
-        "Artificial Intelligence"
+        "VCF",
+        "Synology"
       ],
       "tags": [
         null,
@@ -54,7 +53,9 @@
         "Traefik",
         "VCF",
         "VMware",
-        "AWS"
+        "Personal",
+        "Devops",
+        "Github"
       ],
       "tags": [
         null,

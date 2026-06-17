@@ -18,14 +18,10 @@
         "Docker",
         "Hosting",
         "Homelab",
+        "Ansible",
         "Storage",
         "vExpert",
-        "Automation",
-        "Github",
-        "Networking",
-        "NVIDIA",
-        "Traefik",
-        "VMware"
+        "Synology"
       ],
       "tags": [
         null,

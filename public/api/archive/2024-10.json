@@ -17,16 +17,16 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "Automation",
+        "Storage",
+        "Ansible",
+        "Containers",
+        "Devops",
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Storage",
-        "TrueNAS Scale",
-        "Synology",
-        "Ansible",
-        "Containers",
-        "Devops"
+        "Mikrotik",
+        "Networking",
+        "Nutanix"
       ],
       "tags": [
         null,

@@ -18,17 +18,16 @@
         "Devops",
         "Github",
         "Wordpress",
+        "Hosting",
+        "Ansible",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
+        "Containers",
         "Homelab",
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Hosting",
-        "Personal",
-        "Ansible",
-        "Containers"
+        "Automation",
+        "Personal"
       ],
       "tags": [
         null,

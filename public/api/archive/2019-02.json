@@ -15,17 +15,17 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "VMware",
-        "VMware Cloud on AWS",
-        "vSAN",
-        "Artificial Intelligence",
+        "Networking",
         "Automation",
+        "Github",
+        "Ansible",
         "Docker",
-        "NVIDIA",
         "Traefik",
-        "Hosting",
-        "Storage",
-        "VCF"
+        "VCF",
+        "VMware",
+        "Artificial Intelligence",
+        "Mikrotik",
+        "vSphere"
       ],
       "tags": [
         null,

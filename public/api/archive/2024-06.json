@@ -16,12 +16,13 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Storage",
-        "Synology",
-        "VMware",
+        "Artificial Intelligence",
         "Docker",
-        "Hosting",
-        "Kubernetes"
+        "Veeam",
+        "VMware",
+        "Automation",
+        "Storage",
+        "vExpert"
       ],
       "tags": [
         null,

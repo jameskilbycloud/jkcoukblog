@@ -23683,5 +23683,35 @@
     "avif_created": true,
     "webp": "wp-content/uploads/2026/06/NewHouseNet-2-scaled.webp",
     "avif": "wp-content/uploads/2026/06/NewHouseNet-2-scaled.avif"
+  },
+  "wp-content/uploads/2026/06/ZenWanPerfomance-150x150.png": {
+    "hash": "36aa51d6a508316f5e3f219dfc48d045",
+    "optimized_at": "2026-06-17T22:32:26.804614",
+    "optimized_size": 934,
+    "timestamp": 1781731946.8046281,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/ZenWanPerfomance-150x150.webp",
+    "avif": "wp-content/uploads/2026/06/ZenWanPerfomance-150x150.avif"
+  },
+  "wp-content/uploads/2026/06/ZenWanPerfomance-300x111.png": {
+    "hash": "6cbf59fbf8b7fd58c8098b62fdb5a229",
+    "optimized_at": "2026-06-17T22:32:26.834423",
+    "optimized_size": 3742,
+    "timestamp": 1781731946.834437,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/ZenWanPerfomance-300x111.webp",
+    "avif": "wp-content/uploads/2026/06/ZenWanPerfomance-300x111.avif"
+  },
+  "wp-content/uploads/2026/06/ZenWanPerfomance.png": {
+    "hash": "b09b4ba5dd9ff6bba7315cfecd129fa3",
+    "optimized_at": "2026-06-17T22:32:26.974691",
+    "optimized_size": 7304,
+    "timestamp": 1781731946.9747047,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/ZenWanPerfomance.webp",
+    "avif": "wp-content/uploads/2026/06/ZenWanPerfomance.avif"
   }
 }
