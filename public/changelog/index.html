@@ -312,13 +312,13 @@
         <div class="metrics">
             <div class="metric-card">
                 <h3>Total Deployments</h3>
-                <div class="metric-value">974</div>
+                <div class="metric-value">977</div>
                 <div class="metric-label">Git commits</div>
             </div>
             
             <div class="metric-card">
                 <h3>Repository Age</h3>
-                <div class="metric-value">257</div>
+                <div class="metric-value">258</div>
                 <div class="metric-label">Days active</div>
             </div>
             
@@ -330,8 +330,8 @@
             
             <div class="metric-card">
                 <h3>Last Deployment</h3>
-                <div class="metric-value">2026-06-17</div>
-                <div class="metric-label">22:21:27</div>
+                <div class="metric-value">2026-06-18</div>
+                <div class="metric-label">08:32:42</div>
             </div>
         </div>
         
@@ -370,6 +370,19 @@
         
         <div class="changelog-section">
             <h2>Recent Changes</h2>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-18 <span class="change-hash">c5d5cd3</span><span class="category-badge badge-feature">Feature</span></div>
+                <div class="change-title">fix(seo): wire 3 dead SEOFixer passes into the pipeline + add sync-guard test (#102)</div>
+                <div class="change-details">The deploy pipeline runs html_transformer.py, whose _apply_seo_fixes() is a</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-18 <span class="change-hash">b265965</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix(seo): wire fix_jsonld_headline_brand_suffix into the html_transformer orchestrator (#101)</div>
+                <div class="change-details">PR #99 added fix_jsonld_headline_brand_suffix to SEOFixer and registered it in</div>
+            </div>
+            <br>
 
             <div class="change-entry">
                 <div class="change-date">2026-06-17 <span class="change-hash">4d6eed5</span><span class="category-badge badge-other">Other</span></div>
@@ -541,22 +554,10 @@
                 <div class="change-details">Caused wget to error and download 0 media files.</div>
             </div>
 
-            <div class="change-entry">
-                <div class="change-date">2026-06-10 <span class="change-hash">da941df</span><span class="category-badge badge-other">Other</span></div>
-                <div class="change-title">chore: bump upload-artifact to v4.6.2 to avoid Node 20 deprecation warning</div>
-                <div class="change-details">Node 20 actions are being deprecated on 2026-06-16. v4.6.2 runs on Node 24.</div>
-            </div>
-
-            <div class="change-entry">
-                <div class="change-date">2026-06-10 <span class="change-hash">7b76d36</span><span class="category-badge badge-other">Other</span></div>
-                <div class="change-title">chore: exclude .claude local files from git</div>
-                <div class="change-details">Remove tracked settings.local.json and add .claude/settings.local.json</div>
-            </div>
-
         </div>
         
         <div class="timestamp">
-            Page generated: 2026-06-17 22:34:42 UTC<br>
+            Page generated: 2026-06-18 08:37:48 UTC<br>
             Changelog powered by Git history and Lighthouse CI
         </div>
     </div>

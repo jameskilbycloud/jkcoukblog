@@ -20,29 +20,39 @@
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png)\n\n[Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# What’s In My Tech Bag? Everyday Carry for IT Consultants\n\nBy[James](https://jameskilby.co.uk) January 10, 2019 · Updated June 1, 2026 • 📖1 min read(251 words)\n\n📅**Pub..."
     },
     {
-      "slug": "aws-solution-architect-associate",
-      "title": "AWS Solution Architect – Associate",
-      "description": "I renewed my AWS Solution Architect certification.",
-      "date": "2019-12-16T23:46:22Z",
-      "modified": "2026-05-31T11:36:26Z",
+      "slug": "my-first-pull",
+      "title": "My First GitHub Pull Request: Contributing to Open Source",
+      "description": "The story of my first GitHub pull request — spotting a fix in an open source project, learning the process, and getting my contribution accepted.",
+      "date": "2020-12-22T16:38:11Z",
+      "modified": "2026-06-05T19:03:17Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/",
-      "markdown_url": "/markdown/posts/aws-solution-architect-associate.md",
-      "api_url": "/api/posts/aws-solution-architect-associate.json",
+      "url": "https://jameskilby.co.uk/2020/12/my-first-pull/",
+      "markdown_url": "/markdown/posts/my-first-pull.md",
+      "api_url": "/api/posts/my-first-pull.json",
       "categories": [
-        "AWS",
+        "Devops",
         "Personal",
+        "Nutanix",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
         "VMware",
-        "vSphere",
         "Hosting",
+        "Cloudflare",
+        "Wordpress",
+        "Github",
         "Consulting"
       ],
       "tags": [
         null,
+        null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png)\n\n[AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# AWS Solution Architect – Associate\n\nBy[James](https://jameskilby.co.uk) December 16, 2019 · Updated May..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg)\n\n[Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# My First GitHub Pull Request: Contributing to Open Source\n\nBy[James](https://jameskilby.co.uk) Decemb..."
     },
     {
       "slug": "my-home-office-setup-upgrades",
@@ -57,12 +67,13 @@
       "categories": [
         "Personal",
         "Consulting",
-        "Hosting",
-        "AWS",
+        "VMware",
         "Devops",
+        "Hosting",
         "Cloudflare",
         "Wordpress",
-        "Nutanix"
+        "vSphere",
+        "AWS"
       ],
       "tags": [
         null,
@@ -71,6 +82,82 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1-1024x768.jpeg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1.jpeg)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# My Home Office Setup & Upgrades\n\nBy[James](https://jameskilby.co.uk) January 5, 2021 · Updated Jun..."
+    },
+    {
+      "slug": "web-development",
+      "title": "Hosting This Blog on Cloudflare Workers: Why & How I Did It",
+      "description": "A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them.",
+      "date": "2022-01-04T11:27:12Z",
+      "modified": "2026-05-25T08:24:40Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2022/01/web-development/",
+      "markdown_url": "/markdown/posts/web-development.md",
+      "api_url": "/api/posts/web-development.json",
+      "categories": [
+        "Hosting",
+        "Cloudflare",
+        "Personal",
+        "Wordpress",
+        "Artificial Intelligence",
+        "Docker",
+        "Consulting",
+        "AWS",
+        "Devops",
+        "Homelab"
+      ],
+      "tags": [
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/) | [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Personal](https://jameskilby.co.uk/category/personal/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)..."
+    },
+    {
+      "slug": "nutanix-ncp",
+      "title": "Passing the Nutanix NCP Exam: Free Training & My Experience",
+      "description": "I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam.",
+      "date": "2020-07-02T15:20:30Z",
+      "modified": "2026-05-31T11:36:26Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2020/07/nutanix-ncp/",
+      "markdown_url": "/markdown/posts/nutanix-ncp.md",
+      "api_url": "/api/posts/nutanix-ncp.json",
+      "categories": [
+        "Nutanix",
+        "Personal",
+        "VMware",
+        "Homelab",
+        "Consulting",
+        "Hosting"
+      ],
+      "tags": [
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# Passing the Nutanix NCP Exam: Free Training & My Experience\n\nBy[James](https://jamesk..."
+    },
+    {
+      "slug": "and-now-for-something-completely-different",
+      "title": "And now for something completely different",
+      "description": "I have worked for my current employer Zen Internet for 3.",
+      "date": "2018-10-16T08:22:45Z",
+      "modified": "2026-06-01T19:02:18Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2018/10/and-now-for-something-completely-different/",
+      "markdown_url": "/markdown/posts/and-now-for-something-completely-different.md",
+      "api_url": "/api/posts/and-now-for-something-completely-different.json",
+      "categories": [
+        "Personal",
+        "Devops",
+        "VMware",
+        "vSphere",
+        "Consulting",
+        "Hosting",
+        "Nutanix"
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018 · Updated June 1, 2026 • 📖1 min read(263 words)\n\n📅**Published:** October ..."
     }
   ]
 }

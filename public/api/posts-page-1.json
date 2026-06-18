@@ -15,15 +15,15 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "VMware Cloud on AWS",
-        "Artificial Intelligence",
         "Homelab",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
-        "Storage",
-        "Mikrotik",
-        "Networking"
+        "Veeam",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -47,8 +47,10 @@
       "api_url": "/api/posts/wrangler-and-node-versions.json",
       "categories": [
         "Cloudflare",
-        "Hosting",
+        "Devops",
+        "Github",
         "Wordpress",
+        "Hosting",
         "Ansible",
         "Automation",
         "Docker",
@@ -56,7 +58,6 @@
         "Traefik",
         "VCF",
         "VMware",
-        "Personal",
         "Artificial Intelligence",
         "NVIDIA"
       ],
@@ -101,16 +102,12 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "Nutanix",
-        "Devops",
         "Artificial Intelligence",
         "Docker",
-        "Homelab",
-        "Kubernetes",
-        "Automation",
-        "NVIDIA",
-        "Traefik",
-        "VMware"
+        "Consulting",
+        "AWS",
+        "Devops",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -133,14 +130,16 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Artificial Intelligence",
-        "Docker",
-        "AWS",
-        "Automation",
         "Homelab",
-        "NVIDIA",
+        "Devops",
+        "Personal",
+        "Ansible",
+        "Automation",
+        "Docker",
         "Traefik",
-        "VMware"
+        "VCF",
+        "VMware",
+        "Kubernetes"
       ],
       "tags": [
         null,
@@ -164,15 +163,19 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "VCF",
-        "VMware",
-        "Automation",
-        "Docker",
+        "Ansible",
+        "Containers",
+        "Devops",
         "NVIDIA",
         "Traefik",
-        "Networking",
+        "VMware",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "Nutanix",
         "Storage",
-        "Ansible"
+        "Synology",
+        "VCF"
       ],
       "tags": [
         null,
@@ -195,20 +198,16 @@
       "categories": [
         "Ansible",
         "Automation",
-        "Homelab",
         "VMware",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "Docker",
+        "Personal",
         "VCF",
+        "Homelab",
         "AWS",
         "Veeam",
-        "Personal",
-        "Storage",
-        "Synology"
+        "Artificial Intelligence",
+        "Docker",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,
@@ -239,9 +238,9 @@
         "Homelab",
         "NVIDIA",
         "Traefik",
-        "VCF",
-        "Nutanix",
-        "Runecast"
+        "Networking",
+        "Storage",
+        "Personal"
       ],
       "tags": [
         null,
@@ -265,13 +264,14 @@
       "categories": [
         "VMware",
         "vSAN",
+        "Runecast",
+        "Ansible",
+        "Automation",
+        "Docker",
         "Homelab",
-        "Networking",
-        "Storage",
-        "Personal",
-        "VMware Cloud on AWS",
-        "TrueNAS Scale",
-        "vSphere"
+        "Traefik",
+        "VCF",
+        "VMware Cloud on AWS"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n# vSAN Cluster Shutdown – Orchestration\n\nBy[James](https://jameskilby.co.uk) December 6,..."
@@ -289,12 +289,13 @@
       "categories": [
         "Personal",
         "VMware",
+        "Automation",
+        "Homelab",
         "VMware Cloud on AWS",
-        "vSAN",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
-        "vSphere"
+        "Artificial Intelligence",
+        "Docker",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,

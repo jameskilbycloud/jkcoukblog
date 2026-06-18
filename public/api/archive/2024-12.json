@@ -18,15 +18,15 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "VMware Cloud on AWS",
-        "Artificial Intelligence",
         "Homelab",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
-        "Storage",
-        "Mikrotik",
-        "Networking"
+        "Veeam",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,

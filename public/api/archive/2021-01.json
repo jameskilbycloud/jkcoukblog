@@ -17,13 +17,13 @@
         "Automation",
         "Homelab",
         "VMware",
-        "VMware Cloud on AWS",
-        "Devops",
+        "Github",
         "Personal",
+        "Devops",
         "VCF",
-        "Storage",
-        "Synology",
-        "Veeam"
+        "Docker",
+        "Hosting",
+        "Kubernetes"
       ],
       "tags": [
         null,
@@ -47,12 +47,13 @@
       "categories": [
         "Personal",
         "Consulting",
-        "Hosting",
-        "AWS",
+        "VMware",
         "Devops",
+        "Hosting",
         "Cloudflare",
         "Wordpress",
-        "Nutanix"
+        "vSphere",
+        "AWS"
       ],
       "tags": [
         null,

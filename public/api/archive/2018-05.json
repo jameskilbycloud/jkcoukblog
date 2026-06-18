@@ -18,13 +18,13 @@
         "Hosting",
         "VMware",
         "Veeam",
-        "Cloudflare",
-        "Personal",
-        "Wordpress",
         "Artificial Intelligence",
         "Docker",
+        "Personal",
         "Homelab",
-        "Kubernetes"
+        "Kubernetes",
+        "Cloudflare",
+        "Wordpress"
       ],
       "tags": [
         null,

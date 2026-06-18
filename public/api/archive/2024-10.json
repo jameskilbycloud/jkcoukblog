@@ -18,15 +18,14 @@
         "Docker",
         "Homelab",
         "Storage",
+        "TrueNAS Scale",
+        "Automation",
+        "Github",
         "Ansible",
-        "Containers",
-        "Devops",
-        "NVIDIA",
         "Traefik",
+        "VCF",
         "VMware",
-        "Mikrotik",
-        "Networking",
-        "Nutanix"
+        "Hosting"
       ],
       "tags": [
         null,
