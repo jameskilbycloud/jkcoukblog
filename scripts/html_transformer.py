@@ -331,17 +331,23 @@ class HTMLTransformer:
             modified = True
         if self.seo.fix_jsonld_headline_brand_suffix(soup, file_path):
             modified = True
+        if self.seo.fix_article_entity_links(soup, file_path):
+            modified = True
         if self.seo.fix_person_name(soup, file_path):
             modified = True
         if self.seo.fix_person_enrichment(soup, file_path):
             modified = True
         if self.seo.fix_organization_sameas(soup, file_path):
             modified = True
+        if self.seo.fix_og_site_name(soup, file_path):
+            modified = True
         if self.seo.fix_twitter_attribution(soup, file_path):
             modified = True
         if self.seo.fix_wordpress_host_leak(soup, file_path):
             modified = True
         if self.seo.fix_og_meta_alignment(soup, file_path):
+            modified = True
+        if self.seo.fix_malformed_stylesheet_attr(soup, file_path):
             modified = True
         return modified
 
