@@ -329,6 +329,8 @@ class HTMLTransformer:
             modified = True
         if self.seo.fix_techarticle_dedupe_and_dates(soup, file_path):
             modified = True
+        if self.seo.fix_jsonld_headline_brand_suffix(soup, file_path):
+            modified = True
         if self.seo.fix_person_name(soup, file_path):
             modified = True
         if self.seo.fix_person_enrichment(soup, file_path):
