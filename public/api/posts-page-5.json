@@ -13,17 +13,15 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
         "Storage",
         "Synology",
-        "Automation",
-        "Github",
-        "Runecast"
+        "TrueNAS Scale",
+        "VMware",
+        "vSAN",
+        "vSphere",
+        "Networking",
+        "Artificial Intelligence",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -48,11 +46,10 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "Storage",
-        "TrueNAS Scale",
+        "VMware Cloud on AWS",
+        "Hosting",
         "Personal",
-        "Networking",
-        "Runecast"
+        "vSphere"
       ],
       "tags": [
         null,
@@ -75,12 +72,11 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Ansible",
-        "Automation",
+        "Mikrotik",
         "Storage",
-        "Synology",
+        "Nutanix",
         "VMware",
-        "Hosting"
+        "Veeam"
       ],
       "tags": [
         null,
@@ -102,13 +98,13 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Artificial Intelligence",
-        "Docker",
-        "Veeam",
+        "Networking",
         "VMware",
-        "Automation",
         "Synology",
-        "TrueNAS Scale"
+        "Kubernetes",
+        "TrueNAS Scale",
+        "Artificial Intelligence",
+        "Docker"
       ],
       "tags": [
         null,
@@ -132,12 +128,13 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Personal",
-        "Runecast",
-        "Ansible",
-        "Automation",
-        "VCF",
-        "VMware Cloud on AWS"
+        "Veeam",
+        "VMware Cloud on AWS",
+        "Storage",
+        "Synology",
+        "Artificial Intelligence",
+        "Docker",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -161,10 +158,16 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Networking",
         "VMware",
-        "Mikrotik",
-        "vExpert",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
         "Nutanix"
       ],
       "tags": [
@@ -186,17 +189,14 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "Networking",
-        "Automation",
-        "Github",
         "Ansible",
-        "Docker",
-        "Traefik",
-        "VCF",
+        "Automation",
+        "Networking",
+        "Storage",
+        "TrueNAS Scale",
         "VMware",
-        "Artificial Intelligence",
         "Mikrotik",
-        "vSphere"
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -220,18 +220,18 @@
         "Homelab",
         "Storage",
         "vExpert",
+        "VMware",
+        "Personal",
+        "vSphere",
+        "TrueNAS Scale",
+        "vSAN",
         "Artificial Intelligence",
         "Automation",
         "Docker",
         "NVIDIA",
         "Traefik",
-        "VMware",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Veeam",
-        "Ansible",
-        "Networking"
+        "AWS",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -260,8 +260,12 @@
         "VMware Cloud on AWS",
         "Homelab",
         "vSphere",
-        "Veeam",
-        "Nutanix"
+        "Personal",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,
@@ -284,18 +288,15 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Personal",
-        "Devops",
-        "Github",
-        "Docker",
-        "Homelab",
-        "Kubernetes",
         "Ansible",
         "Automation",
+        "Docker",
+        "Homelab",
         "Traefik",
         "VCF",
         "VMware",
-        "AWS"
+        "Artificial Intelligence",
+        "NVIDIA"
       ],
       "tags": [
         null,

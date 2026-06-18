@@ -18,11 +18,9 @@
         "Automation",
         "Homelab",
         "VMware",
-        "Ansible",
         "Docker",
-        "Traefik",
-        "VCF",
         "NVIDIA",
+        "Traefik",
         "Github",
         "Hosting"
       ],
@@ -52,10 +50,14 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VMware Cloud on AWS",
         "Storage",
-        "Synology",
-        "Nutanix"
+        "Hosting",
+        "Kubernetes",
+        "Github",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "Networking"
       ],
       "tags": [
         null,

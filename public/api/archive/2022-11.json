@@ -18,16 +18,11 @@
         "Storage",
         "Synology",
         "Artificial Intelligence",
-        "Automation",
         "Docker",
-        "NVIDIA",
-        "Traefik",
+        "VCF",
         "VMware",
         "Nutanix",
-        "Runecast",
-        "VMware Cloud on AWS",
-        "vSAN",
-        "Ansible"
+        "TrueNAS Scale"
       ],
       "tags": [
         null,

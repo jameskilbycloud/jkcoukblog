@@ -16,10 +16,10 @@
       "categories": [
         "Nutanix",
         "Personal",
-        "AWS",
         "VMware",
-        "vSphere",
-        "Homelab"
+        "Homelab",
+        "Consulting",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -43,8 +43,12 @@
         "VMware Cloud on AWS",
         "Homelab",
         "vSphere",
-        "Veeam",
-        "Nutanix"
+        "Personal",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,

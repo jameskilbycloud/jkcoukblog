@@ -19,13 +19,12 @@
         "Veeam",
         "VMware Cloud on AWS",
         "vSAN",
-        "Ansible",
-        "Automation",
-        "Docker",
+        "Personal",
+        "vSphere",
         "Homelab",
-        "Traefik",
-        "VCF",
-        "vSphere"
+        "Networking",
+        "Storage",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
@@ -49,9 +48,10 @@
         "AWS",
         "Personal",
         "VMware",
-        "vSphere",
         "Hosting",
-        "Consulting"
+        "Cloudflare",
+        "Wordpress",
+        "vSphere"
       ],
       "tags": [
         null,

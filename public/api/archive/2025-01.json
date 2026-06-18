@@ -18,10 +18,14 @@
         "Docker",
         "Hosting",
         "Homelab",
+        "VMware",
         "Ansible",
         "Storage",
-        "vExpert",
-        "Synology"
+        "TrueNAS Scale",
+        "Runecast",
+        "Cloudflare",
+        "Wordpress",
+        "Automation"
       ],
       "tags": [
         null,

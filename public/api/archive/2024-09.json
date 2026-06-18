@@ -17,17 +17,17 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
+        "Ansible",
+        "Automation",
         "VMware",
         "vSAN",
         "vSphere",
-        "Ansible",
-        "Automation",
+        "Networking",
         "Docker",
-        "Traefik",
-        "VCF",
-        "Artificial Intelligence",
         "Hosting",
-        "Networking"
+        "Kubernetes",
+        "Nutanix",
+        "vExpert"
       ],
       "tags": [
         null,
@@ -51,10 +51,13 @@
         "Networking",
         "Homelab",
         "Storage",
+        "vExpert",
         "Synology",
-        "Runecast",
+        "VCF",
         "VMware",
-        "TrueNAS Scale"
+        "Ansible",
+        "Automation",
+        "Runecast"
       ],
       "tags": [
         null,

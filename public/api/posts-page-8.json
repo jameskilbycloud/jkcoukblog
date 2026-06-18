@@ -12,11 +12,12 @@
       "api_url": "/api/posts/and-now-for-something-completely-different.json",
       "categories": [
         "Personal",
-        "Nutanix",
-        "AWS",
-        "VMware",
         "Devops",
-        "Hosting"
+        "VMware",
+        "vSphere",
+        "Consulting",
+        "Hosting",
+        "Nutanix"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018 · Updated June 1, 2026 • 📖1 min read(263 words)\n\n📅**Published:** October ..."
@@ -34,14 +35,17 @@
       "categories": [
         "Hosting",
         "Personal",
-        "Ansible",
-        "Automation",
+        "Devops",
         "Docker",
         "Homelab",
+        "Kubernetes",
+        "Cloudflare",
+        "Ansible",
+        "Automation",
         "Traefik",
         "VCF",
         "VMware",
-        "Cloudflare",
+        "AWS",
         "Wordpress"
       ],
       "tags": [
@@ -70,17 +74,15 @@
         "VMware",
         "Personal",
         "vSphere",
-        "Homelab",
-        "Storage",
-        "vExpert",
-        "vSAN",
-        "Artificial Intelligence",
         "Automation",
+        "Homelab",
+        "AWS",
+        "Veeam",
+        "Ansible",
         "Docker",
-        "NVIDIA",
         "Traefik",
-        "VMware Cloud on AWS",
-        "Nutanix"
+        "VCF",
+        "Runecast"
       ],
       "tags": [
         null,
@@ -105,13 +107,10 @@
         "Networking",
         "Storage",
         "VMware",
-        "VMware Cloud on AWS",
         "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Mikrotik",
-        "Synology",
-        "VCF"
+        "Veeam",
+        "Automation",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
