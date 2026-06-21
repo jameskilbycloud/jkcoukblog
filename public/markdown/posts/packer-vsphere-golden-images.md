@@ -7,21 +7,18 @@ author: James Kilby
 categories:
   - Automation
   - Github
-  - Docker
-  - Homelab
-  - Hosting
-  - Kubernetes
-  - Cloudflare
-  - Devops
-  - Wordpress
-  - Artificial Intelligence
   - Ansible
+  - Artificial Intelligence
   - Containers
+  - Devops
+  - Homelab
   - NVIDIA
   - Traefik
   - VMware
-  - VCF
-  - Personal
+  - Docker
+  - Hosting
+  - Storage
+  - vExpert
 tags:
   - #Automation
   - #Devops
@@ -34,13 +31,13 @@ url: https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/
 image: https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png
 ---
 
-![Packer Github Actions Vsphere Pipeline](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png)
+![](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png)
 
 [Automation](https://jameskilby.co.uk/category/automation/) | [Github](https://jameskilby.co.uk/category/github/)
 
 # Automating vSphere Golden Images with Packer and GitHub Actions
 
-By[James](https://jameskilby.co.uk)April 30, 2026 · Updated June 5, 2026 • 📖14 min read(2,760 words)
+By[James](https://jameskilby.co.uk) April 30, 2026 · Updated June 5, 2026 • 📖14 min read(2,760 words)
 
 📅**Published:** April 30, 2026•**Updated:** June 05, 2026
 
@@ -70,7 +67,7 @@ The pipeline has three major logical stages:
   * Build Ubuntu Server and Desktop templates and validate the template is healthy
   * Lifecycle the template
 
-![Packerfullflow 912X1024](https://jameskilby.co.uk/wp-content/uploads/2026/04/PackerFullFlow-912x1024.png)Full Packer Flow
+![](https://jameskilby.co.uk/wp-content/uploads/2026/04/PackerFullFlow-912x1024.png)Full Packer Flow
 
 ### Upload ISOs to Content Library
 
@@ -84,7 +81,7 @@ This script is idempotent — if an ISO already exists it will be skipped. This 
 
 The build process is a multi-step process. When running the action manually you are asked which VMs you want to provision. It’s possible to select individual VMs, a whole Ubuntu family, or all six. The same workflow also runs on a weekly cron so your templates stay up to date without manual effort.
 
-![Buildselection](https://jameskilby.co.uk/wp-content/uploads/2026/04/BuildSelection.png)Template Selection
+![](https://jameskilby.co.uk/wp-content/uploads/2026/04/BuildSelection.png)Template Selection
 
 Once the selection is done the first build step just determines which files are required for the provisioner. The next step validates that the VMware environment is available and healthy and that sufficient disk space is available for the build. It also checks that all required secrets are defined within GitHub
 
@@ -100,7 +97,7 @@ Once provisioning completes, Packer converts the finished VM to a vSphere templa
 
 After the provisioning step is complete, GitHub Actions deploys the VM from the newly created template and executes a smoke test plan against them. This validates that not only was the VM built, but that it is usable.
 
-![Packer Workflow 1024X160](https://jameskilby.co.uk/wp-content/uploads/2026/04/Packer-Workflow-1024x160.png)Build Workflow
+![](https://jameskilby.co.uk/wp-content/uploads/2026/04/Packer-Workflow-1024x160.png)Build Workflow
 
 An example failure that I discovered in testing was
     
@@ -117,7 +114,7 @@ An example failure that I discovered in testing was
 
 On failure during testing the system will also take a screenshot and save it, this can help with troubleshooting later. In this particular instance it was a Netplan issue. Netplan at install time rendered a config with the install-time MAC baked in. On the clone, ens33 had a fresh MAC, neither renderer’s config matches it. 
 
-![Smoke Ubuntu 2404 Desktop 20260529 26645739266 Midwait 1024X614](https://jameskilby.co.uk/wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-1024x614.png)Failure Screenshot
+![](https://jameskilby.co.uk/wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-1024x614.png)Failure Screenshot
 
 ## Concurrency and safety
 
@@ -325,7 +322,7 @@ That is the end of the setup. From here on:
   * You can rebuild any template on demand from the Actions UI at any time.
   * The **Check ISO updates** workflow runs every Monday and opens a GitHub pull request with the new ISO filenames when Ubuntu ships a point release — no manual re-upload needed.
 
-![Successfulpackerdeployment 1024X173](https://jameskilby.co.uk/wp-content/uploads/2026/04/SuccessfulPackerDeployment-1024x173.png)Successful Packer Deployment
+![](https://jameskilby.co.uk/wp-content/uploads/2026/04/SuccessfulPackerDeployment-1024x173.png)Successful Packer Deployment
 
 ## 26.04 failures
 
@@ -355,62 +352,62 @@ The process of building this used some AI to help me with parts of the Packer si
 
 ## Similar Posts
 
-  * [![Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png)](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
-
-[Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernetes/)
-
-### [Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
-
-By[James](https://jameskilby.co.uk)December 9, 2022 · Updated June 5, 2026
-
-Late to the party or not, I have been using containers in my lab more and more and that has led me to Portainer ….
-
-  * [![How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
-
-[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
-
-### [How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
-
-By[James](https://jameskilby.co.uk)October 6, 2025 · Updated June 5, 2026
-
-I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.
-
-  * [![How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-768x411.png)](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
-
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
-
-### [How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
-
-By[James](https://jameskilby.co.uk)January 29, 2025 · Updated June 5, 2026
-
-Update: Hoarder has now been renamed to Karakeep due to a trademark issue I’ve been on a mission recently to regain control of my data.
-
-  * [![Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv-768x432.png)](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
+  * [ ![Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv-768x432.png) ](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Containers](https://jameskilby.co.uk/category/containers/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
 
-By[James](https://jameskilby.co.uk)February 9, 2026 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk) February 9, 2026 · Updated June 5, 2026
 
 Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere
 
-  * [![VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743-768x737.jpg)](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
+  * [ ![Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore-768x768.png) ](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
-[VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
-### [VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
+### [Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
-By[James](https://jameskilby.co.uk)January 18, 2024 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) September 2, 2025 · Updated June 5, 2026
 
-How to deploy Holodeck with Legacy CPU’s
+An intro on how I use SemaphoreUI to manage my Homelab
 
-  * [![My First GitHub Pull Request: Contributing to Open Source](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg)](https://jameskilby.co.uk/2020/12/my-first-pull/)
+  * [ ![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg) ](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
 
-[Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [My First GitHub Pull Request: Contributing to Open Source](https://jameskilby.co.uk/2020/12/my-first-pull/)
+### [Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
 
-By[James](https://jameskilby.co.uk)December 22, 2020 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk) October 23, 2023 · Updated June 5, 2026
 
-I was initially going to add in the contents of this post to one that I have been writing about my exploits with HashiCorp Packer but I decided it probably warranted being separated out.
+Card Stats Install steps VM Provisioning Folding@Home A little while ago I decided to play with vGPU in my homelab.
+
+  * [ ![How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-768x411.png) ](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
+
+[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
+
+### [How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
+
+By[James](https://jameskilby.co.uk) January 29, 2025 · Updated June 5, 2026
+
+Update: Hoarder has now been renamed to Karakeep due to a trademark issue I’ve been on a mission recently to regain control of my data.
+
+  * [ ![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png) ](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
+
+[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
+
+By[James](https://jameskilby.co.uk) April 4, 2026 · Updated June 1, 2026
+
+Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each.
+
+  * [ ![Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png) ](https://jameskilby.co.uk/2023/04/intel-optane/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://jameskilby.co.uk/category/vexpert/)
+
+### [Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/2023/04/intel-optane/)
+
+By[James](https://jameskilby.co.uk) April 17, 2023 · Updated June 1, 2026
+
+I have been a VMware vExpert for many years and it has brought me many benefits over the years.
