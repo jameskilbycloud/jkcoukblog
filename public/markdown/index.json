@@ -1,6 +1,6 @@
 {
-  "generated": "2026-06-18T08:35:17Z",
-  "total_files": 82,
+  "generated": "2026-06-21T00:11:40Z",
+  "total_files": 85,
   "posts": [
     {
       "file": "posts/100gb-s-in-my-homelab-sort-of.md",
@@ -331,6 +331,12 @@
       "title": "TrueNAS Scale CLI Reference: Storage & Kubernetes Commands",
       "date": "2023-11-13T14:34:17Z",
       "url": "https://jameskilby.co.uk/2023/11/truenas-scale-useful-commands/"
+    },
+    {
+      "file": "posts/ubiquiti-udm-beast.md",
+      "title": "Unleashing the Beast",
+      "date": "2026-06-20T19:49:43Z",
+      "url": "https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/"
     },
     {
       "file": "posts/ubuntu-disk-expansion-steps.md",

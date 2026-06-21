@@ -7,6 +7,7 @@ categories:
   - Homelab
   - Automation
   - AI
+  - Github
   - Ansible
   - Docker
   - Traefik
@@ -16,11 +17,8 @@ categories:
   - VMware Cloud on AWS
   - Containers
   - Devops
-  - Cloudflare
-  - Hosting
-  - Wordpress
+  - Homelab27
   - VMware27
-  - Homelab26
   - Hosting11
   - Personal10
   - VMware Cloud on AWS8
@@ -39,23 +37,23 @@ real money to run.
 
 jameskilby@blog ~ % cat blog.stats live
 
-posts.count.............74
+posts.count.............75
 
-words.total............49k
+words.total............50k
 
-last_post..........48d ago
+last_post............today
 
 categories..............34
 
-tags...................128
+tags...................129
 
 vexpert.years...........11
 
-deploys.month..........124
+deploys.month..........126
 
-last_deploy..........today
+last_deploy.........3d ago
 
-lighthouse...............—
+lighthouse..........95/100
 
 $_
 
@@ -63,7 +61,17 @@ FILTER
 
 [All](/)[VMware](https://jameskilby.co.uk/category/vmware/)[Homelab](https://jameskilby.co.uk/category/homelab/)[Automation](https://jameskilby.co.uk/category/automation/)[AI](https://jameskilby.co.uk/category/artificial-intelligence/)
 
-[![Automating vSphere Golden Images with Packer and GitHub Actions](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline-768x452.png)LATESTAutomationGithubAutomating vSphere Golden Images with Packer and GitHub ActionsA walk-through of an automated golden-image pipeline for vSphere: HashiCorp Packer builds six Ubuntu LTS templates (22.04, 24.04, 26.04 — server and desktop) driven by three GitHub Actions workflows covering PR validation, parallel template builds, and ISO management via a self-hosted runner.April 30, 2026Read post →](https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/)
+[![UniFi UDM Beast 1U rack-mount gateway shown front-on, with two 3.5-inch drive bays, a bank of RJ45 and SFP network ports, and dimension labels.](https://jameskilby.co.uk/wp-content/uploads/2026/06/UnifiBeast-768x219.webp)LATESTHomelabNetworkingUnleashing the BeastRetiring my ageing WatchGuard M200, I swap in the UniFi UDM Beast — a hardware tour, first iperf and WAN tests, the BGP/FRR setup, and the homelab services I’m consolidating onto it.June 20, 2026Read post →](https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/)
+
+  * [ ![Automating vSphere Golden Images with Packer and GitHub Actions](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline-768x452.png) ](https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/)
+
+[Automation](https://jameskilby.co.uk/category/automation/) | [Github](https://jameskilby.co.uk/category/github/)
+
+## [Automating vSphere Golden Images with Packer and GitHub Actions](https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/)
+
+By[James](https://jameskilby.co.uk) April 30, 2026 · Updated June 5, 2026
+
+A walk-through of an automated golden-image pipeline for vSphere: HashiCorp Packer builds six Ubuntu LTS templates (22.04, 24.04, 26.04 — server and desktop) driven by three GitHub Actions workflows covering PR validation, parallel template builds, and ISO management via a self-hosted runner.
 
   * [ ![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png) ](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
@@ -145,18 +153,8 @@ By[James](https://jameskilby.co.uk) January 27, 2026 · Updated June 5, 2026
 
 How to leverage Content Libraries to deploy into VMware Cloud on AWS faster.
 
-  * [ ![Blog Performance & SEO Improvements: Cloudflare, Privacy & More](https://jameskilby.co.uk/wp-content/uploads/2026/01/Website-Optimisations-768x560.png) ](https://jameskilby.co.uk/2026/01/web-development-improvements/)
-
-[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
-
-## [Blog Performance & SEO Improvements: Cloudflare, Privacy & More](https://jameskilby.co.uk/2026/01/web-development-improvements/)
-
-By[James](https://jameskilby.co.uk) January 15, 2026 · Updated June 1, 2026
-
-I have spent the Christmas break making some improvements to this blog.
-
 EXPLORE BY TOPIC
 
 ## Browse the archive
 
-[VMware27](https://jameskilby.co.uk/category/vmware/)[Homelab26](https://jameskilby.co.uk/category/homelab/)[Hosting11](https://jameskilby.co.uk/category/hosting/)[Personal10](https://jameskilby.co.uk/category/personal/)[VMware Cloud on AWS8](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)[Artificial Intelligence7](https://jameskilby.co.uk/category/artificial-intelligence/)[Automation7](https://jameskilby.co.uk/category/automation/)[Storage7](https://jameskilby.co.uk/category/storage/)[Cloudflare6](https://jameskilby.co.uk/category/cloudflare/)
+[Homelab27](https://jameskilby.co.uk/category/homelab/)[VMware27](https://jameskilby.co.uk/category/vmware/)[Hosting11](https://jameskilby.co.uk/category/hosting/)[Personal10](https://jameskilby.co.uk/category/personal/)[VMware Cloud on AWS8](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)[Artificial Intelligence7](https://jameskilby.co.uk/category/artificial-intelligence/)[Automation7](https://jameskilby.co.uk/category/automation/)[Storage7](https://jameskilby.co.uk/category/storage/)[Cloudflare6](https://jameskilby.co.uk/category/cloudflare/)
