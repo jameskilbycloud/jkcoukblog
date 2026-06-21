@@ -51,7 +51,7 @@ vexpert.years...........11
 
 deploys.month..........126
 
-last_deploy.........3d ago
+last_deploy..........today
 
 lighthouse..........95/100
 
