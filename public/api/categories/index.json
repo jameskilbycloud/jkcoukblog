@@ -12,7 +12,7 @@
   {
     "name": "vSAN",
     "slug": "vsan",
-    "count": 22
+    "count": 23
   },
   {
     "name": "Artificial Intelligence",
@@ -37,12 +37,12 @@
   {
     "name": "NVIDIA",
     "slug": "nvidia",
-    "count": 26
+    "count": 25
   },
   {
     "name": "Traefik",
     "slug": "traefik",
-    "count": 37
+    "count": 36
   },
   {
     "name": "Networking",
@@ -52,7 +52,7 @@
   {
     "name": "Storage",
     "slug": "storage",
-    "count": 27
+    "count": 28
   },
   {
     "name": "Personal",
@@ -67,7 +67,7 @@
   {
     "name": "Hosting",
     "slug": "hosting",
-    "count": 35
+    "count": 36
   },
   {
     "name": "Cloudflare",
@@ -82,17 +82,17 @@
   {
     "name": "vSphere",
     "slug": "vsphere",
-    "count": 26
+    "count": 27
   },
   {
     "name": "Runecast",
     "slug": "runecast",
-    "count": 9
+    "count": 8
   },
   {
     "name": "TrueNAS Scale",
     "slug": "truenas-scale",
-    "count": 22
+    "count": 23
   },
   {
     "name": "Veeam",
@@ -107,12 +107,12 @@
   {
     "name": "Ansible",
     "slug": "ansible",
-    "count": 33
+    "count": 32
   },
   {
     "name": "VCF",
     "slug": "vcf",
-    "count": 26
+    "count": 27
   },
   {
     "name": "Kubernetes",
@@ -127,7 +127,7 @@
   {
     "name": "Mikrotik",
     "slug": "mikrotik",
-    "count": 5
+    "count": 4
   },
   {
     "name": "Ubuntu",

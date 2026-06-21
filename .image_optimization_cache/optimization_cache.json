@@ -23993,5 +23993,55 @@
     "avif_created": true,
     "webp": "wp-content/uploads/2026/06/udm-beast-5-scaled.webp",
     "avif": "wp-content/uploads/2026/06/udm-beast-5-scaled.avif"
+  },
+  "wp-content/uploads/2026/06/CityFibreVlan-480x486.png": {
+    "hash": "3bb3e61dff68c4e493691311ce724faf",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/CityFibreVlan-480x486.webp",
+    "avif": "wp-content/uploads/2026/06/CityFibreVlan-480x486.avif"
+  },
+  "wp-content/uploads/2026/06/udm-beast-5-scaled-480x480.png": {
+    "hash": "428bd37ad856dce2d9ac2385f08eabf3",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/udm-beast-5-scaled-480x480.webp",
+    "avif": "wp-content/uploads/2026/06/udm-beast-5-scaled-480x480.avif"
+  },
+  "wp-content/uploads/2026/06/PPP-and-IP-480x714.png": {
+    "hash": "895a670b39ff6b04da401498d66b387d",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/PPP-and-IP-480x714.webp",
+    "avif": "wp-content/uploads/2026/06/PPP-and-IP-480x714.avif"
+  },
+  "wp-content/uploads/2026/06/UnifiRouteTable-480x257.png": {
+    "hash": "9764993cebc44b3d3cd2960657711a8b",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/UnifiRouteTable-480x257.webp",
+    "avif": "wp-content/uploads/2026/06/UnifiRouteTable-480x257.avif"
+  },
+  "wp-content/uploads/2026/06/NewHouseNet-3-scaled-480x297.png": {
+    "hash": "c41c5545c66c5ff1944d436a4eaf4875",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/NewHouseNet-3-scaled-480x297.webp",
+    "avif": "wp-content/uploads/2026/06/NewHouseNet-3-scaled-480x297.avif"
   }
 }
