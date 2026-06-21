@@ -23713,5 +23713,285 @@
     "avif_created": true,
     "webp": "wp-content/uploads/2026/06/ZenWanPerfomance.webp",
     "avif": "wp-content/uploads/2026/06/ZenWanPerfomance.avif"
+  },
+  "wp-content/uploads/2026/06/NewHouseNet-3-300x186.png": {
+    "hash": "a2105d3c144f48d47e1067dd86bdbcdb",
+    "optimized_at": "2026-06-21T00:11:54.427086",
+    "optimized_size": 6434,
+    "timestamp": 1782000714.4271128,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/NewHouseNet-3-300x186.webp",
+    "avif": "wp-content/uploads/2026/06/NewHouseNet-3-300x186.avif"
+  },
+  "wp-content/uploads/2026/06/CityFibreVlan-150x150.png": {
+    "hash": "994fb4cc8abcd2bcf97063195ae9f216",
+    "optimized_at": "2026-06-21T00:11:54.482995",
+    "optimized_size": 1618,
+    "timestamp": 1782000714.4830115,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/CityFibreVlan-150x150.webp",
+    "avif": "wp-content/uploads/2026/06/CityFibreVlan-150x150.avif"
+  },
+  "wp-content/uploads/2026/06/udm-beast-5-1024x1024.png": {
+    "hash": "f6ea97eb91e50e1ced4d2dbfcf09cb0f",
+    "optimized_at": "2026-06-21T00:11:55.647801",
+    "optimized_size": 9682,
+    "timestamp": 1782000715.6478183,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/udm-beast-5-1024x1024.webp",
+    "avif": "wp-content/uploads/2026/06/udm-beast-5-1024x1024.avif"
+  },
+  "wp-content/uploads/2026/06/UnifiRouteTable-300x161.png": {
+    "hash": "db22d3597ab72544438633270e1cb01e",
+    "optimized_at": "2026-06-21T00:11:55.672688",
+    "optimized_size": 3454,
+    "timestamp": 1782000715.672703,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/UnifiRouteTable-300x161.webp",
+    "avif": "wp-content/uploads/2026/06/UnifiRouteTable-300x161.avif"
+  },
+  "wp-content/uploads/2026/06/UnifiRouteTable-150x150.png": {
+    "hash": "207515f02c7620a799f2afe1b8c57a52",
+    "optimized_at": "2026-06-21T00:11:56.371581",
+    "optimized_size": 1892,
+    "timestamp": 1782000716.3715973,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/UnifiRouteTable-150x150.webp",
+    "avif": "wp-content/uploads/2026/06/UnifiRouteTable-150x150.avif"
+  },
+  "wp-content/uploads/2026/06/PPP-and-IP-202x300.png": {
+    "hash": "97911045f41b3c73ac5a1247f98b161f",
+    "optimized_at": "2026-06-21T00:11:56.883703",
+    "optimized_size": 5350,
+    "timestamp": 1782000716.8837178,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/PPP-and-IP-202x300.webp",
+    "avif": "wp-content/uploads/2026/06/PPP-and-IP-202x300.avif"
+  },
+  "wp-content/uploads/2026/06/udm-beast-5-2048x2048.png": {
+    "hash": "63289d884f316fa9500d592132908a55",
+    "optimized_at": "2026-06-21T00:12:02.881087",
+    "optimized_size": 26858,
+    "timestamp": 1782000722.8811069,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/udm-beast-5-2048x2048.webp",
+    "avif": "wp-content/uploads/2026/06/udm-beast-5-2048x2048.avif"
+  },
+  "wp-content/uploads/2026/06/UnifiRouteTable-1024x549.png": {
+    "hash": "c3a58ac2d0a0979e91fc6b74c5937c47",
+    "optimized_at": "2026-06-21T00:12:03.294698",
+    "optimized_size": 27194,
+    "timestamp": 1782000723.294714,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/UnifiRouteTable-1024x549.webp",
+    "avif": "wp-content/uploads/2026/06/UnifiRouteTable-1024x549.avif"
+  },
+  "wp-content/uploads/2026/06/NewHouseNet-3-1024x634.png": {
+    "hash": "7189379d324ab1952fdfeef264529a0a",
+    "optimized_at": "2026-06-21T00:12:06.717176",
+    "optimized_size": 42410,
+    "timestamp": 1782000726.7171905,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/NewHouseNet-3-1024x634.webp",
+    "avif": "wp-content/uploads/2026/06/NewHouseNet-3-1024x634.avif"
+  },
+  "wp-content/uploads/2026/06/UnifiRouteTable-1536x823.png": {
+    "hash": "576f6a967fd3120c33915471533f7c7b",
+    "optimized_at": "2026-06-21T00:12:07.394848",
+    "optimized_size": 45612,
+    "timestamp": 1782000727.3948627,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/UnifiRouteTable-1536x823.webp",
+    "avif": "wp-content/uploads/2026/06/UnifiRouteTable-1536x823.avif"
+  },
+  "wp-content/uploads/2026/06/udm-beast-5-1536x1536.png": {
+    "hash": "8d0169aa05280fad3d4b4890adce7b38",
+    "optimized_at": "2026-06-21T00:12:10.879419",
+    "optimized_size": 17702,
+    "timestamp": 1782000730.8794336,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/udm-beast-5-1536x1536.webp",
+    "avif": "wp-content/uploads/2026/06/udm-beast-5-1536x1536.avif"
+  },
+  "wp-content/uploads/2026/06/NewHouseNet-3-1536x950.png": {
+    "hash": "98a1cd0308dab12ff7fc319dc4813f8e",
+    "optimized_at": "2026-06-21T00:12:10.904857",
+    "optimized_size": 69060,
+    "timestamp": 1782000730.9048722,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/NewHouseNet-3-1536x950.webp",
+    "avif": "wp-content/uploads/2026/06/NewHouseNet-3-1536x950.avif"
+  },
+  "wp-content/uploads/2026/06/UnifiRouteTable.png": {
+    "hash": "6d00164d2f35fc60751cbd4e9411a189",
+    "optimized_at": "2026-06-21T00:12:22.594449",
+    "optimized_size": 68058,
+    "timestamp": 1782000742.5944636,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/UnifiRouteTable.webp",
+    "avif": "wp-content/uploads/2026/06/UnifiRouteTable.avif"
+  },
+  "wp-content/uploads/2026/06/NewHouseNet-3-2048x1267.png": {
+    "hash": "4d570112bcb51fa200d04c9962260530",
+    "optimized_at": "2026-06-21T00:12:22.710538",
+    "optimized_size": 95146,
+    "timestamp": 1782000742.7105532,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/NewHouseNet-3-2048x1267.webp",
+    "avif": "wp-content/uploads/2026/06/NewHouseNet-3-2048x1267.avif"
+  },
+  "wp-content/uploads/2026/06/udm-beast-5-300x300.png": {
+    "hash": "b372953cb38b099830868c8f6cf316a3",
+    "optimized_at": "2026-06-21T00:12:22.962941",
+    "optimized_size": 1754,
+    "timestamp": 1782000742.962956,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/udm-beast-5-300x300.webp",
+    "avif": "wp-content/uploads/2026/06/udm-beast-5-300x300.avif"
+  },
+  "wp-content/uploads/2026/06/udm-beast-5-768x768.png": {
+    "hash": "add26d6ed53b5b6e496bebb280dc25ef",
+    "optimized_at": "2026-06-21T00:12:24.101923",
+    "optimized_size": 6408,
+    "timestamp": 1782000744.1019385,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/udm-beast-5-768x768.webp",
+    "avif": "wp-content/uploads/2026/06/udm-beast-5-768x768.avif"
+  },
+  "wp-content/uploads/2026/06/NewHouseNet-3-scaled.png": {
+    "hash": "44f4f58fdf30bbe4d68654734c76ac2a",
+    "optimized_at": "2026-06-21T00:12:24.787029",
+    "optimized_size": 121824,
+    "timestamp": 1782000744.7870462,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/NewHouseNet-3-scaled.webp",
+    "avif": "wp-content/uploads/2026/06/NewHouseNet-3-scaled.avif"
+  },
+  "wp-content/uploads/2026/06/CityFibreVlan-296x300.png": {
+    "hash": "9e25210214624181931f1bc163dce045",
+    "optimized_at": "2026-06-21T00:12:26.576216",
+    "optimized_size": 4666,
+    "timestamp": 1782000746.5762312,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/CityFibreVlan-296x300.webp",
+    "avif": "wp-content/uploads/2026/06/CityFibreVlan-296x300.avif"
+  },
+  "wp-content/uploads/2026/06/udm-beast-5-150x150.png": {
+    "hash": "7768716cd4cd40c4c2a3a479a5487146",
+    "optimized_at": "2026-06-21T00:12:26.790994",
+    "optimized_size": 624,
+    "timestamp": 1782000746.791009,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/udm-beast-5-150x150.webp",
+    "avif": "wp-content/uploads/2026/06/udm-beast-5-150x150.avif"
+  },
+  "wp-content/uploads/2026/06/PPP-and-IP-689x1024.png": {
+    "hash": "94a96056ac7d8135737605668567a6b4",
+    "optimized_at": "2026-06-21T00:12:29.051132",
+    "optimized_size": 26384,
+    "timestamp": 1782000749.051147,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/PPP-and-IP-689x1024.webp",
+    "avif": "wp-content/uploads/2026/06/PPP-and-IP-689x1024.avif"
+  },
+  "wp-content/uploads/2026/06/CityFibreVlan.png": {
+    "hash": "8e56cff0029ba1655829e13bcfd8258b",
+    "optimized_at": "2026-06-21T00:12:30.374042",
+    "optimized_size": 15936,
+    "timestamp": 1782000750.374057,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/CityFibreVlan.webp",
+    "avif": "wp-content/uploads/2026/06/CityFibreVlan.avif"
+  },
+  "wp-content/uploads/2026/06/NewHouseNet-3-768x475.png": {
+    "hash": "9b6ca9734e832af89fb61ec60a2cf19a",
+    "optimized_at": "2026-06-21T00:12:32.956486",
+    "optimized_size": 29286,
+    "timestamp": 1782000752.9565036,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/NewHouseNet-3-768x475.webp",
+    "avif": "wp-content/uploads/2026/06/NewHouseNet-3-768x475.avif"
+  },
+  "wp-content/uploads/2026/06/UnifiRouteTable-768x412.png": {
+    "hash": "186b47a608bc6b3afd03ef38e889f123",
+    "optimized_at": "2026-06-21T00:12:33.114332",
+    "optimized_size": 17256,
+    "timestamp": 1782000753.1143467,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/UnifiRouteTable-768x412.webp",
+    "avif": "wp-content/uploads/2026/06/UnifiRouteTable-768x412.avif"
+  },
+  "wp-content/uploads/2026/06/UnifiRouteTable-2048x1098.png": {
+    "hash": "37959ad9e8bd9196d3eb761907f9b732",
+    "optimized_at": "2026-06-21T00:12:33.140289",
+    "optimized_size": 63918,
+    "timestamp": 1782000753.1403003,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/UnifiRouteTable-2048x1098.webp",
+    "avif": "wp-content/uploads/2026/06/UnifiRouteTable-2048x1098.avif"
+  },
+  "wp-content/uploads/2026/06/NewHouseNet-3-150x150.png": {
+    "hash": "404d45ea3baae6f77755db389be8efc2",
+    "optimized_at": "2026-06-21T00:12:33.352120",
+    "optimized_size": 3120,
+    "timestamp": 1782000753.3521357,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/NewHouseNet-3-150x150.webp",
+    "avif": "wp-content/uploads/2026/06/NewHouseNet-3-150x150.avif"
+  },
+  "wp-content/uploads/2026/06/PPP-and-IP-150x150.png": {
+    "hash": "383751868c66970c96289c26de2a5c71",
+    "optimized_at": "2026-06-21T00:12:33.742936",
+    "optimized_size": 2358,
+    "timestamp": 1782000753.742949,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/PPP-and-IP-150x150.webp",
+    "avif": "wp-content/uploads/2026/06/PPP-and-IP-150x150.avif"
+  },
+  "wp-content/uploads/2026/06/PPP-and-IP.png": {
+    "hash": "2f091cd061b7c4b58867fa7c23434ce0",
+    "optimized_at": "2026-06-21T00:12:36.140024",
+    "optimized_size": 31906,
+    "timestamp": 1782000756.1400387,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/PPP-and-IP.webp",
+    "avif": "wp-content/uploads/2026/06/PPP-and-IP.avif"
+  },
+  "wp-content/uploads/2026/06/udm-beast-5-scaled.png": {
+    "hash": "6d9b0ab01bc8be0ff846d0e196eb4bc9",
+    "optimized_at": "2026-06-21T00:12:38.211914",
+    "optimized_size": 38700,
+    "timestamp": 1782000758.2119281,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/udm-beast-5-scaled.webp",
+    "avif": "wp-content/uploads/2026/06/udm-beast-5-scaled.avif"
   }
 }
