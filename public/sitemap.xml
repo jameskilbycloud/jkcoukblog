@@ -3,12 +3,12 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://jameskilby.co.uk/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png</image:loc>
-      <image:title>vSphere Power Management Ansible Playbooks with Semaphore</image:title>
-      <image:caption>vSphere Power Management Ansible Playbooks with Semaphore</image:caption>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline-768x452.png</image:loc>
+      <image:title>Automating vSphere Golden Images with Packer and GitHub Actions</image:title>
+      <image:caption>Automating vSphere Golden Images with Packer and GitHub Actions</image:caption>
     </image:image>
   </url>
   <url>
@@ -63,10 +63,12 @@
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2018/03/Screen-Shot-2018-03-10-at-20.41.50-300x156.png</image:loc>
       <image:title>Screen Shot 2018 03 10 At 20.41.50 300X156</image:title>
+      <image:caption>Screen Shot 2018 03 10 At 20.41.50 300X156</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2018/03/Screen-Shot-2018-02-14-at-22.25.32-300x160.png</image:loc>
       <image:title>Screen Shot 2018 02 14 At 22.25.32 300X160</image:title>
+      <image:caption>Screen Shot 2018 02 14 At 22.25.32 300X160</image:caption>
     </image:image>
   </url>
   <url>
@@ -1176,22 +1178,27 @@
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/PackerFullFlow-912x1024.png</image:loc>
       <image:title>Packerfullflow 912X1024</image:title>
+      <image:caption>Packerfullflow 912X1024</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/BuildSelection.png</image:loc>
       <image:title>Buildselection</image:title>
+      <image:caption>Buildselection</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/Packer-Workflow-1024x160.png</image:loc>
       <image:title>Packer Workflow 1024X160</image:title>
+      <image:caption>Packer Workflow 1024X160</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-1024x614.png</image:loc>
       <image:title>Smoke Ubuntu 2404 Desktop 20260529 26645739266 Midwait 1024X614</image:title>
+      <image:caption>Smoke Ubuntu 2404 Desktop 20260529 26645739266 Midwait 1024X614</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/SuccessfulPackerDeployment-1024x173.png</image:loc>
       <image:title>Successfulpackerdeployment 1024X173</image:title>
+      <image:caption>Successfulpackerdeployment 1024X173</image:caption>
     </image:image>
   </url>
   <url>
@@ -1215,11 +1222,47 @@
     </image:image>
   </url>
   <url>
+    <loc>https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/</loc>
+    <lastmod>2026-06-21</lastmod>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/06/udm-beast-5-1024x1024.png</image:loc>
+      <image:title>Angled product render of the UniFi UDM Beast, showing its front drive bays, RJ45 ports and SFP cages.</image:title>
+      <image:caption>Angled product render of the UniFi UDM Beast, showing its front drive bays, RJ45 ports and SFP cages.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/06/NewHouseNet-3-1024x634.png</image:loc>
+      <image:title>Network topology diagram: a 900 Mb/s internet link feeds the UDM Beast firewall in the House; 10 Gb/s links connect the Office and House to a core switch in the Server Room, where the vSAN cluster, ma</image:title>
+      <image:caption>Network topology diagram: a 900 Mb/s internet link feeds the UDM Beast firewall in the House; 10 Gb/s links connect the Office and House to a core switch in the Server Room, where the vSAN cluster, ma</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/06/ZenWanPerfomance.png</image:loc>
+      <image:title>UniFi UDM Beast WAN speed test result showing 877 Mbps download, 977 Mbps upload and 8 ms latency on 16 June 2026.</image:title>
+      <image:caption>UniFi UDM Beast WAN speed test result showing 877 Mbps download, 977 Mbps upload and 8 ms latency on 16 June 2026.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/06/CityFibreVlan.png</image:loc>
+      <image:title>UDM Beast WAN setup for the Zen Internet connection on Port 9 (10 GbE), with VLAN ID 911 set manually for CityFibre.</image:title>
+      <image:caption>UDM Beast WAN setup for the Zen Internet connection on Port 9 (10 GbE), with VLAN ID 911 set manually for CityFibre.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/06/PPP-and-IP-689x1024.png</image:loc>
+      <image:title>UDM Beast PPPoE configuration showing the Zen Internet username and password, plus the additional /32 IPv4 addresses from the /29 allocation.</image:title>
+      <image:caption>UDM Beast PPPoE configuration showing the Zen Internet username and password, plus the additional /32 IPv4 addresses from the /29 allocation.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/06/UnifiRouteTable-1024x549.png</image:loc>
+      <image:title>UniFi UDM Beast routing table showing BGP-learned routes (192.168.100.0/24 to 192.168.105.0/24) via next hop 192.168.3.1, alongside directly connected VLANs such as iSCSI, VMware MGMT, IoT and ServerV</image:title>
+      <image:caption>UniFi UDM Beast routing table showing BGP-learned routes (192.168.100.0/24 to 192.168.105.0/24) via next hop 192.168.3.1, alongside directly connected VLANs such as iSCSI, VMware MGMT, IoT and ServerV</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://jameskilby.co.uk/about-james-kilby-solution-architect/</loc>
     <lastmod>2026-06-01</lastmod>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/02/55f91c39-f0dd-42e1-939a-cdffc92c0b52-1024x768.jpeg</image:loc>
       <image:title>55F91C39 F0Dd 42E1 939A Cdffc92C0B52 1024X768</image:title>
+      <image:caption>55F91C39 F0Dd 42E1 939A Cdffc92C0B52 1024X768</image:caption>
     </image:image>
   </url>
   <url>
@@ -1232,10 +1275,12 @@
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/vSphere-Overview-1024x530.png</image:loc>
       <image:title>Vsphere Overview 1024X530</image:title>
+      <image:caption>Vsphere Overview 1024X530</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/06/NewHouseNet-2-1024x634.png</image:loc>
       <image:title>Newhousenet 2 1024X634</image:title>
+      <image:caption>Newhousenet 2 1024X634</image:caption>
     </image:image>
   </url>
   <url>
