@@ -17,15 +17,16 @@
         "Homelab",
         "Nutanix",
         "VMware",
+        "Mikrotik",
         "Networking",
-        "Hosting",
         "VMware Cloud on AWS",
         "Docker",
+        "Hosting",
         "Kubernetes",
         "Personal",
-        "vSphere",
-        "Storage",
-        "Synology"
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere"
       ],
       "tags": [
         null,

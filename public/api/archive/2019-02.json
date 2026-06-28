@@ -16,15 +16,17 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Artificial Intelligence",
-        "Docker",
-        "Hosting",
         "Storage",
-        "vExpert",
-        "VMware Cloud on AWS",
-        "vSAN",
-        "Runecast",
-        "Automation"
+        "Synology",
+        "TrueNAS Scale",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "Ansible",
+        "Containers",
+        "Devops"
       ],
       "tags": [
         null,

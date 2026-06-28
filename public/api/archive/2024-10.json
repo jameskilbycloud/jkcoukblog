@@ -18,11 +18,12 @@
         "Docker",
         "Homelab",
         "Storage",
-        "Networking",
         "Synology",
-        "TrueNAS Scale",
-        "Hosting",
-        "Kubernetes"
+        "Ansible",
+        "Networking",
+        "VMware",
+        "Automation",
+        "Hosting"
       ],
       "tags": [
         null,

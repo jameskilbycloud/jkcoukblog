@@ -39,9 +39,9 @@ jameskilby@blog ~ % cat blog.stats live
 
 posts.count.............75
 
-words.total............50k
+words.total............51k
 
-last_post............today
+last_post...........7d ago
 
 categories..............34
 
@@ -49,9 +49,9 @@ tags...................129
 
 vexpert.years...........11
 
-deploys.month..........127
+deploys.month..........128
 
-last_deploy..........today
+last_deploy.........7d ago
 
 lighthouse...............—
 
