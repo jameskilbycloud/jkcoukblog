@@ -18,12 +18,15 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "VMware Cloud on AWS",
-        "AWS",
-        "Veeam",
+        "Automation",
         "Homelab",
-        "Networking",
-        "Automation"
+        "Artificial Intelligence",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "VMware Cloud on AWS",
+        "Runecast",
+        "Storage"
       ],
       "tags": [
         null,

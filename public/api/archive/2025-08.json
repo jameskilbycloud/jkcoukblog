@@ -16,18 +16,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "Automation",
-        "Docker",
+        "Networking",
+        "Storage",
         "VCF",
-        "AWS",
-        "Veeam"
+        "Runecast",
+        "Automation"
       ],
       "tags": [
         null

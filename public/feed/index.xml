@@ -5,7 +5,7 @@
     <link>https://jameskilby.co.uk/</link>
     <description>VMware and cloud infrastructure tutorials, homelab guides, and DevOps insights</description>
     <language>en-gb</language>
-    <lastBuildDate>Sun, 21 Jun 2026 09:06:58 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 28 Jun 2026 07:08:10 +0000</lastBuildDate>
     <atom:link href="https://jameskilby.co.uk/feed/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Unleashing the Beast</title>
@@ -146,7 +146,7 @@
     <item>
       <title>VMware Cloud on AWS Storage Sizing Quick Reference Guide</title>
       <link>https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/</link>
-      <description>Quick reference guide to the available storage resources that you get in VMware Cloud on AWS</description>
+      <description>VMware Cloud on AWS storage sizing reference: usable TiB by host count for i3i, i3en, and i4i, plus the FTT/RAID policy used at each cluster size.</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/</guid>
       <pubDate>Wed, 21 May 2025 09:33:04 +0000</pubDate>

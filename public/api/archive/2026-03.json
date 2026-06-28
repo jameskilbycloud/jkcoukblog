@@ -21,11 +21,9 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Hosting",
-        "Github",
         "Ansible",
-        "Containers",
-        "Devops"
+        "Github",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -53,10 +51,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VMware Cloud on AWS",
+        "Networking",
         "Storage",
-        "Synology",
-        "Networking"
+        "vExpert",
+        "Runecast",
+        "Ansible"
       ],
       "tags": [
         null,
