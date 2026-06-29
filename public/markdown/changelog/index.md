@@ -15,37 +15,37 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-981
+987
 
 Git commits
 
 ### Repository Age
 
-268
+269
 
 Days active
 
 ### Contributors
 
-4
+5
 
 Active contributors
 
 ### Last Deployment
 
-2026-06-21
+2026-06-29
 
-09:10:42
+14:40:46
 
 ## 🚀 Lighthouse Performance Scores
 
-Last checked: Estimated
+Last checked: 2026-06-29 14:40:45 UTC
 
-95 
+94 
 
 Performance
 
-95 
+96 
 
 Accessibility
 
@@ -58,6 +58,36 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-06-29 5684aaaOther
+
+chore(lighthouse): record scores P94/A96/BP100/S100
+
+2026-06-29 d21dc70Fix
+
+fix(stats): wire real Lighthouse scores into changelog/stats history (#107)
+
+The /stats/ and /changelog/ Lighthouse sections were showing hardcoded
+
+2026-06-29 c017314Other
+
+chore(deps): Bump actions/checkout from 6 to 7 (#104)
+
+Bumps [actions/checkout](https://github.com/actions/checkout) from 6 to 7.
+
+2026-06-29 0d0edd4Other
+
+chore(deps): Bump actions/cache from 5.0.5 to 6.0.0 (#103)
+
+Bumps [actions/cache](https://github.com/actions/cache) from 5.0.5 to 6.0.0.
+
+2026-06-29 36ab35aOther
+
+chore(deps-dev): Bump pytest from 9.1.0 to 9.1.1 (#106)
+
+Bumps [pytest](https://github.com/pytest-dev/pytest) from 9.1.0 to 9.1.1.
+
+  
 
 2026-06-18 c5d5cd3Feature
 
@@ -217,33 +247,5 @@ fix: surface non-blocking CI failures, thread-safe caches, config-aware cache in
 
 \- deploy-static-site.yml: give all 13 continue-on-error steps ids and add a
 
-2026-06-10 cd62e99Fix
-
-fix: make Slack notify and secret-scan workflows survive Dependabot PRs (#86)
-
-Dependabot-triggered runs don't receive repository secrets, so every
-
-2026-06-10 0f9819cFix
-
-fix: harden Slack workflow, pin Python deps, fix critical CSS truncation (#77)
-
-\- issue-to-slack-improved.yml: pass issue/PR titles via env vars instead of
-
-2026-06-10 22e258aOther
-
-chore: change backup schedule from weekly to every 14 days
-
-2026-06-10 8e4a9b4Other
-
-chore: bump actions to Node 24 compatible versions
-
-checkout v5 -> v6, upload-artifact v4.6.2 -> v7
-
-2026-06-10 6bd8d11Fix
-
-fix: remove invalid =no argument from --no-host-directories wget flag
-
-Caused wget to error and download 0 media files.
-
-Page generated: 2026-06-28 07:12:09 UTC  
+Page generated: 2026-06-29 15:45:42 UTC  
 Changelog powered by Git history and Lighthouse CI
