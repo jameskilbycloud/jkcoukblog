@@ -1233,6 +1233,25 @@ div, section, aside, nav {
 }
 .entry-hero .entry-hero-container-inner{padding-top:1rem !important}.entry-hero.page-hero-section .entry-header{min-height:auto !important}
 
+/* Archive hero (tag / category / author / date) — Kadence gives the title
+   band `min-height:200px` + centred layout, so a one-word term name like
+   "Ansible" sits in a tall empty banner above the post grid. Collapse it to a
+   compact, left-aligned header consistent with the breadcrumb and grid below.
+   page-hero-section (single posts) is already handled by the rule above. */
+.entry-hero.post-archive-hero-section .entry-header {
+  min-height: auto !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  text-align: left !important;
+}
+.entry-hero.post-archive-hero-section .entry-hero-container-inner {
+  padding-top: 1.5rem !important;
+  padding-bottom: 0 !important;
+}
+.entry-hero.post-archive-hero-section .page-title {
+  margin: 0 !important;
+}
+
 /* ── Similar Posts Carousel (Splide) ──────────────────────────────── */
 
 /* Title case instead of uppercase for carousel card titles */
