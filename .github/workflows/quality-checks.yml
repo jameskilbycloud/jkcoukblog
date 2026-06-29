@@ -160,8 +160,29 @@ jobs:
         if: always()
         continue-on-error: true
         run: |
-          # Find the most recent Lighthouse report
-          REPORT=$(ls -t .lighthouseci/lhr-*.json 2>/dev/null | head -1)
+          # Prefer the REPRESENTATIVE (median) run from lhci's manifest.json
+          # rather than an arbitrary single report. With runs: 3 — plus separate
+          # desktop and mobile passes — `ls -t | head -1` picked a non-deterministic
+          # report, so the recorded score jittered run-to-run. The median run is
+          # the stable, canonical result; prefer the homepage when several URLs
+          # were tested, and fall back to newest-report if no manifest exists.
+          MANIFEST=$(ls -t .lighthouseci/manifest.json 2>/dev/null | head -1)
+          REPORT=""
+          if [ -f "$MANIFEST" ]; then
+            REPORT=$(jq -r '
+              [.[] | select(.isRepresentativeRun)] as $rep
+              | ([$rep[] | select(.url | test("jameskilby\\.co\\.uk/?$"))] + $rep)[0].jsonPath // empty
+            ' "$MANIFEST" 2>/dev/null)
+            # jsonPath is an absolute path; fall back to the basename in .lighthouseci
+            if [ -n "$REPORT" ] && [ ! -f "$REPORT" ]; then
+              REPORT=".lighthouseci/$(basename "$REPORT")"
+            fi
+            [ -f "$REPORT" ] && echo "📈 Using representative (median) run: $REPORT"
+          fi
+          if [ -z "$REPORT" ] || [ ! -f "$REPORT" ]; then
+            REPORT=$(ls -t .lighthouseci/lhr-*.json 2>/dev/null | head -1)
+            echo "ℹ️  No manifest median run — falling back to newest report: $REPORT"
+          fi
 
           if [ -f "$REPORT" ]; then
             echo "✅ Found Lighthouse report: $REPORT"

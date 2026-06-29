@@ -11,36 +11,43 @@ Creates a public stats page combining:
 """
 
 import subprocess
-import json
 import os
+import re
 from datetime import datetime
 from pathlib import Path
-import requests
+
+from lighthouse_data import load_latest, load_history, has_cwv, score_class, CWV_FIELDS
+
 
 def get_lighthouse_scores():
-    """Fetch latest Lighthouse scores from history"""
+    """Return the scores to display, preferring the freshest real measurement.
+
+    Order of preference:
+      1. data/lighthouse-latest.json — the latest real run (carries CWV)
+      2. the most recent real entry in the dated history
+      3. an honest "no measurement yet" placeholder (never fabricated scores)
+    """
     print("📊 Loading Lighthouse scores...")
-    
-    history_file = Path('public/changelog/lighthouse-history.json')
-    if history_file.exists():
-        try:
-            with open(history_file, 'r') as f:
-                history = json.load(f)
-                if history:
-                    # Get the most recent entry
-                    latest = history[-1]
-                    print(f"   ✅ Loaded scores from {latest.get('date', 'unknown')}")
-                    return latest
-        except Exception as e:
-            print(f"   ⚠️  Error loading scores: {e}")
-    
-    # Fallback to estimated scores
+
+    latest = load_latest()
+    if latest:
+        print(f"   ✅ Loaded latest measurement from {latest['timestamp']}")
+        return latest
+
+    history = load_history()
+    if history:
+        entry = history[-1]
+        print(f"   ℹ️  No fresh measurement — using last recorded scores from {entry.get('date', 'unknown')}")
+        return entry
+
+    print("   ⚠️  No Lighthouse data available yet — showing placeholder")
     return {
         'date': datetime.now().strftime('%Y-%m-%d'),
-        'performance': 95,
-        'accessibility': 95,
-        'best_practices': 100,
-        'seo': 100
+        'timestamp': 'No measurement yet',
+        'performance': 0,
+        'accessibility': 0,
+        'best_practices': 0,
+        'seo': 0,
     }
 
 def get_build_metrics():
@@ -58,15 +65,16 @@ def get_build_metrics():
             'posts': 0
         }
     
-    import re
-
     # Count HTML pages and their on-disk weight (HTML only, not images/sidecars)
     html_files = list(public_dir.rglob('*.html'))
     metrics['total_pages'] = len(html_files)
     metrics['total_html_bytes'] = sum(f.stat().st_size for f in html_files)
 
-    # Count posts (in dated directories - those with YYYY in path)
-    posts = [f for f in html_files if any(re.match(r'^\d{4}$', str(p)) for p in f.parts)]
+    # Count posts: real articles live at YYYY/MM/slug/index.html. The old
+    # "any 4-digit path part" test would also count bare year/month archive
+    # index pages (e.g. /2026/index.html) as posts; anchor to the full shape.
+    post_path = re.compile(r'(?:^|/)(?:19|20)\d{2}/\d{2}/[^/]+/index\.html$')
+    posts = [f for f in html_files if post_path.search(f.as_posix())]
     metrics['posts'] = len(posts)
 
     # Count DISTINCT logical images, not image files. The pipeline emits an
@@ -168,16 +176,85 @@ def get_plausible_stats():
         'has_api': False  # Set to True if you want to use Plausible API
     }
 
-def generate_stats_html(lighthouse, build_metrics, git_stats):
+# Core Web Vitals: field key -> (label, friendly name)
+CWV_LABELS = {
+    'lcp': ('LCP', 'Largest Contentful Paint'),
+    'fcp': ('FCP', 'First Contentful Paint'),
+    'cls': ('CLS', 'Cumulative Layout Shift'),
+    'tti': ('TTI', 'Time to Interactive'),
+}
+
+
+def build_cwv_html(lighthouse):
+    """Render the Core Web Vitals block, or '' when the measurement lacks them."""
+    if not has_cwv(lighthouse):
+        return ''
+
+    cards = []
+    for field in CWV_FIELDS:
+        value = lighthouse.get(field)
+        if value in (None, '', 'N/A'):
+            continue
+        label, full_name = CWV_LABELS[field]
+        cards.append(f"""
+                <div class="cwv-card">
+                    <div class="cwv-value">{value}</div>
+                    <div class="cwv-label">{label}</div>
+                    <div class="cwv-sub">{full_name}</div>
+                </div>""")
+
+    return f"""
+            <h3 class="cwv-heading">Core Web Vitals</h3>
+            <div class="cwv-grid">{''.join(cards)}
+            </div>"""
+
+
+def build_sparkline(history, metric='performance', days=30):
+    """Render an inline-SVG sparkline of a score over time, or '' if too few points."""
+    points = [e for e in history if isinstance(e.get(metric), (int, float))][-days:]
+    if len(points) < 2:
+        return ''
+
+    values = [int(e[metric]) for e in points]
+    width, height, pad = 600, 60, 6
+    n = len(values)
+    # Fixed 0-100 domain so the line height is comparable across renders.
+    step = (width - 2 * pad) / (n - 1)
+    coords = []
+    for i, v in enumerate(values):
+        x = pad + i * step
+        y = pad + (height - 2 * pad) * (1 - v / 100)
+        coords.append(f"{x:.1f},{y:.1f}")
+    polyline = ' '.join(coords)
+    last_x, last_y = coords[-1].split(',')
+    first = points[0].get('date', '')
+    last = points[-1].get('date', '')
+
+    return f"""
+            <div class="sparkline-wrap">
+                <div class="sparkline-title">Performance trend — last {n} measurements ({first} → {last})</div>
+                <svg class="sparkline" viewBox="0 0 {width} {height}" preserveAspectRatio="none" role="img"
+                     aria-label="Performance score trend from {values[0]} to {values[-1]}">
+                    <polyline fill="none" stroke="var(--accent-orange)" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round" points="{polyline}" />
+                    <circle cx="{last_x}" cy="{last_y}" r="3.5" fill="var(--accent-orange)" />
+                </svg>
+                <div class="sparkline-range"><span>{min(values)}</span><span>now {values[-1]}</span><span>{max(values)}</span></div>
+            </div>"""
+
+
+def generate_stats_html(lighthouse, history, build_metrics, git_stats):
     """Generate the stats page HTML"""
     print("🏗️  Generating stats page HTML...")
+
+    cwv_html = build_cwv_html(lighthouse)
+    sparkline_html = build_sparkline(history)
     
     # Get Plausible share link from environment
     plausible_share_link = os.environ.get('PLAUSIBLE_SHARE_LINK', '')
     
     # Extract just the auth token if a full URL was provided
     if 'auth=' in plausible_share_link:
-        import re
         auth_match = re.search(r'auth=([^&]+)', plausible_share_link)
         if auth_match:
             plausible_share_link = auth_match.group(1)
@@ -383,7 +460,82 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
             gap: 20px;
             margin-top: 20px;
         }}
-        
+
+        .sparkline-wrap {{
+            margin-top: 30px;
+        }}
+
+        .sparkline-title {{
+            color: var(--gray-light);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }}
+
+        .sparkline {{
+            width: 100%;
+            height: 60px;
+            display: block;
+            border: 1px solid var(--gray-mid);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 4px;
+        }}
+
+        .sparkline-range {{
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray-light);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            margin-top: 6px;
+        }}
+
+        .cwv-heading {{
+            font-family: 'Anton', sans-serif;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            font-size: 1.2em;
+            margin: 30px 0 0;
+        }}
+
+        .cwv-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }}
+
+        .cwv-card {{
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--gray-mid);
+        }}
+
+        .cwv-value {{
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--accent-orange);
+        }}
+
+        .cwv-label {{
+            color: var(--text-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 8px;
+        }}
+
+        .cwv-sub {{
+            color: var(--gray-light);
+            font-size: 0.8rem;
+            margin-top: 4px;
+        }}
+
         .score-card {{
             text-align: center;
             padding: 20px;
@@ -565,38 +717,40 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
         <!-- Lighthouse Scores -->
         <div class="section">
             <h2>🚀 Lighthouse Performance Scores</h2>
-            <p>Latest scores from {lighthouse.get('date', 'recent')} deployment</p>
-            
+            <p>Measured {lighthouse.get('timestamp', lighthouse.get('date', 'recent'))}</p>
+
             <div class="lighthouse-grid">
                 <div class="score-card">
-                    <div class="score-circle {'score-excellent' if lighthouse['performance'] >= 90 else 'score-good' if lighthouse['performance'] >= 50 else 'score-poor'}">
+                    <div class="score-circle {score_class(lighthouse['performance'])}">
                         {lighthouse['performance']}
                     </div>
                     <div class="score-label">Performance</div>
                 </div>
-                
+
                 <div class="score-card">
-                    <div class="score-circle {'score-excellent' if lighthouse['accessibility'] >= 90 else 'score-good' if lighthouse['accessibility'] >= 50 else 'score-poor'}">
+                    <div class="score-circle {score_class(lighthouse['accessibility'])}">
                         {lighthouse['accessibility']}
                     </div>
                     <div class="score-label">Accessibility</div>
                 </div>
-                
+
                 <div class="score-card">
-                    <div class="score-circle {'score-excellent' if lighthouse['best_practices'] >= 90 else 'score-good' if lighthouse['best_practices'] >= 50 else 'score-poor'}">
+                    <div class="score-circle {score_class(lighthouse['best_practices'])}">
                         {lighthouse['best_practices']}
                     </div>
                     <div class="score-label">Best Practices</div>
                 </div>
-                
+
                 <div class="score-card">
-                    <div class="score-circle {'score-excellent' if lighthouse['seo'] >= 90 else 'score-good' if lighthouse['seo'] >= 50 else 'score-poor'}">
+                    <div class="score-circle {score_class(lighthouse['seo'])}">
                         {lighthouse['seo']}
                     </div>
                     <div class="score-label">SEO</div>
                 </div>
             </div>
-            
+            {sparkline_html}
+            {cwv_html}
+
             <div class="info-box">
                 <p><strong>📈 Performance Tracking:</strong> Scores are automatically measured on every deployment and stored in the changelog history.</p>
                 <p><strong>🎯 Target:</strong> Maintaining 90+ scores across all categories for optimal user experience.</p>
@@ -711,11 +865,12 @@ def main():
     
     # Gather all data
     lighthouse = get_lighthouse_scores()
+    history = load_history()
     build_metrics = get_build_metrics()
     git_stats = get_git_stats()
-    
+
     # Generate HTML
-    html = generate_stats_html(lighthouse, build_metrics, git_stats)
+    html = generate_stats_html(lighthouse, history, build_metrics, git_stats)
     
     # Write to file
     output_dir = Path('public/stats')

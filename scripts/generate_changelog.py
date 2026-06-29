@@ -10,97 +10,26 @@ Automatically generates a changelog page with:
 """
 
 import subprocess
-import json
 import os
 from datetime import datetime
 from html import escape as html_escape
 from pathlib import Path
 
-def load_lighthouse_history():
-    """Load historical Lighthouse scores"""
-    history_file = Path('public/changelog/lighthouse-history.json')
-    if history_file.exists():
-        try:
-            with open(history_file, 'r') as f:
-                return json.load(f)
-        except (json.JSONDecodeError, OSError) as e:
-            print(f"⚠️  Lighthouse history unreadable ({e}) — starting fresh")
-            return []
-    return []
+from lighthouse_data import load_history, save_to_history, load_latest, score_class
 
-# Real Lighthouse scores are produced by the `Quality Checks` workflow
-# (quality-checks.yml), which runs the genuine Lighthouse CI against the
-# production URL and commits the latest run here. We READ that measurement
-# rather than calling Google's PageSpeed Insights API — the unauthenticated
-# PSI endpoint returns HTTP 429 (shared daily quota exhausted) and the old
-# code silently fell back to hardcoded 95/95/100/100 "Estimated" scores,
-# which then masqueraded as real data on /changelog/ and /stats/.
-LIGHTHOUSE_LATEST_FILE = Path('data/lighthouse-latest.json')
-
-def save_lighthouse_scores(scores, history):
-    """Save current Lighthouse scores to history (one entry per date — latest wins)."""
-    today = datetime.now().strftime('%Y-%m-%d')
-    entry = {
-        'date': today,
-        'timestamp': scores['timestamp'],
-        'performance': scores['performance'],
-        'accessibility': scores['accessibility'],
-        'best_practices': scores['best_practices'],
-        'seo': scores['seo']
-    }
-
-    # Replace an existing same-date entry rather than appending a duplicate.
-    # The deploy pipeline runs many times a day; without this, history would
-    # fill with identical same-day rows and the trend series would be useless.
-    history = [e for e in history if e.get('date') != today]
-    history.append(entry)
-
-    # Keep only the last 90 days of history
-    cutoff_date = datetime.now().timestamp() - (90 * 24 * 60 * 60)
-    history = [entry for entry in history if datetime.strptime(entry['date'], '%Y-%m-%d').timestamp() > cutoff_date]
-
-    # Save to file
-    history_file = Path('public/changelog/lighthouse-history.json')
-    history_file.parent.mkdir(parents=True, exist_ok=True)
-    with open(history_file, 'w') as f:
-        json.dump(history, f, indent=2)
-
-    print(f"✅ Saved Lighthouse scores to history ({len(history)} entries)")
-    return history
 
 def get_lighthouse_scores():
-    """Load the latest real Lighthouse scores measured by the Quality Checks workflow.
+    """Load the latest real Lighthouse measurement, or None when none exists.
 
-    Returns a scores dict, or None when no real measurement is available yet
-    (e.g. the workflow has not run since this file was wired up). Returning
-    None lets main() reuse the most recent real history entry instead of
-    fabricating numbers.
+    The genuine scores are produced by the Quality Checks workflow and read via
+    lighthouse_data; returning None lets main() reuse the most recent real
+    history entry instead of fabricating numbers.
     """
     print("📊 Loading Lighthouse scores from latest measurement...")
-
-    if not LIGHTHOUSE_LATEST_FILE.exists():
-        print(f"   ⚠️  {LIGHTHOUSE_LATEST_FILE} not found — no real scores to record this run")
+    scores = load_latest()
+    if scores is None:
+        print("   ⚠️  No real measurement available — nothing to record this run")
         return None
-
-    try:
-        with open(LIGHTHOUSE_LATEST_FILE, 'r') as f:
-            data = json.load(f)
-    except (json.JSONDecodeError, OSError) as e:
-        print(f"   ⚠️  Could not read {LIGHTHOUSE_LATEST_FILE} ({e}) — skipping")
-        return None
-
-    try:
-        scores = {
-            'performance': int(data['performance']),
-            'accessibility': int(data['accessibility']),
-            'best_practices': int(data['best_practices']),
-            'seo': int(data['seo']),
-            'timestamp': data.get('measured_at', 'unknown'),
-        }
-    except (KeyError, TypeError, ValueError) as e:
-        print(f"   ⚠️  {LIGHTHOUSE_LATEST_FILE} is missing expected fields ({e}) — skipping")
-        return None
-
     print(f"   ✅ Loaded real scores measured {scores['timestamp']} "
           f"(perf {scores['performance']}, a11y {scores['accessibility']}, "
           f"bp {scores['best_practices']}, seo {scores['seo']})")
@@ -569,28 +498,28 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
         
         <div class="lighthouse-scores">
             <div class="score-card">
-                <div class="score-circle {'score-excellent' if lighthouse_scores['performance'] >= 90 else 'score-good' if lighthouse_scores['performance'] >= 50 else 'score-poor'}">
+                <div class="score-circle {score_class(lighthouse_scores['performance'])}">
                     {lighthouse_scores['performance']}
                 </div>
                 <div class="score-label">Performance</div>
             </div>
-            
+
             <div class="score-card">
-                <div class="score-circle {'score-excellent' if lighthouse_scores['accessibility'] >= 90 else 'score-good' if lighthouse_scores['accessibility'] >= 50 else 'score-poor'}">
+                <div class="score-circle {score_class(lighthouse_scores['accessibility'])}">
                     {lighthouse_scores['accessibility']}
                 </div>
                 <div class="score-label">Accessibility</div>
             </div>
-            
+
             <div class="score-card">
-                <div class="score-circle {'score-excellent' if lighthouse_scores['best_practices'] >= 90 else 'score-good' if lighthouse_scores['best_practices'] >= 50 else 'score-poor'}">
+                <div class="score-circle {score_class(lighthouse_scores['best_practices'])}">
                     {lighthouse_scores['best_practices']}
                 </div>
                 <div class="score-label">Best Practices</div>
             </div>
-            
+
             <div class="score-card">
-                <div class="score-circle {'score-excellent' if lighthouse_scores['seo'] >= 90 else 'score-good' if lighthouse_scores['seo'] >= 50 else 'score-poor'}">
+                <div class="score-circle {score_class(lighthouse_scores['seo'])}">
                     {lighthouse_scores['seo']}
                 </div>
                 <div class="score-label">SEO</div>
@@ -660,9 +589,9 @@ def main():
     changes = get_recent_changes()
 
     # Load history; record the new measurement only when we actually have one.
-    history = load_lighthouse_history()
+    history = load_history()
     if real_scores:
-        history = save_lighthouse_scores(real_scores, history)
+        history = save_to_history(real_scores, history)
 
     # Choose what to render: the fresh measurement if present, else the most
     # recent real entry already in history, else a clearly-labelled placeholder
