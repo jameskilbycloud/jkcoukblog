@@ -1,13 +1,38 @@
 [
   {
+    "name": "VMware",
+    "slug": "vmware",
+    "count": 69
+  },
+  {
+    "name": "VMware Cloud on AWS",
+    "slug": "vmware-cloud-on-aws",
+    "count": 27
+  },
+  {
+    "name": "vSAN",
+    "slug": "vsan",
+    "count": 20
+  },
+  {
     "name": "Homelab",
     "slug": "homelab",
     "count": 63
   },
   {
-    "name": "VMware",
-    "slug": "vmware",
-    "count": 69
+    "name": "Storage",
+    "slug": "storage",
+    "count": 31
+  },
+  {
+    "name": "Synology",
+    "slug": "synology",
+    "count": 13
+  },
+  {
+    "name": "TrueNAS Scale",
+    "slug": "truenas-scale",
+    "count": 14
   },
   {
     "name": "vSphere",
@@ -15,9 +40,9 @@
     "count": 22
   },
   {
-    "name": "Ansible",
-    "slug": "ansible",
-    "count": 31
+    "name": "Veeam",
+    "slug": "veeam",
+    "count": 17
   },
   {
     "name": "Artificial Intelligence",
@@ -25,14 +50,14 @@
     "count": 37
   },
   {
-    "name": "Containers",
-    "slug": "containers",
-    "count": 9
+    "name": "Automation",
+    "slug": "automation",
+    "count": 38
   },
   {
-    "name": "Devops",
-    "slug": "devops",
-    "count": 14
+    "name": "Docker",
+    "slug": "docker",
+    "count": 43
   },
   {
     "name": "NVIDIA",
@@ -45,14 +70,9 @@
     "count": 33
   },
   {
-    "name": "Storage",
-    "slug": "storage",
-    "count": 31
-  },
-  {
-    "name": "vExpert",
-    "slug": "vexpert",
-    "count": 12
+    "name": "AWS",
+    "slug": "aws",
+    "count": 15
   },
   {
     "name": "Personal",
@@ -60,49 +80,39 @@
     "count": 35
   },
   {
-    "name": "Networking",
-    "slug": "networking",
-    "count": 27
-  },
-  {
     "name": "Hosting",
     "slug": "hosting",
     "count": 32
   },
   {
-    "name": "Docker",
-    "slug": "docker",
-    "count": 43
+    "name": "Nutanix",
+    "slug": "nutanix",
+    "count": 18
   },
   {
-    "name": "Automation",
-    "slug": "automation",
-    "count": 38
+    "name": "vExpert",
+    "slug": "vexpert",
+    "count": 12
   },
   {
-    "name": "Github",
-    "slug": "github",
-    "count": 13
+    "name": "Networking",
+    "slug": "networking",
+    "count": 27
   },
   {
-    "name": "Synology",
-    "slug": "synology",
-    "count": 13
+    "name": "Ansible",
+    "slug": "ansible",
+    "count": 31
   },
   {
-    "name": "Consulting",
-    "slug": "consulting",
-    "count": 5
+    "name": "Containers",
+    "slug": "containers",
+    "count": 9
   },
   {
-    "name": "AWS",
-    "slug": "aws",
-    "count": 15
-  },
-  {
-    "name": "Veeam",
-    "slug": "veeam",
-    "count": 17
+    "name": "Devops",
+    "slug": "devops",
+    "count": 14
   },
   {
     "name": "Cloudflare",
@@ -115,9 +125,9 @@
     "count": 18
   },
   {
-    "name": "VMware Cloud on AWS",
-    "slug": "vmware-cloud-on-aws",
-    "count": 27
+    "name": "Github",
+    "slug": "github",
+    "count": 13
   },
   {
     "name": "VCF",
@@ -125,19 +135,9 @@
     "count": 23
   },
   {
-    "name": "Nutanix",
-    "slug": "nutanix",
-    "count": 18
-  },
-  {
-    "name": "vSAN",
-    "slug": "vsan",
-    "count": 20
-  },
-  {
-    "name": "Runecast",
-    "slug": "runecast",
-    "count": 8
+    "name": "Consulting",
+    "slug": "consulting",
+    "count": 5
   },
   {
     "name": "Mikrotik",
@@ -145,14 +145,19 @@
     "count": 8
   },
   {
+    "name": "Ubuntu",
+    "slug": "ubuntu",
+    "count": 3
+  },
+  {
     "name": "Kubernetes",
     "slug": "kubernetes",
     "count": 8
   },
   {
-    "name": "TrueNAS Scale",
-    "slug": "truenas-scale",
-    "count": 14
+    "name": "Runecast",
+    "slug": "runecast",
+    "count": 8
   },
   {
     "name": "Money",
@@ -163,10 +168,5 @@
     "name": "Apple",
     "slug": "apple",
     "count": 2
-  },
-  {
-    "name": "Ubuntu",
-    "slug": "ubuntu",
-    "count": 3
   }
 ]
