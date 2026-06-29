@@ -424,12 +424,15 @@ class WordPressStaticGenerator:
         # Add noindex to thin archive/taxonomy pages (tags, categories)
         self.add_noindex_to_thin_pages(soup, current_url)
 
-        # Fix missing H1 on homepage
-        self.fix_homepage_h1(soup, current_url)
-
-        # Inject Direction A redesign sections on the homepage (hero strap,
-        # terminal stats block, filter bar, topic index). Skips paginated pages.
+        # Inject the homepage top band first: it emits the editorial
+        # <h1 class="jkr-headline">, which must be the page's single H1.
+        # fix_homepage_h1() below is a fallback that only converts the
+        # site-title to an H1 when none exists — running it after the inject
+        # means it correctly stands down, leaving exactly one H1.
         self.inject_homepage_redesign(soup, current_url)
+
+        # Fix missing H1 on homepage (fallback if the redesign didn't inject)
+        self.fix_homepage_h1(soup, current_url)
 
         # Fix byline: published + updated time elements with no separator render
         # as "By James May 29, 2017 June 1, 2026". Insert a separator + 'Updated'
@@ -2550,54 +2553,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
             print(f"   ✅ Converted {old_tag_name}.site-title to H1 on homepage")
 
-    def _compute_homepage_stats(self):
-        """Return three columns of (key, value) pairs for the terminal block.
+    def _compute_ribbon_stats(self):
+        """Return the five momentum/credibility stats for the homepage ribbon.
 
-        Each stat is computed in isolation; if a source is unreachable the
-        stat falls back to '—' rather than breaking the rest of the build.
-        Cached on the instance so it only runs once per build even if the
-        homepage gets reprocessed.
+        Keeps posts·words·days-since-last·deploys/mo·lighthouse — the signals
+        worth surfacing above the fold. Each is computed in isolation and falls
+        back to '—' (or None for days) rather than breaking the build. Cached on
+        the instance so it only runs once per build.
         """
-        if hasattr(self, '_cached_homepage_stats'):
-            return self._cached_homepage_stats
+        if hasattr(self, '_cached_ribbon_stats'):
+            return self._cached_ribbon_stats
 
-        print("   📊 Computing homepage stats...")
+        print("   📊 Computing homepage ribbon stats...")
 
-        posts_count = self._stat_posts_count()
-        last_post = self._stat_last_post_age()
-        cats_count = self._stat_taxonomy_total('categories')
-        tags_count = self._stat_taxonomy_total('tags')
-        words_total = self._stat_words_total()
-        deploys_month = self._stat_deploys_this_month()
-        last_deploy = self._stat_last_deploy_age()
-        lighthouse_perf = self._stat_lighthouse_performance()
-
-        from datetime import datetime
-        try:
-            from config import Config
-            vexpert_start = Config.VEXPERT_START_YEAR
-        except (ImportError, AttributeError):
-            vexpert_start = 2020
-        vexpert_years = str(max(0, datetime.now().year - vexpert_start))
-
-        columns = (
-            (('posts.count', posts_count),
-             ('words.total', words_total),
-             ('last_post', last_post)),
-            (('categories', cats_count),
-             ('tags', tags_count),
-             ('vexpert.years', vexpert_years)),
-            (('deploys.month', deploys_month),
-             ('last_deploy', last_deploy),
-             ('lighthouse', lighthouse_perf)),
-        )
-        self._cached_homepage_stats = columns
+        stats = {
+            'posts_count': self._stat_posts_count(),
+            'words_total': self._stat_words_total(),
+            'days_since_last': self._stat_last_post_days(),
+            'deploys_month': self._stat_deploys_this_month(),
+            'lighthouse': self._stat_lighthouse_performance(),
+        }
+        self._cached_ribbon_stats = stats
         print(
-            f"   📊 Stats: posts={posts_count} words={words_total} last={last_post} "
-            f"cats={cats_count} tags={tags_count} vexpert={vexpert_years}y "
-            f"deploys={deploys_month} last-deploy={last_deploy} LH={lighthouse_perf}"
+            f"   📊 Ribbon: posts={stats['posts_count']} words={stats['words_total']} "
+            f"days={stats['days_since_last']} deploys={stats['deploys_month']} "
+            f"LH={stats['lighthouse']}"
         )
-        return columns
+        return stats
 
     def _stat_posts_count(self):
         try:
@@ -2634,6 +2616,33 @@ document.addEventListener('DOMContentLoaded', function() {
         except Exception as e:
             print(f"   ⚠️  last_post: {e}")
         return '—'
+
+    def _stat_last_post_days(self):
+        """Integer days since the most recent post, or None if unavailable.
+
+        The ribbon renders this as '{n}d since last post'; returning the raw
+        integer (vs. the '8d ago' string) lets the markup format it inline.
+        """
+        try:
+            r = self.session.get(
+                f'{self.wp_url}/wp-json/wp/v2/posts',
+                params={
+                    'per_page': 1, 'orderby': 'date', 'order': 'desc',
+                    'status': 'publish', '_fields': 'date_gmt',
+                },
+                timeout=15,
+            )
+            if r.status_code == 200:
+                data = r.json()
+                if data and data[0].get('date_gmt'):
+                    from datetime import datetime, timezone
+                    d = datetime.fromisoformat(data[0]['date_gmt'])
+                    if d.tzinfo is None:
+                        d = d.replace(tzinfo=timezone.utc)
+                    return max(0, (datetime.now(timezone.utc) - d).days)
+        except Exception as e:
+            print(f"   ⚠️  last_post days: {e}")
+        return None
 
     def _stat_taxonomy_total(self, taxonomy):
         """Count of categories/tags with at least one post."""
@@ -2819,12 +2828,13 @@ document.addEventListener('DOMContentLoaded', function() {
         return '—'
 
     def inject_homepage_redesign(self, soup, current_url):
-        """Inject Direction A (Refined Brutalist + terminal stats) sections on the homepage.
+        """Inject the homepage top band (Option B) + topic index.
 
-        Adds, between the existing entry-hero and the post grid:
-          - hero strap (editorial headline + stat row)
-          - terminal stats block (mac-style window, three columns, blinking prompt)
-          - filter bar (chips that link to /category/<slug>/)
+        Adds, above the post grid:
+          - top band: strap + filter on one row, the editorial <h1> headline,
+            and a single-line stats ribbon (posts · words · days-since-last ·
+            deploys/mo · lighthouse · ● live)
+          - featured hero (newest post promoted out of the grid)
         And appends a topic index after the post grid.
 
         Skips paginated homepage pages (/page/2/, /page/3/, ...).
@@ -2833,7 +2843,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return
 
         # Idempotency guard — don't double-inject if process_html runs twice
-        if soup.find(class_='jkr-strap'):
+        if soup.find(class_='jkr-top'):
             return
 
         # Kadence renders the loop as a <ul class="kadence-posts-list ...">,
@@ -2854,81 +2864,20 @@ document.addEventListener('DOMContentLoaded', function() {
         # nearest multiple of 3 so the last row is always full.
         self._trim_grid_to_columns(posts_list, columns=3)
 
-        # ── 1. hero strap ───────────────────────────────────────────────
-        strap = soup.new_tag('section', attrs={'class': 'jkr-strap'})
-        strap_inner = soup.new_tag('div', attrs={'class': 'jkr-strap-inner'})
+        # ── 1. top band (Option B) ──────────────────────────────────────
+        # Strap + filter share one row; the editorial headline is the page's
+        # single <h1>; a one-line stats ribbon replaces the old terminal box.
+        top = soup.new_tag('header', attrs={'class': 'jkr-top'})
 
-        strap_left = soup.new_tag('div', attrs={'class': 'jkr-strap-left'})
-        meta = soup.new_tag('div', attrs={'class': 'jkr-strap-meta'})
-        meta.string = 'VMWARE VEXPERT · HOMELAB · INFRASTRUCTURE-AS-CODE'
-        strap_h2 = soup.new_tag('p', attrs={'class': 'jkr-strap-h'})
-        strap_h2.append(soup.new_string('Field notes from a homelab that costs'))
-        strap_h2.append(soup.new_tag('br'))
-        strap_h2.append(soup.new_string('real money to run.'))
-        strap_left.append(meta)
-        strap_left.append(strap_h2)
+        top_row = soup.new_tag('div', attrs={'class': 'jkr-top-row'})
+        strap = soup.new_tag('span', attrs={'class': 'jkr-strap'})
+        strap.string = 'VMWARE VEXPERT · HOMELAB · INFRASTRUCTURE-AS-CODE'
+        top_row.append(strap)
 
-        strap_inner.append(strap_left)
-        strap.append(strap_inner)
-
-        # ── 2. terminal stats block ─────────────────────────────────────
-        term_section = soup.new_tag('section', attrs={'class': 'jkr-term-wrap'})
-        term_inner = soup.new_tag('div', attrs={'class': 'jkr-term-inner'})
-        term = soup.new_tag('div', attrs={'class': 'jkr-term'})
-
-        term_head = soup.new_tag('div', attrs={'class': 'jkr-term-head'})
-        for _ in range(3):
-            term_head.append(soup.new_tag('span', attrs={'class': 'jkr-term-dot'}))
-        term_path = soup.new_tag('span', attrs={'class': 'jkr-term-path'})
-        term_path.string = 'jameskilby@blog ~ % cat blog.stats'
-        term_head.append(term_path)
-        term_live = soup.new_tag('span', attrs={'class': 'jkr-term-live'})
-        term_live.append(soup.new_tag('span', attrs={'class': 'jkr-term-live-dot'}))
-        term_live.append(soup.new_string(' live'))
-        term_head.append(term_live)
-        term.append(term_head)
-
-        term_body = soup.new_tag('div', attrs={'class': 'jkr-term-body'})
-        columns = self._compute_homepage_stats()
-        for col in columns:
-            col_div = soup.new_tag('div', attrs={'class': 'jkr-term-col'})
-            for k, v in col:
-                row = soup.new_tag('div', attrs={'class': 'jkr-term-row'})
-                k_el = soup.new_tag('span', attrs={'class': 'jkr-term-k'})
-                k_el.string = k
-                # Dot leaders are cosmetic; CSS draws them via flex+border, but we
-                # also keep an inline dot string for terminals/no-CSS fallback.
-                dots = soup.new_tag('span', attrs={'class': 'jkr-term-dots'})
-                dots.string = '.' * max(2, 26 - len(k) - len(v))
-                v_el = soup.new_tag('span', attrs={'class': 'jkr-term-v'})
-                v_el.string = v
-                row.append(k_el)
-                row.append(dots)
-                row.append(v_el)
-                col_div.append(row)
-            term_body.append(col_div)
-        term.append(term_body)
-
-        term_prompt = soup.new_tag('div', attrs={'class': 'jkr-term-prompt'})
-        arrow = soup.new_tag('span', attrs={'class': 'jkr-term-arrow'})
-        arrow.string = '$'
-        cursor = soup.new_tag('span', attrs={'class': 'jkr-term-cursor'})
-        cursor.string = '_'
-        term_prompt.append(arrow)
-        term_prompt.append(cursor)
-        term.append(term_prompt)
-
-        term_inner.append(term)
-        term_section.append(term_inner)
-
-        # ── 3. filter bar ───────────────────────────────────────────────
-        filter_bar = soup.new_tag('div', attrs={'class': 'jkr-filter'})
-        filter_inner = soup.new_tag('div', attrs={'class': 'jkr-filter-inner'})
+        nav = soup.new_tag('nav', attrs={'class': 'jkr-filter', 'aria-label': 'Filter posts'})
         filter_label = soup.new_tag('span', attrs={'class': 'jkr-filter-label'})
         filter_label.string = 'FILTER'
-        filter_inner.append(filter_label)
-
-        filter_chips = soup.new_tag('div', attrs={'class': 'jkr-filter-chips'})
+        nav.append(filter_label)
         # "All" lands the user back on the homepage; the rest go to category archives.
         chips = (
             ('All', '/'),
@@ -2938,14 +2887,60 @@ document.addEventListener('DOMContentLoaded', function() {
             ('AI', '/category/artificial-intelligence/'),
         )
         for label, href in chips:
-            cls = 'jkr-filter-chip jkr-filter-chip-active' if label == 'All' else 'jkr-filter-chip'
-            chip = soup.new_tag('a', href=href, attrs={'class': cls})
+            attrs = {'href': href}
+            if label == 'All':
+                attrs['class'] = 'is-active'
+            chip = soup.new_tag('a', attrs=attrs)
             chip.string = label
-            filter_chips.append(chip)
-        filter_inner.append(filter_chips)
+            nav.append(chip)
+        top_row.append(nav)
+        top.append(top_row)
 
-        filter_inner.append(soup.new_tag('span', attrs={'class': 'jkr-filter-spacer'}))
-        filter_bar.append(filter_inner)
+        # ── 2. editorial headline (the page's single <h1>) ──────────────
+        headline = soup.new_tag('h1', attrs={'class': 'jkr-headline'})
+        headline.string = 'Field notes from a homelab that costs real money to run.'
+        top.append(headline)
+
+        # ── 3. stats ribbon (replaces the terminal box) ─────────────────
+        stats = self._compute_ribbon_stats()
+        ribbon = soup.new_tag(
+            'div',
+            attrs={'class': 'jkr-ribbon', 'role': 'status', 'aria-label': 'Blog stats'},
+        )
+
+        def _ribbon_stat(prefix, value, suffix):
+            span = soup.new_tag('span')
+            if prefix:
+                span.append(soup.new_string(prefix))
+            bold = soup.new_tag('b')
+            bold.string = str(value)
+            span.append(bold)
+            if suffix:
+                span.append(soup.new_string(suffix))
+            return span
+
+        def _ribbon_dot():
+            dot = soup.new_tag('span', attrs={'class': 'jkr-r-dot'})
+            dot.string = '·'
+            return dot
+
+        days = stats['days_since_last']
+        days_label = f'{days}d' if days is not None else '—'
+
+        ribbon.append(_ribbon_stat('', stats['posts_count'], ' posts'))
+        ribbon.append(_ribbon_dot())
+        ribbon.append(_ribbon_stat('', stats['words_total'], ' words'))
+        ribbon.append(_ribbon_dot())
+        ribbon.append(_ribbon_stat('', days_label, ' since last post'))
+        ribbon.append(_ribbon_dot())
+        ribbon.append(_ribbon_stat('', stats['deploys_month'], ' deploys/mo'))
+        ribbon.append(_ribbon_dot())
+        ribbon.append(_ribbon_stat('lighthouse ', stats['lighthouse'], ''))
+
+        live = soup.new_tag('span', attrs={'class': 'jkr-r-live'})
+        live.string = '● live'
+        ribbon.append(live)
+        top.append(ribbon)
 
         # ── 4. topic index ──────────────────────────────────────────────
         topics = soup.new_tag('section', attrs={'class': 'jkr-topics'})
@@ -2987,19 +2982,16 @@ document.addEventListener('DOMContentLoaded', function() {
         topics.append(topics_grid)
 
         # ── insert ──────────────────────────────────────────────────────
-        # Strap → terminal → filter bar → hero all sit above the post grid.
-        # Each insert_before lands the node directly adjacent to posts_list,
-        # so insert in the desired final order: the last one inserted ends
-        # up closest to the grid. Hero is closest to the grid so it reads
-        # as "the top of the post stream", promoted from inside the loop.
-        posts_list.insert_before(strap)
-        posts_list.insert_before(term_section)
-        posts_list.insert_before(filter_bar)
+        # Top band → hero sit above the post grid. Each insert_before lands the
+        # node directly adjacent to posts_list, so the last one inserted ends up
+        # closest to the grid: the top band first, then the hero pulled up right
+        # above the post stream (and above the fold).
+        posts_list.insert_before(top)
         if hero is not None:
             posts_list.insert_before(hero)
         posts_list.insert_after(topics)
 
-        bits = ['strap', 'terminal', 'filter']
+        bits = ['top-band']
         if hero is not None:
             bits.append('hero')
         bits.append('topics')
