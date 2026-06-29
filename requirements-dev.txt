@@ -9,4 +9,4 @@ pyspellchecker==0.9.0
 
 # Lint + tests (python-checks workflow; run locally with `ruff check` / `pytest`)
 ruff==0.15.17
-pytest==9.1.0
+pytest==9.1.1
