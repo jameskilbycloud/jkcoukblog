@@ -312,43 +312,43 @@
         <div class="metrics">
             <div class="metric-card">
                 <h3>Total Deployments</h3>
-                <div class="metric-value">981</div>
+                <div class="metric-value">987</div>
                 <div class="metric-label">Git commits</div>
             </div>
             
             <div class="metric-card">
                 <h3>Repository Age</h3>
-                <div class="metric-value">268</div>
+                <div class="metric-value">269</div>
                 <div class="metric-label">Days active</div>
             </div>
             
             <div class="metric-card">
                 <h3>Contributors</h3>
-                <div class="metric-value">4</div>
+                <div class="metric-value">5</div>
                 <div class="metric-label">Active contributors</div>
             </div>
             
             <div class="metric-card">
                 <h3>Last Deployment</h3>
-                <div class="metric-value">2026-06-21</div>
-                <div class="metric-label">09:10:42</div>
+                <div class="metric-value">2026-06-29</div>
+                <div class="metric-label">14:40:46</div>
             </div>
         </div>
         
         <h2>🚀 Lighthouse Performance Scores</h2>
-        <p class="metric-label" style="margin-bottom: 15px;">Last checked: Estimated</p>
+        <p class="metric-label" style="margin-bottom: 15px;">Last checked: 2026-06-29 14:40:45 UTC</p>
         
         <div class="lighthouse-scores">
             <div class="score-card">
                 <div class="score-circle score-excellent">
-                    95
+                    94
                 </div>
                 <div class="score-label">Performance</div>
             </div>
             
             <div class="score-card">
                 <div class="score-circle score-excellent">
-                    95
+                    96
                 </div>
                 <div class="score-label">Accessibility</div>
             </div>
@@ -370,6 +370,36 @@
         
         <div class="changelog-section">
             <h2>Recent Changes</h2>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-29 <span class="change-hash">5684aaa</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore(lighthouse): record scores P94/A96/BP100/S100</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-29 <span class="change-hash">d21dc70</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix(stats): wire real Lighthouse scores into changelog/stats history (#107)</div>
+                <div class="change-details">The /stats/ and /changelog/ Lighthouse sections were showing hardcoded</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-29 <span class="change-hash">c017314</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore(deps): Bump actions/checkout from 6 to 7 (#104)</div>
+                <div class="change-details">Bumps [actions/checkout](https://github.com/actions/checkout) from 6 to 7.</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-29 <span class="change-hash">0d0edd4</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore(deps): Bump actions/cache from 5.0.5 to 6.0.0 (#103)</div>
+                <div class="change-details">Bumps [actions/cache](https://github.com/actions/cache) from 5.0.5 to 6.0.0.</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-06-29 <span class="change-hash">36ab35a</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore(deps-dev): Bump pytest from 9.1.0 to 9.1.1 (#106)</div>
+                <div class="change-details">Bumps [pytest](https://github.com/pytest-dev/pytest) from 9.1.0 to 9.1.1.</div>
+            </div>
+            <br>
 
             <div class="change-entry">
                 <div class="change-date">2026-06-18 <span class="change-hash">c5d5cd3</span><span class="category-badge badge-feature">Feature</span></div>
@@ -525,39 +555,10 @@
                 <div class="change-details">- deploy-static-site.yml: give all 13 continue-on-error steps ids and add a</div>
             </div>
 
-            <div class="change-entry">
-                <div class="change-date">2026-06-10 <span class="change-hash">cd62e99</span><span class="category-badge badge-fix">Fix</span></div>
-                <div class="change-title">fix: make Slack notify and secret-scan workflows survive Dependabot PRs (#86)</div>
-                <div class="change-details">Dependabot-triggered runs don&#x27;t receive repository secrets, so every</div>
-            </div>
-
-            <div class="change-entry">
-                <div class="change-date">2026-06-10 <span class="change-hash">0f9819c</span><span class="category-badge badge-fix">Fix</span></div>
-                <div class="change-title">fix: harden Slack workflow, pin Python deps, fix critical CSS truncation (#77)</div>
-                <div class="change-details">- issue-to-slack-improved.yml: pass issue/PR titles via env vars instead of</div>
-            </div>
-
-            <div class="change-entry">
-                <div class="change-date">2026-06-10 <span class="change-hash">22e258a</span><span class="category-badge badge-other">Other</span></div>
-                <div class="change-title">chore: change backup schedule from weekly to every 14 days</div>
-            </div>
-
-            <div class="change-entry">
-                <div class="change-date">2026-06-10 <span class="change-hash">8e4a9b4</span><span class="category-badge badge-other">Other</span></div>
-                <div class="change-title">chore: bump actions to Node 24 compatible versions</div>
-                <div class="change-details">checkout v5 -&gt; v6, upload-artifact v4.6.2 -&gt; v7</div>
-            </div>
-
-            <div class="change-entry">
-                <div class="change-date">2026-06-10 <span class="change-hash">6bd8d11</span><span class="category-badge badge-fix">Fix</span></div>
-                <div class="change-title">fix: remove invalid =no argument from --no-host-directories wget flag</div>
-                <div class="change-details">Caused wget to error and download 0 media files.</div>
-            </div>
-
         </div>
         
         <div class="timestamp">
-            Page generated: 2026-06-28 07:12:09 UTC<br>
+            Page generated: 2026-06-29 15:45:42 UTC<br>
             Changelog powered by Git history and Lighthouse CI
         </div>
     </div>
