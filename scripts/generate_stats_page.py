@@ -58,27 +58,66 @@ def get_build_metrics():
             'posts': 0
         }
     
-    # Count HTML pages
+    import re
+
+    # Count HTML pages and their on-disk weight (HTML only, not images/sidecars)
     html_files = list(public_dir.rglob('*.html'))
     metrics['total_pages'] = len(html_files)
-    
+    metrics['total_html_bytes'] = sum(f.stat().st_size for f in html_files)
+
     # Count posts (in dated directories - those with YYYY in path)
-    import re
     posts = [f for f in html_files if any(re.match(r'^\d{4}$', str(p)) for p in f.parts)]
     metrics['posts'] = len(posts)
-    
-    # Count images
-    image_extensions = ['*.png', '*.jpg', '*.jpeg', '*.gif', '*.webp', '*.svg']
-    total_images = 0
-    for ext in image_extensions:
-        total_images += len(list(public_dir.rglob(ext)))
-    metrics['total_images'] = total_images
-    
-    # Calculate total size
-    total_size = sum(f.stat().st_size for f in public_dir.rglob('*') if f.is_file())
+
+    # Count DISTINCT logical images, not image files. The pipeline emits an
+    # AVIF + WebP variant per image, and WordPress emits responsive -WxH sizes,
+    # so a raw file count trebled-or-worse the real number (e.g. 5,372 files
+    # for ~450 actual images). Collapse format variants and -WxH suffixes so
+    # "images" and "images per post" mean what a reader expects.
+    img_exts = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.avif'}
+    size_suffix = re.compile(r'-\d+x\d+$')
+    distinct_images = set()
+    image_files = 0
+    avif_variants = 0
+    webp_variants = 0
+    for f in public_dir.rglob('*'):
+        if not f.is_file():
+            continue
+        ext = f.suffix.lower()
+        if ext not in img_exts:
+            continue
+        image_files += 1
+        if ext == '.avif':
+            avif_variants += 1
+        elif ext == '.webp':
+            webp_variants += 1
+        base = size_suffix.sub('', f.stem)
+        distinct_images.add((str(f.parent), base))
+    metrics['total_images'] = len(distinct_images)
+    metrics['image_files'] = image_files
+    metrics['avif_variants'] = avif_variants
+    metrics['webp_variants'] = webp_variants
+
+    # Calculate total size, and the share that is images / precompressed sidecars
+    metrics['total_size_mb'] = 0
+    image_bytes = 0
+    precompressed_bytes = 0
+    total_size = 0
+    for f in public_dir.rglob('*'):
+        if not f.is_file():
+            continue
+        size = f.stat().st_size
+        total_size += size
+        if f.suffix.lower() in img_exts:
+            image_bytes += size
+        elif f.suffix.lower() in ('.br', '.gz'):
+            precompressed_bytes += size
     metrics['total_size_mb'] = round(total_size / 1024 / 1024, 2)
-    
-    print(f"   ✅ Found {metrics['total_pages']} pages, {metrics['posts']} posts, {metrics['total_images']} images")
+    metrics['image_size_mb'] = round(image_bytes / 1024 / 1024, 2)
+    metrics['precompressed_size_mb'] = round(precompressed_bytes / 1024 / 1024, 2)
+
+    print(f"   ✅ Found {metrics['total_pages']} pages, {metrics['posts']} posts, "
+          f"{metrics['total_images']} images ({image_files} files incl. variants)")
     return metrics
 
 def get_git_stats():
@@ -88,10 +127,18 @@ def get_git_stats():
     stats = {}
     
     # Total commits
-    result = subprocess.run(['git', 'rev-list', '--count', 'HEAD'], 
+    result = subprocess.run(['git', 'rev-list', '--count', 'HEAD'],
                           capture_output=True, text=True)
     stats['total_commits'] = result.stdout.strip() if result.returncode == 0 else 'N/A'
-    
+
+    # Actual deployments: only the auto-pipeline "Auto-update static site"
+    # commits are real deploys. Total commit count (~3× higher) also includes
+    # every feature/fix/docs commit, so labelling that as "Deployments" overstates.
+    result = subprocess.run(
+        ['git', 'rev-list', '--count', '--grep=Auto-update static site', 'HEAD'],
+        capture_output=True, text=True)
+    stats['total_deployments'] = result.stdout.strip() if result.returncode == 0 and result.stdout.strip() else stats['total_commits']
+
     # Last deployment
     result = subprocess.run(['git', 'log', '-1', '--format=%ci'], 
                           capture_output=True, text=True)
@@ -135,8 +182,10 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
         if auth_match:
             plausible_share_link = auth_match.group(1)
     
-    # Calculate some derived metrics
-    avg_page_size = (build_metrics['total_size_mb'] / build_metrics['total_pages']) if build_metrics['total_pages'] > 0 else 0
+    # Calculate some derived metrics. Average page size is the mean HTML
+    # document weight in KB — NOT total site size (mostly images) over page
+    # count, which the old code computed in MB but mislabelled as KB.
+    avg_page_size = (build_metrics['total_html_bytes'] / 1024 / build_metrics['total_pages']) if build_metrics['total_pages'] > 0 else 0
     images_per_post = (build_metrics['total_images'] / build_metrics['posts']) if build_metrics['posts'] > 0 else 0
     
     html = f"""<!DOCTYPE html>
@@ -502,7 +551,7 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
             
             <div class="stat-card">
                 <div class="stat-icon">🚀</div>
-                <div class="stat-value">{git_stats['total_commits']}</div>
+                <div class="stat-value">{git_stats['total_deployments']}</div>
                 <div class="stat-label">Deployments</div>
             </div>
             
@@ -576,22 +625,22 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
                 <tr>
                     <td>Total Images</td>
                     <td>{build_metrics['total_images']}</td>
-                    <td>Optimized images (PNG, JPG, WebP, SVG)</td>
+                    <td>Distinct images — each served as AVIF + WebP with responsive sizes ({build_metrics['image_files']} files total)</td>
                 </tr>
                 <tr>
                     <td>Total Site Size</td>
                     <td>{build_metrics['total_size_mb']} MB</td>
-                    <td>All files in public directory</td>
+                    <td>All files: {build_metrics['image_size_mb']} MB image variants + {build_metrics['precompressed_size_mb']} MB precompressed .br/.gz</td>
                 </tr>
                 <tr>
                     <td>Average Page Size</td>
-                    <td>{avg_page_size:.2f} KB</td>
-                    <td>Total size / number of pages</td>
+                    <td>{avg_page_size:.1f} KB</td>
+                    <td>Mean HTML document weight (excludes images and other assets)</td>
                 </tr>
                 <tr>
                     <td>Images per Post</td>
                     <td>{images_per_post:.1f}</td>
-                    <td>Average images per blog post</td>
+                    <td>Average distinct images per blog post</td>
                 </tr>
                 <tr>
                     <td>Last Deployment</td>
@@ -600,8 +649,8 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
                 </tr>
                 <tr>
                     <td>Total Deployments</td>
-                    <td>{git_stats['total_commits']}</td>
-                    <td>Git commits to main branch</td>
+                    <td>{git_stats['total_deployments']}</td>
+                    <td>Auto-update pipeline commits ({git_stats['total_commits']} total commits incl. code changes)</td>
                 </tr>
             </table>
         </div>
@@ -680,7 +729,7 @@ def main():
     print("   🌐 URL: https://jameskilby.co.uk/stats/")
     print(f"   📊 Lighthouse Performance: {lighthouse['performance']}/100")
     print(f"   📈 Total Pages: {build_metrics['total_pages']}")
-    print(f"   🚀 Total Deployments: {git_stats['total_commits']}")
+    print(f"   🚀 Total Deployments: {git_stats['total_deployments']}")
     
     return True
 
