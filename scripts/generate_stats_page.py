@@ -158,7 +158,10 @@ def get_git_stats():
         stats['last_deploy'] = 'Unknown'
         stats['last_deploy_time'] = ''
     
-    # Commits this month
+    # Commits this month — ALL commits (code, docs, auto-deploys), not just
+    # deploys. Surfaced as the "Commits This Month" card; deliberately distinct
+    # from the deploy-only "Deployments" card (total_deployments) so the two
+    # aren't conflated.
     result = subprocess.run([
         'git', 'log', '--since', '1 month ago', '--oneline'
     ], capture_output=True, text=True)
@@ -710,7 +713,7 @@ def generate_stats_html(lighthouse, history, build_metrics, git_stats):
             <div class="stat-card">
                 <div class="stat-icon">📅</div>
                 <div class="stat-value">{git_stats['commits_this_month']}</div>
-                <div class="stat-label">Updates This Month</div>
+                <div class="stat-label">Commits This Month</div>
             </div>
         </div>
         
