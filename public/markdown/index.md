@@ -49,11 +49,11 @@ tags...................129
 
 vexpert.years...........11
 
-deploys.month..........121
+deploys.month..........118
 
 last_deploy..........today
 
-lighthouse..........94/100
+lighthouse..........96/100
 
 $_
 
