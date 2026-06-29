@@ -7,11 +7,17 @@ author: James Kilby
 categories:
   - Homelab
   - Storage
-  - Synology
-  - Networking
+  - Docker
+  - Hosting
+  - Kubernetes
+  - Nutanix
   - VMware
-  - Artificial Intelligence
+  - vExpert
   - Ansible
+  - Automation
+  - Traefik
+  - VCF
+  - TrueNAS Scale
 tags:
   - #NAS
   - #TrueNAS Scale
@@ -26,7 +32,7 @@ image: https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22
 
 # Homelab Storage Refresh (Part 1)
 
-By[James](https://jameskilby.co.uk)May 23, 2023 · Updated June 1, 2026 • 📖9 min read(1,855 words)
+By[James](https://jameskilby.co.uk) May 23, 2023 · Updated June 1, 2026 • 📖9 min read(1,855 words)
 
 📅**Published:** May 23, 2023•**Updated:** June 01, 2026
 
@@ -118,12 +124,12 @@ The current disk architecture is shown below. However, this is likely not the fi
 
 Role| Number| Device| Config| Usable/Role  
 ---|---|---|---|---  
-Boot Drive| 2| Intel 80GB SSD| MIRROR| N/A only used for TrueNas OS  
-SSD Pool| 6| Samsung 860 EVO 2TB| 2 x MIRROR | 3 wide| 4.71TiB (TrueNas Apps and VM storage)  
-HD Pool 1| 4| Seagate IronWolf 8TB | 1xRAIDZ1| 21TiB ( Media storage)   
-HD Pool 2| 4| HGST 1TB 7200RPM| 1xRAIDZ1| 3TiB. ( Files and Photos)   
-ARC (Assigned to SSD Pool)| 1| Intel 2TB NVMe| JBOD| N/A ARC is only used as a read cache and doesn’t contribute to capacity  
-SLOG (Assigned to SSD Pool)| 2| [Intel DC P4800X Optane](https://ark.intel.com/content/www/us/en/ark/products/97154/intel-optane-ssd-dc-p4800x-series-750gb-2-5in-pcie-x4-3d-xpoint.html)| 2 x MIRROR| SLOG is a write log and doesn’t add to capacity  
+Boot Drive | 2 | Intel 80GB SSD | MIRROR | N/A only used for TrueNas OS  
+SSD Pool | 6 | Samsung 860 EVO 2TB | 2 x MIRROR | 3 wide | 4.71TiB (TrueNas Apps and VM storage)  
+HD Pool 1 | 4 | Seagate IronWolf 8TB  | 1xRAIDZ1 | 21TiB ( Media storage)   
+HD Pool 2 | 4 | HGST 1TB 7200RPM | 1xRAIDZ1 | 3TiB. ( Files and Photos)   
+ARC (Assigned to SSD Pool) | 1 | Intel 2TB NVMe | JBOD | N/A ARC is only used as a read cache and doesn’t contribute to capacity  
+SLOG (Assigned to SSD Pool) | 2 | [Intel DC P4800X Optane](https://ark.intel.com/content/www/us/en/ark/products/97154/intel-optane-ssd-dc-p4800x-series-750gb-2-5in-pcie-x4-3d-xpoint.html) | 2 x MIRROR | SLOG is a write log and doesn’t add to capacity  
   
 I will do some proper performance testing in my next post and I’m sure there are optimisations I can make before I do that but until that’s done. I did just run CrystalMark to ensure things are running in the right ballpark.
 
@@ -141,62 +147,62 @@ I dug out some old testing from the Synology. The test isn’t exactly the same 
 
 ## Similar Posts
 
-  * [![Homelab Storage Upgrade: Synology DS918 for VMware & NFS](https://jameskilby.co.uk/wp-content/uploads/2023/04/81-ZoEW24UL._SL1500_-768x461.jpg)](https://jameskilby.co.uk/2019/02/lab-storage-2/)
+  * [ ![Homelab Storage Upgrade: Synology DS918 for VMware & NFS](https://jameskilby.co.uk/wp-content/uploads/2023/04/81-ZoEW24UL._SL1500_-768x461.jpg) ](https://jameskilby.co.uk/2019/02/lab-storage-2/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/)
 
 ### [Homelab Storage Upgrade: Synology DS918 for VMware & NFS](https://jameskilby.co.uk/2019/02/lab-storage-2/)
 
-By[James](https://jameskilby.co.uk)February 10, 2019 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk) February 10, 2019 · Updated June 5, 2026
 
 Since starting my new role with Xtravirt my Homelab has gone through several fairly significant changes.
 
-  * [![Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1-768x403.jpg)](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
+  * [ ![Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png) ](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)
+[Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernetes/)
 
-### [Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
+### [Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
 
-By[James](https://jameskilby.co.uk)November 21, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) December 9, 2022 · Updated June 5, 2026
 
-I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate.
+Late to the party or not, I have been using containers in my lab more and more and that has led me to Portainer ….
 
-  * [![Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_-768x512.png)](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
+  * [ ![New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg) ](https://jameskilby.co.uk/2024/07/new-nodes/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
+### [New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/2024/07/new-nodes/)
 
-By[James](https://jameskilby.co.uk)June 26, 2024 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk) July 2, 2024 · Updated June 5, 2026
 
-How to configure DHCP Option 43 for UniFi devices 
+I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul .
 
-  * [![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png)](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
+  * [ ![Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png) ](https://jameskilby.co.uk/2023/04/intel-optane/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://jameskilby.co.uk/category/vexpert/)
 
-### [MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
+### [Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/2023/04/intel-optane/)
 
-By[James](https://jameskilby.co.uk)December 19, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) April 17, 2023 · Updated June 1, 2026
 
-For a while, I’ve been looking to update the networking at the core of my homelab.
+I have been a VMware vExpert for many years and it has brought me many benefits over the years.
 
-  * [![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-768x180.png)](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
+  * [ ![Automated VCF 9 Offline Depot architecture diagram showing Traefik reverse proxy and Nginx file server stack](https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png) ](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
 
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [Warp – The intelligent terminal](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
+### [Automated VCF 9 Offline Depot](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
 
-By[James](https://jameskilby.co.uk)April 11, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) April 10, 2026 · Updated June 1, 2026
 
-How Warp is helping me run my homelab. 
+One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS.
 
-  * [![Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore-768x768.png)](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
+  * [ ![TrueNAS Logo](https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22-at-18.49.21-768x198.png) ](https://jameskilby.co.uk/2023/11/truenas-scale-useful-commands/)
 
-[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
+[Kubernetes](https://jameskilby.co.uk/category/kubernetes/) | [TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/)
 
-### [Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
+### [TrueNAS Scale CLI Reference: Storage & Kubernetes Commands](https://jameskilby.co.uk/2023/11/truenas-scale-useful-commands/)
 
-By[James](https://jameskilby.co.uk)September 2, 2025 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk) November 13, 2023 · Updated April 11, 2026
 
-An intro on how I use SemaphoreUI to manage my Homelab
+A list of useful Truenas Scale commands

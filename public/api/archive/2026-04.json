@@ -21,11 +21,13 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Github",
-        "AWS",
-        "Veeam",
-        "Storage",
-        "Nutanix"
+        "Nutanix",
+        "Personal",
+        "vSphere",
+        "Ansible",
+        "VCF",
+        "Hosting",
+        "Wordpress"
       ],
       "tags": [
         null,
@@ -60,15 +62,18 @@
       "categories": [
         "Automation",
         "Github",
-        "Ubuntu",
         "Homelab",
-        "Nutanix",
-        "VMware",
         "Networking",
-        "Hosting",
+        "Storage",
+        "VMware",
         "Docker",
+        "Hosting",
         "Kubernetes",
-        "Artificial Intelligence"
+        "VCF",
+        "Synology",
+        "Artificial Intelligence",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,
@@ -80,7 +85,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png",
-      "excerpt": "![Packer Github Actions Vsphere Pipeline](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png)\n\n[Automation](https://jameskilby.co.uk/category/automation/) | [Github](https://jameskilby.co.uk/category/github/)\n\n# Automating vSphere Golden Images with Packer..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png)\n\n[Automation](https://jameskilby.co.uk/category/automation/) | [Github](https://jameskilby.co.uk/category/github/)\n\n# Automating vSphere Golden Images with Packer and GitHub Actions\n\nBy[James](https:/..."
     },
     {
       "slug": "vsphere-power-management-driven-by-ansible",
@@ -95,20 +100,15 @@
       "categories": [
         "Ansible",
         "Automation",
-        "VMware",
-        "Personal",
-        "vSphere",
-        "Mikrotik",
-        "Networking",
-        "Homelab",
-        "Storage",
-        "Synology",
-        "VMware Cloud on AWS",
-        "Veeam",
         "Artificial Intelligence",
         "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Hosting",
+        "Homelab",
+        "VMware",
+        "Storage",
+        "vExpert",
+        "AWS",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -137,11 +137,16 @@
         "Traefik",
         "VCF",
         "VMware",
-        "Runecast",
-        "Storage",
-        "Ubuntu",
+        "Nutanix",
+        "Mikrotik",
         "Networking",
-        "Hosting"
+        "Hosting",
+        "Storage",
+        "vExpert",
+        "Cloudflare",
+        "Devops",
+        "Github",
+        "Wordpress"
       ],
       "tags": [
         null,
@@ -166,7 +171,7 @@
     {
       "slug": "new-vmc-host-i7i-metal-24xl",
       "title": "New VMware Cloud on AWS Host: i7i.metal-24xl",
-      "description": "We’ve expanded the VMC fleet with the new i7i (i7i.24xlarge) host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it",
+      "description": "We’ve expanded the VMC fleet with the new i7i (i7i.",
       "date": "2026-04-01T08:06:00Z",
       "modified": "2026-06-01T21:07:20Z",
       "author": "James Kilby",
@@ -176,12 +181,10 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "VCF",
-        "Personal",
-        "vSphere",
         "Homelab",
-        "Veeam",
-        "Automation"
+        "Nutanix",
+        "Personal",
+        "VCF"
       ],
       "tags": [
         null,
@@ -189,7 +192,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp",
-      "excerpt": "![Vmconaws.Png](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# New VMware Cloud on AWS Host: i7i.metal-24xl\n\nBy[James](https://jamesk..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# New VMware Cloud on AWS Host: i7i.metal-24xl\n\nBy[James](https://jameskilby.co.uk) ..."
     }
   ]
 }

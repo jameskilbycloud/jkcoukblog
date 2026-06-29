@@ -16,14 +16,18 @@
       "categories": [
         "Devops",
         "Personal",
-        "Nutanix",
-        "Automation",
+        "Consulting",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
         "Homelab",
+        "NVIDIA",
+        "Traefik",
         "VMware",
         "Cloudflare",
         "Github",
         "Wordpress",
-        "Consulting"
+        "Automation"
       ],
       "tags": [
         null,
@@ -31,7 +35,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg",
-      "excerpt": "![175Jvbleoqfazjc3Sgtspqa](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg)\n\n[Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# My First GitHub Pull Request: Contributing to Open Source\n\nBy[James](https://j..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg)\n\n[Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# My First GitHub Pull Request: Contributing to Open Source\n\nBy[James](https://jameskilby.co.uk) Decemb..."
     }
   ]
 }
