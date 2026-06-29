@@ -73,7 +73,7 @@ jobs:
         fetch-depth: 0  # Fetch full history
       
     - name: Restore spell check cache
-      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
+      uses: actions/cache@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
       with:
         path: .last_spell_check_timestamp
         key: spell-check-${{ github.sha }}
@@ -203,7 +203,7 @@ jobs:
 
     - name: Restore incremental build cache
       id: incremental-cache-restore
-      uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
+      uses: actions/cache/restore@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
       with:
         path: .build-cache.json
         # Include run_attempt so re-runs of the same workflow (e.g. after a
@@ -481,7 +481,7 @@ jobs:
 
     - name: Save incremental build cache
       if: success()
-      uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
+      uses: actions/cache/save@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
       with:
         path: .build-cache.json
         # Must match the restore key above — include run_attempt so re-runs
