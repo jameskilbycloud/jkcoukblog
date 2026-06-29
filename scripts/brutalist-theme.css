@@ -1281,182 +1281,81 @@ div, section, aside, nav {
    wp_to_static_generator.py. Class prefix: .jkr-* (jk redesign).
 ─────────────────────────────────────────────────────────────────────── */
 
-/* Hero strap ---------------------------------------------------------- */
+/* ---- Homepage top band (Option B) ----
+   Strap + filter share the top row, the editorial <h1> is the headline, and a
+   single-line stats ribbon replaces the old terminal box. Reclaims the wasted
+   vertical space so the featured hero sits above the fold. */
+.jkr-top {
+  max-width: 1280px;
+  margin: 0 auto 2.5rem;
+  padding: 2.5rem 2.5rem 1.75rem;
+  border-bottom: 1px solid var(--gray-mid, #1f1f1f);
+}
+.jkr-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
 .jkr-strap {
-  position: relative;
-  border-bottom: 1px solid #1f1f1f;
-  background-color: var(--bg-dark) !important;
-}
-.jkr-strap-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 4.5rem 2.5rem 4rem;
-}
-.jkr-strap-meta {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6875rem;
-  letter-spacing: 0.18em;
-  color: var(--accent-orange);
-  margin-bottom: 1.5rem;
-}
-.jkr-strap-h {
-  font-family: 'Anton', sans-serif !important;
-  font-size: 4.75rem !important;
-  line-height: 0.98 !important;
-  margin: 0 !important;
-  font-weight: 400 !important;
-  letter-spacing: 0.01em !important;
-  text-transform: uppercase;
-  color: var(--text-light) !important;
-}
-
-/* Terminal stats ----------------------------------------------------- */
-.jkr-term-wrap {
-  position: relative;
-  border-bottom: 1px solid #1f1f1f;
-  background-color: var(--bg-dark) !important;
-}
-.jkr-term-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem 2.5rem 0.5rem;
-}
-.jkr-term {
-  border: 1px solid #1f1f1f;
-  background: #070707;
-  font-family: 'JetBrains Mono', monospace;
-}
-.jkr-term-head {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.625rem 1rem;
-  border-bottom: 1px solid #1f1f1f;
-  background: #101010;
-}
-.jkr-term-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #2a2a2a;
-}
-.jkr-term-path {
-  color: #7a766c;
-  font-size: 0.71875rem;
-  margin-left: 0.75rem;
-  flex: 1;
-}
-.jkr-term-live {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  font-size: 0.6875rem;
-  color: #7da87d;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.jkr-term-live-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #7da87d;
-  box-shadow: 0 0 6px #7da87d;
-}
-.jkr-term-body {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  padding: 1.375rem 1.5rem 1.125rem;
-}
-.jkr-term-col {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-  padding-right: 1.5rem;
-}
-.jkr-term-row {
-  display: flex;
-  align-items: baseline;
-  font-size: 0.8125rem;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.jkr-term-k { color: #9a978e; }
-.jkr-term-dots {
-  color: #2a2a2a;
-  margin: 0 0.5rem;
-  flex: 1;
-  overflow: hidden;
-  white-space: nowrap;
-  letter-spacing: 1px;
-}
-.jkr-term-v { color: var(--accent-orange) !important; font-weight: 500; }
-.jkr-term-prompt {
-  padding: 0 1.5rem 1.125rem;
-  display: flex;
-  gap: 0.625rem;
-  font-size: 0.8125rem;
-}
-.jkr-term-arrow { color: #7da87d; }
-.jkr-term-cursor {
-  color: var(--text-light);
-  animation: jkr-blink 1s steps(2) infinite;
-}
-@keyframes jkr-blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
-
-/* Filter bar --------------------------------------------------------- */
-.jkr-filter {
-  position: relative;
-  border-top: 1px solid #1f1f1f;
-  border-bottom: 1px solid #1f1f1f;
-  margin-top: 1.5rem;
-  background-color: var(--bg-dark) !important;
-}
-.jkr-filter-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 1rem 2.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-.jkr-filter-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 0.6875rem;
   letter-spacing: 0.16em;
-  color: #7a766c;
+  color: var(--accent, #f6821f);
 }
-.jkr-filter-chips {
+
+/* filter — inline, no longer its own block */
+.jkr-filter { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.jkr-filter-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.6875rem; letter-spacing: 0.16em; color: var(--gray-light, #7a766c);
+  margin-right: 0.25rem;
+}
+.jkr-filter a {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem; letter-spacing: 0.04em;
+  color: #c8c5bd; text-decoration: none;
+  border: 1px solid var(--gray-mid, #262625);
+  padding: 0.3rem 0.7rem;
+}
+.jkr-filter a.is-active { background: var(--accent, #f6821f); color: #0a0a0a; border-color: var(--accent, #f6821f); font-weight: 600; }
+.jkr-filter a:hover:not(.is-active) { border-color: var(--accent, #f6821f); color: #f5f3ee; }
+
+/* headline — tighter, capped measure so the right gutter isn't dead space */
+.jkr-headline {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.04;
+  letter-spacing: 0.005em;
+  color: #f5f3ee;
+  margin: 0 0 1.5rem;
+  max-width: 46rem;
+}
+
+/* the ribbon that replaces the terminal box */
+.jkr-ribbon {
   display: flex;
-  gap: 0.25rem;
-  flex: 1;
+  align-items: center;
+  gap: 0.75rem;
   flex-wrap: wrap;
-}
-.jkr-filter-chip {
-  background: transparent;
-  border: 1px solid transparent;
-  color: #9a978e !important;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--gray-mid, #1f1f1f);
+  font-family: "JetBrains Mono", monospace;
   font-size: 0.8125rem;
-  padding: 0.375rem 0.75rem;
-  font-weight: 500;
-  text-decoration: none !important;
-  cursor: pointer;
-  text-transform: none;
-  letter-spacing: 0;
+  color: var(--gray-light, #7a766c);
 }
-.jkr-filter-chip:hover {
-  color: var(--text-light) !important;
-  text-decoration: none !important;
-  opacity: 1;
-}
-.jkr-filter-chip-active,
-.jkr-filter-chip-active:hover {
-  background: var(--accent-orange) !important;
-  color: var(--bg-dark) !important;
-  font-weight: 600;
+.jkr-ribbon b { color: #f5f3ee; font-weight: 600; }
+.jkr-ribbon span { color: #c8c5bd; }
+.jkr-r-dot { color: #3a3a38 !important; }
+.jkr-r-live { margin-left: auto; color: #7da87d !important; font-size: 0.72rem; letter-spacing: 0.1em; }
+
+/* mobile: ribbon wraps, live marker drops below */
+@media (max-width: 640px) {
+  .jkr-r-live { margin-left: 0; width: 100%; }
+  .jkr-headline { font-size: clamp(1.75rem, 8vw, 2.25rem); }
 }
 
 /* Refined post-card hover (offset translate + orange shadow) ----------
@@ -1543,22 +1442,7 @@ div, section, aside, nav {
 
 /* Mobile adjustments for redesign sections --------------------------- */
 @media (max-width: 768px) {
-  .jkr-strap-inner {
-    padding: 2.5rem 1.25rem 2rem;
-  }
-  .jkr-strap-h { font-size: 2.5rem !important; }
-  .jkr-term-inner { padding: 1.25rem 1.25rem 0.5rem; }
-  .jkr-term-body {
-    grid-template-columns: 1fr;
-    padding: 1rem 1rem 0.75rem;
-  }
-  .jkr-term-col { padding-right: 0; }
-  .jkr-term-prompt { padding: 0 1rem 1rem; }
-  .jkr-filter-inner {
-    padding: 0.75rem 1.25rem;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
+  .jkr-top { padding: 2rem 1.25rem 1.5rem; }
   .jkr-topics { padding: 2.5rem 1.25rem; margin-top: 1.5rem; }
   .jkr-topics-h2 { font-size: 2rem !important; }
   .jkr-topics-grid { grid-template-columns: 1fr; }
@@ -1609,9 +1493,7 @@ div, section, aside, nav {
   #colophon,
   script,
   .splide,
-  .jkr-strap,
-  .jkr-term-wrap,
-  .jkr-filter,
+  .jkr-top,
   .jkr-topics {
     display: none !important;
   }

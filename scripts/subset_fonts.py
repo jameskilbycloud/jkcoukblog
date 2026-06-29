@@ -125,8 +125,8 @@ FONT_SPECS = (
         tag_selectors=('h1', 'h2', 'h3', 'h4', 'h5', 'h6'),
         class_selectors=(
             '.site-title', '.entry-title',
-            '.jkr-eyebrow', '.jkr-strap-meta', '.jkr-filter-label',
-            '.jkr-topic-count', '.jkr-term',
+            '.jkr-eyebrow', '.jkr-topic-count',
+            # .jkr-headline is an <h1> (covered by the tag selector above).
         ),
     ),
 
@@ -143,8 +143,13 @@ FONT_SPECS = (
             '.wp-block-code',
             '.jkr-hero-cats', '.jkr-hero-cats span',
             '.jkr-hero-meta',
+            # Homepage top band (Option B): strap, filter and stats ribbon all
+            # render in JetBrains Mono.
+            '.jkr-strap', '.jkr-filter', '.jkr-filter-label', '.jkr-ribbon',
         ),
-        safety_pad=ASCII_PRINTABLE + TYPO_PAD + CODE_PAD,
+        # '●' (U+25CF) is the ribbon's "● live" marker — keep it in the subset
+        # so it doesn't fall back to system monospace.
+        safety_pad=ASCII_PRINTABLE + TYPO_PAD + CODE_PAD + '●',
     ),
 
     # JetBrains Mono 700 — hero "LATEST" badge plus any bold inside
