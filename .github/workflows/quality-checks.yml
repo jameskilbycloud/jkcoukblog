@@ -43,6 +43,11 @@ jobs:
     name: Lighthouse Performance
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    # contents: write so the "Record scores" step can commit the latest real
+    # measurement (data/lighthouse-latest.json) back to main. The org default
+    # GITHUB_TOKEN is read-only, so this must be granted explicitly.
+    permissions:
+      contents: write
     if: |
       github.event_name == 'schedule' ||
       github.event_name == 'push' ||
@@ -205,6 +210,55 @@ jobs:
           else
             echo "⚠️  No Lighthouse reports found"
             echo "has_results=false" >> $GITHUB_OUTPUT
+          fi
+
+      # Persist the real Lighthouse scores so the /changelog/ and /stats/ pages
+      # can show genuine numbers. generate_changelog.py (run by the deploy
+      # pipeline) reads data/lighthouse-latest.json and folds it into
+      # public/changelog/lighthouse-history.json. We commit to a NON-public path
+      # so this push doesn't re-trigger quality-checks (push paths: public/**)
+      # and doesn't collide with the deploy pipeline's regeneration of public/.
+      # Skipped on pull_request — PR runs can't (and shouldn't) push to main.
+      - name: Record Lighthouse scores to repo
+        if: github.event_name != 'pull_request' && steps.lighthouse_results.outputs.has_results == 'true'
+        continue-on-error: true
+        run: |
+          mkdir -p data
+          jq -n \
+            --arg measured_at "$(date -u '+%Y-%m-%d %H:%M:%S UTC')" \
+            --arg url "${{ steps.lighthouse_results.outputs.url }}" \
+            --argjson performance "${{ steps.lighthouse_results.outputs.performance }}" \
+            --argjson accessibility "${{ steps.lighthouse_results.outputs.accessibility }}" \
+            --argjson best_practices "${{ steps.lighthouse_results.outputs.best_practices }}" \
+            --argjson seo "${{ steps.lighthouse_results.outputs.seo }}" \
+            --arg lcp "${{ steps.lighthouse_results.outputs.lcp }}" \
+            --arg fcp "${{ steps.lighthouse_results.outputs.fcp }}" \
+            --arg cls "${{ steps.lighthouse_results.outputs.cls }}" \
+            --arg tti "${{ steps.lighthouse_results.outputs.tti }}" \
+            '{measured_at: $measured_at, url: $url, performance: $performance, accessibility: $accessibility, best_practices: $best_practices, seo: $seo, lcp: $lcp, fcp: $fcp, cls: $cls, tti: $tti}' \
+            > data/lighthouse-latest.json
+
+          echo "📄 data/lighthouse-latest.json:"
+          cat data/lighthouse-latest.json
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/lighthouse-latest.json
+
+          if git diff --cached --quiet; then
+            echo "ℹ️  No score change — nothing to commit"
+            exit 0
+          fi
+
+          git commit -m "chore(lighthouse): record scores P${{ steps.lighthouse_results.outputs.performance }}/A${{ steps.lighthouse_results.outputs.accessibility }}/BP${{ steps.lighthouse_results.outputs.best_practices }}/S${{ steps.lighthouse_results.outputs.seo }}"
+
+          # The deploy pipeline also pushes to main; rebase-retry on contention.
+          if git push origin HEAD:main; then
+            echo "✅ Pushed lighthouse scores"
+          else
+            echo "⚠️  Push rejected — rebasing onto latest main and retrying..."
+            git fetch origin main
+            git rebase origin/main && git push origin HEAD:main
           fi
 
       - name: Notify Slack with metrics (on push/PR)

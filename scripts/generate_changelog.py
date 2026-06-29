@@ -15,7 +15,6 @@ import os
 from datetime import datetime
 from html import escape as html_escape
 from pathlib import Path
-import requests
 
 def load_lighthouse_history():
     """Load historical Lighthouse scores"""
@@ -29,67 +28,83 @@ def load_lighthouse_history():
             return []
     return []
 
+# Real Lighthouse scores are produced by the `Quality Checks` workflow
+# (quality-checks.yml), which runs the genuine Lighthouse CI against the
+# production URL and commits the latest run here. We READ that measurement
+# rather than calling Google's PageSpeed Insights API — the unauthenticated
+# PSI endpoint returns HTTP 429 (shared daily quota exhausted) and the old
+# code silently fell back to hardcoded 95/95/100/100 "Estimated" scores,
+# which then masqueraded as real data on /changelog/ and /stats/.
+LIGHTHOUSE_LATEST_FILE = Path('data/lighthouse-latest.json')
+
 def save_lighthouse_scores(scores, history):
-    """Save current Lighthouse scores to history"""
-    # Add current scores to history
-    history.append({
-        'date': datetime.now().strftime('%Y-%m-%d'),
+    """Save current Lighthouse scores to history (one entry per date — latest wins)."""
+    today = datetime.now().strftime('%Y-%m-%d')
+    entry = {
+        'date': today,
         'timestamp': scores['timestamp'],
         'performance': scores['performance'],
         'accessibility': scores['accessibility'],
         'best_practices': scores['best_practices'],
         'seo': scores['seo']
-    })
-    
-    # Keep only last 90 days of history
+    }
+
+    # Replace an existing same-date entry rather than appending a duplicate.
+    # The deploy pipeline runs many times a day; without this, history would
+    # fill with identical same-day rows and the trend series would be useless.
+    history = [e for e in history if e.get('date') != today]
+    history.append(entry)
+
+    # Keep only the last 90 days of history
     cutoff_date = datetime.now().timestamp() - (90 * 24 * 60 * 60)
     history = [entry for entry in history if datetime.strptime(entry['date'], '%Y-%m-%d').timestamp() > cutoff_date]
-    
+
     # Save to file
     history_file = Path('public/changelog/lighthouse-history.json')
     history_file.parent.mkdir(parents=True, exist_ok=True)
     with open(history_file, 'w') as f:
         json.dump(history, f, indent=2)
-    
+
     print(f"✅ Saved Lighthouse scores to history ({len(history)} entries)")
     return history
 
 def get_lighthouse_scores():
-    """Fetch Lighthouse scores for the site"""
-    print("📊 Fetching Lighthouse scores...")
-    
-    # Use PageSpeed Insights API (Google's public Lighthouse API)
-    url = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
-    params = {
-        "url": "https://jameskilby.co.uk",
-        "category": ["performance", "accessibility", "best-practices", "seo"],
-        "strategy": "mobile"
-    }
-    
+    """Load the latest real Lighthouse scores measured by the Quality Checks workflow.
+
+    Returns a scores dict, or None when no real measurement is available yet
+    (e.g. the workflow has not run since this file was wired up). Returning
+    None lets main() reuse the most recent real history entry instead of
+    fabricating numbers.
+    """
+    print("📊 Loading Lighthouse scores from latest measurement...")
+
+    if not LIGHTHOUSE_LATEST_FILE.exists():
+        print(f"   ⚠️  {LIGHTHOUSE_LATEST_FILE} not found — no real scores to record this run")
+        return None
+
     try:
-        response = requests.get(url, params=params, timeout=60)
-        if response.status_code == 200:
-            data = response.json()
-            scores = data.get('lighthouseResult', {}).get('categories', {})
-            
-            return {
-                'performance': int(scores.get('performance', {}).get('score', 0) * 100),
-                'accessibility': int(scores.get('accessibility', {}).get('score', 0) * 100),
-                'best_practices': int(scores.get('best-practices', {}).get('score', 0) * 100),
-                'seo': int(scores.get('seo', {}).get('score', 0) * 100),
-                'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
-            }
-    except Exception as e:
-        print(f"⚠️  Could not fetch Lighthouse scores: {e}")
-    
-    # Return default scores if API fails
-    return {
-        'performance': 95,
-        'accessibility': 95,
-        'best_practices': 100,
-        'seo': 100,
-        'timestamp': 'Estimated'
-    }
+        with open(LIGHTHOUSE_LATEST_FILE, 'r') as f:
+            data = json.load(f)
+    except (json.JSONDecodeError, OSError) as e:
+        print(f"   ⚠️  Could not read {LIGHTHOUSE_LATEST_FILE} ({e}) — skipping")
+        return None
+
+    try:
+        scores = {
+            'performance': int(data['performance']),
+            'accessibility': int(data['accessibility']),
+            'best_practices': int(data['best_practices']),
+            'seo': int(data['seo']),
+            'timestamp': data.get('measured_at', 'unknown'),
+        }
+    except (KeyError, TypeError, ValueError) as e:
+        print(f"   ⚠️  {LIGHTHOUSE_LATEST_FILE} is missing expected fields ({e}) — skipping")
+        return None
+
+    print(f"   ✅ Loaded real scores measured {scores['timestamp']} "
+          f"(perf {scores['performance']}, a11y {scores['accessibility']}, "
+          f"bp {scores['best_practices']}, seo {scores['seo']})")
+    return scores
 
 def get_git_stats():
     """Get git repository statistics"""
@@ -640,14 +655,30 @@ def main():
     print("=" * 60)
     
     # Gather data
-    lighthouse_scores = get_lighthouse_scores()
+    real_scores = get_lighthouse_scores()
     git_stats = get_git_stats()
     changes = get_recent_changes()
-    
-    # Load and save Lighthouse history
+
+    # Load history; record the new measurement only when we actually have one.
     history = load_lighthouse_history()
-    history = save_lighthouse_scores(lighthouse_scores, history)
-    
+    if real_scores:
+        history = save_lighthouse_scores(real_scores, history)
+
+    # Choose what to render: the fresh measurement if present, else the most
+    # recent real entry already in history, else a clearly-labelled placeholder
+    # so the page still renders on a brand-new repo (before the first run).
+    if real_scores:
+        lighthouse_scores = real_scores
+    elif history:
+        lighthouse_scores = history[-1]
+        print(f"ℹ️  No new measurement — rendering last recorded scores from {lighthouse_scores.get('date', 'unknown')}")
+    else:
+        print("ℹ️  No Lighthouse data available yet — rendering placeholder scores")
+        lighthouse_scores = {
+            'performance': 0, 'accessibility': 0, 'best_practices': 0, 'seo': 0,
+            'timestamp': 'No measurement yet'
+        }
+
     # Generate HTML
     html = generate_changelog_html(lighthouse_scores, git_stats, changes)
     
