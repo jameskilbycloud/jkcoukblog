@@ -16,17 +16,16 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Nutanix",
-        "VMware",
-        "Ansible",
+        "Mikrotik",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "VMware",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "Automation",
+        "Docker",
         "NVIDIA",
-        "Traefik",
-        "Storage",
-        "vExpert",
-        "Hosting"
+        "Traefik"
       ],
       "tags": [
         null,
