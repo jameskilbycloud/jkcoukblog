@@ -16,17 +16,15 @@
       "categories": [
         "Hosting",
         "Cloudflare",
-        "Personal",
         "Wordpress",
-        "Artificial Intelligence",
+        "Personal",
+        "Ansible",
         "Automation",
         "Docker",
         "Homelab",
-        "NVIDIA",
         "Traefik",
-        "VMware",
-        "AWS",
-        "Kubernetes"
+        "VCF",
+        "VMware"
       ],
       "tags": [
         null
@@ -48,9 +46,9 @@
         "AWS",
         "VMware",
         "Veeam",
-        "Hosting",
+        "VMware Cloud on AWS",
         "Personal",
-        "VMware Cloud on AWS"
+        "Hosting"
       ],
       "tags": [
         null,

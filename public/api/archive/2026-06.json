@@ -16,16 +16,12 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Mikrotik",
+        "Hosting",
         "Artificial Intelligence",
-        "VMware",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Automation",
         "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Automation",
+        "Github",
+        "VMware"
       ],
       "tags": [
         null,

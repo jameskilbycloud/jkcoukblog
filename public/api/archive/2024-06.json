@@ -16,15 +16,10 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
+        "Storage",
+        "Synology",
         "VMware",
-        "Nutanix",
-        "Mikrotik",
-        "vSphere"
+        "Mikrotik"
       ],
       "tags": [
         null,

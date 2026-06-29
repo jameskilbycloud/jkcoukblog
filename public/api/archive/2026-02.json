@@ -22,10 +22,13 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Runecast",
-        "VCF",
-        "Docker",
-        "Nutanix",
+        "AWS",
+        "Veeam",
+        "Networking",
+        "Cloudflare",
+        "Github",
+        "Wordpress",
+        "Automation",
         "Personal"
       ],
       "tags": [

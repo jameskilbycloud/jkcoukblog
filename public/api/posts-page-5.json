@@ -29,15 +29,14 @@
       "categories": [
         "Ansible",
         "Homelab",
+        "Artificial Intelligence",
         "TrueNAS Scale",
         "VMware",
         "vSAN",
         "vSphere",
-        "Artificial Intelligence",
-        "Automation",
-        "Mikrotik",
-        "Networking",
-        "Storage"
+        "Docker",
+        "Storage",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -62,17 +61,14 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
-        "Storage",
-        "TrueNAS Scale",
+        "Personal",
+        "vSphere",
         "VMware Cloud on AWS",
-        "vSAN",
-        "Ansible",
-        "Synology"
+        "VCF",
+        "Storage",
+        "Artificial Intelligence",
+        "Docker",
+        "vExpert"
       ],
       "tags": [
         null,
@@ -95,17 +91,18 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Storage",
-        "Synology",
         "Artificial Intelligence",
-        "Automation",
         "Docker",
+        "Hosting",
+        "Ansible",
+        "Containers",
+        "Devops",
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Ansible",
-        "VCF",
-        "Hosting"
+        "Automation",
+        "Storage",
+        "Synology"
       ],
       "tags": [
         null,
@@ -127,14 +124,15 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Networking",
+        "Artificial Intelligence",
         "Ansible",
         "Automation",
         "Docker",
         "Traefik",
         "VCF",
         "VMware",
-        "TrueNAS Scale"
+        "vSphere",
+        "Networking"
       ],
       "tags": [
         null,
@@ -158,15 +156,16 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Nutanix",
-        "Ansible",
-        "VMware Cloud on AWS",
-        "Artificial Intelligence",
         "Docker",
         "Hosting",
         "Kubernetes",
-        "Storage",
-        "vExpert"
+        "Mikrotik",
+        "Networking",
+        "Automation",
+        "AWS",
+        "Veeam",
+        "Personal",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -190,12 +189,19 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Veeam",
+        "vExpert",
+        "Networking",
         "VMware",
+        "Artificial Intelligence",
+        "Automation",
         "Docker",
+        "NVIDIA",
+        "Traefik",
+        "Github",
         "Hosting",
-        "Kubernetes",
-        "TrueNAS Scale"
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -216,14 +222,15 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "Storage",
-        "vExpert",
-        "Automation",
-        "Github",
-        "VMware",
         "Nutanix",
-        "VCF",
-        "Networking"
+        "VMware",
+        "VMware Cloud on AWS",
+        "vSAN",
+        "Runecast",
+        "Automation",
+        "Mikrotik",
+        "Networking",
+        "Github"
       ],
       "tags": [
         null,
@@ -247,19 +254,13 @@
         "Homelab",
         "Storage",
         "vExpert",
+        "TrueNAS Scale",
+        "Mikrotik",
         "Networking",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
         "VMware",
-        "Ansible",
-        "Containers",
-        "Devops",
-        "Hosting",
-        "Kubernetes",
-        "VCF"
+        "VCF",
+        "VMware Cloud on AWS",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -286,16 +287,14 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
+        "Personal",
+        "Runecast",
         "Homelab",
-        "Nutanix",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
         "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Traefik",
+        "VCF"
       ],
       "tags": [
         null,

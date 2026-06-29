@@ -17,13 +17,12 @@
         "Homelab",
         "Nutanix",
         "VMware",
-        "Artificial Intelligence",
-        "Docker",
-        "Automation",
-        "VMware Cloud on AWS",
-        "Veeam",
-        "NVIDIA",
-        "Traefik"
+        "Networking",
+        "Hosting",
+        "Personal",
+        "Storage",
+        "Synology",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,

@@ -18,13 +18,17 @@
         "Docker",
         "Hosting",
         "Homelab",
-        "Automation",
-        "Storage",
-        "vExpert",
-        "NVIDIA",
-        "Traefik",
+        "Networking",
         "VMware",
-        "Synology"
+        "Veeam",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "Ansible",
+        "Automation",
+        "Traefik",
+        "VCF",
+        "Runecast"
       ],
       "tags": [
         null,

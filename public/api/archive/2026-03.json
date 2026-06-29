@@ -21,11 +21,9 @@
         "NVIDIA",
         "Traefik",
         "VMware",
+        "Github",
         "Ansible",
-        "VCF",
-        "Containers",
-        "Devops",
-        "Hosting"
+        "VCF"
       ],
       "tags": [
         null,
@@ -53,11 +51,9 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Personal",
-        "Github",
-        "vSphere",
-        "Ansible",
-        "Veeam"
+        "Networking",
+        "Storage",
+        "Ansible"
       ],
       "tags": [
         null,
