@@ -13,7 +13,7 @@ Public metrics, performance scores, and analytics for jameskilby.co.uk
 
 📄
 
-186
+187
 
 Total Pages
 
@@ -31,31 +31,31 @@ Images
 
 💾
 
-194.46
+194.68
 
 Total Size (MB)
 
 🚀
 
-981
+987
 
 Deployments
 
 📅
 
-179
+144
 
 Updates This Month
 
 ## 🚀 Lighthouse Performance Scores
 
-Latest scores from 2026-06-28 deployment
+Latest scores from 2026-06-29 deployment
 
-95 
+94 
 
 Performance
 
-95 
+96 
 
 Accessibility
 
@@ -75,14 +75,14 @@ SEO
 
 Metric | Value | Notes  
 ---|---|---  
-Total HTML Pages | 186 | All generated pages including posts, archives, and pages  
+Total HTML Pages | 187 | All generated pages including posts, archives, and pages  
 Blog Posts | 75 | Articles in dated directories (YYYY/MM/slug)  
 Total Images | 3589 | Optimized images (PNG, JPG, WebP, SVG)  
-Total Site Size | 194.46 MB | All files in public directory  
-Average Page Size | 1.05 KB | Total size / number of pages  
+Total Site Size | 194.68 MB | All files in public directory  
+Average Page Size | 1.04 KB | Total size / number of pages  
 Images per Post | 47.9 | Average images per blog post  
-Last Deployment | 2026-06-21 09:10:42 | Most recent static site generation  
-Total Deployments | 981 | Git commits to main branch  
+Last Deployment | 2026-06-29 14:40:46 | Most recent static site generation  
+Total Deployments | 987 | Git commits to main branch  
   
 ## 📊 Traffic Analytics (Plausible)
 
@@ -109,5 +109,5 @@ This statistics page is automatically generated on every deployment and includes
 
 **💻 Open Source:** Check the [GitHub repository](https://github.com/jameskilbynet/jkcoukblog) to see how this works
 
-Page generated: 2026-06-28 07:12:10 UTC  
+Page generated: 2026-06-29 15:45:43 UTC  
 Stats powered by Plausible Analytics, Google Lighthouse, and Git
