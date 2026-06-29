@@ -126,7 +126,9 @@ FONT_SPECS = (
         class_selectors=(
             '.site-title', '.entry-title',
             '.jkr-eyebrow', '.jkr-topic-count',
-            # .jkr-headline is an <h1> (covered by the tag selector above).
+            # .jkr-headline is the visible editorial headline — a <p> in Anton,
+            # so it needs an explicit selector (not covered by the h1 tags).
+            '.jkr-headline',
         ),
     ),
 

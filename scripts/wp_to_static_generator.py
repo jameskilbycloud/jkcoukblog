@@ -2815,16 +2815,24 @@ document.addEventListener('DOMContentLoaded', function() {
             return []
 
     def _stat_lighthouse_performance(self):
-        try:
-            history = self.output_dir / 'changelog' / 'lighthouse-history.json'
-            if history.exists():
-                data = json.loads(history.read_text(encoding='utf-8'))
-                if isinstance(data, list) and data:
-                    perf = data[-1].get('performance')
-                    if isinstance(perf, (int, float)):
-                        return f'{int(perf)}/100'
-        except Exception as e:
-            print(f"   ⚠️  lighthouse: {e}")
+        # Prefer the build's own changelog copy, but fall back to the committed
+        # public/ copy: on a full rebuild static-output/changelog isn't
+        # populated until generate_changelog runs later in the pipeline, which
+        # would leave the ribbon showing '—' despite a real score existing.
+        candidates = [
+            self.output_dir / 'changelog' / 'lighthouse-history.json',
+            Path('public') / 'changelog' / 'lighthouse-history.json',
+        ]
+        for history in candidates:
+            try:
+                if history.exists():
+                    data = json.loads(history.read_text(encoding='utf-8'))
+                    if isinstance(data, list) and data:
+                        perf = data[-1].get('performance')
+                        if isinstance(perf, (int, float)):
+                            return f'{int(perf)}/100'
+            except Exception as e:
+                print(f"   ⚠️  lighthouse ({history}): {e}")
         return '—'
 
     def inject_homepage_redesign(self, soup, current_url):
@@ -2896,8 +2904,21 @@ document.addEventListener('DOMContentLoaded', function() {
         top_row.append(nav)
         top.append(top_row)
 
-        # ── 2. editorial headline (the page's single <h1>) ──────────────
-        headline = soup.new_tag('h1', attrs={'class': 'jkr-headline'})
+        # ── 2. headline ─────────────────────────────────────────────────
+        # Visible headline is the editorial line (a <p>, for design voice). The
+        # page's actual <h1> is a screen-reader-only canonical title: it keeps
+        # the keyword-rich heading fix_seo_issues.py wants (HOMEPAGE_TITLE)
+        # without that pass overwriting the editorial copy. Exactly one <h1>.
+        try:
+            from config import Config
+            seo_title = Config.HOMEPAGE_TITLE
+        except (ImportError, AttributeError):
+            seo_title = 'James Kilby — VMware, Homelab & Cloud Infrastructure Notes'
+        seo_h1 = soup.new_tag('h1', attrs={'class': 'screen-reader-text jkr-sr-title'})
+        seo_h1.string = seo_title
+        top.append(seo_h1)
+
+        headline = soup.new_tag('p', attrs={'class': 'jkr-headline'})
         headline.string = 'Field notes from a homelab that costs real money to run.'
         top.append(headline)
 
