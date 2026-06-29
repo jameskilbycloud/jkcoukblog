@@ -15,7 +15,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-988
+990
 
 Git commits
 
@@ -35,13 +35,13 @@ Active contributors
 
 2026-06-29
 
-15:46:05
+15:29:59
 
 ## 🚀 Lighthouse Performance Scores
 
-Last checked: 2026-06-29 14:40:45 UTC
+Last checked: 2026-06-29 15:29:56 UTC
 
-94 
+96 
 
 Performance
 
@@ -58,6 +58,10 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-06-29 87c2c56Other
+
+chore(lighthouse): record scores P96/A96/BP100/S100
 
 2026-06-29 5684aaaOther
 
@@ -241,11 +245,5 @@ chore(deps): Bump pyyaml from 6.0.1 to 6.0.3 (#80)
 
 Bumps [pyyaml](https://github.com/yaml/pyyaml) from 6.0.1 to 6.0.3.
 
-2026-06-10 94ad7d9Fix
-
-fix: surface non-blocking CI failures, thread-safe caches, config-aware cache invalidation (#85)
-
-\- deploy-static-site.yml: give all 13 continue-on-error steps ids and add a
-
-Page generated: 2026-06-29 16:28:04 UTC  
+Page generated: 2026-06-29 16:49:48 UTC  
 Changelog powered by Git history and Lighthouse CI
