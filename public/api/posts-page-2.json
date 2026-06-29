@@ -13,15 +13,13 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "Homelab",
+        "vSAN",
         "Artificial Intelligence",
         "Automation",
         "Docker",
-        "Homelab",
         "NVIDIA",
-        "Traefik",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere"
+        "Traefik"
       ],
       "tags": [
         null,
@@ -44,16 +42,16 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "vSphere",
-        "Networking",
         "Storage",
-        "Veeam"
+        "vExpert",
+        "Veeam",
+        "Networking",
+        "AWS",
+        "Personal",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -79,17 +77,15 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
         "Homelab",
+        "Runecast",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
         "NVIDIA",
         "Traefik",
-        "Veeam"
+        "vSAN",
+        "Personal"
       ],
       "tags": [
         null
@@ -110,14 +106,18 @@
       "categories": [
         "Homelab",
         "VMware",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
         "Artificial Intelligence",
-        "Personal",
+        "Docker",
+        "Ansible",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "Storage",
+        "Synology",
         "VMware Cloud on AWS",
-        "Networking",
-        "Veeam"
+        "vSAN",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -139,9 +139,9 @@
       "api_url": "/api/posts/veeamon2020.json",
       "categories": [
         "Veeam",
+        "Homelab",
         "VMware",
-        "AWS",
-        "Homelab"
+        "AWS"
       ],
       "tags": [
         null,
@@ -163,13 +163,15 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "AWS",
-        "Veeam",
-        "Personal",
-        "vSphere",
-        "vSAN",
+        "Runecast",
         "Homelab",
-        "VCF"
+        "Nutanix",
+        "Automation",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "AWS",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -195,19 +197,18 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Ansible",
+        "Networking",
+        "Storage",
+        "Synology",
+        "TrueNAS Scale",
         "Cloudflare",
         "Personal",
         "Wordpress",
+        "Ansible",
         "Automation",
-        "Github",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
         "Traefik",
-        "VMware",
-        "Storage"
+        "VCF",
+        "VMware"
       ],
       "tags": [
         null,
@@ -230,15 +231,10 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
+        "Storage",
+        "Synology",
         "VMware",
-        "Nutanix",
-        "Mikrotik",
-        "vSphere"
+        "Mikrotik"
       ],
       "tags": [
         null,
@@ -260,14 +256,14 @@
       "api_url": "/api/posts/ubuntu-disk-expansion-steps.json",
       "categories": [
         "Ubuntu",
-        "Ansible",
         "Automation",
+        "Github",
+        "Ansible",
         "Docker",
         "Homelab",
         "Traefik",
         "VCF",
-        "VMware",
-        "Github"
+        "VMware"
       ],
       "tags": [
         null,
@@ -289,16 +285,12 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Mikrotik",
+        "Hosting",
         "Artificial Intelligence",
-        "VMware",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Automation",
         "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Automation",
+        "Github",
+        "VMware"
       ],
       "tags": [
         null,

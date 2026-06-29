@@ -18,13 +18,17 @@
         "Storage",
         "Synology",
         "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "Nutanix",
+        "Networking",
         "Automation",
         "Docker",
-        "Traefik",
-        "VCF",
-        "VMware",
-        "Hosting",
-        "Nutanix"
+        "VCF"
       ],
       "tags": [
         null,

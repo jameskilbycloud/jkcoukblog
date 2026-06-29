@@ -15,14 +15,15 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "Storage",
-        "vExpert",
-        "Automation",
-        "Github",
-        "VMware",
         "Nutanix",
-        "VCF",
-        "Networking"
+        "VMware",
+        "VMware Cloud on AWS",
+        "vSAN",
+        "Runecast",
+        "Automation",
+        "Mikrotik",
+        "Networking",
+        "Github"
       ],
       "tags": [
         null,

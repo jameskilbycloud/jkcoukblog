@@ -16,18 +16,14 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Mikrotik",
-        "Networking",
-        "TrueNAS Scale",
-        "VMware",
-        "vSAN",
-        "vSphere",
-        "Ansible",
-        "Automation",
+        "Storage",
+        "vExpert",
         "Docker",
-        "NVIDIA",
-        "Traefik",
-        "Storage"
+        "VMware",
+        "vSphere",
+        "TrueNAS Scale",
+        "vSAN",
+        "Networking"
       ],
       "tags": [
         null,
