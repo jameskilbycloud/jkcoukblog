@@ -434,6 +434,11 @@ class WordPressStaticGenerator:
         # Fix missing H1 on homepage (fallback if the redesign didn't inject)
         self.fix_homepage_h1(soup, current_url)
 
+        # Brutalist header/footer chrome (every page): JK monogram logo lockup,
+        # relocate the footer social icons into the header (+ mobile drawer),
+        # and slim the footer to a logo + copyright line.
+        self.brand_and_relocate_social(soup)
+
         # Fix byline: published + updated time elements with no separator render
         # as "By James May 29, 2017 June 1, 2026". Insert a separator + 'Updated'
         # label, and hide the updated date if it renders identical to published.
@@ -1828,6 +1833,98 @@ document.addEventListener('DOMContentLoaded', function() {
             self._brutalist_css_synced = True
         except OSError as e:
             print(f"   ⚠️  Failed to sync brutalist theme CSS: {e}")
+
+    # Locked JK monogram (designed in the JK Blog design project): black tile,
+    # orange rule, Anton "JK" reversed out in the accent. {s} = pixel size.
+    # Depends on the Anton webfont, which is loaded site-wide.
+    JK_LOGO_SVG = (
+        '<svg class="jk-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"'
+        ' width="{s}" height="{s}" role="img" aria-label="JK — James Kilby" focusable="false">'
+        '<rect x="4" y="4" width="92" height="92" fill="#0a0a0a" stroke="#f6821f" stroke-width="5"></rect>'
+        '<text x="50" y="52" text-anchor="middle" dominant-baseline="central"'
+        ' font-family="Anton, sans-serif" font-size="56" fill="#f6821f" letter-spacing="-2">JK</text>'
+        '</svg>'
+    )
+
+    def _jk_mark(self, size=40):
+        """Return a freshly-parsed JK monogram <svg> tag at the given pixel size."""
+        return BeautifulSoup(self.JK_LOGO_SVG.format(s=size), 'html.parser').find('svg')
+
+    def brand_and_relocate_social(self, soup):
+        """Header logo lockup + relocate footer socials + slim footer (every page).
+
+        The header and footer are global Kadence structures, so this runs on
+        every page. Each step is independent and guarded — a markup shift in one
+        area can't break the others.
+        """
+        for step in (self._inject_brand_logo, self._relocate_social, self._slim_footer):
+            try:
+                step(soup)
+            except Exception as e:
+                print(f"   ⚠️  {step.__name__}: {e}")
+
+    def _inject_brand_logo(self, soup):
+        """Prepend the JK monogram to each .brand and add a mono subline → lockup."""
+        for brand in soup.select('.site-branding a.brand'):
+            if brand.find(class_='jk-mark'):
+                continue  # idempotent
+            brand['class'] = brand.get('class', []) + ['jk-brand-lockup']
+            brand.insert(0, self._jk_mark(40))  # mark sits left of the wordmark
+            title_wrap = brand.find(class_='site-title-wrap')
+            if title_wrap and not title_wrap.find(class_='jk-brand-sub'):
+                sub = soup.new_tag('span', attrs={'class': 'jk-brand-sub'})
+                sub.string = 'VMware · Homelab · Infrastructure'
+                title_wrap.append(sub)
+
+    def _relocate_social(self, soup):
+        """Move the footer social icons into the header (and mobile drawer)."""
+        anchors = soup.select('.footer-social a')
+        if not anchors:
+            return
+        socials = []
+        for a in anchors:
+            svg = a.find('svg')
+            if not svg:
+                continue
+            socials.append((a.get('aria-label', ''), a.get('href', '#'), str(svg)))
+        if not socials:
+            return
+
+        def cluster(extra_cls):
+            items = ''.join(
+                f'<a class="jk-social-link" href="{href}" aria-label="{label}"'
+                f' rel="noopener noreferrer" target="_blank">{svg}</a>'
+                for label, href, svg in socials
+            )
+            return BeautifulSoup(f'<div class="jk-social {extra_cls}">{items}</div>',
+                                 'html.parser')
+
+        header_right = soup.find(class_='site-header-main-section-right')
+        if header_right:
+            header_right.append(cluster('jk-social-header'))
+        drawer = soup.find(class_='drawer-content')
+        if drawer:
+            drawer.append(cluster('jk-social-drawer'))
+
+        # Drop the now-empty Kadence footer social widget.
+        widget = soup.find(class_='footer-social')
+        if widget:
+            widget.decompose()
+
+    def _slim_footer(self, soup):
+        """Add a logo + copyright line to the footer credit area."""
+        info = soup.find(class_='footer-html-inner') or soup.find(class_='site-info-inner')
+        if not info or info.find(class_='jk-footer-row'):
+            return
+        year = datetime.now().year
+        row = BeautifulSoup(
+            '<div class="jk-footer-row">'
+            '<a class="jk-footer-brand" href="/" aria-label="James Kilby — home">'
+            f'{self.JK_LOGO_SVG.format(s=26)}<span class="jk-footer-name">James Kilby</span></a>'
+            f'<span class="jk-footer-copy">© {year} James Kilby · VMware vExpert</span>'
+            '</div>',
+            'html.parser')
+        info.append(row)
 
     def add_brutalist_theme_css(self, soup):
         """Add brutalist theme CSS with critical mobile CSS inlined"""
