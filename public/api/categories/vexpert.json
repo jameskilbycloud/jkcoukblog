@@ -34,7 +34,7 @@
     {
       "slug": "can-you-really-squeeze-96tb-in-1u",
       "title": "Can you really squeeze 96TB in 1U ?",
-      "description": "Yes, that’s a clickbait title.",
+      "description": "Yes, that’s a clickbait title. Yes, that’s a clickbait title. But technically it’s possible if I dropped all drive redundancy…",
       "date": "2024-09-12T12:39:16Z",
       "modified": "2026-06-01T19:03:02Z",
       "author": "James Kilby",
@@ -56,7 +56,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/)\n\n# Can you really s..."
+      "excerpt": "![Quantagrid Sd1Q 1Ulh Front Three Quarter](https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [TrueNAS Scale](https://jameskilby.co.uk/cate..."
     },
     {
       "slug": "going-out-with-a-bang",
@@ -89,12 +89,12 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# VMware – Going out with a Bang!\n\nBy[James](https://jameskilby.co.uk) October 7, 2023 · Updated June 1, 2026 • 📖1 mi..."
+      "excerpt": "![Rnli Logo](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# VMware – Going out with a Bang!\n\nBy[James](https://jameskilby.co.uk)October 7, 2023 · Updated June 1, 2026..."
     },
     {
       "slug": "intel-optane",
       "title": "Using Intel Optane NVMe in a VMware Homelab: Setup & Results",
-      "description": "I have been a VMware vExpert for many years and it has brought me many many benefits over the years.",
+      "description": "I have been a VMware vExpert for many years and it has brought me many benefits over the years.",
       "date": "2023-04-17T12:20:04Z",
       "modified": "2026-06-01T21:06:47Z",
       "author": "James Kilby",
@@ -127,12 +127,12 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://jameskilby.co.uk/category/vexpert/)\n\n# Using Intel Opta..."
+      "excerpt": "![Intel Optane Ssd 900P Series Aic Right Angle 575Px](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://james..."
     },
     {
       "slug": "holodeck-cpu-fixes",
       "title": "VMware Holodeck on Older CPUs: Fixing Compatibility Issues",
-      "description": "Disclaimer: This is not a supported configuration by the Holodeck team please don't reach out to them for help.",
+      "description": "Disclaimer: This is not a supported configuration by the Holodeck team, please don’t reach out to them for help.",
       "date": "2024-01-18T14:37:04Z",
       "modified": "2026-06-01T19:02:57Z",
       "author": "James Kilby",
@@ -161,7 +161,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743.jpg)\n\n[VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# VMware Holodeck on Older CPUs: Fixing Compatibility Issues\n\nBy[James](https://jameskilby.co.uk) Janu..."
+      "excerpt": "![40Ood8Iippvtrpjs 1198788743](https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743.jpg)\n\n[VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# VMware Holodeck on Older CPUs: Fixing Compatibility Issues\n\nBy[James](htt..."
     }
   ]
 }
