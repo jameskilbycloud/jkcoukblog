@@ -17,15 +17,10 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Ansible",
         "Homelab",
-        "Nutanix",
-        "VMware",
-        "VCF",
-        "Kubernetes",
-        "Automation",
-        "Cloudflare",
-        "Wordpress"
+        "AWS",
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null,

@@ -16,16 +16,16 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Automation",
-        "VMware",
-        "Runecast",
         "Artificial Intelligence",
+        "Automation",
         "Docker",
-        "Hosting",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "Containers",
+        "Devops",
         "Github",
-        "Storage",
-        "TrueNAS Scale",
-        "vExpert"
+        "Nutanix"
       ],
       "tags": [
         null,

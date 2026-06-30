@@ -16,19 +16,16 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Ansible",
+        "VMware",
+        "Artificial Intelligence",
         "Automation",
         "Docker",
+        "NVIDIA",
         "Traefik",
         "VCF",
-        "VMware",
         "TrueNAS Scale",
         "vSAN",
-        "vSphere",
-        "Artificial Intelligence",
-        "NVIDIA",
-        "Github",
-        "Storage"
+        "vSphere"
       ],
       "tags": [
         null,

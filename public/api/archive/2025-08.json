@@ -16,11 +16,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "vSAN",
         "Personal",
-        "Runecast",
-        "Homelab",
         "vSphere",
-        "vSAN"
+        "TrueNAS Scale",
+        "Homelab",
+        "Veeam"
       ],
       "tags": [
         null

@@ -19,8 +19,8 @@
         "Hosting",
         "Cloudflare",
         "Wordpress",
-        "Consulting",
-        "Homelab"
+        "Homelab",
+        "VMware"
       ],
       "tags": [
         null,
@@ -42,9 +42,16 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "VCF",
+        "Runecast",
         "Homelab",
-        "Runecast"
+        "Networking",
+        "Storage",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "vSphere"
       ],
       "tags": [
         null,

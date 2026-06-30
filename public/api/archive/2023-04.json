@@ -17,13 +17,14 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Networking",
-        "VMware",
-        "VCF",
-        "VMware Cloud on AWS",
-        "vSphere",
         "Artificial Intelligence",
-        "Automation"
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "Runecast",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,

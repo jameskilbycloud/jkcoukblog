@@ -17,10 +17,15 @@
         "Homelab",
         "VMware",
         "VMware Cloud on AWS",
+        "Docker",
+        "Hosting",
+        "Kubernetes",
+        "Ansible",
+        "Automation",
         "Networking",
-        "Artificial Intelligence",
-        "VCF",
-        "Personal"
+        "Storage",
+        "vExpert",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -44,16 +49,11 @@
         "VMware",
         "Personal",
         "Homelab",
-        "Storage",
-        "vExpert",
+        "Nutanix",
+        "Hosting",
         "VMware Cloud on AWS",
-        "Veeam",
-        "Networking",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik"
+        "AWS",
+        "Veeam"
       ],
       "tags": [
         null,

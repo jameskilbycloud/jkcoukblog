@@ -15,16 +15,18 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
+        "Mikrotik",
+        "Networking",
+        "Artificial Intelligence",
         "Nutanix",
         "VMware",
-        "Networking",
+        "Automation",
         "Docker",
-        "Hosting",
-        "Kubernetes",
-        "VCF",
+        "NVIDIA",
+        "Traefik",
         "Storage",
         "Synology",
-        "vExpert"
+        "vSphere"
       ],
       "tags": [
         null,
