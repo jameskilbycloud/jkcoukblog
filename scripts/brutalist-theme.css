@@ -1622,6 +1622,10 @@ div, section, aside, nav {
   padding: 0;
 }
 
+/* Search field (injected by search.js) — placeholder can't be styled inline */
+#blog-search-input::placeholder { color: #7a766c; opacity: 1; }
+#blog-search-input::-webkit-search-cancel-button { filter: invert(0.6); }
+
 /* ============================================================
    ARCHIVE CARDS — quiet chrome
    Targets the homepage / category / tag list views only.
