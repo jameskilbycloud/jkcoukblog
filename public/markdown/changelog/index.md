@@ -15,7 +15,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-1007
+1009
 
 Git commits
 
@@ -35,7 +35,7 @@ Active contributors
 
 2026-06-30
 
-08:55:50
+11:03:15
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -58,6 +58,12 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-06-30 1f53652Other
+
+style(search): dark brutalist theme for the search field + results (#114)
+
+The JS-injected search UI still used light-theme inline styles (#fafafa
 
 2026-06-30 a2b6accOther
 
@@ -233,13 +239,5 @@ chore: remove dead workflow and trigger cruft (#90)
 
 * fix(seo): noindex markdown/JSON mirrors to stop crawl-budget waste
 
-  
-
-2026-06-14 a760ed2Fix
-
-fix(seo): noindex markdown/JSON mirrors to stop crawl-budget waste (#89)
-
-Google Search Console flagged ~80 /markdown/*.md mirror files under
-
-Page generated: 2026-06-30 10:18:02 UTC  
+Page generated: 2026-06-30 11:07:26 UTC  
 Changelog powered by Git history and Lighthouse CI
