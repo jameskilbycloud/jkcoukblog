@@ -1588,15 +1588,38 @@ div, section, aside, nav {
    Pseudo-element so it ships without template changes; a real
    <button> wired to scripts/search.js is the cleaner follow-up.
    ------------------------------------------------------------ */
-.site-main-header-inner-wrap .site-header-section-right::after {
-  content: "Search  ⌘K";
+/* Header search — a real button (injected by inject_search_button) that
+   focuses the search box, replacing the old decorative ::after that looked
+   clickable but wasn't. */
+.jk-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-left: 1.5rem;
   padding: 0.5rem 0.75rem;
   border: 1px solid var(--gray-mid);
-  color: var(--gray-light);
+  background: transparent;
+  color: var(--gray-light) !important;
   font-size: 0.8rem;
   letter-spacing: 0.04em;
   font-family: "JetBrains Mono", monospace;
+  cursor: pointer;
+  text-decoration: none !important;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.jk-search:hover,
+.jk-search:focus {
+  border-color: var(--accent-orange) !important;
+  color: #f5f3ee !important;
+  opacity: 1 !important;
+}
+.jk-search kbd {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  color: var(--gray-light);
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
 /* ============================================================

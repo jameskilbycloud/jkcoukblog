@@ -1857,11 +1857,26 @@ document.addEventListener('DOMContentLoaded', function() {
         every page. Each step is independent and guarded — a markup shift in one
         area can't break the others.
         """
-        for step in (self._inject_brand_logo, self._relocate_social, self._slim_footer):
+        for step in (self._inject_brand_logo, self._inject_search_button,
+                     self._relocate_social, self._slim_footer):
             try:
                 step(soup)
             except Exception as e:
                 print(f"   ⚠️  {step.__name__}: {e}")
+
+    def _inject_search_button(self, soup):
+        """Add a real search button to the header (focuses the search box).
+
+        Replaces the old CSS ::after that looked like a search control but
+        couldn't be clicked. The click handler lives in search.js.
+        """
+        header_right = soup.find(class_='site-header-main-section-right')
+        if not header_right or header_right.find(class_='jk-search'):
+            return
+        header_right.append(BeautifulSoup(
+            '<button class="jk-search" type="button" aria-label="Search posts"'
+            ' aria-keyshortcuts="Meta+K Control+K">Search <kbd>⌘K</kbd></button>',
+            'html.parser'))
 
     def _inject_brand_logo(self, soup):
         """Prepend the JK monogram to each .brand and add a mono subline → lockup."""
