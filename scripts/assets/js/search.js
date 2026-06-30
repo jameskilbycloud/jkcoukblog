@@ -61,8 +61,28 @@ console.log('[Search] Script loaded');
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                 e.preventDefault();
-                document.getElementById('blog-search-input')?.focus();
+                focusSearch();
             }
+        });
+    }
+
+    function focusSearch() {
+        const input = document.getElementById('blog-search-input');
+        if (input) {
+            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            input.focus();
+        }
+    }
+
+    // The header search button (.jk-search) is static HTML; the search box is
+    // injected into <main> on load. Delegate so the click works regardless of
+    // order, and so it survives the button being re-rendered.
+    function attachHeaderSearchButton() {
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest && e.target.closest('.jk-search');
+            if (!btn) return;
+            e.preventDefault();
+            focusSearch();
         });
     }
     
@@ -222,6 +242,9 @@ console.log('[Search] Script loaded');
         }
     }
     
+    // Header search button works independently of the (main-injected) box.
+    attachHeaderSearchButton();
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', createSearchBox);
     } else {
