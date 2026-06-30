@@ -1851,3 +1851,89 @@ body:not(.single) .posted-on time ~ time {
     margin-left: 0;
   }
 }
+
+/* ── Header logo lockup · relocated social · slim footer ──────────────
+   Injected by brand_and_relocate_social() in wp_to_static_generator.py.
+   Logo = the locked JK monogram (.jk-mark); socials move from the footer
+   into the header (desktop) + mobile drawer; the footer slims to a
+   logo + copyright line. */
+
+/* JK monogram lockup in the header branding */
+.jk-brand-lockup {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none !important;
+}
+.jk-mark { display: block; flex: 0 0 auto; }
+.jk-brand-lockup .site-title-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1;
+}
+.jk-brand-lockup .site-title { margin: 0 !important; }
+.jk-brand-sub {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray-light, #7a766c);
+  margin-top: 0.34rem;
+  white-space: nowrap;
+}
+@media (max-width: 768px) { .jk-brand-sub { display: none; } }
+
+/* Social cluster — header (desktop) + mobile drawer */
+.jk-social { display: inline-flex; align-items: center; gap: 0.4rem; }
+.jk-social-header { margin-left: 1.5rem; }
+.jk-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--gray-mid, #262625);
+  color: #c8c5bd !important;
+  text-decoration: none !important;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.jk-social-link:hover,
+.jk-social-link:focus {
+  border-color: var(--accent-orange) !important;
+  color: var(--accent-orange) !important;
+  opacity: 1 !important;
+}
+.jk-social-link svg { height: 16px; width: auto; fill: currentColor; display: block; }
+.jk-social-drawer { margin-top: 2rem; gap: 0.5rem; }
+
+/* Slim footer: hide the now-empty Kadence top-footer band; the bottom band
+   carries a logo + copyright row. */
+.site-top-footer-wrap { display: none !important; }
+.jk-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.jk-footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none !important;
+}
+.jk-footer-name {
+  font-family: "Anton", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-light) !important;
+  font-size: 1.05rem;
+}
+.jk-footer-copy {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--gray-light, #7a766c);
+}

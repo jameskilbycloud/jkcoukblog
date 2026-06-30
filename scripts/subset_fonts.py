@@ -129,6 +129,8 @@ FONT_SPECS = (
             # .jkr-headline is the visible editorial headline — a <p> in Anton,
             # so it needs an explicit selector (not covered by the h1 tags).
             '.jkr-headline',
+            # Slim-footer wordmark (Anton).
+            '.jk-footer-name',
         ),
     ),
 
@@ -148,10 +150,12 @@ FONT_SPECS = (
             # Homepage top band (Option B): strap, filter and stats ribbon all
             # render in JetBrains Mono.
             '.jkr-strap', '.jkr-filter', '.jkr-filter-label', '.jkr-ribbon',
+            # Header brand subline + slim-footer copyright line.
+            '.jk-brand-sub', '.jk-footer-copy',
         ),
-        # '●' (U+25CF) is the ribbon's "● live" marker — keep it in the subset
-        # so it doesn't fall back to system monospace.
-        safety_pad=ASCII_PRINTABLE + TYPO_PAD + CODE_PAD + '●',
+        # '●' (U+25CF) the ribbon live marker; '©' (U+00A9) the footer copyright
+        # — both outside ASCII, kept so they don't fall back to system mono.
+        safety_pad=ASCII_PRINTABLE + TYPO_PAD + CODE_PAD + '●©',
     ),
 
     # JetBrains Mono 700 — hero "LATEST" badge plus any bold inside
