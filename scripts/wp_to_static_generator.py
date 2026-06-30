@@ -1801,6 +1801,34 @@ document.addEventListener('DOMContentLoaded', function() {
         if dropped:
             print(f"   🧹 Dropped {len(dropped)} WP-leaked inline CSS link(s)")
 
+    def _sync_brutalist_css(self):
+        """Copy brutalist-theme.css into the output tree when its CONTENT differs.
+
+        Runs at most once per build (instance-guarded). Compares bytes rather
+        than mtimes: the self-hosted runner reuses its workspace and git-checkout
+        timestamps are unreliable, so the old `source.mtime > dest.mtime` gate
+        could skip a genuine CSS-only edit. Because brutalist-theme.css is
+        excluded from critical-CSS inlining and only ships as the external
+        /assets/css/brutalist-theme.css file, that skip meant a CSS-only change
+        silently failed to deploy on an incremental build (no content change to
+        force a recopy). A byte compare is deterministic regardless of mtimes.
+        """
+        if getattr(self, '_brutalist_css_synced', False):
+            return
+        source = Path(__file__).parent / 'brutalist-theme.css'
+        dest = self.output_dir / 'assets' / 'css' / 'brutalist-theme.css'
+        if not source.exists():
+            print(f"   ⚠️  Brutalist theme CSS not found at {source}")
+            return
+        try:
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            if not dest.exists() or source.read_bytes() != dest.read_bytes():
+                shutil.copy(source, dest)
+                print(f"   📋 Synced brutalist theme CSS → {dest}")
+            self._brutalist_css_synced = True
+        except OSError as e:
+            print(f"   ⚠️  Failed to sync brutalist theme CSS: {e}")
+
     def add_brutalist_theme_css(self, soup):
         """Add brutalist theme CSS with critical mobile CSS inlined"""
         if not soup.head:
@@ -1811,23 +1839,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if existing_brutalist:
             return
         
-        # Copy CSS to output directory once
-        source_css_path = Path(__file__).parent / 'brutalist-theme.css'
-        theme_css_path = self.output_dir / 'assets' / 'css' / 'brutalist-theme.css'
-        
-        if not source_css_path.exists():
-            print(f"   ⚠️  Brutalist theme CSS not found at {source_css_path}")
-            return
-        
+        # Ensure the stylesheet is deployed to the output tree. Content-based
+        # and idempotent (see _sync_brutalist_css); generate_static_site() also
+        # calls it once up front, so this per-page call is normally a no-op.
+        self._sync_brutalist_css()
+
         try:
-            # Ensure the assets/css directory exists
-            theme_css_path.parent.mkdir(parents=True, exist_ok=True)
-            
-            # Copy CSS file if it doesn't exist or is outdated
-            if not theme_css_path.exists() or source_css_path.stat().st_mtime > theme_css_path.stat().st_mtime:
-                shutil.copy(source_css_path, theme_css_path)
-                print(f"   📋 Copied brutalist theme CSS to {theme_css_path}")
-            
             # Inline critical mobile CSS for faster FCP
             critical_css_path = Path(__file__).parent / 'critical-mobile.css'
             if critical_css_path.exists():
@@ -5004,7 +5021,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 print("🗑️  Cleaning output directory...")
                 shutil.rmtree(self.output_dir)
             self.output_dir.mkdir(parents=True)
-        
+
+        # Sync the stylesheet up front so a CSS-only edit deploys even when no
+        # page ends up being reprocessed this build (content-based, idempotent).
+        self._sync_brutalist_css()
+
         # Get all URLs from WordPress
         urls = self.get_all_content_urls()
 
