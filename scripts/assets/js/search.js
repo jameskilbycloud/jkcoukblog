@@ -22,11 +22,11 @@ console.log('[Search] Script loaded');
             <div id="blog-search-container" style="padding: 16px; margin-bottom: 20px;">
                 <div style="max-width: 600px; margin: 0 auto;">
                     <div style="position: relative;">
-                        <input type="text" 
-                               id="blog-search-input" 
-                               placeholder="🔍 Search posts..." 
-                               style="width: 100%; padding: 12px 40px 12px 16px; font-size: 15px; border: 1px solid #ddd; border-radius: 6px; outline: none; box-sizing: border-box; background: #fafafa; transition: all 0.2s ease; font-family: inherit;">
-                        <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #999; pointer-events: none; font-size: 12px;">⌘K</span>
+                        <input type="text"
+                               id="blog-search-input"
+                               placeholder="Search posts…"
+                               style="width: 100%; padding: 12px 48px 12px 16px; font-size: 15px; border: 1px solid #262625; border-radius: 0; outline: none; box-sizing: border-box; background: #111110; color: #f5f3ee; transition: border-color 0.2s ease, box-shadow 0.2s ease; font-family: inherit;">
+                        <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #7a766c; pointer-events: none; font-size: 12px; font-family: 'JetBrains Mono', monospace;">⌘K</span>
                     </div>
                 </div>
             </div>
@@ -46,12 +46,12 @@ console.log('[Search] Script loaded');
             input.addEventListener('input', debounce(handleSearch, 300));
             input.addEventListener('focus', function() {
                 this.style.borderColor = '#f6821f';
-                this.style.background = '#fff';
-                this.style.boxShadow = '0 0 0 3px rgba(246, 130, 31, 0.1)';
+                this.style.background = '#161513';
+                this.style.boxShadow = '0 0 0 3px rgba(246, 130, 31, 0.15)';
             });
             input.addEventListener('blur', function() {
-                this.style.borderColor = '#ddd';
-                this.style.background = '#fafafa';
+                this.style.borderColor = '#262625';
+                this.style.background = '#111110';
                 this.style.boxShadow = 'none';
             });
         }
@@ -149,24 +149,23 @@ console.log('[Search] Script loaded');
     function displayResults(results, query) {
         hideResults();
         
-        let html = `<div class="search-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px; overflow-y: auto; animation: fadeIn 0.2s ease;" onclick="if(event.target===this) this.remove()">
-            <div style="background: white; border-radius: 12px; max-width: 650px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: slideUp 0.3s ease; margin-top: 20px;">
-                <div style="padding: 20px; border-bottom: 1px solid #e5e7eb; background: #f9fafb; position: sticky; top: 0; z-index: 10;">
+        let html = `<div class="search-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px; overflow-y: auto; animation: fadeIn 0.2s ease;" onclick="if(event.target===this) this.remove()">
+            <div style="background: #0a0a0a; border: 1px solid #262625; border-radius: 0; max-width: 650px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.6); animation: slideUp 0.3s ease; margin-top: 20px;">
+                <div style="padding: 20px; border-bottom: 1px solid #262625; background: #111110; position: sticky; top: 0; z-index: 10;">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;">
                         <div style="flex: 1;">
-                            <div style="font-size: 13px; color: #667eea; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Search Results</div>
-                            <div style="font-size: 16px; font-weight: 700; color: #111; word-break: break-word;">` + results.length + ` result` + (results.length !== 1 ? 's' : '') + `</div>
+                            <div style="font-size: 13px; color: #f6821f; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 4px; font-family: 'JetBrains Mono', monospace;">Search Results</div>
+                            <div style="font-size: 16px; font-weight: 700; color: #f5f3ee; word-break: break-word;">` + results.length + ` result` + (results.length !== 1 ? 's' : '') + `</div>
                         </div>
-                        <button onclick="this.closest('.search-overlay').remove()" style="background: #f0f0f0; border: none; font-size: 20px; cursor: pointer; color: #333; padding: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 6px; transition: all 0.2s; flex-shrink: 0;" onmouseover="this.style.background='#e0e0e0'" onmouseout="this.style.background='#f0f0f0'">×</button>
+                        <button onclick="this.closest('.search-overlay').remove()" style="background: transparent; border: 1px solid #262625; font-size: 20px; cursor: pointer; color: #c8c5bd; padding: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 0; transition: all 0.2s; flex-shrink: 0;" onmouseover="this.style.borderColor='#f6821f';this.style.color='#f6821f'" onmouseout="this.style.borderColor='#262625';this.style.color='#c8c5bd'">×</button>
                     </div>
                 </div>
                 <div style="overflow-y: auto; max-height: calc(75vh - 120px);">`;
-        
+
         if (results.length === 0) {
             html += `<div style="padding: 60px 40px; text-align: center;">
-                <div style="font-size: 48px; margin-bottom: 16px;">🔍</div>
-                <div style="font-size: 18px; font-weight: 600; color: #111; margin-bottom: 8px;">No results found</div>
-                <div style="color: #666; font-size: 14px;">Try searching for different keywords</div>
+                <div style="font-size: 18px; font-weight: 600; color: #f5f3ee; margin-bottom: 8px;">No results found</div>
+                <div style="color: #7a766c; font-size: 14px;">Try searching for different keywords</div>
             </div>`;
         } else {
             results.slice(0, 10).forEach((r, idx) => {
@@ -175,13 +174,13 @@ console.log('[Search] Script loaded');
                 const highlightedDesc = highlightSearchTerms((item.description || '').substring(0, 150), query);
                 const safeUrl = /^https?:\/\//.test(item.url) ? item.url : '#';
 
-                html += `<a href="` + safeUrl + `" style="display: block; padding: 16px; border-bottom: 1px solid #f0f0f0; text-decoration: none; color: inherit; transition: all 0.15s;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
+                html += `<a href="` + safeUrl + `" style="display: block; padding: 16px; border-bottom: 1px solid #1f1f1f; text-decoration: none; color: inherit; transition: background-color 0.15s;" onmouseover="this.style.background='#161513'" onmouseout="this.style.background='transparent'">
                     <div style="display: flex; align-items: flex-start; gap: 10px;">
-                        <div style="flex-shrink: 0; width: 28px; height: 28px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 600;">` + (idx + 1) + `</div>
+                        <div style="flex-shrink: 0; width: 28px; height: 28px; background: #f6821f; border-radius: 0; display: flex; align-items: center; justify-content: center; color: #0a0a0a; font-size: 12px; font-weight: 700; font-family: 'JetBrains Mono', monospace;">` + (idx + 1) + `</div>
                         <div style="flex: 1; min-width: 0;">
-                            <div style="font-size: 14px; font-weight: 600; color: #111; margin-bottom: 4px; line-height: 1.3;">` + highlightedTitle + `</div>
-                            <div style="font-size: 12px; color: #666; margin-bottom: 6px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">` + highlightedDesc + `</div>
-                            <div style="font-size: 11px; color: #999; word-break: break-all;">` + item.url.replace('https://jameskilby.co.uk', '') + `</div>
+                            <div style="font-size: 14px; font-weight: 600; color: #f5f3ee; margin-bottom: 4px; line-height: 1.3;">` + highlightedTitle + `</div>
+                            <div style="font-size: 12px; color: #a8a59c; margin-bottom: 6px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">` + highlightedDesc + `</div>
+                            <div style="font-size: 11px; color: #7a766c; word-break: break-all; font-family: 'JetBrains Mono', monospace;">` + item.url.replace('https://jameskilby.co.uk', '') + `</div>
                         </div>
                     </div>
                 </a>`;
@@ -222,7 +221,7 @@ console.log('[Search] Script loaded');
         let highlighted = escapedText;
         terms.forEach(term => {
             const regex = new RegExp(`(${term})`, 'gi');
-            highlighted = highlighted.replace(regex, '<mark style="background-color: #fef3c7; padding: 1px 2px; border-radius: 2px; font-weight: 500;">$1</mark>');
+            highlighted = highlighted.replace(regex, '<mark style="background-color: #f6821f; color: #0a0a0a; padding: 1px 3px; border-radius: 0; font-weight: 600;">$1</mark>');
         });
         
         return highlighted;
