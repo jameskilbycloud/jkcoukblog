@@ -22,10 +22,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Containers",
-        "Devops",
-        "Github",
-        "Nutanix"
+        "vSphere",
+        "Storage",
+        "Synology",
+        "Networking"
       ],
       "tags": [
         null,

@@ -16,12 +16,14 @@
       "categories": [
         "Devops",
         "Personal",
-        "Automation",
-        "Homelab",
         "VMware",
+        "vSphere",
+        "Cloudflare",
         "Hosting",
-        "Nutanix",
-        "AWS"
+        "Wordpress",
+        "Consulting",
+        "Automation",
+        "Homelab"
       ],
       "tags": [
         null,

@@ -17,15 +17,12 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "Ansible",
+        "Hosting",
         "Automation",
         "Github",
-        "Traefik",
-        "VCF",
-        "VMware",
         "Networking",
-        "Storage",
-        "Synology"
+        "VMware",
+        "vSphere"
       ],
       "tags": [
         null,
