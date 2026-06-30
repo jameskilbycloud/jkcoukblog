@@ -17,14 +17,16 @@
         "Homelab",
         "Nutanix",
         "VMware",
+        "Ansible",
         "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "VMware Cloud on AWS",
-        "Ansible",
-        "Automation",
-        "Github",
-        "Storage"
+        "Storage",
+        "Synology",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,

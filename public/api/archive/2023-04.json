@@ -17,14 +17,17 @@
         "Homelab",
         "Storage",
         "vExpert",
+        "VMware",
+        "Personal",
+        "VMware Cloud on AWS",
+        "vSphere",
         "Artificial Intelligence",
         "Automation",
         "Docker",
         "NVIDIA",
         "Traefik",
-        "VMware",
-        "Runecast",
-        "VMware Cloud on AWS"
+        "TrueNAS Scale",
+        "Networking"
       ],
       "tags": [
         null,

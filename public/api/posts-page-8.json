@@ -33,10 +33,9 @@
       "categories": [
         "Personal",
         "VMware",
-        "Hosting",
+        "AWS",
         "Consulting",
-        "Cloudflare",
-        "Wordpress",
+        "Devops",
         "Nutanix"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
@@ -55,6 +54,7 @@
       "categories": [
         "Hosting",
         "Personal",
+        "AWS",
         "Cloudflare",
         "Wordpress",
         "Ansible",
@@ -64,7 +64,8 @@
         "Traefik",
         "VCF",
         "VMware",
-        "Kubernetes"
+        "Devops",
+        "Github"
       ],
       "tags": [
         null,
@@ -92,10 +93,17 @@
         "VMware",
         "Personal",
         "vSphere",
-        "AWS",
+        "Homelab",
+        "Nutanix",
+        "Consulting",
         "Veeam",
-        "Runecast",
-        "VMware Cloud on AWS"
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Traefik",
+        "VCF",
+        "Artificial Intelligence",
+        "NVIDIA"
       ],
       "tags": [
         null,
@@ -120,11 +128,13 @@
         "Networking",
         "Storage",
         "VMware",
+        "Veeam",
+        "Ansible",
+        "Automation",
         "VMware Cloud on AWS",
-        "vExpert",
-        "Personal",
-        "AWS",
-        "Veeam"
+        "Artificial Intelligence",
+        "Docker",
+        "Personal"
       ],
       "tags": [
         null,

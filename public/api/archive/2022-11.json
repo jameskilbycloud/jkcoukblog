@@ -17,14 +17,12 @@
         "Homelab",
         "Storage",
         "Synology",
+        "Hosting",
+        "Networking",
         "VMware",
-        "vSphere",
-        "Artificial Intelligence",
-        "Veeam",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Nutanix",
+        "TrueNAS Scale",
+        "Automation"
       ],
       "tags": [
         null,

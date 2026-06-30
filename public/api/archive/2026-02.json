@@ -22,12 +22,9 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VCF",
-        "Automation",
-        "VMware Cloud on AWS",
-        "Cloudflare",
-        "Github",
-        "Wordpress"
+        "Nutanix",
+        "Veeam",
+        "Personal"
       ],
       "tags": [
         null,
