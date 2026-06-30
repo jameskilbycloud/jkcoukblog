@@ -17,18 +17,11 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Docker",
-        "Homelab",
-        "Kubernetes",
         "Devops",
         "Personal",
-        "Artificial Intelligence",
-        "Automation",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "Ansible",
-        "VCF"
+        "Homelab",
+        "AWS",
+        "Github"
       ],
       "tags": [
         null,
@@ -52,20 +45,16 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "Personal",
         "Homelab",
         "Storage",
         "vExpert",
-        "AWS",
-        "Veeam",
-        "Ansible",
         "Automation",
+        "Ansible",
         "Docker",
         "Traefik",
         "VCF",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Networking"
+        "Veeam"
       ],
       "tags": [
         null,

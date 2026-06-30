@@ -16,18 +16,15 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
-        "Automation",
-        "Homelab",
         "Artificial Intelligence",
+        "Automation",
         "Docker",
+        "Homelab",
         "NVIDIA",
         "Traefik",
+        "Nutanix",
         "Ansible",
-        "VCF",
-        "Containers",
-        "Devops",
-        "vSphere"
+        "VCF"
       ],
       "tags": [
         null,

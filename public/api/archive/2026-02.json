@@ -22,11 +22,12 @@
         "NVIDIA",
         "Traefik",
         "VMware",
+        "VCF",
         "Automation",
-        "Docker",
-        "Storage",
-        "Personal",
-        "Networking"
+        "VMware Cloud on AWS",
+        "Cloudflare",
+        "Github",
+        "Wordpress"
       ],
       "tags": [
         null,

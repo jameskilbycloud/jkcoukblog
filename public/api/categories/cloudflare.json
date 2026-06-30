@@ -16,18 +16,11 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Docker",
-        "Homelab",
-        "Kubernetes",
         "Devops",
         "Personal",
-        "Artificial Intelligence",
-        "Automation",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "Ansible",
-        "VCF"
+        "Homelab",
+        "AWS",
+        "Github"
       ],
       "tags": [
         null,
@@ -51,11 +44,16 @@
       "categories": [
         "Hosting",
         "Personal",
-        "Wordpress",
         "Cloudflare",
+        "Wordpress",
+        "Ansible",
+        "Automation",
+        "Docker",
         "Homelab",
+        "Traefik",
+        "VCF",
         "VMware",
-        "vSphere"
+        "Kubernetes"
       ],
       "tags": [
         null,
@@ -83,15 +81,12 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "AWS",
-        "Homelab",
-        "Ansible",
-        "Automation",
         "Docker",
-        "Traefik",
-        "VCF",
-        "VMware",
-        "Kubernetes"
+        "Homelab",
+        "Kubernetes",
+        "AWS",
+        "Devops",
+        "Github"
       ],
       "tags": [
         null,
@@ -115,17 +110,15 @@
       "categories": [
         "Hosting",
         "Wordpress",
-        "Cloudflare",
         "Homelab",
-        "AWS",
-        "Devops",
-        "Github",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
         "Docker",
-        "NVIDIA",
         "Traefik",
-        "VMware"
+        "VCF",
+        "VMware",
+        "Cloudflare",
+        "AWS"
       ],
       "tags": [
         null,
@@ -147,18 +140,18 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
+        "Homelab",
+        "Cloudflare",
+        "Wordpress",
+        "Personal",
         "Ansible",
         "Automation",
         "Docker",
-        "Homelab",
         "Traefik",
         "VCF",
         "VMware",
-        "Cloudflare",
-        "Wordpress",
-        "Devops",
-        "Github",
-        "AWS"
+        "Artificial Intelligence",
+        "NVIDIA"
       ],
       "tags": [
         null
@@ -179,12 +172,13 @@
       "categories": [
         "Personal",
         "Consulting",
-        "VMware",
-        "vSphere",
         "Hosting",
+        "Nutanix",
         "Cloudflare",
         "Wordpress",
-        "Nutanix"
+        "AWS",
+        "Devops",
+        "VMware"
       ],
       "tags": [
         null,
@@ -193,6 +187,42 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1-1024x768.jpeg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1.jpeg)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# My Home Office Setup & Upgrades\n\nBy[James](https://jameskilby.co.uk) January 5, 2021 · Updated Jun..."
+    },
+    {
+      "slug": "automating-the-deployment-of-my-ai-homelab-and-other-improvements",
+      "title": "Automating the Deployment of my Homelab AI Infrastructure",
+      "description": "How I automated my homelab AI infrastructure with Ansible — NVIDIA vGPU passthrough, Docker, Traefik, and Semaphore for end-to-end deployment.",
+      "date": "2026-02-09T11:54:54Z",
+      "modified": "2026-06-05T17:46:09Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/",
+      "markdown_url": "/markdown/posts/automating-the-deployment-of-my-ai-homelab-and-other-improvements.md",
+      "api_url": "/api/posts/automating-the-deployment-of-my-ai-homelab-and-other-improvements.json",
+      "categories": [
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "VCF",
+        "Automation",
+        "VMware Cloud on AWS",
+        "Cloudflare",
+        "Github",
+        "Wordpress"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Containers](https://jameskilby.c..."
     },
     {
       "slug": "how-i-moved-my-wordpress-site-to-cloudflare-pages",
@@ -208,16 +238,15 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
+        "AWS",
+        "Artificial Intelligence",
+        "Docker",
         "Ansible",
         "Automation",
-        "Docker",
         "Homelab",
         "Traefik",
         "VCF",
-        "VMware",
-        "Kubernetes",
-        "Artificial Intelligence",
-        "Personal"
+        "VMware"
       ],
       "tags": [
         null,
@@ -229,38 +258,50 @@
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Static WordPress hosting using Cloudflare\n\nBy[James](ht..."
     },
     {
-      "slug": "how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way",
-      "title": "How I Migrated from Pocket to Hoarder with AI Integration",
-      "description": "How I migrated my saved articles from Pocket to Hoarder (now Karakeep), self-hosted it with Docker, and added AI tagging to organise everything.",
-      "date": "2025-01-29T23:31:56Z",
-      "modified": "2026-06-05T18:46:47Z",
+      "slug": "my-self-hosted-ai-stack-infrastructure-deep-dive-part-2",
+      "title": "My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)",
+      "description": "Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database",
+      "date": "2026-04-04T21:39:21Z",
+      "modified": "2026-06-01T21:59:15Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/",
-      "markdown_url": "/markdown/posts/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way.md",
-      "api_url": "/api/posts/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way.json",
+      "url": "https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/",
+      "markdown_url": "/markdown/posts/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2.md",
+      "api_url": "/api/posts/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2.json",
       "categories": [
         "Artificial Intelligence",
+        "Automation",
         "Docker",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
         "Hosting",
         "Ansible",
-        "Homelab",
-        "Nutanix",
-        "VMware",
-        "VCF",
-        "Kubernetes",
-        "Automation",
+        "Containers",
+        "Devops",
         "Cloudflare",
-        "Wordpress"
+        "Storage",
+        "vExpert"
       ],
       "tags": [
         null,
         null,
         null,
         null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-1024x547.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47.png)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# How I..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured.png",
+      "excerpt": "![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured.png)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category..."
     },
     {
       "slug": "nutanix-ncp",
@@ -278,8 +319,8 @@
         "Hosting",
         "Cloudflare",
         "Wordpress",
-        "Consulting",
-        "Homelab"
+        "Homelab",
+        "VMware"
       ],
       "tags": [
         null,
@@ -303,9 +344,10 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "Consulting",
-        "Devops",
-        "Github"
+        "AWS",
+        "Homelab",
+        "Artificial Intelligence",
+        "Docker"
       ],
       "tags": [
         null,
@@ -329,17 +371,15 @@
         "Devops",
         "Github",
         "Wordpress",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "Automation",
+        "Hosting",
         "Personal",
+        "Ansible",
+        "Automation",
         "Docker",
-        "Hosting"
+        "Homelab",
+        "Traefik",
+        "VCF",
+        "VMware"
       ],
       "tags": [
         null,
@@ -365,20 +405,19 @@
       "categories": [
         "Homelab",
         "Hosting",
-        "Cloudflare",
-        "Wordpress",
-        "Storage",
-        "vExpert",
+        "TrueNAS Scale",
+        "VMware",
+        "vSAN",
+        "vSphere",
         "Personal",
-        "Ansible",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "Automation",
+        "Docker",
         "NVIDIA",
         "Traefik",
-        "VMware",
-        "Nutanix",
-        "Networking"
+        "Cloudflare",
+        "Wordpress",
+        "Kubernetes"
       ],
       "tags": [
         null,
@@ -399,13 +438,12 @@
       "api_url": "/api/posts/and-now-for-something-completely-different.json",
       "categories": [
         "Personal",
-        "Devops",
-        "Consulting",
         "VMware",
-        "vSphere",
         "Hosting",
+        "Consulting",
         "Cloudflare",
-        "Wordpress"
+        "Wordpress",
+        "Nutanix"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018 · Updated June 1, 2026 • 📖1 min read(263 words)\n\n📅**Published:** October ..."
@@ -424,15 +462,14 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
         "Docker",
         "Homelab",
-        "NVIDIA",
         "Traefik",
+        "VCF",
         "VMware",
-        "Devops",
-        "Github"
+        "Personal"
       ],
       "tags": [
         null,
@@ -442,40 +479,6 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/)\n\n# Fixing Wrangler Node.js Version Conflicts After Brew Upgrade\n\nBy[James](https://jameskilby.co.uk) January 15, 2022 · Updated June 1, 2026 • 📖1 min read(217 word..."
-    },
-    {
-      "slug": "my-first-pull",
-      "title": "My First GitHub Pull Request: Contributing to Open Source",
-      "description": "The story of my first GitHub pull request — spotting a fix in an open source project, learning the process, and getting my contribution accepted.",
-      "date": "2020-12-22T16:38:11Z",
-      "modified": "2026-06-05T19:03:17Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2020/12/my-first-pull/",
-      "markdown_url": "/markdown/posts/my-first-pull.md",
-      "api_url": "/api/posts/my-first-pull.json",
-      "categories": [
-        "Devops",
-        "Personal",
-        "Consulting",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "Cloudflare",
-        "Github",
-        "Wordpress",
-        "Automation"
-      ],
-      "tags": [
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg)\n\n[Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# My First GitHub Pull Request: Contributing to Open Source\n\nBy[James](https://jameskilby.co.uk) Decemb..."
     },
     {
       "slug": "automated-vcf-9-offline-depot",
@@ -495,16 +498,13 @@
         "Traefik",
         "VCF",
         "VMware",
-        "Nutanix",
+        "Ubuntu",
         "Mikrotik",
         "Networking",
-        "Hosting",
-        "Storage",
-        "vExpert",
         "Cloudflare",
-        "Devops",
-        "Github",
-        "Wordpress"
+        "Artificial Intelligence",
+        "NVIDIA",
+        "Personal"
       ],
       "tags": [
         null,
@@ -541,10 +541,12 @@
         "Hosting",
         "Cloudflare",
         "Wordpress",
-        "Homelab",
+        "Personal",
         "Docker",
+        "Homelab",
         "Kubernetes",
-        "Artificial Intelligence"
+        "VMware",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,

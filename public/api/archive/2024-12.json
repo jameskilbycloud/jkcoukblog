@@ -19,12 +19,16 @@
         "vSAN",
         "vSphere",
         "Homelab",
-        "Automation",
+        "Networking",
+        "Storage",
+        "Kubernetes",
+        "VMware Cloud on AWS",
         "Artificial Intelligence",
+        "Automation",
         "Docker",
-        "Hosting",
-        "VCF",
-        "Nutanix"
+        "NVIDIA",
+        "Traefik",
+        "Ansible"
       ],
       "tags": [
         null,

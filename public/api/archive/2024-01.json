@@ -16,17 +16,14 @@
       "categories": [
         "VCF",
         "VMware",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
+        "Artificial Intelligence",
+        "Docker",
         "Homelab",
-        "Networking",
-        "Storage",
-        "VMware Cloud on AWS",
-        "Mikrotik",
-        "Personal",
         "Ansible",
-        "Automation"
+        "Automation",
+        "Traefik",
+        "vSAN",
+        "NVIDIA"
       ],
       "tags": [
         null,
@@ -50,19 +47,16 @@
       "categories": [
         "VMware",
         "VCF",
-        "vSAN",
-        "Personal",
-        "vSphere",
         "Homelab",
-        "Storage",
-        "vExpert",
-        "VMware Cloud on AWS",
         "Ansible",
+        "Automation",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "Docker",
         "NVIDIA",
-        "Traefik"
+        "Traefik",
+        "AWS",
+        "Veeam",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,

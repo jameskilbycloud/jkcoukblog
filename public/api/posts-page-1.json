@@ -16,12 +16,16 @@
         "vSAN",
         "vSphere",
         "Homelab",
-        "Automation",
+        "Networking",
+        "Storage",
+        "Kubernetes",
+        "VMware Cloud on AWS",
         "Artificial Intelligence",
+        "Automation",
         "Docker",
-        "Hosting",
-        "VCF",
-        "Nutanix"
+        "NVIDIA",
+        "Traefik",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -47,15 +51,14 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
         "Docker",
         "Homelab",
-        "NVIDIA",
         "Traefik",
+        "VCF",
         "VMware",
-        "Devops",
-        "Github"
+        "Personal"
       ],
       "tags": [
         null,
@@ -98,9 +101,10 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "Consulting",
-        "Devops",
-        "Github"
+        "AWS",
+        "Homelab",
+        "Artificial Intelligence",
+        "Docker"
       ],
       "tags": [
         null,
@@ -123,18 +127,11 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Docker",
-        "Homelab",
-        "Kubernetes",
         "Devops",
         "Personal",
-        "Artificial Intelligence",
-        "Automation",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "Ansible",
-        "VCF"
+        "Homelab",
+        "AWS",
+        "Github"
       ],
       "tags": [
         null,
@@ -158,14 +155,17 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Mikrotik",
-        "Networking",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Traefik",
+        "VCF",
+        "VMware",
         "Storage",
         "Synology",
-        "Docker",
-        "Hosting",
-        "Automation",
-        "Github"
+        "Veeam",
+        "Mikrotik",
+        "Networking"
       ],
       "tags": [
         null,
@@ -188,15 +188,16 @@
       "categories": [
         "Ansible",
         "Automation",
-        "Artificial Intelligence",
-        "Docker",
-        "Hosting",
-        "Homelab",
         "VMware",
+        "Personal",
+        "Homelab",
+        "Networking",
+        "Docker",
+        "Traefik",
+        "VCF",
         "Storage",
         "vExpert",
-        "AWS",
-        "Veeam"
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -221,17 +222,14 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
-        "VCF",
+        "Automation",
+        "Homelab",
+        "Nutanix",
         "TrueNAS Scale",
         "vSphere",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "Veeam",
-        "Nutanix"
+        "Runecast",
+        "Networking",
+        "Storage"
       ],
       "tags": [
         null,
@@ -255,19 +253,18 @@
       "categories": [
         "VMware",
         "vSAN",
+        "Ansible",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
+        "Containers",
+        "Devops",
         "Homelab",
         "NVIDIA",
         "Traefik",
-        "TrueNAS Scale",
-        "vSphere",
-        "Runecast",
-        "Ansible",
-        "Containers",
-        "Devops",
-        "VCF"
+        "VMware Cloud on AWS",
+        "AWS",
+        "Veeam",
+        "Automation",
+        "Docker"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n# vSAN Cluster Shutdown – Orchestration\n\nBy[James](https://jameskilby.co.uk) December 6,..."
@@ -286,15 +283,11 @@
         "Personal",
         "VMware",
         "Homelab",
-        "Veeam",
-        "Nutanix",
-        "Devops",
-        "Hosting",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Traefik",
-        "VCF"
+        "Networking",
+        "Storage",
+        "vSphere",
+        "VCF",
+        "Runecast"
       ],
       "tags": [
         null,

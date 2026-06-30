@@ -17,13 +17,14 @@
         "Homelab",
         "Storage",
         "Synology",
-        "VCF",
         "VMware",
-        "Nutanix",
-        "vExpert",
-        "Networking",
+        "vSphere",
         "Artificial Intelligence",
-        "Docker"
+        "Veeam",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,

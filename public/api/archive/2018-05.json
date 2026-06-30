@@ -18,10 +18,12 @@
         "Hosting",
         "Cloudflare",
         "Wordpress",
-        "Homelab",
+        "Personal",
         "Docker",
+        "Homelab",
         "Kubernetes",
-        "Artificial Intelligence"
+        "VMware",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,

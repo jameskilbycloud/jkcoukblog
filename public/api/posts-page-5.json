@@ -29,16 +29,16 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Automation",
-        "VMware",
-        "Runecast",
         "Artificial Intelligence",
+        "Automation",
         "Docker",
-        "Hosting",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "Containers",
+        "Devops",
         "Github",
-        "Storage",
-        "TrueNAS Scale",
-        "vExpert"
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -63,15 +63,16 @@
         "Homelab",
         "Veeam",
         "VMware",
+        "Mikrotik",
         "Networking",
         "Ansible",
         "Automation",
         "Docker",
-        "Hosting",
-        "Kubernetes",
+        "Traefik",
+        "VCF",
         "VMware Cloud on AWS",
-        "Storage",
-        "vExpert"
+        "vSAN",
+        "Runecast"
       ],
       "tags": [
         null,
@@ -94,17 +95,14 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Automation",
-        "VMware",
-        "Hosting",
-        "Docker",
-        "Kubernetes",
-        "Artificial Intelligence",
-        "NVIDIA",
-        "Traefik",
         "Ansible",
-        "Containers",
-        "Devops"
+        "Automation",
+        "Github",
+        "TrueNAS Scale",
+        "VMware",
+        "vSAN",
+        "vSphere",
+        "Storage"
       ],
       "tags": [
         null,
@@ -126,11 +124,18 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Hosting",
-        "vExpert",
-        "Networking",
+        "Nutanix",
+        "VMware",
+        "vSphere",
+        "Artificial Intelligence",
+        "Automation",
         "Docker",
-        "Kubernetes"
+        "NVIDIA",
+        "Traefik",
+        "Ansible",
+        "Containers",
+        "Devops",
+        "Synology"
       ],
       "tags": [
         null,
@@ -154,14 +159,13 @@
       "categories": [
         "Homelab",
         "VMware",
+        "vSAN",
+        "VCF",
         "VMware Cloud on AWS",
+        "Personal",
         "Artificial Intelligence",
-        "Automation",
         "Docker",
-        "NVIDIA",
-        "Traefik",
-        "Hosting",
-        "Storage"
+        "Hosting"
       ],
       "tags": [
         null,
@@ -185,15 +189,16 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Artificial Intelligence",
         "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
         "VMware",
         "Networking",
-        "Veeam",
-        "vExpert"
+        "Artificial Intelligence",
+        "Docker",
+        "Hosting",
+        "Mikrotik",
+        "Ansible",
+        "Traefik",
+        "VCF"
       ],
       "tags": [
         null,
@@ -214,16 +219,18 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
+        "Mikrotik",
+        "Networking",
+        "Artificial Intelligence",
         "Nutanix",
         "VMware",
-        "Networking",
+        "Automation",
         "Docker",
-        "Hosting",
-        "Kubernetes",
-        "VCF",
+        "NVIDIA",
+        "Traefik",
         "Storage",
         "Synology",
-        "vExpert"
+        "vSphere"
       ],
       "tags": [
         null,
@@ -247,13 +254,14 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Networking",
-        "VMware",
-        "VCF",
-        "VMware Cloud on AWS",
-        "vSphere",
         "Artificial Intelligence",
-        "Automation"
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "Runecast",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -280,9 +288,16 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "VCF",
+        "Runecast",
         "Homelab",
-        "Runecast"
+        "Networking",
+        "Storage",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "vSphere"
       ],
       "tags": [
         null,
