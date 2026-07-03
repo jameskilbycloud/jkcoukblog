@@ -29,7 +29,11 @@
   --text-light: #fafafa;
   --accent-orange: #f6821f;
   --gray-mid: #404040;
-  --gray-light: #666666;
+  /* Body copy (.entry-content p et al) renders in this on --bg-dark.
+     #666666 was ~3.4:1 against #0a0a0a — below the WCAG AA 4.5:1 minimum
+     for normal text. #949494 is ~6.5:1 on #0a0a0a and stays ≥5:1 on the
+     lighter card surfaces (#1a1a1a/#262625). Keep it ≥ #8f8f8f. */
+  --gray-light: #949494;
 }
 
 /* Apply noise texture to body */
@@ -1484,6 +1488,9 @@ div, section, aside, nav {
     --text-muted: #333;
     --accent-orange: #000;
     --border-subtle: #ccc;
+    /* The screen value is tuned for the dark background — on white it
+       would be ~3:1. Pin body-copy gray dark for print (~9.7:1). */
+    --gray-light: #444;
   }
 
   body {
