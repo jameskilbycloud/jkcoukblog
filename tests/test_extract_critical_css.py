@@ -78,3 +78,33 @@ def test_keyframes_are_skipped(tmp_path):
                        {'p'}, tmp_path)
     assert '@keyframes' not in out
     assert 'color:red' in out
+
+
+def test_sheet_cache_reuses_parse_and_invalidates_on_rewrite(tmp_path):
+    # One extractor instance processes every page — the tokenized sheet must
+    # be parsed once and reused, but a rewritten file must not serve stale
+    # nodes (keyed on mtime_ns + size).
+    sheet = tmp_path / 't.css'
+    sheet.write_text('h1{color:red}', encoding='utf-8')
+    ex = CriticalCSSExtractor()
+    ex.public_dir = tmp_path
+
+    first = ex._get_sheet_nodes(sheet)
+    assert first is ex._get_sheet_nodes(sheet), 'second read should hit the cache'
+
+    # Different size guarantees a new fingerprint even on coarse mtime clocks.
+    sheet.write_text('h2{margin:0;padding:0}', encoding='utf-8')
+    fresh = ex._get_sheet_nodes(sheet)
+    assert fresh is not first
+    assert fresh[0][0] == 'h2'
+
+
+def test_cached_extraction_matches_uncached(tmp_path):
+    # _parse_css_rules (raw string path) and the cached sheet path must
+    # produce identical output for the same CSS + selector set.
+    css = 'p{color:red}@media (max-width:600px){h1{margin:0}.skip{x:1}}'
+    ex, out = _extract(css, {'p', 'h1'}, tmp_path)
+    direct = ''.join(
+        ex._minify_css(r) for r in ex._parse_css_rules(css, {'p', 'h1'})
+    )
+    assert out == direct

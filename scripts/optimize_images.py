@@ -130,10 +130,16 @@ class ImageOptimizer:
         avif_path = image_path.with_suffix('.avif')
         webp_path = image_path.with_suffix('.webp')
 
-        # If both modern formats exist on disk, skip (trust the files)
+        # If both modern formats exist on disk, skip — but only when the
+        # source hash still matches the cache. Derivatives rsynced from the
+        # previous build can belong to an older image published under the
+        # same filename; without this check they would never be regenerated.
         if avif_path.exists() and webp_path.exists():
-            # Populate cache if missing so future runs are fast
             cache_key = str(image_path.relative_to(self.public_dir))
+            cached_hash = self.optimization_cache.get(cache_key, {}).get('hash', '')
+            if cached_hash and cached_hash != self.get_image_hash(image_path):
+                return True
+            # Populate cache if missing so future runs are fast
             if cache_key not in self.optimization_cache:
                 entry = {
                     'hash': self.get_image_hash(image_path),
