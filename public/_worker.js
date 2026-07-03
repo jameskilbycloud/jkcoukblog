@@ -34,6 +34,15 @@ const PATH_MANIFEST = PATH_MANIFEST_RAW ? new Set(PATH_MANIFEST_RAW) : null;
 // same as before, fail-open.
 const CSP_FROM_HEADERS = /*__CSP_FROM_HEADERS_START__*/"default-src 'self'; script-src 'self' 'unsafe-inline' plausible.jameskilby.cloud utteranc.es static.cloudflareinsights.com cdn.credly.com cdn.youracclaim.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' plausible.jameskilby.cloud cloudflareinsights.com; frame-src https://www.youtube.com https://player.vimeo.com https://embed.acast.com https://utteranc.es https://plausible.jameskilby.cloud https://www.credly.com https://www.youracclaim.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"/*__CSP_FROM_HEADERS_END__*/;
 
+// Browser cache budget for HTML — matches the `_headers` `/*.html` and `/2*`
+// rules (max-age=300, must-revalidate). Kept separate from the smart KV TTL
+// (getTTL): `_headers` rules are NOT layered onto worker-built Responses, so
+// this header is what browsers actually see on HIT/MISS. A short browser
+// window keeps deploys and KV purges meaningful for repeat visitors;
+// revalidation after 300s rides the ETag/Last-Modified 304 path, which is
+// cheap. The KV/edge caches keep their own longer absolute-expiry TTLs.
+const BROWSER_HTML_CACHE_CONTROL = 'public, max-age=300, must-revalidate';
+
 /**
  * Is this path a known content URL?
  *
@@ -261,7 +270,6 @@ async function handleKVCache(request, env, ctx, path, hostname) {
     const cachedMeta = (cachedRes && cachedRes.metadata) || {};
 
     if (cached) {
-      const ttl = getTTL(path);
       const etag = await computeETag(cached);
       const lastModified = cachedMeta.cached_at
         ? new Date(cachedMeta.cached_at).toUTCString()
@@ -280,7 +288,7 @@ async function handleKVCache(request, env, ctx, path, hostname) {
           headers: {
             'ETag': etag,
             'Last-Modified': lastModified,
-            'Cache-Control': `public, max-age=${ttl}`,
+            'Cache-Control': BROWSER_HTML_CACHE_CONTROL,
             'X-Cache-Status': 'HIT-304',
             'X-Worker': 'advanced-worker-kv',
             ...getSecurityHeaders(hostname)
@@ -291,7 +299,7 @@ async function handleKVCache(request, env, ctx, path, hostname) {
       return new Response(cached, {
         headers: {
           'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': `public, max-age=${ttl}`,
+          'Cache-Control': BROWSER_HTML_CACHE_CONTROL,
           'ETag': etag,
           'Last-Modified': lastModified,
           'X-Cache-Status': 'HIT',
@@ -344,7 +352,7 @@ async function handleKVCache(request, env, ctx, path, hostname) {
         headers: {
           'ETag': etag,
           'Last-Modified': lastModified,
-          'Cache-Control': `public, max-age=${ttl}`,
+          'Cache-Control': BROWSER_HTML_CACHE_CONTROL,
           'X-Cache-Status': 'MISS-304',
           'X-Worker': 'advanced-worker-kv',
           ...getSecurityHeaders(hostname)
@@ -355,7 +363,7 @@ async function handleKVCache(request, env, ctx, path, hostname) {
       status: response.status,
       headers: {
         'Content-Type': 'text/html; charset=utf-8',
-        'Cache-Control': `public, max-age=${ttl}`,
+        'Cache-Control': BROWSER_HTML_CACHE_CONTROL,
         'ETag': etag,
         'Last-Modified': lastModified,
         'X-Cache-Status': 'MISS',
@@ -396,6 +404,9 @@ async function handleCacheAPI(request, env, ctx, path, hostname = '') {
 
   if (response) {
     const newHeaders = new Headers(response.headers);
+    // The stored copy carries the smart edge TTL — swap in the browser
+    // budget before serving (same split as the KV path).
+    newHeaders.set('Cache-Control', BROWSER_HTML_CACHE_CONTROL);
     newHeaders.set('X-Cache-Status', 'HIT');
     newHeaders.set('X-Worker', 'advanced-worker-cache-api');
 
@@ -417,16 +428,11 @@ async function handleCacheAPI(request, env, ctx, path, hostname = '') {
     const responseToCache = response.clone();
     const newHeaders = new Headers(responseToCache.headers);
 
-    // Always apply our smart TTL (Cache-Control) to HTML, overriding any
-    // upstream default. The previous `if (!has(...))` guard was meant to
-    // respect the `_headers /*.html` rule (max-age=300), but that rule only
-    // matches literal `.html` paths — pretty-URL post permalinks like
-    // `/2017/05/foo/` skipped it entirely and inherited Cloudflare Pages'
-    // `max-age=0, must-revalidate` default, leaving browsers unable to
-    // soft-cache repeat visits. Aligning the browser cache with the smart
-    // KV TTL gives readers proper local caching without violating the
-    // "absolute-expiry, view-counts don't reset the clock" invariant
-    // (browser cache is a separate clock from the KV cache).
+    // The stored copy keeps the smart TTL — caches.default uses the
+    // response's Cache-Control for edge retention, so this is what gives
+    // the fallback path its 5min/15min/1hr lifetimes. Browsers get the
+    // separate 300s budget below (Pages' `_headers` rules do not apply to
+    // worker-built Responses, so this header is what clients actually see).
     newHeaders.set('Cache-Control', `public, max-age=${getTTL(path)}`);
 
     newHeaders.set('X-Cache-Status', 'MISS');
@@ -437,7 +443,7 @@ async function handleCacheAPI(request, env, ctx, path, hostname = '') {
     Object.entries(securityHeaders).forEach(([key, value]) => {
       newHeaders.set(key, value);
     });
-    
+
     const cachedResponse = new Response(responseToCache.body, {
       status: responseToCache.status,
       headers: newHeaders
@@ -451,9 +457,11 @@ async function handleCacheAPI(request, env, ctx, path, hostname = '') {
         .catch(err => console.error('Cache API write failed:', err))
     );
 
+    const clientHeaders = new Headers(newHeaders);
+    clientHeaders.set('Cache-Control', BROWSER_HTML_CACHE_CONTROL);
     return new Response(response.body, {
       status: response.status,
-      headers: newHeaders
+      headers: clientHeaders
     });
   }
   
