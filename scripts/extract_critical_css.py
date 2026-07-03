@@ -146,31 +146,36 @@ class CriticalCSSExtractor:
 
         return critical_css
 
+    # Stylesheets that stay render-blocking (mirrors _convert_to_async's
+    # EXCLUDED): their above-fold rules are already applied at first paint, so
+    # inlining them into the critical block is duplication that wastes the cap.
+    RENDER_BLOCKING_CSS = ('brutalist-theme', 'fonts.css', 'consolidated-inline-styles')
+
     def _extract_matching_css_rules(self, soup, selectors, file_path=None):
-        """Extract CSS rules that match the given selectors"""
+        """Extract critical rules — only from the stylesheets that load ASYNC.
+
+        Only async-converted external sheets need their above-fold rules
+        inlined. Inline <style> blocks and the render-blocking sheets
+        (RENDER_BLOCKING_CSS) are already applied before first paint, so
+        scanning them just duplicates CSS into the critical <style> and blows
+        the byte cap — crowding out the async rules that genuinely prevent
+        FOUC. So we skip both.
+        """
         critical_rules = []
 
-        # Find all style tags
-        for style_tag in soup.find_all('style'):
-            if style_tag.string:
-                css_content = style_tag.string
-                rules = self._parse_css_rules(css_content, selectors)
-                critical_rules.extend(rules)
-
-        # Find all external CSS files and extract their rules
         for link in soup.find_all('link', rel='stylesheet'):
             href = link.get('href', '')
-            if href:
-                css_path = self._resolve_css_path(href)
-                if css_path and css_path.exists():
-                    try:
-                        with open(css_path, 'r', encoding='utf-8') as f:
-                            css_content = f.read()
-                            rules = self._parse_css_rules(css_content, selectors)
-                            critical_rules.extend(rules)
-                    except Exception as e:
-                        # Silently skip if we can't read the file
-                        pass
+            if not href or any(x in href for x in self.RENDER_BLOCKING_CSS):
+                continue
+            css_path = self._resolve_css_path(href)
+            if css_path and css_path.exists():
+                try:
+                    with open(css_path, 'r', encoding='utf-8') as f:
+                        rules = self._parse_css_rules(f.read(), selectors)
+                        critical_rules.extend(rules)
+                except Exception:
+                    # Silently skip if we can't read the file
+                    pass
 
         # Minify each rule separately, then keep whole rules until the size
         # cap is reached. Each entry in critical_rules is a complete,
