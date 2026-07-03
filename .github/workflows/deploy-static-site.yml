@@ -449,21 +449,12 @@ jobs:
           WEBP_AFTER=$(find ./static-output/wp-content/uploads -type f -name "*.webp" | wc -l | xargs)
           echo "✅ Copied $((AVIF_AFTER - AVIF_BEFORE)) AVIF and $((WEBP_AFTER - WEBP_BEFORE)) WebP files from previous build"
 
-          # Replace originals with previously-optimized versions if they are smaller
-          REPLACED=0
-          find ./static-output/wp-content/uploads -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) | while read new_img; do
-            rel_path="${new_img#./static-output/}"
-            old_img="public/$rel_path"
-            if [ -f "$old_img" ]; then
-              new_size=$(stat -f%z "$new_img" 2>/dev/null || stat -c%s "$new_img" 2>/dev/null)
-              old_size=$(stat -f%z "$old_img" 2>/dev/null || stat -c%s "$old_img" 2>/dev/null)
-              if [ "$old_size" -lt "$new_size" ]; then
-                cp "$old_img" "$new_img"
-                REPLACED=$((REPLACED + 1))
-              fi
-            fi
-          done
-          echo "✅ Reused $REPLACED optimized original images from previous build"
+          # NOTE: originals are intentionally NOT copied from the previous
+          # build. Nothing in the pipeline recompresses originals in place,
+          # so a size difference between public/ and static-output can only
+          # mean the image was replaced in WordPress under the same filename
+          # — copying the old (smaller) file back served stale content and
+          # the rsynced derivatives above then never regenerated.
 
           # Count how many images still need modern formats
           TOTAL_IMAGES=$(find ./static-output/wp-content/uploads -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) | wc -l | xargs)
@@ -766,7 +757,11 @@ jobs:
             # scripts (generate_changelog.py, generate_stats_page.py). Their
             # .br/.gz sidecars in public/ are always stale because the scripts
             # update the source files AFTER the main Brotli pass.
-            case "$rel" in changelog/*|stats/*) STALE=$((STALE + 1)); continue;; esac
+            # HTML sidecars are skipped too: static-output HTML holds absolute
+            # URLs while public/ holds the staging-converted relative form, so
+            # the cmp below could never match — and HTML is compressed only in
+            # the final public/ pass now (see the recompress step).
+            case "$rel" in changelog/*|stats/*|*.html.br|*.html.gz) STALE=$((STALE + 1)); continue;; esac
 
             # Derive the uncompressed original path
             original="${target%.br}"
@@ -786,9 +781,15 @@ jobs:
           echo "   ♻️  Reused $REUSED compressed files from previous build (skipped $STALE stale)"
         fi
 
-        # Run compression — produces .br and .gz alongside each original
-        # Files with existing newer .br/.gz will be skipped automatically
-        python3 scripts/brotli_compress.py ./static-output || {
+        # Run compression — produces .br and .gz alongside each original.
+        # Files with existing newer .br/.gz will be skipped automatically.
+        # --skip-html: convert_to_staging.py rewrites every HTML file after
+        # this step (absolute → relative URLs), which invalidated the just-
+        # built sidecars and forced the final recompress to redo the whole
+        # HTML corpus at q11 — HTML was compressed twice per build. HTML is
+        # now compressed once, in the final public/ pass. Missing HTML
+        # sidecars are fine for the validators (missing .br is a soft skip).
+        python3 scripts/brotli_compress.py ./static-output --skip-html || {
           echo "⚠️  Compression failed (non-blocking)"
           echo "BROTLI_COUNT=0" >> $GITHUB_ENV
           echo "GZIP_COUNT=0" >> $GITHUB_ENV
@@ -1036,18 +1037,17 @@ jobs:
         echo "📊 Generating stats page..."
         PLAUSIBLE_SHARE_LINK="${{ secrets.PLAUSIBLE_SHARE_LINK }}" python3 scripts/generate_stats_page.py || echo "⚠️  Stats page generation failed (non-blocking)"
 
-        # Recompress the WHOLE tree, not just changelog/stats. The main Brotli
-        # pass ran on static-output BEFORE the "Prepare output for deployment"
-        # step rewrote HTML/CSS in place — convert_to_staging.py converts
-        # absolute → relative URLs and only writes files it actually changes.
-        # Every rewritten file's .br/.gz sidecar is now stale (it still encodes
-        # the absolute-URL bytes the validators checked). A full-tree pass
-        # regenerates exactly those changed sidecars — brotli_compress.py skips
-        # any file whose .br is already newer than its source (mtime check) — and
-        # also covers the just-generated changelog/stats pages and security.txt.
-        # Without this, Cloudflare would serve precompressed HTML that no longer
-        # matches the deployed source.
-        echo "🗜️  Recompressing files changed after the main Brotli pass (URL rewrite, changelog, stats)..."
+        # Compress the WHOLE tree, not just changelog/stats. This is the ONLY
+        # pass that compresses HTML: the main Brotli pass ran on static-output
+        # with --skip-html because convert_to_staging.py rewrites HTML
+        # (absolute → relative URLs) during "Prepare output for deployment",
+        # which would invalidate any HTML sidecars built earlier. Non-HTML
+        # files keep their pass-1 sidecars — brotli_compress.py skips any file
+        # whose .br is already newer than its source (mtime check) — and this
+        # pass also covers the just-generated changelog/stats pages and
+        # security.txt. If this step fails, HTML ships without sidecars and
+        # Cloudflare compresses on the fly (slower, but never mismatched).
+        echo "🗜️  Compressing HTML + files changed after the main Brotli pass (URL rewrite, changelog, stats)..."
         python3 scripts/brotli_compress.py public/ || echo "⚠️  Recompression failed (non-blocking)"
       continue-on-error: true
 
@@ -1170,11 +1170,11 @@ jobs:
     
     # Soft-404 KV cleanup step removed — the worker's isKnownContentPath
     # guard (see _worker.template.js) prevents new ghost entries at write
-    # time, and the "Purge all HTML from KV cache" step below already wipes
-    # everything on each deploy. scripts/purge_soft404_kv_cache.py is kept
-    # in the repo for emergency ad-hoc use.
+    # time (it runs BEFORE the KV lookup, so even a stale ghost entry is
+    # never served). scripts/purge_soft404_kv_cache.py is kept in the repo
+    # for emergency ad-hoc use.
 
-    - name: Purge all HTML from KV cache
+    - name: Purge changed HTML from KV cache
       id: kv_purge
       if: success()
       env:
@@ -1188,7 +1188,7 @@ jobs:
         # and we skip the wait entirely — the existing deployment is still live.
         PUSHED_SHA: ${{ steps.commit_push.outputs.pushed_sha }}
       run: |
-        echo "🗑️ Purging all HTML entries from Workers KV cache..."
+        echo "🗑️ Purging changed HTML entries from Workers KV cache..."
 
         if [ -z "${{ secrets.CACHE_PURGE_TOKEN }}" ]; then
           echo "ℹ️  CACHE_PURGE_TOKEN not set, skipping KV cache purge"
@@ -1197,8 +1197,15 @@ jobs:
         fi
 
         if [ -z "$PUSHED_SHA" ]; then
-          echo "ℹ️  No new commit was pushed — previous deployment still live, purging immediately."
-        elif [ -n "$CLOUDFLARE_API_TOKEN" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
+          # Nothing was committed, so every KV entry is still byte-identical
+          # to what Pages serves — purging would only force cold-cache MISSes.
+          # (If a previous run's purge failed and you need a manual flush:
+          # scripts/purge_html_kv_cache.py, or POST /.purge?all=true.)
+          echo "ℹ️  No new commit was pushed — public/ unchanged, skipping KV purge."
+          exit 0
+        fi
+
+        if [ -n "$CLOUDFLARE_API_TOKEN" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
           echo "⏳ Waiting for Cloudflare Pages deployment of ${PUSHED_SHA:0:7} to complete..."
           MAX_ATTEMPTS=18   # 18 × 10s = 180s max
           ATTEMPT=0
@@ -1260,18 +1267,77 @@ jobs:
           sleep 30
         fi
 
-        RESPONSE=$(curl -s -w "\n%{http_code}" \
-          -X POST "https://jameskilby.co.uk/.purge?all=true" \
-          -H "X-Purge-Token: ${{ secrets.CACHE_PURGE_TOKEN }}")
+        # Selective purge: only pages whose rendered bytes changed in the
+        # pushed commit need purging — every other KV entry is still
+        # byte-identical to what Pages now serves (KV values are raw HTML
+        # bodies; worker headers/TTLs are applied at serve time, so even a
+        # worker change doesn't invalidate them). Previously every deploy
+        # wiped the whole namespace, forcing a cold MISS for every page's
+        # next visitor. Above MAX_SELECTIVE changed pages (site-wide CSS/
+        # template rewrites) purge-all is fewer requests, so fall back.
+        MAX_SELECTIVE=30
+        CHANGED_HTML=$(git diff-tree --no-commit-id --name-only -r "$PUSHED_SHA" -- public/ | grep '\.html$' || true)
+        CHANGED_COUNT=$(printf '%s' "$CHANGED_HTML" | grep -c . || true)
 
-        HTTP_CODE=$(echo "$RESPONSE" | tail -1)
-        BODY=$(echo "$RESPONSE" | sed '$d')
+        PURGE_METHOD="selective"
+        PURGED_COUNT=0
+        if [ "$CHANGED_COUNT" -eq 0 ]; then
+          echo "ℹ️  No HTML files changed in ${PUSHED_SHA:0:7} — nothing to purge."
+          PURGE_METHOD="none"
+        elif [ "$CHANGED_COUNT" -gt "$MAX_SELECTIVE" ]; then
+          echo "ℹ️  $CHANGED_COUNT HTML files changed (> $MAX_SELECTIVE) — using purge-all."
+          PURGE_METHOD="all"
+        fi
 
-        if [ "$HTTP_CODE" = "200" ]; then
-          PURGED_COUNT=$(echo "$BODY" | jq -r '.count // 0')
-          echo "✅ Purged $PURGED_COUNT entries from KV cache"
-        else
-          echo "⚠️  Purge-all failed (HTTP $HTTP_CODE): $BODY"
+        if [ "$PURGE_METHOD" = "selective" ]; then
+          echo "🎯 Selectively purging $CHANGED_COUNT changed HTML page(s)..."
+          OK=0
+          FAILED=0
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            rel="${f#public/}"
+            # The worker keys the KV cache on the raw request pathname, and
+            # isKnownContentPath accepts both slash forms — so a page can be
+            # cached under /dir and /dir/. Purge both variants.
+            case "$rel" in
+              index.html)   paths="/ /index.html" ;;
+              */index.html) d="/${rel%/index.html}"; paths="$d $d/" ;;
+              *)            paths="/$rel" ;;
+            esac
+            for p in $paths; do
+              CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+                -X POST "https://jameskilby.co.uk/.purge?path=$p" \
+                -H "X-Purge-Token: ${{ secrets.CACHE_PURGE_TOKEN }}")
+              if [ "$CODE" = "200" ]; then
+                OK=$((OK + 1))
+              else
+                echo "   ⚠️  Purge failed for $p (HTTP $CODE)"
+                FAILED=$((FAILED + 1))
+              fi
+            done
+          done <<< "$CHANGED_HTML"
+          PURGED_COUNT=$OK
+          echo "✅ Purged $OK path variant(s), $FAILED failed"
+          if [ "$FAILED" -gt 0 ]; then
+            echo "⚠️  Some selective purges failed — falling back to purge-all for safety."
+            PURGE_METHOD="all"
+          fi
+        fi
+
+        if [ "$PURGE_METHOD" = "all" ]; then
+          RESPONSE=$(curl -s -w "\n%{http_code}" \
+            -X POST "https://jameskilby.co.uk/.purge?all=true" \
+            -H "X-Purge-Token: ${{ secrets.CACHE_PURGE_TOKEN }}")
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+
+          if [ "$HTTP_CODE" = "200" ]; then
+            PURGED_COUNT=$(echo "$BODY" | jq -r '.count // 0')
+            echo "✅ Purged $PURGED_COUNT entries from KV cache"
+          else
+            echo "⚠️  Purge-all failed (HTTP $HTTP_CODE): $BODY"
+          fi
         fi
 
         # Add to summary
@@ -1279,7 +1345,7 @@ jobs:
         echo "## 🗑️ KV Cache Purged" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "- **Entries Purged:** ${PURGED_COUNT:-unknown}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Method:** Purge all" >> $GITHUB_STEP_SUMMARY
+        echo "- **Method:** $PURGE_METHOD ($CHANGED_COUNT HTML files changed)" >> $GITHUB_STEP_SUMMARY
       continue-on-error: true
 
     # Cloudflare zone HTTP cache purge for HTML removed — verified via live

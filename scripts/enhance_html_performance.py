@@ -9,6 +9,26 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 import re
 
+try:
+    from config import Config
+    _SITE_ORIGIN = Config.TARGET_DOMAIN.rstrip('/')
+except ImportError:
+    _SITE_ORIGIN = 'https://jameskilby.co.uk'
+
+
+def normalize_self_href(href):
+    """Map absolute same-site URLs to their relative form.
+
+    Different pipeline stages leave hrefs in different forms — e.g.
+    restore_seeded_urls keeps `/wp-content/...` link hrefs relative but
+    absolutifies srcset/imagesrcset. Comparing hrefs without normalising
+    made duplicate detection miss existing tags (two identical LCP
+    preloads shipped on every page).
+    """
+    if href and href.startswith(_SITE_ORIGIN + '/'):
+        return href[len(_SITE_ORIGIN):]
+    return href
+
 
 class HTMLPerformanceEnhancer:
     """Enhance HTML files with performance optimizations"""
@@ -382,7 +402,15 @@ class HTMLPerformanceEnhancer:
                             self._pick_lcp_preload(first_img)
                         )
 
-                        existing = soup.find('link', rel='preload', href=preload_href)
+                        # Compare normalised hrefs — preload_href derives from
+                        # the (absolutified) srcset while an existing preload's
+                        # href may be relative; an exact-string find misses it.
+                        target = normalize_self_href(preload_href)
+                        existing = next(
+                            (lnk for lnk in soup.find_all('link', rel='preload')
+                             if normalize_self_href(lnk.get('href', '')) == target),
+                            None
+                        )
                         if not existing:
                             preload = soup.new_tag('link')
                             preload['rel'] = 'preload'

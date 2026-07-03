@@ -28,7 +28,7 @@ from bs4 import BeautifulSoup
 sys.path.insert(0, str(Path(__file__).parent))
 
 from fix_seo_issues import SEOFixer
-from enhance_html_performance import HTMLPerformanceEnhancer
+from enhance_html_performance import HTMLPerformanceEnhancer, normalize_self_href
 from convert_images_to_picture import ImageToPictureConverter
 from extract_critical_css import CriticalCSSExtractor
 from minify_html import minify_html
@@ -269,7 +269,10 @@ class HTMLTransformer:
 
         head_body = re.sub(r'<link\b[^>]*/?\s*>', _revert_preload, head_body, flags=re.IGNORECASE)
 
-        # 3. Deduplicate <link> tags by href
+        # 3. Deduplicate <link> tags by href. Keys are normalised so an
+        # absolute same-site href and its relative form count as the same
+        # resource — exact-string keys let e.g. a relative and an
+        # absolutified copy of the same LCP preload both survive.
         seen_hrefs = set()
 
         def _dedup(m):
@@ -277,7 +280,7 @@ class HTMLTransformer:
             href_m = re.search(r'\bhref=["\']([^"\']+)["\']', tag, re.IGNORECASE)
             if not href_m:
                 return tag
-            href = href_m.group(1)
+            href = normalize_self_href(href_m.group(1))
             if href in seen_hrefs:
                 return ''
             seen_hrefs.add(href)
