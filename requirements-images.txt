@@ -3,7 +3,7 @@
 
 # Core dependencies — pinned exactly, kept current by Dependabot.
 # Versions must match requirements.txt where packages overlap.
-Pillow==12.2.0
+Pillow==12.3.0
 pillow-avif-plugin==1.5.5
 beautifulsoup4==4.15.0
 requests==2.34.2

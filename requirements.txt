@@ -6,7 +6,7 @@ requests==2.34.2
 beautifulsoup4==4.15.0
 brotli==1.2.0
 cssutils==2.15.0
-Pillow==12.2.0
+Pillow==12.3.0
 # fontTools is used by generate_og_images.py to unwrap woff2 → ttf
 # (PIL can't render woff2 directly). [woff] extra pulls brotli decompression.
 fonttools[woff]==4.63.0
