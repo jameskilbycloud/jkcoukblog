@@ -40,10 +40,11 @@
 # default and browsers couldn't soft-cache repeat visits.
 # `/2*` is greedy and catches every year-prefixed post URL; no other
 # top-level path on this site starts with `/2`.
-# Cloudflare Pages applies _headers rules AFTER worker responses,
-# so this also overrides the worker's smart-TTL Cache-Control —
-# `_headers` is the single source of truth for the browser cache
-# budget. The worker's KV cache continues to use its own absolute-
+# NOTE: Cloudflare Pages does NOT layer _headers rules onto Response
+# objects built by _worker.js — only env.ASSETS.fetch() results get
+# them. The worker mirrors this 300s browser budget itself via
+# BROWSER_HTML_CACHE_CONTROL in _worker.template.js; keep the two in
+# sync. The worker's KV cache continues to use its own absolute-
 # expiry TTLs independently.
 /2*
   Cache-Control: public, max-age=300, must-revalidate
@@ -74,17 +75,21 @@
   ! X-Frame-Options
   ! Permissions-Policy
 
-# Pipeline-emitted CSS — long cache but allow revalidation since
-# brutalist-theme.css / consolidated-inline-styles.min.css are not
-# content-hashed and may be re-emitted with new contents.
+# Pipeline-emitted CSS/JS — brutalist-theme.css, per-page critical CSS
+# and search/UI JS are NOT content-hashed and are re-emitted with new
+# contents across builds, and no purge step covers these prefixes. A
+# year-long max-age (without a revalidation directive) meant repeat
+# visitors could hold stale styling/behaviour for up to a year after a
+# design change. One hour bounds that window; bump back up only if
+# filenames gain content hashes.
 /assets/css/*
-  Cache-Control: public, max-age=31536000
+  Cache-Control: public, max-age=3600
   ! Content-Security-Policy
   ! X-Frame-Options
   ! Permissions-Policy
 
 /assets/js/*
-  Cache-Control: public, max-age=31536000
+  Cache-Control: public, max-age=3600
   ! Content-Security-Policy
   ! X-Frame-Options
   ! Permissions-Policy
