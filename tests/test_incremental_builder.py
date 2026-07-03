@@ -95,3 +95,54 @@ def test_remove_stale_entries(builder):
     assert removed == 1
     assert '/2026/01/keep/' in builder.cache['posts']
     assert '/2026/01/drop/' not in builder.cache['posts']
+
+
+def test_watermark_is_build_start_in_utc(tmp_path):
+    # The modified_after watermark must be the time fetching BEGAN, not the
+    # time the build finished — a post edited mid-build is older than an
+    # end-of-build stamp and would be skipped forever. It must also carry
+    # an explicit UTC offset so runner/WP timezone drift can't shift it.
+    from datetime import datetime, timezone
+
+    before = datetime.now(timezone.utc)
+    b = IncrementalBuilder(cache_file=str(tmp_path / 'cache.json'))
+    after_init = datetime.now(timezone.utc)
+
+    b.finalize_build(is_full_build=True)
+
+    stamp = datetime.fromisoformat(b.cache['last_build_time'])
+    assert stamp.tzinfo is not None
+    assert before <= stamp <= after_init  # start-of-build, not finalize time
+    assert b.cache['last_full_build'] == b.cache['last_build_time']
+
+
+def test_modified_after_param_subtracts_overlap(builder):
+    from datetime import datetime
+
+    param = builder._modified_after_param('2026-07-01T12:00:00+00:00')
+    stamp = datetime.fromisoformat(param)
+    assert stamp == datetime.fromisoformat('2026-07-01T11:55:00+00:00')
+
+
+def test_modified_after_param_handles_legacy_naive_stamp(builder):
+    # Pre-fix caches hold naive local-time stamps; they must parse (as
+    # runner-local), gain an offset, and still get the overlap.
+    from datetime import datetime, timedelta
+
+    param = builder._modified_after_param('2026-07-01T12:00:00')
+    stamp = datetime.fromisoformat(param)
+    assert stamp.tzinfo is not None
+    naive_local = datetime.fromisoformat('2026-07-01T12:00:00').astimezone()
+    assert stamp == naive_local - timedelta(minutes=5)
+
+
+def test_should_rebuild_archives_accepts_legacy_naive_stamp(builder):
+    # A recent naive last_full_build must NOT force a rebuild — the old
+    # naive-minus-aware TypeError path silently rebuilt archives every run.
+    from datetime import datetime
+
+    builder.cache['last_full_build'] = datetime.now().isoformat()
+    assert builder.should_rebuild_archives() is False
+
+    builder.cache['last_full_build'] = '2020-01-01T00:00:00+00:00'
+    assert builder.should_rebuild_archives() is True

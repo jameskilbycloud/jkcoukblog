@@ -9,7 +9,7 @@ import hashlib
 import re
 import threading
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 # Matches individual post URLs: /YYYY/MM/slug/ or /YYYY/MM/slug (slug must be non-empty)
 # Distinguishes posts from monthly archives (/YYYY/MM/) and year archives (/YYYY/).
@@ -23,11 +23,24 @@ class IncrementalBuilder:
     # invalidates the whole cache and forces a full rebuild.
     FINGERPRINT_FILES = ('config.py', 'wp_to_static_generator.py')
 
+    # Overlap subtracted from the stored watermark when querying WordPress,
+    # absorbing clock skew between the runner and the WP host. Re-fetching a
+    # few recently-modified posts is cheap — has_changed()'s content-hash
+    # check skips regeneration when nothing actually changed.
+    WATERMARK_OVERLAP = timedelta(minutes=5)
+
     def __init__(self, cache_file='.build-cache.json'):
         self.cache_file = Path(cache_file)
         # mark_processed() is called from ThreadPoolExecutor workers in
         # wp_to_static_generator.py — guard all cache mutation/serialisation.
         self._lock = threading.Lock()
+        # Watermark for the NEXT build's modified_after filter. Captured at
+        # construction (before any posts are fetched), NOT at finalize time —
+        # a post edited in WordPress while the 10–40 min build is running is
+        # older than an end-of-build stamp, so the next incremental run would
+        # have skipped it forever. UTC with explicit offset so runner/WP
+        # timezone or DST divergence can't shift the window.
+        self._build_started_at = datetime.now(timezone.utc)
         self.cache = self._load_cache()
         self._check_environment_fingerprint()
 
@@ -122,6 +135,21 @@ class IncrementalBuilder:
             return 'posts'  # Individual posts: /YYYY/MM/slug/
         return 'pages'  # Home, WP pages, archives, etc.
     
+    def _modified_after_param(self, last_build):
+        """Watermark minus WATERMARK_OVERLAP, as ISO8601 for modified_after.
+
+        Legacy caches hold naive local-time stamps (pre-UTC fix) — treat
+        those as runner-local so the one build that straddles the change
+        behaves exactly as before.
+        """
+        try:
+            stamp = datetime.fromisoformat(last_build)
+        except (ValueError, TypeError):
+            return last_build
+        if stamp.tzinfo is None:
+            stamp = stamp.astimezone()
+        return (stamp - self.WATERMARK_OVERLAP).isoformat()
+
     def get_changed_posts(self, session, wp_url):
         """Get only posts modified since last build"""
         last_build = self.cache.get('last_build_time')
@@ -132,10 +160,10 @@ class IncrementalBuilder:
             return self._get_all_posts(session, wp_url)
         
         print(f"🔄 Incremental build - checking posts modified since {last_build}")
-        
+
         # Use WordPress API's modified_after parameter
         params = {
-            'modified_after': last_build,
+            'modified_after': self._modified_after_param(last_build),
             'per_page': 100,
             'status': 'publish'
         }
@@ -214,9 +242,9 @@ class IncrementalBuilder:
 
         if not last_build or cached_count == 0:
             return self._get_all_pages(session, wp_url)
-        
+
         params = {
-            'modified_after': last_build,
+            'modified_after': self._modified_after_param(last_build),
             'per_page': 100,
             'status': 'publish'
         }
@@ -303,18 +331,29 @@ class IncrementalBuilder:
         
         try:
             last_full_date = datetime.fromisoformat(last_full)
-            days_since = (datetime.now() - last_full_date).days
+            if last_full_date.tzinfo is None:
+                # Legacy naive local-time stamp — anchor it before comparing
+                # against the aware UTC clock (naive - aware raises TypeError,
+                # which used to force an archive rebuild every run).
+                last_full_date = last_full_date.astimezone()
+            days_since = (datetime.now(timezone.utc) - last_full_date).days
             return days_since >= 1
         except (ValueError, TypeError):
             return True
     
     def finalize_build(self, is_full_build=False):
-        """Mark build complete and save cache"""
-        self.cache['last_build_time'] = datetime.now().isoformat()
-        
+        """Mark build complete and save cache.
+
+        Stamps the build START time (see __init__), not now() — anything
+        modified in WordPress after fetching began, including during the
+        build itself, stays newer than the watermark and is picked up by
+        the next incremental run.
+        """
+        self.cache['last_build_time'] = self._build_started_at.isoformat()
+
         if is_full_build:
-            self.cache['last_full_build'] = datetime.now().isoformat()
-        
+            self.cache['last_full_build'] = self._build_started_at.isoformat()
+
         self._save_cache()
         print(f"💾 Build cache saved to {self.cache_file}")
     
