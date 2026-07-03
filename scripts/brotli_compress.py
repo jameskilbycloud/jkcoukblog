@@ -24,16 +24,22 @@ except ImportError:
     sys.exit(1)
 
 class BrotliCompressor:
-    def __init__(self, public_dir, quality=11):
+    def __init__(self, public_dir, quality=11, skip_extensions=None):
         """
         Initialize Brotli compressor
-        
+
         Args:
             public_dir: Path to public directory
             quality: Compression quality (0-11, default 11 for max compression)
+            skip_extensions: iterable of suffixes (e.g. ('.html',)) to leave
+                uncompressed in this run. Used by the deploy workflow's first
+                pass: convert_to_staging.py rewrites every HTML file after
+                that pass, so compressing HTML there was pure wasted q11 work
+                — the final public/ pass covers HTML instead.
         """
         self.public_dir = Path(public_dir)
         self.quality = quality
+        self.skip_extensions = {e.lower() for e in (skip_extensions or ())}
         self.stats = {
             'files_processed': 0,
             'files_compressed': 0,
@@ -62,6 +68,8 @@ class BrotliCompressor:
         """Check if file should be compressed"""
         # Check extension
         if file_path.suffix.lower() not in self.compressible_extensions:
+            return False
+        if file_path.suffix.lower() in self.skip_extensions:
             return False
         
         # Skip already compressed files
@@ -153,6 +161,8 @@ class BrotliCompressor:
     def should_compress_gzip(self, file_path):
         """Check if file should be gzip compressed"""
         if file_path.suffix.lower() not in self.compressible_extensions:
+            return False
+        if file_path.suffix.lower() in self.skip_extensions:
             return False
         if file_path.suffix in ('.br', '.gz'):
             return False
@@ -328,28 +338,36 @@ class BrotliCompressor:
             print(f"   Average compression: {gz_ratio:.1f}%")
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python3 brotli_compress.py <public_directory> [quality]")
+    skip_html = '--skip-html' in sys.argv[1:]
+    args = [a for a in sys.argv[1:] if a != '--skip-html']
+
+    if not args:
+        print("Usage: python3 brotli_compress.py <public_directory> [quality] [--skip-html]")
         print("\nArguments:")
         print("  public_directory  Path to the static site directory (e.g., ./public)")
         print("  quality          Compression quality 0-11 (default: 11, max compression)")
+        print("  --skip-html      Leave .html files uncompressed (for passes that run")
+        print("                   before a later step rewrites HTML)")
         print("\nExample:")
         print("  python3 brotli_compress.py ./public")
         print("  python3 brotli_compress.py ./public 9  # Faster compression")
         sys.exit(1)
-    
-    public_dir = sys.argv[1]
-    quality = int(sys.argv[2]) if len(sys.argv) > 2 else 11
-    
+
+    public_dir = args[0]
+    quality = int(args[1]) if len(args) > 1 else 11
+
     if not Path(public_dir).exists():
         print(f"❌ Error: Directory '{public_dir}' does not exist")
         sys.exit(1)
-    
+
     if quality < 0 or quality > 11:
         print(f"❌ Error: Quality must be between 0 and 11 (got {quality})")
         sys.exit(1)
-    
-    compressor = BrotliCompressor(public_dir, quality)
+
+    compressor = BrotliCompressor(
+        public_dir, quality,
+        skip_extensions=('.html',) if skip_html else None
+    )
     compressor.compress_directory()
     
     print("\n✅ Brotli + Gzip compression complete!")
