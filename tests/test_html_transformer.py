@@ -99,3 +99,17 @@ class TestDeepCleanHead:
         html = _wrap('<title>t</title>', body)
         out = HTMLTransformer._deep_clean_head(html)
         assert '<noscript>kept in body</noscript>' in out
+
+
+def test_normalize_self_href_maps_absolute_same_site_to_relative():
+    # Guards the duplicate-LCP-preload fix: an absolutified srcset-derived
+    # href and an existing relative preload must compare equal.
+    from enhance_html_performance import normalize_self_href
+
+    assert (normalize_self_href('https://jameskilby.co.uk/wp-content/a.avif')
+            == '/wp-content/a.avif')
+    assert normalize_self_href('/wp-content/a.avif') == '/wp-content/a.avif'
+    # Domain-only hrefs (preconnect) and external URLs are left alone.
+    assert (normalize_self_href('https://jameskilby.co.uk')
+            == 'https://jameskilby.co.uk')
+    assert normalize_self_href('https://utteranc.es/x.js') == 'https://utteranc.es/x.js'

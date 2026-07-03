@@ -30,6 +30,12 @@ class CriticalCSSExtractor:
         # inline so the browser doesn't pay a render-blocking round-trip for
         # critical CSS. Measured: p90 page produces ~15 KB of critical CSS.
         self.max_inline_critical = 16384
+        # Tokenized stylesheets keyed by path — the extractor runs once per
+        # HTML page, and without this every page re-read and re-tokenized
+        # every linked sheet (N pages × M sheets), the dominant cost of the
+        # critical-CSS phase. Plain dict: worst case under the thread pool
+        # is a duplicate parse, never a wrong result.
+        self._sheet_cache = {}
 
     def process_all_files(self):
         """Process all HTML files in the public directory"""
@@ -169,13 +175,9 @@ class CriticalCSSExtractor:
                 continue
             css_path = self._resolve_css_path(href)
             if css_path and css_path.exists():
-                try:
-                    with open(css_path, 'r', encoding='utf-8') as f:
-                        rules = self._parse_css_rules(f.read(), selectors)
-                        critical_rules.extend(rules)
-                except Exception:
-                    # Silently skip if we can't read the file
-                    pass
+                nodes = self._get_sheet_nodes(css_path)
+                if nodes:
+                    critical_rules.extend(self._filter_rules(nodes, selectors))
 
         # Minify each rule separately, then keep whole rules until the size
         # cap is reached. Each entry in critical_rules is a complete,
@@ -203,24 +205,37 @@ class CriticalCSSExtractor:
     def _parse_css_rules(self, css_content, critical_selectors):
         """Parse CSS and extract rules matching critical selectors.
 
+        Thin wrapper over _tokenize_css_rules (selector-independent, cached
+        per stylesheet via _get_sheet_nodes) + _filter_rules (cheap per-page
+        matching). Kept as the single entry point for raw CSS strings.
+        """
+        return self._filter_rules(self._tokenize_css_rules(css_content),
+                                  critical_selectors)
+
+    def _tokenize_css_rules(self, css_content, _strip_comments=True):
+        """Tokenize CSS into (selector, body) nodes — no selector matching.
+
         Uses a brace-depth tokenizer rather than a regex so that nested
         at-rules (@media, @supports) and minified CSS are handled correctly.
 
-        Strategy:
-          - @keyframes / @font-face blocks are skipped entirely (their inner
-            tokens are not selector-based and would produce false matches).
-          - @media / @supports / @layer blocks are recursed into; only the
-            matching inner rules are kept, wrapped in the at-rule header.
-          - @import / @charset / @namespace end with ';' before the next '{';
-            these are skipped by detecting the semicolon first.
-          - Regular rules are tested against critical_selectors and included
-            when they match.
-        """
-        # Strip comments before parsing so that '{' / '}' inside comments
-        # don't confuse the depth tracker.
-        css_content = re.sub(r'/\*.*?\*/', '', css_content, flags=re.DOTALL)
+        Node shapes:
+          - Plain rule: (selector, block_content_str)
+          - Conditional group (@media, @supports, @layer …):
+            (at_selector, [inner nodes]) — body is a list, recursed into.
 
-        rules = []
+        Skipped entirely:
+          - @keyframes / @font-face blocks (their inner tokens are not
+            selector-based and would produce false matches downstream).
+          - @import / @charset / @namespace — they end with ';' before the
+            next '{'; detected by finding the semicolon first.
+        """
+        if _strip_comments:
+            # Strip comments before parsing so that '{' / '}' inside comments
+            # don't confuse the depth tracker. Recursive calls receive block
+            # content that is already comment-free.
+            css_content = re.sub(r'/\*.*?\*/', '', css_content, flags=re.DOTALL)
+
+        nodes = []
         i = 0
         n = len(css_content)
 
@@ -270,16 +285,56 @@ class CriticalCSSExtractor:
                     # Keyframes / font-face: skip entirely.
                     continue
 
-                # Conditional group rules (@media, @supports, @layer …):
-                # recurse and keep only the matching inner rules.
-                inner = self._parse_css_rules(block_content, critical_selectors)
+                nodes.append(
+                    (selector,
+                     self._tokenize_css_rules(block_content,
+                                              _strip_comments=False))
+                )
+            else:
+                nodes.append((selector, block_content))
+
+        return nodes
+
+    def _filter_rules(self, nodes, critical_selectors):
+        """Render the tokenized nodes that match critical_selectors.
+
+        Conditional group rules keep only their matching inner rules,
+        wrapped back in the at-rule header. Source order is preserved.
+        """
+        rules = []
+        for selector, body in nodes:
+            if isinstance(body, list):
+                inner = self._filter_rules(body, critical_selectors)
                 if inner:
                     rules.append(f"{selector}{{{''.join(inner)}}}")
-            else:
-                if self._is_critical_selector(selector, critical_selectors):
-                    rules.append(f"{selector}{{{block_content}}}")
-
+            elif self._is_critical_selector(selector, critical_selectors):
+                rules.append(f"{selector}{{{body}}}")
         return rules
+
+    def _get_sheet_nodes(self, css_path):
+        """Tokenized top-level nodes for a stylesheet, cached per file.
+
+        Keyed on (mtime_ns, size) so a sheet rewritten mid-run (earlier
+        pipeline stages run before this one, but belt-and-braces) is
+        re-tokenized rather than served stale.
+        """
+        try:
+            stat = css_path.stat()
+        except OSError:
+            return None
+        cache_key = str(css_path)
+        fingerprint = (stat.st_mtime_ns, stat.st_size)
+        cached = self._sheet_cache.get(cache_key)
+        if cached and cached[0] == fingerprint:
+            return cached[1]
+        try:
+            with open(css_path, 'r', encoding='utf-8') as f:
+                nodes = self._tokenize_css_rules(f.read())
+        except Exception:
+            # Silently skip if we can't read the file
+            return None
+        self._sheet_cache[cache_key] = (fingerprint, nodes)
+        return nodes
 
     def _is_critical_selector(self, selector, critical_selectors):
         """Check if a CSS selector matches critical selectors"""
