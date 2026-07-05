@@ -16,16 +16,18 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Nutanix",
-        "VMware",
-        "Artificial Intelligence",
+        "Storage",
+        "vExpert",
+        "Ansible",
         "Automation",
         "Docker",
-        "NVIDIA",
         "Traefik",
-        "Ansible",
         "VCF",
-        "Storage"
+        "VMware",
+        "Artificial Intelligence",
+        "NVIDIA",
+        "Hosting",
+        "Kubernetes"
       ],
       "tags": [
         null,
