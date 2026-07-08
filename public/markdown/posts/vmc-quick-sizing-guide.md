@@ -2,16 +2,19 @@
 title: "VMware Cloud on AWS Storage Sizing Quick Reference Guide"
 description: "VMware Cloud on AWS storage sizing reference: usable TiB by host count for i3i, i3en, and i4i, plus the FTT/RAID policy used at each cluster size."
 date: 2025-05-21T09:33:04+00:00
-modified: 2026-06-24T10:40:08+00:00
+modified: 2026-07-08T10:43:13+00:00
 author: James Kilby
 categories:
   - VMware
   - VMware Cloud on AWS
-  - Homelab
-  - Networking
-  - Storage
   - Personal
   - vSphere
+  - VCF
+  - vSAN
+  - AWS
+  - Veeam
+  - Homelab
+  - Nutanix
 tags:
   - #Sizing
   - #VMC
@@ -26,9 +29,9 @@ image: https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620
 
 # VMware Cloud on AWS Storage Sizing Quick Reference Guide
 
-By[James](https://jameskilby.co.uk) May 21, 2025 · Updated June 24, 2026 • 📖3 min read(610 words)
+By[James](https://jameskilby.co.uk) May 21, 2025 · Updated July 8, 2026 • 📖4 min read(753 words)
 
-📅**Published:** May 21, 2025•**Updated:** June 24, 2026
+📅**Published:** May 21, 2025•**Updated:** July 08, 2026
 
 This VMware Cloud on AWS storage sizing guide is a quick reference for the usable storage you get per host, across i3i, i3en, and I4i clusters of 2 to 16 hosts. Use it to estimate capacity before you size a cluster, plan a host type change, or check how much usable space a given cluster size actually delivers once vSAN’s data protection overhead is accounted for.
 
@@ -44,24 +47,45 @@ This is based on vSAN OSA and excludes the management overhead (i.e. valid for s
 
 Each row shows the usable capacity per host once vSAN’s storage policy overhead is applied, not raw disk capacity. Multiply by host count for a rough cluster total, then validate against the official sizing tool for your specific configuration.
 
-**Host Type**| **i3** i| **i3en**| **I4i**| **I7i**|   
+**Host Type**| **i3** i| **i3en**| **I4i**| **i7i.metal-24xl**|   
 ---|---|---|---|---|---  
-**No of Hosts**|  i3 (TiB)| i3en (TiB)| I4i (TiB)| | FTT in use  
-2| 11.2| 41.39| 18.48| | FTT1 RAID1  
-3| 16.8| 62.09| 27.71| | FTT1 RAID1  
+**No of Hosts**|  TiB Available| TiB Available| TiB Available | TiB Available| FTT in use  
+2| 11.2| 41.39| 18.48| 12.28| FTT1 RAID1  
+3| 16.8| 62.09| 27.71| 18.41| FTT1 RAID1  
 4| 33.68| 124.49| 55.57| | FTT1 RAID5  
 5| 42.1| 155.61| 69.46| | FTT1 RAID5  
-6| 44.8| 165.57| 73.9| | FTT2 RAID6  
-7| 52.26| 193.17| 86.22| | FTT2 RAID6  
-8| 59.73| 220.77| 98.54| | FTT2 RAID6  
-9| 67.2| 248.36| 110.85| | FTT2 RAID6  
-10| 74.66| 275.96| 123.17| | FTT2 RAID6  
-11| 82.13| 303.55| 135.49| | FTT2 RAID6  
-12| 89.6| 331.15| 147.8| | FTT2 RAID6  
-13| 97.06| 358.74| 160.12| | FTT2 RAID6  
-14| 104.53| 386.34| 172.44| | FTT2 RAID6  
-15| 112| 413.94| 184.75| | FTT2 RAID6  
-16| 119.46| 441.53| 197.07| | FTT2 RAID6  
+6| 44.8| 165.57| 73.9| 49.11| FTT2 RAID6  
+7| 52.26| 193.17| 86.22| 57.29| FTT2 RAID6  
+8| 59.73| 220.77| 98.54| 65.47| FTT2 RAID6  
+9| 67.2| 248.36| 110.85| 73.66| FTT2 RAID6  
+10| 74.66| 275.96| 123.17| 81.84| FTT2 RAID6  
+11| 82.13| 303.55| 135.49| 90.03| FTT2 RAID6  
+12| 89.6| 331.15| 147.8| 98.21| FTT2 RAID6  
+13| 97.06| 358.74| 160.12| 106.4| FTT2 RAID6  
+14| 104.53| 386.34| 172.44| 114.58| FTT2 RAID6  
+15| 112| 413.94| 184.75| 122.77| FTT2 RAID6  
+16| 119.46| 441.53| 197.07| 130.95| FTT2 RAID6  
+  
+## VMware Cloud on AWS storage sizing table (vSAN ESA, 2-16 hosts)
+
+| I4i| **i7i.metal-24xl**|  FTT in use  
+---|---|---|---  
+**No of Hosts**|  TiB Available| TiB Available|   
+2| 20.98| 18.41| FTT: 1, RAID: 1  
+3| 41.96| 36.83| FTT: 1, RAID: 5  
+4| 55.94| 49.1| FTT: 1, RAID: 5  
+5| 69.93| 61.38| FTT: 1, RAID: 5  
+6| 83.91| 73.66| FTT: 2, RAID: 6  
+7| 97.90| 85.93| FTT: 2, RAID: 6  
+8| 111.88| 98.21| FTT: 2, RAID: 6  
+9| 125.87| 110.48| FTT: 2, RAID: 6  
+10| 139.86| 122.76| FTT: 2, RAID: 6  
+11| 153.84| 135.04| FTT: 2, RAID: 6  
+12| 167.83| 147.31| FTT: 2, RAID: 6  
+13| 181.81| 159.59| FTT: 2, RAID: 6  
+14| 195.8| 171.86| FTT: 2, RAID: 6  
+15| 209.78| 184.14| FTT: 2, RAID: 6  
+16| 223.77| 196.42| FTT: 2, RAID: 6  
   
 ## How FTT and RAID policy affect VMware Cloud on AWS storage sizing
 
@@ -87,26 +111,6 @@ VMware Cloud on AWS also supports vSAN ESA (Express Storage Architecture), which
 
 ## Similar Posts
 
-  * [ ![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png) ](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
-
-By[James](https://jameskilby.co.uk) December 19, 2022 · Updated June 1, 2026
-
-For a while, I’ve been looking to update the networking at the core of my homelab.
-
-  * [ ![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg) ](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
-
-By[James](https://jameskilby.co.uk) October 23, 2023 · Updated June 5, 2026
-
-Card Stats Install steps VM Provisioning Folding@Home A little while ago I decided to play with vGPU in my homelab.
-
   * [ ![Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png) ](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
@@ -117,32 +121,52 @@ By[James](https://jameskilby.co.uk) November 10, 2023 · Updated June 1, 2026
 
 Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal.
 
-  * [ ![VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png) ](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
+  * [ ![VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png) ](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
 
-[VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/)
 
-### [VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
+### [VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
 
-By[James](https://jameskilby.co.uk) December 8, 2025 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk) January 17, 2024 · Updated June 1, 2026
 
-How to use the Amazon Time Sync Service in a VMC environment
+How to Deploy VMware Holodeck on multiple hosts
 
-  * [ ![Forcing an Upgrade to vSphere 8](https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.45.23.png) ](https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/)
+  * [ ![vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg) ](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
 
-### [Forcing an Upgrade to vSphere 8](https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/)
+### [vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
 
-By[James](https://jameskilby.co.uk) December 14, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) December 6, 2025 · Updated June 1, 2026
 
-I run a reasonably extensive homelab that is of course built around the VMware ecosystem.
+How to safely shut down a vSAN Environment
 
-  * [ ![VMware – Going out with a Bang!](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo-768x384.png) ](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
+  * [ ![vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg) ](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
 
-[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
 
-### [VMware – Going out with a Bang!](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
+### [vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
 
-By[James](https://jameskilby.co.uk) October 7, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) November 17, 2023 · Updated June 1, 2026
 
-There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom.
+An Overview of vSAN ESA in VMC 
+
+  * [ ![Monitoring VMware Cloud on AWS: Tools & Approaches \(Part 1\)](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp) ](https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/)
+
+[VMware](https://jameskilby.co.uk/category/vmware/) | [AWS](https://jameskilby.co.uk/category/aws/) | [Veeam](https://jameskilby.co.uk/category/veeam/)
+
+### [Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1)](https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/)
+
+By[James](https://jameskilby.co.uk) December 17, 2019 · Updated June 5, 2026
+
+As previously mentioned I have been working a lot with VMware Cloud on AWS and one of the questions that often crops up is around an approach to monitoring.
+
+  * [ ![New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg) ](https://jameskilby.co.uk/2024/07/new-nodes/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/2024/07/new-nodes/)
+
+By[James](https://jameskilby.co.uk) July 2, 2024 · Updated June 5, 2026
+
+I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul .
