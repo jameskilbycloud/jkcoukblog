@@ -8,7 +8,7 @@
       "title": "An in-depth look at VMware Cloud on AWS hosts",
       "description": "A full side-by-side comparison of every VMware Cloud on AWS host type — I3.metal, I3en.metal and I4i.metal — covering CPU, memory, storage and networking specs.",
       "date": "2025-08-14T12:32:01Z",
-      "modified": "2026-06-05T18:44:50Z",
+      "modified": "2026-07-08T10:00:00Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/08/vmc-host-deepdive/",
       "markdown_url": "/markdown/posts/vmc-host-deepdive.md",
@@ -16,15 +16,13 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "vSAN",
-        "Automation",
         "Homelab",
+        "vSAN",
         "Artificial Intelligence",
+        "Automation",
         "Docker",
         "NVIDIA",
-        "Traefik",
-        "VCF",
-        "Runecast"
+        "Traefik"
       ],
       "tags": [
         null
