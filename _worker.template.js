@@ -210,6 +210,18 @@ export default {
     }
     // ────────────────────────────────────────────────────────────────────────
 
+    // ── Homelab live power widget ────────────────────────────────────────────
+    // POST (from Home Assistant, token-gated) stores the latest wattage plus a
+    // rolling ~30-min history in KV; GET (public, same-origin) returns it for
+    // the blog widget. Both must run before the GET-only guard and shouldCache.
+    if (path === '/api/power' && request.method === 'POST') {
+      return handlePowerPost(request, env);
+    }
+    if (path === '/api/power' && request.method === 'GET') {
+      return handlePowerGet(env);
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
     // Only cache GET requests
     if (request.method !== 'GET') {
       return env.ASSETS.fetch(request);
@@ -654,6 +666,91 @@ async function handlePlausibleEvent(request) {
   if (ct) respHeaders.set('Content-Type', ct);
 
   return new Response(upstream.body, { status: upstream.status, headers: respHeaders });
+}
+// ───────────────────────────────────────────────────────────────────────────
+
+// ── Homelab live power widget ────────────────────────────────────────────────
+// Reuses the HTML_CACHE KV binding under a single `power:latest` key. Home
+// Assistant POSTs the current whole-homelab wattage every ~30s; the worker
+// appends it to a rolling history and re-PUTs with a 180s TTL. If HA stops
+// pushing, the key expires and GET reports `stale`, so the widget can show
+// "offline" instead of a frozen number. The write is gated by POWER_TOKEN
+// (mirrors the PURGE_TOKEN pattern); the read is public and same-origin, so
+// no CORS and no HA token ever reaches the browser.
+const POWER_KEY = 'power:latest';
+const POWER_TTL = 180;          // seconds — ~6 missed 30s pushes before stale
+const POWER_HISTORY_MAX = 60;   // samples kept — ~30 min at one / 30s
+
+/**
+ * Store the latest homelab wattage. POST from Home Assistant, token-gated.
+ * Body: { "w": <number watts> }. Timestamps are stamped server-side so the
+ * widget never depends on HA's clock.
+ */
+async function handlePowerPost(request, env) {
+  const token = request.headers.get('X-Power-Token');
+  if (!env.POWER_TOKEN || token !== env.POWER_TOKEN) {
+    return new Response('Forbidden', { status: 403, headers: { 'Cache-Control': 'no-store' } });
+  }
+  if (!env.HTML_CACHE) {
+    return new Response('KV unavailable', { status: 503, headers: { 'Cache-Control': 'no-store' } });
+  }
+
+  let body;
+  try {
+    body = await request.json();
+  } catch (_) {
+    return new Response('Bad JSON body', { status: 400, headers: { 'Cache-Control': 'no-store' } });
+  }
+  const watts = Number(body.w);
+  if (!Number.isFinite(watts) || watts < 0 || watts > 100000) {
+    return new Response('Bad "w" value', { status: 400, headers: { 'Cache-Control': 'no-store' } });
+  }
+
+  const ts = new Date().toISOString();
+  let history = [];
+  try {
+    const prev = await env.HTML_CACHE.get(POWER_KEY, { type: 'json' });
+    if (prev && Array.isArray(prev.history)) history = prev.history;
+  } catch (_) {
+    // corrupt/absent previous value — start a fresh history
+  }
+  history.push({ t: ts, w: watts });
+  if (history.length > POWER_HISTORY_MAX) {
+    history = history.slice(history.length - POWER_HISTORY_MAX);
+  }
+
+  await env.HTML_CACHE.put(
+    POWER_KEY,
+    JSON.stringify({ w: watts, ts, history }),
+    { expirationTtl: POWER_TTL }
+  );
+
+  return new Response(JSON.stringify({ ok: true, w: watts, ts }), {
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
+  });
+}
+
+/**
+ * Return the latest homelab wattage + rolling history for the blog widget.
+ * Public, same-origin GET. Returns `{ ok:false, stale:true }` (still HTTP 200)
+ * when there's no fresh reading, so the widget shows "offline" without errors.
+ */
+async function handlePowerGet(env) {
+  const headers = {
+    'Content-Type': 'application/json',
+    // Short edge/browser cache — the widget polls every 30s and KV is only
+    // eventually consistent, so 15s smooths load without feeling stale.
+    'Cache-Control': 'public, max-age=15',
+    'X-Robots-Tag': 'noindex'
+  };
+  if (!env.HTML_CACHE) {
+    return new Response(JSON.stringify({ ok: false, stale: true }), { status: 200, headers });
+  }
+  const record = await env.HTML_CACHE.get(POWER_KEY, { type: 'json' });
+  if (!record) {
+    return new Response(JSON.stringify({ ok: false, stale: true }), { status: 200, headers });
+  }
+  return new Response(JSON.stringify({ ok: true, ...record }), { status: 200, headers });
 }
 // ───────────────────────────────────────────────────────────────────────────
 
