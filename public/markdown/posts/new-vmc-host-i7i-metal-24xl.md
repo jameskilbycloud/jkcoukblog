@@ -1,20 +1,19 @@
 ---
 title: "New VMware Cloud on AWS Host: i7i.metal-24xl"
-description: "We’ve expanded the VMC fleet with the new i7i (i7i.24xlarge) host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it"
+description: "We’ve expanded the VMC fleet with the new i7i (i7i."
 date: 2026-04-01T08:06:00+00:00
-modified: 2026-06-01T21:07:20+00:00
+modified: 2026-07-11T07:46:38+00:00
 author: James Kilby
 categories:
   - VMware
   - VMware Cloud on AWS
-  - Runecast
+  - AWS
+  - Veeam
   - Homelab
-  - Ansible
-  - Artificial Intelligence
-  - Containers
-  - Devops
-  - NVIDIA
-  - Traefik
+  - Nutanix
+  - Networking
+  - Storage
+  - VCF
 tags:
   - #I7i
   - #VMware
@@ -23,17 +22,17 @@ url: https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/
 image: https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp
 ---
 
-![Vmconaws.Png](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)
+![](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
 # New VMware Cloud on AWS Host: i7i.metal-24xl
 
-By[James](https://jameskilby.co.uk)April 1, 2026 · Updated June 1, 2026 • 📖4 min read(869 words)
+By[James](https://jameskilby.co.uk) April 1, 2026 · Updated July 11, 2026 • 📖4 min read(869 words)
 
-📅**Published:** April 01, 2026•**Updated:** June 01, 2026
+📅**Published:** April 01, 2026•**Updated:** July 11, 2026
 
-We’ve expanded the VMC fleet with the new **i7i**[**(i7i.24xlarge)**](https://aws.amazon.com/ec2/instance-types/i7i/)host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it delivers the fleet’s highest single-core performance and memory bandwidth, making it well suited for latency-sensitive workloads and high-performance vSAN configurations.
+We’ve expanded the VMC fleet with the new **i7i**[**(i7i.24xlarge)** ](https://aws.amazon.com/ec2/instance-types/i7i/)host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it delivers the fleet’s highest single-core performance and memory bandwidth, making it well suited for latency-sensitive workloads and high-performance vSAN configurations.
 
 ## Key Technical Specs:
 
@@ -58,7 +57,7 @@ Processor Family| Broadwell| Skylake| Ice Lake| Emerald Rapids
 Supported Custom Core Counts| 8 16 36| 8 16 24   
 30 36 48| 8 16 24   
 30 36 48 64| 8 16 24 30 36  
-**Memory**| | | |   
+**Memory** | | | |   
 Capacity GiB| 512| 768| 1024| 768  
 Memory Speed| DDR4-2400| DDR4-2666| DDR4-3200| DDR5-5600  
 **Networking**| | | |   
@@ -106,7 +105,7 @@ The i7i.metal-24xl supports both **vSAN OSA** (Original Storage Architecture) an
 
 ### How does the i7i.metal-24xl compare to the i4i?
 
-The i7i delivers approximately **23% better compute performance** and over **10% better price-performance** than the i4i. It upgrades from 4th Gen Intel Xeon (Sapphire Rapids) to 5th Gen (Emerald Rapids), moves from DDR4 to DDR5-5600 memory, and adds PCIe Gen5 NVMe. Storage capacity is 22.5 TiB raw per host versus the i4i’s 30 TiB, but random IOPS is significantly higher.
+The i7i delivers approximately **23% better compute performance** and over **10% better price-performance** than the i4i. It upgrades from 3rd Gen Intel Xeon (Ice Lake) to 5th Gen (Emerald Rapids), moves from DDR4 to DDR5-5600 memory, and adds PCIe Gen5 NVMe. Storage capacity is 22.5 TiB raw per host versus the i4i’s 30 TiB, but random IOPS is significantly higher.
 
 ### What SDDC version is required for the i7i.metal-24xl?
 
@@ -130,62 +129,62 @@ The official announcement can be found [here](https://blogs.vmware.com/cloud-fou
 
 ## Similar Posts
 
-  * [![Using Content Libraries in VMC to deploy software faster](https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash-768x417.png)](https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/)
+  * [ ![VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png) ](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
+
+[VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
+
+### [VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
+
+By[James](https://jameskilby.co.uk) December 8, 2025 · Updated July 11, 2026
+
+How to use the Amazon Time Sync Service in a VMC environment
+
+  * [ ![Monitoring VMware Cloud on AWS: Tools & Approaches \(Part 1\)](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp) ](https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/)
+
+[VMware](https://jameskilby.co.uk/category/vmware/) | [AWS](https://jameskilby.co.uk/category/aws/) | [Veeam](https://jameskilby.co.uk/category/veeam/)
+
+### [Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1)](https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/)
+
+By[James](https://jameskilby.co.uk) December 17, 2019 · Updated June 5, 2026
+
+As previously mentioned I have been working a lot with VMware Cloud on AWS and one of the questions that often crops up is around an approach to monitoring.
+
+  * [ ![New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg) ](https://jameskilby.co.uk/2024/07/new-nodes/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/2024/07/new-nodes/)
+
+By[James](https://jameskilby.co.uk) July 2, 2024 · Updated July 11, 2026
+
+I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul .
+
+  * [ ![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png) ](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
+
+By[James](https://jameskilby.co.uk) December 19, 2022 · Updated June 1, 2026
+
+For a while, I’ve been looking to update the networking at the core of my homelab.
+
+  * [ ![VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png) ](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
+
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/)
+
+### [VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
+
+By[James](https://jameskilby.co.uk) January 17, 2024 · Updated June 1, 2026
+
+How to Deploy VMware Holodeck on multiple hosts
+
+  * [ ![VMware Cloud on AWS \(VMC\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-768x395.png) ](https://jameskilby.co.uk/2020/07/i3en/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
-### [Using Content Libraries in VMC to deploy software faster](https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/)
+### [VMware Cloud on AWS i3en Host: Specs, Storage & Performance](https://jameskilby.co.uk/2020/07/i3en/)
 
-By[James](https://jameskilby.co.uk)January 27, 2026 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk) July 2, 2020 · Updated June 5, 2026
 
-How to leverage Content Libraries to deploy into VMware Cloud on AWS faster.
-
-  * [![VMware Cloud on AWS \(VMC\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-768x395.png)](https://jameskilby.co.uk/2020/09/vmc-host-errors/)
-
-[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
-
-### [How VMware Cloud on AWS Handles Host Failures Automatically](https://jameskilby.co.uk/2020/09/vmc-host-errors/)
-
-By[James](https://jameskilby.co.uk)September 15, 2020 · Updated June 5, 2026
-
-Learn how host failures are handled within VMC
-
-  * [![Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
-
-[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
-
-By[James](https://jameskilby.co.uk)May 16, 2023 · Updated June 1, 2026
-
-I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.
-
-  * [![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
-
-By[James](https://jameskilby.co.uk)October 23, 2023 · Updated June 5, 2026
-
-Card Stats Install steps VM Provisioning Folding@Home A little while ago I decided to play with vGPU in my homelab.
-
-  * [![Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv-768x432.png)](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
-
-[Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Containers](https://jameskilby.co.uk/category/containers/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
-
-By[James](https://jameskilby.co.uk)February 9, 2026 · Updated June 5, 2026
-
-Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere
-
-  * [![An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png)](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
-
-[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
-
-### [An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
-
-By[James](https://jameskilby.co.uk)August 14, 2025 · Updated June 5, 2026
-
-This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison.
+VMware Cloud on AWS (VMC) has introduced a new host to its lineup: the “i3en”. This is based on the i3en.

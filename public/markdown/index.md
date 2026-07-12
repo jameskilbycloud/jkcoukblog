@@ -36,7 +36,7 @@ VMWARE VEXPERT · HOMELAB · INFRASTRUCTURE-AS-CODE
 
 Field notes from a homelab that costs real money to run.
 
-**75** posts·**51k** words·**17d** since last post·**12** deploys/mo·lighthouse **92/100** ● live
+**75** posts·**51k** words·**21d** since last post·**14** deploys/mo·lighthouse **92/100** ● live
 
 [![UniFi UDM Beast 1U rack-mount gateway shown front-on, with two 3.5-inch drive bays, a bank of RJ45 and SFP network ports, and dimension labels.](https://jameskilby.co.uk/wp-content/uploads/2026/06/UnifiBeast-768x219.webp)LATESTHomelabNetworkingUnleashing the BeastRetiring my ageing WatchGuard M200, I swap in the UniFi UDM Beast — a hardware tour, first iperf and WAN tests, the BGP/FRR setup, and the homelab services I’m consolidating onto it.June 20, 2026Read post →](https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/)
 
@@ -66,7 +66,7 @@ In this post I’ll walk through how I use vSphere Power Management driven by An
 
 ## [Automated VCF 9 Offline Depot](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
 
-By[James](https://jameskilby.co.uk) April 10, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) April 10, 2026 · Updated July 11, 2026
 
 One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS.
 
@@ -76,7 +76,7 @@ One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Ngi
 
 ## [My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
-By[James](https://jameskilby.co.uk) April 4, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) April 4, 2026 · Updated July 11, 2026
 
 Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each.
 
@@ -86,7 +86,7 @@ Part 2 of my self-hosted AI stack series. I cover container resource sizing, dua
 
 ## [New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
 
-By[James](https://jameskilby.co.uk) April 1, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) April 1, 2026 · Updated July 11, 2026
 
 We’ve expanded the VMC fleet with the new i7i (i7i.
 
@@ -106,7 +106,7 @@ A walkthrough of my self-hosted AI stack: Ollama, Open WebUI, ComfyUI, Whishper,
 
 ## [Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested](https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/)
 
-By[James](https://jameskilby.co.uk) March 9, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) March 9, 2026 · Updated July 11, 2026
 
 I am quite a heavy consumer of electricity at home. This is primarily driven by my lab but having a young son and two golden retrievers means more washing and drying.
 
@@ -116,7 +116,7 @@ I am quite a heavy consumer of electricity at home. This is primarily driven by 
 
 ## [Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
 
-By[James](https://jameskilby.co.uk) February 9, 2026 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk) February 9, 2026 · Updated July 11, 2026
 
 Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere
 

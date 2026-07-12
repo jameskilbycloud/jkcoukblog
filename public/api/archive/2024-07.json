@@ -8,7 +8,7 @@
       "title": "New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix",
       "description": "I refreshed my homelab nodes with SuperMicro BigTwin hardware — building a Nutanix CE cluster and an ESXi host, all at very little cost.",
       "date": "2024-07-02T08:01:04Z",
-      "modified": "2026-06-05T18:51:29Z",
+      "modified": "2026-07-11T07:47:28Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/07/new-nodes/",
       "markdown_url": "/markdown/posts/new-nodes.md",
@@ -17,17 +17,11 @@
         "Homelab",
         "Nutanix",
         "VMware",
-        "Runecast",
-        "Automation",
-        "Github",
-        "Networking",
         "Storage",
-        "Artificial Intelligence",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
+        "TrueNAS Scale",
+        "Automation",
         "Personal",
-        "VMware Cloud on AWS"
+        "Ansible"
       ],
       "tags": [
         null,
@@ -35,7 +29,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/04/Screenshot-2024-04-06-at-22.50.57.png",
-      "excerpt": "![Img 6629 Scaled](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-scaled.jpeg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# New Homelab Nodes: SuperMicro BigTwin f..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-scaled.jpeg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# New Homelab Nodes: SuperMicro BigTwin for VMware & Nut..."
     }
   ]
 }

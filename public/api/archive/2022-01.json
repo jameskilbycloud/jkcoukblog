@@ -8,7 +8,7 @@
       "title": "Cloudflare Workers – Limits of the free tier",
       "description": "I have been making several changes (mainly cosmetic to this site over the last day or so) On most changes I have been doing an export and then uploading th",
       "date": "2022-01-04T21:11:23Z",
-      "modified": "2026-06-01T21:58:35Z",
+      "modified": "2026-07-11T13:21:16Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/",
       "markdown_url": "/markdown/posts/cloudflare-workers-limits-of-the-free-tier.md",
@@ -17,15 +17,16 @@
         "Hosting",
         "Wordpress",
         "Cloudflare",
-        "AWS",
-        "Personal",
         "Artificial Intelligence",
         "Automation",
         "Docker",
         "Homelab",
         "NVIDIA",
         "Traefik",
-        "VMware"
+        "VMware",
+        "Personal",
+        "Devops",
+        "Github"
       ],
       "tags": [
         null,
@@ -33,12 +34,12 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg",
-      "excerpt": "![Iu](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Cloudflare Workers – Limits of the free tier\n\nBy[James](https://jameskilby.co.uk)January 4, 2022 · Updated June 1, ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Cloudflare Workers – Limits of the free tier\n\nBy[James](https://jameskilby.co.uk) January 4, 2022 · Updated July 11, ..."
     },
     {
       "slug": "lab-update-part-2-storage",
       "title": "Lab Update – Part 2 Storage Truenas Scale",
-      "description": "The HP Z840 has changed its role to a permanent storage box running Truenas Scale. This is in addition to my Synology DS918+…",
+      "description": "The HP Z840 has changed its role to a permanent storage box running Truenas Scale.",
       "date": "2022-01-11T22:35:02Z",
       "modified": "2026-06-01T21:58:40Z",
       "author": "James Kilby",
@@ -48,15 +49,14 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Hosting",
+        "Kubernetes",
+        "TrueNAS Scale",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
+        "Veeam",
         "VMware",
-        "Networking",
-        "Veeam"
+        "Docker",
+        "Hosting",
+        "Synology"
       ],
       "tags": [
         null,
@@ -65,14 +65,14 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault.jpeg",
-      "excerpt": "![Maxresdefault](https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault.jpeg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)\n\n# Lab Update – Part 2 Storage Truenas Scale\n\nBy[James](https://jameskilby.co.uk)January 11, 2022 · ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault.jpeg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)\n\n# Lab Update – Part 2 Storage Truenas Scale\n\nBy[James](https://jameskilby.co.uk) January 11, 2022 · Updated June..."
     },
     {
       "slug": "web-development",
       "title": "Hosting This Blog on Cloudflare Workers: Why & How I Did It",
       "description": "A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them.",
       "date": "2022-01-04T11:27:12Z",
-      "modified": "2026-05-25T08:24:40Z",
+      "modified": "2026-07-11T07:34:27Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2022/01/web-development/",
       "markdown_url": "/markdown/posts/web-development.md",
@@ -82,39 +82,45 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "AWS",
         "Devops",
-        "Github",
-        "Nutanix"
+        "VMware",
+        "Docker",
+        "Homelab",
+        "Kubernetes"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png",
-      "excerpt": "![Iu 2](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/) | [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Personal](https://jameskilby.co.uk/category/personal/) | [Wordpress](https://jameskilby.co.uk/category/wordpre..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/) | [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Personal](https://jameskilby.co.uk/category/personal/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)..."
     },
     {
       "slug": "wrangler-and-node-versions",
       "title": "Fixing Wrangler Node.js Version Conflicts After Brew Upgrade",
       "description": "I am a massive fan of the brew package management system for macOS and use it on all of my Mac's I typically just upgrade everything blindly and have never",
       "date": "2022-01-15T08:42:36Z",
-      "modified": "2026-06-01T21:58:42Z",
+      "modified": "2026-07-11T07:47:13Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/",
       "markdown_url": "/markdown/posts/wrangler-and-node-versions.md",
       "api_url": "/api/posts/wrangler-and-node-versions.json",
       "categories": [
         "Cloudflare",
-        "Hosting",
-        "Wordpress",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
         "Docker",
         "Homelab",
-        "NVIDIA",
         "Traefik",
-        "VMware"
+        "VCF",
+        "VMware",
+        "Hosting",
+        "Wordpress",
+        "Artificial Intelligence",
+        "NVIDIA",
+        "Devops",
+        "Github",
+        "Personal"
       ],
       "tags": [
         null,
@@ -123,7 +129,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1.png",
-      "excerpt": "![Wranglercrab 1](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/)\n\n# Fixing Wrangler Node.js Version Conflicts After Brew Upgrade\n\nBy[James](https://jameskilby.co.uk)January 15, 2022 · Updated June 1, 2026 • 📖1 min ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/)\n\n# Fixing Wrangler Node.js Version Conflicts After Brew Upgrade\n\nBy[James](https://jameskilby.co.uk) January 15, 2022 · Updated July 11, 2026 • 📖1 min read(217 wor..."
     },
     {
       "slug": "lab-update-part-1-compute",
@@ -138,13 +144,13 @@
       "categories": [
         "Homelab",
         "VMware",
-        "VMware Cloud on AWS",
-        "Nutanix",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Networking",
+        "AWS",
+        "Veeam",
+        "Personal",
+        "vSphere",
+        "Storage",
+        "vExpert"
       ],
       "tags": [
         null,
@@ -152,7 +158,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1-768x1024.jpg",
-      "excerpt": "![Img 4536 Scaled 1](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup\n\nBy[James](https://jameskilby.co..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup\n\nBy[James](https://jameskilby.co.uk) January 6, 2..."
     },
     {
       "slug": "lab-update-part-5-desired-workloads",
@@ -168,26 +174,21 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "Storage",
-        "vExpert",
-        "Networking",
         "Ansible",
+        "VMware Cloud on AWS",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "Synology",
         "Docker",
-        "Hosting"
+        "Hosting",
+        "Networking",
+        "Storage"
       ],
       "tags": [
         null,
         null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/og/lab-update-part-5-desired-workloads.png",
-      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Lab Update – Desired Workloads\n\nBy[James](https://jameskilby.co.uk)January 6, 2022 · Updated June 1, 2026 • 📖1 min read(141 words)\n\n📅**Pu..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
+      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Lab Update – Desired Workloads\n\nBy[James](https://jameskilby.co.uk) January 6, 2022 · Updated June 1, 2026 • 📖1 min read(141 words)\n\n📅**P..."
     },
     {
       "slug": "lab-update-part-3-network",
@@ -202,24 +203,23 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Traefik",
-        "VCF",
+        "Runecast",
         "VMware",
-        "Storage",
-        "TrueNAS Scale",
+        "Automation",
+        "Github",
         "Artificial Intelligence",
-        "vExpert",
-        "Mikrotik"
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "Hosting",
+        "Storage"
       ],
       "tags": [
         null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/og/lab-update-part-3-network.png",
-      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense\n\nBy[James](https://jameskilby.co.uk)January 6, 2022 · Updated May 31, 2026 • 📖1 min read(113 words)\n\n📅**Published:** January ..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
+      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense\n\nBy[James](https://jameskilby.co.uk) January 6, 2022 · Updated May 31, 2026 • 📖1 min read(113 words)\n\n📅**Published:** January..."
     }
   ]
 }

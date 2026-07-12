@@ -2,7 +2,7 @@
 title: "Automated VCF 9 Offline Depot"
 description: "One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let's Encrypt wildcard certs via Cloudflare DNS."
 date: 2026-04-10T11:36:03+00:00
-modified: 2026-06-01T21:59:13+00:00
+modified: 2026-07-11T13:21:15+00:00
 author: James Kilby
 categories:
   - Ansible
@@ -12,16 +12,13 @@ categories:
   - Traefik
   - VCF
   - VMware
-  - Cloudflare
-  - Devops
-  - Github
-  - Wordpress
-  - VMware Cloud on AWS
+  - Nutanix
   - TrueNAS Scale
   - vSAN
   - vSphere
-  - Hosting
-  - Nutanix
+  - Personal
+  - VMware Cloud on AWS
+  - Networking
 tags:
   - #Ansible
   - #Automation
@@ -48,9 +45,9 @@ image: https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png
 
 # Automated VCF 9 Offline Depot
 
-By[James](https://jameskilby.co.uk)April 10, 2026 · Updated June 1, 2026 • 📖7 min read(1,427 words)
+By[James](https://jameskilby.co.uk) April 10, 2026 · Updated July 11, 2026 • 📖7 min read(1,427 words)
 
-📅**Published:** April 10, 2026•**Updated:** June 01, 2026
+📅**Published:** April 10, 2026•**Updated:** July 11, 2026
 
 This Automated VCF 9 Offline Depot was built to solve a simple problem: [VCF 9](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0.html) changed its deployment model, and I needed a repeatable, hands-off way to spin one up in my lab. The script and Ansible playbook take a fresh Ubuntu VM and turn it into a fully working depot with publicly-trusted SSL certificates from Let’s Encrypt.
 
@@ -102,7 +99,7 @@ The script pulls and executes the below files.
 
 When it’s deployed you can drop the VCF installer files into the /vcf directory and they are passed through to the web server for use in VCF deployments. I do this using FileZilla but any method will work.
 
-What the script does under the hood is:: 
+What the script does under the hood is: 
 
 **1\. Docker Installation** — Adds Docker’s official GPG key and APT repository, installs Docker Engine, CLI, containerd, Buildx and the Compose plugin. It detects the system architecture automatically so it works on both amd64 and arm64.
 
@@ -145,7 +142,7 @@ Whenever you’re adding passwords or tokens into a system, care needs to be tak
 
 ## How to use
 
-SSH into your VM and run:: 
+SSH into your VM and run: 
     
     
     curl -sSL https://raw.githubusercontent.com/jameskilbynet/iac/main/docker/vcf9-offline-depot/deploy.sh -o /tmp/deploy.sh
@@ -213,7 +210,7 @@ The token needs `Zone:DNS:Edit` and `Zone:Zone:Read` permissions on the zone you
 
 📋 Copy
 
-One issue you might hit (which I ran into while documenting things) was hitting Let’s Encrypt’s rate limits. You will see something like this in the Traefik logs if you do::
+One issue you might hit (which I ran into while documenting things) was hitting Let’s Encrypt’s rate limits. You will see something like this in the Traefik logs if you do:
     
     
     sudo docker logs traefik 2>&1 | grep -i "docker" | tail -10
@@ -244,7 +241,7 @@ If you’re still having issues review the Traefik Dashboard `https://traefik.do
 
 You should see four routers and six services like the attached screenshots
 
-![traefikrouters](https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikrouters-1024x254.png)![traefikservices](https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikservices-1024x326.png)
+![traefikrouters](https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikrouters-1024x254.png) ![traefikservices](https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikservices-1024x326.png)
 
 ### Basic auth prompt loops
 
@@ -258,62 +255,62 @@ If the depot keeps prompting for credentials even with the right ones, it’s al
 
 ## Similar Posts
 
-  * [![How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
-
-[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
-
-### [How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
-
-By[James](https://jameskilby.co.uk)October 6, 2025 · Updated June 5, 2026
-
-I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.
-
-  * [![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png)](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
-
-[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)
-
-### [Automating vSphere Power Management driven by Ansible and SemaphoreUI](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
-
-By[James](https://jameskilby.co.uk)April 15, 2026 · Updated June 1, 2026
-
-In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introduction One of the larger costs of running my homelab is the electricity….
-
-  * [![VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png)](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
-
-[VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
-
-### [VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
-
-By[James](https://jameskilby.co.uk)December 8, 2025 · Updated June 5, 2026
-
-How to use the Amazon Time Sync Service in a VMC environment
-
-  * [![How to Run ZFS on VMware vSphere: Setup Guide and Best Practices](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg)](https://jameskilby.co.uk/2024/12/zfs-on-vmware/)
-
-[TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
-
-### [How to Run ZFS on VMware vSphere: Setup Guide and Best Practices](https://jameskilby.co.uk/2024/12/zfs-on-vmware/)
-
-By[James](https://jameskilby.co.uk)December 18, 2024 · Updated June 1, 2026
-
-Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the way back in 2010.
-
-  * [![What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2-768x229.png)](https://jameskilby.co.uk/2018/03/cloudflare/)
-
-[Hosting](https://jameskilby.co.uk/category/hosting/)
-
-### [What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained](https://jameskilby.co.uk/2018/03/cloudflare/)
-
-By[James](https://jameskilby.co.uk)March 27, 2018 · Updated June 1, 2026
-
-Cloudflare – What is it and why would I care? I have been using Cloudflare for a long time.
-
-  * [![New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg)](https://jameskilby.co.uk/2024/07/new-nodes/)
+  * [ ![New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg) ](https://jameskilby.co.uk/2024/07/new-nodes/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/2024/07/new-nodes/)
 
-By[James](https://jameskilby.co.uk)July 2, 2024 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk) July 2, 2024 · Updated July 11, 2026
 
 I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul .
+
+  * [ ![How to Run ZFS on VMware vSphere: Setup Guide and Best Practices](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg) ](https://jameskilby.co.uk/2024/12/zfs-on-vmware/)
+
+[TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
+
+### [How to Run ZFS on VMware vSphere: Setup Guide and Best Practices](https://jameskilby.co.uk/2024/12/zfs-on-vmware/)
+
+By[James](https://jameskilby.co.uk) December 18, 2024 · Updated June 1, 2026
+
+Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the way back in 2010.
+
+  * [ ![Forcing an Upgrade to vSphere 8](https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.45.23.png) ](https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
+
+### [Forcing an Upgrade to vSphere 8](https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/)
+
+By[James](https://jameskilby.co.uk) December 14, 2022 · Updated June 1, 2026
+
+I run a reasonably extensive homelab that is of course built around the VMware ecosystem.
+
+  * [ ![Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png) ](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
+
+[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
+
+### [Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
+
+By[James](https://jameskilby.co.uk) November 10, 2023 · Updated June 1, 2026
+
+Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal.
+
+  * [ ![New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp) ](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
+
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
+
+### [New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
+
+By[James](https://jameskilby.co.uk) April 1, 2026 · Updated July 11, 2026
+
+We’ve expanded the VMC fleet with the new i7i (i7i.
+
+  * [ ![Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_-768x512.png) ](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
+
+### [Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
+
+By[James](https://jameskilby.co.uk) June 26, 2024 · Updated July 11, 2026
+
+How to configure DHCP Option 43 for UniFi devices

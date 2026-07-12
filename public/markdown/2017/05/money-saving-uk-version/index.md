@@ -1,22 +1,22 @@
 ---
 title: "UK Money Saving Tips: Banking, Rewards & Travel Cards"
-description: "I recently got back from an amazing conference in New Orleans. This was the VeeamON conference and I was invited as part of the Veeam Vanguard program"
+description: "I recently got back from an amazing conference in New Orleans."
 date: 2017-05-29T11:49:16+00:00
-modified: 2026-06-01T21:58:14+00:00
+modified: 2026-07-11T07:47:13+00:00
 author: James Kilby
 categories:
   - Money
 url: https://jameskilby.co.uk/2017/05/money-saving-uk-version/
-image: https://jameskilby.co.uk/wp-content/uploads/og/money-saving-uk-version.png
+image: https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png
 ---
 
 [Money](https://jameskilby.co.uk/category/money/)
 
 # UK Money Saving Tips: Banking, Rewards & Travel Cards
 
-By[James](https://jameskilby.co.uk)May 29, 2017 · Updated June 1, 2026 • 📖4 min read(778 words)
+By[James](https://jameskilby.co.uk) May 29, 2017 · Updated July 11, 2026 • 📖4 min read(777 words)
 
-📅**Published:** May 29, 2017•**Updated:** June 01, 2026
+📅**Published:** May 29, 2017•**Updated:** July 11, 2026
 
 I recently got back from an amazing conference in New Orleans. This was the VeeamON conference and I was invited as part of the Veeam Vanguard program that I am part of.
 
@@ -64,7 +64,7 @@ The TSB account also pays 3% interest and I tend to split my spare cash between 
 
 **First Direct 1st Account**
 
-First Direct gives you a good bonus if you switch to them £150 (which I did), they also give you a £500 overdraft on good terms (£250 free). So I always have this account at -£250 and have that money in one of the other accounts listed above. They also have a regular savings account that I take advantage of; putting £300 a month in (max allowed). This should give me £97.50 for the year.
+First Direct gives you a £150 bonus if you switch to them (which I did), they also give you a £500 overdraft on good terms (£250 free). So I always have this account at -£250 and have that money in one of the other accounts listed above. They also have a regular savings account that I take advantage of; putting £300 a month in (max allowed). This should give me £97.50 for the year.
 
 Total savings for current/regular saving
 

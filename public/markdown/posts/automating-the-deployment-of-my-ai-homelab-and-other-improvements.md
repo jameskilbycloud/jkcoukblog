@@ -2,7 +2,7 @@
 title: "Automating the Deployment of my Homelab AI Infrastructure"
 description: "How I automated my homelab AI infrastructure with Ansible — NVIDIA vGPU passthrough, Docker, Traefik, and Semaphore for end-to-end deployment."
 date: 2026-02-09T11:54:54+00:00
-modified: 2026-06-05T17:46:09+00:00
+modified: 2026-07-11T13:21:25+00:00
 author: James Kilby
 categories:
   - Ansible
@@ -13,14 +13,10 @@ categories:
   - NVIDIA
   - Traefik
   - VMware
-  - Automation
-  - Docker
-  - VCF
-  - VMware Cloud on AWS
-  - Storage
-  - vExpert
-  - Runecast
   - vSAN
+  - VMware Cloud on AWS
+  - Veeam
+  - Networking
 tags:
   - #AI
   - #Docker
@@ -31,15 +27,15 @@ url: https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab
 image: https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png
 ---
 
-![Vmware Nvidia Logos Ee2F18Dc 615D 4C9E 8F11 9C3C2Ce2Bf37 Prv](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png)
+![](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Containers](https://jameskilby.co.uk/category/containers/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 # Automating the Deployment of my Homelab AI Infrastructure
 
-By[James](https://jameskilby.co.uk)February 9, 2026 · Updated June 5, 2026 • 📖17 min read(3,348 words)
+By[James](https://jameskilby.co.uk) February 9, 2026 · Updated July 11, 2026 • 📖17 min read(3,349 words)
 
-📅**Published:** February 09, 2026•**Updated:** June 05, 2026
+📅**Published:** February 09, 2026•**Updated:** July 11, 2026
 
 This post walks through how I rebuilt my homelab AI infrastructure and automated the entire deployment. In a previous [post](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/), I wrote about using my VMware lab with an NVIDIA Tesla P4 for running some AI services. This deployment was done with the P4 GPU in passthrough mode where the entire PCI card was presented into the VM. (I will refer to this as GPU mode). I wanted to take this to the next level. I also wanted to automate most of the steps. This was for a few reasons; firstly, I wanted to get better at automation in general.
 
@@ -492,7 +488,7 @@ Below is the expected output showcasing nvidia-smi running from within a Docker 
 
 For those unfamiliar with [Traefik](https://traefik.io) ( It's pronounced Traffic), it is a reverse proxy/ingress controller with automatic integrations to Docker and Kubernetes. I have it configured to leverage both Let's Encrypt and Cloudflare so that it will automatically obtain signed certificates for me. This is done with Docker labels in such a way that any container I spin up that has the correct Traefik labels will automatically mint a signed certificate and add it to the load balancer.
 
-This has the added benefit that I just need to remember a URL IE openwebui.jameskilby.cloud configured in my internal DNS, rather than which VM and port the service is running on. It has the added benefit that it makes it very easy for me to expose services externally if needed. I just add the appropriate DNS record on my external DNS.
+This has the added benefit that I just need to remember a URL i.e. openwebui.jameskilby.cloud configured in my internal DNS, rather than which VM and port the service is running on. It has the added benefit that it makes it very easy for me to expose services externally if needed. I just add the appropriate DNS record on my external DNS.
 
 The labels look something like the following. These are added to the individual Docker containers and Traefik can see them through the Docker API. When the containers are started, it will autoconfigure the certificate generation and automatically configure the load balancer. If the container is removed or stopped, it will tidy up the configuration.
     
@@ -590,9 +586,9 @@ traefik_log_format| json| Log Format
 traefik_log_max_size| 10m| Max Log Size  
 traefik_log_max_files| 3| Max Log Files  
 traefik_healthcheck_interval| 30s| Health Check Interval  
-traefik_heakthcheck_timeout| 10s| Health Check Timeout  
+traefik_healthcheck_timeout| 10s| Health Check Timeout  
 traefik_healthcheck_retries| 3| Health Check Retries  
-traefik_heathcheck_start_period| 30s| Health Check Grace Period  
+traefik_healthcheck_start_period| 30s| Health Check Grace Period  
 traefik_test_container| nginx-test| Test Container Name  
 traefik_test_image| nginx:alpine| Test Container Image  
 traefik_test_domain| test.jameskilby.cloud| Test Service Domain  
@@ -642,13 +638,13 @@ Once the Key authentication is added, the next step is to add a different key st
 
 ![Semaphore password authentication configuration for Ansible inventory access](https://jameskilby.co.uk/wp-content/uploads/2026/01/PassAuth.png)
 
-An Alternative approach is to allow your user to elevate without confirmation.
+An alternative approach is to allow your user to elevate without confirmation.
 
 ### Inventory
 
 Once the authentication methods are defined, the next step is to update the Semaphore Inventory.
 
-I have created a new Inventory item called "vGPU' set the User credentials to be KeyAuth and the Sudo credentials as PassAuth as created above.
+I have created a new Inventory item called "vGPU" and set the User credentials to be KeyAuth and the Sudo credentials as PassAuth as created above.
 
 I've then added the specific VM in the inventory. For testing, I have called this blogtest.
 
@@ -695,62 +691,60 @@ This is now ready for you to start deploying Docker-based AI workloads onto.
 
 ## Similar Posts
 
-  * [![Automated VCF 9 Offline Depot architecture diagram showing Traefik reverse proxy and Nginx file server stack](https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png)](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
+  * [ ![Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore-768x768.png) ](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
-[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
-### [Automated VCF 9 Offline Depot](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
+### [Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
-By[James](https://jameskilby.co.uk)April 10, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) September 2, 2025 · Updated June 5, 2026
 
-One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS.
+An intro on how I use SemaphoreUI to manage my Homelab
 
-  * [![VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png)](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
-
-[VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
-
-### [VMware Cloud on AWS Time Sync & NTP Configuration](https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/)
-
-By[James](https://jameskilby.co.uk)December 8, 2025 · Updated June 5, 2026
-
-How to use the Amazon Time Sync Service in a VMC environment
-
-  * [![Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png)](https://jameskilby.co.uk/2023/04/intel-optane/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://jameskilby.co.uk/category/vexpert/)
-
-### [Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/2023/04/intel-optane/)
-
-By[James](https://jameskilby.co.uk)April 17, 2023 · Updated June 1, 2026
-
-I have been a VMware vExpert for many years and it has brought me many benefits over the years.
-
-  * [![Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
-
-[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
-
-By[James](https://jameskilby.co.uk)May 16, 2023 · Updated June 1, 2026
-
-I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.
-
-  * [![VMware Cloud on AWS \(VMC\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-768x395.png)](https://jameskilby.co.uk/2020/09/vmc-host-errors/)
-
-[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
-
-### [How VMware Cloud on AWS Handles Host Failures Automatically](https://jameskilby.co.uk/2020/09/vmc-host-errors/)
-
-By[James](https://jameskilby.co.uk)September 15, 2020 · Updated June 5, 2026
-
-Learn how host failures are handled within VMC
-
-  * [![vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
+  * [ ![vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg) ](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
 
 ### [vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
 
-By[James](https://jameskilby.co.uk)December 6, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) December 6, 2025 · Updated June 1, 2026
 
 How to safely shut down a vSAN Environment
+
+  * [ ![vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg) ](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
+
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
+
+### [vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
+
+By[James](https://jameskilby.co.uk) November 17, 2023 · Updated June 1, 2026
+
+An Overview of vSAN ESA in VMC 
+
+  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [Lab Update – Desired Workloads](https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/)
+
+By[James](https://jameskilby.co.uk) January 6, 2022 · Updated June 1, 2026
+
+My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.
+
+  * [ ![Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_-768x512.png) ](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
+
+### [Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
+
+By[James](https://jameskilby.co.uk) June 26, 2024 · Updated July 11, 2026
+
+How to configure DHCP Option 43 for UniFi devices 
+
+  * [ ![VMware Cloud on AWS \(VMC\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-768x395.png) ](https://jameskilby.co.uk/2020/09/vmc-host-errors/)
+
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
+
+### [How VMware Cloud on AWS Handles Host Failures Automatically](https://jameskilby.co.uk/2020/09/vmc-host-errors/)
+
+By[James](https://jameskilby.co.uk) September 15, 2020 · Updated June 5, 2026
+
+Learn how host failures are handled within VMC

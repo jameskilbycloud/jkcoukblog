@@ -8,7 +8,7 @@
       "title": "VMware Cloud on AWS Storage Sizing Quick Reference Guide",
       "description": "VMware Cloud on AWS storage sizing reference: usable TiB by host count for i3i, i3en, and i4i, plus the FTT/RAID policy used at each cluster size.",
       "date": "2025-05-21T09:33:04Z",
-      "modified": "2026-07-08T10:43:13Z",
+      "modified": "2026-07-11T08:02:12Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/",
       "markdown_url": "/markdown/posts/vmc-quick-sizing-guide.md",
@@ -16,14 +16,17 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "Homelab",
+        "Nutanix",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
         "Personal",
         "vSphere",
-        "VCF",
-        "vSAN",
-        "AWS",
-        "Veeam",
-        "Homelab",
-        "Nutanix"
+        "VCF"
       ],
       "tags": [
         null,
