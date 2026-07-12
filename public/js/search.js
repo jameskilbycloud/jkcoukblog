@@ -63,13 +63,20 @@ console.log('[Search] Script loaded');
                 e.preventDefault();
                 focusSearch();
             }
+            if (e.key === 'Escape') {
+                hideResults();
+            }
         });
     }
 
     function focusSearch() {
         const input = document.getElementById('blog-search-input');
         if (input) {
-            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // CSS prefers-reduced-motion can't override an explicit JS
+            // behavior option — gate it here.
+            const reduceMotion = window.matchMedia
+                && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            input.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
             input.focus();
         }
     }
