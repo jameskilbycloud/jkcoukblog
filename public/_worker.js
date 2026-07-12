@@ -20,7 +20,7 @@
 // before `cp _worker.template.js public/_worker.js` in the deploy workflow.
 // If the placeholder is still present (local dev / template unchanged) the
 // soft-404 guard is disabled — the worker behaves exactly as before.
-const PATH_MANIFEST_RAW = /*__PATH_MANIFEST_START__*/["/","/2017/05/money-saving-uk-version","/2018/01/lab-storage","/2018/01/nutanix-ce","/2018/03/aws-for-beginners1","/2018/03/cloudflare","/2018/04/nutanix-life-cycle-manager","/2018/05/aws-status-page-monitoring-included","/2018/06/nutanix-command-reference-guide","/2018/10/and-now-for-something-completely-different","/2018/12/new-laptop","/2019/01/whats-in-my-backpack","/2019/02/lab-storage-2","/2019/12/aws-solution-architect-associate","/2019/12/monitoring-vmc-part-1","/2020/06/veeamon2020","/2020/07/i3en","/2020/07/nutanix-ncp","/2020/09/vmc-host-errors","/2020/09/vmware-certified-master-specialist-hci-2020","/2020/12/my-first-pull","/2021/01/hashicorp-packer","/2021/01/my-home-office-setup-upgrades","/2021/02/apple-content-caching","/2022/01/cloudflare-workers-limits-of-the-free-tier","/2022/01/lab-update-part-1-compute","/2022/01/lab-update-part-2-storage","/2022/01/lab-update-part-3-network","/2022/01/lab-update-part-5-desired-workloads","/2022/01/web-development","/2022/01/wrangler-and-node-versions","/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages","/2022/10/starlink","/2022/11/homelab-bad-days-almost","/2022/12/100gb-s-in-my-homelab-sort-of","/2022/12/forcing-an-upgrade-to-vsphere-8","/2022/12/use-portainer-in-a-homelab-with-github","/2023/04/intel-optane","/2023/05/homelab-storage-refresh-part-1","/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages","/2023/05/runecast-remediation-scripts","/2023/10/going-out-with-a-bang","/2023/10/vgpu-setup-in-my-homelab","/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n","/2023/11/analytics-in-a-privacy-focused-world","/2023/11/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router","/2023/11/truenas-scale-useful-commands","/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc","/2024/01/holodeck-cpu-fixes","/2024/01/multihost-holodeck-vcf","/2024/06/unifi-dhcp-option-43","/2024/07/new-nodes","/2024/09/can-you-really-squeeze-96tb-in-1u","/2024/09/home-network-upgrade","/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu","/2024/12/zfs-on-vmware","/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way","/2025/04/warp-the-intelligent-terminal","/2025/05/vmc-quick-sizing-guide","/2025/08/vmc-host-deepdive","/2025/09/managing-my-homelab-with-semaphoreui","/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare","/2025/12/time-in-a-vmc-environment","/2025/12/ubuntu-disk-expansion-steps","/2025/12/vsan-cluster-shutdown","/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster","/2026/01/web-development-improvements","/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements","/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive","/2026/03/octopus-agile-battery-solar-calculator","/2026/04/automated-vcf-9-offline-depot","/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2","/2026/04/new-vmc-host-i7i-metal-24xl","/2026/04/packer-vsphere-golden-images","/2026/04/vsphere-power-management-driven-by-ansible","/2026/06/ubiquiti-udm-beast","/about-james-kilby-solution-architect","/category/ansible","/category/apple","/category/artificial-intelligence","/category/automation","/category/aws","/category/cloudflare","/category/consulting","/category/containers","/category/devops","/category/docker","/category/github","/category/homelab","/category/hosting","/category/kubernetes","/category/mikrotik","/category/money","/category/networking","/category/nutanix","/category/nvidia","/category/personal","/category/runecast","/category/storage","/category/synology","/category/traefik","/category/truenas-scale","/category/ubuntu","/category/veeam","/category/vexpert","/category/vmware","/category/vmware/vcf","/category/vmware/vmware-cloud-on-aws","/category/vmware/vsan-vmware","/category/vsphere","/category/wordpress","/evs","/homelab-software","/lab","/media","/page/2","/page/3","/page/4","/page/5","/page/6","/page/7","/privacy-policy-2","/tag/account-setup","/tag/ai","/tag/analytics","/tag/ansible","/tag/apple","/tag/architecture","/tag/artificial-intelligence","/tag/automation","/tag/aws","/tag/bash","/tag/blog","/tag/blogging","/tag/brew","/tag/cache","/tag/certification","/tag/certifications","/tag/charity","/tag/city-fibre","/tag/cli","/tag/clickhouse","/tag/cloudflare","/tag/cloudflare-pages","/tag/comfyui","/tag/containers","/tag/content-library","/tag/cpu","/tag/desired-state","/tag/devops","/tag/dhcp","/tag/disk-expand","/tag/docker","/tag/energy","/tag/epic","/tag/failure","/tag/free","/tag/git","/tag/github","/tag/github-actions","/tag/hashicorp","/tag/hoarder","/tag/holodeck","/tag/homebrew","/tag/homelab","/tag/homeoffice","/tag/hosting","/tag/https","/tag/i7i","/tag/iac","/tag/infrastructure","/tag/ingress","/tag/intel","/tag/lambda","/tag/langfuse","/tag/lets-encrypt","/tag/macbook-air","/tag/mikrotik","/tag/minio","/tag/multihost","/tag/n8n","/tag/nas","/tag/networking","/vmc"]/*__PATH_MANIFEST_END__*/;
+const PATH_MANIFEST_RAW = /*__PATH_MANIFEST_START__*/["/","/2017/05/money-saving-uk-version","/2018/01/lab-storage","/2018/01/nutanix-ce","/2018/03/aws-for-beginners1","/2018/03/cloudflare","/2018/04/nutanix-life-cycle-manager","/2018/05/aws-status-page-monitoring-included","/2018/06/nutanix-command-reference-guide","/2018/10/and-now-for-something-completely-different","/2018/12/new-laptop","/2019/01/whats-in-my-backpack","/2019/02/lab-storage-2","/2019/12/aws-solution-architect-associate","/2019/12/monitoring-vmc-part-1","/2020/06/veeamon2020","/2020/07/i3en","/2020/07/nutanix-ncp","/2020/09/vmc-host-errors","/2020/09/vmware-certified-master-specialist-hci-2020","/2020/12/my-first-pull","/2021/01/hashicorp-packer","/2021/01/my-home-office-setup-upgrades","/2021/02/apple-content-caching","/2022/01/cloudflare-workers-limits-of-the-free-tier","/2022/01/lab-update-part-1-compute","/2022/01/lab-update-part-2-storage","/2022/01/lab-update-part-3-network","/2022/01/lab-update-part-5-desired-workloads","/2022/01/web-development","/2022/01/wrangler-and-node-versions","/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages","/2022/10/starlink","/2022/11/homelab-bad-days-almost","/2022/12/100gb-s-in-my-homelab-sort-of","/2022/12/forcing-an-upgrade-to-vsphere-8","/2022/12/use-portainer-in-a-homelab-with-github","/2023/04/intel-optane","/2023/05/homelab-storage-refresh-part-1","/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages","/2023/05/runecast-remediation-scripts","/2023/10/going-out-with-a-bang","/2023/10/vgpu-setup-in-my-homelab","/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n","/2023/11/analytics-in-a-privacy-focused-world","/2023/11/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router","/2023/11/truenas-scale-useful-commands","/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc","/2024/01/holodeck-cpu-fixes","/2024/01/multihost-holodeck-vcf","/2024/06/unifi-dhcp-option-43","/2024/07/new-nodes","/2024/09/can-you-really-squeeze-96tb-in-1u","/2024/09/home-network-upgrade","/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu","/2024/12/zfs-on-vmware","/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way","/2025/04/warp-the-intelligent-terminal","/2025/05/vmc-quick-sizing-guide","/2025/08/vmc-host-deepdive","/2025/09/managing-my-homelab-with-semaphoreui","/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare","/2025/12/time-in-a-vmc-environment","/2025/12/ubuntu-disk-expansion-steps","/2025/12/vsan-cluster-shutdown","/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster","/2026/01/web-development-improvements","/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements","/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive","/2026/03/octopus-agile-battery-solar-calculator","/2026/04/automated-vcf-9-offline-depot","/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2","/2026/04/new-vmc-host-i7i-metal-24xl","/2026/04/packer-vsphere-golden-images","/2026/04/vsphere-power-management-driven-by-ansible","/2026/06/ubiquiti-udm-beast","/404","/about-james-kilby-solution-architect","/category/ansible","/category/apple","/category/artificial-intelligence","/category/automation","/category/aws","/category/cloudflare","/category/consulting","/category/containers","/category/devops","/category/docker","/category/github","/category/homelab","/category/hosting","/category/kubernetes","/category/mikrotik","/category/money","/category/networking","/category/nutanix","/category/nvidia","/category/personal","/category/runecast","/category/storage","/category/synology","/category/traefik","/category/truenas-scale","/category/ubuntu","/category/veeam","/category/vexpert","/category/vmware","/category/vmware/vcf","/category/vmware/vmware-cloud-on-aws","/category/vmware/vsan-vmware","/category/vsphere","/category/wordpress","/changelog","/evs","/homelab-software","/lab","/media","/page/2","/page/3","/page/4","/page/5","/page/6","/page/7","/privacy-policy-2","/stats","/tag/account-setup","/tag/ai","/tag/analytics","/tag/ansible","/tag/apple","/tag/architecture","/tag/artificial-intelligence","/tag/automation","/tag/aws","/tag/bash","/tag/blog","/tag/blogging","/tag/brew","/tag/cache","/tag/certification","/tag/certifications","/tag/charity","/tag/city-fibre","/tag/cli","/tag/clickhouse","/tag/cloudflare","/tag/cloudflare-pages","/tag/comfyui","/tag/containers","/tag/content-library","/tag/cpu","/tag/desired-state","/tag/devops","/tag/dhcp","/tag/disk-expand","/tag/docker","/tag/energy","/tag/epic","/tag/failure","/tag/free","/tag/git","/tag/github","/tag/github-actions","/tag/hashicorp","/tag/hoarder","/tag/holodeck","/tag/homebrew","/tag/homelab","/tag/homeoffice","/tag/hosting","/tag/https","/tag/i7i","/tag/iac","/tag/infrastructure","/tag/ingress","/tag/intel","/tag/lambda","/tag/langfuse","/tag/lets-encrypt","/tag/macbook-air","/tag/mikrotik","/tag/minio","/tag/multihost","/tag/n8n","/tag/nas","/tag/networking","/vmc"]/*__PATH_MANIFEST_END__*/;
 const PATH_MANIFEST = PATH_MANIFEST_RAW ? new Set(PATH_MANIFEST_RAW) : null;
 
 // Build-time substitution: scripts/stamp_worker_manifest.py reads the
@@ -207,6 +207,18 @@ export default {
     }
     if (path === '/api/event' && request.method === 'POST') {
       return handlePlausibleEvent(request);
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
+    // ── Homelab live power widget ────────────────────────────────────────────
+    // POST (from Home Assistant, token-gated) stores the latest wattage plus a
+    // rolling ~30-min history in KV; GET (public, same-origin) returns it for
+    // the blog widget. Both must run before the GET-only guard and shouldCache.
+    if (path === '/api/power' && request.method === 'POST') {
+      return handlePowerPost(request, env);
+    }
+    if (path === '/api/power' && request.method === 'GET') {
+      return handlePowerGet(env);
     }
     // ────────────────────────────────────────────────────────────────────────
 
@@ -654,6 +666,91 @@ async function handlePlausibleEvent(request) {
   if (ct) respHeaders.set('Content-Type', ct);
 
   return new Response(upstream.body, { status: upstream.status, headers: respHeaders });
+}
+// ───────────────────────────────────────────────────────────────────────────
+
+// ── Homelab live power widget ────────────────────────────────────────────────
+// Reuses the HTML_CACHE KV binding under a single `power:latest` key. Home
+// Assistant POSTs the current whole-homelab wattage every ~30s; the worker
+// appends it to a rolling history and re-PUTs with a 180s TTL. If HA stops
+// pushing, the key expires and GET reports `stale`, so the widget can show
+// "offline" instead of a frozen number. The write is gated by POWER_TOKEN
+// (mirrors the PURGE_TOKEN pattern); the read is public and same-origin, so
+// no CORS and no HA token ever reaches the browser.
+const POWER_KEY = 'power:latest';
+const POWER_TTL = 180;          // seconds — ~6 missed 30s pushes before stale
+const POWER_HISTORY_MAX = 60;   // samples kept — ~30 min at one / 30s
+
+/**
+ * Store the latest homelab wattage. POST from Home Assistant, token-gated.
+ * Body: { "w": <number watts> }. Timestamps are stamped server-side so the
+ * widget never depends on HA's clock.
+ */
+async function handlePowerPost(request, env) {
+  const token = request.headers.get('X-Power-Token');
+  if (!env.POWER_TOKEN || token !== env.POWER_TOKEN) {
+    return new Response('Forbidden', { status: 403, headers: { 'Cache-Control': 'no-store' } });
+  }
+  if (!env.HTML_CACHE) {
+    return new Response('KV unavailable', { status: 503, headers: { 'Cache-Control': 'no-store' } });
+  }
+
+  let body;
+  try {
+    body = await request.json();
+  } catch (_) {
+    return new Response('Bad JSON body', { status: 400, headers: { 'Cache-Control': 'no-store' } });
+  }
+  const watts = Number(body.w);
+  if (!Number.isFinite(watts) || watts < 0 || watts > 100000) {
+    return new Response('Bad "w" value', { status: 400, headers: { 'Cache-Control': 'no-store' } });
+  }
+
+  const ts = new Date().toISOString();
+  let history = [];
+  try {
+    const prev = await env.HTML_CACHE.get(POWER_KEY, { type: 'json' });
+    if (prev && Array.isArray(prev.history)) history = prev.history;
+  } catch (_) {
+    // corrupt/absent previous value — start a fresh history
+  }
+  history.push({ t: ts, w: watts });
+  if (history.length > POWER_HISTORY_MAX) {
+    history = history.slice(history.length - POWER_HISTORY_MAX);
+  }
+
+  await env.HTML_CACHE.put(
+    POWER_KEY,
+    JSON.stringify({ w: watts, ts, history }),
+    { expirationTtl: POWER_TTL }
+  );
+
+  return new Response(JSON.stringify({ ok: true, w: watts, ts }), {
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
+  });
+}
+
+/**
+ * Return the latest homelab wattage + rolling history for the blog widget.
+ * Public, same-origin GET. Returns `{ ok:false, stale:true }` (still HTTP 200)
+ * when there's no fresh reading, so the widget shows "offline" without errors.
+ */
+async function handlePowerGet(env) {
+  const headers = {
+    'Content-Type': 'application/json',
+    // Short edge/browser cache — the widget polls every 30s and KV is only
+    // eventually consistent, so 15s smooths load without feeling stale.
+    'Cache-Control': 'public, max-age=15',
+    'X-Robots-Tag': 'noindex'
+  };
+  if (!env.HTML_CACHE) {
+    return new Response(JSON.stringify({ ok: false, stale: true }), { status: 200, headers });
+  }
+  const record = await env.HTML_CACHE.get(POWER_KEY, { type: 'json' });
+  if (!record) {
+    return new Response(JSON.stringify({ ok: false, stale: true }), { status: 200, headers });
+  }
+  return new Response(JSON.stringify({ ok: true, ...record }), { status: 200, headers });
 }
 // ───────────────────────────────────────────────────────────────────────────
 
