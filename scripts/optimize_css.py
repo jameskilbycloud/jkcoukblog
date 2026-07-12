@@ -203,6 +203,17 @@ class CSSOptimizer:
         'pop-animated', 'splide-initial',
     })
 
+    # IDs created by JavaScript at runtime — same rationale as
+    # _DYNAMIC_CLASSES, but for id selectors. search.js injects the search
+    # box into <main> on load, so its ids never appear in the served HTML;
+    # without this allowlist the optimizer stripped the
+    # #blog-search-input::placeholder / cancel-button rules and part of the
+    # search restyle silently never shipped.
+    # Source of truth: `grep -oE 'id="[^"]+"' scripts/assets/js/search.js`.
+    _DYNAMIC_IDS = frozenset({
+        'blog-search-container', 'blog-search-input',
+    })
+
     def _is_selector_used(self, selector_text, used_selectors):
         """Check if a CSS selector is used in HTML.
 
@@ -258,10 +269,12 @@ class CSSOptimizer:
 
                 # If the compound references at least one class that is in
                 # HTML *or* in the dynamic-class allowlist, OR at least one
-                # id that is in HTML, this compound is matchable.
+                # id that is in HTML *or* in the dynamic-id allowlist, this
+                # compound is matchable.
                 if (any(f'.{c}' in used_selectors for c in classes)
                         or any(c in self._DYNAMIC_CLASSES for c in classes)
-                        or any(f'#{i}' in used_selectors for i in ids)):
+                        or any(f'#{i}' in used_selectors for i in ids)
+                        or any(i in self._DYNAMIC_IDS for i in ids)):
                     continue
 
                 # No referenced class/id matches → this compound (and the

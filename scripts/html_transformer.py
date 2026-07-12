@@ -488,14 +488,22 @@ class HTMLTransformer:
     def _apply_critical_css(self, soup, file_path):
         """Extract and inline critical CSS, convert stylesheets to async preload."""
         critical_css = self.critical_css._extract_critical_css(soup)
-        if not critical_css:
-            return False
 
-        if self.critical_css._inline_critical_css(soup, critical_css, file_path):
-            self.critical_css._convert_css_to_preload(soup)
+        modified = False
+        if critical_css and self.critical_css._inline_critical_css(
+                soup, critical_css, file_path):
             self.critical_css.css_inlined += 1
-            return True
-        return False
+            modified = True
+
+        # Convert stylesheets to async preload even when nothing was inlined
+        # — a page whose async-eligible sheets match no critical selectors
+        # must still not ship them render-blocking. The old early-return on
+        # empty critical_css left such pages render-blocking forever and
+        # stopped the noscript self-healing from persisting.
+        if self.critical_css._convert_css_to_preload(soup):
+            modified = True
+
+        return modified
 
     # WP-shipped stylesheets that survive the generator pass: small ones get
     # inlined here so they don't cost a separate request. wp_to_static_generator
