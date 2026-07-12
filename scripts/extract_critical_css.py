@@ -9,6 +9,7 @@ This significantly improves First Contentful Paint (FCP) by 30-50%.
 """
 
 import sys
+from collections import Counter
 from pathlib import Path
 from bs4 import BeautifulSoup
 import re
@@ -57,30 +58,39 @@ class CriticalCSSExtractor:
         """Process a single HTML file"""
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
-                html = f.read()
+                original_html = f.read()
 
             # Pre-parse cleanup: strip accumulated noscript fallbacks and
             # deduplicate <link> tags by href so BeautifulSoup sees a clean doc.
-            html = self._dedup_head_links(html)
+            html = self._dedup_head_links(original_html)
 
             soup = BeautifulSoup(html, 'html.parser')
 
             # Extract critical CSS
             critical_css = self._extract_critical_css(soup, file_path)
 
-            if not critical_css:
-                return False
+            inlined = False
+            if critical_css:
+                inlined = self._inline_critical_css(soup, critical_css, file_path)
 
-            # Inline critical CSS
-            if self._inline_critical_css(soup, critical_css, file_path):
-                # Convert external CSS to async preload
-                self._convert_css_to_preload(soup)
+            # Convert external CSS to async preload even when there was
+            # nothing to inline — a page whose async-eligible sheets match no
+            # critical selectors must still not ship them render-blocking,
+            # and the dedup/noscript self-healing must still persist. The
+            # old early-return on empty critical_css skipped both, leaving
+            # such pages render-blocking forever.
+            self._convert_css_to_preload(soup)
 
-                # Save modified HTML
+            # Write only when the document actually changed. Comparing
+            # against the original as BS4 would serialize it means
+            # formatting-only parse differences don't force rewrites on
+            # every run.
+            output = str(soup)
+            if output != str(BeautifulSoup(original_html, 'html.parser')):
                 with open(file_path, 'w', encoding='utf-8') as f:
-                    f.write(str(soup))
-
-                self.css_inlined += 1
+                    f.write(output)
+                if inlined:
+                    self.css_inlined += 1
                 return True
 
             return False
@@ -152,9 +162,13 @@ class CriticalCSSExtractor:
 
         return critical_css
 
-    # Stylesheets that stay render-blocking (mirrors _convert_to_async's
-    # EXCLUDED): their above-fold rules are already applied at first paint, so
-    # inlining them into the critical block is duplication that wastes the cap.
+    # Stylesheets that stay render-blocking. Single source of truth, used in
+    # two places: _extract_matching_css_rules skips them (their above-fold
+    # rules are already applied at first paint, so inlining them into the
+    # critical block is duplication that wastes the cap) and
+    # _convert_css_to_preload leaves them synchronous (brutalist-theme ships
+    # the @font-face declarations; consolidated-inline-styles is theming
+    # layered above critical CSS).
     RENDER_BLOCKING_CSS = ('brutalist-theme', 'fonts.css', 'consolidated-inline-styles')
 
     def _extract_matching_css_rules(self, soup, selectors, file_path=None):
@@ -532,15 +546,26 @@ class CriticalCSSExtractor:
         survived the dedup pass as-is) also receive a fresh noscript without
         the double-counting that occurred when noscripts were added in step 2
         *and* again in a former "step 3".
+
+        Returns True when the document semantically changed. A noscript that
+        is stripped in step 1 and re-added identically in step 3 does NOT
+        count — idempotent runs must report unchanged so callers don't
+        rewrite every file on every build.
         """
-        EXCLUDED = ('brutalist-theme', 'fonts.css', 'consolidated-inline-styles')
+        EXCLUDED = self.RENDER_BLOCKING_CSS
+        modified = False
 
         # ── Step 1: strip residual noscript blocks ───────────────────────
-        # _dedup_head_links already removed them from the raw string, but
-        # do a belt-and-suspenders BS4 cleanup for safety.
+        # _dedup_head_links already removed them from the raw string (when
+        # the caller ran it), but do a belt-and-suspenders BS4 cleanup for
+        # safety. Remember what was removed, keyed by href, so step 3 can
+        # tell a restoring re-add from a genuine change.
+        stripped = Counter()
         if soup.head:
             for ns in list(soup.head.find_all('noscript')):
-                if ns.find('link'):
+                inner = ns.find('link')
+                if inner:
+                    stripped[inner.get('href', '')] += 1
                     ns.decompose()
 
         # ── Step 2: convert stylesheet links → preload+onload ────────────
@@ -556,6 +581,7 @@ class CriticalCSSExtractor:
             link['rel'] = 'preload'
             link['as'] = 'style'
             link['onload'] = "this.onload=null;this.rel='stylesheet'"
+            modified = True
 
         # ── Step 3: add exactly one noscript per async-CSS preload link ───
         # This covers three cases:
@@ -564,6 +590,7 @@ class CriticalCSSExtractor:
         #   c) Plain preload-as-style links (no onload) left over from the old
         #      _externalize_critical_css bug — upgrade them to include onload
         #      so they actually apply the stylesheet at runtime.
+        added = Counter()
         if soup.head:
             for link in list(soup.head.find_all('link')):
                 rel  = link.get('rel') or []
@@ -575,6 +602,7 @@ class CriticalCSSExtractor:
                 # Upgrade plain preload to async onload if missing.
                 if not link.get('onload'):
                     link['onload'] = "this.onload=null;this.rel='stylesheet'"
+                    modified = True
                 noscript = soup.new_tag('noscript')
                 fallback = soup.new_tag('link')
                 fallback['rel'] = 'stylesheet'
@@ -583,6 +611,13 @@ class CriticalCSSExtractor:
                     fallback['media'] = link['media']
                 noscript.append(fallback)
                 link.insert_after(noscript)
+                added[href] += 1
+
+        # Noscript churn only counts when the set actually changed.
+        if added != stripped:
+            modified = True
+
+        return modified
 
 
 def main():

@@ -108,3 +108,56 @@ def test_cached_extraction_matches_uncached(tmp_path):
         ex._minify_css(r) for r in ex._parse_css_rules(css, {'p', 'h1'})
     )
     assert out == direct
+
+
+def test_empty_extraction_still_converts_to_preload(tmp_path):
+    # A page whose async-eligible sheets match no critical selectors must
+    # STILL get them converted to preload — the old early-return on empty
+    # critical CSS left such pages render-blocking forever.
+    (tmp_path / 'widgets.css').write_text('.only-footer-thing{color:red}',
+                                          encoding='utf-8')
+    page = tmp_path / 'index.html'
+    page.write_text(
+        '<html><head><link rel="stylesheet" href="/widgets.css"></head>'
+        '<body><main><h1>t</h1></main></body></html>',
+        encoding='utf-8')
+    ex = CriticalCSSExtractor()
+    ex.public_dir = tmp_path
+
+    assert ex.process_file(page) is True
+    out = page.read_text(encoding='utf-8')
+    assert 'rel="preload"' in out
+    assert 'noscript' in out
+
+
+def test_convert_css_to_preload_is_idempotent(tmp_path):
+    # Running process_file twice must report no change the second time —
+    # a strip+identical-re-add of noscripts is not a modification, so the
+    # pipeline doesn't rewrite (and recompress) every file every build.
+    (tmp_path / 'widgets.css').write_text('.x{color:red}', encoding='utf-8')
+    page = tmp_path / 'index.html'
+    page.write_text(
+        '<html><head><link rel="stylesheet" href="/widgets.css"></head>'
+        '<body><main><h1>t</h1></main></body></html>',
+        encoding='utf-8')
+    ex = CriticalCSSExtractor()
+    ex.public_dir = tmp_path
+
+    assert ex.process_file(page) is True
+    first_pass = page.read_text(encoding='utf-8')
+    assert ex.process_file(page) is False
+    assert page.read_text(encoding='utf-8') == first_pass
+
+
+def test_excluded_tuple_is_single_source():
+    # RENDER_BLOCKING_CSS drives both the extraction skip and the preload
+    # conversion — guard against the two lists drifting apart again by
+    # checking the conversion path leaves a render-blocking sheet alone.
+    from bs4 import BeautifulSoup as BS
+    soup = BS('<html><head>'
+              '<link rel="stylesheet" href="/assets/css/brutalist-theme.css">'
+              '</head><body></body></html>', 'html.parser')
+    ex = CriticalCSSExtractor()
+    assert ex._convert_css_to_preload(soup) is False
+    link = soup.find('link')
+    assert link['rel'] == ['stylesheet']
