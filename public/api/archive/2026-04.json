@@ -8,7 +8,7 @@
       "title": "My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)",
       "description": "Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database",
       "date": "2026-04-04T21:39:21Z",
-      "modified": "2026-06-01T21:59:15Z",
+      "modified": "2026-07-11T13:21:16Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/",
       "markdown_url": "/markdown/posts/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2.md",
@@ -21,14 +21,13 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Cloudflare",
-        "Hosting",
-        "Wordpress",
-        "Devops",
-        "Github",
-        "Networking",
+        "Runecast",
         "Personal",
-        "VMware Cloud on AWS"
+        "VMware Cloud on AWS",
+        "Storage",
+        "Synology",
+        "Hosting",
+        "Wordpress"
       ],
       "tags": [
         null,
@@ -64,13 +63,15 @@
         "Automation",
         "Github",
         "Homelab",
+        "VMware",
         "Networking",
         "Storage",
-        "VMware",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
         "vExpert",
-        "Synology",
-        "Artificial Intelligence",
-        "Mikrotik"
+        "Ubuntu",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -82,7 +83,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png",
-      "excerpt": "![Packer Github Actions Vsphere Pipeline](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png)\n\n[Automation](https://jameskilby.co.uk/category/automation/) | [Github](https://jameskilby.co.uk/category/github/)\n\n# Automating vSphere Golden Images with Packer..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png)\n\n[Automation](https://jameskilby.co.uk/category/automation/) | [Github](https://jameskilby.co.uk/category/github/)\n\n# Automating vSphere Golden Images with Packer and GitHub Actions\n\nBy[James](https:/..."
     },
     {
       "slug": "vsphere-power-management-driven-by-ansible",
@@ -97,12 +98,13 @@
       "categories": [
         "Ansible",
         "Automation",
-        "Homelab",
-        "Hosting",
+        "VCF",
         "VMware",
+        "Mikrotik",
         "Networking",
-        "Storage",
-        "Synology"
+        "Homelab",
+        "Personal",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -118,7 +120,7 @@
       "title": "Automated VCF 9 Offline Depot",
       "description": "One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let's Encrypt wildcard certs via Cloudflare DNS.",
       "date": "2026-04-10T11:36:03Z",
-      "modified": "2026-06-01T21:59:13Z",
+      "modified": "2026-07-11T13:21:15Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/",
       "markdown_url": "/markdown/posts/automated-vcf-9-offline-depot.md",
@@ -131,16 +133,13 @@
         "Traefik",
         "VCF",
         "VMware",
-        "Cloudflare",
-        "Devops",
-        "Github",
-        "Wordpress",
-        "VMware Cloud on AWS",
+        "Nutanix",
         "TrueNAS Scale",
         "vSAN",
         "vSphere",
-        "Hosting",
-        "Nutanix"
+        "Personal",
+        "VMware Cloud on AWS",
+        "Networking"
       ],
       "tags": [
         null,
@@ -165,9 +164,9 @@
     {
       "slug": "new-vmc-host-i7i-metal-24xl",
       "title": "New VMware Cloud on AWS Host: i7i.metal-24xl",
-      "description": "We’ve expanded the VMC fleet with the new i7i (i7i.24xlarge) host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it",
+      "description": "We’ve expanded the VMC fleet with the new i7i (i7i.",
       "date": "2026-04-01T08:06:00Z",
-      "modified": "2026-06-01T21:07:20Z",
+      "modified": "2026-07-11T07:46:38Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/",
       "markdown_url": "/markdown/posts/new-vmc-host-i7i-metal-24xl.md",
@@ -175,14 +174,13 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Runecast",
+        "AWS",
+        "Veeam",
         "Homelab",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik"
+        "Nutanix",
+        "Networking",
+        "Storage",
+        "VCF"
       ],
       "tags": [
         null,
@@ -190,7 +188,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp",
-      "excerpt": "![Vmconaws.Png](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# New VMware Cloud on AWS Host: i7i.metal-24xl\n\nBy[James](https://jamesk..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# New VMware Cloud on AWS Host: i7i.metal-24xl\n\nBy[James](https://jameskilby.co.uk) ..."
     }
   ]
 }

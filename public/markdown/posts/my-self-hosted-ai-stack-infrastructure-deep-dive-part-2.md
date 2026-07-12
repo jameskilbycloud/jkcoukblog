@@ -2,7 +2,7 @@
 title: "My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)"
 description: "Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database"
 date: 2026-04-04T21:39:21+00:00
-modified: 2026-06-01T21:59:15+00:00
+modified: 2026-07-11T13:21:16+00:00
 author: James Kilby
 categories:
   - Artificial Intelligence
@@ -12,14 +12,13 @@ categories:
   - NVIDIA
   - Traefik
   - VMware
-  - Cloudflare
-  - Hosting
-  - Wordpress
-  - Devops
-  - Github
-  - Networking
+  - Runecast
   - Personal
   - VMware Cloud on AWS
+  - Storage
+  - Synology
+  - Hosting
+  - Wordpress
 tags:
   - #AI
   - #Artificial Intelligence
@@ -46,11 +45,11 @@ image: https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured.png
 
 # My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)
 
-By[James](https://jameskilby.co.uk)April 4, 2026 · Updated June 1, 2026 • 📖11 min read(2,139 words)
+By[James](https://jameskilby.co.uk) April 4, 2026 · Updated July 11, 2026 • 📖11 min read(2,137 words)
 
-📅**Published:** April 04, 2026•**Updated:** June 01, 2026
+📅**Published:** April 04, 2026•**Updated:** July 11, 2026
 
- _This is Part 2 of a multi-part series on my self-hosted AI stack.[Part 1](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/) covers the application architecture and a layer-by-layer walkthrough of every service. If you haven’t read it yet, I’d recommend starting there — it gives the context that makes Part 2 make sense._
+_This is Part 2 of a multi-part series on my self-hosted AI stack.[Part 1](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/) covers the application architecture and a layer-by-layer walkthrough of every service. If you haven’t read it yet, I’d recommend starting there — it gives the context that makes Part 2 make sense._
 
 Part 2 goes deeper into the infrastructure side of things: how traffic is designed to route, how containers are sized and constrained, what databases and data stores are running under the hood.
 
@@ -58,7 +57,7 @@ Specifically, this post covers:
 
   * **Resource limits and sizing** — CPU and memory constraints for every container, and the reasoning behind them
   * **Infrastructure and routing** — the dual-network design, Traefik reverse proxy configuration, Cloudflare Tunnels, and how external traffic is isolated from internal service communication
-  * **Data layer** — every database and persistent store in the stack: PostgreSQL, SQLite, ChromaDB, Redis, and Minio
+  * **Data layer** — every database and persistent store in the stack: PostgreSQL, SQLite, Qdrant, Redis, and MinIO
   * **Backups** — the sidecar backup strategy for PostgreSQL, n8n, and Open WebUI, with data landing on a NAS over SMB
 
 ## Table of Contents
@@ -69,7 +68,7 @@ In this part I’ll walk through the network topology, container sizing, and eve
 
 ## Resource Limits & Sizing
 
-If you read part one, you will have seen that there are a lot of components that make up this AI stack. Every container in the stack has explicit CPU and memory limits and reservations set. This is to prevent a single runaway container or model starving other services of resources. These limits have been defined based on my production deployment running on my host with an NVIDIA A10 (24 GB vRAM), this is presented to a VM allocated with 24 CPU cores, and 96 GB RAM plus 500GB of NVMe storage. Based on that profile, I have allocated container resources as follows::
+If you read part one, you will have seen that there are a lot of components that make up this AI stack. Every container in the stack has explicit CPU and memory limits and reservations set. This is to prevent a single runaway container or model starving other services of resources. These limits have been defined based on my production deployment running on my host with an NVIDIA A10 (24 GB vRAM), this is presented to a VM allocated with 24 CPU cores, and 96 GB RAM plus 500GB of NVMe storage. Based on that profile, I have allocated container resources as follows:
 
 Container| Role| Mem Limit| CPU Limit  
 ---|---|---|---  
@@ -103,7 +102,7 @@ Container| Role| Mem Limit| CPU Limit
   
 As can be seen from the docker containers above the resource requirements are not trivial.
 
-I would recommend the following VM configuration as a minimum to use the services with some tweaks to the docker and Ansible configuration to accommodate the reduced footprint. I would also highly recommend the data disk is on NVMe..
+I would recommend the following VM configuration as a minimum to use the services with some tweaks to the docker and Ansible configuration to accommodate the reduced footprint. I would also highly recommend the data disk is on NVMe.
 
 Resource| Allocation  
 ---|---  
@@ -129,7 +128,7 @@ Services that need both external routing and internal communication (like Open W
 
 ### Domain Portability
 
-The deployment is designed in a way that the url can be adapted as needed. The The The compose file uses the pattern `${DOMAIN:-jameskilby.cloud}` rather than a hardcoded hostname. Traefik labels, environment variables, webhook URLs — all of them resolve through a single `DOMAIN` variable in the `.env` file. This allows you to fork the repo and deploy the stack under your own domain. You change one variable and every service picks it up — `chat.yourdomain.com`, `grafana.yourdomain.com`, `langfuse.yourdomain.com`, and so on. The `:-jameskilby.cloud` default means the compose still works if the variable is unset, which keeps `docker compose config` clean for local testing.
+The deployment is designed in a way that the url can be adapted as needed. The compose file uses the pattern `${DOMAIN:-jameskilby.cloud}` rather than a hardcoded hostname. Traefik labels, environment variables, webhook URLs — all of them resolve through a single `DOMAIN` variable in the `.env` file. This allows you to fork the repo and deploy the stack under your own domain. You change one variable and every service picks it up — `chat.yourdomain.com`, `grafana.yourdomain.com`, `langfuse.yourdomain.com`, and so on. The `:-jameskilby.cloud` default means the compose still works if the variable is unset, which keeps `docker compose config` clean for local testing.
 
 An `.env.example` file is included in the repo with placeholder values and generation instructions for every required secret. Copy it to `.env`, fill in your values, and the stack is ready to deploy.
 
@@ -187,11 +186,11 @@ This split—local volumes for transactional databases, NAS for observability—
 
 ## Backups
 
-The self-hosted AI stack contains data in multiple locations. Some of this can be recreated or redownloaded easily and some of it needs protecting..
+The self-hosted AI stack contains data in multiple locations. Some of this can be recreated or redownloaded easily and some of it needs protecting.
 
 ### OpenWebUI Backups
 
-OpenWebUI is the front end to most of the AI stack and it can end up storing a lot of data from various sources. This data is mostly stored in a SQLite database. Due to the way sqlite works it is not possible to run it on remote storage. It therefore runs on local NVMe storage attached to the VM. To enable backups of this data, I have a second container that runs alongside OpenWebUI sharing access to the same volumes. It periodically (every 6 hours) performs a crash-consistent database backup and writes it out to the persistent smb share. It also performs retention of the database only keeping the last 7 copies. This gives me the ability to restore:: 
+OpenWebUI is the front end to most of the AI stack and it can end up storing a lot of data from various sources. This data is mostly stored in a SQLite database. Due to the way sqlite works it is not possible to run it on remote storage. It therefore runs on local NVMe storage attached to the VM. To enable backups of this data, I have a second container that runs alongside OpenWebUI sharing access to the same volumes. It periodically (every 6 hours) performs a crash-consistent database backup and writes it out to the persistent smb share. It also performs retention of the database only keeping the last 7 copies. This gives me the ability to restore: 
 
   * All User config
   * Every conversation and the associated message history
@@ -233,62 +232,60 @@ If the Git credentials are not set, it will back up to the SMB repo like the oth
 
 ## Similar Posts
 
-  * [![Blog Performance & SEO Improvements: Cloudflare, Privacy & More](https://jameskilby.co.uk/wp-content/uploads/2026/01/Website-Optimisations-768x560.png)](https://jameskilby.co.uk/2026/01/web-development-improvements/)
+  * [ ![Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png) ](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
 
-[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
+[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [Blog Performance & SEO Improvements: Cloudflare, Privacy & More](https://jameskilby.co.uk/2026/01/web-development-improvements/)
+### [Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
 
-By[James](https://jameskilby.co.uk)January 15, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) May 16, 2023 · Updated June 1, 2026
 
-I have spent the Christmas break making some improvements to this blog.
+I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.
 
-  * [![How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
+  * [ ![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png) ](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
-[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
+[Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
+### [VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
-By[James](https://jameskilby.co.uk)October 6, 2025 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk) September 13, 2020 · Updated May 31, 2026
 
-I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.
+I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.
 
-  * [![Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_-768x512.png)](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
+  * [ ![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg) ](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
+### [Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
 
-By[James](https://jameskilby.co.uk)June 26, 2024 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk) October 23, 2023 · Updated July 11, 2026
 
-How to configure DHCP Option 43 for UniFi devices 
+Card Stats Install steps VM Provisioning Folding@Home A little while ago I decided to play with vGPU in my homelab.
 
-  * [![Fixing Wrangler Node.js Version Conflicts After Brew Upgrade](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1-768x256.png)](https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/)
-
-[Cloudflare](https://jameskilby.co.uk/category/cloudflare/)
-
-### [Fixing Wrangler Node.js Version Conflicts After Brew Upgrade](https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/)
-
-By[James](https://jameskilby.co.uk)January 15, 2022 · Updated June 1, 2026
-
-I am a massive fan of the brew package management system for macOS and use it on all of my Macs. I typically just upgrade everything blindly and have never had an issue.
-
-  * [![Hosting This Blog on Cloudflare Workers: Why & How I Did It](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2-768x229.png)](https://jameskilby.co.uk/2022/01/web-development/)
-
-[Hosting](https://jameskilby.co.uk/category/hosting/) | [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Personal](https://jameskilby.co.uk/category/personal/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
-
-### [Hosting This Blog on Cloudflare Workers: Why & How I Did It](https://jameskilby.co.uk/2022/01/web-development/)
-
-By[James](https://jameskilby.co.uk)January 4, 2022 · Updated May 25, 2026
-
-A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them.
-
-  * [![New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
+  * [ ![New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp) ](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
 ### [New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
 
-By[James](https://jameskilby.co.uk)April 1, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) April 1, 2026 · Updated July 11, 2026
 
 We’ve expanded the VMC fleet with the new i7i (i7i.
+
+  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)
+
+### [My First Homelab Storage Setup: HP Gen8 & Xpenology](https://jameskilby.co.uk/2018/01/lab-storage/)
+
+By[James](https://jameskilby.co.uk) January 6, 2018 · Updated June 1, 2026
+
+I have been meaning to post around some of the lab setup for a while. Although it changes frequently at present it’s as below.
+
+  * [ ![Cloudflare Workers – Limits of the free tier](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu-768x450.jpeg) ](https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/)
+
+[Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
+
+### [Cloudflare Workers – Limits of the free tier](https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/)
+
+By[James](https://jameskilby.co.uk) January 4, 2022 · Updated July 11, 2026
+
+I have been making several changes (mainly cosmetic) to this site over the last day or so. On most changes I have been doing an export and then uploading the site to Cloudflare using Wrangler.

@@ -5,7 +5,7 @@
       "title": "VMware Cloud on AWS Storage Sizing Quick Reference Guide",
       "description": "VMware Cloud on AWS storage sizing reference: usable TiB by host count for i3i, i3en, and i4i, plus the FTT/RAID policy used at each cluster size.",
       "date": "2025-05-21T09:33:04Z",
-      "modified": "2026-07-08T10:43:13Z",
+      "modified": "2026-07-11T08:02:12Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/",
       "markdown_url": "/markdown/posts/vmc-quick-sizing-guide.md",
@@ -13,14 +13,17 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "Homelab",
+        "Nutanix",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
         "Personal",
         "vSphere",
-        "VCF",
-        "vSAN",
-        "AWS",
-        "Veeam",
-        "Homelab",
-        "Nutanix"
+        "VCF"
       ],
       "tags": [
         null,
@@ -43,16 +46,17 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "vSAN",
         "AWS",
-        "Personal",
-        "Homelab",
         "Veeam",
         "Ansible",
-        "Automation",
-        "Docker",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "Homelab",
+        "NVIDIA",
         "Traefik",
-        "VCF",
-        "vSAN"
+        "VCF"
       ],
       "tags": [
         null,
@@ -70,7 +74,7 @@
       "title": "An in-depth look at VMware Cloud on AWS hosts",
       "description": "A full side-by-side comparison of every VMware Cloud on AWS host type — I3.metal, I3en.metal and I4i.metal — covering CPU, memory, storage and networking specs.",
       "date": "2025-08-14T12:32:01Z",
-      "modified": "2026-07-08T10:00:00Z",
+      "modified": "2026-07-11T13:21:16Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/08/vmc-host-deepdive/",
       "markdown_url": "/markdown/posts/vmc-host-deepdive.md",
@@ -79,10 +83,11 @@
         "VMware",
         "VMware Cloud on AWS",
         "Homelab",
-        "vSAN",
+        "vSphere",
+        "Ansible",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
+        "Containers",
+        "Devops",
         "NVIDIA",
         "Traefik"
       ],
@@ -97,7 +102,7 @@
       "title": "Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide",
       "description": "Step-by-step setup of Nvidia Tesla P4 vGPU on VMware ESXi for a homelab. Drivers, licence server, vGPU profiles, plus gotchas and performance notes.",
       "date": "2023-10-23T14:56:58Z",
-      "modified": "2026-06-05T18:55:44Z",
+      "modified": "2026-07-11T07:46:50Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/",
       "markdown_url": "/markdown/posts/vgpu-setup-in-my-homelab.md",
@@ -106,16 +111,15 @@
         "Homelab",
         "VMware",
         "Storage",
-        "Synology",
-        "Nutanix",
-        "Networking",
-        "vSphere",
-        "Ansible",
+        "VMware Cloud on AWS",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "Automation",
+        "Docker",
         "NVIDIA",
-        "Traefik"
+        "Traefik",
+        "vExpert",
+        "Nutanix",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
@@ -123,7 +127,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg",
-      "excerpt": "![Img 1107 768X403 1](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide\n\nBy[James](https://jameskilby.co...."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide\n\nBy[James](https://jameskilby.co.uk) October 23, 20..."
     },
     {
       "slug": "veeamon2020",
@@ -146,7 +150,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png",
-      "excerpt": "![Veeam Logo New Large 1934042827](https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png)\n\n[Veeam](https://jameskilby.co.uk/category/veeam/)\n\n# VeeamON 2020: Highlights From Veeam’s Virtual Conference\n\nBy[James](https://jameskilby.co.uk)June 18, 2020 · Updated June ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/06/veeam-logo-new-large-1934042827.png)\n\n[Veeam](https://jameskilby.co.uk/category/veeam/)\n\n# VeeamON 2020: Highlights From Veeam’s Virtual Conference\n\nBy[James](https://jameskilby.co.uk) June 18, 2020 · Updated June 1, 2026 • 📖1 min read(272 word..."
     },
     {
       "slug": "using-content-libraries-in-vmc-to-deploy-software-faster",
@@ -161,14 +165,10 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Homelab",
-        "Networking",
-        "Storage",
-        "Runecast",
         "Ansible",
         "Automation",
-        "Docker",
-        "Traefik",
+        "vSAN",
+        "Homelab",
         "VCF"
       ],
       "tags": [
@@ -178,7 +178,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash.png",
-      "excerpt": "![Firefly Gemini Flash](https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# Using Content Libraries in VMC to deploy software faste..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# Using Content Libraries in VMC to deploy software faster\n\nBy[James](https:/..."
     },
     {
       "slug": "use-portainer-in-a-homelab-with-github",
@@ -195,15 +195,13 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
+        "Ansible",
+        "Automation",
+        "Artificial Intelligence",
+        "Networking",
         "Storage",
         "Nutanix",
-        "VMware",
-        "VCF",
-        "Automation",
-        "Github",
-        "Artificial Intelligence",
-        "NVIDIA",
-        "Traefik"
+        "VMware"
       ],
       "tags": [
         null,
@@ -211,14 +209,14 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png",
-      "excerpt": "![22225832](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png)\n\n[Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernet..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png)\n\n[Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernetes/)\n\n# ..."
     },
     {
       "slug": "unifi-dhcp-option-43",
       "title": "Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets",
       "description": "Configure DHCP Option 43 so UniFi APs and switches auto-adopt across subnets. Includes the hex converter, OPNsense + Mikrotik examples, and a UDM guide.",
       "date": "2024-06-26T10:50:17Z",
-      "modified": "2026-06-05T18:53:38Z",
+      "modified": "2026-07-11T07:47:29Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/",
       "markdown_url": "/markdown/posts/unifi-dhcp-option-43.md",
@@ -226,15 +224,13 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Traefik",
-        "VCF",
-        "VMware",
         "Artificial Intelligence",
-        "NVIDIA",
-        "Mikrotik"
+        "Hosting",
+        "Veeam",
+        "VMware",
+        "Storage",
+        "Synology",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -242,7 +238,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_-1024x683.png",
-      "excerpt": "![Ubiquiti Networks Logo.Wine ](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Configure DHCP Option 43 for UniFi devices to enable remote ad..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets\n\nBy[Ja..."
     },
     {
       "slug": "ubuntu-disk-expansion-steps",
@@ -256,28 +252,28 @@
       "api_url": "/api/posts/ubuntu-disk-expansion-steps.json",
       "categories": [
         "Ubuntu",
-        "Automation",
-        "Github",
         "Ansible",
+        "Automation",
         "Docker",
         "Homelab",
         "Traefik",
         "VCF",
-        "VMware"
+        "VMware",
+        "Github"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png",
-      "excerpt": "![Ubuntuexpand](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)\n\n[Ubuntu](https://jameskilby.co.uk/category/ubuntu/)\n\n# How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step\n\nBy[James](https://jameskilby.co.uk)December 15, 2025 · Updated May 24, 2026 • 📖1 min read(91 words..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)\n\n[Ubuntu](https://jameskilby.co.uk/category/ubuntu/)\n\n# How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step\n\nBy[James](https://jameskilby.co.uk) December 15, 2025 · Updated May 24, 2026 • 📖1 min read(91 words)\n\n📅**Publi..."
     },
     {
       "slug": "ubiquiti-udm-beast",
       "title": "Unleashing the Beast",
       "description": "I retired my 7-year-old WatchGuard M200 for the UniFi UDM Beast — the spec, my iperf and WAN tests, the BGP/FRR setup, and what I consolidated onto it.",
       "date": "2026-06-20T19:49:43Z",
-      "modified": "2026-06-21T07:34:52Z",
+      "modified": "2026-07-11T07:46:50Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/",
       "markdown_url": "/markdown/posts/ubiquiti-udm-beast.md",
@@ -285,18 +281,13 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Storage",
-        "vExpert",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Traefik",
-        "VCF",
         "VMware",
-        "Artificial Intelligence",
-        "NVIDIA",
+        "vSphere",
         "Hosting",
-        "Kubernetes"
+        "Automation",
+        "Github",
+        "Storage",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
