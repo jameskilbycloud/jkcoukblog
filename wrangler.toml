@@ -40,5 +40,5 @@ id = "da75861d372642d4979c8611b4856ab0"
 #
 #   PURGE_TOKEN  — gates the `/.purge` selective KV-cache endpoint.
 #   POWER_TOKEN  — gates `POST /api/power` (Home Assistant pushes the homelab
-#                  wattage; the public GET reads it back for the blog widget in
-#                  `wordpress/homelab-power-widget.html`).
+#                  wattage; the public GET reads it back for the lab-page power
+#                  widget — see docs/homelab-power-widget.md).
