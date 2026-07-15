@@ -5017,7 +5017,7 @@ document.addEventListener('DOMContentLoaded', function() {
     def inject_power_widget(self):
         """Insert the live homelab power widget into the lab page at build time.
 
-        The widget is a repo-maintained partial (scripts/assets/
+        The widget is a repo-maintained partial (scripts/partials/
         homelab-power-widget.html), NOT WordPress content — so its markup and
         styling are versioned and reviewed like the rest of the pipeline. It
         polls the same-origin /api/power endpoint served by the Pages worker.
@@ -5034,7 +5034,10 @@ document.addEventListener('DOMContentLoaded', function() {
             print("   ℹ️  Lab page not found; skipping power widget")
             return
 
-        partial_src = Path(__file__).parent / 'assets' / 'homelab-power-widget.html'
+        # Lives in scripts/partials/ (NOT scripts/assets/, which is copied
+        # wholesale into public/ — a standalone HTML fragment there fails the
+        # HTML/SEO validators).
+        partial_src = Path(__file__).parent / 'partials' / 'homelab-power-widget.html'
         try:
             partial = partial_src.read_text(encoding='utf-8')
         except OSError:

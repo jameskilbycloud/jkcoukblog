@@ -85,7 +85,7 @@ def test_partial_contains_expected_hooks():
     # Guard the contract the injector/JS relies on.
     from pathlib import Path
     import wp_to_static_generator as mod
-    partial = (Path(mod.__file__).parent / 'assets'
+    partial = (Path(mod.__file__).parent / 'partials'
                / 'homelab-power-widget.html').read_text()
     assert 'id="homelab-power"' in partial
     assert '/api/power' in partial
