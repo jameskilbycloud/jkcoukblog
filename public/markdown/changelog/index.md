@@ -15,13 +15,13 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-1028
+1036
 
 Git commits
 
 ### Repository Age
 
-282
+285
 
 Days active
 
@@ -33,13 +33,13 @@ Active contributors
 
 ### Last Deployment
 
-2026-07-12
+2026-07-15
 
-10:27:51
+16:46:19
 
 ## 🚀 Lighthouse Performance Scores
 
-Last checked: 2026-07-03 06:40:06 UTC
+Last checked: 2026-07-15 05:39:45 UTC
 
 92 
 
@@ -58,6 +58,48 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-07-15 8b5702dFix
+
+fix(search): make results modal readable against dark page (#128)
+
+The search results overlay used background: #0a0a0a for its panel — the
+
+2026-07-15 f0100dcOther
+
+chore(deps): Bump slackapi/slack-github-action from 3.0.3 to 3.0.5 (#126)
+
+Bumps [slackapi/slack-github-action](https://github.com/slackapi/slack-github-action) from 3.0.3 to 3.0.5.
+
+2026-07-15 e135c0fOther
+
+chore(deps): Bump actions/setup-node from 6.4.0 to 7.0.0 (#125)
+
+Bumps [actions/setup-node](https://github.com/actions/setup-node) from 6.4.0 to 7.0.0.
+
+2026-07-15 87049d9Other
+
+chore(deps-dev): Bump ruff from 0.15.20 to 0.15.21 (#127)
+
+Bumps [ruff](https://github.com/astral-sh/ruff) from 0.15.20 to 0.15.21.
+
+2026-07-15 5aa6d2dOther
+
+chore(lighthouse): record scores P92/A96/BP100/S100
+
+  
+
+2026-07-14 58051ceOther
+
+chore(lighthouse): record scores P89/A96/BP100/S100
+
+  
+
+2026-07-13 85fa7f9Other
+
+chore(lighthouse): record scores P93/A96/BP100/S100
+
+  
 
 2026-07-12 d1df6d7Other
 
@@ -197,37 +239,5 @@ Bumps [ruff](https://github.com/astral-sh/ruff) from 0.15.17 to 0.15.20.
 
 chore(lighthouse): record scores P94/A96/BP100/S100
 
-2026-06-29 87c2c56Other
-
-chore(lighthouse): record scores P96/A96/BP100/S100
-
-2026-06-29 5684aaaOther
-
-chore(lighthouse): record scores P94/A96/BP100/S100
-
-2026-06-29 d21dc70Fix
-
-fix(stats): wire real Lighthouse scores into changelog/stats history (#107)
-
-The /stats/ and /changelog/ Lighthouse sections were showing hardcoded
-
-2026-06-29 c017314Other
-
-chore(deps): Bump actions/checkout from 6 to 7 (#104)
-
-Bumps [actions/checkout](https://github.com/actions/checkout) from 6 to 7.
-
-2026-06-29 0d0edd4Other
-
-chore(deps): Bump actions/cache from 5.0.5 to 6.0.0 (#103)
-
-Bumps [actions/cache](https://github.com/actions/cache) from 5.0.5 to 6.0.0.
-
-2026-06-29 36ab35aOther
-
-chore(deps-dev): Bump pytest from 9.1.0 to 9.1.1 (#106)
-
-Bumps [pytest](https://github.com/pytest-dev/pytest) from 9.1.0 to 9.1.1.
-
-Page generated: 2026-07-12 10:32:06 UTC  
+Page generated: 2026-07-15 16:49:51 UTC  
 Changelog powered by Git history and Lighthouse CI
