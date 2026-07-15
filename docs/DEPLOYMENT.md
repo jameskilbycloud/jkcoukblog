@@ -103,7 +103,9 @@ When `_worker.js` is present in the Pages deployment root, Cloudflare Pages acti
 > **Note:** `POWER_TOKEN` is a Pages **secret** — set it under Settings →
 > Variables and secrets, not in `wrangler.toml`. Pages only binds
 > variable/secret changes on a **new deployment**, so redeploy after adding it.
-> The widget snippet + Home Assistant push config live in `wordpress/`.
+> The widget is injected into the lab page at build time (not WordPress) — see
+> `docs/homelab-power-widget.md` for the partial, injector, and Home Assistant
+> push config.
 
 ### Diagnostic Endpoints
 
