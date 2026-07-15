@@ -15,7 +15,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-1025
+1028
 
 Git commits
 
@@ -33,9 +33,9 @@ Active contributors
 
 ### Last Deployment
 
-2026-07-08
+2026-07-12
 
-11:08:52
+10:27:51
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -58,6 +58,20 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-07-12 d1df6d7Other
+
+feat: live homelab power endpoint + blog widget (#124)
+
+* fix(theme): critical-CSS gaps, dynamic-ID purge allowlist, a11y tweaks
+
+2026-07-12 2e66a6cFix
+
+fix(theme): critical-CSS gaps, dynamic-ID purge allowlist, a11y tweaks (#123)
+
+Critical CSS (follow-ups to #115):
+
+  
 
 2026-07-03 3597940Fix
 
@@ -215,19 +229,5 @@ chore(deps-dev): Bump pytest from 9.1.0 to 9.1.1 (#106)
 
 Bumps [pytest](https://github.com/pytest-dev/pytest) from 9.1.0 to 9.1.1.
 
-  
-
-2026-06-18 c5d5cd3Feature
-
-fix(seo): wire 3 dead SEOFixer passes into the pipeline + add sync-guard test (#102)
-
-The deploy pipeline runs html_transformer.py, whose _apply_seo_fixes() is a
-
-2026-06-18 b265965Fix
-
-fix(seo): wire fix_jsonld_headline_brand_suffix into the html_transformer orchestrator (#101)
-
-PR #99 added fix_jsonld_headline_brand_suffix to SEOFixer and registered it in
-
-Page generated: 2026-07-12 06:12:42 UTC  
+Page generated: 2026-07-12 10:32:06 UTC  
 Changelog powered by Git history and Lighthouse CI

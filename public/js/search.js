@@ -156,9 +156,9 @@ console.log('[Search] Script loaded');
     function displayResults(results, query) {
         hideResults();
         
-        let html = `<div class="search-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px; overflow-y: auto; animation: fadeIn 0.2s ease;" onclick="if(event.target===this) this.remove()">
-            <div style="background: #0a0a0a; border: 1px solid #262625; border-radius: 0; max-width: 650px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.6); animation: slideUp 0.3s ease; margin-top: 20px;">
-                <div style="padding: 20px; border-bottom: 1px solid #262625; background: #111110; position: sticky; top: 0; z-index: 10;">
+        let html = `<div class="search-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px; overflow-y: auto; animation: fadeIn 0.2s ease;" onclick="if(event.target===this) this.remove()">
+            <div style="background: #171613; border: 1px solid #33322e; border-radius: 0; max-width: 650px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.7); animation: slideUp 0.3s ease; margin-top: 20px;">
+                <div style="padding: 20px; border-bottom: 1px solid #33322e; background: #1c1b17; position: sticky; top: 0; z-index: 10;">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;">
                         <div style="flex: 1;">
                             <div style="font-size: 13px; color: #f6821f; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 4px; font-family: 'JetBrains Mono', monospace;">Search Results</div>
@@ -181,7 +181,7 @@ console.log('[Search] Script loaded');
                 const highlightedDesc = highlightSearchTerms((item.description || '').substring(0, 150), query);
                 const safeUrl = /^https?:\/\//.test(item.url) ? item.url : '#';
 
-                html += `<a href="` + safeUrl + `" style="display: block; padding: 16px; border-bottom: 1px solid #1f1f1f; text-decoration: none; color: inherit; transition: background-color 0.15s;" onmouseover="this.style.background='#161513'" onmouseout="this.style.background='transparent'">
+                html += `<a href="` + safeUrl + `" style="display: block; padding: 16px; border-bottom: 1px solid #2a2925; text-decoration: none; color: inherit; transition: background-color 0.15s;" onmouseover="this.style.background='#232019'" onmouseout="this.style.background='transparent'">
                     <div style="display: flex; align-items: flex-start; gap: 10px;">
                         <div style="flex-shrink: 0; width: 28px; height: 28px; background: #f6821f; border-radius: 0; display: flex; align-items: center; justify-content: center; color: #0a0a0a; font-size: 12px; font-weight: 700; font-family: 'JetBrains Mono', monospace;">` + (idx + 1) + `</div>
                         <div style="flex: 1; min-width: 0;">
