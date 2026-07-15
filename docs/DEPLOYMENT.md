@@ -94,10 +94,16 @@ When `_worker.js` is present in the Pages deployment root, Cloudflare Pages acti
 
 | Binding | Purpose |
 |---------|---------|
-| `HTML_CACHE` | HTML page cache |
+| `HTML_CACHE` | HTML page cache (also backs the `/api/power` widget under `power:latest`) |
 | `SEARCH_INDEX` | Search index storage |
 | `PURGE_TOKEN` | Secret for `/.purge` endpoint |
+| `POWER_TOKEN` | Secret gating `POST /api/power` (Home Assistant → homelab power widget) |
 | `ASSETS` | Cloudflare Pages static asset binding (automatic) |
+
+> **Note:** `POWER_TOKEN` is a Pages **secret** — set it under Settings →
+> Variables and secrets, not in `wrangler.toml`. Pages only binds
+> variable/secret changes on a **new deployment**, so redeploy after adding it.
+> The widget snippet + Home Assistant push config live in `wordpress/`.
 
 ### Diagnostic Endpoints
 
