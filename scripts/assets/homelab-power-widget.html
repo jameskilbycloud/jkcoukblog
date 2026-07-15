@@ -1,0 +1,135 @@
+<!--
+  Homelab live-power widget for jameskilby.co.uk
+  ------------------------------------------------
+  This is a build-injected partial, NOT WordPress content. The pipeline
+  (wp_to_static_generator.inject_power_widget) inserts it into the lab page at
+  build time, so the markup/styling is versioned and reviewed here — do not
+  edit the copy in public/.
+
+  Self-contained: no external scripts, fonts, or styles, so it passes the site
+  CSP (script-src 'self' 'unsafe-inline', connect-src 'self'). It polls the
+  same-origin /api/power endpoint every 30s. Data is pushed there by Home
+  Assistant and stored in KV by the Pages worker (_worker.template.js); if HA
+  stops pushing, the endpoint reports `stale` and the widget shows "offline".
+
+  Styling uses the brutalist theme's CSS custom properties (with hard
+  fallbacks) and a transparent card background, so it renders natively on the
+  dark site and is unaffected by the global `div { background: transparent
+  !important }` reset in brutalist-theme.css.
+-->
+<div id="homelab-power" class="hp" aria-live="polite">
+  <div class="hp-row">
+    <span class="hp-dot" aria-hidden="true"></span>
+    <span class="hp-label">Live homelab power draw</span>
+  </div>
+  <div class="hp-value"><span class="hp-watts">—</span><span class="hp-unit">W</span></div>
+  <svg class="hp-spark" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true">
+    <polyline class="hp-spark-line" fill="none" points="" />
+  </svg>
+  <div class="hp-foot"><span class="hp-status">connecting…</span></div>
+</div>
+
+<style>
+  #homelab-power.hp {
+    --hp-accent: var(--accent-orange, #f6821f);
+    --hp-fg: var(--text-light, #f5f3ee);
+    --hp-muted: var(--gray-light, #a8a59c);
+    --hp-border: var(--border-subtle, #262625);
+    max-width: 340px;
+    margin: 2rem 0;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid var(--hp-border);
+    background: transparent;
+    color: var(--hp-fg);
+    font-family: inherit;
+    line-height: 1.2;
+  }
+  #homelab-power .hp-row { display: flex; align-items: center; gap: 0.55rem; }
+  #homelab-power .hp-label {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--hp-muted);
+  }
+  #homelab-power .hp-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--hp-accent);
+    box-shadow: 0 0 0 0 var(--hp-accent);
+    animation: hp-pulse 2s infinite;
+  }
+  #homelab-power .hp-value { display: flex; align-items: baseline; gap: 0.35rem; margin: 0.6rem 0 0.3rem; }
+  #homelab-power .hp-watts {
+    font-size: 2.9rem; font-weight: 700; line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  #homelab-power .hp-unit {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 1rem; font-weight: 600; color: var(--hp-accent);
+  }
+  #homelab-power .hp-spark { width: 100%; height: 44px; display: block; margin: 0.15rem 0; }
+  #homelab-power .hp-spark-line { stroke: var(--hp-accent); stroke-width: 2; vector-effect: non-scaling-stroke; }
+  #homelab-power .hp-foot {
+    margin-top: 0.4rem;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.7rem; letter-spacing: 0.04em; color: var(--hp-muted);
+  }
+  #homelab-power.is-offline { --hp-accent: var(--gray-mid, #6b6b6b); }
+  #homelab-power.is-offline .hp-dot { animation: none; }
+  @keyframes hp-pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(246, 130, 31, 0.5); }
+    70%  { box-shadow: 0 0 0 6px rgba(246, 130, 31, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(246, 130, 31, 0); }
+  }
+  @media (prefers-reduced-motion: reduce) { #homelab-power .hp-dot { animation: none; } }
+</style>
+
+<script>
+(function () {
+  var el = document.getElementById('homelab-power');
+  if (!el) return;
+  var wattsEl  = el.querySelector('.hp-watts');
+  var lineEl   = el.querySelector('.hp-spark-line');
+  var statusEl = el.querySelector('.hp-status');
+  var SVG_W = 240, SVG_H = 44, PAD = 3;
+
+  function drawSpark(history) {
+    if (!history || history.length < 2) { lineEl.setAttribute('points', ''); return; }
+    var vals = history.map(function (p) { return p.w; });
+    var min = Math.min.apply(null, vals), max = Math.max.apply(null, vals);
+    var range = (max - min) || 1;
+    var n = vals.length;
+    var pts = vals.map(function (w, i) {
+      var x = PAD + (i / (n - 1)) * (SVG_W - 2 * PAD);
+      var y = SVG_H - PAD - ((w - min) / range) * (SVG_H - 2 * PAD);
+      return x.toFixed(1) + ',' + y.toFixed(1);
+    });
+    lineEl.setAttribute('points', pts.join(' '));
+  }
+
+  function fmt(w) { return Math.round(w).toLocaleString('en-GB'); }
+
+  function render(data) {
+    if (!data || data.ok === false || data.stale) {
+      el.classList.add('is-offline');
+      statusEl.textContent = 'offline';
+      return;
+    }
+    el.classList.remove('is-offline');
+    wattsEl.textContent = fmt(data.w);
+    drawSpark(data.history);
+    statusEl.textContent = 'live · updates every 30s';
+  }
+
+  function poll() {
+    fetch('/api/power', { headers: { 'Accept': 'application/json' } })
+      .then(function (r) { return r.json(); })
+      .then(render)
+      .catch(function () {
+        el.classList.add('is-offline');
+        statusEl.textContent = 'offline';
+      });
+  }
+
+  poll();
+  setInterval(poll, 30000);
+})();
+</script>
