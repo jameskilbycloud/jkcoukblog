@@ -4911,53 +4911,78 @@ document.addEventListener('DOMContentLoaded', function() {
             print(f"   ℹ️  No files to copy from {static_src}")
 
     # Match any <script> tag whose src is /js/search.js, regardless of
-    # attribute order or whitespace. The previous literal-substring guard
+    # attribute order or whitespace, and with an optional `?v=<hash>`
+    # cache-busting query. The previous literal-substring guard
     # (`'<script src="/js/search.js"' in html_content`) only matched when
     # `src` was the FIRST attribute on the tag — but html_transformer.py
     # later adds `defer` and `data-cfasync` before `src`. As a result every
     # rebuild's seeded HTML failed the duplicate check and got ANOTHER
     # script tag appended. Older posts accumulated 10–20+ duplicates.
+    # The `ver` group lets inject_search_script tell whether a seeded tag
+    # already carries the current content hash (skip) or a stale one (replace).
     _SEARCH_SCRIPT_TAG_RE = re.compile(
-        r'<script\b[^>]*\bsrc=(["\'])/js/search\.js\1[^>]*>\s*</script>',
+        r'<script\b[^>]*\bsrc=(["\'])/js/search\.js'
+        r'(?:\?v=(?P<ver>[^"\'\s>]+))?\1[^>]*>\s*</script>',
         re.IGNORECASE,
     )
+
+    def _search_script_version(self):
+        """Short content hash of the shipped search.js, for cache-busting.
+
+        /js/search.js is served with a ~186-day max-age and no version, so
+        returning visitors keep a stale copy long after a fix ships. Appending
+        `?v=<hash>` to the <script src> changes the URL only when the file's
+        bytes change, so the long cache lifetime stays but updates propagate
+        immediately. Returns '' if the file can't be read, in which case the
+        reference falls back to the plain unversioned path.
+        """
+        import hashlib
+        src = Path(__file__).parent / 'assets' / 'js' / 'search.js'
+        try:
+            return hashlib.blake2b(src.read_bytes(), digest_size=6).hexdigest()
+        except OSError:
+            return ''
 
     def inject_search_script(self):
         """Inject the search script into every HTML file exactly once.
 
-        Idempotent + self-healing: if existing duplicates are in the seeded
-        HTML (from the pre-fix bug above) we collapse them all to a single
-        canonical tag at the end of <body>.
+        Idempotent + self-healing: collapses any duplicate tags in seeded HTML
+        (from the pre-fix bug above) to a single canonical tag at the end of
+        <body>, and keeps the `?v=<hash>` cache-buster current — a tag carrying
+        a stale hash (or none) is replaced so returning visitors fetch the new
+        file instead of a long-cached copy.
         """
         print("📝 Injecting search script into HTML files...")
 
         injected_count = 0
+        updated_count = 0
         deduped_count = 0
-        canonical_tag = (
-            '<script src="/js/search.js" data-cfasync="false"></script>'
-        )
+        version = self._search_script_version()
+        src = '/js/search.js' + (f'?v={version}' if version else '')
+        canonical_tag = f'<script src="{src}" data-cfasync="false"></script>'
 
         for html_file in self.output_dir.rglob('*.html'):
             try:
                 with open(html_file, 'r', encoding='utf-8', errors='ignore') as f:
                     html_content = f.read()
 
-                # `findall` returns the capture group (quote char) per match,
-                # so its length is the count of <script ...src=/js/search.js>
-                # tags currently in the file.
-                existing_count = len(self._SEARCH_SCRIPT_TAG_RE.findall(html_content))
+                existing = list(self._SEARCH_SCRIPT_TAG_RE.finditer(html_content))
 
-                if existing_count > 1:
-                    # Strip every existing copy so we can re-add exactly one
-                    # at the canonical location below.
-                    html_content = self._SEARCH_SCRIPT_TAG_RE.sub('', html_content)
-                    existing_count = 0
-                    deduped_count += 1
-                elif existing_count == 1:
-                    # Exactly one tag — nothing to do; the existing tag's
-                    # attribute order may differ but it's already a working
-                    # reference to the same script.
+                # Exactly one tag already carrying the current hash → nothing to
+                # do. Attribute order may differ (html_transformer adds defer /
+                # data-cfasync), so we compare the version, not the whole tag.
+                if (len(existing) == 1 and version
+                        and existing[0].group('ver') == version):
                     continue
+
+                if existing:
+                    # Strip every existing copy (stale version and/or duplicates)
+                    # so we can re-add exactly one canonical tag below.
+                    html_content = self._SEARCH_SCRIPT_TAG_RE.sub('', html_content)
+                    if len(existing) > 1:
+                        deduped_count += 1
+                    else:
+                        updated_count += 1
 
                 if '</body>' in html_content:
                     html_content = html_content.replace(
@@ -4966,16 +4991,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     )
                     with open(html_file, 'w', encoding='utf-8') as f:
                         f.write(html_content)
-                    injected_count += 1
+                    if not existing:
+                        injected_count += 1
             except Exception as e:
                 print(f"   ⚠️  Error injecting script into {html_file}: {str(e)}")
                 continue
 
         if deduped_count:
             print(f"   🧹 Collapsed duplicate search scripts in {deduped_count} files")
+        if updated_count:
+            print(f"   ♻️  Refreshed cache-bust hash in {updated_count} files")
         if injected_count > 0:
             print(f"   ✅ Injected search script into {injected_count} HTML files")
-        else:
+        elif not deduped_count and not updated_count:
             print("   ℹ️  No HTML files needed script injection")
     
     def generate_search_index(self):
