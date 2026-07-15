@@ -30,3 +30,15 @@ id = "5528672ccf0644c9bd65e7de8b629189"
 [[kv_namespaces]]
 binding = "SEARCH_INDEX"
 id = "da75861d372642d4979c8611b4856ab0"
+
+# Runtime secrets (documentation only — NOT read from this file).
+#
+# The Pages Advanced Mode Worker reads these from Cloudflare Pages dashboard
+# secrets (Settings → Variables and secrets) at runtime, mirroring the KV
+# bindings above. They are listed here so the full worker env is discoverable
+# in one place. Pages only binds secret changes on a new deployment.
+#
+#   PURGE_TOKEN  — gates the `/.purge` selective KV-cache endpoint.
+#   POWER_TOKEN  — gates `POST /api/power` (Home Assistant pushes the homelab
+#                  wattage; the public GET reads it back for the blog widget in
+#                  `wordpress/homelab-power-widget.html`).
