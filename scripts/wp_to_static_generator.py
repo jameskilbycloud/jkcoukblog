@@ -5006,6 +5006,61 @@ document.addEventListener('DOMContentLoaded', function() {
         elif not deduped_count and not updated_count:
             print("   ℹ️  No HTML files needed script injection")
     
+    # Anchors on the lab page, most-preferred first. The widget is inserted
+    # immediately *before* the first anchor found, so it lands after the intro
+    # and above the Table of Contents / article body.
+    _POWER_WIDGET_ANCHORS = (
+        '<div class="wp-block-rank-math-toc-block" id="rank-math-toc">',
+        '<div class="entry-content single-content">',
+    )
+
+    def inject_power_widget(self):
+        """Insert the live homelab power widget into the lab page at build time.
+
+        The widget is a repo-maintained partial (scripts/assets/
+        homelab-power-widget.html), NOT WordPress content — so its markup and
+        styling are versioned and reviewed like the rest of the pipeline. It
+        polls the same-origin /api/power endpoint served by the Pages worker.
+
+        Idempotent + self-healing, mirroring inject_search_script: the widget
+        carries a stable `id="homelab-power"`, so a page that already has it
+        (an unchanged page kept from a previous build) is skipped rather than
+        given a duplicate. Only the lab page is touched.
+        """
+        print("🔌 Injecting homelab power widget...")
+
+        target = self.output_dir / 'lab' / 'index.html'
+        if not target.exists():
+            print("   ℹ️  Lab page not found; skipping power widget")
+            return
+
+        partial_src = Path(__file__).parent / 'assets' / 'homelab-power-widget.html'
+        try:
+            partial = partial_src.read_text(encoding='utf-8')
+        except OSError:
+            print(f"   ⚠️  Power widget partial missing at {partial_src}")
+            return
+
+        try:
+            html = target.read_text(encoding='utf-8', errors='ignore')
+        except OSError as e:
+            print(f"   ⚠️  Could not read lab page: {e}")
+            return
+
+        if 'id="homelab-power"' in html:
+            print("   ℹ️  Power widget already present on lab page")
+            return
+
+        for anchor in self._POWER_WIDGET_ANCHORS:
+            if anchor in html:
+                # Insert once, before the anchor.
+                html = html.replace(anchor, partial + '\n' + anchor, 1)
+                target.write_text(html, encoding='utf-8')
+                print("   ✅ Injected homelab power widget into lab page")
+                return
+
+        print("   ⚠️  No anchor found on lab page; power widget not injected")
+
     def generate_search_index(self):
         """Generate search index for client-side search functionality"""
         print("🔍 Generating search index...")
@@ -5212,7 +5267,8 @@ document.addEventListener('DOMContentLoaded', function() {
         self.copy_search_script()
         self.copy_static_root_files()
         self.inject_search_script()
-        
+        self.inject_power_widget()
+
         # Summary
         end_time = time.time()
         duration = end_time - start_time
