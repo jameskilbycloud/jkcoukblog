@@ -1,53 +1,48 @@
 [
   {
+    "name": "VMware",
+    "slug": "vmware",
+    "count": 69
+  },
+  {
+    "name": "VMware Cloud on AWS",
+    "slug": "vmware-cloud-on-aws",
+    "count": 25
+  },
+  {
+    "name": "vSAN",
+    "slug": "vsan",
+    "count": 17
+  },
+  {
+    "name": "Artificial Intelligence",
+    "slug": "artificial-intelligence",
+    "count": 41
+  },
+  {
+    "name": "Automation",
+    "slug": "automation",
+    "count": 44
+  },
+  {
+    "name": "Docker",
+    "slug": "docker",
+    "count": 49
+  },
+  {
     "name": "Homelab",
     "slug": "homelab",
     "count": 63
   },
   {
-    "name": "VMware",
-    "slug": "vmware",
-    "count": 67
+    "name": "NVIDIA",
+    "slug": "nvidia",
+    "count": 30
   },
   {
-    "name": "vSphere",
-    "slug": "vsphere",
-    "count": 22
-  },
-  {
-    "name": "Veeam",
-    "slug": "veeam",
-    "count": 14
-  },
-  {
-    "name": "Artificial Intelligence",
-    "slug": "artificial-intelligence",
-    "count": 40
-  },
-  {
-    "name": "Docker",
-    "slug": "docker",
-    "count": 40
-  },
-  {
-    "name": "Ansible",
-    "slug": "ansible",
-    "count": 29
-  },
-  {
-    "name": "Nutanix",
-    "slug": "nutanix",
-    "count": 19
-  },
-  {
-    "name": "Hosting",
-    "slug": "hosting",
-    "count": 37
-  },
-  {
-    "name": "Kubernetes",
-    "slug": "kubernetes",
-    "count": 10
+    "name": "Traefik",
+    "slug": "traefik",
+    "count": 39
   },
   {
     "name": "Storage",
@@ -55,79 +50,69 @@
     "count": 35
   },
   {
-    "name": "Networking",
-    "slug": "networking",
-    "count": 21
-  },
-  {
-    "name": "VCF",
-    "slug": "vcf",
-    "count": 26
-  },
-  {
-    "name": "Automation",
-    "slug": "automation",
-    "count": 41
-  },
-  {
-    "name": "Github",
-    "slug": "github",
-    "count": 16
-  },
-  {
-    "name": "NVIDIA",
-    "slug": "nvidia",
-    "count": 31
-  },
-  {
-    "name": "Traefik",
-    "slug": "traefik",
-    "count": 37
-  },
-  {
     "name": "Synology",
     "slug": "synology",
-    "count": 13
+    "count": 9
+  },
+  {
+    "name": "vSphere",
+    "slug": "vsphere",
+    "count": 29
   },
   {
     "name": "TrueNAS Scale",
     "slug": "truenas-scale",
-    "count": 19
+    "count": 17
   },
   {
-    "name": "Consulting",
-    "slug": "consulting",
-    "count": 6
-  },
-  {
-    "name": "Personal",
-    "slug": "personal",
-    "count": 27
-  },
-  {
-    "name": "Containers",
-    "slug": "containers",
-    "count": 10
-  },
-  {
-    "name": "Devops",
-    "slug": "devops",
-    "count": 18
-  },
-  {
-    "name": "VMware Cloud on AWS",
-    "slug": "vmware-cloud-on-aws",
-    "count": 26
+    "name": "VCF",
+    "slug": "vcf",
+    "count": 23
   },
   {
     "name": "AWS",
     "slug": "aws",
+    "count": 14
+  },
+  {
+    "name": "Personal",
+    "slug": "personal",
+    "count": 32
+  },
+  {
+    "name": "Hosting",
+    "slug": "hosting",
+    "count": 35
+  },
+  {
+    "name": "Runecast",
+    "slug": "runecast",
+    "count": 7
+  },
+  {
+    "name": "Networking",
+    "slug": "networking",
+    "count": 31
+  },
+  {
+    "name": "Ansible",
+    "slug": "ansible",
+    "count": 32
+  },
+  {
+    "name": "Containers",
+    "slug": "containers",
     "count": 12
   },
   {
-    "name": "vSAN",
-    "slug": "vsan",
-    "count": 15
+    "name": "Devops",
+    "slug": "devops",
+    "count": 21
+  },
+  {
+    "name": "Nutanix",
+    "slug": "nutanix",
+    "count": 12
   },
   {
     "name": "Cloudflare",
@@ -140,9 +125,34 @@
     "count": 14
   },
   {
-    "name": "Runecast",
-    "slug": "runecast",
+    "name": "Kubernetes",
+    "slug": "kubernetes",
+    "count": 10
+  },
+  {
+    "name": "Consulting",
+    "slug": "consulting",
+    "count": 5
+  },
+  {
+    "name": "Mikrotik",
+    "slug": "mikrotik",
     "count": 7
+  },
+  {
+    "name": "Ubuntu",
+    "slug": "ubuntu",
+    "count": 2
+  },
+  {
+    "name": "Github",
+    "slug": "github",
+    "count": 10
+  },
+  {
+    "name": "Veeam",
+    "slug": "veeam",
+    "count": 13
   },
   {
     "name": "vExpert",
@@ -155,18 +165,8 @@
     "count": 1
   },
   {
-    "name": "Mikrotik",
-    "slug": "mikrotik",
-    "count": 9
-  },
-  {
     "name": "Apple",
     "slug": "apple",
     "count": 2
-  },
-  {
-    "name": "Ubuntu",
-    "slug": "ubuntu",
-    "count": 1
   }
 ]

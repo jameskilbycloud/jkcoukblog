@@ -16,12 +16,11 @@
       "categories": [
         "Homelab",
         "Networking",
+        "Storage",
+        "Synology",
         "VMware",
         "vSphere",
-        "VCF",
-        "Hosting",
-        "Automation",
-        "Github"
+        "Ansible"
       ],
       "tags": [
         null,
