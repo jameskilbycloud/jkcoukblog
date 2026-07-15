@@ -18,11 +18,10 @@
         "Networking",
         "VMware",
         "vSphere",
+        "VCF",
         "Hosting",
         "Automation",
-        "Github",
-        "Storage",
-        "TrueNAS Scale"
+        "Github"
       ],
       "tags": [
         null,
