@@ -14,7 +14,7 @@ Lab-page widget ◀──GET /api/power (public, same-origin)──┘
 
 | Piece | Where |
 |-------|-------|
-| Widget markup/CSS/JS | `scripts/assets/homelab-power-widget.html` (a build-injected partial) |
+| Widget markup/CSS/JS | `scripts/partials/homelab-power-widget.html` (a build-injected partial) |
 | Build injection | `wp_to_static_generator.inject_power_widget()` — inserts the partial into `public/lab/index.html` before the Table of Contents |
 | API route | `/api/power` in `_worker.template.js` (POST token-gated, GET public) |
 | Write secret | `POWER_TOKEN` — Cloudflare Pages dashboard secret (see [DEPLOYMENT.md](DEPLOYMENT.md)) |
