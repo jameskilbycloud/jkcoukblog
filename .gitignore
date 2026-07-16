@@ -76,8 +76,10 @@ worker-build/
 .dev.vars
 node_modules/
 AGENTS.md
-migrate-to-vmware-cloud-veeam-sobr.md
-seo-audit-april-2026.md
+
+# Local post drafts. Content is authored in WordPress, not here — these are
+# scratch files that must never reach the build or the deployed site.
+drafts/
 
 # Secrets — first line of defense ahead of the gitleaks CI scan.
 # Tokens/credentials belong in environment variables / GitHub Secrets.
