@@ -202,8 +202,15 @@ python3 scripts/fetch_crux_metrics.py --form-factor DESKTOP
 python3 scripts/fetch_crux_metrics.py --url https://jameskilby.co.uk/some/post/
 ```
 
-- **Setup:** add `CRUX_API_KEY` as a GitHub secret to run it in CI. The CrUX
-  API needs only this key (no OAuth).
+- **Setup:** add `CRUX_API_KEY` as a GitHub secret. The `.github/workflows/crux-field-data.yml`
+  workflow then runs it weekly (and on demand via `workflow_dispatch`), writing
+  `data/crux-latest.json` and committing changes. The CrUX API needs only this
+  key (no OAuth).
+- **Current state (2026-07):** the origin is below CrUX's traffic threshold, so
+  there is **no field data yet** (`data/crux-latest.json` records `data: null`).
+  The workflow starts capturing real p75 LCP/INP/CLS automatically once traffic
+  crosses the threshold — until then, tune against nothing, not the Lighthouse
+  lab estimate.
 - Low-traffic URLs legitimately return "no field data" — that's reported, not
   treated as an error. Origin-level data is the most reliable for this site.
 - GSC query-level data (OAuth) is a possible follow-up; CrUX covers CWV.
