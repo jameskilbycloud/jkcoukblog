@@ -227,8 +227,14 @@ export default {
       return env.ASSETS.fetch(request);
     }
     
-    // Handle test endpoint
+    // Handle test endpoint — gated by PURGE_TOKEN, same as /diagnostic and
+    // /trace (#17). It only confirms the Advanced Mode worker is live, but
+    // there's no reason to expose that publicly.
     if (path === '/test') {
+      const token = request.headers.get('X-Purge-Token');
+      if (!env.PURGE_TOKEN || token !== env.PURGE_TOKEN) {
+        return new Response('Unauthorized', { status: 401 });
+      }
       return new Response(JSON.stringify({
         message: 'Pages Functions are working!',
         timestamp: new Date().toISOString(),
