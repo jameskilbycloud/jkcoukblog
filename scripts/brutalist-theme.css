@@ -1357,6 +1357,25 @@ div, section, aside, nav {
 .jkr-filter a.is-active { background: var(--accent, #f6821f); color: #0a0a0a; border-color: var(--accent, #f6821f); font-weight: 600; }
 .jkr-filter a:hover:not(.is-active) { border-color: var(--accent, #f6821f); color: #f5f3ee; }
 
+/* ── Touch targets (WCAG 2.5.5) ────────────────────────────────────────────
+   On phones the topic-filter chips (~23px tall) and social icons (34px) fall
+   short of the 44px minimum touch target. Grow them on small viewports only —
+   desktop keeps its compact, dense chrome. Padding is left to the base rules;
+   min-height + flex centering does the work without shifting the text. */
+@media (max-width: 768px) {
+  .jkr-filter a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .jk-social-link {
+    width: 44px;
+    height: 44px;
+  }
+}
+
 /* headline — tighter, capped measure so the right gutter isn't dead space */
 .jkr-headline {
   font-family: "Anton", sans-serif;
