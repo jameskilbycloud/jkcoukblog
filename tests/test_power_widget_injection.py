@@ -81,6 +81,70 @@ def test_missing_lab_page_is_noop(tmp_path):
     G.inject_power_widget(stub)  # should simply print + return
 
 
+def test_stale_widget_is_replaced_in_place(tmp_path):
+    """An older widget baked into public/ must be swapped for the current one.
+
+    Regression: the guard only asked "is a widget present?", so once any copy
+    was committed under public/ the partial was frozen and edits to it could
+    never reach the site.
+    """
+    once = _run(tmp_path, _lab_html(TOC))
+    stale = once.replace('data-power-widget-version="', 'data-power-widget-version="old', 1)
+    assert stale != once
+    lab = tmp_path / 'lab'
+    (lab / 'index.html').write_text(stale)
+    stub = types.SimpleNamespace(
+        output_dir=tmp_path, _POWER_WIDGET_ANCHORS=G._POWER_WIDGET_ANCHORS)
+    G.inject_power_widget(stub)
+    out = (lab / 'index.html').read_text()
+    assert out == once, "stale widget should be refreshed back to current"
+    assert out.count('id="homelab-power"') == 1
+    # still positioned before the TOC, i.e. replaced in place
+    assert out.index('id="homelab-power"') < out.index('id="rank-math-toc"')
+
+
+def test_unversioned_legacy_widget_is_replaced(tmp_path):
+    """A widget from before the version stamp existed must still be upgraded.
+
+    This is the exact shape sitting in public/lab/index.html today: the card as
+    the root element, no wrapper and no version attribute.
+    """
+    legacy = (
+        '<div id="homelab-power" class="hp" aria-live="polite">'
+        '<span class="hp-watts">—</span></div>'
+        '<style>#homelab-power{color:red}</style>'
+        '<script>(function(){var x=1;})();</script>'
+    )
+    html = f"<html><body><main><p>Intro.</p>{legacy}{TOC}<h2>At a Glance</h2></main></body></html>"
+    out = _run(tmp_path, html)
+    assert 'data-power-widget-version="' in out, "legacy widget should be upgraded"
+    assert 'What am I looking at' in out, "current partial's explainer should be present"
+    assert out.count('id="homelab-power"') == 1, "must not leave the old copy behind"
+    assert '#homelab-power{color:red}' not in out, "old widget CSS should be gone"
+
+
+def test_repeated_runs_are_stable(tmp_path):
+    """Three consecutive builds must not churn the page (noisy public/ diffs)."""
+    first = _run(tmp_path, _lab_html(TOC))
+    lab = tmp_path / 'lab'
+    for _ in range(2):
+        stub = types.SimpleNamespace(
+            output_dir=tmp_path, _POWER_WIDGET_ANCHORS=G._POWER_WIDGET_ANCHORS)
+        G.inject_power_widget(stub)
+    assert (lab / 'index.html').read_text() == first
+
+
+def test_partial_root_is_stampable():
+    """The injector stamps the version onto this exact root; guard the contract."""
+    from pathlib import Path
+    import re as _re
+    import wp_to_static_generator as mod
+    partial = (Path(mod.__file__).parent / 'partials'
+               / 'homelab-power-widget.html').read_text()
+    assert _re.search(r'<div\b[^>]*\bid="homelab-power-block"', partial), \
+        "inject_power_widget stamps id=homelab-power-block; root must keep it"
+
+
 def test_partial_contains_expected_hooks():
     # Guard the contract the injector/JS relies on.
     from pathlib import Path

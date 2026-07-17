@@ -35,6 +35,24 @@ try:
 except (ImportError, AttributeError):
     _NOINDEX_URL_PATH_PATTERNS = ()
 
+# Matches an already-injected homelab power widget: its root element through the
+# end of its IIFE <script>. The optional `-block` covers pre-explainer builds
+# whose root was the card itself, so a stale widget from any prior version is
+# still found and replaced. DOTALL: the span covers markup + CSS + JS.
+#
+# The leading optional comment matters: the partial opens with its maintainer
+# comment, so the span has to swallow an adjacent one or replacing a stale
+# widget would leave the old comment behind and duplicate it. (Only reachable in
+# unminified output — minify_html strips comments in a real build.)
+_POWER_WIDGET_SPAN_RE = re.compile(
+    r'(?:<!--(?:(?!-->).)*?-->\s*)?'
+    r'<div\b[^>]*\bid="homelab-power(?:-block)?"[^>]*>.*?\}\)\(\);\s*</script>',
+    re.IGNORECASE | re.DOTALL,
+)
+_POWER_WIDGET_VERSION_RE = re.compile(r'data-power-widget-version="([^"]+)"')
+_POWER_WIDGET_ROOT_RE = re.compile(r'(<div\b[^>]*\bid="homelab-power-block")')
+
+
 class WordPressStaticGenerator:
     def __init__(self, wp_url, auth_token, output_dir, target_domain, use_incremental=True):
         self.wp_url = wp_url.rstrip('/')
@@ -5022,10 +5040,20 @@ document.addEventListener('DOMContentLoaded', function() {
         styling are versioned and reviewed like the rest of the pipeline. It
         polls the same-origin /api/power endpoint served by the Pages worker.
 
-        Idempotent + self-healing, mirroring inject_search_script: the widget
-        carries a stable `id="homelab-power"`, so a page that already has it
-        (an unchanged page kept from a previous build) is skipped rather than
-        given a duplicate. Only the lab page is touched.
+        Idempotent AND self-updating, mirroring inject_search_script's `?v=`
+        cache-buster. The injected root is stamped with a content hash of the
+        partial, so we can tell three cases apart:
+
+          - no widget present     -> inject before the first matching anchor
+          - present, hash current -> leave alone (no churn in public/)
+          - present, hash stale   -> replace in place, keeping its position
+
+        The stale case matters because public/ is committed: a previous build's
+        lab page already carries a widget, and an unchanged page is kept as-is
+        by the incremental build. The original guard only asked "is a widget
+        present?", so once any copy was baked into public/ the partial was
+        frozen — edits to it could never reach the site. Comparing the hash is
+        what makes an edit actually ship. Only the lab page is touched.
         """
         print("🔌 Injecting homelab power widget...")
 
@@ -5050,14 +5078,38 @@ document.addEventListener('DOMContentLoaded', function() {
             print(f"   ⚠️  Could not read lab page: {e}")
             return
 
-        if 'id="homelab-power"' in html:
-            print("   ℹ️  Power widget already present on lab page")
+        import hashlib
+        version = hashlib.blake2b(partial.encode('utf-8'), digest_size=6).hexdigest()
+        stamped, stamp_count = _POWER_WIDGET_ROOT_RE.subn(
+            r'\1 data-power-widget-version="%s"' % version, partial, count=1)
+        if stamp_count != 1:
+            # Without the stamp we cannot tell current from stale, and would
+            # rewrite the widget on every build. Fail loudly rather than churn.
+            print("   ⚠️  Could not stamp widget version (partial root changed?);"
+                  " power widget not injected")
+            return
+        # Normalise the edges so both paths below emit byte-identical markup:
+        # the span matched on a refresh ends at </script>, but the partial file
+        # carries a trailing newline, which would otherwise accumulate.
+        stamped = stamped.strip()
+
+        existing = _POWER_WIDGET_SPAN_RE.search(html)
+        if existing:
+            found = _POWER_WIDGET_VERSION_RE.search(existing.group(0))
+            if found and found.group(1) == version:
+                print("   ℹ️  Power widget already current on lab page")
+                return
+            # Stale (or unversioned, i.e. pre-dating the stamp). Swap it in
+            # place so it keeps whatever position the earlier build chose.
+            html = html[:existing.start()] + stamped + html[existing.end():]
+            target.write_text(html, encoding='utf-8')
+            print("   ♻️  Refreshed stale power widget on lab page")
             return
 
         for anchor in self._POWER_WIDGET_ANCHORS:
             if anchor in html:
                 # Insert once, before the anchor.
-                html = html.replace(anchor, partial + '\n' + anchor, 1)
+                html = html.replace(anchor, stamped + '\n' + anchor, 1)
                 target.write_text(html, encoding='utf-8')
                 print("   ✅ Injected homelab power widget into lab page")
                 return
