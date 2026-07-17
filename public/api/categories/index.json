@@ -1,58 +1,13 @@
 [
   {
-    "name": "VMware",
-    "slug": "vmware",
-    "count": 69
-  },
-  {
-    "name": "VMware Cloud on AWS",
-    "slug": "vmware-cloud-on-aws",
-    "count": 25
-  },
-  {
-    "name": "vSAN",
-    "slug": "vsan",
-    "count": 17
-  },
-  {
-    "name": "Artificial Intelligence",
-    "slug": "artificial-intelligence",
-    "count": 41
-  },
-  {
-    "name": "Automation",
-    "slug": "automation",
-    "count": 44
-  },
-  {
-    "name": "Docker",
-    "slug": "docker",
-    "count": 49
-  },
-  {
     "name": "Homelab",
     "slug": "homelab",
     "count": 63
   },
   {
-    "name": "NVIDIA",
-    "slug": "nvidia",
-    "count": 30
-  },
-  {
-    "name": "Traefik",
-    "slug": "traefik",
-    "count": 39
-  },
-  {
-    "name": "Storage",
-    "slug": "storage",
-    "count": 35
-  },
-  {
-    "name": "Synology",
-    "slug": "synology",
-    "count": 9
+    "name": "VMware",
+    "slug": "vmware",
+    "count": 69
   },
   {
     "name": "vSphere",
@@ -60,34 +15,24 @@
     "count": 29
   },
   {
+    "name": "Nutanix",
+    "slug": "nutanix",
+    "count": 12
+  },
+  {
+    "name": "Storage",
+    "slug": "storage",
+    "count": 35
+  },
+  {
     "name": "TrueNAS Scale",
     "slug": "truenas-scale",
     "count": 17
   },
   {
-    "name": "VCF",
-    "slug": "vcf",
-    "count": 23
-  },
-  {
-    "name": "AWS",
-    "slug": "aws",
-    "count": 14
-  },
-  {
-    "name": "Personal",
-    "slug": "personal",
-    "count": 32
-  },
-  {
-    "name": "Hosting",
-    "slug": "hosting",
-    "count": 35
-  },
-  {
-    "name": "Runecast",
-    "slug": "runecast",
-    "count": 7
+    "name": "VMware Cloud on AWS",
+    "slug": "vmware-cloud-on-aws",
+    "count": 25
   },
   {
     "name": "Networking",
@@ -95,8 +40,53 @@
     "count": 31
   },
   {
+    "name": "Artificial Intelligence",
+    "slug": "artificial-intelligence",
+    "count": 41
+  },
+  {
+    "name": "Docker",
+    "slug": "docker",
+    "count": 49
+  },
+  {
+    "name": "Synology",
+    "slug": "synology",
+    "count": 9
+  },
+  {
     "name": "Ansible",
     "slug": "ansible",
+    "count": 32
+  },
+  {
+    "name": "vExpert",
+    "slug": "vexpert",
+    "count": 9
+  },
+  {
+    "name": "Automation",
+    "slug": "automation",
+    "count": 44
+  },
+  {
+    "name": "Hosting",
+    "slug": "hosting",
+    "count": 35
+  },
+  {
+    "name": "Kubernetes",
+    "slug": "kubernetes",
+    "count": 10
+  },
+  {
+    "name": "Consulting",
+    "slug": "consulting",
+    "count": 5
+  },
+  {
+    "name": "Personal",
+    "slug": "personal",
     "count": 32
   },
   {
@@ -110,9 +100,34 @@
     "count": 21
   },
   {
-    "name": "Nutanix",
-    "slug": "nutanix",
-    "count": 12
+    "name": "NVIDIA",
+    "slug": "nvidia",
+    "count": 30
+  },
+  {
+    "name": "Traefik",
+    "slug": "traefik",
+    "count": 39
+  },
+  {
+    "name": "VCF",
+    "slug": "vcf",
+    "count": 23
+  },
+  {
+    "name": "AWS",
+    "slug": "aws",
+    "count": 14
+  },
+  {
+    "name": "Veeam",
+    "slug": "veeam",
+    "count": 13
+  },
+  {
+    "name": "vSAN",
+    "slug": "vsan",
+    "count": 17
   },
   {
     "name": "Cloudflare",
@@ -125,14 +140,24 @@
     "count": 14
   },
   {
-    "name": "Kubernetes",
-    "slug": "kubernetes",
+    "name": "Github",
+    "slug": "github",
     "count": 10
   },
   {
-    "name": "Consulting",
-    "slug": "consulting",
-    "count": 5
+    "name": "Money",
+    "slug": "money",
+    "count": 1
+  },
+  {
+    "name": "Runecast",
+    "slug": "runecast",
+    "count": 7
+  },
+  {
+    "name": "Apple",
+    "slug": "apple",
+    "count": 2
   },
   {
     "name": "Mikrotik",
@@ -142,31 +167,6 @@
   {
     "name": "Ubuntu",
     "slug": "ubuntu",
-    "count": 2
-  },
-  {
-    "name": "Github",
-    "slug": "github",
-    "count": 10
-  },
-  {
-    "name": "Veeam",
-    "slug": "veeam",
-    "count": 13
-  },
-  {
-    "name": "vExpert",
-    "slug": "vexpert",
-    "count": 9
-  },
-  {
-    "name": "Money",
-    "slug": "money",
-    "count": 1
-  },
-  {
-    "name": "Apple",
-    "slug": "apple",
     "count": 2
   }
 ]

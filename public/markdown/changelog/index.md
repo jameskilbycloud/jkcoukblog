@@ -15,13 +15,13 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-1045
+1049
 
 Git commits
 
 ### Repository Age
 
-285
+286
 
 Days active
 
@@ -33,13 +33,13 @@ Active contributors
 
 ### Last Deployment
 
-2026-07-15
+2026-07-16
 
-18:50:36
+07:21:30
 
 ## 🚀 Lighthouse Performance Scores
 
-Last checked: 2026-07-15 05:39:45 UTC
+Last checked: 2026-07-16 05:48:21 UTC
 
 92 
 
@@ -58,6 +58,24 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-07-16 aa495caFix
+
+fix(review): 44px mobile tap targets + gate the /test endpoint (#134)
+
+Two low-risk follow-ups from the site review:
+
+2026-07-16 29cc9beOther
+
+ci(crux): wire up scheduled Chrome UX Report field-data capture (#135)
+
+Adds .github/workflows/crux-field-data.yml — runs scripts/fetch_crux_metrics.py
+
+2026-07-16 919167aOther
+
+chore(lighthouse): record scores P92/A96/BP100/S100
+
+  
 
 2026-07-15 a67da89Fix
 
@@ -223,21 +241,5 @@ feat(chrome): JK favicon + real header search button (#113)
 
 Two cosmetic finishes flagged after the logo/footer work.
 
-2026-06-30 241528eOther
-
-chore(lighthouse): record scores P93/A96/BP100/S100
-
-2026-06-30 8b03017Other
-
-feat(chrome): JK monogram logo lockup + relocate footer socials to header (#112)
-
-The footer's Kadence "filled" social icons (X/LinkedIn/GitHub) sat centred
-
-2026-06-30 76eff16Fix
-
-fix(build): deploy brutalist-theme.css by content, not mtime (#111)
-
-CSS-only edits to scripts/brutalist-theme.css could silently fail to ship.
-
-Page generated: 2026-07-15 22:54:14 UTC  
+Page generated: 2026-07-16 06:24:24 UTC  
 Changelog powered by Git history and Lighthouse CI
