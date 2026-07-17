@@ -17,10 +17,14 @@
         "Homelab",
         "Networking",
         "Storage",
+        "Artificial Intelligence",
+        "Docker",
         "Synology",
+        "Automation",
+        "NVIDIA",
+        "Traefik",
         "VMware",
-        "vSphere",
-        "Ansible"
+        "Nutanix"
       ],
       "tags": [
         null,
