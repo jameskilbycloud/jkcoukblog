@@ -16,27 +16,104 @@
   fallbacks) and a transparent card background, so it renders natively on the
   dark site and is unaffected by the global `div { background: transparent
   !important }` reset in brutalist-theme.css.
+
+  Layout: #homelab-power-block is a two-column flex — the reading card sits at a
+  fixed 340px beside an explainer column that says what the number is and where
+  it comes from. Both wrap to a single column below ~640px. Every rule is scoped
+  under #homelab-power-block / #homelab-power so nothing leaks into the theme.
+  The idempotency guard in inject_power_widget keys on the card's homelab-power
+  id attribute, which must stay on the card and appear exactly once in this
+  file — do not repeat that id string anywhere here, including in comments.
 -->
-<div id="homelab-power" class="hp" aria-live="polite">
-  <div class="hp-row">
-    <span class="hp-dot" aria-hidden="true"></span>
-    <span class="hp-label">Live homelab power draw</span>
+<div id="homelab-power-block">
+  <div id="homelab-power" class="hp" aria-live="polite">
+    <div class="hp-row">
+      <span class="hp-dot" aria-hidden="true"></span>
+      <span class="hp-label">Live homelab power draw</span>
+    </div>
+    <div class="hp-value"><span class="hp-watts">—</span><span class="hp-unit">W</span></div>
+    <svg class="hp-spark" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true">
+      <polyline class="hp-spark-line" fill="none" points="" />
+    </svg>
+    <div class="hp-foot"><span class="hp-status">connecting…</span></div>
   </div>
-  <div class="hp-value"><span class="hp-watts">—</span><span class="hp-unit">W</span></div>
-  <svg class="hp-spark" viewBox="0 0 240 44" preserveAspectRatio="none" aria-hidden="true">
-    <polyline class="hp-spark-line" fill="none" points="" />
-  </svg>
-  <div class="hp-foot"><span class="hp-status">connecting…</span></div>
+
+  <div class="hp-about">
+    <p class="hp-about-title">What am I looking at?</p>
+    <p>That figure is what my homelab is drawing from the wall right now — a live
+      reading, not a number I typed in once and forgot about.</p>
+    <p>Home Assistant asks each machine's management controller how much it is
+      using: the Nutanix cluster reports its shared chassis power supplies over
+      Redfish, and the Quanta storage server reports over IPMI. Those get added
+      into a single whole-lab total.</p>
+    <p>Every 30 seconds Home Assistant pushes that total out to a Cloudflare
+      Worker, which keeps the latest reading (and the last half hour of them,
+      for the sparkline) at the edge. This page reads it straight back, so what
+      you see is at most a minute or so behind reality. Nothing here talks to my
+      house directly — the lab only ever pushes out.</p>
+    <p class="hp-about-note">Readings are taken at the power supplies, so the true
+      draw at the socket is roughly 5–10% higher. If the dot turns grey, the lab
+      has stopped reporting.</p>
+  </div>
 </div>
 
 <style>
+  #homelab-power-block {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1.5rem 2rem;
+    margin: 2rem 0;
+  }
+  #homelab-power-block .hp-about {
+    flex: 1 1 280px;
+    min-width: 0;
+  }
+  /* The label is a <p>, not a heading, on purpose: the theme forces
+     h1-h6 { font-family: Anton !important; font-size: 1.75rem !important }, which
+     no amount of specificity here can beat — as an h3 it rendered as a giant
+     headline that swamped the reading beside it. As a paragraph it takes the
+     mono styling below, matching the card's own "live homelab power draw" label.
+     Colour is deliberately not set here: .entry-content p forces --gray-light
+     with !important, and that is the colour this label wants anyway.
+
+     Note the `p.` qualifier — these rules must out-specify `.hp-about p` below,
+     which matches these elements too now that they are paragraphs. */
+  #homelab-power-block .hp-about p.hp-about-title {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0 0 0.75rem;
+  }
+  /* Inside .entry-content (the normal anchor) the theme's
+     `.entry-content p { color: var(--gray-light) !important }` wins here, which
+     is what we want — the prose then matches the surrounding page exactly.
+     This declaration is the fallback for when it does NOT apply: inject_power_widget's
+     secondary anchor inserts before .entry-content, i.e. outside it, and a bare
+     fragment has no theme at all. Without it the text would inherit an unknown
+     colour and can end up unreadable. Same value either way, so the happy path
+     is unchanged. */
+  #homelab-power-block .hp-about p {
+    margin: 0 0 0.75rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--gray-light, #a8a59c);
+  }
+  #homelab-power-block .hp-about p:last-child { margin-bottom: 0; }
+  #homelab-power-block .hp-about p.hp-about-note {
+    font-size: 0.85rem;
+    border-left: 2px solid var(--border-subtle, #262625);
+    padding-left: 0.75rem;
+  }
   #homelab-power.hp {
+    flex: 0 0 340px;
     --hp-accent: var(--accent-orange, #f6821f);
     --hp-fg: var(--text-light, #f5f3ee);
     --hp-muted: var(--gray-light, #a8a59c);
     --hp-border: var(--border-subtle, #262625);
     max-width: 340px;
-    margin: 2rem 0;
+    margin: 0;
     padding: 1.1rem 1.25rem;
     border: 1px solid var(--hp-border);
     background: transparent;
