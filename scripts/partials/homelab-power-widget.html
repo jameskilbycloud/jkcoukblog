@@ -86,10 +86,19 @@
     text-transform: uppercase;
     margin: 0 0 0.75rem;
   }
+  /* Inside .entry-content (the normal anchor) the theme's
+     `.entry-content p { color: var(--gray-light) !important }` wins here, which
+     is what we want — the prose then matches the surrounding page exactly.
+     This declaration is the fallback for when it does NOT apply: inject_power_widget's
+     secondary anchor inserts before .entry-content, i.e. outside it, and a bare
+     fragment has no theme at all. Without it the text would inherit an unknown
+     colour and can end up unreadable. Same value either way, so the happy path
+     is unchanged. */
   #homelab-power-block .hp-about p {
     margin: 0 0 0.75rem;
     font-size: 0.95rem;
     line-height: 1.6;
+    color: var(--gray-light, #a8a59c);
   }
   #homelab-power-block .hp-about p:last-child { margin-bottom: 0; }
   #homelab-power-block .hp-about p.hp-about-note {
