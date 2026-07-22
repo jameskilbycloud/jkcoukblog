@@ -21,14 +21,17 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Personal",
-        "VMware Cloud on AWS",
-        "Storage",
-        "Synology",
+        "Ansible",
+        "VCF",
+        "Containers",
+        "Devops",
         "Hosting",
         "Cloudflare",
+        "Personal",
         "Wordpress",
-        "Veeam"
+        "Storage",
+        "Synology",
+        "Github"
       ],
       "tags": [
         null,
@@ -63,16 +66,14 @@
       "categories": [
         "Automation",
         "Github",
-        "Homelab",
-        "Veeam",
-        "VMware",
         "Artificial Intelligence",
         "Docker",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
         "Hosting",
-        "VCF",
-        "Ansible",
-        "Storage",
-        "Synology"
+        "Ansible"
       ],
       "tags": [
         null,
@@ -99,12 +100,20 @@
       "categories": [
         "Ansible",
         "Automation",
-        "Homelab",
-        "Nutanix",
-        "VMware",
-        "Hosting",
+        "Mikrotik",
+        "Networking",
         "Artificial Intelligence",
-        "Veeam"
+        "Docker",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "Containers",
+        "Devops",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -133,14 +142,15 @@
         "Traefik",
         "VCF",
         "VMware",
+        "AWS",
+        "Veeam",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
         "Cloudflare",
-        "Storage",
-        "vExpert",
-        "Ubuntu",
-        "Artificial Intelligence",
         "Hosting",
-        "Wordpress",
-        "Synology"
+        "VMware Cloud on AWS",
+        "Networking"
       ],
       "tags": [
         null,
@@ -175,16 +185,16 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Homelab",
-        "Networking",
-        "Storage",
         "Personal",
-        "Ansible",
+        "Artificial Intelligence",
         "Automation",
         "Docker",
+        "Homelab",
+        "NVIDIA",
         "Traefik",
-        "VCF",
-        "Runecast"
+        "Ansible",
+        "Containers",
+        "Devops"
       ],
       "tags": [
         null,

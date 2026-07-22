@@ -16,18 +16,14 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Mikrotik",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
-        "Ansible",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "Automation",
+        "Docker",
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Veeam"
+        "Storage",
+        "vExpert"
       ],
       "tags": [
         null,

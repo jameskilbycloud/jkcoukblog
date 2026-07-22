@@ -17,15 +17,14 @@
         "Artificial Intelligence",
         "Homelab",
         "Storage",
-        "Synology",
-        "Docker",
-        "TrueNAS Scale",
-        "VMware",
-        "vSAN",
-        "vSphere",
         "Networking",
-        "Hosting",
-        "Kubernetes"
+        "Ansible",
+        "VMware",
+        "Automation",
+        "Github",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere"
       ],
       "tags": [
         null,
