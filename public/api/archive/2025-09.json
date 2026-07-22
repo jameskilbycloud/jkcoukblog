@@ -16,15 +16,14 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Runecast",
-        "VMware",
         "Artificial Intelligence",
-        "vSphere",
-        "Mikrotik",
-        "Networking",
-        "Automation",
-        "Docker",
+        "Containers",
+        "Devops",
+        "NVIDIA",
         "Traefik",
+        "VMware",
+        "Docker",
+        "vSphere",
         "VCF"
       ],
       "tags": [

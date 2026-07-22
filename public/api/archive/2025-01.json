@@ -17,14 +17,14 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Automation",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
         "Networking",
         "Storage",
-        "Synology"
+        "VMware",
+        "Automation",
+        "Ansible",
+        "AWS",
+        "Mikrotik"
       ],
       "tags": [
         null,

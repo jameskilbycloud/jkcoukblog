@@ -19,13 +19,12 @@
         "Hosting",
         "Kubernetes",
         "VMware",
-        "vSphere",
-        "Automation",
-        "Cloudflare",
-        "Wordpress",
-        "Networking",
         "Storage",
-        "Nutanix"
+        "Artificial Intelligence",
+        "Synology",
+        "Automation",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,
@@ -49,11 +48,14 @@
         "Homelab",
         "VMware",
         "vSphere",
-        "VCF",
-        "Storage",
-        "Networking",
         "VMware Cloud on AWS",
-        "Artificial Intelligence"
+        "Networking",
+        "Nutanix",
+        "Automation",
+        "Artificial Intelligence",
+        "Docker",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,
@@ -77,10 +79,12 @@
         "Networking",
         "Storage",
         "VMware",
-        "Veeam",
-        "VMware Cloud on AWS",
+        "Personal",
+        "Nutanix",
+        "TrueNAS Scale",
         "vSAN",
-        "vExpert"
+        "vSphere",
+        "Synology"
       ],
       "tags": [
         null,

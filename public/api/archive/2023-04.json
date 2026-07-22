@@ -17,14 +17,13 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Nutanix",
-        "VCF",
+        "Ansible",
         "VMware",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
-        "Networking",
-        "TrueNAS Scale"
+        "VMware Cloud on AWS",
+        "Personal",
+        "vSphere",
+        "Artificial Intelligence",
+        "Synology"
       ],
       "tags": [
         null,

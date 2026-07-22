@@ -17,17 +17,15 @@
         "Homelab",
         "Storage",
         "Synology",
-        "vExpert",
         "Ansible",
+        "Nutanix",
+        "TrueNAS Scale",
+        "VMware",
+        "vSphere",
         "Automation",
         "Docker",
         "Traefik",
-        "VCF",
-        "VMware",
-        "Mikrotik",
-        "Networking",
-        "vSphere",
-        "Runecast"
+        "VCF"
       ],
       "tags": [
         null,

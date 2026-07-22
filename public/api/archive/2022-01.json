@@ -16,10 +16,17 @@
       "categories": [
         "Hosting",
         "Wordpress",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
         "Cloudflare",
-        "Devops",
-        "Github",
-        "Homelab"
+        "Ansible",
+        "VCF",
+        "Personal"
       ],
       "tags": [
         null,
@@ -42,19 +49,17 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Networking",
-        "VMware",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
-        "vExpert",
+        "Synology",
+        "TrueNAS Scale",
         "Ansible",
         "Artificial Intelligence",
         "Containers",
         "Devops",
         "NVIDIA",
         "Traefik",
-        "TrueNAS Scale"
+        "VMware",
+        "Automation",
+        "Docker"
       ],
       "tags": [
         null,
@@ -81,15 +86,9 @@
         "Personal",
         "Wordpress",
         "Consulting",
+        "VMware",
         "Devops",
-        "Artificial Intelligence",
-        "Docker",
-        "Ansible",
-        "Automation",
-        "Homelab",
-        "Traefik",
-        "VCF",
-        "VMware"
+        "Github"
       ],
       "tags": [
         null,
@@ -110,6 +109,8 @@
       "api_url": "/api/posts/wrangler-and-node-versions.json",
       "categories": [
         "Cloudflare",
+        "Hosting",
+        "Wordpress",
         "Ansible",
         "Automation",
         "Docker",
@@ -117,10 +118,6 @@
         "Traefik",
         "VCF",
         "VMware",
-        "Hosting",
-        "Wordpress",
-        "Devops",
-        "Github",
         "Personal"
       ],
       "tags": [
@@ -145,10 +142,14 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Personal",
         "Storage",
         "Synology",
-        "Automation",
+        "Networking",
+        "vSAN",
+        "Docker",
+        "Hosting",
+        "Kubernetes",
+        "Nutanix",
         "VMware Cloud on AWS"
       ],
       "tags": [
@@ -173,15 +174,15 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "Artificial Intelligence",
         "Automation",
+        "Artificial Intelligence",
         "Docker",
         "NVIDIA",
         "Traefik",
-        "Ansible",
-        "Networking",
-        "VMware Cloud on AWS",
-        "Mikrotik"
+        "VCF",
+        "Hosting",
+        "Kubernetes",
+        "Personal"
       ],
       "tags": [
         null,
@@ -204,16 +205,17 @@
       "categories": [
         "Homelab",
         "Networking",
+        "Artificial Intelligence",
         "Docker",
         "Hosting",
         "Kubernetes",
-        "Automation",
-        "Github",
-        "Storage",
-        "Synology",
         "Ansible",
-        "Veeam",
-        "VMware"
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "vSphere"
       ],
       "tags": [
         null,
