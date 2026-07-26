@@ -1,36 +1,36 @@
 ---
 title: "Running Nutanix CE at Home: AHV Setup & First Impressions"
-description: "I ran a Nutanix CE server at home for a little while when it first came out. However, due to the fairly high requirements, it didn’t make sense to me to"
+description: "I ran a Nutanix CE server at home for a little while when it first came out."
 date: 2018-01-06T17:28:56+00:00
 modified: 2026-06-01T21:58:18+00:00
 author: James Kilby
 categories:
   - Homelab
   - Nutanix
-  - VMware
-  - Veeam
-  - Artificial Intelligence
+  - Personal
+  - Ansible
   - Automation
   - Docker
-  - NVIDIA
   - Traefik
-  - Networking
-  - Storage
+  - VCF
+  - VMware
   - Hosting
   - Kubernetes
+  - Artificial Intelligence
+  - vSphere
 tags:
   - #Nutanix
 url: https://jameskilby.co.uk/2018/01/nutanix-ce/
 image: https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg
 ---
 
-![Nutanix Logo Hi Rez Reverse W Carrier](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)
+![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/)
 
 # Running Nutanix CE at Home: AHV Setup & First Impressions
 
-By[James](https://jameskilby.co.uk)January 6, 2018 · Updated June 1, 2026 • 📖1 min read(191 words)
+By[James](https://jameskilby.co.uk) January 6, 2018 · Updated June 1, 2026 • 📖1 min read(191 words)
 
 📅**Published:** January 06, 2018•**Updated:** June 01, 2026
 
@@ -52,60 +52,62 @@ I’ll post back with some updates of what I get up to with it
 
 ## Similar Posts
 
-  * [![Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1-768x1024.jpg)](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
+  * [ ![Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg) ](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
-### [Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
+### [Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
 
-By[James](https://jameskilby.co.uk)January 6, 2022 · Updated February 16, 2026
+By[James](https://jameskilby.co.uk) July 2, 2020 · Updated May 31, 2026
 
-Quite a few changes have happened in the lab recently. I decided to do a multipart blog on the changes.
+I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam.
 
-  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+  * [ ![Automated VCF 9 Offline Depot architecture diagram showing Traefik reverse proxy and Nginx file server stack](https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png) ](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
 
-### [Lab Update – Desired Workloads](https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/)
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-By[James](https://jameskilby.co.uk)January 6, 2022 · Updated June 1, 2026
+### [Automated VCF 9 Offline Depot](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
 
-My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.
+By[James](https://jameskilby.co.uk) April 10, 2026 · Updated July 11, 2026
 
-  * [![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
+One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS.
 
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [My Self-Hosted AI Stack: Architecture Overview (Part 1)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
-
-By[James](https://jameskilby.co.uk)March 27, 2026 · Updated May 31, 2026
-
-A walkthrough of my self-hosted AI stack: Ollama, Open WebUI, ComfyUI, Whishper, n8n, Qdrant, SearxNG, and a full observability layer — all running on my own hardware with Docker Compose.
-
-  * [![Nutanix Command Reference Guide](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg)](https://jameskilby.co.uk/2018/06/nutanix-command-reference-guide/)
-
-[Nutanix](https://jameskilby.co.uk/category/nutanix/)
-
-### [Nutanix Command Reference Guide](https://jameskilby.co.uk/2018/06/nutanix-command-reference-guide/)
-
-By[James](https://jameskilby.co.uk)June 5, 2018 · Updated July 11, 2026
-
-A list of useful Nutanix Commands
-
-  * [![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png)](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
-
-By[James](https://jameskilby.co.uk)December 19, 2022 · Updated June 1, 2026
-
-For a while, I’ve been looking to update the networking at the core of my homelab.
-
-  * [![Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png)](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
+  * [ ![Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png) ](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
 
 [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernetes/)
 
 ### [Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
 
-By[James](https://jameskilby.co.uk)December 9, 2022 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk) December 9, 2022 · Updated June 5, 2026
 
 Late to the party or not, I have been using containers in my lab more and more and that has led me to Portainer ….
+
+  * [ ![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-768x180.png) ](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
+
+[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
+
+### [Warp – The intelligent terminal](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
+
+By[James](https://jameskilby.co.uk) April 11, 2025 · Updated June 1, 2026
+
+How Warp is helping me run my homelab. 
+
+  * [ ![Forcing an Upgrade to vSphere 8](https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.45.23.png) ](https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
+
+### [Forcing an Upgrade to vSphere 8](https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/)
+
+By[James](https://jameskilby.co.uk) December 14, 2022 · Updated June 1, 2026
+
+I run a reasonably extensive homelab that is of course built around the VMware ecosystem.
+
+  * [ ![Template Deployment with Packer](https://jameskilby.co.uk/wp-content/uploads/2021/01/logo_packer.png) ](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
+
+[Automation](https://jameskilby.co.uk/category/automation/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [Template Deployment with Packer](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
+
+By[James](https://jameskilby.co.uk) January 21, 2021 · Updated June 5, 2026
+
+Packer is one of those tools I have heard about, and some of the cool people on Twitter that I follow have been using it for a while.

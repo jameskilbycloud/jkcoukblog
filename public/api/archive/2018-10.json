@@ -6,7 +6,7 @@
     {
       "slug": "and-now-for-something-completely-different",
       "title": "And now for something completely different",
-      "description": "I have worked for my current employer Zen Internet for 3.5 years. Over that time I have changed roles from what was originally a customer-focused role",
+      "description": "I have worked for my current employer Zen Internet for 3.",
       "date": "2018-10-16T08:22:45Z",
       "modified": "2026-07-11T07:46:38Z",
       "author": "James Kilby",
@@ -15,16 +15,16 @@
       "api_url": "/api/posts/and-now-for-something-completely-different.json",
       "categories": [
         "Personal",
+        "VMware",
+        "vSphere",
         "Devops",
         "Hosting",
-        "Consulting",
         "Cloudflare",
         "Wordpress",
-        "VMware",
-        "vSphere"
+        "Nutanix"
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/og/and-now-for-something-completely-different.png",
-      "excerpt": "![Fwbxyba7](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk)October 16, 2018 · Updated July 11, 2026 • 📖1 min read(263 words)\n\n📅**Published:** ..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018 · Updated July 11, 2026 • 📖1 min read(263 words)\n\n📅**Published:** October..."
     }
   ]
 }

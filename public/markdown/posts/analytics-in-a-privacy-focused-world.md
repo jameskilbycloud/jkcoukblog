@@ -1,19 +1,18 @@
 ---
 title: "Analytics in a privacy focused world"
-description: "I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress"
+description: "I recently helped my friend Dean Lewis @veducate with some hosting issues."
 date: 2023-11-10T16:45:03+00:00
 modified: 2026-06-01T19:02:53+00:00
 author: James Kilby
 categories:
   - Hosting
   - Personal
+  - Cloudflare
   - AWS
-  - VMware
-  - Docker
-  - Homelab
-  - Kubernetes
-  - Consulting
   - Nutanix
+  - Devops
+  - Github
+  - Wordpress
 tags:
   - #Analytics
   - #Cloudflare
@@ -26,13 +25,13 @@ url: https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/
 image: https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png
 ---
 
-![Plausible Analytics Icon Top](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png)
+![](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png)
 
 [Hosting](https://jameskilby.co.uk/category/hosting/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
 # Analytics in a privacy focused world
 
-By[James](https://jameskilby.co.uk)November 10, 2023 · Updated June 1, 2026 • 📖1 min read(254 words)
+By[James](https://jameskilby.co.uk) November 10, 2023 · Updated June 1, 2026 • 📖1 min read(254 words)
 
 📅**Published:** November 10, 2023•**Updated:** June 01, 2026
 
@@ -60,62 +59,62 @@ I am now happy with this and have decided to make my stats public to show exactl
 
 ## Similar Posts
 
-  * [![AWS Solution Architect – Associate](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_-768x307.png)](https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/)
+  * [ ![What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2-768x229.png) ](https://jameskilby.co.uk/2018/03/cloudflare/)
+
+[Hosting](https://jameskilby.co.uk/category/hosting/)
+
+### [What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained](https://jameskilby.co.uk/2018/03/cloudflare/)
+
+By[James](https://jameskilby.co.uk) March 27, 2018 · Updated June 1, 2026
+
+Cloudflare – What is it and why would I care? I have been using Cloudflare for a long time.
+
+  * [ ![Fixing Wrangler Node.js Version Conflicts After Brew Upgrade](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1-768x256.png) ](https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/)
+
+[Cloudflare](https://jameskilby.co.uk/category/cloudflare/)
+
+### [Fixing Wrangler Node.js Version Conflicts After Brew Upgrade](https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/)
+
+By[James](https://jameskilby.co.uk) January 15, 2022 · Updated July 11, 2026
+
+I am a massive fan of the brew package management system for macOS and use it on all of my Macs. I typically just upgrade everything blindly and have never had an issue.
+
+  * [ ![AWS Solution Architect – Associate](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_-768x307.png) ](https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/)
 
 [AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
 ### [AWS Solution Architect – Associate](https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/)
 
-By[James](https://jameskilby.co.uk)December 16, 2019 · Updated May 31, 2026
+By[James](https://jameskilby.co.uk) December 16, 2019 · Updated May 31, 2026
 
 I renewed my AWS Solution Architect certification.
 
-  * [![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
-
-[Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
-
-By[James](https://jameskilby.co.uk)September 13, 2020 · Updated May 31, 2026
-
-I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.
-
-  * [![Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png)](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
-
-[Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernetes/)
-
-### [Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
-
-By[James](https://jameskilby.co.uk)December 9, 2022 · Updated June 5, 2026
-
-Late to the party or not, I have been using containers in my lab more and more and that has led me to Portainer ….
-
-  * [![My Home Office Setup & Upgrades](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1-768x576.jpeg)](https://jameskilby.co.uk/2021/01/my-home-office-setup-upgrades/)
-
-[Personal](https://jameskilby.co.uk/category/personal/) | [Consulting](https://jameskilby.co.uk/category/consulting/)
-
-### [My Home Office Setup & Upgrades](https://jameskilby.co.uk/2021/01/my-home-office-setup-upgrades/)
-
-By[James](https://jameskilby.co.uk)January 5, 2021 · Updated June 1, 2026
-
-Given the year that was 2020 and at the time of writing a distinct improvement appears a long way off I decided it was time to up my homeworking game.
-
-  * [![Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920-768x432.jpg)](https://jameskilby.co.uk/2022/10/starlink/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
-
-### [Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/2022/10/starlink/)
-
-By[James](https://jameskilby.co.uk)October 11, 2022 · Updated June 1, 2026
-
-Since moving to Dorset last year internet connectivity has been the bane of my existence. Currently, I have an ADSL connection provided by my old employer Zen and a 5G connection provided by Three.
-
-  * [![Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg)](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
+  * [ ![Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg) ](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
 
 [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
 ### [Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
 
-By[James](https://jameskilby.co.uk)July 2, 2020 · Updated May 31, 2026
+By[James](https://jameskilby.co.uk) July 2, 2020 · Updated May 31, 2026
 
 I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam.
+
+  * [ ![How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp) ](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
+
+[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
+
+### [How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
+
+By[James](https://jameskilby.co.uk) October 6, 2025 · Updated July 11, 2026
+
+I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.
+
+  * [ ![Hosting This Blog on Cloudflare Workers: Why & How I Did It](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2-768x229.png) ](https://jameskilby.co.uk/2022/01/web-development/)
+
+[Hosting](https://jameskilby.co.uk/category/hosting/) | [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Personal](https://jameskilby.co.uk/category/personal/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
+
+### [Hosting This Blog on Cloudflare Workers: Why & How I Did It](https://jameskilby.co.uk/2022/01/web-development/)
+
+By[James](https://jameskilby.co.uk) January 4, 2022 · Updated July 11, 2026
+
+A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them.
