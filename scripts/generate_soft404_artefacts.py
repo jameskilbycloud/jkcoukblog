@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 """
-Generate the three artefacts that defeat the soft-404 problem described in
+Generate the artefacts that defeat the soft-404 problem described in
 docs/SEO.md > "Soft-404 guard":
 
   1. public/path-manifest.json     — list of every legitimate content URL
   2. public/404.html                — real 404 body served by the Worker
-  3. Legacy-permalink redirects appended to public/_redirects
+  3. Legacy-permalink redirect block in public/_redirects is now EMPTY —
+     the flat-slug legacy redirect is handled by the Worker itself using
+     PATH_MANIFEST (see _worker.template.js). Historically we wrote
+     ~150 rules here, but Cloudflare Pages' free plan caps at 100 static
+     redirects and silently drops the rest, producing GSC 404s on the
+     alphabetical tail (post /octopus-...). Moving the lookup into the
+     worker also removes the maintenance burden as new posts are added.
 
 Run once after `make optimize` / after the static site is complete. The
 deploy workflow wires this in between "generate" and the Worker copy step
@@ -109,33 +115,23 @@ def write_404_html(public_dir: Path) -> Path:
 
 
 def build_legacy_redirects(paths: list[str]) -> list[str]:
-    """Derive `/slug/ → /YYYY/MM/slug/` redirects from the content manifest.
+    """DEPRECATED — returns an empty list.
 
-    The site was originally at flat `/slug/` permalinks; WordPress moved to
-    dated paths at some point. Bing / external backlinks still hit the flat
-    form — without redirects they fall into the SPA fallback (soft-404).
+    Historically this derived `/slug/ → /YYYY/MM/slug/` redirects from the
+    content manifest and appended them to `public/_redirects`. That approach
+    was silently broken by Cloudflare Pages' 100-rule limit on the free plan:
+    ~50 legacy URLs (the alphabetical tail) returned 404 to Googlebot.
+
+    The same lookup is now done at request time by the Worker via the
+    SLUG_TO_DATED_PATH map derived from PATH_MANIFEST. See
+    `_worker.template.js` → the "Flat-slug legacy redirect" block. No rule
+    limit, and the mapping stays fresh as posts are added.
+
+    Kept as a no-op so update_redirects() can still call it and clear the
+    old marker block idempotently on the next run.
     """
-    rules: list[tuple[str, str]] = []
-    seen_slugs: set[str] = set()
-    # Known non-post top-level slugs that must NOT be redirected (they are
-    # real pages at the root).
-    RESERVED = {
-        "about-me", "changelog", "contact", "evs", "feed", "homelab-software",
-        "lab", "markdown", "media", "privacy-policy", "privacy-policy-2",
-        "stats", "vmc", "api", "blog", "page", "category", "tag",
-        "wp-content", "wp-includes", "assets", "js",
-    }
-    for path in paths:
-        m = YEAR_MONTH_SLUG_RE.match(path + ("/" if not path.endswith("/") else ""))
-        if not m:
-            continue
-        slug = m.group(3)
-        if slug in RESERVED or slug in seen_slugs:
-            continue
-        seen_slugs.add(slug)
-        rules.append((f"/{slug}", f"{path}/" if not path.endswith("/") else path))
-        rules.append((f"/{slug}/", f"{path}/" if not path.endswith("/") else path))
-    return sorted({f"{src} {dst} 301" for src, dst in rules})
+    del paths  # unused
+    return []
 
 
 def update_redirects(public_dir: Path, rules: list[str]) -> Path:
