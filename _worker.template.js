@@ -208,6 +208,40 @@ export default {
     }
     // ────────────────────────────────────────────────────────────────────────
 
+    // ── Google Search Console 404 clean-up (301 permanent) ──────────────────
+    // URLs that GSC surfaced as 404s and don't correspond to real content:
+    //
+    // - /blog/ and /blog       — the homepage IS the blog; some external link
+    //                            or crawler assumed /blog/ existed
+    // - /404/ and /404         — Google indexed the literal reserved slug
+    //                            (probably a bad internal link at some point)
+    // - /markdown/ and /markdown — the markdown-export API has year-scoped
+    //                              subpaths but no root landing page
+    // - /2025/03/portainer-agent-on-synology-dsm/ — a phantom URL not in git
+    //                            history; the closest real content is the
+    //                            existing Portainer post from 2022/12
+    //
+    // Redirect the first three to '/' (homepage covers all their intent),
+    // and the phantom Portainer URL to the actual Portainer post so any
+    // remaining backlink still lands on relevant content.
+    if (
+      path === '/blog' || path === '/blog/' ||
+      path === '/404' || path === '/404/' ||
+      path === '/markdown' || path === '/markdown/'
+    ) {
+      return Response.redirect(`https://jameskilby.co.uk/${url.search}`, 301);
+    }
+    if (
+      path === '/2025/03/portainer-agent-on-synology-dsm' ||
+      path === '/2025/03/portainer-agent-on-synology-dsm/'
+    ) {
+      return Response.redirect(
+        `https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/${url.search}`,
+        301
+      );
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
     // ── Admin / diagnostic endpoints ────────────────────────────────────────
     // These must be checked BEFORE the GET-only guard so POST purges work,
     // and BEFORE shouldCache so they are never accidentally cached.
