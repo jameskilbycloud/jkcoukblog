@@ -82,7 +82,47 @@ class WordPressStaticGenerator:
         # finish before the parallel processing pool starts, so reads from
         # worker threads are safe.
         self.post_index = {}
-        
+
+    def _paginate_taxonomy(self, endpoint: str, kind: str) -> list:
+        """Fetch every item from a WP taxonomy endpoint (tags, categories, ...).
+
+        WP REST caps per_page at 100 and does NOT auto-paginate. Historically
+        this code used per_page=100 with no page loop, silently dropping any
+        taxonomy term past position 100. On jameskilby.co.uk WordPress there
+        are more than 100 tags; the alphabetical tail (self-hosted, ubuntu,
+        vmware, vsphere, zoom, …) was invisible to the generator, producing
+        GSC 404s for /tag/vmware/ etc. that posts still linked to.
+
+        Returns an empty list on any error.
+        """
+        items = []
+        page = 1
+        while True:
+            resp = self.session.get(
+                f'{self.wp_url}/wp-json/wp/v2/{endpoint}',
+                params={'per_page': 100, 'page': page},
+            )
+            if resp.status_code == 400 and page > 1:
+                # WP returns 400 with rest_post_invalid_page_number past the end
+                break
+            if resp.status_code != 200:
+                print(f"   ⚠️  {kind} API returned status {resp.status_code} on page {page}")
+                if page == 1:
+                    return []
+                break
+            try:
+                batch = resp.json()
+            except (json.JSONDecodeError, ValueError):
+                print(f"   ⚠️  Invalid JSON on {kind} page {page}, stopping")
+                break
+            if not isinstance(batch, list) or not batch:
+                break
+            items.extend(batch)
+            if len(batch) < 100:
+                break
+            page += 1
+        return items
+
     def get_all_content_urls(self):
         """Get all content URLs from WordPress REST API"""
         urls = set()
@@ -116,21 +156,17 @@ class WordPressStaticGenerator:
                 urls.add('/')
                 
                 # Get all categories and tags (archives need full list)
-                categories_response = self.session.get(f'{self.wp_url}/wp-json/wp/v2/categories?per_page=100')
-                if categories_response.status_code == 200:
-                    for category in categories_response.json():
-                        if category['count'] > 0:
-                            relative_url = category['link'].replace(self.wp_url, '')
-                            urls.add(relative_url)
-                            print(f"   📁 Category: {category['name']}")
-                
-                tags_response = self.session.get(f'{self.wp_url}/wp-json/wp/v2/tags?per_page=100')
-                if tags_response.status_code == 200:
-                    for tag in tags_response.json():
-                        if tag['count'] > 0:
-                            relative_url = tag['link'].replace(self.wp_url, '')
-                            urls.add(relative_url)
-                            print(f"   🏷️  Tag: {tag['name']}")
+                for category in self._paginate_taxonomy('categories', 'Categories'):
+                    if category.get('count', 0) > 0:
+                        relative_url = category['link'].replace(self.wp_url, '')
+                        urls.add(relative_url)
+                        print(f"   📁 Category: {category['name']}")
+
+                for tag in self._paginate_taxonomy('tags', 'Tags'):
+                    if tag.get('count', 0) > 0:
+                        relative_url = tag['link'].replace(self.wp_url, '')
+                        urls.add(relative_url)
+                        print(f"   🏷️  Tag: {tag['name']}")
 
                 # Discover homepage pagination pages (/page/2/, /page/3/, etc.)
                 pagination_page = 2
@@ -221,30 +257,19 @@ class WordPressStaticGenerator:
             page += 1
         
         # Get categories
-        categories_response = self.session.get(f'{self.wp_url}/wp-json/wp/v2/categories?per_page=100')
-        if categories_response.status_code == 200:
-            try:
-                categories = categories_response.json()
-            except (json.JSONDecodeError, ValueError):
-                categories = []
-            for category in categories:
-                if category['count'] > 0:  # Only categories with posts
-                    relative_url = category['link'].replace(self.wp_url, '')
-                    urls.add(relative_url)
-                    print(f"   📁 Category: {category['name']}")
-        
-        # Get tags with posts
-        tags_response = self.session.get(f'{self.wp_url}/wp-json/wp/v2/tags?per_page=100')
-        if tags_response.status_code == 200:
-            try:
-                tags = tags_response.json()
-            except (json.JSONDecodeError, ValueError):
-                tags = []
-            for tag in tags:
-                if tag['count'] > 0:  # Only tags with posts
-                    relative_url = tag['link'].replace(self.wp_url, '')
-                    urls.add(relative_url)
-                    print(f"   🏷️  Tag: {tag['name']}")
+        for category in self._paginate_taxonomy('categories', 'Categories'):
+            if category.get('count', 0) > 0:  # Only categories with posts
+                relative_url = category['link'].replace(self.wp_url, '')
+                urls.add(relative_url)
+                print(f"   📁 Category: {category['name']}")
+
+        # Get tags with posts (paginated — see _paginate_taxonomy for the
+        # per_page=100 bug this fixes).
+        for tag in self._paginate_taxonomy('tags', 'Tags'):
+            if tag.get('count', 0) > 0:
+                relative_url = tag['link'].replace(self.wp_url, '')
+                urls.add(relative_url)
+                print(f"   🏷️  Tag: {tag['name']}")
         
         # Add essential pages. `/category/` and `/tag/` used to be in here
         # too but WordPress 404s those bare taxonomy roots (only the
