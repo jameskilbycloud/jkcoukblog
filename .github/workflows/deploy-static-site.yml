@@ -342,6 +342,30 @@ jobs:
           exit 1
         }
 
+    - name: Validate _redirects stays under Cloudflare Pages free-plan limit
+      # Cloudflare Pages free plan silently drops any static redirect past
+      # rule #100 — everything alphabetically after ~/octopus becomes a 404.
+      # We hit this once (150+ rules, half broken, invisible in GSC until we
+      # dug in). Flat-slug legacy redirects were moved into _worker.template.js
+      # in the commit that added this guard; keep _redirects small enough to
+      # stay safely within the limit forever.
+      run: |
+        if [ ! -f public/_redirects ]; then
+          echo "ℹ️  public/_redirects not present (fine — worker handles everything)"
+        else
+          RULES=$(grep -cvE '^\s*(#|$)' public/_redirects || true)
+          echo "public/_redirects contains $RULES active rule(s)"
+          if [ "$RULES" -gt 90 ]; then
+            echo ""
+            echo "❌ public/_redirects has $RULES active rules — Cloudflare Pages"
+            echo "   free plan caps at 100; rules past the limit are silently"
+            echo "   dropped and produce GSC 404s. Move legacy/bulk redirects"
+            echo "   into _worker.template.js using PATH_MANIFEST."
+            echo ""
+            exit 1
+          fi
+        fi
+
     - name: Validate WordPress Source Health
       env:
         WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}

@@ -23,6 +23,21 @@
 const PATH_MANIFEST_RAW = /*__PATH_MANIFEST_START__*/null/*__PATH_MANIFEST_END__*/;
 const PATH_MANIFEST = PATH_MANIFEST_RAW ? new Set(PATH_MANIFEST_RAW) : null;
 
+// Precomputed lookup: bare-slug → /YYYY/MM/slug/ path.
+// Used by the flat-slug legacy redirect (see request handler). Built once
+// at cold start from the same manifest; O(N) init, O(1) per request. Only
+// meaningful when PATH_MANIFEST is present (post-stamping).
+const SLUG_TO_DATED_PATH = (() => {
+  if (!PATH_MANIFEST) return null;
+  const map = new Map();
+  const DATED = /^\/(\d{4})\/(\d{2})\/([^/]+)$/;
+  for (const entry of PATH_MANIFEST) {
+    const m = entry.match(DATED);
+    if (m) map.set(m[3], entry);
+  }
+  return map;
+})();
+
 // Build-time substitution: scripts/stamp_worker_manifest.py reads the
 // Content-Security-Policy line from the repo-root `_headers` file and
 // replaces the placeholder below with that string literal. `_headers`
@@ -147,6 +162,47 @@ export default {
     if (path === '/about-me' || path === '/about-me/') {
       return Response.redirect(
         `https://jameskilby.co.uk/about-james-kilby-solution-architect/${url.search}`,
+        301
+      );
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
+    // ── Flat-slug legacy redirect (/slug/ → /YYYY/MM/slug/) ─────────────────
+    // Original permalink structure was flat /slug/; migration to /YYYY/MM/slug/
+    // left ~150 external backlinks pointing at the old form. Historically
+    // handled via _redirects, but that file caps at 100 static rules on the
+    // Cloudflare Pages free plan — everything past the limit was silently
+    // dropped and returning 404s (visible in GSC coverage). Handling it here
+    // has no rule-count limit and stays correct as new posts are added: the
+    // SLUG_TO_DATED_PATH map is rebuilt from PATH_MANIFEST on every deploy.
+    //
+    // Guarded by `!isKnownContentPath` so real static pages (/lab/, /vmc/,
+    // /media/, /homelab-software/, /about-james-kilby-solution-architect/) are
+    // NOT redirected — they're already in the manifest.
+    const flatSlugMatch = path.match(/^\/([^/]+)\/?$/);
+    if (flatSlugMatch && !isKnownContentPath(path) && SLUG_TO_DATED_PATH) {
+      const datedPath = SLUG_TO_DATED_PATH.get(flatSlugMatch[1]);
+      if (datedPath) {
+        return Response.redirect(
+          `https://jameskilby.co.uk${datedPath}/${url.search}`,
+          301
+        );
+      }
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
+    // ── Historical typo-slug redirects (301 permanent) ──────────────────────
+    // Slugs that were fixed after posts went out. Two entries in _redirects
+    // covered these before we moved every redirect into the worker.
+    if (path === '/2025/04/warp-the-inteligent-terminal/' || path === '/2025/04/warp-the-inteligent-terminal') {
+      return Response.redirect(
+        `https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/${url.search}`,
+        301
+      );
+    }
+    if (path === '/category/artificial-inteligence/' || path === '/category/artificial-inteligence') {
+      return Response.redirect(
+        `https://jameskilby.co.uk/category/artificial-intelligence/${url.search}`,
         301
       );
     }
