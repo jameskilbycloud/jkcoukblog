@@ -1,8 +1,18 @@
 [
   {
+    "name": "Homelab",
+    "slug": "homelab",
+    "count": 63
+  },
+  {
     "name": "VMware",
     "slug": "vmware",
     "count": 67
+  },
+  {
+    "name": "vSphere",
+    "slug": "vsphere",
+    "count": 25
   },
   {
     "name": "VMware Cloud on AWS",
@@ -10,29 +20,14 @@
     "count": 26
   },
   {
-    "name": "vSAN",
-    "slug": "vsan",
-    "count": 26
-  },
-  {
-    "name": "AWS",
-    "slug": "aws",
-    "count": 15
-  },
-  {
-    "name": "Veeam",
-    "slug": "veeam",
-    "count": 15
-  },
-  {
-    "name": "Homelab",
-    "slug": "homelab",
-    "count": 63
-  },
-  {
     "name": "Networking",
     "slug": "networking",
     "count": 24
+  },
+  {
+    "name": "vSAN",
+    "slug": "vsan",
+    "count": 26
   },
   {
     "name": "Storage",
@@ -40,19 +35,64 @@
     "count": 30
   },
   {
+    "name": "Synology",
+    "slug": "synology",
+    "count": 11
+  },
+  {
+    "name": "vExpert",
+    "slug": "vexpert",
+    "count": 10
+  },
+  {
+    "name": "TrueNAS Scale",
+    "slug": "truenas-scale",
+    "count": 18
+  },
+  {
+    "name": "Veeam",
+    "slug": "veeam",
+    "count": 15
+  },
+  {
+    "name": "Nutanix",
+    "slug": "nutanix",
+    "count": 20
+  },
+  {
+    "name": "Kubernetes",
+    "slug": "kubernetes",
+    "count": 15
+  },
+  {
+    "name": "Consulting",
+    "slug": "consulting",
+    "count": 4
+  },
+  {
+    "name": "Personal",
+    "slug": "personal",
+    "count": 34
+  },
+  {
+    "name": "Ansible",
+    "slug": "ansible",
+    "count": 27
+  },
+  {
     "name": "Artificial Intelligence",
     "slug": "artificial-intelligence",
     "count": 38
   },
   {
-    "name": "Automation",
-    "slug": "automation",
-    "count": 39
+    "name": "Containers",
+    "slug": "containers",
+    "count": 13
   },
   {
-    "name": "Docker",
-    "slug": "docker",
-    "count": 44
+    "name": "Devops",
+    "slug": "devops",
+    "count": 21
   },
   {
     "name": "NVIDIA",
@@ -65,14 +105,19 @@
     "count": 35
   },
   {
-    "name": "Nutanix",
-    "slug": "nutanix",
-    "count": 20
+    "name": "Mikrotik",
+    "slug": "mikrotik",
+    "count": 7
   },
   {
-    "name": "Personal",
-    "slug": "personal",
-    "count": 34
+    "name": "Automation",
+    "slug": "automation",
+    "count": 39
+  },
+  {
+    "name": "Docker",
+    "slug": "docker",
+    "count": 44
   },
   {
     "name": "Hosting",
@@ -80,44 +125,14 @@
     "count": 33
   },
   {
-    "name": "Cloudflare",
-    "slug": "cloudflare",
-    "count": 17
-  },
-  {
-    "name": "Wordpress",
-    "slug": "wordpress",
-    "count": 17
-  },
-  {
-    "name": "Consulting",
-    "slug": "consulting",
-    "count": 4
-  },
-  {
-    "name": "vExpert",
-    "slug": "vexpert",
-    "count": 10
-  },
-  {
-    "name": "vSphere",
-    "slug": "vsphere",
-    "count": 25
-  },
-  {
-    "name": "Mikrotik",
-    "slug": "mikrotik",
-    "count": 7
-  },
-  {
-    "name": "Kubernetes",
-    "slug": "kubernetes",
+    "name": "AWS",
+    "slug": "aws",
     "count": 15
   },
   {
-    "name": "Devops",
-    "slug": "devops",
-    "count": 21
+    "name": "Cloudflare",
+    "slug": "cloudflare",
+    "count": 17
   },
   {
     "name": "Github",
@@ -125,23 +140,13 @@
     "count": 12
   },
   {
-    "name": "Ansible",
-    "slug": "ansible",
-    "count": 27
+    "name": "Wordpress",
+    "slug": "wordpress",
+    "count": 17
   },
   {
-    "name": "VCF",
-    "slug": "vcf",
-    "count": 18
-  },
-  {
-    "name": "TrueNAS Scale",
-    "slug": "truenas-scale",
-    "count": 18
-  },
-  {
-    "name": "Ubuntu",
-    "slug": "ubuntu",
+    "name": "Money",
+    "slug": "money",
     "count": 1
   },
   {
@@ -150,23 +155,18 @@
     "count": 9
   },
   {
-    "name": "Synology",
-    "slug": "synology",
-    "count": 11
-  },
-  {
-    "name": "Containers",
-    "slug": "containers",
-    "count": 13
-  },
-  {
-    "name": "Money",
-    "slug": "money",
-    "count": 1
+    "name": "VCF",
+    "slug": "vcf",
+    "count": 18
   },
   {
     "name": "Apple",
     "slug": "apple",
     "count": 2
+  },
+  {
+    "name": "Ubuntu",
+    "slug": "ubuntu",
+    "count": 1
   }
 ]
