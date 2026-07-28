@@ -18,13 +18,13 @@ url: https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/
 image: https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.24.32.png
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.45.23.png)
+![Screenshot 2022 12 14 At 21.45.23](https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.45.23.png)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
 
 # Forcing an Upgrade to vSphere 8
 
-By[James](https://jameskilby.co.uk) December 14, 2022 · Updated June 1, 2026 • 📖1 min read(283 words)
+By[James](https://jameskilby.co.uk)December 14, 2022 · Updated June 1, 2026 • 📖1 min read(283 words)
 
 📅**Published:** December 14, 2022•**Updated:** June 01, 2026
 
@@ -78,33 +78,33 @@ The last step is to disable the firewall rule and then SSH
 
 ## Similar Posts
 
-  * [ ![VMware Cloud on AWS Storage Sizing Quick Reference Guide](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png) ](https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/)
+  * [![VMware Cloud on AWS Storage Sizing Quick Reference Guide](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png)](https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
 ### [VMware Cloud on AWS Storage Sizing Quick Reference Guide](https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/)
 
-By[James](https://jameskilby.co.uk) May 21, 2025 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk)May 21, 2025 · Updated July 11, 2026
 
 Quick reference guide to the available storage resources that you get in VMware Cloud on AWS
 
-  * [ ![New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp) ](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
+  * [![New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
 ### [New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
 
-By[James](https://jameskilby.co.uk) April 1, 2026 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk)April 1, 2026 · Updated July 11, 2026
 
 We’ve expanded the VMC fleet with the new i7i (i7i.
 
-  * [ ![UniFi UDM Beast 1U rack-mount gateway shown front-on, with two 3.5-inch drive bays, a bank of RJ45 and SFP network ports, and dimension labels.](https://jameskilby.co.uk/wp-content/uploads/2026/06/UnifiBeast-768x219.webp) ](https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/)
+  * [![UniFi UDM Beast 1U rack-mount gateway shown front-on, with two 3.5-inch drive bays, a bank of RJ45 and SFP network ports, and dimension labels.](https://jameskilby.co.uk/wp-content/uploads/2026/06/UnifiBeast-768x219.webp)](https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
 
 ### [Unleashing the Beast](https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/)
 
-By[James](https://jameskilby.co.uk) June 20, 2026 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk)June 20, 2026 · Updated July 11, 2026
 
 Retiring my ageing WatchGuard M200, I swap in the UniFi UDM Beast — a hardware tour, first iperf and WAN tests, the BGP/FRR setup, and the homelab services I’m consolidating onto it.
 
@@ -112,26 +112,26 @@ Retiring my ageing WatchGuard M200, I swap in the UniFi UDM Beast — a hardware
 
 ### [Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense](https://jameskilby.co.uk/2022/01/lab-update-part-3-network/)
 
-By[James](https://jameskilby.co.uk) January 6, 2022 · Updated May 31, 2026
+By[James](https://jameskilby.co.uk)January 6, 2022 · Updated May 31, 2026
 
 I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes.
 
-  * [ ![vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg) ](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
+  * [![vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
 
 ### [vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
 
-By[James](https://jameskilby.co.uk) December 6, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)December 6, 2025 · Updated June 1, 2026
 
 How to safely shut down a vSAN Environment
 
-  * [ ![An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png) ](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
+  * [![An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png)](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
 ### [An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
 
-By[James](https://jameskilby.co.uk) August 14, 2025 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk)August 14, 2025 · Updated July 11, 2026
 
 This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison.

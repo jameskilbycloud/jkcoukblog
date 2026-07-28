@@ -42,11 +42,11 @@ image: https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured.png
 
 # My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)
 
-By[James](https://jameskilby.co.uk) April 4, 2026 · Updated July 11, 2026 • 📖11 min read(2,137 words)
+By[James](https://jameskilby.co.uk)April 4, 2026 · Updated July 11, 2026 • 📖11 min read(2,137 words)
 
 📅**Published:** April 04, 2026•**Updated:** July 11, 2026
 
-_This is Part 2 of a multi-part series on my self-hosted AI stack.[Part 1](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/) covers the application architecture and a layer-by-layer walkthrough of every service. If you haven’t read it yet, I’d recommend starting there — it gives the context that makes Part 2 make sense._
+ _This is Part 2 of a multi-part series on my self-hosted AI stack.[Part 1](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/) covers the application architecture and a layer-by-layer walkthrough of every service. If you haven’t read it yet, I’d recommend starting there — it gives the context that makes Part 2 make sense._
 
 Part 2 goes deeper into the infrastructure side of things: how traffic is designed to route, how containers are sized and constrained, what databases and data stores are running under the hood.
 
@@ -229,62 +229,62 @@ If the Git credentials are not set, it will back up to the SMB repo like the oth
 
 ## Similar Posts
 
-  * [ ![VMware – Going out with a Bang!](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo-768x384.png) ](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
+  * [![VMware – Going out with a Bang!](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo-768x384.png)](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
 ### [VMware – Going out with a Bang!](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
 
-By[James](https://jameskilby.co.uk) October 7, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)October 7, 2023 · Updated June 1, 2026
 
 There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom.
 
-  * [ ![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png) ](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
+  * [![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png)](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)
 
 ### [Automating vSphere Power Management driven by Ansible and SemaphoreUI](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
-By[James](https://jameskilby.co.uk) April 15, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)April 15, 2026 · Updated June 1, 2026
 
 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introduction One of the larger costs of running my homelab is the electricity….
 
-  * [ ![VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png) ](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
+  * [![VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png)](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VCF](https://jameskilby.co.uk/category/vmware/vcf/)
 
 ### [VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
 
-By[James](https://jameskilby.co.uk) January 17, 2024 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)January 17, 2024 · Updated June 1, 2026
 
 How to Deploy VMware Holodeck on multiple hosts
 
-  * [ ![Forcing an Upgrade to vSphere 8](https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.45.23.png) ](https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/)
+  * [![Forcing an Upgrade to vSphere 8](https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.45.23.png)](https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
 
 ### [Forcing an Upgrade to vSphere 8](https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/)
 
-By[James](https://jameskilby.co.uk) December 14, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)December 14, 2022 · Updated June 1, 2026
 
 I run a reasonably extensive homelab that is of course built around the VMware ecosystem.
 
-  * [ ![Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested](https://jameskilby.co.uk/wp-content/uploads/2026/03/Octopus-Energy-logo.jpg) ](https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/)
+  * [![Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested](https://jameskilby.co.uk/wp-content/uploads/2026/03/Octopus-Energy-logo.jpg)](https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/)
 
 ### [Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested](https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/)
 
-By[James](https://jameskilby.co.uk) March 9, 2026 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk)March 9, 2026 · Updated July 11, 2026
 
 I am quite a heavy consumer of electricity at home. This is primarily driven by my lab but having a young son and two golden retrievers means more washing and drying.
 
-  * [ ![Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png) ](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
+  * [![Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png)](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
 
 ### [Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
-By[James](https://jameskilby.co.uk) November 10, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)November 10, 2023 · Updated June 1, 2026
 
 Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal.

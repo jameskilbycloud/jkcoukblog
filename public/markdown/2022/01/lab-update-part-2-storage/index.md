@@ -1,6 +1,6 @@
 ---
 title: "Lab Update – Part 2 Storage Truenas Scale"
-description: "The HP Z840 has changed its role to a permanent storage box running Truenas Scale."
+description: "The HP Z840 has changed its role to a permanent storage box running Truenas Scale. This is in addition to my Synology DS918+…"
 date: 2022-01-11T22:35:02+00:00
 modified: 2026-06-01T21:58:40+00:00
 author: James Kilby
@@ -23,13 +23,13 @@ url: https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/
 image: https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault.jpeg
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault.jpeg)
+![Maxresdefault](https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault.jpeg)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)
 
 # Lab Update – Part 2 Storage Truenas Scale
 
-By[James](https://jameskilby.co.uk) January 11, 2022 · Updated June 1, 2026 • 📖2 min read(495 words)
+By[James](https://jameskilby.co.uk)January 11, 2022 · Updated June 1, 2026 • 📖2 min read(495 words)
 
 📅**Published:** January 11, 2022•**Updated:** June 01, 2026
 
@@ -77,62 +77,62 @@ Comparison with Synology 3x SSD Raid 5 ( 2x1Gb/s ) Networking. You can see this 
 
 ## Similar Posts
 
-  * [ ![Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png) ](https://jameskilby.co.uk/2023/04/intel-optane/)
+  * [![Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png)](https://jameskilby.co.uk/2023/04/intel-optane/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://jameskilby.co.uk/category/vexpert/)
 
 ### [Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/2023/04/intel-optane/)
 
-By[James](https://jameskilby.co.uk) April 17, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)April 17, 2023 · Updated June 1, 2026
 
 I have been a VMware vExpert for many years and it has brought me many benefits over the years.
 
-  * [ ![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-768x180.png) ](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
+  * [![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-768x180.png)](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
 ### [Warp – The intelligent terminal](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
 
-By[James](https://jameskilby.co.uk) April 11, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)April 11, 2025 · Updated June 1, 2026
 
 How Warp is helping me run my homelab. 
 
-  * [ ![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png) ](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
+  * [![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png)](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
 
-By[James](https://jameskilby.co.uk) December 19, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)December 19, 2022 · Updated June 1, 2026
 
 For a while, I’ve been looking to update the networking at the core of my homelab.
 
-  * [ ![New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg) ](https://jameskilby.co.uk/2024/07/new-nodes/)
+  * [![New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg)](https://jameskilby.co.uk/2024/07/new-nodes/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/2024/07/new-nodes/)
 
-By[James](https://jameskilby.co.uk) July 2, 2024 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk)July 2, 2024 · Updated July 11, 2026
 
 I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul .
 
-  * [ ![Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU](https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-768x512.jpg) ](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/)
+  * [![Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU](https://jameskilby.co.uk/wp-content/uploads/2024/10/pexels-tara-winstead-8386440-768x512.jpg)](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
 ### [Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU](https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/)
 
-By[James](https://jameskilby.co.uk) October 11, 2024 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk)October 11, 2024 · Updated July 11, 2026
 
 Artificial intelligence is all the rage at the moment, It’s getting included in every product announcement from pretty much every vendor under the sun.
 
-  * [ ![Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore-768x768.png) ](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
+  * [![Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore-768x768.png)](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
 ### [Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
 
-By[James](https://jameskilby.co.uk) September 2, 2025 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk)September 2, 2025 · Updated June 5, 2026
 
 An intro on how I use SemaphoreUI to manage my Homelab

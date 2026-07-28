@@ -3,171 +3,6 @@
   "slug": "vexpert",
   "posts": [
     {
-      "slug": "vmc-host-errors",
-      "title": "How VMware Cloud on AWS Handles Host Failures Automatically",
-      "description": "How VMware Cloud on AWS automatically detects and remediates a host failure — I watched it provision a replacement and evacuate the faulty host seamlessly.",
-      "date": "2020-09-15T10:56:32Z",
-      "modified": "2026-06-05T19:05:19Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2020/09/vmc-host-errors/",
-      "markdown_url": "/markdown/posts/vmc-host-errors.md",
-      "api_url": "/api/posts/vmc-host-errors.json",
-      "categories": [
-        "VMware",
-        "VMware Cloud on AWS",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "Storage",
-        "vExpert",
-        "Networking",
-        "vSphere",
-        "vSAN"
-      ],
-      "tags": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-1024x526.png",
-      "excerpt": "![VMware Cloud on AWS \\(VMC\\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# How VMware Cloud on AWS Handles Host Failures Autom..."
-    },
-    {
-      "slug": "warp-the-intelligent-terminal",
-      "title": "Warp – The intelligent terminal",
-      "description": "Warp is helping me run my homelab.",
-      "date": "2025-04-11T15:46:23Z",
-      "modified": "2026-06-01T21:07:06Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/",
-      "markdown_url": "/markdown/posts/warp-the-intelligent-terminal.md",
-      "api_url": "/api/posts/warp-the-intelligent-terminal.json",
-      "categories": [
-        "Artificial Intelligence",
-        "Homelab",
-        "Docker",
-        "Storage",
-        "vExpert",
-        "Automation",
-        "Github",
-        "Runecast",
-        "VMware",
-        "Synology",
-        "Hosting",
-        "Kubernetes"
-      ],
-      "tags": [
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-1024x240.png",
-      "excerpt": "![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21.png)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Warp – The intelligent terminal\n\nBy[James](h..."
-    },
-    {
-      "slug": "intel-optane",
-      "title": "Using Intel Optane NVMe in a VMware Homelab: Setup & Results",
-      "description": "I have been a VMware vExpert for many years and it has brought me many many benefits over the years.",
-      "date": "2023-04-17T12:20:04Z",
-      "modified": "2026-06-01T21:06:47Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2023/04/intel-optane/",
-      "markdown_url": "/markdown/posts/intel-optane.md",
-      "api_url": "/api/posts/intel-optane.json",
-      "categories": [
-        "Homelab",
-        "Storage",
-        "vExpert",
-        "Synology",
-        "VMware",
-        "VMware Cloud on AWS",
-        "Hosting",
-        "Automation",
-        "Runecast",
-        "Artificial Intelligence"
-      ],
-      "tags": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://jameskilby.co.uk/category/vexpert/)\n\n# Using Intel Opta..."
-    },
-    {
-      "slug": "home-network-upgrade",
-      "title": "Home Network Upgrade to 25Gb/s with MikroTik Switching",
-      "description": "My home network upgrade to 25Gb/s: MikroTik CRS504 switching, DACs, optics, and the gotchas I hit going beyond 10Gb at home.",
-      "date": "2024-09-09T08:25:08Z",
-      "modified": "2026-06-05T18:49:23Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2024/09/home-network-upgrade/",
-      "markdown_url": "/markdown/posts/home-network-upgrade.md",
-      "api_url": "/api/posts/home-network-upgrade.json",
-      "categories": [
-        "Mikrotik",
-        "Networking",
-        "Homelab",
-        "VMware",
-        "VCF",
-        "Storage",
-        "vExpert",
-        "Hosting",
-        "Artificial Intelligence",
-        "Docker",
-        "Automation",
-        "NVIDIA",
-        "Traefik"
-      ],
-      "tags": [
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg",
-      "excerpt": "![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg)\n\n[Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Home Network Upgrade to 25Gb/s with MikroTik Switching\n\nBy[James](https://jameskilby.co.uk) September ..."
-    },
-    {
-      "slug": "lab-update-part-2-storage",
-      "title": "Lab Update – Part 2 Storage Truenas Scale",
-      "description": "The HP Z840 has changed its role to a permanent storage box running Truenas Scale.",
-      "date": "2022-01-11T22:35:02Z",
-      "modified": "2026-06-01T21:58:40Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/",
-      "markdown_url": "/markdown/posts/lab-update-part-2-storage.md",
-      "api_url": "/api/posts/lab-update-part-2-storage.json",
-      "categories": [
-        "Homelab",
-        "Storage",
-        "vExpert",
-        "Artificial Intelligence",
-        "Networking",
-        "VMware",
-        "Nutanix",
-        "Docker",
-        "Ansible"
-      ],
-      "tags": [
-        null,
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault.jpeg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault.jpeg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)\n\n# Lab Update – Part 2 Storage Truenas Scale\n\nBy[James](https://jameskilby.co.uk) January 11, 2022 · Updated June..."
-    },
-    {
       "slug": "ubiquiti-udm-beast",
       "title": "Unleashing the Beast",
       "description": "I retired my 7-year-old WatchGuard M200 for the UniFi UDM Beast — the spec, my iperf and WAN tests, the BGP/FRR setup, and what I consolidated onto it.",
@@ -219,7 +54,201 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22-at-18.49.21.png",
-      "excerpt": "![TrueNAS Logo](https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22-at-18.49.21.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)\n\n# Homelab Storage Refresh (Part 1)\n\nBy[James](https://jameskilby.co.uk) May 23, 2..."
+      "excerpt": "![TrueNAS Logo](https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22-at-18.49.21.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)\n\n# Homelab Storage Refresh (Part 1)\n\nBy[James](https://jameskilby.co.uk)May 23, 20..."
+    },
+    {
+      "slug": "truenas-scale-useful-commands",
+      "title": "TrueNAS Scale CLI Reference: Storage & Kubernetes Commands",
+      "description": "General Storage Application General ZFS I have very much fallen down the rabbit hole with TrueNAS and although the GUI is very good occasionally I need to",
+      "date": "2023-11-13T14:34:17Z",
+      "modified": "2026-04-11T09:00:47Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2023/11/truenas-scale-useful-commands/",
+      "markdown_url": "/markdown/posts/truenas-scale-useful-commands.md",
+      "api_url": "/api/posts/truenas-scale-useful-commands.json",
+      "categories": [
+        "Kubernetes",
+        "TrueNAS Scale",
+        "Homelab",
+        "Storage",
+        "vExpert",
+        "Docker",
+        "Hosting",
+        "VMware",
+        "vSAN",
+        "vSphere"
+      ],
+      "tags": [
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22-at-18.49.21.png",
+      "excerpt": "![TrueNAS Logo](https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22-at-18.49.21.png)\n\n[Kubernetes](https://jameskilby.co.uk/category/kubernetes/) | [TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/)\n\n# TrueNAS Scale CLI Reference: Storage & Kubernetes Commands\n\nB..."
+    },
+    {
+      "slug": "home-network-upgrade",
+      "title": "Home Network Upgrade to 25Gb/s with MikroTik Switching",
+      "description": "My home network upgrade to 25Gb/s: MikroTik CRS504 switching, DACs, optics, and the gotchas I hit going beyond 10Gb at home.",
+      "date": "2024-09-09T08:25:08Z",
+      "modified": "2026-06-05T18:49:23Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2024/09/home-network-upgrade/",
+      "markdown_url": "/markdown/posts/home-network-upgrade.md",
+      "api_url": "/api/posts/home-network-upgrade.json",
+      "categories": [
+        "Mikrotik",
+        "Networking",
+        "Homelab",
+        "VMware",
+        "VCF",
+        "Storage",
+        "vExpert",
+        "Hosting",
+        "Artificial Intelligence",
+        "Docker",
+        "Automation",
+        "NVIDIA",
+        "Traefik"
+      ],
+      "tags": [
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg",
+      "excerpt": "![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg)\n\n[Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Home Network Upgrade to 25Gb/s with MikroTik Switching\n\nBy[James](https://jameskilby.co.uk)September 9..."
+    },
+    {
+      "slug": "intel-optane",
+      "title": "Using Intel Optane NVMe in a VMware Homelab: Setup & Results",
+      "description": "I have been a VMware vExpert for many years and it has brought me many benefits over the years.",
+      "date": "2023-04-17T12:20:04Z",
+      "modified": "2026-06-01T21:06:47Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2023/04/intel-optane/",
+      "markdown_url": "/markdown/posts/intel-optane.md",
+      "api_url": "/api/posts/intel-optane.json",
+      "categories": [
+        "Homelab",
+        "Storage",
+        "vExpert",
+        "Synology",
+        "VMware",
+        "VMware Cloud on AWS",
+        "Hosting",
+        "Automation",
+        "Runecast",
+        "Artificial Intelligence"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png",
+      "excerpt": "![Intel Optane Ssd 900P Series Aic Right Angle 575Px](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://james..."
+    },
+    {
+      "slug": "vmc-host-errors",
+      "title": "How VMware Cloud on AWS Handles Host Failures Automatically",
+      "description": "How VMware Cloud on AWS automatically detects and remediates a host failure — I watched it provision a replacement and evacuate the faulty host seamlessly.",
+      "date": "2020-09-15T10:56:32Z",
+      "modified": "2026-06-05T19:05:19Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2020/09/vmc-host-errors/",
+      "markdown_url": "/markdown/posts/vmc-host-errors.md",
+      "api_url": "/api/posts/vmc-host-errors.json",
+      "categories": [
+        "VMware",
+        "VMware Cloud on AWS",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "Storage",
+        "vExpert",
+        "Networking",
+        "vSphere",
+        "vSAN"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-1024x526.png",
+      "excerpt": "![VMware Cloud on AWS \\(VMC\\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# How VMware Cloud on AWS Handles Host Failures Autom..."
+    },
+    {
+      "slug": "warp-the-intelligent-terminal",
+      "title": "Warp – The intelligent terminal",
+      "description": "Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of Linux-based tools at home, I am mostly self-taught and",
+      "date": "2025-04-11T15:46:23Z",
+      "modified": "2026-06-01T21:07:06Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/",
+      "markdown_url": "/markdown/posts/warp-the-intelligent-terminal.md",
+      "api_url": "/api/posts/warp-the-intelligent-terminal.json",
+      "categories": [
+        "Artificial Intelligence",
+        "Homelab",
+        "Docker",
+        "Storage",
+        "vExpert",
+        "Automation",
+        "Github",
+        "Runecast",
+        "VMware",
+        "Synology",
+        "Hosting",
+        "Kubernetes"
+      ],
+      "tags": [
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-1024x240.png",
+      "excerpt": "![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21.png)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Warp – The intelligent terminal\n\nBy[James](h..."
+    },
+    {
+      "slug": "lab-update-part-2-storage",
+      "title": "Lab Update – Part 2 Storage Truenas Scale",
+      "description": "The HP Z840 has changed its role to a permanent storage box running Truenas Scale. This is in addition to my Synology DS918+…",
+      "date": "2022-01-11T22:35:02Z",
+      "modified": "2026-06-01T21:58:40Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/",
+      "markdown_url": "/markdown/posts/lab-update-part-2-storage.md",
+      "api_url": "/api/posts/lab-update-part-2-storage.json",
+      "categories": [
+        "Homelab",
+        "Storage",
+        "vExpert",
+        "Artificial Intelligence",
+        "Networking",
+        "VMware",
+        "Nutanix",
+        "Docker",
+        "Ansible"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault.jpeg",
+      "excerpt": "![Maxresdefault](https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault.jpeg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)\n\n# Lab Update – Part 2 Storage Truenas Scale\n\nBy[James](https://jameskilby.co.uk)January 11, 2022 · ..."
     },
     {
       "slug": "my-self-hosted-ai-stack-a-technical-deep-dive",
@@ -269,7 +298,7 @@
     {
       "slug": "100gb-s-in-my-homelab-sort-of",
       "title": "MikroTik CRS504 Review: 100Gb/s Networking in My Homelab",
-      "description": "For a while, I've been looking to update the networking at the core of my homelab.",
+      "description": "For a while, I’ve been looking to update the networking at the core of my homelab.",
       "date": "2022-12-19T10:09:58Z",
       "modified": "2026-06-01T19:02:42Z",
       "author": "James Kilby",
@@ -295,36 +324,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n..."
-    },
-    {
-      "slug": "truenas-scale-useful-commands",
-      "title": "TrueNAS Scale CLI Reference: Storage & Kubernetes Commands",
-      "description": "General Storage Application General ZFS I have very much fallen down the rabbit hole with TrueNAS and although the GUI is very good occasionally I need to",
-      "date": "2023-11-13T14:34:17Z",
-      "modified": "2026-04-11T09:00:47Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2023/11/truenas-scale-useful-commands/",
-      "markdown_url": "/markdown/posts/truenas-scale-useful-commands.md",
-      "api_url": "/api/posts/truenas-scale-useful-commands.json",
-      "categories": [
-        "Kubernetes",
-        "TrueNAS Scale",
-        "Homelab",
-        "Storage",
-        "vExpert",
-        "Docker",
-        "Hosting",
-        "VMware",
-        "vSAN",
-        "vSphere"
-      ],
-      "tags": [
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22-at-18.49.21.png",
-      "excerpt": "![TrueNAS Logo](https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22-at-18.49.21.png)\n\n[Kubernetes](https://jameskilby.co.uk/category/kubernetes/) | [TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/)\n\n# TrueNAS Scale CLI Reference: Storage & Kubernetes Commands\n\nB..."
+      "excerpt": "![2157 Hi Res](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/categor..."
     }
   ]
 }

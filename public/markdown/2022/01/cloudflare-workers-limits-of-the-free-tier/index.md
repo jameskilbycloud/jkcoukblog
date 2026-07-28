@@ -21,13 +21,13 @@ url: https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier
 image: https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg)
+![Iu](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg)
 
 [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
 
 # Cloudflare Workers – Limits of the free tier
 
-By[James](https://jameskilby.co.uk) January 4, 2022 · Updated July 11, 2026 • 📖1 min read(280 words)
+By[James](https://jameskilby.co.uk)January 4, 2022 · Updated July 11, 2026 • 📖1 min read(280 words)
 
 📅**Published:** January 04, 2022•**Updated:** July 11, 2026
 
@@ -73,62 +73,62 @@ Detailed info on the limits is published [here ](https://developers.cloudflare.c
 
 ## Similar Posts
 
-  * [ ![Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png) ](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
+  * [![Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png)](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
 
 [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernetes/)
 
 ### [Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
 
-By[James](https://jameskilby.co.uk) December 9, 2022 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk)December 9, 2022 · Updated June 5, 2026
 
 Late to the party or not, I have been using containers in my lab more and more and that has led me to Portainer ….
 
-  * [ ![Blog Performance & SEO Improvements: Cloudflare, Privacy & More](https://jameskilby.co.uk/wp-content/uploads/2026/01/Website-Optimisations-768x560.png) ](https://jameskilby.co.uk/2026/01/web-development-improvements/)
+  * [![Blog Performance & SEO Improvements: Cloudflare, Privacy & More](https://jameskilby.co.uk/wp-content/uploads/2026/01/Website-Optimisations-768x560.png)](https://jameskilby.co.uk/2026/01/web-development-improvements/)
 
 [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
 
 ### [Blog Performance & SEO Improvements: Cloudflare, Privacy & More](https://jameskilby.co.uk/2026/01/web-development-improvements/)
 
-By[James](https://jameskilby.co.uk) January 15, 2026 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk)January 15, 2026 · Updated July 11, 2026
 
 I have spent the Christmas break making some improvements to this blog.
 
-  * [ ![Fixing Wrangler Node.js Version Conflicts After Brew Upgrade](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1-768x256.png) ](https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/)
+  * [![Fixing Wrangler Node.js Version Conflicts After Brew Upgrade](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1-768x256.png)](https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/)
 
 [Cloudflare](https://jameskilby.co.uk/category/cloudflare/)
 
 ### [Fixing Wrangler Node.js Version Conflicts After Brew Upgrade](https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/)
 
-By[James](https://jameskilby.co.uk) January 15, 2022 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk)January 15, 2022 · Updated July 11, 2026
 
 I am a massive fan of the brew package management system for macOS and use it on all of my Macs. I typically just upgrade everything blindly and have never had an issue.
 
-  * [ ![Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920-768x432.jpg) ](https://jameskilby.co.uk/2022/10/starlink/)
+  * [![Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920-768x432.jpg)](https://jameskilby.co.uk/2022/10/starlink/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
 
 ### [Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/2022/10/starlink/)
 
-By[James](https://jameskilby.co.uk) October 11, 2022 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)October 11, 2022 · Updated June 1, 2026
 
 Since moving to Dorset last year internet connectivity has been the bane of my existence. Currently, I have an ADSL connection provided by my old employer Zen and a 5G connection provided by Three.
 
-  * [ ![Static WordPress hosting using Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu-768x450.jpeg) ](https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/)
+  * [![Static WordPress hosting using Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu-768x450.jpeg)](https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/)
 
 [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
 
 ### [Static WordPress hosting using Cloudflare](https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/)
 
-By[James](https://jameskilby.co.uk) October 20, 2022 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk)October 20, 2022 · Updated July 11, 2026
 
 For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product.
 
-  * [ ![How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp) ](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
+  * [![How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
 
 [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
 
 ### [How I upgraded my blog as a Static Website with GitHub Actions and Cloudflare](https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/)
 
-By[James](https://jameskilby.co.uk) October 6, 2025 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk)October 6, 2025 · Updated July 11, 2026
 
 I wanted to automate the publishing of my blog from the authoring side to the public side. These are some of the improvements I made.

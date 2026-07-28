@@ -20,13 +20,13 @@ url: https://jameskilby.co.uk/2022/01/web-development/
 image: https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png
 ---
 
-![](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png)
+![Iu 2](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png)
 
 [Hosting](https://jameskilby.co.uk/category/hosting/) | [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Personal](https://jameskilby.co.uk/category/personal/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
 
 # Hosting This Blog on Cloudflare Workers: Why & How I Did It
 
-By[James](https://jameskilby.co.uk) January 4, 2022 · Updated July 11, 2026 • 📖1 min read(211 words)
+By[James](https://jameskilby.co.uk)January 4, 2022 · Updated July 11, 2026 • 📖1 min read(211 words)
 
 📅**Published:** January 04, 2022•**Updated:** July 11, 2026
 
@@ -57,62 +57,62 @@ I wrote a post on the initial setup of Cloudflare Workers. Check it out if you a
 
 ## Similar Posts
 
-  * [ ![My Home Office Setup & Upgrades](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1-768x576.jpeg) ](https://jameskilby.co.uk/2021/01/my-home-office-setup-upgrades/)
+  * [![My Home Office Setup & Upgrades](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1-768x576.jpeg)](https://jameskilby.co.uk/2021/01/my-home-office-setup-upgrades/)
 
 [Personal](https://jameskilby.co.uk/category/personal/) | [Consulting](https://jameskilby.co.uk/category/consulting/)
 
 ### [My Home Office Setup & Upgrades](https://jameskilby.co.uk/2021/01/my-home-office-setup-upgrades/)
 
-By[James](https://jameskilby.co.uk) January 5, 2021 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)January 5, 2021 · Updated June 1, 2026
 
 Given the year that was 2020 and at the time of writing a distinct improvement appears a long way off I decided it was time to up my homeworking game.
 
-  * [ ![What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2-768x229.png) ](https://jameskilby.co.uk/2018/03/cloudflare/)
+  * [![What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2-768x229.png)](https://jameskilby.co.uk/2018/03/cloudflare/)
 
 [Hosting](https://jameskilby.co.uk/category/hosting/)
 
 ### [What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained](https://jameskilby.co.uk/2018/03/cloudflare/)
 
-By[James](https://jameskilby.co.uk) March 27, 2018 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)March 27, 2018 · Updated June 1, 2026
 
 Cloudflare – What is it and why would I care? I have been using Cloudflare for a long time.
 
-  * [ ![My First GitHub Pull Request: Contributing to Open Source](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg) ](https://jameskilby.co.uk/2020/12/my-first-pull/)
+  * [![My First GitHub Pull Request: Contributing to Open Source](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg)](https://jameskilby.co.uk/2020/12/my-first-pull/)
 
 [Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
 ### [My First GitHub Pull Request: Contributing to Open Source](https://jameskilby.co.uk/2020/12/my-first-pull/)
 
-By[James](https://jameskilby.co.uk) December 22, 2020 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk)December 22, 2020 · Updated June 5, 2026
 
 I was initially going to add in the contents of this post to one that I have been writing about my exploits with HashiCorp Packer but I decided it probably warranted being separated out.
 
-  * [ ![Analytics in a privacy focused world](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png) ](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
+  * [![Analytics in a privacy focused world](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png)](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
 
 [Hosting](https://jameskilby.co.uk/category/hosting/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
 ### [Analytics in a privacy focused world](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
 
-By[James](https://jameskilby.co.uk) November 10, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk)November 10, 2023 · Updated June 1, 2026
 
 I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance.
 
-  * [ ![How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-768x411.png) ](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
+  * [![How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-768x411.png)](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
 
 ### [How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
 
-By[James](https://jameskilby.co.uk) January 29, 2025 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk)January 29, 2025 · Updated July 11, 2026
 
 Update: Hoarder has now been renamed to Karakeep due to a trademark issue I’ve been on a mission recently to regain control of my data.
 
-  * [ ![Cloudflare Workers – Limits of the free tier](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu-768x450.jpeg) ](https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/)
+  * [![Cloudflare Workers – Limits of the free tier](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu-768x450.jpeg)](https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/)
 
 [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
 
 ### [Cloudflare Workers – Limits of the free tier](https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/)
 
-By[James](https://jameskilby.co.uk) January 4, 2022 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk)January 4, 2022 · Updated July 11, 2026
 
 I have been making several changes (mainly cosmetic) to this site over the last day or so. On most changes I have been doing an export and then uploading the site to Cloudflare using Wrangler.
