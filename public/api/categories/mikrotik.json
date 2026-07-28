@@ -3,139 +3,6 @@
   "slug": "mikrotik",
   "posts": [
     {
-      "slug": "automating-the-deployment-of-my-ai-homelab-and-other-improvements",
-      "title": "Automating the Deployment of my Homelab AI Infrastructure",
-      "description": "How I automated my homelab AI infrastructure with Ansible — NVIDIA vGPU passthrough, Docker, Traefik, and Semaphore for end-to-end deployment.",
-      "date": "2026-02-09T11:54:54Z",
-      "modified": "2026-07-11T13:21:25Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/",
-      "markdown_url": "/markdown/posts/automating-the-deployment-of-my-ai-homelab-and-other-improvements.md",
-      "api_url": "/api/posts/automating-the-deployment-of-my-ai-homelab-and-other-improvements.json",
-      "categories": [
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "Nutanix",
-        "Mikrotik",
-        "Networking",
-        "Automation",
-        "VMware Cloud on AWS",
-        "vSAN",
-        "Docker",
-        "Hosting"
-      ],
-      "tags": [
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png",
-      "excerpt": "![Vmware Nvidia Logos Ee2F18Dc 615D 4C9E 8F11 9C3C2Ce2Bf37 Prv](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/a..."
-    },
-    {
-      "slug": "lab-storage-2",
-      "title": "Homelab Storage Upgrade: Synology DS918 for VMware & NFS",
-      "description": "My homelab storage upgrade — adding a Synology DS918+ with SSDs, presenting it to VMware over NFS 4.1, and testing VAAI and NFS multipathing.",
-      "date": "2019-02-10T23:59:20Z",
-      "modified": "2026-06-05T19:12:06Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2019/02/lab-storage-2/",
-      "markdown_url": "/markdown/posts/lab-storage-2.md",
-      "api_url": "/api/posts/lab-storage-2.json",
-      "categories": [
-        "Homelab",
-        "Storage",
-        "Synology",
-        "Mikrotik",
-        "Networking",
-        "Automation",
-        "VMware",
-        "TrueNAS Scale",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik"
-      ],
-      "tags": [
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/04/81-ZoEW24UL._SL1500_.jpg",
-      "excerpt": "![81 Zoew24Ul. Sl1500 ](https://jameskilby.co.uk/wp-content/uploads/2023/04/81-ZoEW24UL._SL1500_.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Homelab Storage Upgrade: Synology DS918 for VMware & NFS\n\nBy[James](https://jameskilby.co.uk)February 10, 2019 · Updated June 5, 2026 • 📖1 m..."
-    },
-    {
-      "slug": "zfs-on-vmware",
-      "title": "How to Run ZFS on VMware vSphere: Setup Guide and Best Practices",
-      "description": "Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the",
-      "date": "2024-12-18T17:47:57Z",
-      "modified": "2026-06-01T21:07:03Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2024/12/zfs-on-vmware/",
-      "markdown_url": "/markdown/posts/zfs-on-vmware.md",
-      "api_url": "/api/posts/zfs-on-vmware.json",
-      "categories": [
-        "TrueNAS Scale",
-        "VMware",
-        "vSAN",
-        "vSphere",
-        "VMware Cloud on AWS",
-        "Mikrotik",
-        "Networking",
-        "Homelab",
-        "Veeam",
-        "Storage",
-        "Synology",
-        "Artificial Intelligence"
-      ],
-      "tags": [
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/12/IMG_20140330_210511-1024x845.jpeg",
-      "excerpt": "![Zfs](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg)\n\n[TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/) | [vSphere](https://jameskilby.co.uk/category/v..."
-    },
-    {
-      "slug": "vgpu-setup-in-my-homelab",
-      "title": "Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide",
-      "description": "Step-by-step setup of Nvidia Tesla P4 vGPU on VMware ESXi for a homelab. Drivers, licence server, vGPU profiles, plus gotchas and performance notes.",
-      "date": "2023-10-23T14:56:58Z",
-      "modified": "2026-07-11T07:46:50Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/",
-      "markdown_url": "/markdown/posts/vgpu-setup-in-my-homelab.md",
-      "api_url": "/api/posts/vgpu-setup-in-my-homelab.json",
-      "categories": [
-        "Homelab",
-        "VMware",
-        "Veeam",
-        "Storage",
-        "Mikrotik",
-        "Networking",
-        "VMware Cloud on AWS"
-      ],
-      "tags": [
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg",
-      "excerpt": "![Img 1107 768X403 1](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide\n\nBy[James](https://jameskilby.co...."
-    },
-    {
       "slug": "configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router",
       "title": "Configuring a Zen Internet and City Fibre connection with a 3rd party router",
       "description": "Back in July I bought a new house and one of the best things about the property was that it was already in a City Fibre location.",
@@ -147,8 +14,8 @@
       "api_url": "/api/posts/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router.json",
       "categories": [
         "Networking",
-        "Mikrotik",
         "Homelab",
+        "Mikrotik",
         "Storage",
         "VMware"
       ],
@@ -159,7 +26,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/cityfibre-zen-1024x538.jpg",
-      "excerpt": "![Cityfibre Zen](https://jameskilby.co.uk/wp-content/uploads/2023/11/cityfibre-zen.jpg)\n\n[Networking](https://jameskilby.co.uk/category/networking/)\n\n# Configuring a Zen Internet and City Fibre connection with a 3rd party router\n\nBy[James](https://jameskilby.co.uk)November 15, 2023 · Updated June 1,..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/cityfibre-zen.jpg)\n\n[Networking](https://jameskilby.co.uk/category/networking/)\n\n# Configuring a Zen Internet and City Fibre connection with a 3rd party router\n\nBy[James](https://jameskilby.co.uk) November 15, 2023 · Updated June 1, 2026 • 📖2 m..."
     },
     {
       "slug": "home-network-upgrade",
@@ -174,17 +41,17 @@
       "categories": [
         "Mikrotik",
         "Networking",
-        "Homelab",
-        "VMware",
-        "VCF",
-        "Storage",
-        "vExpert",
-        "Hosting",
         "Artificial Intelligence",
         "Docker",
+        "Hosting",
+        "Homelab",
+        "Veeam",
+        "VMware",
+        "Ansible",
         "Automation",
-        "NVIDIA",
-        "Traefik"
+        "Traefik",
+        "VCF",
+        "NVIDIA"
       ],
       "tags": [
         null,
@@ -192,38 +59,28 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg",
-      "excerpt": "![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg)\n\n[Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Home Network Upgrade to 25Gb/s with MikroTik Switching\n\nBy[James](https://jameskilby.co.uk)September 9..."
+      "excerpt": "![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg)\n\n[Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Home Network Upgrade to 25Gb/s with MikroTik Switching\n\nBy[James](https://jameskilby.co.uk) September ..."
     },
     {
-      "slug": "vsphere-power-management-driven-by-ansible",
-      "title": "Automating vSphere Power Management driven by Ansible and SemaphoreUI",
-      "description": "Learn how to automate vSphere power management using Ansible and SemaphoreUI, scheduling ESXi host shutdowns based on Octopus Agile energy tariffs to cut costs.",
-      "date": "2026-04-15T21:36:41Z",
-      "modified": "2026-06-01T21:07:22Z",
+      "slug": "holodeck-cpu-fixes",
+      "title": "VMware Holodeck on Older CPUs: Fixing Compatibility Issues",
+      "description": "Disclaimer: This is not a supported configuration by the Holodeck team please don't reach out to them for help.",
+      "date": "2024-01-18T14:37:04Z",
+      "modified": "2026-06-01T19:02:57Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/",
-      "markdown_url": "/markdown/posts/vsphere-power-management-driven-by-ansible.md",
-      "api_url": "/api/posts/vsphere-power-management-driven-by-ansible.json",
+      "url": "https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/",
+      "markdown_url": "/markdown/posts/holodeck-cpu-fixes.md",
+      "api_url": "/api/posts/holodeck-cpu-fixes.json",
       "categories": [
-        "Ansible",
-        "Automation",
-        "Runecast",
+        "VCF",
         "VMware",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Personal",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
         "Mikrotik",
-        "Networking"
+        "Networking",
+        "VMware Cloud on AWS",
+        "Ansible",
+        "Homelab",
+        "Hosting",
+        "Personal"
       ],
       "tags": [
         null,
@@ -231,8 +88,8 @@
         null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible.png",
-      "excerpt": "![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)\n\n# Automating vSphere Power Mana..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743.jpg",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743.jpg)\n\n[VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# VMware Holodeck on Older CPUs: Fixing Compatibility Issues\n\nBy[James](https://jameskilby.co.uk) Janu..."
     }
   ]
 }

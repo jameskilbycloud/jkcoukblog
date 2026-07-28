@@ -5,7 +5,7 @@
     <link>https://jameskilby.co.uk/</link>
     <description>VMware and cloud infrastructure tutorials, homelab guides, and DevOps insights</description>
     <language>en-gb</language>
-    <lastBuildDate>Tue, 28 Jul 2026 07:24:28 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2026 16:01:08 +0000</lastBuildDate>
     <atom:link href="https://jameskilby.co.uk/feed/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Unleashing the Beast</title>
@@ -50,7 +50,7 @@
     <item>
       <title>New VMware Cloud on AWS Host: i7i.metal-24xl</title>
       <link>https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/</link>
-      <description>We’ve expanded the VMC fleet with the new i7i (i7i.24xlarge) host type. Powered by Intel Emerald Rapids processors with PCIe Gen5 connectivity, it</description>
+      <description>We’ve expanded the VMC fleet with the new i7i (i7i.</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/</guid>
       <pubDate>Wed, 01 Apr 2026 08:06:00 +0000</pubDate>
@@ -66,7 +66,7 @@
     <item>
       <title>Free Octopus Agile Battery &amp; Solar Calculator: 5 Batteries Tested</title>
       <link>https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/</link>
-      <description>I am quite a heavy consumer of electricity at home. This is primarily driven by my lab but having a young son and two golden retrievers means more washing</description>
+      <description>I am quite a heavy consumer of electricity at home.</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/</guid>
       <pubDate>Mon, 09 Mar 2026 23:39:37 +0000</pubDate>
@@ -90,7 +90,7 @@
     <item>
       <title>Blog Performance &amp; SEO Improvements: Cloudflare, Privacy &amp; More</title>
       <link>https://jameskilby.co.uk/2026/01/web-development-improvements/</link>
-      <description>I have spent the Christmas break making some improvements to this blog. A lot of these are in “the backend”.</description>
+      <description>I have spent the Christmas break making some improvements to this blog.</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2026/01/web-development-improvements/</guid>
       <pubDate>Thu, 15 Jan 2026 15:12:16 +0000</pubDate>
@@ -114,7 +114,7 @@
     <item>
       <title>vSAN Cluster Shutdown – Orchestration</title>
       <link>https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/</link>
-      <description>As can be seen on my Lab Overview page, I have a GPU/Management cluster that is usually running 24×7.</description>
+      <description>As can be seen on my Lab Overview page. I have a GPU/Management cluster that is usually running 24x7.</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/</guid>
       <pubDate>Sat, 06 Dec 2025 10:59:14 +0000</pubDate>
@@ -154,7 +154,7 @@
     <item>
       <title>Warp – The intelligent terminal</title>
       <link>https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/</link>
-      <description>Warp is helping me run my homelab. It has been a big help for me as although I utilise a lot of Linux-based tools at home, I am mostly self-taught and</description>
+      <description>Warp is helping me run my homelab.</description>
       <author>James</author>
       <guid isPermaLink="true">https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/</guid>
       <pubDate>Fri, 11 Apr 2025 15:46:23 +0000</pubDate>

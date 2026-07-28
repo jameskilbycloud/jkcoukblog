@@ -16,10 +16,15 @@
       "categories": [
         "Homelab",
         "Networking",
+        "Ansible",
+        "Automation",
+        "Hosting",
+        "Artificial Intelligence",
+        "Docker",
         "VMware",
-        "Storage",
-        "Synology",
-        "vExpert"
+        "vSphere",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,

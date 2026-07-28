@@ -16,14 +16,16 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "VMware",
         "Artificial Intelligence",
         "Automation",
         "Docker",
         "NVIDIA",
         "Traefik",
-        "Veeam",
-        "Storage"
+        "VMware",
+        "Github",
+        "Networking",
+        "Storage",
+        "vExpert"
       ],
       "tags": [
         null,
@@ -32,7 +34,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png",
-      "excerpt": "![Semaphore](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Managing my Homelab with SemaphoreUI\n\nBy[James](https://jameskilby.co.uk)September 2, 2025 · Updated June ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Managing my Homelab with SemaphoreUI\n\nBy[James](https://jameskilby.co.uk) September 2, 2025 · Updated June 5, 2026 ..."
     }
   ]
 }
