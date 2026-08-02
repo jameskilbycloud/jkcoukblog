@@ -42,16 +42,16 @@
         "Mikrotik",
         "Networking",
         "Artificial Intelligence",
-        "Docker",
-        "Hosting",
-        "Homelab",
-        "Veeam",
-        "VMware",
-        "Ansible",
         "Automation",
+        "Docker",
+        "Homelab",
+        "NVIDIA",
         "Traefik",
-        "VCF",
-        "NVIDIA"
+        "VMware",
+        "Github",
+        "Hosting",
+        "Nutanix",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -60,6 +60,37 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg",
       "excerpt": "![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg)\n\n[Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Home Network Upgrade to 25Gb/s with MikroTik Switching\n\nBy[James](https://jameskilby.co.uk) September ..."
+    },
+    {
+      "slug": "runecast-remediation-scripts",
+      "title": "Runecast Remediation Scripts: Auto-Fix VMware Storage Issues",
+      "description": "I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.",
+      "date": "2023-05-16T10:38:45Z",
+      "modified": "2026-06-01T21:58:53Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/",
+      "markdown_url": "/markdown/posts/runecast-remediation-scripts.md",
+      "api_url": "/api/posts/runecast-remediation-scripts.json",
+      "categories": [
+        "Runecast",
+        "VMware",
+        "VMware Cloud on AWS",
+        "Homelab",
+        "AWS",
+        "Veeam",
+        "Mikrotik",
+        "Networking",
+        "Storage",
+        "VCF"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)\n\n[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Runecast Remediation Scripts: Auto-Fix VMware Storage Issues\n\nBy[James](https://jameskilby.co.uk) May ..."
     },
     {
       "slug": "holodeck-cpu-fixes",
@@ -74,13 +105,19 @@
       "categories": [
         "VCF",
         "VMware",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "Personal",
+        "vSphere",
+        "Storage",
+        "TrueNAS Scale",
         "Mikrotik",
         "Networking",
-        "VMware Cloud on AWS",
-        "Ansible",
-        "Homelab",
-        "Hosting",
-        "Personal"
+        "Nutanix"
       ],
       "tags": [
         null,

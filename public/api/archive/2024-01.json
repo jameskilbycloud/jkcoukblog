@@ -16,13 +16,19 @@
       "categories": [
         "VCF",
         "VMware",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "Personal",
+        "vSphere",
+        "Storage",
+        "TrueNAS Scale",
         "Mikrotik",
         "Networking",
-        "VMware Cloud on AWS",
-        "Ansible",
-        "Homelab",
-        "Hosting",
-        "Personal"
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -46,18 +52,18 @@
       "categories": [
         "VMware",
         "VCF",
-        "VMware Cloud on AWS",
         "Homelab",
-        "Networking",
-        "Storage",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
+        "Nutanix",
+        "Personal",
+        "Ansible",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
+        "Containers",
+        "Devops",
         "NVIDIA",
-        "Traefik"
+        "Traefik",
+        "Automation",
+        "Networking",
+        "Storage"
       ],
       "tags": [
         null,

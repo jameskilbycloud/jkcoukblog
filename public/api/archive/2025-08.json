@@ -16,18 +16,16 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Artificial Intelligence",
         "Automation",
-        "Docker",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
         "Ansible",
-        "VCF",
+        "Artificial Intelligence",
         "Containers",
         "Devops",
-        "TrueNAS Scale",
+        "NVIDIA",
+        "Traefik",
         "vSAN",
+        "Personal",
         "vSphere"
       ],
       "tags": [

@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://jameskilby.co.uk/</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-08-02</lastmod>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline-768x452.png</image:loc>
@@ -927,7 +927,7 @@
   <url>
     <loc>https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/</loc>
     <lastmod>2026-03-12</lastmod>
-    <priority>0.9</priority>
+    <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/ContentLibraryFlow-1024x358.png</image:loc>
       <image:title>Content Library Flow</image:title>
@@ -972,7 +972,7 @@
   <url>
     <loc>https://jameskilby.co.uk/2026/01/web-development-improvements/</loc>
     <lastmod>2026-04-16</lastmod>
-    <priority>0.9</priority>
+    <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/10/Wordpress-Authoring-2-1024x677.png</image:loc>
       <image:title>Wordpress Authoring</image:title>

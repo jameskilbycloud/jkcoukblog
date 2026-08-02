@@ -17,15 +17,14 @@
         "Ansible",
         "Homelab",
         "Artificial Intelligence",
-        "Automation",
         "Docker",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "Github",
-        "Networking",
         "Storage",
-        "vExpert"
+        "vExpert",
+        "TrueNAS Scale",
+        "Nutanix",
+        "Hosting",
+        "Kubernetes",
+        "Networking"
       ],
       "tags": [
         null,

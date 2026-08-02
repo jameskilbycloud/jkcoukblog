@@ -16,10 +16,12 @@
       "categories": [
         "Personal",
         "Consulting",
-        "Devops",
         "Nutanix",
+        "Devops",
         "VMware",
-        "vSphere",
+        "Hosting",
+        "Cloudflare",
+        "Wordpress",
         "AWS"
       ],
       "tags": [
@@ -46,8 +48,15 @@
         "VMware",
         "Storage",
         "Synology",
-        "VMware Cloud on AWS",
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "Runecast",
+        "Ansible",
+        "Personal",
+        "vSphere",
+        "Devops"
       ],
       "tags": [
         null,

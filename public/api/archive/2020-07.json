@@ -16,12 +16,9 @@
       "categories": [
         "Nutanix",
         "Personal",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
+        "VMware",
         "AWS",
-        "Consulting",
-        "VMware"
+        "Consulting"
       ],
       "tags": [
         null,
@@ -43,15 +40,15 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "vSAN",
-        "Ansible",
-        "Automation",
-        "Docker",
+        "Personal",
+        "vSphere",
         "Homelab",
+        "Automation",
+        "Nutanix",
+        "Ansible",
+        "Docker",
         "Traefik",
-        "VCF",
-        "AWS",
-        "Veeam"
+        "VCF"
       ],
       "tags": [
         null,
