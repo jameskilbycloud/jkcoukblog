@@ -15,20 +15,15 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "VCF",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Storage",
         "Hosting",
-        "Synology"
+        "Automation",
+        "Github",
+        "Storage",
+        "TrueNAS Scale",
+        "Nutanix",
+        "VMware",
+        "Artificial Intelligence",
+        "Veeam"
       ],
       "tags": [
         null,

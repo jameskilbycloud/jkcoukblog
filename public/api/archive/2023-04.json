@@ -17,11 +17,18 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Automation",
-        "Github",
         "VMware",
+        "Personal",
+        "vSphere",
         "VMware Cloud on AWS",
-        "Ansible"
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "Kubernetes",
+        "TrueNAS Scale",
+        "VCF"
       ],
       "tags": [
         null,

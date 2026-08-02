@@ -33,10 +33,12 @@
       "categories": [
         "Personal",
         "VMware",
-        "Devops",
+        "Hosting",
+        "Cloudflare",
+        "Wordpress",
         "Nutanix",
-        "Consulting",
-        "Hosting"
+        "vSphere",
+        "Devops"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018 · Updated July 11, 2026 • 📖1 min read(263 words)\n\n📅**Published:** October..."
@@ -54,16 +56,17 @@
       "categories": [
         "Hosting",
         "Personal",
-        "Docker",
-        "Homelab",
-        "Kubernetes",
-        "Devops",
-        "AWS",
-        "Artificial Intelligence",
         "Cloudflare",
         "Wordpress",
-        "VMware",
-        "vSphere"
+        "AWS",
+        "Nutanix",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Homelab",
+        "Traefik",
+        "VCF",
+        "VMware"
       ],
       "tags": [
         null,
@@ -92,12 +95,11 @@
         "Personal",
         "vSphere",
         "VCF",
-        "Hosting",
-        "Ansible",
-        "Automation",
-        "Docker",
+        "Consulting",
         "Homelab",
-        "Traefik"
+        "Nutanix",
+        "VMware Cloud on AWS",
+        "Automation"
       ],
       "tags": [
         null,
@@ -122,14 +124,15 @@
         "Networking",
         "Storage",
         "VMware",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
         "VMware Cloud on AWS",
+        "TrueNAS Scale",
         "vSAN",
-        "vSphere"
+        "vSphere",
+        "Docker",
+        "Hosting",
+        "Kubernetes"
       ],
       "tags": [
         null,

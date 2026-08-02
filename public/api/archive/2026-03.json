@@ -17,15 +17,15 @@
         "Artificial Intelligence",
         "Automation",
         "Docker",
-        "Hosting",
         "Homelab",
-        "VMware",
+        "Hosting",
+        "Github",
         "Ansible",
         "Containers",
         "Devops",
         "NVIDIA",
         "Traefik",
-        "VCF"
+        "VMware"
       ],
       "tags": [
         null,
@@ -53,12 +53,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Nutanix",
-        "Networking",
+        "Ansible",
+        "VCF",
         "Storage",
-        "VMware Cloud on AWS",
-        "Hosting",
-        "Kubernetes"
+        "vExpert"
       ],
       "tags": [
         null,

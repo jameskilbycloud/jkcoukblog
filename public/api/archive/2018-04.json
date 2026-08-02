@@ -15,8 +15,8 @@
       "api_url": "/api/posts/nutanix-life-cycle-manager.json",
       "categories": [
         "Nutanix",
-        "Homelab",
         "Personal",
+        "Homelab",
         "VMware"
       ],
       "tags": [

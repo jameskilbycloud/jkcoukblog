@@ -15,12 +15,12 @@
         "TrueNAS Scale",
         "Homelab",
         "Storage",
-        "VMware",
-        "vSAN",
-        "vSphere",
         "vExpert",
         "Docker",
-        "Hosting"
+        "Hosting",
+        "VMware",
+        "vSAN",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -64,15 +64,12 @@
       "categories": [
         "Homelab",
         "Hosting",
-        "Automation",
-        "Github",
+        "Storage",
+        "TrueNAS Scale",
         "Nutanix",
-        "Veeam",
         "VMware",
-        "Artificial Intelligence",
-        "Docker",
-        "Ansible",
-        "Runecast"
+        "Networking",
+        "VCF"
       ],
       "tags": [
         null,
@@ -95,15 +92,12 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "Hosting",
-        "Storage",
-        "Synology",
-        "Ansible",
+        "Networking",
         "Automation",
-        "Traefik",
-        "VCF",
         "VMware",
-        "Kubernetes"
+        "Hosting",
+        "Nutanix",
+        "VCF"
       ],
       "tags": [
         null,
@@ -126,15 +120,14 @@
       "categories": [
         "Runecast",
         "VMware",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
         "VMware Cloud on AWS",
-        "vSAN",
-        "Ansible"
+        "Homelab",
+        "AWS",
+        "Veeam",
+        "Mikrotik",
+        "Networking",
+        "Storage",
+        "VCF"
       ],
       "tags": [
         null,
@@ -158,17 +151,14 @@
       "categories": [
         "Automation",
         "Github",
-        "Homelab",
-        "Networking",
-        "VMware",
-        "Storage",
-        "vExpert",
-        "Runecast",
-        "Nutanix",
         "Artificial Intelligence",
-        "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Homelab",
+        "Nutanix",
+        "VMware",
+        "Runecast",
+        "Hosting",
+        "Storage",
+        "Synology"
       ],
       "tags": [
         null,
@@ -196,15 +186,15 @@
         "Artificial Intelligence",
         "Automation",
         "Docker",
-        "Hosting",
         "Homelab",
-        "VMware",
+        "Hosting",
+        "Github",
         "Ansible",
         "Containers",
         "Devops",
         "NVIDIA",
         "Traefik",
-        "VCF"
+        "VMware"
       ],
       "tags": [
         null,
@@ -227,12 +217,9 @@
       "categories": [
         "Nutanix",
         "Personal",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
+        "VMware",
         "AWS",
-        "Consulting",
-        "VMware"
+        "Consulting"
       ],
       "tags": [
         null,
@@ -253,8 +240,8 @@
       "api_url": "/api/posts/nutanix-life-cycle-manager.json",
       "categories": [
         "Nutanix",
-        "Homelab",
         "Personal",
+        "Homelab",
         "VMware"
       ],
       "tags": [
@@ -275,8 +262,8 @@
       "api_url": "/api/posts/nutanix-command-reference-guide.json",
       "categories": [
         "Nutanix",
-        "Personal",
         "Homelab",
+        "Personal",
         "VMware"
       ],
       "tags": [

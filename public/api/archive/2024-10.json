@@ -17,15 +17,12 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "Hosting",
-        "Storage",
-        "Synology",
-        "Ansible",
+        "Networking",
         "Automation",
-        "Traefik",
-        "VCF",
         "VMware",
-        "Kubernetes"
+        "Hosting",
+        "Nutanix",
+        "VCF"
       ],
       "tags": [
         null,

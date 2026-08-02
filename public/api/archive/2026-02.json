@@ -22,13 +22,14 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "AWS",
-        "Veeam",
         "VMware Cloud on AWS",
-        "Storage",
-        "Synology",
+        "Docker",
+        "Hosting",
+        "Personal",
+        "Automation",
         "vSAN",
-        "Nutanix"
+        "TrueNAS Scale",
+        "vSphere"
       ],
       "tags": [
         null,

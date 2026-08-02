@@ -17,16 +17,13 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
+        "Wordpress",
         "Homelab",
         "VMware",
-        "Ansible",
-        "Automation",
-        "Kubernetes",
         "Cloudflare",
-        "Personal",
-        "Wordpress",
         "Networking",
-        "Storage"
+        "Storage",
+        "Synology"
       ],
       "tags": [
         null,
