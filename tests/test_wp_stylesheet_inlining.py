@@ -159,6 +159,60 @@ def test_empty_stylesheet_is_dropped_not_inlined(tmp_path):
     assert soup.find('link', href=f'/{PLUGIN}') is None
 
 
+SITE = 'https://jameskilby.co.uk'
+
+
+def test_absolute_same_site_href_resolves_to_disk(tmp_path):
+    """The 2026-08-08 production failure.
+
+    During a build the hrefs are absolute — convert_to_staging.py doesn't
+    rewrite them to relative until a much later step. lstrip('/') doesn't
+    strip a scheme, so the disk lookup became
+    `static-output/https:/jameskilby.co.uk/wp-content/...`, which never
+    exists. The pass skipped 1442 links, inlined nothing, raised nothing, and
+    reported every file as modified.
+    """
+    path = tmp_path / PLUGIN
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(_css('acme', 400), encoding='utf-8')
+
+    soup = BeautifulSoup(
+        '<html><head>'
+        f'<link as="style" href="{SITE}/{PLUGIN}" media="all" '
+        f'onload="this.onload=null;this.rel=\'stylesheet\'" rel="preload"/>'
+        f'<noscript><link rel="stylesheet" href="{SITE}/{PLUGIN}"/></noscript>'
+        '</head><body></body></html>',
+        'html.parser',
+    )
+    transformer = HTMLTransformer(tmp_path)
+
+    assert transformer._apply_inline_tiny_wp_stylesheets(soup) is True
+    assert '.acme' in soup.find('style').string
+    assert soup.find('link', href=f'{SITE}/{PLUGIN}') is None
+    assert transformer.wp_inline_stats['skip_not_on_disk'] == 0
+
+
+def test_mixed_absolute_and_relative_refs_all_dropped(tmp_path):
+    """Pipeline stages absolutify at different points, so the preload and its
+    noscript fallback can disagree. Dropping only the exact-match form would
+    leave the other still fetching."""
+    path = tmp_path / PLUGIN
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(_css('acme', 400), encoding='utf-8')
+
+    soup = BeautifulSoup(
+        '<html><head>'
+        f'<link as="style" href="{SITE}/{PLUGIN}" rel="preload"/>'
+        f'<noscript><link rel="stylesheet" href="/{PLUGIN}"/></noscript>'
+        '</head><body></body></html>',
+        'html.parser',
+    )
+
+    assert HTMLTransformer(tmp_path)._apply_inline_tiny_wp_stylesheets(soup) is True
+    assert soup.find('link') is None
+    assert soup.find('noscript') is None
+
+
 EXTRACTED = 'assets/css/kadence-global-inline-css-5290643c.min.css'
 
 
