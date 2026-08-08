@@ -25863,5 +25863,685 @@
     "avif_created": true,
     "webp": "wp-content/uploads/2024/03/vexpert-badge-stars-480x323.webp",
     "avif": "wp-content/uploads/2024/03/vexpert-badge-stars-480x323.avif"
+  },
+  "wp-content/uploads/og/tag-optane.png": {
+    "hash": "dd73d4fef0ea1ea020704a5a81738a0c",
+    "optimized_at": "2026-08-08T21:04:22.945781",
+    "optimized_size": 8368,
+    "timestamp": 1786223062.9458086,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-optane.webp",
+    "avif": "wp-content/uploads/og/tag-optane.avif"
+  },
+  "wp-content/uploads/og/tag-powercli.png": {
+    "hash": "2e9b0f21acba0c85cdfb3fd16fcd2eae",
+    "optimized_at": "2026-08-08T21:04:23.057828",
+    "optimized_size": 9096,
+    "timestamp": 1786223063.0578425,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-powercli.webp",
+    "avif": "wp-content/uploads/og/tag-powercli.avif"
+  },
+  "wp-content/uploads/og/tag-zen-internet.png": {
+    "hash": "1893275acc20ad5e95e704ef7f0916f4",
+    "optimized_at": "2026-08-08T21:04:23.274606",
+    "optimized_size": 8814,
+    "timestamp": 1786223063.2746205,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-zen-internet.webp",
+    "avif": "wp-content/uploads/og/tag-zen-internet.avif"
+  },
+  "wp-content/uploads/og/tag-wordpress.png": {
+    "hash": "fa91f4d695f0a1cfc72faf4543a1537f",
+    "optimized_at": "2026-08-08T21:04:23.324720",
+    "optimized_size": 10088,
+    "timestamp": 1786223063.324734,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-wordpress.webp",
+    "avif": "wp-content/uploads/og/tag-wordpress.avif"
+  },
+  "wp-content/uploads/og/tag-starlink.png": {
+    "hash": "9b63b15d1235625d0f6e6caccfbb7a18",
+    "optimized_at": "2026-08-08T21:04:25.337723",
+    "optimized_size": 9010,
+    "timestamp": 1786223065.3377361,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-starlink.webp",
+    "avif": "wp-content/uploads/og/tag-starlink.avif"
+  },
+  "wp-content/uploads/og/tag-traefik.png": {
+    "hash": "fa0a2dea3433060e9745c29c3ca94e46",
+    "optimized_at": "2026-08-08T21:04:25.358837",
+    "optimized_size": 8284,
+    "timestamp": 1786223065.358849,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-traefik.webp",
+    "avif": "wp-content/uploads/og/tag-traefik.avif"
+  },
+  "wp-content/uploads/og/tag-vmware-cloud-on-aws.png": {
+    "hash": "146bd56b1f1920cdb697f064796debf7",
+    "optimized_at": "2026-08-08T21:04:25.736733",
+    "optimized_size": 11824,
+    "timestamp": 1786223065.7367463,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-vmware-cloud-on-aws.webp",
+    "avif": "wp-content/uploads/og/tag-vmware-cloud-on-aws.avif"
+  },
+  "wp-content/uploads/og/tag-vlan911.png": {
+    "hash": "6cae11d49a366fc8a8ae6419743e5d07",
+    "optimized_at": "2026-08-08T21:04:25.810829",
+    "optimized_size": 8910,
+    "timestamp": 1786223065.8108432,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-vlan911.webp",
+    "avif": "wp-content/uploads/og/tag-vlan911.avif"
+  },
+  "wp-content/uploads/og/tag-zfs.png": {
+    "hash": "874da9eae45294ef83bd31678dae3434",
+    "optimized_at": "2026-08-08T21:04:26.907894",
+    "optimized_size": 7952,
+    "timestamp": 1786223066.9079077,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-zfs.webp",
+    "avif": "wp-content/uploads/og/tag-zfs.avif"
+  },
+  "wp-content/uploads/og/tag-rnli.png": {
+    "hash": "8c1cd58b3f0d5caefbff00dfa3ba8247",
+    "optimized_at": "2026-08-08T21:04:27.720618",
+    "optimized_size": 7672,
+    "timestamp": 1786223067.7206316,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-rnli.webp",
+    "avif": "wp-content/uploads/og/tag-rnli.avif"
+  },
+  "wp-content/uploads/og/tag-privacy.png": {
+    "hash": "a6aae8a8cb1512b3f1b98d2f5fcc566b",
+    "optimized_at": "2026-08-08T21:04:28.181842",
+    "optimized_size": 9128,
+    "timestamp": 1786223068.1818554,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-privacy.webp",
+    "avif": "wp-content/uploads/og/tag-privacy.avif"
+  },
+  "wp-content/uploads/og/tag-watchguard.png": {
+    "hash": "d218c54103e8643d8372aac8deb68d09",
+    "optimized_at": "2026-08-08T21:04:28.310704",
+    "optimized_size": 10074,
+    "timestamp": 1786223068.3107166,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-watchguard.webp",
+    "avif": "wp-content/uploads/og/tag-watchguard.avif"
+  },
+  "wp-content/uploads/og/tag-nginx.png": {
+    "hash": "a8b1f1a823c0f1384860fa1b3b5ac94f",
+    "optimized_at": "2026-08-08T21:04:29.218828",
+    "optimized_size": 8338,
+    "timestamp": 1786223069.218842,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-nginx.webp",
+    "avif": "wp-content/uploads/og/tag-nginx.avif"
+  },
+  "wp-content/uploads/og/tag-openwebui.png": {
+    "hash": "66b8611c1dbd9188f1502a105887790f",
+    "optimized_at": "2026-08-08T21:04:30.127717",
+    "optimized_size": 9264,
+    "timestamp": 1786223070.1277316,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-openwebui.webp",
+    "avif": "wp-content/uploads/og/tag-openwebui.avif"
+  },
+  "wp-content/uploads/og/tag-ollama.png": {
+    "hash": "6acca1cdd91b9082388c9415f1e57da9",
+    "optimized_at": "2026-08-08T21:04:30.318104",
+    "optimized_size": 8796,
+    "timestamp": 1786223070.3181186,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-ollama.webp",
+    "avif": "wp-content/uploads/og/tag-ollama.avif"
+  },
+  "wp-content/uploads/og/tag-nutanix.png": {
+    "hash": "78d00c318ca737b7d5f3170bb9cb058d",
+    "optimized_at": "2026-08-08T21:04:30.384766",
+    "optimized_size": 8652,
+    "timestamp": 1786223070.3847785,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-nutanix.webp",
+    "avif": "wp-content/uploads/og/tag-nutanix.avif"
+  },
+  "wp-content/uploads/og/tag-veeamon.png": {
+    "hash": "e7fd4a42c5fdf5309a028dbe1c8d68ee",
+    "optimized_at": "2026-08-08T21:04:31.657168",
+    "optimized_size": 9086,
+    "timestamp": 1786223071.6571822,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-veeamon.webp",
+    "avif": "wp-content/uploads/og/tag-veeamon.avif"
+  },
+  "wp-content/uploads/og/tag-node.png": {
+    "hash": "d1b924e616329abbd60174cea794a339",
+    "optimized_at": "2026-08-08T21:04:32.122305",
+    "optimized_size": 7900,
+    "timestamp": 1786223072.1223187,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-node.webp",
+    "avif": "wp-content/uploads/og/tag-node.avif"
+  },
+  "wp-content/uploads/og/tag-sre.png": {
+    "hash": "7fff582cbe255264870af7ab7766f14e",
+    "optimized_at": "2026-08-08T21:04:32.321820",
+    "optimized_size": 7846,
+    "timestamp": 1786223072.3218331,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-sre.webp",
+    "avif": "wp-content/uploads/og/tag-sre.avif"
+  },
+  "wp-content/uploads/og/tag-qdrant.png": {
+    "hash": "6f69095eb8d926326cc0f59fed0474e4",
+    "optimized_at": "2026-08-08T21:04:32.489850",
+    "optimized_size": 8576,
+    "timestamp": 1786223072.489864,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-qdrant.webp",
+    "avif": "wp-content/uploads/og/tag-qdrant.avif"
+  },
+  "wp-content/uploads/og/tag-postgresql.png": {
+    "hash": "8ead6a649a3bd01e54e86db8cf80435e",
+    "optimized_at": "2026-08-08T21:04:34.076693",
+    "optimized_size": 9928,
+    "timestamp": 1786223074.076707,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-postgresql.webp",
+    "avif": "wp-content/uploads/og/tag-postgresql.avif"
+  },
+  "wp-content/uploads/og/tag-truenas-scale.png": {
+    "hash": "75a27c5bcccd78750a6e5e0ec484e2d4",
+    "optimized_at": "2026-08-08T21:04:34.164648",
+    "optimized_size": 10388,
+    "timestamp": 1786223074.1646614,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-truenas-scale.webp",
+    "avif": "wp-content/uploads/og/tag-truenas-scale.avif"
+  },
+  "wp-content/uploads/og/tag-self-hosted.png": {
+    "hash": "73c3e08d42a9e9ea10236912bf1fa3d1",
+    "optimized_at": "2026-08-08T21:04:34.792957",
+    "optimized_size": 9264,
+    "timestamp": 1786223074.7929716,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-self-hosted.webp",
+    "avif": "wp-content/uploads/og/tag-self-hosted.avif"
+  },
+  "wp-content/uploads/og/tag-octopus.png": {
+    "hash": "6e83cda72ce578f9787a8e202c7fd1a7",
+    "optimized_at": "2026-08-08T21:04:35.238730",
+    "optimized_size": 8958,
+    "timestamp": 1786223075.2387445,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-octopus.webp",
+    "avif": "wp-content/uploads/og/tag-octopus.avif"
+  },
+  "wp-content/uploads/og/tag-option-43.png": {
+    "hash": "6c212734111f288dd691ac01c410059a",
+    "optimized_at": "2026-08-08T21:04:36.005965",
+    "optimized_size": 9096,
+    "timestamp": 1786223076.0059788,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-option-43.webp",
+    "avif": "wp-content/uploads/og/tag-option-43.avif"
+  },
+  "wp-content/uploads/og/tag-redis.png": {
+    "hash": "a81c22fd64494786864237f74fa6dcad",
+    "optimized_at": "2026-08-08T21:04:36.342715",
+    "optimized_size": 8124,
+    "timestamp": 1786223076.3427289,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-redis.webp",
+    "avif": "wp-content/uploads/og/tag-redis.avif"
+  },
+  "wp-content/uploads/og/tag-nvidia.png": {
+    "hash": "16ba1ba7cfca461747d90063e31a5050",
+    "optimized_at": "2026-08-08T21:04:37.291410",
+    "optimized_size": 8298,
+    "timestamp": 1786223077.291423,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-nvidia.webp",
+    "avif": "wp-content/uploads/og/tag-nvidia.avif"
+  },
+  "wp-content/uploads/og/tag-ubiquiti.png": {
+    "hash": "f8e9b9726e8e4c6202308ce2758c2351",
+    "optimized_at": "2026-08-08T21:04:37.500765",
+    "optimized_size": 8404,
+    "timestamp": 1786223077.5007787,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-ubiquiti.webp",
+    "avif": "wp-content/uploads/og/tag-ubiquiti.avif"
+  },
+  "wp-content/uploads/og/tag-synology.png": {
+    "hash": "6b16bda4799bc6e3353bb37b1c080541",
+    "optimized_at": "2026-08-08T21:04:37.718249",
+    "optimized_size": 9634,
+    "timestamp": 1786223077.7182703,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-synology.webp",
+    "avif": "wp-content/uploads/og/tag-synology.avif"
+  },
+  "wp-content/uploads/og/tag-vcf.png": {
+    "hash": "25fd34a59f2d1a329ad243b57a279671",
+    "optimized_at": "2026-08-08T21:04:38.958693",
+    "optimized_size": 7870,
+    "timestamp": 1786223078.958707,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-vcf.webp",
+    "avif": "wp-content/uploads/og/tag-vcf.avif"
+  },
+  "wp-content/uploads/og/tag-reverse-proxy.png": {
+    "hash": "07a8f750cd65ad876350c0832fcc304f",
+    "optimized_at": "2026-08-08T21:04:39.100782",
+    "optimized_size": 10528,
+    "timestamp": 1786223079.1007962,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-reverse-proxy.webp",
+    "avif": "wp-content/uploads/og/tag-reverse-proxy.avif"
+  },
+  "wp-content/uploads/og/tag-nvme.png": {
+    "hash": "c78216a8e53978e7a671a5e804286487",
+    "optimized_at": "2026-08-08T21:04:39.852818",
+    "optimized_size": 8172,
+    "timestamp": 1786223079.8528323,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-nvme.webp",
+    "avif": "wp-content/uploads/og/tag-nvme.avif"
+  },
+  "wp-content/uploads/og/tag-vcf-offline-depot.png": {
+    "hash": "e723724a3527c7ac4e5889adb5f58e28",
+    "optimized_at": "2026-08-08T21:04:40.321831",
+    "optimized_size": 9972,
+    "timestamp": 1786223080.3218448,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-vcf-offline-depot.webp",
+    "avif": "wp-content/uploads/og/tag-vcf-offline-depot.avif"
+  },
+  "wp-content/uploads/og/tag-packer.png": {
+    "hash": "a03f005a0854f74979b36633487c066b",
+    "optimized_at": "2026-08-08T21:04:40.990231",
+    "optimized_size": 8748,
+    "timestamp": 1786223080.9902437,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-packer.webp",
+    "avif": "wp-content/uploads/og/tag-packer.avif"
+  },
+  "wp-content/uploads/og/tag-unmap.png": {
+    "hash": "05828a2d1347ed8a9ba00c918728f809",
+    "optimized_at": "2026-08-08T21:04:41.006639",
+    "optimized_size": 8512,
+    "timestamp": 1786223081.0066516,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-unmap.webp",
+    "avif": "wp-content/uploads/og/tag-unmap.avif"
+  },
+  "wp-content/uploads/og/tag-trim.png": {
+    "hash": "6cb4ff882cc0aea800c7dc112564b032",
+    "optimized_at": "2026-08-08T21:04:42.377204",
+    "optimized_size": 7836,
+    "timestamp": 1786223082.3772175,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-trim.webp",
+    "avif": "wp-content/uploads/og/tag-trim.avif"
+  },
+  "wp-content/uploads/og/tag-vsphere.png": {
+    "hash": "0da25d7d8c48cdff18ec5693535074d9",
+    "optimized_at": "2026-08-08T21:04:42.415178",
+    "optimized_size": 8774,
+    "timestamp": 1786223082.4151902,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-vsphere.webp",
+    "avif": "wp-content/uploads/og/tag-vsphere.avif"
+  },
+  "wp-content/uploads/og/tag-storage.png": {
+    "hash": "47a2c5279395fd5db525a60b32970bb2",
+    "optimized_at": "2026-08-08T21:04:43.151820",
+    "optimized_size": 9020,
+    "timestamp": 1786223083.151835,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-storage.webp",
+    "avif": "wp-content/uploads/og/tag-storage.avif"
+  },
+  "wp-content/uploads/og/tag-ssd.png": {
+    "hash": "98180adc35a977ae16049f23c16b952f",
+    "optimized_at": "2026-08-08T21:04:43.196433",
+    "optimized_size": 8248,
+    "timestamp": 1786223083.1964457,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-ssd.webp",
+    "avif": "wp-content/uploads/og/tag-ssd.avif"
+  },
+  "wp-content/uploads/og/tag-tunnel.png": {
+    "hash": "87fd31874755fc582d091de54fda7c0d",
+    "optimized_at": "2026-08-08T21:04:44.553868",
+    "optimized_size": 7902,
+    "timestamp": 1786223084.5538816,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-tunnel.webp",
+    "avif": "wp-content/uploads/og/tag-tunnel.avif"
+  },
+  "wp-content/uploads/og/tag-semaphore.png": {
+    "hash": "d3cbfb1544afb6d13dc3ad1f7242d08c",
+    "optimized_at": "2026-08-08T21:04:44.660824",
+    "optimized_size": 9662,
+    "timestamp": 1786223084.6608372,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-semaphore.webp",
+    "avif": "wp-content/uploads/og/tag-semaphore.avif"
+  },
+  "wp-content/uploads/og/tag-smart-home.png": {
+    "hash": "dbaf7a64eeb74505dcf931614ef40ba4",
+    "optimized_at": "2026-08-08T21:04:45.388983",
+    "optimized_size": 9786,
+    "timestamp": 1786223085.3889966,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-smart-home.webp",
+    "avif": "wp-content/uploads/og/tag-smart-home.avif"
+  },
+  "wp-content/uploads/og/tag-vmware.png": {
+    "hash": "9b4ce71fd6e8d07b7880a6532e230ee0",
+    "optimized_at": "2026-08-08T21:04:45.554481",
+    "optimized_size": 9222,
+    "timestamp": 1786223085.5544944,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-vmware.webp",
+    "avif": "wp-content/uploads/og/tag-vmware.avif"
+  },
+  "wp-content/uploads/og/tag-reference.png": {
+    "hash": "3c654962a53536abb908bceb7ec45758",
+    "optimized_at": "2026-08-08T21:04:46.556769",
+    "optimized_size": 8784,
+    "timestamp": 1786223086.556783,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-reference.webp",
+    "avif": "wp-content/uploads/og/tag-reference.avif"
+  },
+  "wp-content/uploads/og/tag-searxng.png": {
+    "hash": "30e8d12c86f0a411e1ceffaf837b74ce",
+    "optimized_at": "2026-08-08T21:04:47.002719",
+    "optimized_size": 9402,
+    "timestamp": 1786223087.0027335,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-searxng.webp",
+    "avif": "wp-content/uploads/og/tag-searxng.avif"
+  },
+  "wp-content/uploads/og/tag-vexpert.png": {
+    "hash": "16bce4700daa7272f50f7450361c9538",
+    "optimized_at": "2026-08-08T21:04:47.791322",
+    "optimized_size": 8752,
+    "timestamp": 1786223087.7933562,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-vexpert.webp",
+    "avif": "wp-content/uploads/og/tag-vexpert.avif"
+  },
+  "wp-content/uploads/og/tag-ubuntu.png": {
+    "hash": "033bfc7365650bb81c183e73b983b30d",
+    "optimized_at": "2026-08-08T21:04:47.827596",
+    "optimized_size": 8324,
+    "timestamp": 1786223087.8276079,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-ubuntu.webp",
+    "avif": "wp-content/uploads/og/tag-ubuntu.avif"
+  },
+  "wp-content/uploads/og/tag-sizing.png": {
+    "hash": "48a9c3852f9350773432fa009f6e60c4",
+    "optimized_at": "2026-08-08T21:04:48.565813",
+    "optimized_size": 8562,
+    "timestamp": 1786223088.5658274,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-sizing.webp",
+    "avif": "wp-content/uploads/og/tag-sizing.avif"
+  },
+  "wp-content/uploads/og/tag-plausible.png": {
+    "hash": "3b14c68a920b5fe5df468c8c8647492f",
+    "optimized_at": "2026-08-08T21:04:49.187862",
+    "optimized_size": 8992,
+    "timestamp": 1786223089.1878753,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-plausible.webp",
+    "avif": "wp-content/uploads/og/tag-plausible.avif"
+  },
+  "wp-content/uploads/og/tag-vsan.png": {
+    "hash": "3daf7042a91c76cc4820aadd95ce6323",
+    "optimized_at": "2026-08-08T21:04:49.913830",
+    "optimized_size": 8516,
+    "timestamp": 1786223089.913844,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-vsan.webp",
+    "avif": "wp-content/uploads/og/tag-vsan.avif"
+  },
+  "wp-content/uploads/og/tag-veeam.png": {
+    "hash": "62f7c64e4eab0428854f6501319344dd",
+    "optimized_at": "2026-08-08T21:04:50.029728",
+    "optimized_size": 8446,
+    "timestamp": 1786223090.0297425,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-veeam.webp",
+    "avif": "wp-content/uploads/og/tag-veeam.avif"
+  },
+  "wp-content/uploads/og/tag-truenas.png": {
+    "hash": "ca8fd7f0f63cdae6978eac031f053369",
+    "optimized_at": "2026-08-08T21:04:50.947504",
+    "optimized_size": 8780,
+    "timestamp": 1786223090.947519,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-truenas.webp",
+    "avif": "wp-content/uploads/og/tag-truenas.avif"
+  },
+  "wp-content/uploads/og/tag-ntp.png": {
+    "hash": "166ecdfc07fa9b2e3f42f8e37b90aa47",
+    "optimized_at": "2026-08-08T21:04:51.394166",
+    "optimized_size": 7514,
+    "timestamp": 1786223091.3941798,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-ntp.webp",
+    "avif": "wp-content/uploads/og/tag-ntp.avif"
+  },
+  "wp-content/uploads/og/tag-vcf-9.png": {
+    "hash": "f5e569d55c4b113ff1ded8b2fcb8de2b",
+    "optimized_at": "2026-08-08T21:04:51.419732",
+    "optimized_size": 8370,
+    "timestamp": 1786223091.419742,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-vcf-9.webp",
+    "avif": "wp-content/uploads/og/tag-vcf-9.avif"
+  },
+  "wp-content/uploads/og/tag-vsphere-8.png": {
+    "hash": "03343dd5cea47cade3ed7663a5209d6a",
+    "optimized_at": "2026-08-08T21:04:52.444949",
+    "optimized_size": 9356,
+    "timestamp": 1786223092.444964,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-vsphere-8.webp",
+    "avif": "wp-content/uploads/og/tag-vsphere-8.avif"
+  },
+  "wp-content/uploads/og/tag-zoom.png": {
+    "hash": "7f16ca37a393c115ef24fe5128bc4750",
+    "optimized_at": "2026-08-08T21:04:53.096369",
+    "optimized_size": 8428,
+    "timestamp": 1786223093.0963833,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-zoom.webp",
+    "avif": "wp-content/uploads/og/tag-zoom.avif"
+  },
+  "wp-content/uploads/og/tag-supermicro.png": {
+    "hash": "aabcea0a7da8c09fd4e6421324837810",
+    "optimized_at": "2026-08-08T21:04:53.561770",
+    "optimized_size": 9916,
+    "timestamp": 1786223093.5617838,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-supermicro.webp",
+    "avif": "wp-content/uploads/og/tag-supermicro.avif"
+  },
+  "wp-content/uploads/og/tag-vmc.png": {
+    "hash": "34be4ccff45c01e60aeff79aae721515",
+    "optimized_at": "2026-08-08T21:04:53.732937",
+    "optimized_size": 8176,
+    "timestamp": 1786223093.7329564,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-vmc.webp",
+    "avif": "wp-content/uploads/og/tag-vmc.avif"
+  },
+  "wp-content/uploads/og/tag-workers.png": {
+    "hash": "d52bc4906dc1e0f9a92b9220b60e7b9a",
+    "optimized_at": "2026-08-08T21:04:55.046454",
+    "optimized_size": 9430,
+    "timestamp": 1786223095.0464683,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-workers.webp",
+    "avif": "wp-content/uploads/og/tag-workers.avif"
+  },
+  "wp-content/uploads/og/tag-vsan-esa.png": {
+    "hash": "495c00d5a3de60760d93d752edec5976",
+    "optimized_at": "2026-08-08T21:04:55.173822",
+    "optimized_size": 9604,
+    "timestamp": 1786223095.1738355,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-vsan-esa.webp",
+    "avif": "wp-content/uploads/og/tag-vsan-esa.avif"
+  },
+  "wp-content/uploads/og/tag-runecast.png": {
+    "hash": "3c3447e2f97610304ee8c110367215f4",
+    "optimized_at": "2026-08-08T21:04:55.397705",
+    "optimized_size": 9212,
+    "timestamp": 1786223095.3977182,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-runecast.webp",
+    "avif": "wp-content/uploads/og/tag-runecast.avif"
+  },
+  "wp-content/uploads/og/tag-wfh.png": {
+    "hash": "2e20ed1371f221fc140503f77f45c7a8",
+    "optimized_at": "2026-08-08T21:04:56.131173",
+    "optimized_size": 7828,
+    "timestamp": 1786223096.1311862,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-wfh.webp",
+    "avif": "wp-content/uploads/og/tag-wfh.avif"
+  },
+  "wp-content/uploads/og/tag-warp.png": {
+    "hash": "09a1d751a56f83535920c92d60e7864d",
+    "optimized_at": "2026-08-08T21:04:57.280397",
+    "optimized_size": 8500,
+    "timestamp": 1786223097.2804115,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-warp.webp",
+    "avif": "wp-content/uploads/og/tag-warp.avif"
+  },
+  "wp-content/uploads/og/tag-unifi.png": {
+    "hash": "a1ef5b17d8e2959a2ecba084b3edbc9a",
+    "optimized_at": "2026-08-08T21:04:57.312709",
+    "optimized_size": 7620,
+    "timestamp": 1786223097.3127198,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-unifi.webp",
+    "avif": "wp-content/uploads/og/tag-unifi.avif"
+  },
+  "wp-content/uploads/og/tag-vgpu.png": {
+    "hash": "651db6a250696bdcf4df8c8bc47c9b49",
+    "optimized_at": "2026-08-08T21:04:57.681219",
+    "optimized_size": 8268,
+    "timestamp": 1786223097.6812327,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-vgpu.webp",
+    "avif": "wp-content/uploads/og/tag-vgpu.avif"
+  },
+  "wp-content/uploads/og/tag-runners.png": {
+    "hash": "c04fcd1b4dadf4f04404e209aeba7133",
+    "optimized_at": "2026-08-08T21:04:57.849611",
+    "optimized_size": 8814,
+    "timestamp": 1786223097.8496244,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-runners.webp",
+    "avif": "wp-content/uploads/og/tag-runners.avif"
+  },
+  "wp-content/uploads/og/tag-vcap.png": {
+    "hash": "1c446588f08be574dff9cb6758a1ee09",
+    "optimized_at": "2026-08-08T21:04:58.758615",
+    "optimized_size": 8420,
+    "timestamp": 1786223098.7586284,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-vcap.webp",
+    "avif": "wp-content/uploads/og/tag-vcap.avif"
+  },
+  "wp-content/uploads/og/tag-upgrade.png": {
+    "hash": "8c8f2d7da6aa0f4fbc0de52722b8c362",
+    "optimized_at": "2026-08-08T21:04:58.819944",
+    "optimized_size": 8820,
+    "timestamp": 1786223098.8199582,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-upgrade.webp",
+    "avif": "wp-content/uploads/og/tag-upgrade.avif"
   }
 }
