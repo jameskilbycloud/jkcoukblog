@@ -3,34 +3,97 @@
   "slug": "runecast",
   "posts": [
     {
-      "slug": "vsan-esa-and-the-improvements-it-brings-to-vmc",
-      "title": "vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24",
-      "description": "vSAN ESA - Benefits Performance benefits Efficiency benefits Resilience Benefits Sizing vSAN Express Storage Architecture (ESA) was announced at VMware Exp",
-      "date": "2023-11-17T11:29:42Z",
-      "modified": "2026-06-01T21:58:58Z",
+      "slug": "forcing-an-upgrade-to-vsphere-8",
+      "title": "Forcing an Upgrade to vSphere 8",
+      "description": "I run a reasonably extensive homelab that is of course built around the VMware ecosystem.",
+      "date": "2022-12-14T21:43:39Z",
+      "modified": "2026-06-01T19:02:43Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/",
-      "markdown_url": "/markdown/posts/vsan-esa-and-the-improvements-it-brings-to-vmc.md",
-      "api_url": "/api/posts/vsan-esa-and-the-improvements-it-brings-to-vmc.json",
+      "url": "https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/",
+      "markdown_url": "/markdown/posts/forcing-an-upgrade-to-vsphere-8.md",
+      "api_url": "/api/posts/forcing-an-upgrade-to-vsphere-8.json",
       "categories": [
-        "VMware",
-        "VMware Cloud on AWS",
-        "vSAN",
         "Homelab",
+        "VMware",
+        "vSphere",
+        "Veeam",
         "Storage",
         "TrueNAS Scale",
-        "Automation",
         "Runecast",
-        "Personal"
+        "VMware Cloud on AWS",
+        "Networking"
       ],
       "tags": [
         null,
-        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.24.32.png",
+      "excerpt": "![Screenshot 2022 12 14 At 21.45.23](https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.45.23.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)\n\n# Forc..."
+    },
+    {
+      "slug": "homelab-bad-days-almost",
+      "title": "Homelab SSD Failure: How Synology RAID Saved My Data",
+      "description": "I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate. This involves driving from the south coast of Dorset up to Scotland and then",
+      "date": "2022-11-21T15:46:53Z",
+      "modified": "2026-07-11T07:47:13Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/",
+      "markdown_url": "/markdown/posts/homelab-bad-days-almost.md",
+      "api_url": "/api/posts/homelab-bad-days-almost.json",
+      "categories": [
+        "Homelab",
+        "Storage",
+        "Synology",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "Automation",
+        "Docker",
+        "Hosting",
+        "Kubernetes",
+        "Runecast"
+      ],
+      "tags": [
         null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n#..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1.jpg",
+      "excerpt": "![Brokenharddive 1200X630 1](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)\n\n# Homelab SSD Fail..."
+    },
+    {
+      "slug": "can-you-really-squeeze-96tb-in-1u",
+      "title": "Can you really squeeze 96TB in 1U ?",
+      "description": "Yes, that’s a clickbait title. Yes, that’s a clickbait title. But technically it’s possible if I dropped all drive redundancy…",
+      "date": "2024-09-12T12:39:16Z",
+      "modified": "2026-07-11T07:34:03Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/",
+      "markdown_url": "/markdown/posts/can-you-really-squeeze-96tb-in-1u.md",
+      "api_url": "/api/posts/can-you-really-squeeze-96tb-in-1u.json",
+      "categories": [
+        "Homelab",
+        "Storage",
+        "TrueNAS Scale",
+        "Runecast",
+        "VMware",
+        "Kubernetes",
+        "VMware Cloud on AWS",
+        "vSAN",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Hosting"
+      ],
+      "tags": [
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png",
+      "excerpt": "![Quantagrid Sd1Q 1Ulh Front Three Quarter](https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [TrueNAS Scale](https://jameskilby.co.uk/cate..."
     },
     {
       "slug": "runecast-remediation-scripts",
@@ -62,100 +125,37 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)\n\n[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Runecast Remediation Scripts: Auto-Fix VMware Storage Issues\n\nBy[James](https://jameskilby.co.uk) May ..."
+      "excerpt": "![Runecast Solutions Ltd](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)\n\n[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Runecast Remediation Scripts: Auto-Fix VMware Storage Issues\n\nBy[James](https://..."
     },
     {
-      "slug": "forcing-an-upgrade-to-vsphere-8",
-      "title": "Forcing an Upgrade to vSphere 8",
-      "description": "I run a reasonably extensive homelab that is of course built around the VMware ecosystem.",
-      "date": "2022-12-14T21:43:39Z",
-      "modified": "2026-06-01T19:02:43Z",
+      "slug": "vsan-esa-and-the-improvements-it-brings-to-vmc",
+      "title": "vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24",
+      "description": "vSAN ESA - Benefits Performance benefits Efficiency benefits Resilience Benefits Sizing vSAN Express Storage Architecture (ESA) was announced at VMware Exp",
+      "date": "2023-11-17T11:29:42Z",
+      "modified": "2026-06-01T21:58:58Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/",
-      "markdown_url": "/markdown/posts/forcing-an-upgrade-to-vsphere-8.md",
-      "api_url": "/api/posts/forcing-an-upgrade-to-vsphere-8.json",
+      "url": "https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/",
+      "markdown_url": "/markdown/posts/vsan-esa-and-the-improvements-it-brings-to-vmc.md",
+      "api_url": "/api/posts/vsan-esa-and-the-improvements-it-brings-to-vmc.json",
       "categories": [
-        "Homelab",
         "VMware",
-        "vSphere",
-        "Veeam",
-        "Storage",
-        "TrueNAS Scale",
-        "Runecast",
-        "VMware Cloud on AWS",
-        "Networking"
-      ],
-      "tags": [
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.24.32.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.45.23.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)\n\n# Forcing an Upgrade to vSphere 8\n\nBy[J..."
-    },
-    {
-      "slug": "can-you-really-squeeze-96tb-in-1u",
-      "title": "Can you really squeeze 96TB in 1U ?",
-      "description": "Yes, that’s a clickbait title.",
-      "date": "2024-09-12T12:39:16Z",
-      "modified": "2026-07-11T07:34:03Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/",
-      "markdown_url": "/markdown/posts/can-you-really-squeeze-96tb-in-1u.md",
-      "api_url": "/api/posts/can-you-really-squeeze-96tb-in-1u.json",
-      "categories": [
-        "Homelab",
-        "Storage",
-        "TrueNAS Scale",
-        "Runecast",
-        "VMware",
-        "Kubernetes",
         "VMware Cloud on AWS",
         "vSAN",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Hosting"
-      ],
-      "tags": [
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/)\n\n# Can you really s..."
-    },
-    {
-      "slug": "homelab-bad-days-almost",
-      "title": "Homelab SSD Failure: How Synology RAID Saved My Data",
-      "description": "I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate.",
-      "date": "2022-11-21T15:46:53Z",
-      "modified": "2026-07-11T07:47:13Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/",
-      "markdown_url": "/markdown/posts/homelab-bad-days-almost.md",
-      "api_url": "/api/posts/homelab-bad-days-almost.json",
-      "categories": [
         "Homelab",
         "Storage",
-        "Synology",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
+        "TrueNAS Scale",
         "Automation",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
-        "Runecast"
+        "Runecast",
+        "Personal"
       ],
       "tags": [
         null,
+        null,
+        null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)\n\n# Homelab SSD Failure: How Synology RAID Sa..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
+      "excerpt": "![Origionalpoweredbyvsan 550X324 1](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/) | [vSAN](https://jameskilby.co.uk/..."
     }
   ]
 }

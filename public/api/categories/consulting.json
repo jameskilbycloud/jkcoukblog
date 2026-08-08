@@ -3,6 +3,23 @@
   "slug": "consulting",
   "posts": [
     {
+      "slug": "whats-in-my-backpack",
+      "title": "What’s In My Tech Bag? Everyday Carry for IT Consultants",
+      "description": "I have seen a few posts online recently about the tools and technology people use on a day to day basis. A few components I have that no one seems to",
+      "date": "2019-01-10T21:48:41Z",
+      "modified": "2026-06-01T19:02:21Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2019/01/whats-in-my-backpack/",
+      "markdown_url": "/markdown/posts/whats-in-my-backpack.md",
+      "api_url": "/api/posts/whats-in-my-backpack.json",
+      "categories": [
+        "Consulting",
+        "Personal"
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png",
+      "excerpt": "![Picture1](https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png)\n\n[Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# What’s In My Tech Bag? Everyday Carry for IT Consultants\n\nBy[James](https://jameskilby.co.uk)January 10, 2019 · Updated June 1, 2026 • 📖1 min read(251 words)\n..."
+    },
+    {
       "slug": "my-home-office-setup-upgrades",
       "title": "My Home Office Setup & Upgrades",
       "description": "Given the year that was 2020 and at the time of writing a distinct improvement appears a long way off I decided it was time to up my homeworking game.",
@@ -26,29 +43,12 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1-1024x768.jpeg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1.jpeg)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# My Home Office Setup & Upgrades\n\nBy[James](https://jameskilby.co.uk) January 5, 2021 · Updated Jun..."
-    },
-    {
-      "slug": "whats-in-my-backpack",
-      "title": "What’s In My Tech Bag? Everyday Carry for IT Consultants",
-      "description": "I have seen a few posts online recently about the tools and technology people use on a day to day basis.",
-      "date": "2019-01-10T21:48:41Z",
-      "modified": "2026-06-01T19:02:21Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2019/01/whats-in-my-backpack/",
-      "markdown_url": "/markdown/posts/whats-in-my-backpack.md",
-      "api_url": "/api/posts/whats-in-my-backpack.json",
-      "categories": [
-        "Consulting",
-        "Personal"
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png)\n\n[Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# What’s In My Tech Bag? Everyday Carry for IT Consultants\n\nBy[James](https://jameskilby.co.uk) January 10, 2019 · Updated June 1, 2026 • 📖1 min read(251 words)\n\n📅**Pub..."
+      "excerpt": "![Img 7017 Scaled 1](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1.jpeg)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# My Home Office Setup & Upgrades\n\nBy[James](https://jameskilby.co.uk)January 5, 20..."
     },
     {
       "slug": "and-now-for-something-completely-different",
       "title": "And now for something completely different",
-      "description": "I have worked for my current employer Zen Internet for 3.",
+      "description": "I have worked for my current employer Zen Internet for 3.5 years. Over that time I have changed roles from what was originally a customer-focused role",
       "date": "2018-10-16T08:22:45Z",
       "modified": "2026-07-11T07:46:38Z",
       "author": "James Kilby",
@@ -64,8 +64,8 @@
         "AWS",
         "Nutanix"
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018 · Updated July 11, 2026 • 📖1 min read(263 words)\n\n📅**Published:** October..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/og/and-now-for-something-completely-different.png",
+      "excerpt": "![Fwbxyba7](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk)October 16, 2018 · Updated July 11, 2026 • 📖1 min read(263 words)\n\n📅**Published:** ..."
     }
   ]
 }
