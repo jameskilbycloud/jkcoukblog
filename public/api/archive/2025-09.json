@@ -16,15 +16,15 @@
       "categories": [
         "Ansible",
         "Homelab",
+        "Mikrotik",
+        "Networking",
+        "VMware",
+        "Storage",
+        "TrueNAS Scale",
+        "Hosting",
         "Artificial Intelligence",
         "Docker",
-        "Storage",
-        "vExpert",
-        "TrueNAS Scale",
-        "Nutanix",
-        "Hosting",
-        "Kubernetes",
-        "Networking"
+        "Automation"
       ],
       "tags": [
         null,
@@ -33,7 +33,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png",
-      "excerpt": "![Semaphore](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Managing my Homelab with SemaphoreUI\n\nBy[James](https://jameskilby.co.uk)September 2, 2025 · Updated June ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Managing my Homelab with SemaphoreUI\n\nBy[James](https://jameskilby.co.uk) September 2, 2025 · Updated June 5, 2026 ..."
     }
   ]
 }
