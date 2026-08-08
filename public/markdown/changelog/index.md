@@ -15,7 +15,7 @@ Site improvements, deployments, and performance metrics
 
 ### Total Deployments
 
-1096
+1098
 
 Git commits
 
@@ -35,7 +35,7 @@ Active contributors
 
 2026-08-08
 
-17:35:12
+17:57:08
 
 ## 🚀 Lighthouse Performance Scores
 
@@ -58,6 +58,12 @@ Best Practices
 SEO
 
 ## Recent Changes
+
+2026-08-08 c61216aFix
+
+fix: resolve absolute same-site hrefs before the stylesheet disk lookup (#146)
+
+* fix: instrument WP stylesheet inlining and cover extracted inline CSS
 
 2026-08-08 3e27c27Fix
 
@@ -229,11 +235,5 @@ chore(lighthouse): record scores P92/A96/BP100/S100
 
 chore(lighthouse): record scores P94/A96/BP100/S100
 
-  
-
-2026-07-20 7f7e136Other
-
-chore(lighthouse): record scores P96/A96/BP100/S100
-
-Page generated: 2026-08-08 21:40:25 UTC  
+Page generated: 2026-08-08 23:02:40 UTC  
 Changelog powered by Git history and Lighthouse CI
