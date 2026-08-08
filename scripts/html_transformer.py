@@ -639,7 +639,16 @@ class HTMLTransformer:
             if not self._is_inlinable_css_link(link):
                 continue
             raw_href = link.get('href') or ''
-            href = raw_href.lstrip('/').split('?', 1)[0]
+            # Absolute same-site URLs must be mapped back to site-relative
+            # BEFORE the disk lookup. During a build the hrefs are absolute
+            # (`https://jameskilby.co.uk/wp-content/...`) because
+            # convert_to_staging.py doesn't rewrite them to relative until the
+            # much later "Prepare output for deployment" step. lstrip('/')
+            # doesn't touch a scheme, so `public_dir / href` produced
+            # `static-output/https:/jameskilby.co.uk/wp-content/...`, which
+            # never exists — the pass skipped 1442 links and inlined nothing
+            # on the 2026-08-08 build while looking like a success.
+            href = normalize_self_href(raw_href).lstrip('/').split('?', 1)[0]
             if href in seen_hrefs:
                 continue
             stats['css_links_seen'] += 1
@@ -717,15 +726,26 @@ class HTMLTransformer:
         """Remove every reference to a stylesheet: the preload/stylesheet link
         itself and the <noscript> fallback that would otherwise re-request it.
 
+        Matching is on the normalised href, not the literal string: a page can
+        carry the same file as an absolute preload and a relative noscript
+        fallback (pipeline stages absolutify at different points), and an exact
+        match would drop one and leave the other still fetching.
+
         Order matters — the noscript wrapper has to go first. Decomposing the
         links first empties the noscript, so the "does this noscript contain
         the link?" test then finds nothing and leaves an empty <noscript>
         behind on every page."""
+        target = normalize_self_href(raw_href).split('?', 1)[0]
+
+        def _matches(tag):
+            return normalize_self_href(tag.get('href') or '').split('?', 1)[0] == target
+
         for noscript in list(soup.find_all('noscript')):
-            if noscript.find('link', href=raw_href):
+            if any(_matches(link) for link in noscript.find_all('link', href=True)):
                 noscript.decompose()
-        for companion in list(soup.find_all('link', href=raw_href)):
-            companion.decompose()
+        for companion in list(soup.find_all('link', href=True)):
+            if _matches(companion):
+                companion.decompose()
 
     # Project-owned stylesheets we inline directly into <head> as <style>
     # tags, trading a few KB of Brotli'd HTML weight for a saved round-trip.
