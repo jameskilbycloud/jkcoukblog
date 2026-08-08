@@ -17,15 +17,12 @@
         "Homelab",
         "Networking",
         "Storage",
-        "vExpert",
+        "Nutanix",
         "VMware",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "Runecast"
+        "Docker",
+        "Hosting",
+        "Kubernetes",
+        "Veeam"
       ],
       "tags": [
         null,
