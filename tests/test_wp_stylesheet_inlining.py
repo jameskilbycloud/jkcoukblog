@@ -159,6 +159,60 @@ def test_empty_stylesheet_is_dropped_not_inlined(tmp_path):
     assert soup.find('link', href=f'/{PLUGIN}') is None
 
 
+EXTRACTED = 'assets/css/kadence-global-inline-css-5290643c.min.css'
+
+
+def test_pipeline_extracted_inline_css_is_inlined(tmp_path):
+    """extract_inline_css lifts WordPress's inline <style> blocks out to
+    /assets/css/*-inline-css-*.min.css. WP-Optimize used to absorb those; with
+    minify off they became extra requests on 170 pages."""
+    soup = _async_head(tmp_path, EXTRACTED, _css('kadence', 900))
+    transformer = HTMLTransformer(tmp_path)
+
+    assert transformer._apply_inline_tiny_wp_stylesheets(soup) is True
+    assert '.kadence' in soup.find('style').string
+    assert soup.find('link', href=f'/{EXTRACTED}') is None
+
+
+def test_brutalist_theme_is_not_captured_by_inline_css_pattern(tmp_path):
+    """brutalist-theme.css also lives under /assets/css/ but is handled by
+    _apply_inline_project_stylesheets at Phase 4.7. The pattern matches the
+    '-inline-css-' filename convention precisely so it can't grab it."""
+    soup = _async_head(tmp_path, 'assets/css/brutalist-theme.css', _css('jk', 500))
+
+    assert HTMLTransformer(tmp_path)._apply_inline_tiny_wp_stylesheets(soup) is False
+    assert soup.find('link', href='/assets/css/brutalist-theme.css') is not None
+
+
+def test_stats_record_why_nothing_was_inlined(tmp_path):
+    """The pass once no-opped across a whole production build without raising,
+    which was indistinguishable from success in the log. Every skip reason has
+    to be counted."""
+    soup = _async_head(tmp_path, PLUGIN, _css('acme', 400))
+    (tmp_path / PLUGIN).unlink()  # file referenced but absent from the tree
+
+    transformer = HTMLTransformer(tmp_path)
+    assert transformer._apply_inline_tiny_wp_stylesheets(soup) is False
+
+    stats = transformer.wp_inline_stats
+    assert stats['css_links_seen'] == 1
+    assert stats['pattern_matched'] == 1
+    assert stats['skip_not_on_disk'] == 1
+    assert stats['inlined'] == 0
+    assert 'sample_missing' in stats
+
+
+def test_stats_record_success(tmp_path):
+    soup = _async_head(tmp_path, PLUGIN, _css('acme', 400))
+    transformer = HTMLTransformer(tmp_path)
+    transformer._apply_inline_tiny_wp_stylesheets(soup)
+
+    stats = transformer.wp_inline_stats
+    assert stats['inlined'] == 1
+    assert stats['inlined_bytes'] > 0
+    assert stats['skip_not_on_disk'] == 0
+
+
 def test_missing_file_is_skipped(tmp_path):
     transformer = HTMLTransformer(tmp_path)
     soup = BeautifulSoup(
