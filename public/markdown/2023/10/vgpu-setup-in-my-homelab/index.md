@@ -7,11 +7,14 @@ author: James Kilby
 categories:
   - Homelab
   - VMware
+  - Docker
+  - Hosting
+  - Kubernetes
+  - Personal
   - Storage
   - Synology
-  - Artificial Intelligence
-  - VCF
-  - Personal
+  - vSAN
+  - Mikrotik
   - Networking
 tags:
   - #Homelab
@@ -21,13 +24,13 @@ url: https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/
 image: https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg
 ---
 
-![Img 1107 768X403 1](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)
+![](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 # Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide
 
-By[James](https://jameskilby.co.uk)October 23, 2023 · Updated July 11, 2026 • 📖4 min read(878 words)
+By[James](https://jameskilby.co.uk) October 23, 2023 · Updated July 11, 2026 • 📖4 min read(878 words)
 
 📅**Published:** October 23, 2023•**Updated:** July 11, 2026
 
@@ -125,62 +128,60 @@ Just a side note that folding@home will use all of the CPU and GPU if you let it
 
 ## Similar Posts
 
-  * [![Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1-768x403.jpg)](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
+  * [ ![Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png) ](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)
+[Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernetes/)
 
-### [Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
+### [Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
 
-By[James](https://jameskilby.co.uk)November 21, 2022 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk) December 9, 2022 · Updated June 5, 2026
 
-I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate.
+Late to the party or not, I have been using containers in my lab more and more and that has led me to Portainer ….
 
-  * [![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-768x180.png)](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
-
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
-
-### [Warp – The intelligent terminal](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
-
-By[James](https://jameskilby.co.uk)April 11, 2025 · Updated June 1, 2026
-
-How Warp is helping me run my homelab. 
-
-  * [![Homelab Storage Upgrade: Synology DS918 for VMware & NFS](https://jameskilby.co.uk/wp-content/uploads/2023/04/81-ZoEW24UL._SL1500_-768x461.jpg)](https://jameskilby.co.uk/2019/02/lab-storage-2/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/)
-
-### [Homelab Storage Upgrade: Synology DS918 for VMware & NFS](https://jameskilby.co.uk/2019/02/lab-storage-2/)
-
-By[James](https://jameskilby.co.uk)February 10, 2019 · Updated June 5, 2026
-
-Since starting my new role with Xtravirt my Homelab has gone through several fairly significant changes.
-
-  * [![VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743-768x737.jpg)](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
-
-[VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
-
-By[James](https://jameskilby.co.uk)January 18, 2024 · Updated June 1, 2026
-
-How to deploy Holodeck with Legacy CPU’s
-
-  * [![VMware – Going out with a Bang!](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo-768x384.png)](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
+  * [ ![VMware – Going out with a Bang!](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo-768x384.png) ](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
 ### [VMware – Going out with a Bang!](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
 
-By[James](https://jameskilby.co.uk)October 7, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) October 7, 2023 · Updated June 1, 2026
 
 There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom.
 
-  * [![Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_-768x512.png)](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
+  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)
+
+### [My First Homelab Storage Setup: HP Gen8 & Xpenology](https://jameskilby.co.uk/2018/01/lab-storage/)
+
+By[James](https://jameskilby.co.uk) January 6, 2018 · Updated June 1, 2026
+
+I have been meaning to post around some of the lab setup for a while. Although it changes frequently at present it’s as below.
+
+  * [ ![vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg) ](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
+
+[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
+
+### [vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
+
+By[James](https://jameskilby.co.uk) December 6, 2025 · Updated June 1, 2026
+
+How to safely shut down a vSAN Environment
+
+  * [ ![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600-768x427.jpg) ](https://jameskilby.co.uk/2024/09/home-network-upgrade/)
+
+[Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)
+
+### [Home Network Upgrade to 25Gb/s with MikroTik Switching](https://jameskilby.co.uk/2024/09/home-network-upgrade/)
+
+By[James](https://jameskilby.co.uk) September 9, 2024 · Updated June 5, 2026
+
+My journey to superfast networking in my homelab
+
+  * [ ![UniFi UDM Beast 1U rack-mount gateway shown front-on, with two 3.5-inch drive bays, a bank of RJ45 and SFP network ports, and dimension labels.](https://jameskilby.co.uk/wp-content/uploads/2026/06/UnifiBeast-768x219.webp) ](https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
 
-### [Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
+### [Unleashing the Beast](https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/)
 
-By[James](https://jameskilby.co.uk)June 26, 2024 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk) June 20, 2026 · Updated July 11, 2026
 
-How to configure DHCP Option 43 for UniFi devices
+Retiring my ageing WatchGuard M200, I swap in the UniFi UDM Beast — a hardware tour, first iperf and WAN tests, the BGP/FRR setup, and the homelab services I’m consolidating onto it.

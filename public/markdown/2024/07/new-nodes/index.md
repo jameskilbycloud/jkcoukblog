@@ -10,11 +10,8 @@ categories:
   - VMware
   - Storage
   - Synology
-  - Artificial Intelligence
-  - Automation
-  - Docker
-  - NVIDIA
-  - Traefik
+  - Personal
+  - Veeam
   - Networking
 tags:
   - #Homelab
@@ -24,13 +21,13 @@ url: https://jameskilby.co.uk/2024/07/new-nodes/
 image: https://jameskilby.co.uk/wp-content/uploads/2024/04/Screenshot-2024-04-06-at-22.50.57.png
 ---
 
-![Img 6629 Scaled](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-scaled.jpeg)
+![](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-scaled.jpeg)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 # New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix
 
-By[James](https://jameskilby.co.uk)July 2, 2024 · Updated July 11, 2026 • 📖8 min read(1,513 words)
+By[James](https://jameskilby.co.uk) July 2, 2024 · Updated July 11, 2026 • 📖8 min read(1,513 words)
 
 📅**Published:** July 02, 2024•**Updated:** July 11, 2026
 
@@ -52,15 +49,15 @@ I have chosen to deploy Nutanix Community Edition on these nodes but still retai
 
 Description| Quantity| Component Price £| Line Total £| Sourced from  
 ---|---|---|---|---  
-3x Nutanix nodes| 1| 563.76| 563.76| Ebay  
-1TB Samsung enterprise SATA SSD| 3| 40.00| 120.00| Ebay  
-2TB Samsung EVO Consumer SATA SSD| 6| 150.00| 900.00| Removed from TrueNAS   
+3x Nutanix nodes | 1 | 563.76 | 563.76 | Ebay  
+1TB Samsung enterprise SATA SSD | 3 | 40.00 | 120.00 | Ebay  
+2TB Samsung EVO Consumer SATA SSD | 6 | 150.00 | 900.00 | Removed from TrueNAS   
 (Not included in total cost)  
-32GB SATADom| 3| 42.00| 126.00| Ebay  
-SSD Caddy| 9| 10.00| 90.00| Ebay  
-QSFP28 to SFP+ Breakout cable| 1| 29.99| 29.99| Ebay  
-| | | |   
-Total| | | 929.75|   
+32GB SATADom | 3 | 42.00 | 126.00 | Ebay  
+SSD Caddy | 9 | 10.00 | 90.00 | Ebay  
+QSFP28 to SFP+ Breakout cable | 1 | 29.99 | 29.99 | Ebay  
+|  |  |  |   
+Total |  |  | 929.75 |   
   
 ## Rescue IPMI
 
@@ -83,9 +80,9 @@ It’s useful to plan your IP addresses in advance. This is what I used
 
 NODE| ESX MANAGEMENT| CVM| DNS Record  
 ---|---|---|---  
-NODE A| 192.168.38.171| 192.168.38.172| uk-bhr-p-ntnx-a.jameskilby.cloud  
-NODE B| 192.168.38.173| 192.168.38.174| uk-bhr-p-ntnx-b.jameskilby.cloud  
-NODE C| 192.168.38.174| 192.168.38.175| uk-bhr-p-ntnx-c.jameskilby.cloud  
+NODE A | 192.168.38.171 | 192.168.38.172 | uk-bhr-p-ntnx-a.jameskilby.cloud  
+NODE B | 192.168.38.173 | 192.168.38.174 | uk-bhr-p-ntnx-b.jameskilby.cloud  
+NODE C | 192.168.38.174 | 192.168.38.175 | uk-bhr-p-ntnx-c.jameskilby.cloud  
   
 ## Web Server
 
@@ -238,62 +235,58 @@ The Nutanix Nodes are the first three nodes of the lower unit. The fourth is jus
 
 ## Similar Posts
 
-  * [![Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/wp-content/uploads/2022/11/BrokenHardDive-1200x630-1-768x403.jpg)](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)
-
-### [Homelab SSD Failure: How Synology RAID Saved My Data](https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/)
-
-By[James](https://jameskilby.co.uk)November 21, 2022 · Updated July 11, 2026
-
-I recently spent 3 weeks in Ireland with my wife Wendy and our son Nate.
-
-  * [![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
-
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
-
-By[James](https://jameskilby.co.uk)April 4, 2026 · Updated July 11, 2026
-
-Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each.
-
-  * [![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
+  * [ ![Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1-768x1024.jpg) ](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
+### [Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
 
-By[James](https://jameskilby.co.uk)October 23, 2023 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk) January 6, 2022 · Updated February 16, 2026
 
-Card Stats Install steps VM Provisioning Folding@Home A little while ago I decided to play with vGPU in my homelab.
+Quite a few changes have happened in the lab recently. I decided to do a multipart blog on the changes.
 
-  * [![Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_-768x512.png)](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
+  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [Synology](https://jameskilby.co.uk/category/synology/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
+### [My First Homelab Storage Setup: HP Gen8 & Xpenology](https://jameskilby.co.uk/2018/01/lab-storage/)
 
-### [Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
+By[James](https://jameskilby.co.uk) January 6, 2018 · Updated June 1, 2026
 
-By[James](https://jameskilby.co.uk)June 26, 2024 · Updated July 11, 2026
+I have been meaning to post around some of the lab setup for a while. Although it changes frequently at present it’s as below.
 
-How to configure DHCP Option 43 for UniFi devices 
+  * [ ![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png) ](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
-  * [![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-768x180.png)](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
+[Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
+### [VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
-### [Warp – The intelligent terminal](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
+By[James](https://jameskilby.co.uk) September 13, 2020 · Updated May 31, 2026
 
-By[James](https://jameskilby.co.uk)April 11, 2025 · Updated June 1, 2026
+I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.
 
-How Warp is helping me run my homelab. 
+  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-  * [![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
+### [Lab Update – Desired Workloads](https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/)
 
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+By[James](https://jameskilby.co.uk) January 6, 2022 · Updated June 1, 2026
 
-### [My Self-Hosted AI Stack: Architecture Overview (Part 1)](https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/)
+My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.
 
-By[James](https://jameskilby.co.uk)March 27, 2026 · Updated May 31, 2026
+  * [ ![TrueNAS Logo](https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22-at-18.49.21-768x198.png) ](https://jameskilby.co.uk/2023/05/homelab-storage-refresh-part-1/)
 
-A walkthrough of my self-hosted AI stack: Ollama, Open WebUI, ComfyUI, Whishper, n8n, Qdrant, SearxNG, and a full observability layer — all running on my own hardware with Docker Compose.
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)
+
+### [Homelab Storage Refresh (Part 1)](https://jameskilby.co.uk/2023/05/homelab-storage-refresh-part-1/)
+
+By[James](https://jameskilby.co.uk) May 23, 2023 · Updated July 11, 2026
+
+Table of Contents Background ZFS Overview Read Cache (ARC and L2ARC) ZIL (ZFS Intent Log) Hardware Background I have just completed the move of all my production and media-based storage/services to TrueNAS Scale. ( I will just refer to this as TrueNAS) This is based on my HP Z840 and I have now retired my…
+
+  * [ ![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png) ](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
+
+By[James](https://jameskilby.co.uk) December 19, 2022 · Updated June 1, 2026
+
+For a while, I’ve been looking to update the networking at the core of my homelab.
