@@ -80,10 +80,15 @@ optimize-css: ## Optimise CSS files (remove unused + minify)
 optimize-html: ## Optimise HTML (single-pass: SEO + pictures + perf + critical CSS + minify)
 	python3 scripts/html_transformer.py $(OUTPUT_DIR)
 
+minify-js: ## Minify JS (WP-Optimize minify is disabled; nothing else does this)
+	python3 scripts/minify_js.py $(OUTPUT_DIR)
+
 compress: ## Brotli + Gzip pre-compression
 	python3 scripts/brotli_compress.py $(OUTPUT_DIR)
 
-optimize: optimize-images optimize-css optimize-html compress ## Run all optimisation steps
+# minify-js must precede compress so the .br/.gz sidecars are built from the
+# minified bytes rather than the originals.
+optimize: optimize-images optimize-css optimize-html minify-js compress ## Run all optimisation steps
 
 # ─── Post-Deploy ──────────────────────────────────────────────────
 
