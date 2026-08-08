@@ -24,6 +24,7 @@ on:
 # site back to main, so it must explicitly grant contents: write.
 permissions:
   contents: write
+  actions: write   # dispatch quality-checks.yml after a successful deploy
 
 # Prevent concurrent runs of this workflow
 concurrency:
@@ -938,6 +939,7 @@ jobs:
       continue-on-error: true
 
     - name: Validate HTML and deployment (parallel)
+      id: validation
       timeout-minutes: 10
       run: |
         echo "🔍 Running HTML validation and deployment validation in parallel..."
@@ -1113,6 +1115,16 @@ jobs:
           echo "pushed_sha=" >> $GITHUB_OUTPUT
           exit 0
         fi
+
+        # Diff size, captured before the commit. A build that rewrites ~1500
+        # files instead of ~20 is the shape the WP-Optimize timestamp churn
+        # took (every page rewritten for zero content change), and it was only
+        # ever visible by reading `git log --stat` after the fact.
+        DIFF_STAT=$(git diff --cached --shortstat | sed 's/^ *//')
+        DIFF_FILES=$(git diff --cached --name-only | wc -l | tr -d ' ')
+        echo "diff_stat=${DIFF_STAT:-none}" >> $GITHUB_OUTPUT
+        echo "diff_files=${DIFF_FILES}" >> $GITHUB_OUTPUT
+        echo "📊 Diff: ${DIFF_STAT}"
 
         echo "📝 Changes detected, committing..."
         git commit -m "🚀 Auto-update static site - $(date '+%Y-%m-%d %H:%M:%S')"
@@ -1523,6 +1535,32 @@ jobs:
           echo "⚠️ $COUNT non-blocking step(s) failed: $LIST"
         fi
 
+    - name: Trigger Lighthouse quality checks
+      # quality-checks.yml declares `push: paths: public/**`, but that trigger
+      # has never once fired: pushes made with the default GITHUB_TOKEN don't
+      # start other workflows (GitHub's loop prevention). Every run for the
+      # last six days came from its 03:00 schedule, so a regression shipped at
+      # 21:07 wasn't measured until the next morning — which is exactly how the
+      # 2026-08-08 CLS regression (0.63, perf 60) went unreported until someone
+      # ran PageSpeed by hand.
+      #
+      # Dispatching explicitly closes that loop: scores land in Slack minutes
+      # after the deploy instead of up to 24 hours later. Non-blocking — the
+      # site is already published by this point.
+      if: success() && steps.commit_push.outputs.pushed_sha != ''
+      continue-on-error: true
+      env:
+        GH_TOKEN: ${{ github.token }}
+        GH_REPO: ${{ github.repository }}
+      run: |
+        echo "🔦 Dispatching quality-checks.yml against production..."
+        # run_lighthouse must be passed explicitly — the lighthouse job gates on
+        # `inputs.run_lighthouse == 'true'` for workflow_dispatch events.
+        gh workflow run quality-checks.yml --ref main \
+          -f run_lighthouse=true -f run_formatting=true \
+          && echo "✅ Lighthouse run queued" \
+          || echo "⚠️  Could not queue Lighthouse run (non-blocking)"
+
     - name: Notify Slack on Success
       if: success()
       uses: slackapi/slack-github-action@dcb1066f776dd043e64d0e8ba94ca15cc7e1875d # v4.0.0
@@ -1536,13 +1574,28 @@ jobs:
             "icon_emoji": ":github:",
             "attachments": [
               {
-                "color": "${{ steps.nonblocking_report.outputs.failed_count == '0' && 'good' || 'warning' }}",
-                "title": "${{ steps.nonblocking_report.outputs.failed_count == '0' && '✅ jkcoukblog Build Success' || '⚠️ jkcoukblog Build Success (with warnings)' }}",
+                "color": "${{ (steps.nonblocking_report.outputs.failed_count == '0' && steps.validation.outputs.pages_over_budget == '0' && steps.validation.outputs.pages_stale == '0' && steps.html_transformer.outputs.css_skip_missing == '0') && 'good' || 'warning' }}",
+                "title": "${{ (steps.nonblocking_report.outputs.failed_count == '0' && steps.validation.outputs.pages_over_budget == '0' && steps.validation.outputs.pages_stale == '0' && steps.html_transformer.outputs.css_skip_missing == '0') && '✅ jkcoukblog Build Success' || '⚠️ jkcoukblog Build Success (with warnings)' }}",
                 "text": "jkcoukblog static site built and pushed successfully!",
                 "fields": [
                   {
                     "title": "Non-blocking step failures",
                     "value": "${{ steps.nonblocking_report.outputs.failed_count == '0' && 'None' || steps.nonblocking_report.outputs.failed_list }}",
+                    "short": false
+                  },
+                  {
+                    "title": "Output budgets",
+                    "value": "Max stylesheets/page: ${{ steps.validation.outputs.max_stylesheets || 'n/a' }} · over budget: ${{ steps.validation.outputs.pages_over_budget || '?' }} · stale pages: ${{ steps.validation.outputs.pages_stale || '?' }}",
+                    "short": false
+                  },
+                  {
+                    "title": "CSS inlining",
+                    "value": "${{ steps.html_transformer.outputs.css_inlined || '?' }} inlined (${{ steps.html_transformer.outputs.css_inlined_kb || '?' }} KB) · ${{ steps.html_transformer.outputs.css_dropped_empty || '0' }} empty dropped · ${{ steps.html_transformer.outputs.css_skip_missing || '0' }} skipped-missing",
+                    "short": false
+                  },
+                  {
+                    "title": "Diff",
+                    "value": "${{ steps.commit_push.outputs.diff_files || '0' }} files — ${{ steps.commit_push.outputs.diff_stat || 'no changes' }}",
                     "short": false
                   },
                   {

@@ -16,6 +16,7 @@ Transform order (each depends on the previous being stable):
 The original standalone scripts remain functional for individual use.
 """
 
+import os
 import sys
 import re
 import time
@@ -92,6 +93,25 @@ class HTMLTransformer:
 
         elapsed = time.time() - start_time
         self._print_summary(elapsed)
+        self._write_github_output()
+
+    def _write_github_output(self):
+        """Expose the inlining counters to the workflow so Slack can report
+        them. `skip_not_on_disk` is the number that mattered: it read 1442 on
+        the 2026-08-08 build while the log otherwise looked like a clean
+        success, and nothing surfaced it outside the raw job output."""
+        out = os.environ.get('GITHUB_OUTPUT')
+        if not out:
+            return
+        s = self.wp_inline_stats
+        try:
+            with open(out, 'a', encoding='utf-8') as fh:
+                fh.write(f"css_inlined={s['inlined']}\n")
+                fh.write(f"css_inlined_kb={s['inlined_bytes'] // 1024}\n")
+                fh.write(f"css_dropped_empty={s['dropped_empty']}\n")
+                fh.write(f"css_skip_missing={s['skip_not_on_disk']}\n")
+        except OSError as e:
+            print(f"⚠️  Could not write GITHUB_OUTPUT: {e}")
 
     # Pre-compiled at class load so the per-file strip avoids re-parsing.
     # Kadence emits this inline `<script>` once per page — usually right
