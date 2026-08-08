@@ -212,6 +212,51 @@ jobs:
             echo "has_results=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Compare against previous scores
+        id: lh_delta
+        if: always() && steps.lighthouse_results.outputs.has_results == 'true'
+        continue-on-error: true
+        run: |
+          # data/lighthouse-latest.json still holds the PREVIOUS run's numbers
+          # at this point — the "Record" step below overwrites it. An absolute
+          # score is hard to act on; a delta is not. P77 alone reads as "a bit
+          # low", while "P77 ▼15" is unmistakably a regression.
+          PREV_FILE=data/lighthouse-latest.json
+          delta() {  # $1 current, $2 previous
+            if [ -z "$2" ] || [ "$2" = "null" ]; then echo ""; return; fi
+            D=$(( $1 - $2 ))
+            if [ "$D" -gt 0 ]; then echo " ▲$D"
+            elif [ "$D" -lt 0 ]; then echo " ▼${D#-}"
+            else echo " ="; fi
+          }
+
+          if [ -f "$PREV_FILE" ]; then
+            P_PREV=$(jq -r '.performance // empty' "$PREV_FILE")
+            A_PREV=$(jq -r '.accessibility // empty' "$PREV_FILE")
+            B_PREV=$(jq -r '.best_practices // empty' "$PREV_FILE")
+            S_PREV=$(jq -r '.seo // empty' "$PREV_FILE")
+            CLS_PREV=$(jq -r '.cls // empty' "$PREV_FILE")
+            MEASURED=$(jq -r '.measured_at // "unknown"' "$PREV_FILE")
+          fi
+
+          P_NOW=${{ steps.lighthouse_results.outputs.performance }}
+          echo "perf_delta=$(delta "$P_NOW" "${P_PREV:-}")" >> $GITHUB_OUTPUT
+          echo "a11y_delta=$(delta "${{ steps.lighthouse_results.outputs.accessibility }}" "${A_PREV:-}")" >> $GITHUB_OUTPUT
+          echo "bp_delta=$(delta "${{ steps.lighthouse_results.outputs.best_practices }}" "${B_PREV:-}")" >> $GITHUB_OUTPUT
+          echo "seo_delta=$(delta "${{ steps.lighthouse_results.outputs.seo }}" "${S_PREV:-}")" >> $GITHUB_OUTPUT
+          echo "prev_cls=${CLS_PREV:-n/a}" >> $GITHUB_OUTPUT
+          echo "prev_measured=${MEASURED:-unknown}" >> $GITHUB_OUTPUT
+
+          # A performance drop of 5+ points is a regression worth a red card,
+          # regardless of the absolute score. The existing `status` output only
+          # looks at absolutes, so a 92 -> 87 slide would still read as green.
+          if [ -n "${P_PREV:-}" ] && [ "$P_PREV" != "null" ] && [ $(( P_NOW - P_PREV )) -le -5 ]; then
+            echo "regressed=true" >> $GITHUB_OUTPUT
+            echo "⚠️  Performance regressed ${P_PREV} → ${P_NOW}"
+          else
+            echo "regressed=false" >> $GITHUB_OUTPUT
+          fi
+
       # Persist the real Lighthouse scores so the /changelog/ and /stats/ pages
       # can show genuine numbers. generate_changelog.py (run by the deploy
       # pipeline) reads data/lighthouse-latest.json and folds it into
@@ -261,8 +306,13 @@ jobs:
             git rebase origin/main && git push origin HEAD:main
           fi
 
-      - name: Notify Slack with metrics (on push/PR)
-        if: always() && steps.lighthouse_results.outputs.has_results == 'true' && (github.event_name == 'push' || github.event_name == 'pull_request')
+      - name: Notify Slack with metrics
+        # Deliberately not filtered by event. It used to fire only on
+        # push/pull_request, but the push trigger never fires (GITHUB_TOKEN
+        # pushes don't start workflows) — so in practice the only runs were
+        # scheduled ones, and those posted nothing at all. Every run reports
+        # now, including the deploy pipeline's explicit dispatch.
+        if: always() && steps.lighthouse_results.outputs.has_results == 'true'
         uses: slackapi/slack-github-action@v4.0.0
         with:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -274,28 +324,33 @@ jobs:
               "icon_emoji": ":lighthouse:",
               "attachments": [
                 {
-                  "color": "${{ steps.lighthouse_results.outputs.status }}",
-                  "title": "🚀 Lighthouse Performance Report",
-                  "text": "Performance metrics for <${{ steps.lighthouse_results.outputs.url }}|jameskilby.co.uk>",
+                  "color": "${{ steps.lh_delta.outputs.regressed == 'true' && 'danger' || steps.lighthouse_results.outputs.status }}",
+                  "title": "${{ steps.lh_delta.outputs.regressed == 'true' && '📉 Lighthouse Regression' || '🚀 Lighthouse Performance Report' }}",
+                  "text": "Performance metrics for <${{ steps.lighthouse_results.outputs.url }}|jameskilby.co.uk> · previous run ${{ steps.lh_delta.outputs.prev_measured || 'unknown' }}",
                   "fields": [
                     {
                       "title": "🎯 Performance",
-                      "value": "${{ steps.lighthouse_results.outputs.performance }}/100",
+                      "value": "${{ steps.lighthouse_results.outputs.performance }}/100${{ steps.lh_delta.outputs.perf_delta }}",
                       "short": true
                     },
                     {
                       "title": "♿ Accessibility",
-                      "value": "${{ steps.lighthouse_results.outputs.accessibility }}/100",
+                      "value": "${{ steps.lighthouse_results.outputs.accessibility }}/100${{ steps.lh_delta.outputs.a11y_delta }}",
                       "short": true
                     },
                     {
                       "title": "✅ Best Practices",
-                      "value": "${{ steps.lighthouse_results.outputs.best_practices }}/100",
+                      "value": "${{ steps.lighthouse_results.outputs.best_practices }}/100${{ steps.lh_delta.outputs.bp_delta }}",
                       "short": true
                     },
                     {
                       "title": "🔍 SEO",
-                      "value": "${{ steps.lighthouse_results.outputs.seo }}/100",
+                      "value": "${{ steps.lighthouse_results.outputs.seo }}/100${{ steps.lh_delta.outputs.seo_delta }}",
+                      "short": true
+                    },
+                    {
+                      "title": "📐 CLS",
+                      "value": "${{ steps.lighthouse_results.outputs.cls }} (was ${{ steps.lh_delta.outputs.prev_cls || 'n/a' }})",
                       "short": true
                     },
                     {

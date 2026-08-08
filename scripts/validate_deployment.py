@@ -13,6 +13,7 @@ Usage:
     python3 validate_deployment.py <site_directory>
 """
 
+import os
 import re
 import sys
 from pathlib import Path
@@ -625,6 +626,109 @@ class DeploymentValidator:
         else:
             print("   ✅ Path manifest stamped into _worker.js")
 
+    # Budget file that the Lighthouse PR gate asserts against. Read at runtime
+    # so this validator and the gate can't drift apart.
+    BUDGET_PATH = Path(__file__).parent.parent / '.github/lighthouse/budget.json'
+
+    # Markers that should never survive a build. wpo-minify paths come from
+    # WP-Optimize's minify cache, disabled in Aug 2026 — any page still
+    # carrying one was served from a stale incremental cache rather than
+    # regenerated.
+    STALE_MARKERS = ('wpo-minify',)
+
+    def _stylesheet_budget(self):
+        """Max stylesheets/page from budget.json, or None if unreadable."""
+        try:
+            budget = json.loads(self.BUDGET_PATH.read_text())
+        except (OSError, ValueError):
+            return None
+        for entry in budget:
+            for counts in entry.get('resourceCounts', []):
+                if counts.get('resourceType') == 'stylesheet':
+                    return counts.get('budget')
+        return None
+
+    # A stylesheet request is either a plain <link rel=stylesheet> or the
+    # async pattern critical CSS rewrites it into (rel=preload + as=style).
+    # <noscript> fallbacks duplicate the href, so count distinct hrefs only.
+    _CSS_REQ_RE = re.compile(
+        r'<link[^>]+(?:rel="stylesheet"|as="style")[^>]*href="([^"]+)"'
+        r'|<link[^>]+href="([^"]+)"[^>]*(?:rel="stylesheet"|as="style")',
+        re.IGNORECASE,
+    )
+
+    def validate_resource_budgets(self):
+        """Assert per-page stylesheet requests against the Lighthouse budget.
+
+        Why this exists: on 2026-08-08 a build shipped 172 of 254 pages over
+        the stylesheet budget (and 0.63 CLS with it) while every existing
+        validator passed and Slack reported success. The pipeline measured
+        how much work it did, never whether the output was correct. The
+        Lighthouse gate that would have caught it only runs against the
+        already-deployed site, too late to block anything.
+        """
+        print("📐 Validating per-page resource budgets...")
+
+        limit = self._stylesheet_budget()
+        if limit is None:
+            self.warnings.append(
+                f"Resource budget: could not read {self.BUDGET_PATH.name}, skipped")
+            return
+
+        html_files = self.find_files(['.html'])
+        over = []
+        stale = []
+        worst = 0
+
+        for f in html_files:
+            try:
+                html = f.read_text(encoding='utf-8', errors='replace')
+            except OSError:
+                continue
+            hrefs = {m.group(1) or m.group(2) for m in self._CSS_REQ_RE.finditer(html)}
+            count = len(hrefs)
+            worst = max(worst, count)
+            if count > limit:
+                over.append((f.relative_to(self.site_dir).as_posix(), count))
+            if any(marker in html for marker in self.STALE_MARKERS):
+                stale.append(f.relative_to(self.site_dir).as_posix())
+
+        self.stats['Max stylesheets/page'] = f"{worst} (budget {limit})"
+        self.stats['Pages over stylesheet budget'] = len(over)
+        self.stats['Pages with stale markers'] = len(stale)
+
+        # Warning, not error: shipping a slower page is better than blocking a
+        # content deploy. It goes to Slack in the build card, where a non-zero
+        # count is visible rather than buried in a log.
+        if over:
+            worst_pages = ", ".join(f"{p} ({n})" for p, n in
+                                    sorted(over, key=lambda x: -x[1])[:3])
+            self.warnings.append(
+                f"{len(over)}/{len(html_files)} pages exceed the stylesheet "
+                f"budget of {limit} (worst: {worst_pages})")
+        if stale:
+            self.warnings.append(
+                f"{len(stale)} page(s) carry stale build markers "
+                f"{self.STALE_MARKERS} — served from cache, not regenerated "
+                f"(e.g. {stale[0]})")
+
+        if not over and not stale:
+            print(f"   ✅ All {len(html_files)} pages within budget "
+                  f"(max {worst}/{limit}), no stale markers")
+
+    def write_github_output(self):
+        """Expose budget results to the workflow so Slack can report them."""
+        out = os.environ.get('GITHUB_OUTPUT')
+        if not out:
+            return
+        try:
+            with open(out, 'a', encoding='utf-8') as fh:
+                fh.write(f"max_stylesheets={self.stats.get('Max stylesheets/page', 'n/a')}\n")
+                fh.write(f"pages_over_budget={self.stats.get('Pages over stylesheet budget', 0)}\n")
+                fh.write(f"pages_stale={self.stats.get('Pages with stale markers', 0)}\n")
+        except OSError as e:
+            print(f"   ⚠️  Could not write GITHUB_OUTPUT: {e}")
+
     def validate_all(self):
         """Run all validation checks."""
         print("🔍 Running comprehensive deployment validation...\n")
@@ -638,6 +742,8 @@ class DeploymentValidator:
         self.validate_utterances_comments()
         self.validate_plausible_analytics()
         self.validate_worker_stamp()
+        self.validate_resource_budgets()
+        self.write_github_output()
 
         self.print_summary()
 
