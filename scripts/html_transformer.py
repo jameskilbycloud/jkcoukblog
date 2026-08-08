@@ -510,24 +510,111 @@ class HTMLTransformer:
     # also has this logic but only fires when a page is regenerated from WP —
     # running it again here covers list pages (homepage, archives) that
     # incremental builds skip.
+    #
+    # Patterns are broad (whole plugin/theme trees) rather than a list of
+    # specific files because WP-Optimize minify is disabled: WordPress now
+    # emits each plugin's and theme's stylesheet individually instead of one
+    # concatenated wpo-minify bundle. The old three-entry allowlist matched
+    # only the bundle and two named Kadence files, so none of the unbundled
+    # plugin CSS would ever be considered. The wpo-minify entry is kept so
+    # re-enabling the plugin (or replaying an older build) still works.
     _WP_INLINE_PATTERNS = (
-        'wp-content/themes/kadence/assets/css/rankmath.min.css',
-        'wp-content/themes/kadence/assets/css/footer.min.css',
+        'wp-content/plugins/',
+        'wp-content/themes/',
         'wp-content/cache/wpo-minify/',
     )
-    _WP_INLINE_MAX_BYTES = 2048
+
+    # Per-file ceiling, raised from 2048 when WP-Optimize minify was disabled.
+    #
+    # Sized from a 51-URL sweep of the live CMS covering every page type
+    # (homepage, posts, category/tag archives, pagination, static pages).
+    # Stylesheets per page: 5 on archives and the homepage, 7 on a typical
+    # post, 9 worst case (a post with comments plus a Rank Math TOC block).
+    #
+    # Sizes below are *after* optimize_css.py's unused-selector pass, which is
+    # what this pass actually sees — the raw files are 2-3x larger:
+    #
+    #     content.min.css         19136
+    #     footer.min.css          16586
+    #     header.min.css          13680
+    #     global.min.css           9601   ← on every page
+    #     kadence-splide.min.css    1699
+    #     comments.min.css         1025
+    #     related-posts.min.css     883
+    #     toc_list_style.css         212   ← the one plugin stylesheet
+    #     rankmath.min.css             0   (fully purged → dropped, not inlined)
+    #
+    # 10240 is deliberately set just above global.min.css: it ships on every
+    # page, so inlining it removes a round-trip site-wide. Every page shape
+    # above then converges to 3 linked stylesheets (content, footer, header)
+    # against the Lighthouse `stylesheet: 5` resourceCounts budget in
+    # .github/lighthouse/budget.json — two slots of headroom. Worst case
+    # inlines 13,420 B, comfortably inside _WP_INLINE_TOTAL_MAX_BYTES.
+    #
+    # The three larger files stay linked deliberately: inlining ~49 KB into
+    # every page would blow the document budget for no LCP gain.
+    #
+    # If a future selector corpus pushes global.min.css back over the cap it
+    # simply stays linked (4 stylesheets, still under budget), so this
+    # degrades gracefully rather than breaking.
+    _WP_INLINE_MAX_BYTES = 10240
+
+    # Page-level ceiling on total inlined bytes. Inlined CSS is duplicated
+    # into every HTML page and counts against the `document: 30` (KB,
+    # transfer) budget. Pages currently brotli to ~15 KB, so ~24 KB of extra
+    # raw CSS (~5-6 KB brotli'd at typical CSS ratios) keeps a safety margin.
+    # A post page inlines 12,183 B against this cap today, so there is room
+    # for the theme to grow before anything has to be re-tuned.
+    #
+    # The cap also bounds a deliberate trade-off: critical CSS made these
+    # links async (non-render-blocking), and inlining makes them render-
+    # blocking again. Removing the round-trip is worth more than the parse
+    # cost at these sizes — the same reasoning as _apply_inline_project_
+    # stylesheets below — but only while the total stays small.
+    _WP_INLINE_TOTAL_MAX_BYTES = 24576
+
+    @staticmethod
+    def _is_inlinable_css_link(link):
+        """True for both forms a stylesheet reaches this pass in.
+
+        Phase 4 (critical CSS) runs first and rewrites render-blocking
+        stylesheets into the async pattern
+        `rel="preload" as="style" onload="...this.rel='stylesheet'"`, leaving a
+        plain `<link rel="stylesheet">` behind only inside the <noscript>
+        fallback. Matching `rel="stylesheet"` alone therefore only ever found
+        the noscript copy, so the real request was never eliminated and this
+        whole pass was close to a no-op on any page that had critical CSS
+        extracted (i.e. all of them).
+        """
+        rel = link.get('rel') or []
+        if isinstance(rel, str):
+            rel = rel.split()
+        rel = {r.lower() for r in rel}
+        if 'stylesheet' in rel:
+            return True
+        return 'preload' in rel and (link.get('as') or '').lower() == 'style'
 
     def _apply_inline_tiny_wp_stylesheets(self, soup):
         """Inline small WordPress-shipped CSS links into <head> as <style>."""
         if not soup.head:
             return False
 
-        inlined = 0
-        for link in list(soup.find_all('link', rel='stylesheet')):
+        # Pass 1 — collect eligible links and their content, deduped by href.
+        # The same stylesheet appears twice once critical CSS has run (the
+        # preload and its noscript fallback); inlining it twice would double
+        # the bytes and spend the page budget on a duplicate.
+        candidates = []
+        seen_hrefs = set()
+        dropped_empty = 0
+        for link in list(soup.find_all('link')):
             if link.parent is None or link.attrs is None:
+                continue
+            if not self._is_inlinable_css_link(link):
                 continue
             raw_href = link.get('href') or ''
             href = raw_href.lstrip('/').split('?', 1)[0]
+            if href in seen_hrefs:
+                continue
             if not any(p in href for p in self._WP_INLINE_PATTERNS):
                 continue
             css_path = self.public_dir / href
@@ -537,20 +624,60 @@ class HTMLTransformer:
                 content = css_path.read_text(encoding='utf-8').strip()
             except Exception:
                 continue
-            if len(content) > self._WP_INLINE_MAX_BYTES:
+            # An empty file still costs a request, so drop the link — but
+            # there's nothing to inline, and BeautifulSoup won't render an
+            # empty <style> reliably.
+            if not content:
+                self._drop_stylesheet_refs(soup, raw_href)
+                seen_hrefs.add(href)
+                dropped_empty += 1
                 continue
+            size = len(content.encode('utf-8'))
+            if size > self._WP_INLINE_MAX_BYTES:
+                continue
+            seen_hrefs.add(href)
+            candidates.append((size, link, raw_href, content))
 
+        # Pass 2 — spend the page budget smallest-first, which maximises the
+        # number of requests eliminated per byte of HTML added. Selection
+        # order only decides *which* files are inlined; each <style> is still
+        # inserted at its own <link>'s position below, so the cascade order of
+        # the original document is preserved.
+        chosen = []
+        spent = 0
+        for size, link, raw_href, content in sorted(candidates, key=lambda c: c[0]):
+            if spent + size > self._WP_INLINE_TOTAL_MAX_BYTES:
+                continue
+            spent += size
+            chosen.append((link, raw_href, content))
+
+        # Pass 3 — apply, in document order.
+        inlined = 0
+        for link, raw_href, content in chosen:
+            if link.parent is None:
+                continue  # already removed as a companion of an earlier href
             style_tag = soup.new_tag('style')
             style_tag.string = content
             link.insert_before(style_tag)
-            for companion in list(soup.find_all('link', href=raw_href)):
-                companion.decompose()
-            for noscript in list(soup.find_all('noscript')):
-                if noscript.find('link', href=raw_href):
-                    noscript.decompose()
+            self._drop_stylesheet_refs(soup, raw_href)
             inlined += 1
 
-        return inlined > 0
+        return (inlined + dropped_empty) > 0
+
+    @staticmethod
+    def _drop_stylesheet_refs(soup, raw_href):
+        """Remove every reference to a stylesheet: the preload/stylesheet link
+        itself and the <noscript> fallback that would otherwise re-request it.
+
+        Order matters — the noscript wrapper has to go first. Decomposing the
+        links first empties the noscript, so the "does this noscript contain
+        the link?" test then finds nothing and leaves an empty <noscript>
+        behind on every page."""
+        for noscript in list(soup.find_all('noscript')):
+            if noscript.find('link', href=raw_href):
+                noscript.decompose()
+        for companion in list(soup.find_all('link', href=raw_href)):
+            companion.decompose()
 
     # Project-owned stylesheets we inline directly into <head> as <style>
     # tags, trading a few KB of Brotli'd HTML weight for a saved round-trip.

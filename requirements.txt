@@ -12,6 +12,11 @@ Pillow==12.3.0
 fonttools[woff]==4.63.0
 html2text==2025.4.15
 pyyaml==6.0.3
+# rjsmin minifies JS in scripts/minify_js.py. WP-Optimize's minify feature
+# used to do this WordPress-side; it was disabled because its cache path
+# embeds a timestamp that churned every page on each rebuild. Pure-Python
+# fallback if the C extension doesn't build, so no toolchain requirement.
+rjsmin==1.2.4
 
 # Dev/CI-only deps are in requirements-dev.txt
 # Image optimisation extras are in requirements-images.txt

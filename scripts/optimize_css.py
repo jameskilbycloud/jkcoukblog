@@ -176,9 +176,28 @@ class CSSOptimizer:
     # and the nav / sticky header / carousels would silently break the
     # moment a user interacts with them.
     #
-    # Source of truth: a wide grep of `classList.(add|remove|toggle)("...")`
-    # across wpo-minify-footer-*.min.js. When adding theme features or
-    # third-party widgets, re-run that grep and update this set.
+    # Source of truth: `python3 scripts/derive_dynamic_classes.py <output_dir>`,
+    # which scans every browser-facing .js file in the built site for
+    # classList.add/remove/toggle/replace, className assignment, and the
+    # jQuery addClass/removeClass/toggleClass equivalents.
+    #
+    # This used to say "grep wpo-minify-footer-*.min.js". That bundle no
+    # longer exists — WP-Optimize's minify feature was disabled because its
+    # cache path embedded a timestamp that rewrote every page on each
+    # WordPress-side rebuild. WordPress now emits each plugin/theme script
+    # individually, so the derivation has to walk all of them; hence the
+    # script. Re-run it after theme upgrades or when adding widgets.
+    #
+    # The list below is mechanically derived rather than hand-curated, so a
+    # few entries are inert on this site (no WooCommerce, no WP comments, no
+    # logged-in admin bar). They are kept so re-running the script produces a
+    # clean diff instead of noise that has to be re-triaged each time.
+    #
+    # Not included, deliberately: classes JS only *queries* (querySelector,
+    # closest, matches). Those must already exist in the served HTML to be
+    # found, so _collect_used_selectors picks them up. Splide's splide__*
+    # markup is server-rendered by wp_to_static_generator.fix_splide_carousel
+    # and is covered the same way — verified present in post-page HTML.
     _DYNAMIC_CLASSES = frozenset({
         # Generic interactive state
         'active', 'open', 'opened',
@@ -188,19 +207,35 @@ class CSSOptimizer:
         'hide-focus-outline',
 
         # Mobile drawer + menu
-        'show-drawer', 'toggle-show',
+        'show-drawer', 'toggle-show', 'popup-drawer',
         'toggled-on', 'menu-item--toggled-on', 'menu-item--has-toggle',
         'dropdown-nav-special-toggle', 'sub-menu-edge',
-        'current-menu-item',
+        'current-menu-item', 'click-to-open',
+        'kadence-menu-mega-enabled', 'kt-title-item',
         'kadence-scrollbar-fixer',
 
         # Sticky header / scroll-tracking states
         'header-is-fixed', 'item-is-fixed', 'item-is-stuck',
         'item-at-start', 'item-hidden-above', 'child-is-fixed',
         'scroll-visible',
+        'header-desktop-sticky', 'header-mobile-sticky',
+
+        # Header layout modes toggled on <body> / #masthead. These gate real
+        # layout rules (absolute positioning, hero padding) that would break
+        # the header outright if purged.
+        'transparent-header', 'mobile-transparent-header',
+        'no-header', 'no-anchor-scroll',
+        'site-header-inner-wrap', 'site-header-upper-inner-wrap',
+
+        # Sticky sidebar
+        'has-sticky-sidebar', 'has-sticky-sidebar-widget',
 
         # Animation triggers
         'pop-animated', 'splide-initial',
+
+        # Derived but inert on this site — see note above.
+        'admin-bar', 'comment-reply-link',
+        'woocommerce-demo-store', 'kadence-store-notice-placement-above',
     })
 
     # IDs created by JavaScript at runtime — same rationale as

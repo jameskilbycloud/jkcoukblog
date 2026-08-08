@@ -759,6 +759,20 @@ jobs:
       # vendored /js/* paths so the runner self-heals on every build.
       run: python3 scripts/rewrite_vendored_urls.py ./static-output
 
+    - name: Minify JavaScript
+      id: minify_js
+      # WP-Optimize's minify feature (disabled — its cache path embedded a
+      # timestamp that rewrote every page on each WordPress-side rebuild) was
+      # the only thing minifying JS. optimize_css.py covers CSS; minify_html.py
+      # deliberately stashes <script> bodies. This closes that gap.
+      #
+      # Must run BEFORE the Brotli step so the .br/.gz sidecars are built from
+      # the minified bytes. _worker.js is excluded by the script itself.
+      run: |
+        echo "📜 Minifying JavaScript..."
+        python3 scripts/minify_js.py ./static-output || echo "⚠️  JS minification failed (non-blocking)"
+      continue-on-error: true
+
     - name: Brotli + Gzip compress static files
       id: compress
       timeout-minutes: 10
