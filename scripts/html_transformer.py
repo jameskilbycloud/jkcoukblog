@@ -20,6 +20,7 @@ import sys
 import re
 import time
 import argparse
+import collections
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from bs4 import BeautifulSoup
@@ -52,6 +53,14 @@ class HTMLTransformer:
         self.files_processed = 0
         self.files_modified = 0
         self.total_bytes_saved = 0
+
+        # Per-branch accounting for _apply_inline_tiny_wp_stylesheets. That
+        # pass silently no-opped across a whole production build once (no
+        # exception, all files "modified", nothing inlined), which was not
+        # diagnosable from the logs. Every skip reason is counted, and the
+        # first offending path is kept so the build log names it.
+        self.wp_inline_stats = collections.defaultdict(int)
+        self.wp_inline_stats['over_cap_files'] = {}
 
     def process_all_files(self):
         """Process all HTML files in a single pass each."""
@@ -518,10 +527,21 @@ class HTMLTransformer:
     # only the bundle and two named Kadence files, so none of the unbundled
     # plugin CSS would ever be considered. The wpo-minify entry is kept so
     # re-enabling the plugin (or replaying an older build) still works.
+    # '-inline-css-' catches the pipeline's OWN extracted files under
+    # /assets/css/. wp_to_static_generator.extract_inline_css lifts WordPress's
+    # inline <style> blocks out to disk; WP-Optimize used to absorb those into
+    # its bundle, so with minify off they surface as extra requests on 170
+    # pages (kadence-global-inline-css 11450 B, wp-emoji-styles-inline-css
+    # 340 B). Putting them back as <style> restores the form WordPress emitted
+    # in the first place, so it is cascade-neutral. Matching on the filename
+    # convention rather than the whole /assets/css/ directory keeps
+    # brutalist-theme.css out of it — that one is handled separately by
+    # _PROJECT_INLINE_STYLESHEETS at Phase 4.7.
     _WP_INLINE_PATTERNS = (
         'wp-content/plugins/',
         'wp-content/themes/',
         'wp-content/cache/wpo-minify/',
+        '-inline-css-',
     )
 
     # Per-file ceiling, raised from 2048 when WP-Optimize minify was disabled.
@@ -544,34 +564,40 @@ class HTMLTransformer:
     #     toc_list_style.css         212   ← the one plugin stylesheet
     #     rankmath.min.css             0   (fully purged → dropped, not inlined)
     #
-    # 10240 is deliberately set just above global.min.css: it ships on every
-    # page, so inlining it removes a round-trip site-wide. Every page shape
-    # above then converges to 3 linked stylesheets (content, footer, header)
-    # against the Lighthouse `stylesheet: 5` resourceCounts budget in
-    # .github/lighthouse/budget.json — two slots of headroom. Worst case
-    # inlines 13,420 B, comfortably inside _WP_INLINE_TOTAL_MAX_BYTES.
+    # Plus the pipeline's OWN extracted inline CSS, which the sizing above
+    # missed because it only modelled what the CMS emits. These are on 170
+    # pages and were previously absorbed by the wpo-minify bundle:
     #
-    # The three larger files stay linked deliberately: inlining ~49 KB into
-    # every page would blow the document budget for no LCP gain.
+    #     kadence-global-inline-css-*.min.css   11450
+    #     wp-emoji-styles-inline-css-*.min.css    340
     #
-    # If a future selector corpus pushes global.min.css back over the cap it
-    # simply stays linked (4 stylesheets, still under budget), so this
-    # degrades gracefully rather than breaking.
-    _WP_INLINE_MAX_BYTES = 10240
+    # 12288 clears kadence-global-inline-css, the largest file worth inlining.
+    # The three above it — content, footer, header — stay linked deliberately;
+    # inlining ~49 KB into every page would blow the document budget for no
+    # LCP gain. That leaves 3 linked stylesheets against the Lighthouse
+    # `stylesheet: 5` resourceCounts budget in .github/lighthouse/budget.json.
+    #
+    # If a future selector corpus pushes a file back over the cap it simply
+    # stays linked, so this degrades gracefully rather than breaking.
+    _WP_INLINE_MAX_BYTES = 12288
 
     # Page-level ceiling on total inlined bytes. Inlined CSS is duplicated
     # into every HTML page and counts against the `document: 30` (KB,
-    # transfer) budget. Pages currently brotli to ~15 KB, so ~24 KB of extra
-    # raw CSS (~5-6 KB brotli'd at typical CSS ratios) keeps a safety margin.
-    # A post page inlines 12,183 B against this cap today, so there is room
-    # for the theme to grow before anything has to be re-tuned.
+    # transfer) budget.
+    #
+    # Worst case with the caps above is a post page carrying every optional
+    # stylesheet: global 9601 + kadence-global-inline 11450 + splide 1699 +
+    # comments 1025 + related-posts 883 + emoji 340 + toc 212 = 25,210 B,
+    # which is why this is 32768 rather than the earlier 24576. Pages brotli
+    # to ~15 KB today; ~32 KB of extra raw CSS adds roughly 7-8 KB on the
+    # wire, landing near 23 KB against the 30 KB document budget.
     #
     # The cap also bounds a deliberate trade-off: critical CSS made these
     # links async (non-render-blocking), and inlining makes them render-
     # blocking again. Removing the round-trip is worth more than the parse
     # cost at these sizes — the same reasoning as _apply_inline_project_
     # stylesheets below — but only while the total stays small.
-    _WP_INLINE_TOTAL_MAX_BYTES = 24576
+    _WP_INLINE_TOTAL_MAX_BYTES = 32768
 
     @staticmethod
     def _is_inlinable_css_link(link):
@@ -606,6 +632,7 @@ class HTMLTransformer:
         candidates = []
         seen_hrefs = set()
         dropped_empty = 0
+        stats = self.wp_inline_stats
         for link in list(soup.find_all('link')):
             if link.parent is None or link.attrs is None:
                 continue
@@ -615,27 +642,44 @@ class HTMLTransformer:
             href = raw_href.lstrip('/').split('?', 1)[0]
             if href in seen_hrefs:
                 continue
+            stats['css_links_seen'] += 1
             if not any(p in href for p in self._WP_INLINE_PATTERNS):
+                stats['skip_no_pattern_match'] += 1
+                stats.setdefault('sample_unmatched', href)
                 continue
+            stats['pattern_matched'] += 1
+            # Claim the href now, before any skip branch. Every <link> for it
+            # is handled by this iteration one way or another (inlined and
+            # dropped, or deliberately left linked), so a later duplicate —
+            # the noscript fallback — must not be reconsidered or re-counted.
+            seen_hrefs.add(href)
             css_path = self.public_dir / href
             if not css_path.exists():
+                # The branch that silently swallowed everything on the
+                # 2026-08-08 deploy: the pass ran on all 255 files, threw no
+                # exception, and inlined nothing. Record the resolved path so
+                # a build log shows exactly where it looked.
+                stats['skip_not_on_disk'] += 1
+                stats.setdefault('sample_missing', str(css_path.resolve()))
                 continue
             try:
                 content = css_path.read_text(encoding='utf-8').strip()
-            except Exception:
+            except Exception as e:
+                stats['skip_read_error'] += 1
+                stats.setdefault('sample_read_error', f"{css_path}: {e}")
                 continue
             # An empty file still costs a request, so drop the link — but
             # there's nothing to inline, and BeautifulSoup won't render an
             # empty <style> reliably.
             if not content:
                 self._drop_stylesheet_refs(soup, raw_href)
-                seen_hrefs.add(href)
                 dropped_empty += 1
                 continue
             size = len(content.encode('utf-8'))
             if size > self._WP_INLINE_MAX_BYTES:
+                stats['skip_over_file_cap'] += 1
+                stats['over_cap_files'][css_path.name] = size
                 continue
-            seen_hrefs.add(href)
             candidates.append((size, link, raw_href, content))
 
         # Pass 2 — spend the page budget smallest-first, which maximises the
@@ -647,6 +691,7 @@ class HTMLTransformer:
         spent = 0
         for size, link, raw_href, content in sorted(candidates, key=lambda c: c[0]):
             if spent + size > self._WP_INLINE_TOTAL_MAX_BYTES:
+                stats['skip_over_page_budget'] += 1
                 continue
             spent += size
             chosen.append((link, raw_href, content))
@@ -662,6 +707,9 @@ class HTMLTransformer:
             self._drop_stylesheet_refs(soup, raw_href)
             inlined += 1
 
+        stats['inlined'] += inlined
+        stats['inlined_bytes'] += spent
+        stats['dropped_empty'] += dropped_empty
         return (inlined + dropped_empty) > 0
 
     @staticmethod
@@ -857,7 +905,42 @@ class HTMLTransformer:
                     print(f"     - {p}")
         if not self.skip_critical_css:
             print(f"   Critical CSS: inlined in {self.critical_css.css_inlined} files")
+        self._print_wp_inline_summary()
         print(f"{'='*60}")
+
+    def _print_wp_inline_summary(self):
+        """Report what the WP-stylesheet inlining pass actually did.
+
+        Printed unconditionally, including the zero case — a silent no-op here
+        is the failure mode that shipped 172 over-budget pages once already,
+        and it looked identical to success in the build log.
+        """
+        s = self.wp_inline_stats
+        print(f"   WP stylesheet inlining: {s['inlined']} inlined "
+              f"({s['inlined_bytes'] / 1024:.1f} KB), "
+              f"{s['dropped_empty']} empty dropped, "
+              f"{s['css_links_seen']} candidate links seen")
+
+        if s['css_links_seen'] and not s['pattern_matched']:
+            print(f"      ⚠️  no link matched _WP_INLINE_PATTERNS "
+                  f"(sample href: {s.get('sample_unmatched')})")
+        if s['skip_not_on_disk']:
+            print(f"      ⚠️  {s['skip_not_on_disk']} skipped — file not on disk")
+            print(f"          looked for: {s.get('sample_missing')}")
+            print(f"          public_dir: {self.public_dir.resolve()}")
+        if s['skip_read_error']:
+            print(f"      ⚠️  {s['skip_read_error']} skipped — unreadable "
+                  f"({s.get('sample_read_error')})")
+        if s['skip_over_page_budget']:
+            print(f"      ℹ️  {s['skip_over_page_budget']} skipped — page budget "
+                  f"({self._WP_INLINE_TOTAL_MAX_BYTES} B) exhausted")
+        if s['over_cap_files']:
+            over = ", ".join(f"{n} {b}B" for n, b in
+                             sorted(s['over_cap_files'].items(),
+                                    key=lambda kv: -kv[1])[:6])
+            print(f"      ℹ️  left linked, over {self._WP_INLINE_MAX_BYTES} B cap: {over}")
+        if not s['css_links_seen']:
+            print("      ⚠️  pass saw zero candidate <link> tags — check phase order")
 
 
 def main():
