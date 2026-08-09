@@ -1342,7 +1342,12 @@ jobs:
 
         if [ -n "$CLOUDFLARE_API_TOKEN" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
           echo "⏳ Waiting for Cloudflare Pages deployment of ${PUSHED_SHA:0:7} to complete..."
-          MAX_ATTEMPTS=18   # 18 × 10s = 180s max
+          # 5s poll, same 180s ceiling. The deployment consistently becomes
+          # ready between the 3rd and 4th poll, so a 10s interval spent up to
+          # 9s per deploy waiting on a state that had already changed — 33s of
+          # the step's 49s on the 2026-08-09 17:34 run. Halving the interval
+          # keeps the same worst case and returns most of that.
+          MAX_ATTEMPTS=36   # 36 × 5s = 180s max
           ATTEMPT=0
           DEPLOY_STATUS="pending"
           DEPLOY_RESP=""
@@ -1367,7 +1372,7 @@ jobs:
                 ;;
             esac
             ATTEMPT=$((ATTEMPT+1))
-            sleep 10
+            sleep 5
           done
           if [ "$DEPLOY_STATUS" != "success" ]; then
             echo "⚠️  Deployment for ${PUSHED_SHA:0:7} did not reach 'success' within timeout"
