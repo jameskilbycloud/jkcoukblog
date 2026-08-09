@@ -48323,5 +48323,35 @@
     "avif_created": true,
     "webp": "wp-content/uploads/2025/02/dns.webp",
     "avif": "wp-content/uploads/2025/02/dns.avif"
+  },
+  "wp-content/uploads/2023/04/AWS_Services-300x177.webp": {
+    "hash": "9b46ccf7c88d71601d0f1b7366cc0ca8",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2023/04/AWS_Services-300x177.webp",
+    "avif": "wp-content/uploads/2023/04/AWS_Services-300x177.avif"
+  },
+  "wp-content/uploads/2023/04/AWS_Services.webp": {
+    "hash": "21bb17ce794e40ea7ff96ab69c5325e0",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2023/04/AWS_Services.webp",
+    "avif": "wp-content/uploads/2023/04/AWS_Services.avif"
+  },
+  "wp-content/uploads/2023/04/AWS_Services-150x150.webp": {
+    "hash": "706a2f10258ad735a4b08a0164d08f95",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2023/04/AWS_Services-150x150.webp",
+    "avif": "wp-content/uploads/2023/04/AWS_Services-150x150.avif"
   }
 }
