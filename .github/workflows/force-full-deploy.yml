@@ -14,6 +14,13 @@ name: Force Full Deploy (no cache)
 #   - build-cache-avif-v3-*      →  no .image_optimization_cache restored,
 #                                   so optimize_images.py rebuilds every
 #                                   AVIF/WebP from the original source.
+#   - raw-html-snapshot-*        →  no pre-transform HTML/CSS overlaid on the
+#                                   seed. Without the build cache the deploy
+#                                   doesn't seed at all, so this is belt-and-
+#                                   braces — but leaving a snapshot from a
+#                                   superseded template behind is exactly the
+#                                   kind of stale state this workflow exists
+#                                   to clear.
 #
 # Use this when a script change touches code that only runs on pages the
 # incremental builder would otherwise skip (typically the homepage / archive
@@ -73,6 +80,27 @@ jobs:
         IDS=$(gh cache list --limit 100 --key build-cache-avif-v3 --json id --jq '.[].id' || echo "")
         if [ -z "$IDS" ]; then
           echo "ℹ️  No build-cache-avif-v3-* entries to delete."
+        else
+          echo "$IDS" | while read -r id; do
+            [ -z "$id" ] && continue
+            if gh cache delete "$id" >/dev/null 2>&1; then
+              echo "  ✓ deleted $id"
+            else
+              echo "  ⚠️  failed to delete $id"
+            fi
+          done
+        fi
+
+    - name: Purge raw pre-transform HTML snapshot
+      env:
+        GH_TOKEN: ${{ github.token }}
+        GH_REPO: ${{ github.repository }}
+      run: |
+        set -euo pipefail
+        echo "🗑️  Searching for raw-html-snapshot-* entries..."
+        IDS=$(gh cache list --limit 100 --key raw-html-snapshot --json id --jq '.[].id' || echo "")
+        if [ -z "$IDS" ]; then
+          echo "ℹ️  No raw-html-snapshot-* entries to delete."
         else
           echo "$IDS" | while read -r id; do
             [ -z "$id" ] && continue
