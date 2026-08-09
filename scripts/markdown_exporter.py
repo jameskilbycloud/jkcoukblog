@@ -423,7 +423,10 @@ class MarkdownExporter:
         print("\n📋 Creating markdown index...")
         
         index_data = {
-            'generated': datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ'),
+            # Filled in from the indexed content below, not datetime.now() —
+            # a wall-clock stamp rewrote this file (and its .br/.gz sidecars)
+            # on every build regardless of whether anything changed.
+            'generated': '',
             'total_files': self.stats['posts_exported'] + self.stats['pages_exported'],
             'posts': [],
             'pages': []
@@ -454,22 +457,32 @@ class MarkdownExporter:
                     except (yaml.YAMLError, KeyError, AttributeError, TypeError):
                         pass
         
+        # Newest content date across everything indexed. Falls back to the
+        # wall clock only when there is no dated content at all.
+        dates = [item['date'] for item in
+                 index_data['posts'] + index_data['pages']
+                 if isinstance(item.get('date'), str) and item['date']]
+        index_data['generated'] = (max(dates) if dates
+                                   else datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ'))
+
         # Save index
         index_file = self.markdown_dir / 'index.json'
         index_file.write_text(json.dumps(index_data, indent=2, ensure_ascii=False))
-        
+
         print(f"   ✅ Created index: {index_file}")
     
     def _create_markdown_sitemap(self):
         """Create sitemap of markdown files"""
         print("🗺️  Creating markdown sitemap...")
         
-        sitemap_lines = ['# Markdown Content Sitemap\n']
-        sitemap_lines.append(f'Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}\n')
-        sitemap_lines.append(f'Total Files: {self.stats["posts_exported"] + self.stats["pages_exported"]}\n')
-        
+        # Header is written after the body so `Generated:` can carry the
+        # newest content date rather than the wall clock — a build-time stamp
+        # rewrote SITEMAP.md and its sidecars on every deploy for no reason.
+        body_lines = []
+        newest = ''
+
         # List posts
-        sitemap_lines.append('## Blog Posts\n')
+        body_lines.append('## Blog Posts\n')
         posts_dir = self.markdown_dir / 'posts'
         if posts_dir.exists():
             for md_file in sorted(posts_dir.glob('*.md'), reverse=True):
@@ -482,12 +495,21 @@ class MarkdownExporter:
                         title = fm.get('title', md_file.stem)
                         url = fm.get('url', '')
                         date = fm.get('date', '')
-                        
-                        sitemap_lines.append(f"- [{title}]({url}) - {date}")
-                        sitemap_lines.append(f"  - Markdown: `/markdown/posts/{md_file.name}`\n")
+                        if isinstance(date, str) and date > newest:
+                            newest = date
+
+                        body_lines.append(f"- [{title}]({url}) - {date}")
+                        body_lines.append(f"  - Markdown: `/markdown/posts/{md_file.name}`\n")
                     except (yaml.YAMLError, KeyError, AttributeError, TypeError):
-                        sitemap_lines.append(f"- {md_file.name}\n")
-        
+                        body_lines.append(f"- {md_file.name}\n")
+
+        sitemap_lines = [
+            '# Markdown Content Sitemap\n',
+            f'Generated: {newest or datetime.now().strftime("%Y-%m-%d %H:%M:%S")}\n',
+            f'Total Files: {self.stats["posts_exported"] + self.stats["pages_exported"]}\n',
+            *body_lines,
+        ]
+
         # Save sitemap
         sitemap_file = self.markdown_dir / 'SITEMAP.md'
         sitemap_file.write_text('\n'.join(sitemap_lines))
