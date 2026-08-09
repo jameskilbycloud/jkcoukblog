@@ -211,38 +211,52 @@ FONT_SPECS = (
 )
 
 
-def _collect_chars(site_dir: Path, spec: FontSpec) -> set:
-    """Walk every HTML file and return the unique characters appearing
-    inside elements styled with this font."""
-    chars = set()
-    html_files = list(site_dir.rglob('*.html'))
+def collect_chars_for_specs(site_dir: Path, specs) -> dict:
+    """Walk every HTML file once and return {spec.target_rel: char set}.
+
+    Previously each spec walked and re-parsed the whole corpus itself, so a
+    255-page site cost five full BeautifulSoup passes — 9.6s of the step's
+    16.6s locally, and the bulk of its 46s in CI. Parsing once and fanning the
+    result out to every spec is the same work divided by len(FONT_SPECS).
+    """
+    collected = {spec.target_rel: set() for spec in specs}
     bad_selectors = set()
-    for f in html_files:
+
+    for f in sorted(site_dir.rglob('*.html')):
         try:
             body = f.read_text(encoding='utf-8', errors='ignore')
         except Exception as e:
             print(f"   ⚠️  Skipping unreadable {f}: {e}")
             continue
         soup = BeautifulSoup(body, 'html.parser')
-        for tag in spec.tag_selectors:
-            for el in soup.find_all(tag):
-                chars.update(el.get_text())
-        for sel in spec.class_selectors:
-            try:
-                for el in soup.select(sel):
+
+        for spec in specs:
+            chars = collected[spec.target_rel]
+            for tag in spec.tag_selectors:
+                for el in soup.find_all(tag):
                     chars.update(el.get_text())
-            except Exception as e:
-                # Bad selector syntax shouldn't kill the whole subset run —
-                # but a silently skipped selector means its characters are
-                # missing from the subset and render as .notdef boxes. Warn
-                # once per selector, not once per file.
-                if sel not in bad_selectors:
-                    bad_selectors.add(sel)
-                    print(f"   ⚠️  Selector {sel!r} failed ({e}) — its glyphs "
-                          f"will be missing from the subset unless covered "
-                          f"by another selector")
-                continue
-    return chars
+            for sel in spec.class_selectors:
+                try:
+                    for el in soup.select(sel):
+                        chars.update(el.get_text())
+                except Exception as e:
+                    # Bad selector syntax shouldn't kill the whole subset run —
+                    # but a silently skipped selector means its characters are
+                    # missing from the subset and render as .notdef boxes. Warn
+                    # once per selector, not once per file.
+                    if sel not in bad_selectors:
+                        bad_selectors.add(sel)
+                        print(f"   ⚠️  Selector {sel!r} failed ({e}) — its glyphs "
+                              f"will be missing from the subset unless covered "
+                              f"by another selector")
+                    continue
+
+    return collected
+
+
+def _collect_chars(site_dir: Path, spec: FontSpec) -> set:
+    """Single-spec wrapper, kept for standalone use and tests."""
+    return collect_chars_for_specs(site_dir, [spec])[spec.target_rel]
 
 
 def _subset_font(font_path: Path, characters: str) -> dict:
@@ -312,43 +326,23 @@ def _ensure_master(repo_root: Path, site_dir: Path, spec: FontSpec) -> Path | No
     return None
 
 
-def corpus_fingerprint(site_dir: Path) -> str:
-    """Hash every HTML file that feeds character collection.
+def _cache_key(master_path: Path, characters: str) -> str:
+    """Identity of a subset: the master font, and the glyphs kept from it.
 
-    Computed once per run and shared by all specs. This is what lets the
-    cache be checked BEFORE _collect_chars rather than after: the character
-    set is a pure function of (corpus, selectors), so an unchanged corpus
-    means an unchanged character set without having to parse anything.
+    Keyed on the resolved character set, NOT on a hash of the HTML corpus.
+    The corpus was the obvious choice and it never hit once: changelog and
+    stats pages embed build metrics and so change on every single deploy, so
+    a corpus hash is different every run even when no glyph is. Keying on the
+    output of the scan instead means the subset is skipped whenever the
+    characters are the same, however much the pages moved underneath.
 
-    Hashing the corpus costs a read; _collect_chars costs a BeautifulSoup
-    parse of every page, once per font. On the real 253-page site that is
-    16s — which is why checking the cache after it saved nothing measurable
-    (16.1s → 16.0s) in the first version of this.
-    """
-    h = hashlib.blake2b(digest_size=16)
-    for path in sorted(site_dir.rglob('*.html')):
-        h.update(str(path.relative_to(site_dir)).encode('utf-8'))
-        h.update(b'\0')
-        h.update(path.read_bytes())
-        h.update(b'\0')
-    return h.hexdigest()
-
-
-def _cache_key(master_path: Path, spec: 'FontSpec', corpus_hash: str) -> str:
-    """Identity of a subset: the master, the selectors that choose glyphs
-    from it, and the corpus those selectors run against.
-
-    The selectors are part of the key so that editing FONT_SPECS invalidates
-    the cache — otherwise a code change to which elements feed a font would
-    silently keep serving the previous subset.
+    This does mean the scan still runs — hence collect_chars_for_specs
+    parsing each page once for all fonts rather than once per font.
     """
     h = hashlib.blake2b(digest_size=16)
     h.update(master_path.read_bytes())
     h.update(b'\0')
-    h.update(repr((spec.tag_selectors, spec.class_selectors,
-                   spec.safety_pad)).encode('utf-8'))
-    h.update(b'\0')
-    h.update(corpus_hash.encode('ascii'))
+    h.update(characters.encode('utf-8'))
     return h.hexdigest()
 
 
@@ -373,13 +367,14 @@ def _save_cache(site_dir: Path, cache: dict) -> None:
 
 
 def _process_one(repo_root: Path, site_dir: Path, spec: FontSpec,
-                 corpus_hash: str, cache: dict) -> dict | None:
-    """Restore master → target, collect chars, subset target.
+                 used: set, cache: dict) -> dict | None:
+    """Restore master → target and subset it, unless the cache says the
+    identical subset is already deployed.
 
-    Whole step took ~43s of a 319s deploy (13.5%) rebuilding five files whose
-    content essentially never changes — the Anton character set has been
-    stable at ~87 glyphs. The cache check has to come before _collect_chars:
-    that scan is the expensive part, not the subsetting.
+    The step took ~43s of a 319s deploy (13.5%) rebuilding five files whose
+    glyph sets essentially never change — Anton has been stable at 87 used
+    characters. `used` is passed in because the scan is now shared across all
+    specs (see collect_chars_for_specs).
     """
     master_path = _ensure_master(repo_root, site_dir, spec)
     if not master_path:
@@ -388,18 +383,16 @@ def _process_one(repo_root: Path, site_dir: Path, spec: FontSpec,
     font_path = site_dir / spec.target_rel
     font_path.parent.mkdir(parents=True, exist_ok=True)
 
-    key = _cache_key(master_path, spec, corpus_hash)
+    full_set = ''.join(sorted(used | set(spec.safety_pad)))
+
+    key = _cache_key(master_path, full_set)
     cached = cache.get(spec.target_rel)
     if (cached and cached.get('key') == key and font_path.exists()
             and font_path.stat().st_size == cached.get('after')):
         return {'label': spec.label, 'file': font_path.name,
                 'before': cached.get('before', 0), 'after': cached['after'],
-                'chars': cached.get('total_chars', 0),
-                'used_chars': cached.get('used_chars', 0),
-                'total_chars': cached.get('total_chars', 0), 'cached': True}
-
-    used = _collect_chars(site_dir, spec)
-    full_set = ''.join(sorted(used | set(spec.safety_pad)))
+                'chars': len(full_set), 'used_chars': len(used),
+                'total_chars': len(full_set), 'cached': True}
 
     shutil.copy2(master_path, font_path)
 
@@ -433,13 +426,15 @@ def main():
     html_count = len(list(site_dir.rglob('*.html')))
     print(f"🔤 Subsetting {len(FONT_SPECS)} fonts against {html_count} HTML files in {site_dir}")
 
-    corpus_hash = corpus_fingerprint(site_dir)
     cache = _load_cache(site_dir)
+    # One parse of the corpus for every spec, rather than one per spec.
+    collected = collect_chars_for_specs(site_dir, FONT_SPECS)
 
     results = []
     for spec in FONT_SPECS:
         print(f"\n   • {spec.label} ({spec.target_rel})")
-        stats = _process_one(repo_root, site_dir, spec, corpus_hash, cache)
+        stats = _process_one(repo_root, site_dir, spec,
+                             collected[spec.target_rel], cache)
         if stats:
             saved = stats['before'] - stats['after']
             pct = saved / stats['before'] * 100 if stats['before'] else 0
