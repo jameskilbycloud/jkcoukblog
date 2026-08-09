@@ -48,12 +48,44 @@ def test_reads_budget_from_lighthouse_config(tmp_path):
 
 
 def test_page_within_budget_produces_no_warning(tmp_path):
-    v = _site(tmp_path, {'index.html': _page([f'/c{i}.css' for i in range(BUDGET)])})
+    """Strictly under the budget — the only genuinely quiet case."""
+    v = _site(tmp_path, {'index.html': _page([f'/c{i}.css' for i in range(BUDGET - 1)])})
     v.validate_resource_budgets()
 
     assert v.warnings == []
     assert v.stats['Pages over stylesheet budget'] == 0
-    assert v.stats['Max stylesheets/page'] == f"{BUDGET} (budget {BUDGET})"
+    assert v.stats['Pages at stylesheet budget'] == 0
+    assert v.stats['Max stylesheets/page'] == f"{BUDGET - 1} (budget {BUDGET})"
+
+
+def test_page_exactly_at_budget_warns_about_no_headroom(tmp_path):
+    """Exactly at the budget used to read as a clean pass, identical to 1/5.
+
+    The site sat at 5/5 for a full day reporting "All 253 pages within
+    budget" — true, and one stylesheet away from the same check failing. The
+    distinction between "fine" and "out of room" is the whole point of
+    tracking the budget, so it has to be visible before it trips.
+    """
+    v = _site(tmp_path, {'index.html': _page([f'/c{i}.css' for i in range(BUDGET)])})
+    v.validate_resource_budgets()
+
+    assert v.stats['Pages at stylesheet budget'] == 1
+    assert v.stats['Pages over stylesheet budget'] == 0, 'at the limit is not over it'
+    assert len(v.warnings) == 1
+    assert 'no headroom' in v.warnings[0]
+
+
+def test_headroom_warning_is_suppressed_when_something_is_already_over(tmp_path):
+    """Over-budget is the actionable warning; don't bury it under a second
+    one saying other pages are close."""
+    v = _site(tmp_path, {
+        'over.html': _page([f'/c{i}.css' for i in range(BUDGET + 1)]),
+        'at.html': _page([f'/c{i}.css' for i in range(BUDGET)]),
+    })
+    v.validate_resource_budgets()
+
+    assert len(v.warnings) == 1
+    assert 'exceed the stylesheet budget' in v.warnings[0]
 
 
 def test_page_over_budget_warns_without_erroring(tmp_path):

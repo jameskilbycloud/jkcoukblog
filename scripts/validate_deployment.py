@@ -677,6 +677,7 @@ class DeploymentValidator:
 
         html_files = self.find_files(['.html'])
         over = []
+        at_limit = []
         stale = []
         worst = 0
 
@@ -690,11 +691,14 @@ class DeploymentValidator:
             worst = max(worst, count)
             if count > limit:
                 over.append((f.relative_to(self.site_dir).as_posix(), count))
+            elif count == limit:
+                at_limit.append(f.relative_to(self.site_dir).as_posix())
             if any(marker in html for marker in self.STALE_MARKERS):
                 stale.append(f.relative_to(self.site_dir).as_posix())
 
         self.stats['Max stylesheets/page'] = f"{worst} (budget {limit})"
         self.stats['Pages over stylesheet budget'] = len(over)
+        self.stats['Pages at stylesheet budget'] = len(at_limit)
         self.stats['Pages with stale markers'] = len(stale)
 
         # Warning, not error: shipping a slower page is better than blocking a
@@ -711,10 +715,19 @@ class DeploymentValidator:
                 f"{len(stale)} page(s) carry stale build markers "
                 f"{self.STALE_MARKERS} — served from cache, not regenerated "
                 f"(e.g. {stale[0]})")
+        # "Within budget" hid the difference between 3/5 and 5/5. The site sat
+        # at exactly 5/5 for a full day reading as a clean pass, with one
+        # stylesheet of margin before the same check starts failing.
+        if at_limit and not over:
+            self.warnings.append(
+                f"{len(at_limit)}/{len(html_files)} pages sit exactly at the "
+                f"stylesheet budget of {limit} — no headroom; one more sheet "
+                f"on any of them trips this check (e.g. {at_limit[0]})")
 
         if not over and not stale:
+            headroom = "no headroom" if at_limit else f"{limit - worst} to spare"
             print(f"   ✅ All {len(html_files)} pages within budget "
-                  f"(max {worst}/{limit}), no stale markers")
+                  f"(max {worst}/{limit}, {headroom}), no stale markers")
 
     def write_github_output(self):
         """Expose budget results to the workflow so Slack can report them."""
@@ -725,6 +738,7 @@ class DeploymentValidator:
             with open(out, 'a', encoding='utf-8') as fh:
                 fh.write(f"max_stylesheets={self.stats.get('Max stylesheets/page', 'n/a')}\n")
                 fh.write(f"pages_over_budget={self.stats.get('Pages over stylesheet budget', 0)}\n")
+                fh.write(f"pages_at_budget={self.stats.get('Pages at stylesheet budget', 0)}\n")
                 fh.write(f"pages_stale={self.stats.get('Pages with stale markers', 0)}\n")
         except OSError as e:
             print(f"   ⚠️  Could not write GITHUB_OUTPUT: {e}")
