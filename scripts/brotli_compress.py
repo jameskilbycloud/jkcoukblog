@@ -190,16 +190,31 @@ class BrotliCompressor:
             original_data = file_path.read_bytes()
             original_size = len(original_data)
 
-            with _gzip.open(gz_file, 'wb', compresslevel=9) as f:
-                f.write(original_data)
-
-            compressed_size = gz_file.stat().st_size
+            # mtime=0, not gzip.open()'s default of "now". GzipFile stamps the
+            # current time into the header's MTIME field, so recompressing an
+            # unchanged page on a later build produced different bytes and got
+            # committed again: 589 of the 617 sidecars in the 2026-08-09 08:51
+            # deploy had a source file that never changed. Brotli's format has
+            # no timestamp, which is why only 14 .br moved in that same commit
+            # against 598 .gz. gzip.compress() also omits the FNAME header that
+            # gzip.open(path) writes, so the sidecar is a few bytes smaller.
+            #
+            # Compressing in memory first also mirrors the Brotli path above:
+            # the sidecar is only written once it's known to be worth keeping,
+            # instead of being written and then unlinked.
+            compressed_data = _gzip.compress(original_data, compresslevel=9,
+                                             mtime=0)
+            compressed_size = len(compressed_data)
 
             if compressed_size < original_size * 0.95:
+                gz_file.write_bytes(compressed_data)
                 return {'success': True, 'original_size': original_size,
                         'compressed_size': compressed_size, 'log': None}
             else:
-                gz_file.unlink()
+                # An earlier build may have left a sidecar that no longer
+                # clears the threshold — drop it rather than serve it stale.
+                if gz_file.exists():
+                    gz_file.unlink()
                 return {'success': False, 'original_size': 0,
                         'compressed_size': 0, 'log': None}
 
