@@ -10,12 +10,31 @@ from datetime import datetime
 import yaml
 import re
 
+def _newest_first(posts):
+    """Order posts newest-first, slug-ascending within a date.
+
+    Grouped endpoints used to emit posts in whatever order Path.glob() walked
+    the directory, which is filesystem order and not stable between builds.
+    Nothing about the output was wrong — the same posts, shuffled — but every
+    build rewrote the files, and on 2026-08-09 that was 32 category endpoints
+    and 13 archive endpoints churning 13k lines per deploy for no content
+    change. Sort the emitted list rather than relying on iteration order, so
+    the endpoints stay stable regardless of how the files are walked.
+
+    Dates are ISO-8601 with a Z suffix, so lexicographic ordering is
+    chronological. Posts with a missing or unparseable date sort last rather
+    than raising.
+    """
+    by_slug = sorted(posts, key=lambda p: p.get('slug') or '')
+    return sorted(by_slug, key=lambda p: p.get('date') or '', reverse=True)
+
+
 class MarkdownAPIGenerator:
     def __init__(self, markdown_dir, api_dir):
         self.markdown_dir = Path(markdown_dir)
         self.api_dir = Path(api_dir)
         self.api_dir.mkdir(parents=True, exist_ok=True)
-    
+
     def generate_api(self):
         """Generate complete API structure"""
         print("🔌 Generating Markdown API...")
@@ -77,7 +96,7 @@ class MarkdownAPIGenerator:
         posts_dir = self.markdown_dir / 'posts'
         
         if posts_dir.exists():
-            for md_file in posts_dir.glob('*.md'):
+            for md_file in sorted(posts_dir.glob('*.md')):
                 post_data = self._parse_markdown_file(md_file)
                 if post_data and 'categories' in post_data:
                     for category in post_data['categories']:
@@ -94,14 +113,15 @@ class MarkdownAPIGenerator:
                         categories[slug]['posts'].append(post_data)
         
         # Save each category
-        for slug, data in categories.items():
+        for slug, data in sorted(categories.items()):
+            data['posts'] = _newest_first(data['posts'])
             output_file = categories_dir / f'{slug}.json'
             output_file.write_text(json.dumps(data, indent=2, ensure_ascii=False))
-        
+
         # Save categories index
         categories_index = [
             {'name': data['name'], 'slug': slug, 'count': len(data['posts'])}
-            for slug, data in categories.items()
+            for slug, data in sorted(categories.items())
         ]
         
         index_file = categories_dir / 'index.json'
@@ -118,7 +138,7 @@ class MarkdownAPIGenerator:
         posts_dir = self.markdown_dir / 'posts'
         
         if posts_dir.exists():
-            for md_file in posts_dir.glob('*.md'):
+            for md_file in sorted(posts_dir.glob('*.md')):
                 post_data = self._parse_markdown_file(md_file)
                 if post_data and 'tags' in post_data:
                     for tag in post_data['tags']:
@@ -135,14 +155,15 @@ class MarkdownAPIGenerator:
                         tags[slug]['posts'].append(post_data)
         
         # Save each tag
-        for slug, data in tags.items():
+        for slug, data in sorted(tags.items()):
+            data['posts'] = _newest_first(data['posts'])
             output_file = tags_dir / f'{slug}.json'
             output_file.write_text(json.dumps(data, indent=2, ensure_ascii=False))
-        
+
         # Save tags index
         tags_index = [
             {'name': data['name'], 'slug': slug, 'count': len(data['posts'])}
-            for slug, data in tags.items()
+            for slug, data in sorted(tags.items())
         ]
         
         index_file = tags_dir / 'index.json'
@@ -159,7 +180,7 @@ class MarkdownAPIGenerator:
         posts_dir = self.markdown_dir / 'posts'
         
         if posts_dir.exists():
-            for md_file in posts_dir.glob('*.md'):
+            for md_file in sorted(posts_dir.glob('*.md')):
                 post_data = self._parse_markdown_file(md_file)
                 if post_data and 'date' in post_data:
                     try:
@@ -182,7 +203,8 @@ class MarkdownAPIGenerator:
                               f"{post_data.get('slug', 'unknown')} — {e}")
         
         # Save each month
-        for year_month, data in archives.items():
+        for year_month, data in sorted(archives.items()):
+            data['posts'] = _newest_first(data['posts'])
             output_file = archive_dir / f'{year_month}.json'
             output_file.write_text(json.dumps(data, indent=2, ensure_ascii=False))
         
@@ -212,7 +234,7 @@ class MarkdownAPIGenerator:
         count = 0
         
         if posts_dir.exists():
-            for md_file in posts_dir.glob('*.md'):
+            for md_file in sorted(posts_dir.glob('*.md')):
                 post_data = self._parse_markdown_file(md_file, include_content=True)
                 if post_data:
                     slug = md_file.stem
