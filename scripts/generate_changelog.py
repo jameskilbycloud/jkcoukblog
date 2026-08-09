@@ -37,21 +37,56 @@ def load_lighthouse_history():
 # which then masqueraded as real data on /changelog/ and /stats/.
 LIGHTHOUSE_LATEST_FILE = Path('data/lighthouse-latest.json')
 
+SCORE_KEYS = ('performance', 'accessibility', 'best_practices', 'seo')
+
+
+def _median(values):
+    ordered = sorted(values)
+    n = len(ordered)
+    if not n:
+        return None
+    mid = n // 2
+    return ordered[mid] if n % 2 else round((ordered[mid - 1] + ordered[mid]) / 2)
+
+
 def save_lighthouse_scores(scores, history):
-    """Save current Lighthouse scores to history (one entry per date — latest wins)."""
+    """Save current Lighthouse scores to history (one entry per date, median of
+    that day's runs).
+
+    One row per date is right for a 90-day trend, but "latest wins" made the
+    row mean "whichever run happened to be last", which is not a property of
+    the day at all. On 2026-08-09 the day recorded P73 — a single cold-cache
+    outlier measured four minutes after a cache-purging deploy — while seven
+    other runs that day scored 91-93. The trend then showed a cliff that
+    nothing in the site had caused.
+
+    Keeping every sample and reporting the median fixes both halves: the row
+    resists a single bad run, and `samples` preserves the within-day detail
+    that "latest wins" discarded. Consumers read date/performance/... off the
+    entry as before and can ignore the extra keys.
+    """
     today = datetime.now().strftime('%Y-%m-%d')
+
+    sample = {'timestamp': scores['timestamp'],
+              **{k: scores[k] for k in SCORE_KEYS}}
+
+    prior = next((e for e in history if e.get('date') == today), None)
+    samples = list(prior.get('samples', [])) if prior else []
+    # Pre-existing rows predate `samples`; fold the old aggregate in as one
+    # data point rather than discarding the day's history on upgrade.
+    if prior and not samples:
+        samples.append({'timestamp': prior.get('timestamp'),
+                        **{k: prior[k] for k in SCORE_KEYS if k in prior}})
+    samples.append(sample)
+
     entry = {
         'date': today,
         'timestamp': scores['timestamp'],
-        'performance': scores['performance'],
-        'accessibility': scores['accessibility'],
-        'best_practices': scores['best_practices'],
-        'seo': scores['seo']
+        'runs': len(samples),
+        **{k: _median([s[k] for s in samples if k in s]) for k in SCORE_KEYS},
+        'samples': samples,
     }
 
-    # Replace an existing same-date entry rather than appending a duplicate.
-    # The deploy pipeline runs many times a day; without this, history would
-    # fill with identical same-day rows and the trend series would be useless.
     history = [e for e in history if e.get('date') != today]
     history.append(entry)
 
@@ -65,7 +100,8 @@ def save_lighthouse_scores(scores, history):
     with open(history_file, 'w') as f:
         json.dump(history, f, indent=2)
 
-    print(f"✅ Saved Lighthouse scores to history ({len(history)} entries)")
+    print(f"✅ Saved Lighthouse scores to history ({len(history)} entries; "
+          f"today P{entry['performance']} = median of {entry['runs']} run(s))")
     return history
 
 def get_lighthouse_scores():

@@ -119,7 +119,13 @@ jobs:
       run: |
         set -euo pipefail
         echo "🚀 Triggering deploy-static-site.yml on main..."
-        gh workflow run deploy-static-site.yml --ref main
+        # force_static_purge: the static-asset purge is normally gated on a
+        # diff of favicons/webmanifest/fonts. That gate is right for an
+        # incremental deploy, but a no-cache rebuild regenerates every asset
+        # from source — exactly the run where an edge copy is most likely to
+        # be stale in a way the diff can't see (subset fonts are served
+        # `immutable` for a year). Purge unconditionally here.
+        gh workflow run deploy-static-site.yml --ref main -f force_static_purge=true
         echo ""
         echo "✅ Triggered. The deploy uses the same concurrency group as a"
         echo "   manual run, so if a deploy is already in flight this one"

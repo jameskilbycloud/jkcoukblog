@@ -549,10 +549,16 @@ jobs:
           # — copying the old (smaller) file back served stale content and
           # the rsynced derivatives above then never regenerated.
 
-          # Count how many images still need modern formats
+          # Count how many images still need modern formats.
+          #
+          # Was TOTAL_IMAGES minus a bare count of every .avif on disk, which
+          # is not a subset of TOTAL_IMAGES — derivatives whose source is a
+          # format we don't count (or no longer present) inflate it, so the
+          # arithmetic went negative and the step reported "-300 of 1852".
+          # Ask the real question instead: which sources have no .avif sibling.
           TOTAL_IMAGES=$(find ./static-output/wp-content/uploads -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) | wc -l | xargs)
-          EXISTING_AVIF=$(find ./static-output/wp-content/uploads -type f -name "*.avif" | wc -l | xargs)
-          NEED_CONVERSION=$((TOTAL_IMAGES - EXISTING_AVIF))
+          NEED_CONVERSION=$(find ./static-output/wp-content/uploads -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) \
+            | while read -r img; do [ -f "${img%.*}.avif" ] || echo "$img"; done | wc -l | xargs)
           echo "📊 Images needing AVIF/WebP conversion: $NEED_CONVERSION of $TOTAL_IMAGES"
         fi
         
