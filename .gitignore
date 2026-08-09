@@ -66,6 +66,12 @@ indexnow-submission.json
 # Comment out the line below to enable cache tracking in git
 .build-cache.json
 
+# Raw pre-transform HTML/CSS captured after generation and restored on the
+# next incremental build. Persisted between runs via the Actions cache, never
+# committed — see "Restore raw pre-transform HTML snapshot" in
+# .github/workflows/deploy-static-site.yml
+.raw-html-snapshot/
+
 # Keep the public/ directory (this is what Cloudflare deploys)
 !public/
 docs/IMAGE_CACHE_DIAGNOSIS.md
