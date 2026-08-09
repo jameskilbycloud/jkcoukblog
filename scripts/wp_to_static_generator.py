@@ -5147,8 +5147,11 @@ document.addEventListener('DOMContentLoaded', function() {
         
         search_index = []
         
-        # Process all HTML files
-        for html_file in self.output_dir.rglob('*.html'):
+        # Process all HTML files. sorted() because rglob walks in filesystem
+        # order, which is not stable between builds — search-index.json and
+        # its .min sibling were being rewritten (and re-uploaded to KV) every
+        # deploy with the same entries in a different order.
+        for html_file in sorted(self.output_dir.rglob('*.html')):
             try:
                 relative_path = html_file.relative_to(self.output_dir)
                 
