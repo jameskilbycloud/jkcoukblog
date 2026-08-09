@@ -215,6 +215,33 @@ jobs:
         restore-keys: |
           incremental-build-cache-
 
+    # Raw (pre-transform) HTML + CSS as it looked immediately after the
+    # generator ran, before any optimisation pass touched it.
+    #
+    # Incremental builds seed ./static-output from public/ — which is the
+    # *published* output, i.e. HTML that optimize_css / html_transformer have
+    # already rewritten. Re-running those passes over their own output is not
+    # idempotent: the WP stylesheet inliner has already converted some
+    # <link rel=stylesheet> into <style>, and extract_critical_css only
+    # harvests rules from the <link>s that are still present, so the critical
+    # CSS block comes out different every run. Measured on 2026-08-09: two
+    # consecutive incremental runs with identical code and zero content
+    # changes rewrote 250 of 255 pages, differing *only* in the critical-CSS
+    # block, which is what made every deploy a ~1700-file commit.
+    #
+    # Restoring the raw snapshot over the seed means post-processing always
+    # starts from the same input, so an unchanged page produces a
+    # byte-identical output and drops out of the diff.
+    - name: Restore raw pre-transform HTML snapshot
+      id: raw-snapshot-restore
+      uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: .raw-html-snapshot
+        # run_attempt for the same reason as the build cache above.
+        key: raw-html-snapshot-${{ github.run_id }}-${{ github.run_attempt }}
+        restore-keys: |
+          raw-html-snapshot-
+
     - name: Check cache status
       run: |
         echo "🔍 Checking cache restoration status..."
@@ -238,7 +265,16 @@ jobs:
         else
           echo "⚠️  Incremental build cache not found — first run will be a full build"
         fi
-      
+
+        echo ""
+        echo "Raw HTML snapshot matched key: ${{ steps.raw-snapshot-restore.outputs.cache-matched-key }}"
+        if [ -d ".raw-html-snapshot" ]; then
+          RAW_HTML=$(find .raw-html-snapshot -name '*.html' -type f | wc -l | xargs)
+          echo "✓ Raw snapshot: $RAW_HTML HTML files — post-processing starts from pre-transform input"
+        else
+          echo "⚠️  Raw snapshot not found — this run seeds HTML from post-processed public/"
+        fi
+
     - name: Install system dependencies
       run: |
         echo "📦 Checking system dependencies..."
@@ -427,6 +463,24 @@ jobs:
           LAST_BUILD=$(python3 -c "import json; d=json.load(open('.build-cache.json')); print(d.get('last_build_time','unknown'))" 2>/dev/null || echo "unknown")
           echo "✅ Seeded $SEEDED_FILES files — last build: $LAST_BUILD"
           echo ""
+
+          # Overlay the raw (pre-transform) HTML/CSS captured at the end of the
+          # previous run. public/ holds the *post-processed* copies, and the
+          # optimisation passes are not idempotent over their own output — see
+          # the "Restore raw pre-transform HTML snapshot" step for the detail.
+          # Overlaying here (before the generator runs) means anything the
+          # generator itself rewrites this run still wins.
+          if [ -d ".raw-html-snapshot" ]; then
+            RAW_FILES=$(find .raw-html-snapshot -type f | wc -l | xargs)
+            rsync -a .raw-html-snapshot/ ./static-output/
+            echo "🧼 Overlaid $RAW_FILES raw pre-transform files (HTML + CSS) over the seed"
+          else
+            echo "⚠️  No raw snapshot to overlay — seeding HTML from post-processed public/."
+            echo "   Post-processing will re-run over already-transformed HTML, so this run"
+            echo "   may still produce a whole-site diff. The snapshot captured at the end"
+            echo "   of this run makes the next one clean."
+          fi
+          echo ""
           # Restore absolute URLs in seeded HTML so the HTML validator sees the same
           # URL format as a full build (convert_to_staging.py runs AFTER validation,
           # converting absolute → relative; seeded files already have relative URLs).
@@ -456,7 +510,21 @@ jobs:
         # Save to environment file for use in later steps
         echo "HTML_COUNT=$HTML_COUNT" >> $GITHUB_ENV
         echo "TOTAL_SIZE=$TOTAL_SIZE" >> $GITHUB_ENV
-        
+
+        # Capture the raw HTML/CSS *before* any optimisation pass runs. This is
+        # the fixed starting point the next incremental build seeds from, so
+        # that post-processing never re-runs over its own output. Everything
+        # after this line in the pipeline mutates static-output in place.
+        echo "📸 Capturing raw pre-transform snapshot..."
+        rm -rf .raw-html-snapshot
+        mkdir -p .raw-html-snapshot
+        rsync -a --prune-empty-dirs \
+          --include='*/' --include='*.html' --include='*.css' --exclude='*' \
+          ./static-output/ .raw-html-snapshot/
+        RAW_SNAPSHOT_FILES=$(find .raw-html-snapshot -type f | wc -l | xargs)
+        RAW_SNAPSHOT_SIZE=$(du -sh .raw-html-snapshot 2>/dev/null | cut -f1)
+        echo "✅ Snapshot: $RAW_SNAPSHOT_FILES files, $RAW_SNAPSHOT_SIZE"
+
         # Reuse already-optimized AVIF/WebP from the previous build in public/
         # rsync --ignore-existing skips files that already exist in static-output
         # so freshly generated conversions are never overwritten.
@@ -493,7 +561,10 @@ jobs:
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "- **HTML Pages:** $HTML_COUNT" >> $GITHUB_STEP_SUMMARY
         echo "- **Total Size:** $TOTAL_SIZE" >> $GITHUB_STEP_SUMMARY
-        echo "- **Output Directory:** `./static-output`" >> $GITHUB_STEP_SUMMARY
+        # Backticks must be escaped: unescaped, bash treats them as command
+        # substitution and tries to execute the directory, which is where the
+        # stray "./static-output: Is a directory" error in every run came from.
+        echo "- **Output Directory:** \`./static-output\`" >> $GITHUB_STEP_SUMMARY
 
     - name: Save incremental build cache
       if: success()
@@ -504,6 +575,20 @@ jobs:
         # don't fail with "Unable to reserve cache with key ... — another
         # job may be creating this cache" against their own prior attempt.
         key: incremental-build-cache-${{ github.run_id }}-${{ github.run_attempt }}
+
+    # Saved here rather than at the end of the job: static-output is moved to
+    # public/ in "Prepare output for deployment", and by then every file in it
+    # has been through the optimisation passes. The snapshot is only useful as
+    # the pre-transform state, so it has to be persisted straight after
+    # generation. Saving it before the build has fully passed is deliberate —
+    # it is an input snapshot, not a record of a good deploy, and a failed run
+    # still generated valid raw HTML.
+    - name: Save raw pre-transform HTML snapshot
+      if: success()
+      uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: .raw-html-snapshot
+        key: raw-html-snapshot-${{ github.run_id }}-${{ github.run_attempt }}
 
     - name: Export to Markdown
       run: |
