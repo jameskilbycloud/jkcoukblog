@@ -17,6 +17,17 @@ from typing import List, Tuple, Optional
 from bs4 import BeautifulSoup
 
 
+# Formats optimize_images.py encodes AVIF from, and therefore the formats an
+# <img> can be wrapped in <picture> for. Kept in one place because the same
+# set is needed three times below (disk-suffix check, src eligibility,
+# basename derivation) and they drifted apart from the encoder: webp/gif were
+# missing here, so even once an AVIF sibling existed the <img> stayed bare.
+CONVERTIBLE_SUFFIXES = ('.png', '.jpg', '.jpeg', '.webp', '.gif')
+_EXT_ALT = '|'.join(ext.lstrip('.') for ext in CONVERTIBLE_SUFFIXES)
+CONVERTIBLE_SRC_RE = re.compile(rf'\.({_EXT_ALT})($|\?)', re.IGNORECASE)
+CONVERTIBLE_EXT_RE = re.compile(rf'\.({_EXT_ALT})$', re.IGNORECASE)
+
+
 # Per-image AVIF/WebP-existence trace prints are useful when diagnosing why
 # specific <img> tags aren't being wrapped in <picture>, but they fired ~1,300×
 # per CI build — ~12% of the deploy log. Gate behind DEBUG_PICTURE so normal
@@ -82,7 +93,7 @@ class ImageToPictureConverter:
 
         src_disk = self.directory / src_path
         suffix = src_disk.suffix.lower()
-        if suffix not in ('.png', '.jpg', '.jpeg'):
+        if suffix not in CONVERTIBLE_SUFFIXES:
             return False
 
         # Strip the trailing `-WxH` from the stem to recover the WP base
@@ -237,8 +248,11 @@ class ImageToPictureConverter:
         if src.endswith('.svg'):
             return False
         
-        # Only convert image formats we optimize
-        if not re.search(r'\.(png|jpg|jpeg)($|\?)', src, re.IGNORECASE):
+        # Only convert image formats we optimize. webp/gif are included
+        # because optimize_images now encodes AVIF from them too — without
+        # this they'd have an AVIF sibling on disk and still ship as a bare
+        # <img>, which is exactly how the homepage LCP image was left.
+        if not CONVERTIBLE_SRC_RE.search(src):
             return False
         
         return True
@@ -254,7 +268,7 @@ class ImageToPictureConverter:
         # re-append it to the variant URLs. The old single-regex approach
         # glued the query onto the basename (/img.png?v=1 → /imgv=1.avif).
         src_path, _, src_query = src.partition('?')
-        base_src = re.sub(r'\.(png|jpg|jpeg)$', '', src_path, flags=re.IGNORECASE)
+        base_src = CONVERTIBLE_EXT_RE.sub('', src_path)
         query_suffix = f'?{src_query}' if src_query else ''
         
         # Track if we added responsive srcsets
