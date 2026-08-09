@@ -207,6 +207,45 @@ class CriticalCSSExtractor:
 
     RENDER_BLOCKING_CSS = ('brutalist-theme', 'fonts.css', 'consolidated-inline-styles')
 
+    # Harvest order decides what survives truncation: rules are kept in order
+    # until max_critical_css, so whatever is harvested last is what gets
+    # dropped. Document order was actively wrong for that purpose — the
+    # homepage links footer.min.css, content.min.css, header.min.css in that
+    # sequence, so the cap dropped HEADER rules (the most above-the-fold CSS
+    # on the page) while keeping footer rules for content a reader has to
+    # scroll past everything to reach.
+    #
+    # Matched on the href, first hit wins. Sheets that match nothing sit in
+    # the middle tier, and document order is preserved within a tier, so an
+    # unrecognised sheet keeps today's behaviour relative to its peers.
+    SHEET_PRIORITY = (
+        # Above the fold on every page: masthead, nav, global layout/typography.
+        (0, ('header', 'global', 'nav', 'menu', 'layout')),
+        # Main content — above the fold from the first paragraph down.
+        # No 'post' needle: it also matches related-posts.min.css, which is
+        # below-fold, and tier 1 is tested before tier 2. 'single'/'entry'/
+        # 'archive' cover the post-content sheets without the ambiguity.
+        (1, ('content', 'entry', 'single', 'archive')),
+        # Reached only by scrolling; last to be inlined, first to be dropped.
+        (2, ('footer', 'comment', 'related', 'pagination', 'widget', 'sidebar')),
+    )
+    _DEFAULT_SHEET_PRIORITY = 1
+
+    @classmethod
+    def _sheet_priority(cls, href):
+        """Lower sorts earlier, so it survives truncation.
+
+        Matched against the file name only. Matching the whole href puts every
+        sheet on the site into the 'content' tier, because they all live under
+        /wp-content/ — footer.min.css included, which is the one sheet this
+        ordering most needs to rank last.
+        """
+        name = (href or '').split('?', 1)[0].rstrip('/').rsplit('/', 1)[-1].lower()
+        for rank, needles in cls.SHEET_PRIORITY:
+            if any(n in name for n in needles):
+                return rank
+        return cls._DEFAULT_SHEET_PRIORITY
+
     def _extract_matching_css_rules(self, soup, selectors, file_path=None):
         """Extract critical rules — only from the stylesheets that load ASYNC.
 
@@ -219,10 +258,15 @@ class CriticalCSSExtractor:
         """
         critical_rules = []
 
-        for link in soup.find_all('link', rel='stylesheet'):
+        candidates = []
+        for order, link in enumerate(soup.find_all('link', rel='stylesheet')):
             href = link.get('href', '')
             if not href or any(x in href for x in self.RENDER_BLOCKING_CSS):
                 continue
+            candidates.append((self._sheet_priority(href), order, href))
+
+        # Stable within a tier: (priority, document order).
+        for _, _, href in sorted(candidates):
             css_path = self._resolve_css_path(href)
             if css_path and css_path.exists():
                 nodes = self._get_sheet_nodes(css_path)
