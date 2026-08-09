@@ -161,3 +161,102 @@ def test_excluded_tuple_is_single_source():
     assert ex._convert_css_to_preload(soup) is False
     link = soup.find('link')
     assert link['rel'] == ['stylesheet']
+
+
+# ── href resolution ──────────────────────────────────────────────────────
+# At the point the transformer runs, stylesheet hrefs are absolute
+# (`https://jameskilby.co.uk/wp-content/...`) — convert_to_staging.py doesn't
+# rewrite them to relative until "Prepare output for deployment", long after.
+# _resolve_css_path used to do a bare lstrip('/'), which doesn't touch a
+# scheme, so the lookup missed and the sheet contributed nothing.
+#
+# It failed silently: an unresolvable sheet and a sheet with nothing above the
+# fold both yield zero rules. _convert_css_to_preload then deferred those same
+# sheets, so header.min.css (13.7 KB) and content.min.css (19.1 KB) loaded
+# async with none of their above-fold rules inlined — 0.647 CLS and P73 on
+# 2026-08-09. Same defect #146 fixed in html_transformer's inliner.
+
+def _extract_with_href(css, selectors, tmp_path, href):
+    (tmp_path / 'styles.css').write_text(css, encoding='utf-8')
+    soup = BeautifulSoup(
+        f'<html><head><link rel="stylesheet" href="{href}"></head>'
+        '<body><main><h1>t</h1><p>x</p></main></body></html>',
+        'html.parser')
+    ex = CriticalCSSExtractor()
+    ex.public_dir = tmp_path
+    return ex._extract_matching_css_rules(soup, selectors)
+
+
+def test_absolute_same_site_href_resolves(tmp_path):
+    out = _extract_with_href('p{color:red}', {'p'}, tmp_path,
+                             'https://jameskilby.co.uk/styles.css')
+    assert 'color:red' in out, 'absolute same-site href did not resolve to disk'
+
+
+def test_query_string_href_resolves(tmp_path):
+    out = _extract_with_href('p{color:red}', {'p'}, tmp_path,
+                             '/styles.css?ver=3.1.5')
+    assert 'color:red' in out, 'cache-busting query string broke the disk lookup'
+
+
+def test_absolute_href_with_query_resolves(tmp_path):
+    out = _extract_with_href('p{color:red}', {'p'}, tmp_path,
+                             'https://jameskilby.co.uk/styles.css?ver=3.1.5')
+    assert 'color:red' in out
+
+
+def test_href_form_does_not_change_the_output(tmp_path):
+    """The real invariant. A full build and an incremental build see the same
+    page with hrefs in different forms; if extraction depends on the form, the
+    two builds emit different critical CSS for identical content — which is
+    exactly the 4,621 vs 12,058 byte divergence measured before #148."""
+    css = 'p{color:red}h1{margin:0}main{display:block}'
+    outputs = {
+        href: _extract_with_href(css, {'p', 'h1', 'main'}, tmp_path, href)
+        for href in (
+            '/styles.css',
+            'styles.css',
+            '/styles.css?ver=3.1.5',
+            'https://jameskilby.co.uk/styles.css',
+            'https://jameskilby.co.uk/styles.css?ver=3.1.5',
+        )
+    }
+    distinct = set(outputs.values())
+    assert len(distinct) == 1, (
+        'critical CSS depends on href form: '
+        + repr({h: len(o) for h, o in outputs.items()})
+    )
+    assert 'color:red' in distinct.pop()
+
+
+def test_offsite_href_is_not_resolved(tmp_path):
+    """normalize_self_href only strips our own origin — a third-party sheet
+    must not be mapped onto a same-named local file."""
+    (tmp_path / 'styles.css').write_text('p{color:red}', encoding='utf-8')
+    out = _extract_with_href('p{color:red}', {'p'}, tmp_path,
+                             'https://cdn.example.com/styles.css')
+    assert out == ''
+
+
+def test_deferred_sheets_have_their_rules_inlined(tmp_path):
+    """End-to-end statement of the CLS guarantee: any sheet
+    _convert_css_to_preload defers must have contributed its above-fold rules
+    to the critical block first. A deferred sheet with no inlined rules is a
+    layout shift."""
+    (tmp_path / 'header.min.css').write_text(
+        'header{height:80px}main{display:block}', encoding='utf-8')
+    soup = BeautifulSoup(
+        '<html><head>'
+        '<link rel="stylesheet" href="https://jameskilby.co.uk/header.min.css">'
+        '</head><body><header>h</header><main><h1>t</h1></main></body></html>',
+        'html.parser')
+    ex = CriticalCSSExtractor()
+    ex.public_dir = tmp_path
+
+    critical = ex._extract_critical_css(soup)
+    deferred = ex._convert_css_to_preload(soup)
+
+    assert deferred is True, 'sheet was not deferred — fixture no longer valid'
+    assert 'height:80px' in critical, (
+        'header.min.css was deferred without its above-fold rules inlined'
+    )

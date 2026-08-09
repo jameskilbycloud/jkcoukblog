@@ -16,6 +16,8 @@ import re
 import subprocess
 import json
 
+from enhance_html_performance import normalize_self_href
+
 
 class CriticalCSSExtractor:
     """Extract and inline critical CSS for faster rendering"""
@@ -374,11 +376,33 @@ class CriticalCSSExtractor:
         return False
 
     def _resolve_css_path(self, href):
-        """Resolve CSS file path from href"""
-        # Remove leading slash
-        href = href.lstrip('/')
+        """Resolve CSS file path from href.
 
-        # Try to find the file
+        Absolute same-site URLs and cache-busting query strings both have to
+        come off before the disk lookup. At the point this runs the hrefs are
+        absolute (`https://jameskilby.co.uk/wp-content/...`) —
+        convert_to_staging.py doesn't rewrite them to relative until "Prepare
+        output for deployment", long afterwards. lstrip('/') doesn't touch a
+        scheme, so the lookup became
+        `static-output/https:/jameskilby.co.uk/wp-content/...`, which never
+        exists.
+
+        This is the same defect #146 fixed in html_transformer's inliner; this
+        second copy of the resolver was left behind, and it fails silently:
+        an unresolvable sheet contributes no rules, and the caller can't tell
+        that apart from a sheet with nothing above the fold.
+
+        The cost was CLS. _convert_css_to_preload makes these same sheets load
+        async, so header.min.css (13.7 KB) and content.min.css (19.1 KB) —
+        which carry the above-fold layout — were being deferred with none of
+        their rules inlined. The homepage's critical CSS came out at 4,302
+        chars against the 11,684 it produces once the hrefs resolve, and
+        Lighthouse measured 0.647 CLS / P73 on 2026-08-09 07:58 UTC.
+        """
+        href = normalize_self_href(href or '').lstrip('/').split('?', 1)[0]
+        if not href:
+            return None
+
         css_path = self.public_dir / href
 
         if css_path.exists():
