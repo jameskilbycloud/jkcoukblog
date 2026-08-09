@@ -18,15 +18,15 @@
         "Devops",
         "Github",
         "Wordpress",
+        "Ansible",
         "Automation",
-        "Hosting",
-        "Personal",
-        "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "NVIDIA",
         "Traefik",
-        "VMware"
+        "VCF",
+        "VMware",
+        "Hosting",
+        "Personal"
       ],
       "tags": [
         null,
@@ -37,7 +37,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp",
-      "excerpt": "![Github Actions](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/c..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpr..."
     }
   ]
 }
