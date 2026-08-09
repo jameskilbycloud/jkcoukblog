@@ -16,13 +16,12 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Storage",
-        "Nutanix",
-        "VMware",
-        "Docker",
+        "Artificial Intelligence",
         "Hosting",
-        "Kubernetes",
-        "Veeam"
+        "Mikrotik",
+        "VCF",
+        "VMware",
+        "Automation"
       ],
       "tags": [
         null,

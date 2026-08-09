@@ -1,17 +1,17 @@
 ---
 title: "VMware Certified Master Specialist HCI 2020"
-description: "I recently sat (and passed) the VMware HCI Master Specialist exam (5V0-21.20)."
+description: "I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21."
 date: 2020-09-13T21:38:48+00:00
 modified: 2026-05-31T11:36:26+00:00
 author: James Kilby
 categories:
   - Personal
   - VMware
-  - VMware Cloud on AWS
-  - vSAN
-  - Hosting
   - AWS
-  - VCF
+  - Veeam
+  - VMware Cloud on AWS
+  - Consulting
+  - Nutanix
 tags:
   - #Certifications
   - #VMware
@@ -20,13 +20,13 @@ url: https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-202
 image: https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png
 ---
 
-![Vmware Sp Hci20](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)
+![](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)
 
 [Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 # VMware Certified Master Specialist HCI 2020
 
-By[James](https://jameskilby.co.uk)September 13, 2020 · Updated May 31, 2026 • 📖1 min read(136 words)
+By[James](https://jameskilby.co.uk) September 13, 2020 · Updated May 31, 2026 • 📖1 min read(136 words)
 
 📅**Published:** September 13, 2020•**Updated:** May 31, 2026
 
@@ -44,62 +44,62 @@ Together with the vSAN exam that I passed earlier in the month, this entitles me
 
 ## Similar Posts
 
-  * [![An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339-768x193.png)](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
+  * [ ![Monitoring VMware Cloud on AWS: Tools & Approaches \(Part 1\)](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp) ](https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/)
+
+[VMware](https://jameskilby.co.uk/category/vmware/) | [AWS](https://jameskilby.co.uk/category/aws/) | [Veeam](https://jameskilby.co.uk/category/veeam/)
+
+### [Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1)](https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/)
+
+By[James](https://jameskilby.co.uk) December 17, 2019 · Updated June 5, 2026
+
+As previously mentioned I have been working a lot with VMware Cloud on AWS and one of the questions that often crops up is around an approach to monitoring.
+
+  * [ ![VMware Cloud on AWS \(VMC\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-768x395.png) ](https://jameskilby.co.uk/2020/07/i3en/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
-### [An in-depth look at VMware Cloud on AWS hosts](https://jameskilby.co.uk/2025/08/vmc-host-deepdive/)
+### [VMware Cloud on AWS i3en Host: Specs, Storage & Performance](https://jameskilby.co.uk/2020/07/i3en/)
 
-By[James](https://jameskilby.co.uk)August 14, 2025 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk) July 2, 2020 · Updated June 5, 2026
 
-This is single page intended to collate every single feature of the current VMware Cloud on AWS hosts for easy comparison.
+VMware Cloud on AWS (VMC) has introduced a new host to its lineup: the “i3en”. This is based on the i3en.
 
-  * [![vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
+  * [ ![Using Content Libraries in VMC to deploy software faster](https://jameskilby.co.uk/wp-content/uploads/2026/01/Firefly_Gemini-Flash-768x417.png) ](https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/)
 
-[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
-### [vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
+### [Using Content Libraries in VMC to deploy software faster](https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/)
 
-By[James](https://jameskilby.co.uk)December 6, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) January 27, 2026 · Updated June 5, 2026
 
-How to safely shut down a vSAN Environment
+How to leverage Content Libraries to deploy into VMware Cloud on AWS faster.
 
-  * [![Analytics in a privacy focused world](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png)](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
+  * [ ![VMware Cloud on AWS \(VMC\) resource hub](https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-768x395.png) ](https://jameskilby.co.uk/2020/09/vmc-host-errors/)
 
-[Hosting](https://jameskilby.co.uk/category/hosting/) | [Personal](https://jameskilby.co.uk/category/personal/)
+[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
 
-### [Analytics in a privacy focused world](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
+### [How VMware Cloud on AWS Handles Host Failures Automatically](https://jameskilby.co.uk/2020/09/vmc-host-errors/)
 
-By[James](https://jameskilby.co.uk)November 10, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) September 15, 2020 · Updated June 5, 2026
 
-I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance.
+Learn how host failures are handled within VMC
 
-  * [![AWS Solution Architect – Associate](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_-768x307.png)](https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/)
+  * [ ![My Home Office Setup & Upgrades](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1-768x576.jpeg) ](https://jameskilby.co.uk/2021/01/my-home-office-setup-upgrades/)
 
-[AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)
+[Personal](https://jameskilby.co.uk/category/personal/) | [Consulting](https://jameskilby.co.uk/category/consulting/)
 
-### [AWS Solution Architect – Associate](https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/)
+### [My Home Office Setup & Upgrades](https://jameskilby.co.uk/2021/01/my-home-office-setup-upgrades/)
 
-By[James](https://jameskilby.co.uk)December 16, 2019 · Updated May 31, 2026
+By[James](https://jameskilby.co.uk) January 5, 2021 · Updated June 1, 2026
 
-I renewed my AWS Solution Architect certification.
+Given the year that was 2020 and at the time of writing a distinct improvement appears a long way off I decided it was time to up my homeworking game.
 
-  * [![And now for something completely different](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7-768x193.png)](https://jameskilby.co.uk/2018/10/and-now-for-something-completely-different/)
+  * [ ![Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg) ](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
 
-[Personal](https://jameskilby.co.uk/category/personal/)
+[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
-### [And now for something completely different](https://jameskilby.co.uk/2018/10/and-now-for-something-completely-different/)
+### [Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
 
-By[James](https://jameskilby.co.uk)October 16, 2018 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk) July 2, 2020 · Updated May 31, 2026
 
-I have worked for my current employer Zen Internet for 3. Over that time I have changed roles from what was originally a customer-focused role into a role with one of the core platform teams.
-
-  * [![VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743-768x737.jpg)](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
-
-[VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
-
-By[James](https://jameskilby.co.uk)January 18, 2024 · Updated June 1, 2026
-
-How to deploy Holodeck with Legacy CPU’s
+I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam.

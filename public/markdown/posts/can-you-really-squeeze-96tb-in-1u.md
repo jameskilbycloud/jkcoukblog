@@ -1,6 +1,6 @@
 ---
 title: "Can you really squeeze 96TB in 1U ?"
-description: "Yes, that’s a clickbait title. Yes, that’s a clickbait title. But technically it’s possible if I dropped all drive redundancy…"
+description: "Yes, that’s a clickbait title."
 date: 2024-09-12T12:39:16+00:00
 modified: 2026-07-11T07:34:03+00:00
 author: James Kilby
@@ -8,15 +8,11 @@ categories:
   - Homelab
   - Storage
   - TrueNAS Scale
-  - Runecast
-  - VMware
-  - Kubernetes
-  - VMware Cloud on AWS
-  - vSAN
   - Ansible
   - Automation
-  - Docker
-  - Hosting
+  - vExpert
+  - Networking
+  - VMware
 tags:
   - #Homelab
   - #Storage
@@ -24,13 +20,13 @@ url: https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/
 image: https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png
 ---
 
-![Quantagrid Sd1Q 1Ulh Front Three Quarter](https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png)
+![](https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/)
 
 # Can you really squeeze 96TB in 1U ?
 
-By[James](https://jameskilby.co.uk)September 12, 2024 · Updated July 11, 2026 • 📖4 min read(773 words)
+By[James](https://jameskilby.co.uk) September 12, 2024 · Updated July 11, 2026 • 📖4 min read(773 words)
 
 📅**Published:** September 12, 2024•**Updated:** July 11, 2026
 
@@ -60,11 +56,11 @@ The servers also included rails which was a much appreciated benefit. The only d
 
 CPU| 2x Intel(R) Xeon(R) CPU E5-2620 v4 @ 2.10GHz  
 ---|---  
-Memory| 256GB DDR4  
-Boot Device| 32 GB SATADom  
-HDD| 12x ST8000NM0075 8TB 12Gb SAS  
-SSD| 3x2TB Samsung Evo  
-NIC| 2x 25Gb  
+Memory | 256GB DDR4  
+Boot Device | 32 GB SATADom  
+HDD | 12x ST8000NM0075 8TB 12Gb SAS  
+SSD | 3x2TB Samsung Evo  
+NIC | 2x 25Gb  
   
 ## Pool Configuration
 
@@ -112,62 +108,62 @@ I have also upgraded the NIC to a Quanta ConnectX-4 LX Dual-Port 25GbE
 
 ## Similar Posts
 
-  * [![Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
-
-[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
-
-By[James](https://jameskilby.co.uk)May 16, 2023 · Updated June 1, 2026
-
-I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.
-
-  * [![TrueNAS Logo](https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-22-at-18.49.21-768x198.png)](https://jameskilby.co.uk/2023/11/truenas-scale-useful-commands/)
-
-[Kubernetes](https://jameskilby.co.uk/category/kubernetes/) | [TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/)
-
-### [TrueNAS Scale CLI Reference: Storage & Kubernetes Commands](https://jameskilby.co.uk/2023/11/truenas-scale-useful-commands/)
-
-By[James](https://jameskilby.co.uk)November 13, 2023 · Updated April 11, 2026
-
-A list of useful Truenas Scale commands
-
-  * [![Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_1107-768x403-1.jpg)](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [Nvidia Tesla P4 vGPU Setup in VMware Homelab: Full Guide](https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/)
-
-By[James](https://jameskilby.co.uk)October 23, 2023 · Updated July 11, 2026
-
-Card Stats Install steps VM Provisioning Folding@Home A little while ago I decided to play with vGPU in my homelab.
-
-  * [![vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
-
-[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
-
-### [vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24](https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/)
-
-By[James](https://jameskilby.co.uk)November 17, 2023 · Updated June 1, 2026
-
-An Overview of vSAN ESA in VMC 
-
-  * [![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png)](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
+  * [ ![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible-768x403.png) ](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)
 
 ### [Automating vSphere Power Management driven by Ansible and SemaphoreUI](https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/)
 
-By[James](https://jameskilby.co.uk)April 15, 2026 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) April 15, 2026 · Updated June 1, 2026
 
 In this post I’ll walk through how I use vSphere Power Management driven by Ansible and SemaphoreUI to automatically reduce ESXi host electricity consumption — saving real money on my Octopus Agile tariff by toggling hosts between Low Power and Balanced policies. Introduction One of the larger costs of running my homelab is the electricity….
 
-  * [![Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png)](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
+  * [ ![Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png) ](https://jameskilby.co.uk/2023/04/intel-optane/)
 
-[Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernetes/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/) | [vExpert](https://jameskilby.co.uk/category/vexpert/)
 
-### [Use Portainer in a Homelab with GitHub](https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/)
+### [Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/2023/04/intel-optane/)
 
-By[James](https://jameskilby.co.uk)December 9, 2022 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk) April 17, 2023 · Updated June 1, 2026
 
-Late to the party or not, I have been using containers in my lab more and more and that has led me to Portainer ….
+I have been a VMware vExpert for many years and it has brought me many benefits over the years.
+
+  * [ ![Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore-768x768.png) ](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
+
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
+
+### [Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
+
+By[James](https://jameskilby.co.uk) September 2, 2025 · Updated June 5, 2026
+
+An intro on how I use SemaphoreUI to manage my Homelab
+
+  * [ ![UniFi UDM Beast 1U rack-mount gateway shown front-on, with two 3.5-inch drive bays, a bank of RJ45 and SFP network ports, and dimension labels.](https://jameskilby.co.uk/wp-content/uploads/2026/06/UnifiBeast-768x219.webp) ](https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
+
+### [Unleashing the Beast](https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/)
+
+By[James](https://jameskilby.co.uk) June 20, 2026 · Updated July 11, 2026
+
+Retiring my ageing WatchGuard M200, I swap in the UniFi UDM Beast — a hardware tour, first iperf and WAN tests, the BGP/FRR setup, and the homelab services I’m consolidating onto it.
+
+  * [ ![Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_-768x512.png) ](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
+
+### [Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
+
+By[James](https://jameskilby.co.uk) June 26, 2024 · Updated July 11, 2026
+
+How to configure DHCP Option 43 for UniFi devices 
+
+  * [ ![MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-768x346.png) ](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+
+### [MikroTik CRS504 Review: 100Gb/s Networking in My Homelab](https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/)
+
+By[James](https://jameskilby.co.uk) December 19, 2022 · Updated June 1, 2026
+
+For a while, I’ve been looking to update the networking at the core of my homelab.

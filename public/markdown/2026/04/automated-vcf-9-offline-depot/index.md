@@ -14,13 +14,13 @@ categories:
   - VMware
   - Artificial Intelligence
   - NVIDIA
-  - TrueNAS Scale
-  - vSAN
-  - vSphere
+  - Networking
+  - Veeam
+  - Cloudflare
+  - Hosting
+  - Wordpress
   - Containers
   - Devops
-  - Cloudflare
-  - Ubuntu
 tags:
   - #Ansible
   - #Automation
@@ -47,7 +47,7 @@ image: https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png
 
 # Automated VCF 9 Offline Depot
 
-By[James](https://jameskilby.co.uk)April 10, 2026 · Updated July 11, 2026 • 📖7 min read(1,427 words)
+By[James](https://jameskilby.co.uk) April 10, 2026 · Updated July 11, 2026 • 📖7 min read(1,427 words)
 
 📅**Published:** April 10, 2026•**Updated:** July 11, 2026
 
@@ -243,7 +243,7 @@ If you’re still having issues review the Traefik Dashboard `https://traefik.do
 
 You should see four routers and six services like the attached screenshots
 
-![traefikrouters](https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikrouters-1024x254.png)![traefikservices](https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikservices-1024x326.png)
+![traefikrouters](https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikrouters-1024x254.png) ![traefikservices](https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikservices-1024x326.png)
 
 ### Basic auth prompt loops
 
@@ -257,62 +257,60 @@ If the depot keeps prompting for credentials even with the right ones, it’s al
 
 ## Similar Posts
 
-  * [![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
+  * [ ![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png) ](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
 [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/) | [Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
-By[James](https://jameskilby.co.uk)April 4, 2026 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk) April 4, 2026 · Updated July 11, 2026
 
 Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each.
 
-  * [![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-768x180.png)](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
+  * [ ![Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/wp-content/uploads/2024/06/Ubiquiti_Networks-Logo.wine_-768x512.png) ](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
 
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
 
-### [Warp – The intelligent terminal](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
+### [Configure DHCP Option 43 for UniFi devices to enable remote adoption across subnets](https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/)
 
-By[James](https://jameskilby.co.uk)April 11, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) June 26, 2024 · Updated July 11, 2026
 
-How Warp is helping me run my homelab. 
+How to configure DHCP Option 43 for UniFi devices 
 
-  * [![How to Run ZFS on VMware vSphere: Setup Guide and Best Practices](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg)](https://jameskilby.co.uk/2024/12/zfs-on-vmware/)
+  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-[TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)
+### [Lab Update – Desired Workloads](https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/)
 
-### [How to Run ZFS on VMware vSphere: Setup Guide and Best Practices](https://jameskilby.co.uk/2024/12/zfs-on-vmware/)
+By[James](https://jameskilby.co.uk) January 6, 2022 · Updated June 1, 2026
 
-By[James](https://jameskilby.co.uk)December 18, 2024 · Updated June 1, 2026
+My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.
 
-Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the way back in 2010.
+  * [ ![WordPress Hosting with Cloudflare Pages](https://jameskilby.co.uk/wp-content/uploads/2023/05/simply-static-logo.png) ](https://jameskilby.co.uk/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages/)
 
-  * [![Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv-768x432.png)](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
+[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
+
+### [WordPress Hosting with Cloudflare Pages](https://jameskilby.co.uk/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages/)
+
+By[James](https://jameskilby.co.uk) May 14, 2023 · Updated June 1, 2026
+
+Table of Contents The Tooling The Process WordPress Plugin Install GitHub setup Cloudflare setup I have been using Cloudflare to protect my web assets for a really long time.
+
+  * [ ![Cloudflare Workers – Limits of the free tier](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu-768x450.jpeg) ](https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/)
+
+[Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)
+
+### [Cloudflare Workers – Limits of the free tier](https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/)
+
+By[James](https://jameskilby.co.uk) January 4, 2022 · Updated July 11, 2026
+
+I have been making several changes (mainly cosmetic) to this site over the last day or so. On most changes I have been doing an export and then uploading the site to Cloudflare using Wrangler.
+
+  * [ ![Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv-768x432.png) ](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
 
 [Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Containers](https://jameskilby.co.uk/category/containers/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [NVIDIA](https://jameskilby.co.uk/category/nvidia/) | [Traefik](https://jameskilby.co.uk/category/traefik/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
 ### [Automating the Deployment of my Homelab AI Infrastructure](https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/)
 
-By[James](https://jameskilby.co.uk)February 9, 2026 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk) February 9, 2026 · Updated July 11, 2026
 
 Learn how to use Ansible to configure an Ubuntu VM for use with NVIDIA based AI workloads in vSphere
-
-  * [![Fixing Wrangler Node.js Version Conflicts After Brew Upgrade](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1-768x256.png)](https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/)
-
-[Cloudflare](https://jameskilby.co.uk/category/cloudflare/)
-
-### [Fixing Wrangler Node.js Version Conflicts After Brew Upgrade](https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/)
-
-By[James](https://jameskilby.co.uk)January 15, 2022 · Updated July 11, 2026
-
-I am a massive fan of the brew package management system for macOS and use it on all of my Macs. I typically just upgrade everything blindly and have never had an issue.
-
-  * [![How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)](https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/)
-
-[Ubuntu](https://jameskilby.co.uk/category/ubuntu/)
-
-### [How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step](https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/)
-
-By[James](https://jameskilby.co.uk)December 15, 2025 · Updated May 24, 2026
-
-How to expand disks from the command line in Ubuntu. This is something I do fairly frequently, and I can never remember the steps.
