@@ -4,6 +4,36 @@
   "month_name": "December",
   "posts": [
     {
+      "slug": "100gb-s-in-my-homelab-sort-of",
+      "title": "MikroTik CRS504 Review: 100Gb/s Networking in My Homelab",
+      "description": "For a while, I've been looking to update the networking at the core of my homelab.",
+      "date": "2022-12-19T10:09:58Z",
+      "modified": "2026-06-01T19:02:42Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/",
+      "markdown_url": "/markdown/posts/100gb-s-in-my-homelab-sort-of.md",
+      "api_url": "/api/posts/100gb-s-in-my-homelab-sort-of.json",
+      "categories": [
+        "Homelab",
+        "Networking",
+        "Storage",
+        "VMware",
+        "VMware Cloud on AWS",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Traefik",
+        "VCF",
+        "Hosting"
+      ],
+      "tags": [
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n..."
+    },
+    {
       "slug": "forcing-an-upgrade-to-vsphere-8",
       "title": "Forcing an Upgrade to vSphere 8",
       "description": "I run a reasonably extensive homelab that is of course built around the VMware ecosystem.",
@@ -17,14 +47,17 @@
         "Homelab",
         "VMware",
         "vSphere",
-        "Storage",
-        "vExpert",
-        "Personal",
-        "Artificial Intelligence",
-        "Networking",
+        "Ansible",
+        "Automation",
         "Docker",
-        "Hosting",
-        "Kubernetes"
+        "Traefik",
+        "VCF",
+        "VMware Cloud on AWS",
+        "vSAN",
+        "Artificial Intelligence",
+        "NVIDIA",
+        "Nutanix",
+        "Runecast"
       ],
       "tags": [
         null,
@@ -48,14 +81,13 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Automation",
-        "Github",
-        "Artificial Intelligence",
-        "Storage",
-        "Synology",
+        "Cloudflare",
+        "Personal",
         "Wordpress",
-        "TrueNAS Scale",
-        "Cloudflare"
+        "Storage",
+        "vExpert",
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null,
@@ -64,33 +96,6 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png)\n\n[Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernetes/)\n\n# ..."
-    },
-    {
-      "slug": "100gb-s-in-my-homelab-sort-of",
-      "title": "MikroTik CRS504 Review: 100Gb/s Networking in My Homelab",
-      "description": "For a while, I've been looking to update the networking at the core of my homelab.",
-      "date": "2022-12-19T10:09:58Z",
-      "modified": "2026-06-01T19:02:42Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/",
-      "markdown_url": "/markdown/posts/100gb-s-in-my-homelab-sort-of.md",
-      "api_url": "/api/posts/100gb-s-in-my-homelab-sort-of.json",
-      "categories": [
-        "Homelab",
-        "Networking",
-        "Storage",
-        "VMware",
-        "vSAN",
-        "Personal",
-        "vSphere",
-        "Hosting"
-      ],
-      "tags": [
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n..."
     }
   ]
 }

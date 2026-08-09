@@ -16,13 +16,15 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Automation",
-        "Github",
-        "Storage",
         "VMware",
+        "VCF",
+        "TrueNAS Scale",
+        "vSAN",
         "vSphere",
+        "Automation",
         "Networking",
-        "Artificial Intelligence"
+        "Storage",
+        "vExpert"
       ],
       "tags": [
         null,

@@ -16,17 +16,17 @@
       "categories": [
         "Homelab",
         "Networking",
-        "VMware",
-        "vSphere",
-        "Storage",
-        "vExpert",
-        "Nutanix",
-        "Artificial Intelligence",
-        "Docker",
         "Ansible",
-        "Automation",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
         "Traefik",
-        "VCF"
+        "VMware",
+        "Storage",
+        "Synology",
+        "Mikrotik",
+        "vSphere"
       ],
       "tags": [
         null,

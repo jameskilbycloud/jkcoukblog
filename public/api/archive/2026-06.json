@@ -16,14 +16,13 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Runecast",
-        "VMware",
+        "Nutanix",
+        "Artificial Intelligence",
         "Docker",
-        "Hosting",
-        "Kubernetes",
-        "Storage",
         "Automation",
-        "Github"
+        "Github",
+        "VMware",
+        "Storage"
       ],
       "tags": [
         null,
