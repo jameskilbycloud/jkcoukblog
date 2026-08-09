@@ -1,20 +1,20 @@
 ---
 title: "UK Money Saving Tips: Banking, Rewards & Travel Cards"
-description: "I recently got back from an amazing conference in New Orleans. This was the VeeamON conference and I was invited as part of the Veeam Vanguard program"
+description: "I recently got back from an amazing conference in New Orleans."
 date: 2017-05-29T11:49:16+00:00
 modified: 2026-07-11T07:47:13+00:00
 author: James Kilby
 categories:
   - Money
 url: https://jameskilby.co.uk/2017/05/money-saving-uk-version/
-image: https://jameskilby.co.uk/wp-content/uploads/og/money-saving-uk-version.png
+image: https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png
 ---
 
 [Money](https://jameskilby.co.uk/category/money/)
 
 # UK Money Saving Tips: Banking, Rewards & Travel Cards
 
-By[James](https://jameskilby.co.uk)May 29, 2017 · Updated July 11, 2026 • 📖4 min read(777 words)
+By[James](https://jameskilby.co.uk) May 29, 2017 · Updated July 11, 2026 • 📖4 min read(777 words)
 
 📅**Published:** May 29, 2017•**Updated:** July 11, 2026
 

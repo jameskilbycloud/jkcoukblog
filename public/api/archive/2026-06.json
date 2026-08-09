@@ -16,12 +16,14 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Artificial Intelligence",
-        "Hosting",
-        "Mikrotik",
-        "VCF",
+        "Runecast",
         "VMware",
-        "Automation"
+        "Docker",
+        "Hosting",
+        "Kubernetes",
+        "Storage",
+        "Automation",
+        "Github"
       ],
       "tags": [
         null,
