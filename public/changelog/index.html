@@ -312,7 +312,7 @@
         <div class="metrics">
             <div class="metric-card">
                 <h3>Total Deployments</h3>
-                <div class="metric-value">1114</div>
+                <div class="metric-value">1118</div>
                 <div class="metric-label">Git commits</div>
             </div>
             
@@ -331,17 +331,17 @@
             <div class="metric-card">
                 <h3>Last Deployment</h3>
                 <div class="metric-value">2026-08-09</div>
-                <div class="metric-label">07:46:44</div>
+                <div class="metric-label">09:20:48</div>
             </div>
         </div>
         
         <h2>🚀 Lighthouse Performance Scores</h2>
-        <p class="metric-label" style="margin-bottom: 15px;">Last checked: 2026-08-09 07:46:43 UTC</p>
+        <p class="metric-label" style="margin-bottom: 15px;">Last checked: 2026-08-09 07:58:57 UTC</p>
         
         <div class="lighthouse-scores">
             <div class="score-card">
-                <div class="score-circle score-excellent">
-                    93
+                <div class="score-circle score-good">
+                    73
                 </div>
                 <div class="score-label">Performance</div>
             </div>
@@ -370,6 +370,23 @@
         
         <div class="changelog-section">
             <h2>Recent Changes</h2>
+
+            <div class="change-entry">
+                <div class="change-date">2026-08-09 <span class="change-hash">9a41565</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix: make grouped API endpoints and the search index order-stable (#149)</div>
+                <div class="change-details">With the seed fix in #148 landed, HTML churn per deploy dropped from 254</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-08-09 <span class="change-hash">183db1b</span><span class="category-badge badge-fix">Fix</span></div>
+                <div class="change-title">fix: write gzip sidecars with mtime=0 so they stop churning (#150)</div>
+                <div class="change-details">589 of the 617 sidecars committed by the 08:51 deploy (72716c5c5e) had a</div>
+            </div>
+
+            <div class="change-entry">
+                <div class="change-date">2026-08-09 <span class="change-hash">ab77c90</span><span class="category-badge badge-other">Other</span></div>
+                <div class="change-title">chore(lighthouse): record scores P73/A96/BP93/S100</div>
+            </div>
 
             <div class="change-entry">
                 <div class="change-date">2026-08-09 <span class="change-hash">7448f89</span><span class="category-badge badge-other">Other</span></div>
@@ -528,27 +545,10 @@
                 <div class="change-title">chore(lighthouse): record scores P92/A96/BP100/S100</div>
             </div>
 
-            <div class="change-entry">
-                <div class="change-date">2026-07-28 <span class="change-hash">544b76b</span><span class="category-badge badge-fix">Fix</span></div>
-                <div class="change-title">fix(worker): move flat-slug legacy redirects out of _redirects into worker</div>
-                <div class="change-details">Cloudflare Pages&#x27; free plan silently drops any static redirect past rule</div>
-            </div>
-
-            <div class="change-entry">
-                <div class="change-date">2026-07-28 <span class="change-hash">8b969d7</span><span class="category-badge badge-other">Other</span></div>
-                <div class="change-title">chore(lighthouse): record scores P91/A96/BP100/S100</div>
-            </div>
-            <br>
-
-            <div class="change-entry">
-                <div class="change-date">2026-07-27 <span class="change-hash">92d1621</span><span class="category-badge badge-other">Other</span></div>
-                <div class="change-title">chore(lighthouse): record scores P93/A96/BP100/S100</div>
-            </div>
-
         </div>
         
         <div class="timestamp">
-            Page generated: 2026-08-09 08:51:03 UTC<br>
+            Page generated: 2026-08-09 08:25:48 UTC<br>
             Changelog powered by Git history and Lighthouse CI
         </div>
     </div>

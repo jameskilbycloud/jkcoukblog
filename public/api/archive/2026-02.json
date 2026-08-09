@@ -22,15 +22,15 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
         "VMware Cloud on AWS",
-        "Runecast",
-        "Networking",
-        "Storage",
+        "Cloudflare",
+        "Github",
+        "Wordpress",
+        "Personal",
+        "vSphere",
         "Automation",
-        "Personal"
+        "Docker",
+        "Storage"
       ],
       "tags": [
         null,

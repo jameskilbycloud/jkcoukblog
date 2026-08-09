@@ -19,7 +19,14 @@
         "Github",
         "Wordpress",
         "Hosting",
-        "Personal"
+        "Personal",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Homelab",
+        "Traefik",
+        "VCF",
+        "VMware"
       ],
       "tags": [
         null,

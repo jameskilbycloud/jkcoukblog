@@ -16,11 +16,13 @@
       "categories": [
         "Devops",
         "Personal",
-        "Nutanix",
-        "VMware",
         "Automation",
         "Homelab",
-        "Github"
+        "VMware",
+        "Nutanix",
+        "Hosting",
+        "Consulting",
+        "vSphere"
       ],
       "tags": [
         null,

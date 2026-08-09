@@ -15,18 +15,13 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "Ansible",
-        "Automation",
-        "Personal",
-        "Artificial Intelligence",
         "Docker",
-        "Hosting",
-        "Containers",
-        "Devops",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "Storage"
+        "Hosting",
+        "Kubernetes",
+        "Networking",
+        "VMware Cloud on AWS",
+        "Automation"
       ],
       "tags": [
         null,
@@ -52,18 +47,16 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Devops",
-        "Github",
-        "Personal",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
         "Docker",
         "Homelab",
-        "NVIDIA",
         "Traefik",
+        "VCF",
         "VMware",
-        "Ansible",
-        "VCF"
+        "Artificial Intelligence",
+        "NVIDIA",
+        "Personal"
       ],
       "tags": [
         null,
@@ -106,14 +99,10 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "Consulting",
         "AWS",
-        "Docker",
-        "Homelab",
-        "Kubernetes",
-        "VMware",
         "Devops",
-        "Github"
+        "Artificial Intelligence",
+        "Docker"
       ],
       "tags": [
         null,
@@ -136,6 +125,8 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
+        "Devops",
+        "Personal",
         "Artificial Intelligence",
         "Automation",
         "Docker",
@@ -143,9 +134,7 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Devops",
-        "Github",
-        "Personal"
+        "Kubernetes"
       ],
       "tags": [
         null,
@@ -169,16 +158,15 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Mikrotik",
-        "Networking",
         "Automation",
-        "Github",
-        "Ansible",
         "Docker",
+        "NVIDIA",
         "Traefik",
-        "VCF",
         "VMware",
-        "vSphere"
+        "Networking",
+        "Ansible",
+        "Containers",
+        "Devops"
       ],
       "tags": [
         null,
@@ -201,16 +189,15 @@
       "categories": [
         "Ansible",
         "Automation",
-        "Homelab",
-        "Networking",
-        "Storage",
+        "Runecast",
         "VMware",
-        "Personal",
-        "vSphere",
-        "TrueNAS Scale",
-        "AWS",
-        "Veeam",
-        "Github"
+        "Docker",
+        "Homelab",
+        "Hosting",
+        "Kubernetes",
+        "Artificial Intelligence",
+        "Networking",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -235,16 +222,18 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
+        "Ansible",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
+        "Containers",
+        "Devops",
         "Homelab",
         "NVIDIA",
         "Traefik",
+        "Veeam",
+        "Storage",
         "TrueNAS Scale",
         "vSphere",
-        "AWS",
-        "Veeam"
+        "Automation"
       ],
       "tags": [
         null,
@@ -268,19 +257,14 @@
       "categories": [
         "VMware",
         "vSAN",
+        "VMware Cloud on AWS",
         "VCF",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "Personal",
-        "vSphere",
-        "Nutanix",
+        "Ansible",
         "Automation",
-        "Docker"
+        "Docker",
+        "Traefik",
+        "Personal"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n# vSAN Cluster Shutdown – Orchestration\n\nBy[James](https://jameskilby.co.uk) December 6,..."
@@ -298,15 +282,17 @@
       "categories": [
         "Personal",
         "VMware",
+        "Homelab",
+        "vSphere",
         "VMware Cloud on AWS",
+        "Storage",
+        "vExpert",
         "Ansible",
         "Automation",
         "Docker",
-        "Homelab",
         "Traefik",
         "VCF",
-        "Networking",
-        "Storage"
+        "AWS"
       ],
       "tags": [
         null,

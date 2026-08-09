@@ -16,16 +16,15 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Mikrotik",
-        "Networking",
         "Automation",
-        "Github",
-        "Ansible",
         "Docker",
+        "NVIDIA",
         "Traefik",
-        "VCF",
         "VMware",
-        "vSphere"
+        "Networking",
+        "Ansible",
+        "Containers",
+        "Devops"
       ],
       "tags": [
         null,

@@ -14,9 +14,17 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Homelab",
         "Personal",
-        "AWS"
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "Kubernetes",
+        "Devops",
+        "Github"
       ],
       "tags": [
         null,
@@ -41,16 +49,19 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
+        "Artificial Intelligence",
+        "Docker",
+        "AWS",
+        "Homelab",
+        "Kubernetes",
         "Ansible",
         "Automation",
-        "Docker",
-        "Homelab",
         "Traefik",
         "VCF",
         "VMware",
-        "AWS",
         "Personal",
-        "Kubernetes"
+        "Devops",
+        "Github"
       ],
       "tags": [
         null,
@@ -75,19 +86,16 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
+        "Personal",
+        "Ansible",
         "Homelab",
         "Storage",
         "Synology",
-        "TrueNAS Scale",
         "VMware",
-        "vSAN",
-        "vSphere",
-        "Personal",
-        "Automation",
+        "Containers",
+        "Devops",
         "NVIDIA",
-        "Traefik",
-        "Nutanix",
-        "Networking"
+        "Traefik"
       ],
       "tags": [
         null,
@@ -115,7 +123,14 @@
         "Github",
         "Wordpress",
         "Hosting",
-        "Personal"
+        "Personal",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Homelab",
+        "Traefik",
+        "VCF",
+        "VMware"
       ],
       "tags": [
         null,
@@ -141,11 +156,18 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Nutanix",
+        "Docker",
         "Hosting",
+        "Kubernetes",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
         "VMware",
-        "vExpert",
-        "Veeam"
+        "Automation",
+        "Networking"
       ],
       "tags": [
         null,
@@ -169,15 +191,17 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Automation",
-        "Github",
-        "Artificial Intelligence",
-        "Docker",
         "Ansible",
-        "Nutanix",
-        "NVIDIA",
-        "Traefik",
-        "VMware"
+        "VCF",
+        "VMware",
+        "Automation",
+        "Docker",
+        "Hosting",
+        "Kubernetes",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "vExpert"
       ],
       "tags": [
         null,
@@ -199,12 +223,15 @@
       "categories": [
         "Mikrotik",
         "Networking",
-        "Homelab",
         "Ansible",
+        "Automation",
+        "Github",
+        "Homelab",
         "Veeam",
         "VMware",
-        "VCF",
-        "Runecast"
+        "Artificial Intelligence",
+        "Docker",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -228,13 +255,12 @@
         "VCF",
         "VMware",
         "Homelab",
-        "Storage",
-        "TrueNAS Scale",
+        "Hosting",
+        "Ansible",
+        "vSphere",
         "VMware Cloud on AWS",
-        "Runecast",
-        "Synology",
-        "Networking",
-        "Mikrotik"
+        "Nutanix",
+        "vSAN"
       ],
       "tags": [
         null,
@@ -259,16 +285,13 @@
         "Automation",
         "Homelab",
         "VMware",
-        "Artificial Intelligence",
-        "Docker",
-        "Hosting",
-        "Mikrotik",
-        "Networking",
-        "Runecast",
+        "vSphere",
+        "VMware Cloud on AWS",
         "Storage",
-        "NVIDIA",
-        "Traefik",
-        "Synology"
+        "Synology",
+        "TrueNAS Scale",
+        "AWS",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -292,12 +315,20 @@
       "categories": [
         "VMware",
         "Personal",
-        "Hosting",
-        "Nutanix",
-        "VMware Cloud on AWS",
         "Automation",
         "Homelab",
-        "vSAN"
+        "Veeam",
+        "AWS",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "vSphere",
+        "Hosting",
+        "Cloudflare",
+        "Wordpress"
       ],
       "tags": [
         null,

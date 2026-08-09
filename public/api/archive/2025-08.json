@@ -16,17 +16,11 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Homelab",
-        "vSphere",
-        "Networking",
-        "Storage",
         "Personal",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik"
+        "Runecast",
+        "Automation",
+        "Homelab",
+        "Nutanix"
       ],
       "tags": [
         null
