@@ -34,6 +34,9 @@ class MarkdownAPIGenerator:
         self.markdown_dir = Path(markdown_dir)
         self.api_dir = Path(api_dir)
         self.api_dir.mkdir(parents=True, exist_ok=True)
+        # Newest content timestamp seen while parsing, used to stamp the API
+        # index. See _generate_api_index for why this isn't datetime.now().
+        self.latest_content_ts = ''
 
     def generate_api(self):
         """Generate complete API structure"""
@@ -246,9 +249,14 @@ class MarkdownAPIGenerator:
     
     def _generate_api_index(self):
         """Generate API documentation/index"""
+        # Content timestamp, not wall clock. datetime.now() rewrote this file
+        # on every build whether or not anything had changed, which meant the
+        # file plus its .br/.gz sidecars landed in every deploy commit. The
+        # field still answers "how fresh is this API" — it just answers it
+        # about the content rather than about the build machine.
         api_docs = {
             'version': '1.0',
-            'generated': datetime.now().isoformat(),
+            'generated': self.latest_content_ts or datetime.now().isoformat(),
             'base_url': '/api',
             'endpoints': {
                 'posts': {
@@ -357,6 +365,11 @@ class MarkdownAPIGenerator:
                 'api_url': f"/api/posts/{md_file.stem}.json"
             }
             
+            # Track the newest content timestamp across everything parsed.
+            for ts in (modified_value, date_value):
+                if isinstance(ts, str) and ts > self.latest_content_ts:
+                    self.latest_content_ts = ts
+
             # Optional fields
             if 'categories' in metadata:
                 post_data['categories'] = metadata['categories']

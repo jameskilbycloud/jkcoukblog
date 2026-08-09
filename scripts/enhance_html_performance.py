@@ -232,10 +232,20 @@ class HTMLPerformanceEnhancer:
             seen_hosts.add(host)
 
         # 3. Add dns-prefetch for any referenced host without one.
-        for host in referenced_hosts - seen_hosts:
+        #
+        # sorted(): a bare set difference iterates in hash order, which varies
+        # between processes. Each new tag is inserted at head[0], so the walk
+        # order becomes the document order — the same page emitted its hints
+        # in a different sequence run to run and landed in the deploy diff.
+        #
+        # href before rel to match how the parser preserves attribute order on
+        # tags that already exist: otherwise a hint that gets pruned and
+        # recreated flips from `href rel` to `rel href` and rewrites the page
+        # again for no semantic change.
+        for host in sorted(referenced_hosts - seen_hosts):
             dns_prefetch = soup.new_tag('link')
-            dns_prefetch['rel'] = 'dns-prefetch'
             dns_prefetch['href'] = f'//{host}'
+            dns_prefetch['rel'] = 'dns-prefetch'
             soup.head.insert(0, dns_prefetch)
             modified = True
             self.optimizations_applied += 1

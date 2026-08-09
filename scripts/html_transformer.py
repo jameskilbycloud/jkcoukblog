@@ -944,7 +944,17 @@ class HTMLTransformer:
                 for p in type(self)._picture_repair_missing_samples:
                     print(f"     - {p}")
         if not self.skip_critical_css:
-            print(f"   Critical CSS: inlined in {self.critical_css.css_inlined} files")
+            cc = self.critical_css
+            print(f"   Critical CSS: inlined in {cc.css_inlined} files")
+            # Saturation is the number that matters: it says above-fold rules
+            # are being discarded, which the per-page warnings couldn't convey
+            # when they fired 252 times.
+            if cc.css_truncated:
+                print(f"      ⚠️  {cc.css_truncated}/{cc.css_inlined} pages hit the "
+                      f"{cc.max_critical_css}B cap — dropped "
+                      f"{cc.css_dropped_rules} rules, {cc.css_dropped_bytes / 1024:.1f} KB total")
+                if cc.sample_truncated:
+                    print(f"          sample: {cc.sample_truncated}")
         self._print_wp_inline_summary()
         print(f"{'='*60}")
 

@@ -7,6 +7,7 @@ sheets are already applied at first paint, so they're skipped (see
 CriticalCSSExtractor.RENDER_BLOCKING_CSS). These tests therefore feed CSS via
 an external <link>, which also exercises _resolve_css_path."""
 
+import pytest
 from bs4 import BeautifulSoup
 
 from extract_critical_css import CriticalCSSExtractor
@@ -260,3 +261,42 @@ def test_deferred_sheets_have_their_rules_inlined(tmp_path):
     assert 'height:80px' in critical, (
         'header.min.css was deferred without its above-fold rules inlined'
     )
+
+
+# ── cap invariant and truncation accounting ──────────────────────────────
+
+def test_harvest_cap_cannot_trigger_externalisation():
+    """max_critical_css above max_inline_critical would externalise every
+    page's block into an extra render-blocking request — the opposite of what
+    critical CSS is for, and enough to push pages past the 5/5 stylesheet
+    budget. The two constants are set independently, so the relationship has
+    to be asserted rather than assumed."""
+    ex = CriticalCSSExtractor()
+    assert ex.max_critical_css <= ex.max_inline_critical
+
+    ex.max_critical_css = ex.max_inline_critical + 1
+    with pytest.raises(ValueError, match='render-blocking'):
+        ex._assert_cap_invariant()
+
+
+def test_truncation_totals_are_accumulated(tmp_path):
+    """Saturation was reported as one warning line per page. At 252/252 pages
+    that buried the fact rather than conveying it, so the run summary needs
+    totals to print instead."""
+    # Same shape as test_truncation_keeps_braces_balanced: enough matching
+    # rules that the cap binds.
+    big = (''.join(f'p{{padding:{i}px;color:#0{i % 10}{i % 10}}}' for i in range(300))
+           + '@media (max-width:600px){'
+           + ''.join(f'h1{{margin:{i}px}}' for i in range(600)) + '}')
+    ex, out = _extract(big, {'p', 'h1'}, tmp_path)
+    # Re-run over a second page to prove the counters accumulate.
+    ex._extract_matching_css_rules(
+        BeautifulSoup('<html><head><link rel="stylesheet" href="/styles.css">'
+                      '</head><body><main><p>x</p></main></body></html>',
+                      'html.parser'),
+        {'p', 'h1'})
+
+    assert ex.css_truncated == 2
+    assert ex.css_dropped_rules > 0
+    assert ex.css_dropped_bytes > 0
+    assert len(out) <= ex.max_critical_css
