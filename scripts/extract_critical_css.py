@@ -27,12 +27,30 @@ class CriticalCSSExtractor:
         self.files_processed = 0
         self.css_inlined = 0
         self.css_truncated = 0
-        # Hard cap on critical CSS per page; rules beyond this are dropped.
-        self.max_critical_css = 15000
+        self.css_dropped_rules = 0
+        self.css_dropped_bytes = 0
+        self.sample_truncated = None
         # ~16 KB raw → ~5 KB on the wire after brotli. Below this we always
         # inline so the browser doesn't pay a render-blocking round-trip for
         # critical CSS. Measured: p90 page produces ~15 KB of critical CSS.
         self.max_inline_critical = 16384
+        # Hard cap on critical CSS per page; rules beyond this are dropped.
+        #
+        # Pinned to max_inline_critical, not below it. The old value (15000)
+        # was tuned while _resolve_css_path silently failed on absolute hrefs
+        # and harvested almost nothing, so no page ever reached it. Once the
+        # resolver was fixed (#151) all 252 pages saturated the cap on the
+        # first deploy, dropping 13-31 above-fold rules each. Raising it to
+        # the inline threshold recovers ~1.4 KB per page of what was being
+        # discarded.
+        #
+        # It must never exceed max_inline_critical: above that,
+        # _inline_critical_css externalises the block to its own file, which
+        # adds a render-blocking stylesheet request — the opposite of the
+        # point, and it would push pages past the 5/5 Lighthouse stylesheet
+        # budget. _assert_cap_invariant() enforces the relationship.
+        self.max_critical_css = self.max_inline_critical
+        self._assert_cap_invariant()
         # Tokenized stylesheets keyed by path — the extractor runs once per
         # HTML page, and without this every page re-read and re-tokenized
         # every linked sheet (N pages × M sheets), the dominant cost of the
@@ -171,6 +189,22 @@ class CriticalCSSExtractor:
     # _convert_css_to_preload leaves them synchronous (brutalist-theme ships
     # the @font-face declarations; consolidated-inline-styles is theming
     # layered above critical CSS).
+    def _assert_cap_invariant(self):
+        """Fail loudly if the harvest cap could trigger externalisation.
+
+        These two constants are set independently and only interact at the
+        moment a page's block is written, so a well-meaning bump to
+        max_critical_css would otherwise show up as an extra render-blocking
+        stylesheet on every page rather than as an error here.
+        """
+        if self.max_critical_css > self.max_inline_critical:
+            raise ValueError(
+                f"max_critical_css ({self.max_critical_css}) exceeds "
+                f"max_inline_critical ({self.max_inline_critical}): every page "
+                "would externalise its critical CSS into an extra "
+                "render-blocking request. Raise max_inline_critical first."
+            )
+
     RENDER_BLOCKING_CSS = ('brutalist-theme', 'fonts.css', 'consolidated-inline-styles')
 
     def _extract_matching_css_rules(self, soup, selectors, file_path=None):
@@ -206,12 +240,22 @@ class CriticalCSSExtractor:
         size = 0
         for i, rule in enumerate(minified_rules):
             if size + len(rule) > self.max_critical_css:
+                dropped_rules = len(minified_rules) - i
                 dropped_bytes = sum(len(r) for r in minified_rules[i:])
-                where = f" in {file_path}" if file_path else ""
-                print(f"   ⚠️  Critical CSS over {self.max_critical_css}B cap{where}: "
-                      f"dropped {len(minified_rules) - i}/{len(minified_rules)} rules "
-                      f"({dropped_bytes}B)")
+                # One sample line, not one per page. When the cap binds it
+                # binds on essentially every page (252/252 after #151), and
+                # 252 near-identical warnings buried the signal rather than
+                # carrying it. The totals go to the run summary instead.
+                if self.css_truncated == 0:
+                    where = f" in {file_path}" if file_path else ""
+                    print(f"   ⚠️  Critical CSS over {self.max_critical_css}B cap{where}: "
+                          f"dropped {dropped_rules}/{len(minified_rules)} rules "
+                          f"({dropped_bytes}B) — first of possibly many, "
+                          f"totals in the summary")
+                    self.sample_truncated = str(file_path) if file_path else None
                 self.css_truncated += 1
+                self.css_dropped_rules += dropped_rules
+                self.css_dropped_bytes += dropped_bytes
                 break
             kept.append(rule)
             size += len(rule)
