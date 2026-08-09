@@ -300,3 +300,79 @@ def test_truncation_totals_are_accumulated(tmp_path):
     assert ex.css_dropped_rules > 0
     assert ex.css_dropped_bytes > 0
     assert len(out) <= ex.max_critical_css
+
+
+# ── harvest order ────────────────────────────────────────────────────────
+# Rules are kept in harvest order until max_critical_css, so harvest order
+# decides what survives truncation. Document order was actively wrong: the
+# homepage links footer.min.css, content.min.css, header.min.css in that
+# sequence, so with all 252 pages saturating the cap the dropped tail was
+# HEADER rules — the most above-the-fold CSS on the page — while footer rules
+# for content below several screenfuls were kept.
+
+def test_above_fold_sheets_are_harvested_first():
+    ex = CriticalCSSExtractor()
+    base = '/wp-content/themes/kadence/assets/css/'
+    order = sorted(('header.min.css', 'content.min.css', 'footer.min.css'),
+                   key=lambda n: ex._sheet_priority(base + n))
+    assert order == ['header.min.css', 'content.min.css', 'footer.min.css']
+
+
+@pytest.mark.parametrize('name,tier', [
+    ('header.min.css', 0),
+    ('global.min.css', 0),
+    ('content.min.css', 1),
+    ('rankmath.min.css', 1),
+    ('footer.min.css', 2),
+    ('comments.min.css', 2),
+    ('related-posts.min.css', 2),
+])
+def test_sheet_tiers(name, tier):
+    ex = CriticalCSSExtractor()
+    assert ex._sheet_priority(f'/wp-content/themes/kadence/assets/css/{name}') == tier
+
+
+def test_priority_matches_the_filename_not_the_path():
+    """Every sheet lives under /wp-content/, so matching the whole href puts
+    all of them in the 'content' tier — footer.min.css included, which is the
+    one sheet this ordering most needs to rank last."""
+    ex = CriticalCSSExtractor()
+    assert ex._sheet_priority('/wp-content/themes/x/footer.min.css') == 2
+    assert ex._sheet_priority('/wp-content/themes/x/comments.min.css') == 2
+
+
+def test_related_posts_is_not_treated_as_main_content():
+    """'post' as a tier-1 needle also matches related-posts.min.css, and
+    tier 1 is tested first — so the needle has to stay out."""
+    ex = CriticalCSSExtractor()
+    assert ex._sheet_priority('/a/related-posts.min.css') == 2
+
+
+def test_unknown_sheets_keep_document_order_within_their_tier():
+    ex = CriticalCSSExtractor()
+    assert ex._sheet_priority('/a/mystery.css') == ex._DEFAULT_SHEET_PRIORITY
+
+
+def test_header_rules_survive_truncation_over_footer_rules(tmp_path):
+    """End-to-end statement of the fix: with a cap that can only fit one
+    sheet's worth, the header sheet is what lands in the block."""
+    (tmp_path / 'header.min.css').write_text(
+        ''.join(f'header .h{i}{{margin:{i}px}}' for i in range(200)), encoding='utf-8')
+    (tmp_path / 'footer.min.css').write_text(
+        ''.join(f'footer .f{i}{{margin:{i}px}}' for i in range(200)), encoding='utf-8')
+
+    soup = BeautifulSoup(
+        '<html><head>'
+        '<link rel="stylesheet" href="/footer.min.css">'   # document order:
+        '<link rel="stylesheet" href="/header.min.css">'   # footer first
+        '</head><body><header><div class="h1">x</div></header>'
+        '<footer><div class="f1">y</div></footer></body></html>',
+        'html.parser')
+    ex = CriticalCSSExtractor()
+    ex.public_dir = tmp_path
+    ex.max_critical_css = 600          # room for roughly one sheet
+
+    out = ex._extract_matching_css_rules(soup, {'header', 'footer', '.h1', '.f1'})
+
+    assert 'header' in out, 'header rules were dropped by the cap'
+    assert out.index('header') < (out.index('footer') if 'footer' in out else len(out))
