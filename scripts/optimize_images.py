@@ -122,8 +122,13 @@ class ImageOptimizer:
         if not image_path.exists():
             return False
 
-        # Skip if already webp or avif
-        if image_path.suffix.lower() in ['.webp', '.avif']:
+        # .avif is the target format — nothing to derive from it. .webp is
+        # NOT skipped: WordPress accepts WebP uploads, and treating "is a
+        # WebP" as "is already optimised" is what left the homepage LCP image
+        # (UnifiBeast-768x219.webp) with no AVIF at all. A WebP source still
+        # needs its AVIF sibling; optimize_image() knows not to re-encode the
+        # source over itself.
+        if image_path.suffix.lower() == '.avif':
             return False
 
         # Check if AVIF and WebP already exist (even if not in cache)
@@ -209,6 +214,10 @@ class ImageOptimizer:
                 result['format_type'] = 'JPEG'
             elif suffix == '.png':
                 result['format_type'] = 'PNG'
+            elif suffix == '.webp':
+                result['format_type'] = 'WEBP'
+            elif suffix == '.gif':
+                result['format_type'] = 'GIF'
 
             # Check if should optimize
             if not self.should_optimize_image(image_path):
@@ -227,6 +236,18 @@ class ImageOptimizer:
 
             # Open image
             with Image.open(image_path) as img:
+                # An animated GIF flattened to a still AVIF/WebP would silently
+                # lose the animation, and the <picture> built from it would
+                # replace a moving image with a frozen frame. Leave those alone.
+                if getattr(img, 'n_frames', 1) > 1:
+                    result['was_cached'] = True
+                    result['error'] = 'animated source skipped'
+                    result['duration_ms'] = int((time.time() - start_time) * 1000)
+                    with self._lock:
+                        self.stats['skipped'] += 1
+                        self.optimization_results.append(result)
+                    return result
+
                 # Convert RGBA to RGB for JPEG compatibility
                 if img.mode in ('RGBA', 'LA', 'P'):
                     background = Image.new('RGB', img.size, (255, 255, 255))
@@ -237,21 +258,33 @@ class ImageOptimizer:
                 elif img.mode != 'RGB':
                     img = img.convert('RGB')
 
-                # Generate WebP version
+                # Generate WebP version.
+                #
+                # When the source IS the .webp, with_suffix('.webp') resolves
+                # to the source itself — re-encoding would overwrite the
+                # original in place with a generation-lossy copy, and do it
+                # again on every build that invalidated the cache. The file is
+                # already the WebP variant, so record it and move on; only the
+                # AVIF below is new work.
                 webp_path = image_path.with_suffix('.webp')
-                img.save(
-                    webp_path,
-                    'WEBP',
-                    quality=quality,
-                    method=6  # Slower but better compression
-                )
-                webp_size = webp_path.stat().st_size
-                result['webp'] = str(webp_path)
-                result['webp_size'] = webp_size
-                result['webp_created'] = True
-                with self._lock:
-                    self.stats['webp_generated'] += 1
-                    self.stats['optimized_size'] += webp_size
+                if webp_path == image_path:
+                    webp_size = original_size
+                    result['webp'] = str(webp_path)
+                    result['webp_size'] = webp_size
+                else:
+                    img.save(
+                        webp_path,
+                        'WEBP',
+                        quality=quality,
+                        method=6  # Slower but better compression
+                    )
+                    webp_size = webp_path.stat().st_size
+                    result['webp'] = str(webp_path)
+                    result['webp_size'] = webp_size
+                    result['webp_created'] = True
+                    with self._lock:
+                        self.stats['webp_generated'] += 1
+                        self.stats['optimized_size'] += webp_size
 
                 # Generate AVIF version (best compression)
                 avif_created = False
@@ -283,7 +316,13 @@ class ImageOptimizer:
                 # the caller doesn't need a second optimization pass.
                 # NOTE: pass image_path.name (with extension) — the regex
                 # lookahead requires the extension to anchor the match.
-                if not self._WP_RESIZE_SUFFIX_RE.search(image_path.name):
+                # Restricted to PNG/JPEG masters: the helper writes its
+                # resized variant as `<stem>.png`, so running it for a .webp
+                # or .gif source would materialise PNGs the site never
+                # references. Those formats get AVIF at their existing widths,
+                # which is the win that matters.
+                if (image_path.suffix.lower() in ('.png', '.jpg', '.jpeg')
+                        and not self._WP_RESIZE_SUFFIX_RE.search(image_path.name)):
                     self._generate_extra_width_variants(image_path, img, quality)
 
                 result['success'] = True
@@ -307,10 +346,16 @@ class ImageOptimizer:
                         'avif': str(avif_path.relative_to(self.public_dir)) if avif_created else None
                     }
 
-                # Calculate savings for display
-                savings = original_size - webp_size
+                # Calculate savings for display against the format the browser
+                # will actually pick — the smallest available, which is AVIF
+                # wherever it was produced. Reporting the WebP size made every
+                # .webp source read "0.0% saved" (its WebP *is* the source)
+                # while the new AVIF was cutting 63% off the same image.
+                best_size = min(webp_size, avif_size) if avif_created else webp_size
+                savings = original_size - best_size
                 savings_pct = (savings / original_size * 100) if original_size > 0 else 0
-                print(f"✅ {image_path.name}: {original_size/1024:.1f}KB → {webp_size/1024:.1f}KB ({savings_pct:.1f}% saved)")
+                print(f"✅ {image_path.name}: {original_size/1024:.1f}KB → "
+                      f"{best_size/1024:.1f}KB ({savings_pct:.1f}% saved)")
 
         except Exception as e:
             result['error'] = str(e)
@@ -387,9 +432,21 @@ class ImageOptimizer:
                 # AVIF is optional — leave the PNG + WebP in place.
                 print(f"⚠️  AVIF write failed for {resized_avif.name}: {e}")
 
+    # Sources we can encode AVIF from. .webp and .gif are included because
+    # WordPress accepts uploads in those formats and they were silently
+    # excluded: the homepage hero (UnifiBeast-768x219.webp, the LCP element)
+    # shipped as a 23.8 KB WebP with no AVIF anywhere on disk, where AVIF
+    # encodes it at 13.0 KB — 45% off the largest resource on the critical
+    # path. 23 WebP and 3 GIF files were in that state.
+    #
+    # Knock-on: convert_images_to_picture only builds a <picture> when an AVIF
+    # sibling exists, so these images stayed bare <img> tags and never got a
+    # modern-format <source> at all.
+    SOURCE_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.webp', '.gif'}
+
     def find_all_images(self) -> List[Path]:
         """Find all images in the public directory"""
-        image_extensions = {'.jpg', '.jpeg', '.png'}
+        image_extensions = self.SOURCE_EXTENSIONS
         images = []
 
         uploads_dir = self.public_dir / 'wp-content' / 'uploads'
