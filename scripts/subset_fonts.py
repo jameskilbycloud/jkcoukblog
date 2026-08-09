@@ -49,12 +49,19 @@ Usage:
     python3 scripts/subset_fonts.py [site_dir]
 """
 
+import hashlib
+import json
 import shutil
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterable
 from bs4 import BeautifulSoup
+
+# Records which master + character set produced each deployed subset, so a
+# rebuild with both unchanged can skip the work. Sits under the site tree so
+# it travels with the incremental seed from public/.
+_CACHE_REL = 'assets/fonts/.subset-cache.json'
 
 try:
     from fontTools.subset import Subsetter, Options
@@ -246,7 +253,16 @@ def _subset_font(font_path: Path, characters: str) -> dict:
     """
     before = font_path.stat().st_size
 
-    font = TTFont(str(font_path))
+    # recalcTimestamp=False pins the OpenType head.modified field. fontTools
+    # otherwise stamps "now" on save, so a rebuild with an identical glyph set
+    # produced a byte-different woff2: same 11,592 bytes, same 142 glyphs,
+    # only head.modified moved (3869108660 → 3869141786 across two deploys).
+    #
+    # That cost more than a noisy diff. All five fonts landed in every deploy
+    # commit with their .br/.gz sidecars, and because the static-asset purge
+    # gate keys on `assets/fonts/*.woff2` appearing in the diff, every deploy
+    # also fired a Cloudflare edge purge for fonts that were byte-equivalent.
+    font = TTFont(str(font_path), recalcTimestamp=False)
     options = Options()
     # Output flavour: keep woff2 so the served URL doesn't need to change
     # and the existing <link rel=preload as=font type=font/woff2> remains
@@ -296,24 +312,107 @@ def _ensure_master(repo_root: Path, site_dir: Path, spec: FontSpec) -> Path | No
     return None
 
 
-def _process_one(repo_root: Path, site_dir: Path, spec: FontSpec) -> dict | None:
-    """Restore master → target, collect chars, subset target."""
+def corpus_fingerprint(site_dir: Path) -> str:
+    """Hash every HTML file that feeds character collection.
+
+    Computed once per run and shared by all specs. This is what lets the
+    cache be checked BEFORE _collect_chars rather than after: the character
+    set is a pure function of (corpus, selectors), so an unchanged corpus
+    means an unchanged character set without having to parse anything.
+
+    Hashing the corpus costs a read; _collect_chars costs a BeautifulSoup
+    parse of every page, once per font. On the real 253-page site that is
+    16s — which is why checking the cache after it saved nothing measurable
+    (16.1s → 16.0s) in the first version of this.
+    """
+    h = hashlib.blake2b(digest_size=16)
+    for path in sorted(site_dir.rglob('*.html')):
+        h.update(str(path.relative_to(site_dir)).encode('utf-8'))
+        h.update(b'\0')
+        h.update(path.read_bytes())
+        h.update(b'\0')
+    return h.hexdigest()
+
+
+def _cache_key(master_path: Path, spec: 'FontSpec', corpus_hash: str) -> str:
+    """Identity of a subset: the master, the selectors that choose glyphs
+    from it, and the corpus those selectors run against.
+
+    The selectors are part of the key so that editing FONT_SPECS invalidates
+    the cache — otherwise a code change to which elements feed a font would
+    silently keep serving the previous subset.
+    """
+    h = hashlib.blake2b(digest_size=16)
+    h.update(master_path.read_bytes())
+    h.update(b'\0')
+    h.update(repr((spec.tag_selectors, spec.class_selectors,
+                   spec.safety_pad)).encode('utf-8'))
+    h.update(b'\0')
+    h.update(corpus_hash.encode('ascii'))
+    return h.hexdigest()
+
+
+def _load_cache(site_dir: Path) -> dict:
+    cache_path = site_dir / _CACHE_REL
+    if cache_path.exists():
+        try:
+            return json.loads(cache_path.read_text(encoding='utf-8'))
+        except (json.JSONDecodeError, OSError):
+            pass
+    return {}
+
+
+def _save_cache(site_dir: Path, cache: dict) -> None:
+    cache_path = site_dir / _CACHE_REL
+    try:
+        cache_path.parent.mkdir(parents=True, exist_ok=True)
+        cache_path.write_text(json.dumps(cache, indent=2, sort_keys=True),
+                              encoding='utf-8')
+    except OSError as e:
+        print(f"⚠️  Could not write font subset cache: {e}")
+
+
+def _process_one(repo_root: Path, site_dir: Path, spec: FontSpec,
+                 corpus_hash: str, cache: dict) -> dict | None:
+    """Restore master → target, collect chars, subset target.
+
+    Whole step took ~43s of a 319s deploy (13.5%) rebuilding five files whose
+    content essentially never changes — the Anton character set has been
+    stable at ~87 glyphs. The cache check has to come before _collect_chars:
+    that scan is the expensive part, not the subsetting.
+    """
     master_path = _ensure_master(repo_root, site_dir, spec)
     if not master_path:
         return None
 
     font_path = site_dir / spec.target_rel
     font_path.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(master_path, font_path)
+
+    key = _cache_key(master_path, spec, corpus_hash)
+    cached = cache.get(spec.target_rel)
+    if (cached and cached.get('key') == key and font_path.exists()
+            and font_path.stat().st_size == cached.get('after')):
+        return {'label': spec.label, 'file': font_path.name,
+                'before': cached.get('before', 0), 'after': cached['after'],
+                'chars': cached.get('total_chars', 0),
+                'used_chars': cached.get('used_chars', 0),
+                'total_chars': cached.get('total_chars', 0), 'cached': True}
 
     used = _collect_chars(site_dir, spec)
     full_set = ''.join(sorted(used | set(spec.safety_pad)))
+
+    shutil.copy2(master_path, font_path)
 
     try:
         stats = _subset_font(font_path, full_set)
     except Exception as e:
         print(f"❌ {spec.label}: failed to subset {font_path.name}: {e}")
         return None
+
+    cache[spec.target_rel] = {'key': key, 'before': stats['before'],
+                              'after': stats['after'],
+                              'used_chars': len(used),
+                              'total_chars': len(full_set)}
 
     stats['label'] = spec.label
     stats['file'] = font_path.name
@@ -334,16 +433,23 @@ def main():
     html_count = len(list(site_dir.rglob('*.html')))
     print(f"🔤 Subsetting {len(FONT_SPECS)} fonts against {html_count} HTML files in {site_dir}")
 
+    corpus_hash = corpus_fingerprint(site_dir)
+    cache = _load_cache(site_dir)
+
     results = []
     for spec in FONT_SPECS:
         print(f"\n   • {spec.label} ({spec.target_rel})")
-        stats = _process_one(repo_root, site_dir, spec)
+        stats = _process_one(repo_root, site_dir, spec, corpus_hash, cache)
         if stats:
             saved = stats['before'] - stats['after']
             pct = saved / stats['before'] * 100 if stats['before'] else 0
             print(f"     used={stats['used_chars']} chars (+safety pad → {stats['total_chars']})")
-            print(f"     {stats['before']:>7} → {stats['after']:>7} bytes ({pct:.1f}% saved)")
+            suffix = '  [cached — master + charset unchanged]' if stats.get('cached') else ''
+            print(f"     {stats['before']:>7} → {stats['after']:>7} bytes "
+                  f"({pct:.1f}% saved){suffix}")
             results.append(stats)
+
+    _save_cache(site_dir, cache)
 
     if not results:
         print("\n⚠️  No fonts were subsetted.")
