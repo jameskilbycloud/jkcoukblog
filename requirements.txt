@@ -16,7 +16,7 @@ pyyaml==6.0.3
 # used to do this WordPress-side; it was disabled because its cache path
 # embeds a timestamp that churned every page on each rebuild. Pure-Python
 # fallback if the C extension doesn't build, so no toolchain requirement.
-rjsmin==1.2.4
+rjsmin==1.2.5
 
 # Dev/CI-only deps are in requirements-dev.txt
 # Image optimisation extras are in requirements-images.txt
