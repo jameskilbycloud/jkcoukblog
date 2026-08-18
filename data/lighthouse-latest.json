@@ -1,12 +1,12 @@
 {
-  "measured_at": "2026-08-17 03:57:21 UTC",
+  "measured_at": "2026-08-18 03:51:46 UTC",
   "url": "https://jameskilby.co.uk/",
-  "performance": 96,
+  "performance": 95,
   "accessibility": 96,
   "best_practices": 93,
   "seo": 100,
-  "lcp": "2.6 s",
+  "lcp": "2.7 s",
   "fcp": "1.9 s",
   "cls": "0",
-  "tti": "2.6 s"
+  "tti": "2.7 s"
 }
