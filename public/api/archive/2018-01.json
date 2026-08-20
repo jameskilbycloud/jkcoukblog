@@ -17,19 +17,14 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
-        "Networking",
+        "vExpert",
+        "Runecast",
         "VMware",
         "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "vExpert",
         "Automation",
+        "Docker",
+        "Traefik",
+        "VCF",
         "Github"
       ],
       "tags": [
@@ -52,15 +47,15 @@
       "categories": [
         "Homelab",
         "Nutanix",
+        "VMware",
         "Artificial Intelligence",
-        "Docker",
-        "Networking",
-        "Storage",
-        "vExpert",
         "Automation",
+        "Docker",
         "NVIDIA",
         "Traefik",
-        "VMware"
+        "Storage",
+        "Networking",
+        "Veeam"
       ],
       "tags": [
         null

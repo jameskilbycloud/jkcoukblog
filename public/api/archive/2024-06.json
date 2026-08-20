@@ -23,10 +23,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
+        "Nutanix",
+        "Automation",
+        "Docker",
         "Storage",
-        "Synology",
-        "Mikrotik",
-        "vSphere"
+        "Synology"
       ],
       "tags": [
         null,

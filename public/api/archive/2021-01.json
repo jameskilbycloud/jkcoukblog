@@ -17,13 +17,13 @@
         "Automation",
         "Homelab",
         "VMware",
-        "vSphere",
-        "VMware Cloud on AWS",
-        "Storage",
-        "Synology",
-        "TrueNAS Scale",
-        "AWS",
-        "Veeam"
+        "Artificial Intelligence",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "VCF",
+        "vSAN",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -47,12 +47,10 @@
       "categories": [
         "Personal",
         "Consulting",
-        "AWS",
-        "Hosting",
-        "Nutanix",
         "VMware",
-        "Cloudflare",
-        "Wordpress"
+        "Nutanix",
+        "AWS",
+        "vSphere"
       ],
       "tags": [
         null,

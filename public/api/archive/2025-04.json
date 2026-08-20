@@ -16,15 +16,11 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
         "Networking",
-        "Ansible",
-        "Containers",
-        "Devops"
+        "Storage",
+        "VMware",
+        "Hosting",
+        "Docker"
       ],
       "tags": [
         null,

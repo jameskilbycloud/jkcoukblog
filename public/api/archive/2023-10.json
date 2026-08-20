@@ -16,11 +16,12 @@
       "categories": [
         "Homelab",
         "VMware",
+        "Networking",
         "Automation",
         "Storage",
-        "TrueNAS Scale",
-        "Networking",
-        "VMware Cloud on AWS"
+        "VMware Cloud on AWS",
+        "Runecast",
+        "Github"
       ],
       "tags": [
         null,
@@ -43,20 +44,16 @@
       "categories": [
         "VMware",
         "Personal",
-        "Automation",
-        "Homelab",
-        "Veeam",
-        "AWS",
-        "Ansible",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "Automation",
+        "Docker",
+        "Homelab",
         "NVIDIA",
         "Traefik",
-        "vSphere",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress"
+        "VMware Cloud on AWS",
+        "Networking",
+        "Storage",
+        "Ansible"
       ],
       "tags": [
         null,

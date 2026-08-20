@@ -17,15 +17,13 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Personal",
+        "VCF",
         "VMware",
-        "TrueNAS Scale",
-        "Networking",
-        "Artificial Intelligence",
-        "Docker",
-        "Hosting",
+        "Automation",
+        "AWS",
+        "Veeam",
         "Kubernetes",
-        "VMware Cloud on AWS"
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
