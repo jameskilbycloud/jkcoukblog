@@ -16,13 +16,14 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Nutanix",
-        "Artificial Intelligence",
-        "Docker",
-        "Automation",
-        "Github",
+        "Veeam",
         "VMware",
-        "Storage"
+        "Storage",
+        "Synology",
+        "Ansible",
+        "Automation",
+        "Artificial Intelligence",
+        "vSphere"
       ],
       "tags": [
         null,

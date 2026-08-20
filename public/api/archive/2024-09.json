@@ -19,10 +19,11 @@
         "TrueNAS Scale",
         "VMware",
         "vSphere",
+        "vExpert",
+        "Synology",
+        "Ansible",
         "Networking",
-        "VMware Cloud on AWS",
-        "vSAN",
-        "vExpert"
+        "Veeam"
       ],
       "tags": [
         null,
@@ -44,15 +45,17 @@
       "categories": [
         "Mikrotik",
         "Networking",
-        "Ansible",
-        "Automation",
-        "Github",
-        "Homelab",
-        "Veeam",
-        "VMware",
         "Artificial Intelligence",
         "Docker",
-        "Hosting"
+        "Hosting",
+        "Ansible",
+        "Containers",
+        "Devops",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
+        "VMware",
+        "Runecast"
       ],
       "tags": [
         null,

@@ -19,9 +19,10 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Networking",
         "VMware Cloud on AWS",
-        "Automation"
+        "Artificial Intelligence",
+        "Storage",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -47,15 +48,6 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Homelab",
-        "Traefik",
-        "VCF",
-        "VMware",
-        "Artificial Intelligence",
-        "NVIDIA",
         "Personal"
       ],
       "tags": [
@@ -99,10 +91,10 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "AWS",
-        "Devops",
+        "Consulting",
         "Artificial Intelligence",
-        "Docker"
+        "Docker",
+        "VMware"
       ],
       "tags": [
         null,
@@ -125,16 +117,15 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Devops",
-        "Personal",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
         "Docker",
         "Homelab",
-        "NVIDIA",
         "Traefik",
+        "VCF",
         "VMware",
-        "Kubernetes"
+        "Personal",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -158,15 +149,11 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
         "Networking",
-        "Ansible",
-        "Containers",
-        "Devops"
+        "Storage",
+        "VMware",
+        "Hosting",
+        "Docker"
       ],
       "tags": [
         null,
@@ -189,15 +176,19 @@
       "categories": [
         "Ansible",
         "Automation",
-        "Runecast",
-        "VMware",
-        "Docker",
         "Homelab",
-        "Hosting",
-        "Kubernetes",
-        "Artificial Intelligence",
         "Networking",
-        "VMware Cloud on AWS"
+        "VMware",
+        "VMware Cloud on AWS",
+        "Storage",
+        "Synology",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "Docker",
+        "Github"
       ],
       "tags": [
         null,
@@ -223,17 +214,16 @@
         "VMware Cloud on AWS",
         "vSAN",
         "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "Automation",
+        "Docker",
         "Homelab",
-        "NVIDIA",
         "Traefik",
-        "Veeam",
+        "VCF",
+        "Artificial Intelligence",
+        "NVIDIA",
+        "Networking",
         "Storage",
-        "TrueNAS Scale",
-        "vSphere",
-        "Automation"
+        "Synology"
       ],
       "tags": [
         null,
@@ -257,14 +247,13 @@
       "categories": [
         "VMware",
         "vSAN",
-        "VMware Cloud on AWS",
-        "VCF",
         "Homelab",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Traefik",
-        "Personal"
+        "Veeam",
+        "Personal",
+        "vSphere",
+        "Runecast",
+        "VCF",
+        "Nutanix"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n# vSAN Cluster Shutdown – Orchestration\n\nBy[James](https://jameskilby.co.uk) December 6,..."
@@ -282,17 +271,18 @@
       "categories": [
         "Personal",
         "VMware",
-        "Homelab",
-        "vSphere",
-        "VMware Cloud on AWS",
-        "Storage",
-        "vExpert",
-        "Ansible",
+        "Artificial Intelligence",
         "Automation",
         "Docker",
+        "Homelab",
+        "NVIDIA",
         "Traefik",
+        "vSAN",
+        "AWS",
+        "Veeam",
         "VCF",
-        "AWS"
+        "TrueNAS Scale",
+        "vSphere"
       ],
       "tags": [
         null,
