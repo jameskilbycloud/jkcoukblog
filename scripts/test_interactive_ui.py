@@ -47,6 +47,7 @@ build logs.
 
 import contextlib
 import http.server
+import os
 import socket
 import socketserver
 import sys
@@ -426,6 +427,19 @@ class UISmokeTests:
                 browser.close()
 
 
+def _annotate_skip(reason):
+    """Surface a skipped run as a GitHub Actions annotation.
+
+    Both skip paths exit 0 by design so missing test infra can't block a
+    deploy. The cost is that a skip is invisible unless someone reads the
+    step's stdout — chromium silently stopped launching and the gate went
+    unnoticed across runs. An annotation puts it on the run summary while
+    keeping the exit code green.
+    """
+    if os.environ.get('GITHUB_ACTIONS') == 'true':
+        print(f"::warning title=Interactive UI tests skipped::{reason}")
+
+
 def main():
     site_dir = Path(sys.argv[1] if len(sys.argv) > 1 else 'public')
 
@@ -438,6 +452,7 @@ def main():
         print(f"    ({_PW_ERROR})")
         print("    Install with: pip install playwright && playwright install chromium")
         print("=" * 72)
+        _annotate_skip(f"playwright unavailable ({_PW_ERROR})")
         sys.exit(0)
 
     if not site_dir.exists():
@@ -462,6 +477,7 @@ def main():
         print("    Likely missing system libs (libatk-1.0.so.0 etc).")
         print("    Install with: sudo playwright install-deps chromium")
         print("=" * 72)
+        _annotate_skip(f"chromium failed to launch ({tests.launch_error})")
         sys.exit(0)
 
     elapsed = time.time() - start

@@ -944,7 +944,11 @@ jobs:
         # Calculate savings
         BROTLI_SAVED=$(echo "$ORIGINAL_SIZE - $BROTLI_SIZE" | bc)
         BROTLI_SAVED_MB=$(echo "scale=2; $BROTLI_SAVED / 1024 / 1024" | bc)
-        BROTLI_RATIO=$(echo "scale=1; (1 - $BROTLI_SIZE / $ORIGINAL_SIZE) * 100" | bc)
+        # Multiply before dividing. `scale` in bc applies to the division
+        # itself, so the old `(1 - BR/ORIG) * 100` truncated BR/ORIG (≈0.034)
+        # to 0.0 at scale=1 and reported every build as a flat "100.0%
+        # reduction" — in the log, the step summary, and the Slack card.
+        BROTLI_RATIO=$(echo "scale=1; 100 - ($BROTLI_SIZE * 100 / $ORIGINAL_SIZE)" | bc)
 
         echo "📊 Compression Results:"
         echo "   • Brotli files: $BROTLI_COUNT (.br)"
@@ -1002,28 +1006,38 @@ jobs:
           echo "📦 Installing Playwright Python..."
           pip install --break-system-packages playwright
         fi
-        if [ ! -d "$HOME/.cache/ms-playwright" ] && [ ! -d "$HOME/Library/Caches/ms-playwright" ]; then
-          echo "📦 Installing Chromium headless shell..."
-          # No --with-deps: that flag triggers `sudo apt install` to fetch
-          # Chromium's runtime libraries, which fails on the self-hosted
-          # runner because sudo requires a password. The libs are already
-          # present on the runner (this step worked before Playwright began
-          # auto-detecting the OS as unsupported); if they ever go missing,
-          # test_interactive_ui.py prints its SKIP banner and
-          # `continue-on-error: true` below still lets the build pass.
-          #
-          # We swallow a non-zero exit here because Playwright validates the
-          # host OS against a hardcoded allowlist and refuses to install on
-          # any release newer than what its pinned binaries support (e.g.
-          # "Playwright does not support chromium on ubuntu26.04-x64").
-          # test_interactive_ui.py catches the missing-chromium case and
-          # prints its own SKIP banner via the launch_failed path, so this
-          # step ends up green and the SKIP is visible in build logs.
-          # Bump the playwright pip package when a newer one adds support.
-          if ! python3 -m playwright install chromium; then
-            echo "::warning::Playwright refused to install chromium on this runner OS — smoke tests will SKIP."
-            echo "    Bump the playwright pip package once a release adds the new OS to its allowlist."
-          fi
+        # Run the install unconditionally rather than guarding on the
+        # existence of the ms-playwright cache directory. Playwright pins a
+        # build number per release and installs into a versioned subdirectory
+        # (chromium_headless_shell-<build>/). When the pip package is
+        # upgraded it looks for a NEW build number, but the cache directory
+        # from the previous build still exists — so the old `-d` guard saw a
+        # populated cache, skipped the install, and every run since has
+        # launch-failed on a browser that was never fetched:
+        #   Executable doesn't exist at .../chromium_headless_shell-1223/...
+        # `playwright install` is idempotent and a fast no-op when the
+        # matching build is already present, so there's nothing to save by
+        # guarding it.
+        echo "📦 Ensuring Chromium headless shell matches the installed Playwright..."
+        # No --with-deps: that flag triggers `sudo apt install` to fetch
+        # Chromium's runtime libraries, which fails on the self-hosted
+        # runner because sudo requires a password. The libs are already
+        # present on the runner (this step worked before Playwright began
+        # auto-detecting the OS as unsupported); if they ever go missing,
+        # test_interactive_ui.py prints its SKIP banner and
+        # `continue-on-error: true` below still lets the build pass.
+        #
+        # We swallow a non-zero exit here because Playwright validates the
+        # host OS against a hardcoded allowlist and refuses to install on
+        # any release newer than what its pinned binaries support (e.g.
+        # "Playwright does not support chromium on ubuntu26.04-x64").
+        # test_interactive_ui.py catches the missing-chromium case and
+        # prints its own SKIP banner via the launch_failed path, so this
+        # step ends up green and the SKIP is visible in build logs.
+        # Bump the playwright pip package when a newer one adds support.
+        if ! python3 -m playwright install chromium; then
+          echo "::warning::Playwright refused to install chromium on this runner OS — smoke tests will SKIP."
+          echo "    Bump the playwright pip package once a release adds the new OS to its allowlist."
         fi
 
         python3 scripts/test_interactive_ui.py ./static-output
