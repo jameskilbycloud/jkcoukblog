@@ -16,5 +16,23 @@
         "seo": 100
       }
     ]
+  },
+  {
+    "date": "2026-08-21",
+    "timestamp": "2026-08-21 03:57:07 UTC",
+    "runs": 1,
+    "performance": 95,
+    "accessibility": 96,
+    "best_practices": 93,
+    "seo": 100,
+    "samples": [
+      {
+        "timestamp": "2026-08-21 03:57:07 UTC",
+        "performance": 95,
+        "accessibility": 96,
+        "best_practices": 93,
+        "seo": 100
+      }
+    ]
   }
 ]
