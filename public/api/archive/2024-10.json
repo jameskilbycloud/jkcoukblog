@@ -17,14 +17,13 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "Nutanix",
-        "VMware",
-        "Automation",
-        "Github",
-        "Mikrotik",
+        "Storage",
         "Networking",
+        "Automation",
+        "VMware",
         "Hosting",
-        "Kubernetes"
+        "TrueNAS Scale",
+        "Mikrotik"
       ],
       "tags": [
         null,

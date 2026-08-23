@@ -17,13 +17,14 @@
         "Automation",
         "Homelab",
         "VMware",
-        "Artificial Intelligence",
+        "VMware Cloud on AWS",
         "Docker",
-        "NVIDIA",
-        "Traefik",
-        "VCF",
-        "vSAN",
-        "Nutanix"
+        "Hosting",
+        "Kubernetes",
+        "Runecast",
+        "Nutanix",
+        "Networking",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -48,9 +49,10 @@
         "Personal",
         "Consulting",
         "VMware",
+        "vSphere",
         "Nutanix",
-        "AWS",
-        "vSphere"
+        "Hosting",
+        "Devops"
       ],
       "tags": [
         null,

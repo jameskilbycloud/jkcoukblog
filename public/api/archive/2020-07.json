@@ -16,11 +16,9 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "Homelab",
         "vSAN",
-        "AWS",
-        "Veeam",
-        "Automation",
-        "Homelab"
+        "Veeam"
       ],
       "tags": [
         null,
@@ -45,7 +43,9 @@
         "Hosting",
         "Homelab",
         "VMware",
-        "vSphere"
+        "Devops",
+        "Cloudflare",
+        "Wordpress"
       ],
       "tags": [
         null,
