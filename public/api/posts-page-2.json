@@ -13,17 +13,18 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "AWS",
+        "Veeam",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
         "VCF",
+        "Homelab",
         "Artificial Intelligence",
         "Automation",
         "Docker",
-        "Homelab",
         "NVIDIA",
-        "Traefik",
-        "Ansible",
-        "Containers",
-        "Devops",
-        "vSAN"
+        "Traefik"
       ],
       "tags": [
         null,
@@ -47,10 +48,13 @@
         "VMware",
         "VMware Cloud on AWS",
         "Homelab",
-        "Veeam",
+        "Nutanix",
         "AWS",
         "Hosting",
-        "VCF"
+        "VCF",
+        "Veeam",
+        "Personal",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -76,12 +80,19 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "AWS",
-        "Veeam",
-        "VCF",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
         "Homelab",
-        "Networking",
-        "Storage"
+        "NVIDIA",
+        "Traefik",
+        "Automation",
+        "Docker",
+        "Personal",
+        "vSphere",
+        "VCF",
+        "vSAN"
       ],
       "tags": [
         null
@@ -102,12 +113,11 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Networking",
-        "Automation",
-        "Storage",
+        "vSphere",
+        "vSAN",
         "VMware Cloud on AWS",
-        "Runecast",
-        "Github"
+        "Personal",
+        "Runecast"
       ],
       "tags": [
         null,
@@ -129,9 +139,9 @@
       "api_url": "/api/posts/veeamon2020.json",
       "categories": [
         "Veeam",
+        "Homelab",
         "VMware",
-        "AWS",
-        "Homelab"
+        "AWS"
       ],
       "tags": [
         null,
@@ -154,16 +164,13 @@
         "VMware",
         "VMware Cloud on AWS",
         "Homelab",
-        "vSphere",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
+        "Veeam",
+        "Runecast",
+        "vSAN",
         "VCF",
-        "Automation",
-        "Docker"
+        "TrueNAS Scale",
+        "vSphere",
+        "Personal"
       ],
       "tags": [
         null,
@@ -189,14 +196,10 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Artificial Intelligence",
-        "Networking",
-        "Nutanix",
-        "VMware",
         "Cloudflare",
         "Wordpress",
-        "Runecast",
-        "Personal"
+        "Storage",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
@@ -226,10 +229,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Nutanix",
         "Automation",
         "Docker",
         "Storage",
+        "vExpert",
         "Synology"
       ],
       "tags": [
@@ -252,14 +255,14 @@
       "api_url": "/api/posts/ubuntu-disk-expansion-steps.json",
       "categories": [
         "Ubuntu",
-        "Ansible",
         "Automation",
+        "Github",
+        "Ansible",
         "Docker",
         "Homelab",
         "Traefik",
         "VCF",
-        "VMware",
-        "Github"
+        "VMware"
       ],
       "tags": [
         null,
@@ -281,14 +284,14 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Veeam",
-        "VMware",
         "Storage",
-        "Synology",
+        "VMware",
+        "TrueNAS Scale",
+        "VCF",
         "Ansible",
         "Automation",
-        "Artificial Intelligence",
-        "vSphere"
+        "Docker",
+        "Traefik"
       ],
       "tags": [
         null,

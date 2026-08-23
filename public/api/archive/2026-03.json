@@ -21,15 +21,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Runecast",
+        "Networking",
+        "Storage",
         "VMware Cloud on AWS",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
         "Ansible",
-        "Containers",
-        "Devops",
-        "Personal"
+        "VCF"
       ],
       "tags": [
         null,
@@ -67,8 +63,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Hosting",
-        "Ansible"
+        "Ansible",
+        "Containers",
+        "Devops",
+        "Hosting"
       ],
       "tags": [
         null,

@@ -17,13 +17,15 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Artificial Intelligence",
-        "Docker",
+        "Automation",
+        "VMware",
+        "Ansible",
+        "Hosting",
+        "VMware Cloud on AWS",
+        "vSAN",
         "TrueNAS Scale",
-        "Nutanix",
-        "Mikrotik",
-        "Networking",
-        "VMware"
+        "vSphere",
+        "Runecast"
       ],
       "tags": [
         null,

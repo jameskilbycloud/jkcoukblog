@@ -17,11 +17,16 @@
         "VMware",
         "AWS",
         "Veeam",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
         "Homelab",
-        "Storage",
-        "vExpert",
+        "NVIDIA",
+        "Traefik",
         "Personal",
-        "VMware Cloud on AWS",
+        "TrueNAS Scale",
+        "vSAN",
         "vSphere",
         "Automation"
       ],
@@ -48,10 +53,9 @@
         "Personal",
         "VMware",
         "VMware Cloud on AWS",
-        "Hosting",
         "Veeam",
-        "Cloudflare",
-        "Wordpress"
+        "Consulting",
+        "vSphere"
       ],
       "tags": [
         null,

@@ -17,15 +17,11 @@
         "Homelab",
         "Nutanix",
         "VMware",
-        "Ansible",
-        "Automation",
-        "Storage",
-        "vSAN",
+        "Personal",
+        "VCF",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik"
+        "Docker",
+        "Hosting"
       ],
       "tags": [
         null,

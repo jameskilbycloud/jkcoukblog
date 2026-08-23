@@ -16,14 +16,14 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Artificial Intelligence",
-        "Docker",
-        "Hosting",
         "TrueNAS Scale",
         "VMware",
         "vSAN",
         "vSphere",
-        "Kubernetes",
+        "Artificial Intelligence",
+        "Docker",
+        "Storage",
+        "vExpert",
         "Automation"
       ],
       "tags": [

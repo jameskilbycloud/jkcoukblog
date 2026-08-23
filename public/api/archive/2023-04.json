@@ -17,13 +17,14 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "VCF",
-        "VMware",
-        "Automation",
-        "AWS",
         "Veeam",
-        "Kubernetes",
-        "TrueNAS Scale"
+        "VMware",
+        "Networking",
+        "VCF",
+        "Synology",
+        "VMware Cloud on AWS",
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null,

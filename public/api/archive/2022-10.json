@@ -17,15 +17,17 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "AWS",
         "Artificial Intelligence",
-        "Automation",
         "Docker",
+        "Automation",
         "Homelab",
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Kubernetes"
+        "Devops",
+        "Github",
+        "Ansible",
+        "VCF"
       ],
       "tags": [
         null,
@@ -49,16 +51,19 @@
       "categories": [
         "Homelab",
         "Hosting",
-        "Cloudflare",
-        "Wordpress",
-        "Ansible",
-        "Automation",
         "Storage",
-        "Synology",
+        "vExpert",
         "Veeam",
         "VMware",
-        "Networking",
-        "Personal"
+        "Nutanix",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "Ansible",
+        "Containers",
+        "Devops"
       ],
       "tags": [
         null,
