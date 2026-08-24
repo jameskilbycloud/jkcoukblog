@@ -3,38 +3,6 @@
   "slug": "traefik",
   "posts": [
     {
-      "slug": "ubiquiti-udm-beast",
-      "title": "Unleashing the Beast",
-      "description": "I retired my 7-year-old WatchGuard M200 for the UniFi UDM Beast — the spec, my iperf and WAN tests, the BGP/FRR setup, and what I consolidated onto it.",
-      "date": "2026-06-20T19:49:43Z",
-      "modified": "2026-07-11T07:46:50Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/",
-      "markdown_url": "/markdown/posts/ubiquiti-udm-beast.md",
-      "api_url": "/api/posts/ubiquiti-udm-beast.json",
-      "categories": [
-        "Homelab",
-        "Networking",
-        "TrueNAS Scale",
-        "VMware",
-        "vSAN",
-        "vSphere",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Traefik",
-        "VCF",
-        "Nutanix",
-        "Storage"
-      ],
-      "tags": [
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2026/06/UnifiBeast.webp",
-      "excerpt": "![UniFi UDM Beast 1U rack-mount gateway shown front-on, with two 3.5-inch drive bays, a bank of RJ45 and SFP network ports, and dimension labels.](https://jameskilby.co.uk/wp-content/uploads/2026/06/UnifiBeast.webp)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jamesk..."
-    },
-    {
       "slug": "vsphere-power-management-driven-by-ansible",
       "title": "Automating vSphere Power Management driven by Ansible and SemaphoreUI",
       "description": "Learn how to automate vSphere power management using Ansible and SemaphoreUI, scheduling ESXi host shutdowns based on Octopus Agile energy tariffs to cut costs.",

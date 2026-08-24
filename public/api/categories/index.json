@@ -2,7 +2,7 @@
   {
     "name": "Ansible",
     "slug": "ansible",
-    "count": 29
+    "count": 28
   },
   {
     "name": "Apple",
@@ -12,12 +12,12 @@
   {
     "name": "Artificial Intelligence",
     "slug": "artificial-intelligence",
-    "count": 44
+    "count": 45
   },
   {
     "name": "Automation",
     "slug": "automation",
-    "count": 42
+    "count": 41
   },
   {
     "name": "AWS",
@@ -62,7 +62,7 @@
   {
     "name": "Hosting",
     "slug": "hosting",
-    "count": 38
+    "count": 39
   },
   {
     "name": "Kubernetes",
@@ -87,7 +87,7 @@
   {
     "name": "Nutanix",
     "slug": "nutanix",
-    "count": 20
+    "count": 19
   },
   {
     "name": "NVIDIA",
@@ -117,12 +117,12 @@
   {
     "name": "Traefik",
     "slug": "traefik",
-    "count": 36
+    "count": 35
   },
   {
     "name": "TrueNAS Scale",
     "slug": "truenas-scale",
-    "count": 10
+    "count": 9
   },
   {
     "name": "Ubuntu",
@@ -132,17 +132,17 @@
   {
     "name": "VCF",
     "slug": "vcf",
-    "count": 18
+    "count": 17
   },
   {
     "name": "Veeam",
     "slug": "veeam",
-    "count": 16
+    "count": 17
   },
   {
     "name": "vExpert",
     "slug": "vexpert",
-    "count": 8
+    "count": 9
   },
   {
     "name": "VMware",
@@ -157,12 +157,12 @@
   {
     "name": "vSAN",
     "slug": "vsan",
-    "count": 16
+    "count": 15
   },
   {
     "name": "vSphere",
     "slug": "vsphere",
-    "count": 24
+    "count": 23
   },
   {
     "name": "Wordpress",
