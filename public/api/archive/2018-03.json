@@ -16,10 +16,10 @@
       "categories": [
         "AWS",
         "VMware",
+        "VMware Cloud on AWS",
         "Veeam",
         "Hosting",
-        "Personal",
-        "VMware Cloud on AWS"
+        "Personal"
       ],
       "tags": [
         null,
@@ -40,17 +40,17 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
-        "Docker",
-        "Homelab",
-        "Kubernetes",
-        "Artificial Intelligence",
         "Cloudflare",
+        "Devops",
+        "Github",
         "Wordpress",
+        "Homelab",
+        "Artificial Intelligence",
         "Automation",
+        "Docker",
         "NVIDIA",
         "Traefik",
-        "VMware",
-        "Personal"
+        "VMware"
       ],
       "tags": [
         null

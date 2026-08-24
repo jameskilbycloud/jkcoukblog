@@ -17,17 +17,14 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
-        "Networking",
+        "VMware",
+        "Synology",
+        "Docker",
+        "Hosting",
+        "Kubernetes",
         "Ansible",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "vSAN",
-        "vSphere",
-        "Nutanix"
+        "Runecast"
       ],
       "tags": [
         null,
@@ -49,14 +46,16 @@
       "categories": [
         "Mikrotik",
         "Networking",
+        "Automation",
         "Homelab",
-        "Storage",
-        "Synology",
-        "Runecast",
         "VMware",
+        "Storage",
+        "vExpert",
+        "Hosting",
         "Artificial Intelligence",
         "Docker",
-        "Nutanix"
+        "Ansible",
+        "Runecast"
       ],
       "tags": [
         null,

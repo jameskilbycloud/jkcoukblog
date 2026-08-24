@@ -17,11 +17,11 @@
         "Homelab",
         "Nutanix",
         "VMware",
-        "Personal",
-        "VCF",
-        "Artificial Intelligence",
-        "Docker",
-        "Hosting"
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
+        "VMware Cloud on AWS",
+        "Storage"
       ],
       "tags": [
         null,

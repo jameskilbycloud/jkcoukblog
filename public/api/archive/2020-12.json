@@ -17,12 +17,20 @@
         "Devops",
         "Personal",
         "Cloudflare",
-        "Github",
+        "Hosting",
         "Wordpress",
-        "Consulting",
         "Nutanix",
         "VMware",
-        "vSphere"
+        "vSphere",
+        "AWS",
+        "Automation",
+        "Github",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Homelab",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,

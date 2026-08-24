@@ -17,14 +17,15 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Veeam",
-        "VMware",
-        "Networking",
-        "VCF",
-        "Synology",
-        "VMware Cloud on AWS",
+        "Docker",
+        "Hosting",
+        "Kubernetes",
         "Ansible",
-        "Automation"
+        "Automation",
+        "Traefik",
+        "VCF",
+        "VMware",
+        "Runecast"
       ],
       "tags": [
         null,

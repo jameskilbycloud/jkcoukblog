@@ -2,7 +2,7 @@
   {
     "name": "Ansible",
     "slug": "ansible",
-    "count": 33
+    "count": 29
   },
   {
     "name": "Apple",
@@ -12,17 +12,17 @@
   {
     "name": "Artificial Intelligence",
     "slug": "artificial-intelligence",
-    "count": 38
+    "count": 44
   },
   {
     "name": "Automation",
     "slug": "automation",
-    "count": 39
+    "count": 42
   },
   {
     "name": "AWS",
     "slug": "aws",
-    "count": 13
+    "count": 14
   },
   {
     "name": "Cloudflare",
@@ -32,27 +32,27 @@
   {
     "name": "Consulting",
     "slug": "consulting",
-    "count": 7
+    "count": 3
   },
   {
     "name": "Containers",
     "slug": "containers",
-    "count": 9
+    "count": 10
   },
   {
     "name": "Devops",
     "slug": "devops",
-    "count": 20
+    "count": 19
   },
   {
     "name": "Docker",
     "slug": "docker",
-    "count": 44
+    "count": 47
   },
   {
     "name": "Github",
     "slug": "github",
-    "count": 12
+    "count": 13
   },
   {
     "name": "Homelab",
@@ -62,7 +62,7 @@
   {
     "name": "Hosting",
     "slug": "hosting",
-    "count": 35
+    "count": 38
   },
   {
     "name": "Kubernetes",
@@ -72,7 +72,7 @@
   {
     "name": "Mikrotik",
     "slug": "mikrotik",
-    "count": 5
+    "count": 8
   },
   {
     "name": "Money",
@@ -82,17 +82,17 @@
   {
     "name": "Networking",
     "slug": "networking",
-    "count": 20
+    "count": 25
   },
   {
     "name": "Nutanix",
     "slug": "nutanix",
-    "count": 24
+    "count": 20
   },
   {
     "name": "NVIDIA",
     "slug": "nvidia",
-    "count": 25
+    "count": 29
   },
   {
     "name": "Personal",
@@ -107,22 +107,22 @@
   {
     "name": "Storage",
     "slug": "storage",
-    "count": 29
+    "count": 34
   },
   {
     "name": "Synology",
     "slug": "synology",
-    "count": 10
+    "count": 17
   },
   {
     "name": "Traefik",
     "slug": "traefik",
-    "count": 33
+    "count": 36
   },
   {
     "name": "TrueNAS Scale",
     "slug": "truenas-scale",
-    "count": 13
+    "count": 10
   },
   {
     "name": "Ubuntu",
@@ -132,7 +132,7 @@
   {
     "name": "VCF",
     "slug": "vcf",
-    "count": 27
+    "count": 18
   },
   {
     "name": "Veeam",
@@ -142,27 +142,27 @@
   {
     "name": "vExpert",
     "slug": "vexpert",
-    "count": 9
+    "count": 8
   },
   {
     "name": "VMware",
     "slug": "vmware",
-    "count": 67
+    "count": 68
   },
   {
     "name": "VMware Cloud on AWS",
     "slug": "vmware-cloud-on-aws",
-    "count": 28
+    "count": 23
   },
   {
     "name": "vSAN",
     "slug": "vsan",
-    "count": 17
+    "count": 16
   },
   {
     "name": "vSphere",
     "slug": "vsphere",
-    "count": 23
+    "count": 24
   },
   {
     "name": "Wordpress",

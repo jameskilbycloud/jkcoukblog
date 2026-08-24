@@ -17,14 +17,17 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Homelab",
-        "Storage",
-        "Synology",
         "Automation",
-        "Github",
-        "Nutanix",
+        "Homelab",
+        "NVIDIA",
+        "Traefik",
         "VMware",
-        "Networking"
+        "Cloudflare",
+        "Wordpress",
+        "Mikrotik",
+        "Networking",
+        "Nutanix",
+        "Storage"
       ],
       "tags": [
         null,

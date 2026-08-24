@@ -17,17 +17,16 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
+        "VCF",
         "Ansible",
         "Automation",
         "Docker",
         "Homelab",
         "Traefik",
-        "VCF",
-        "Artificial Intelligence",
-        "NVIDIA",
-        "Networking",
         "Storage",
-        "vSphere"
+        "Synology",
+        "Artificial Intelligence",
+        "NVIDIA"
       ],
       "tags": [
         null,
@@ -50,10 +49,10 @@
       "api_url": "/api/posts/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router.json",
       "categories": [
         "Networking",
-        "Mikrotik",
         "Homelab",
         "Storage",
-        "VMware"
+        "VMware",
+        "Mikrotik"
       ],
       "tags": [
         null,
@@ -106,14 +105,14 @@
       "categories": [
         "Hosting",
         "Personal",
-        "Nutanix",
-        "AWS",
-        "Consulting",
+        "Cloudflare",
+        "Devops",
+        "Github",
+        "Wordpress",
         "VMware",
         "vSphere",
-        "Docker",
-        "Homelab",
-        "Kubernetes"
+        "Artificial Intelligence",
+        "Docker"
       ],
       "tags": [
         null,
@@ -141,12 +140,11 @@
         "VMware",
         "Personal",
         "vSphere",
-        "AWS",
-        "Homelab",
-        "vSAN",
         "VMware Cloud on AWS",
-        "Runecast",
-        "VCF"
+        "Devops",
+        "Automation",
+        "Homelab",
+        "vSAN"
       ],
       "tags": [
         null,

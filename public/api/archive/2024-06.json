@@ -23,11 +23,9 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Automation",
         "Docker",
-        "Storage",
-        "vExpert",
-        "Synology"
+        "Automation",
+        "Mikrotik"
       ],
       "tags": [
         null,

@@ -16,11 +16,17 @@
       "categories": [
         "Homelab",
         "VMware",
-        "vSphere",
-        "vSAN",
         "VMware Cloud on AWS",
-        "Personal",
-        "Runecast"
+        "vSAN",
+        "Networking",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "Runecast",
+        "Storage",
+        "Synology"
       ],
       "tags": [
         null,
@@ -43,18 +49,14 @@
       "categories": [
         "VMware",
         "Personal",
-        "VMware Cloud on AWS",
-        "Devops",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
-        "Ansible",
-        "Automation",
-        "Docker",
+        "vSAN",
         "Homelab",
-        "Traefik",
+        "Veeam",
+        "Storage",
+        "vExpert",
         "VCF",
-        "vSphere"
+        "vSphere",
+        "Networking"
       ],
       "tags": [
         null,

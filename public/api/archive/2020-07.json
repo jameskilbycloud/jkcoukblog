@@ -17,8 +17,20 @@
         "VMware",
         "VMware Cloud on AWS",
         "Homelab",
+        "Networking",
+        "Storage",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik",
+        "TrueNAS Scale",
         "vSAN",
-        "Veeam"
+        "vSphere",
+        "Ansible",
+        "Containers",
+        "Devops",
+        "Personal"
       ],
       "tags": [
         null,
@@ -40,10 +52,9 @@
       "categories": [
         "Nutanix",
         "Personal",
-        "Hosting",
-        "Homelab",
         "VMware",
-        "Devops",
+        "vSphere",
+        "Hosting",
         "Cloudflare",
         "Wordpress"
       ],

@@ -18,12 +18,13 @@
         "Docker",
         "Homelab",
         "Storage",
+        "Synology",
         "Networking",
-        "Automation",
         "VMware",
+        "Runecast",
+        "Veeam",
         "Hosting",
-        "TrueNAS Scale",
-        "Mikrotik"
+        "Ansible"
       ],
       "tags": [
         null,
