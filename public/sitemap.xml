@@ -1216,8 +1216,12 @@
   </url>
   <url>
     <loc>https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/06/Beast2.3Gbps.png</image:loc>
+      <image:title>Beast2.3Gbps</image:title>
+    </image:image>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/06/udm-beast-5-1024x1024.png</image:loc>
       <image:title>Angled product render of the UniFi UDM Beast, showing its front drive bays, RJ45 ports and SFP cages.</image:title>

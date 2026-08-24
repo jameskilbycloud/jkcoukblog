@@ -1,9 +1,9 @@
 [
   {
     "date": "2026-08-24",
-    "timestamp": "2026-08-24 04:01:13 UTC",
-    "runs": 1,
-    "performance": 94,
+    "timestamp": "2026-08-24 15:44:04 UTC",
+    "runs": 2,
+    "performance": 84,
     "accessibility": 96,
     "best_practices": 93,
     "seo": 100,
@@ -11,6 +11,13 @@
       {
         "timestamp": "2026-08-24 04:01:13 UTC",
         "performance": 94,
+        "accessibility": 96,
+        "best_practices": 93,
+        "seo": 100
+      },
+      {
+        "timestamp": "2026-08-24 15:44:04 UTC",
+        "performance": 75,
         "accessibility": 96,
         "best_practices": 93,
         "seo": 100
