@@ -103,6 +103,7 @@ class UISmokeTests:
         self.results = []
         self.launch_failed = False
         self.launch_error = None
+        self.launch_error_detail = None
 
     def record(self, name, ok, detail=""):
         self.results.append((name, ok, detail))
@@ -416,7 +417,16 @@ class UISmokeTests:
                 # let the build proceed. The banner is grep-friendly so
                 # missing libs still surface in CI logs.
                 self.launch_failed = True
+                # Keep the first line as the one-line summary for the banner
+                # and the CI annotation, but retain the whole message too.
+                # Playwright appends a "Browser logs:" section carrying the
+                # browser's own stderr — which is where the actual cause is
+                # named (e.g. "error while loading shared libraries:
+                # libatk-1.0.so.0"). Discarding it left every failure looking
+                # like the generic "Target page, context or browser has been
+                # closed" with nothing to act on.
                 self.launch_error = str(e).splitlines()[0]
+                self.launch_error_detail = str(e)
                 return
             try:
                 self.test_mobile_drawer_opens(browser)
@@ -476,6 +486,16 @@ def main():
         print(f"    ({tests.launch_error})")
         print("    Likely missing system libs (libatk-1.0.so.0 etc).")
         print("    Install with: sudo playwright install-deps chromium")
+        # The browser's own stderr, when Playwright captured any. This is
+        # the part that actually names the cause; without it the banner
+        # says only "browser has been closed", which is unactionable.
+        detail = tests.launch_error_detail or ""
+        extra = detail.split('\n', 1)[1].strip() if '\n' in detail else ""
+        if extra:
+            print("-" * 72)
+            print("    Full launch error:")
+            for line in extra.splitlines():
+                print(f"    {line}")
         print("=" * 72)
         _annotate_skip(f"chromium failed to launch ({tests.launch_error})")
         sys.exit(0)
