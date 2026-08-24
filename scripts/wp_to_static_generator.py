@@ -1901,6 +1901,7 @@ document.addEventListener('DOMContentLoaded', function() {
         area can't break the others.
         """
         for step in (self._inject_brand_logo, self._inject_search_button,
+                     self._inject_search_box,
                      self._relocate_social, self._slim_footer):
             try:
                 step(soup)
@@ -1920,6 +1921,48 @@ document.addEventListener('DOMContentLoaded', function() {
             '<button class="jk-search" type="button" aria-label="Search posts"'
             ' aria-keyshortcuts="Meta+K Control+K">Search <kbd>⌘K</kbd></button>',
             'html.parser'))
+
+    # Kept byte-identical to the fallback template in
+    # scripts/assets/js/search.js — see _inject_search_box. The JS builds this
+    # only when the build-time copy is missing, so any drift between the two
+    # shows up as the box changing shape after load. tests/
+    # test_search_box_injection.py pins them together.
+    SEARCH_BOX_HTML = (
+        '<div id="blog-search-container" style="padding: 16px; margin-bottom: 20px;">'
+        '<div style="max-width: 600px; margin: 0 auto;">'
+        '<div style="position: relative;">'
+        '<input type="text" id="blog-search-input" placeholder="Search posts…"'
+        ' style="width: 100%; padding: 12px 48px 12px 16px; font-size: 15px;'
+        ' border: 1px solid #262625; border-radius: 0; outline: none;'
+        ' box-sizing: border-box; background: #111110; color: #f5f3ee;'
+        ' transition: border-color 0.2s ease, box-shadow 0.2s ease;'
+        ' font-family: inherit;">'
+        '<span style="position: absolute; right: 12px; top: 50%;'
+        ' transform: translateY(-50%); color: #7a766c; pointer-events: none;'
+        ' font-size: 12px; font-family: \'JetBrains Mono\', monospace;">⌘K</span>'
+        '</div></div></div>'
+    )
+
+    def _inject_search_box(self, soup):
+        """Pre-render the blog search box as the first child of <main>.
+
+        search.js used to build this at runtime and
+        `main.insertAdjacentHTML('afterbegin', …)` it in, which inserted an
+        82px block above the content ~2s after load — on every page, since
+        every page has a <main>. Measured on a throttled Pixel 7 profile it
+        moved #primary down 82px for 0.079 CLS on the homepage and 0.099 on
+        posts, and it is what took the origin's p75 CLS from 0.05 (stable
+        through July) to 0.22 by the CrUX window ending 2026-08-22.
+
+        Rendering it at build time means the space is occupied at first paint
+        and nothing moves. search.js keeps its own copy of the markup purely
+        as a fallback, and now attaches its listeners to whichever copy it
+        finds.
+        """
+        main = soup.find('main')
+        if not main or soup.find(id='blog-search-container'):
+            return  # no <main> on this template, or already injected
+        main.insert(0, BeautifulSoup(self.SEARCH_BOX_HTML, 'html.parser'))
 
     def _inject_brand_logo(self, soup):
         """Prepend the JK monogram to each .brand and add a mono subline → lockup."""

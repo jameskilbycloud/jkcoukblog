@@ -14,10 +14,18 @@ console.log('[Search] Script loaded');
     let fuse = null;
     
     function createSearchBox() {
+        // The box is pre-rendered into <main> at build time
+        // (wp_to_static_generator._inject_search_box) so it occupies its 82px
+        // from first paint. Injecting it here instead pushed every page's
+        // content down ~2s after load, which is what took the origin's p75
+        // CLS from 0.05 to 0.22. When the markup is already there, skip
+        // building it but still wire up the behaviour.
         if (document.getElementById('blog-search-container')) {
+            attachSearchListener();
+            attachKeyboardShortcut();
             return;
         }
-        
+
         const searchHTML = `
             <div id="blog-search-container" style="padding: 16px; margin-bottom: 20px;">
                 <div style="max-width: 600px; margin: 0 auto;">
