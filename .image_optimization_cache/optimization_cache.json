@@ -48465,10 +48465,10 @@
     "avif": "wp-content/uploads/2026/08/NewHouseNet-4-scaled.avif"
   },
   "wp-content/uploads/2026/08/NewHouseNet-4-scaled-480x297.webp": {
-    "hash": "13a65722601ab051c63a88a9a098a960",
-    "optimized_at": "",
-    "optimized_size": 0,
-    "timestamp": 0,
+    "hash": "e259aa530d32f807fb7e32ad4e06a83c",
+    "optimized_at": "2026-08-24T15:33:42.910924",
+    "optimized_size": 16362,
+    "timestamp": 1787585622.9109504,
     "webp_created": true,
     "avif_created": true,
     "webp": "wp-content/uploads/2026/08/NewHouseNet-4-scaled-480x297.webp",
