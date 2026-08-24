@@ -1,5 +1,5 @@
 console.log('[Search] Script loaded');(function(){'use strict';if(window.searchInitialized){console.log('[Search] Already initialized');return;}
-window.searchInitialized=true;let searchIndex=null;let fuse=null;function createSearchBox(){if(document.getElementById('blog-search-container')){return;}
+window.searchInitialized=true;let searchIndex=null;let fuse=null;function createSearchBox(){if(document.getElementById('blog-search-container')){attachSearchListener();attachKeyboardShortcut();return;}
 const searchHTML=`
             <div id="blog-search-container" style="padding: 16px; margin-bottom: 20px;">
                 <div style="max-width: 600px; margin: 0 auto;">

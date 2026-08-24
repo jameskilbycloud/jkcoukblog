@@ -18,16 +18,16 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "Artificial Intelligence",
-        "Docker",
         "Homelab",
-        "VCF",
-        "Kubernetes",
         "Storage",
         "Synology",
-        "Ansible",
+        "VMware Cloud on AWS",
+        "Artificial Intelligence",
+        "Docker",
+        "Hosting",
         "Automation",
-        "Traefik"
+        "Github",
+        "Kubernetes"
       ],
       "tags": [
         null,

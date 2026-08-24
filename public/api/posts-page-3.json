@@ -41,8 +41,7 @@
       "api_url": "/api/posts/time-in-a-vmc-environment.json",
       "categories": [
         "VMware Cloud on AWS",
-        "VMware",
-        "vSAN"
+        "VMware"
       ],
       "tags": [
         null,
@@ -64,19 +63,14 @@
       "categories": [
         "Homelab",
         "Hosting",
-        "Storage",
-        "vExpert",
-        "Veeam",
         "VMware",
-        "Nutanix",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
-        "Ansible",
-        "Containers",
-        "Devops"
+        "Storage",
+        "Synology",
+        "Runecast",
+        "AWS",
+        "vSphere",
+        "Mikrotik",
+        "Networking"
       ],
       "tags": [
         null,
@@ -100,12 +94,13 @@
         "Docker",
         "Homelab",
         "Storage",
+        "Synology",
         "Networking",
-        "Automation",
         "VMware",
+        "Runecast",
+        "Veeam",
         "Hosting",
-        "TrueNAS Scale",
-        "Mikrotik"
+        "Ansible"
       ],
       "tags": [
         null,
@@ -129,13 +124,12 @@
         "Runecast",
         "VMware",
         "Homelab",
+        "Networking",
         "VMware Cloud on AWS",
-        "Automation",
-        "Github",
-        "Artificial Intelligence",
         "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Hosting",
+        "Kubernetes",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -160,17 +154,13 @@
         "Automation",
         "Github",
         "Homelab",
-        "Storage",
-        "TrueNAS Scale",
-        "Ansible",
-        "Docker",
-        "Traefik",
-        "VCF",
+        "Nutanix",
         "VMware",
-        "vExpert",
-        "Artificial Intelligence",
+        "Storage",
         "Synology",
-        "Networking"
+        "Networking",
+        "Ansible",
+        "Mikrotik"
       ],
       "tags": [
         null,
@@ -204,8 +194,7 @@
         "VMware",
         "Ansible",
         "Containers",
-        "Devops",
-        "Hosting"
+        "Devops"
       ],
       "tags": [
         null,
@@ -228,10 +217,9 @@
       "categories": [
         "Nutanix",
         "Personal",
-        "Hosting",
-        "Homelab",
         "VMware",
-        "Devops",
+        "vSphere",
+        "Hosting",
         "Cloudflare",
         "Wordpress"
       ],
@@ -254,9 +242,9 @@
       "api_url": "/api/posts/nutanix-life-cycle-manager.json",
       "categories": [
         "Nutanix",
+        "Personal",
         "Homelab",
-        "VMware",
-        "Personal"
+        "VMware"
       ],
       "tags": [
         null
@@ -277,8 +265,8 @@
       "categories": [
         "Nutanix",
         "Homelab",
-        "VMware",
-        "Personal"
+        "Personal",
+        "VMware"
       ],
       "tags": [
         null,

@@ -21,11 +21,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Networking",
+        "Personal",
+        "vSphere",
         "Storage",
-        "VMware Cloud on AWS",
-        "Ansible",
-        "VCF"
+        "Hosting"
       ],
       "tags": [
         null,
@@ -65,8 +64,7 @@
         "VMware",
         "Ansible",
         "Containers",
-        "Devops",
-        "Hosting"
+        "Devops"
       ],
       "tags": [
         null,

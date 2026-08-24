@@ -15,18 +15,14 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "Artificial Intelligence",
+        "VMware",
         "Docker",
         "Hosting",
-        "VMware",
-        "vSphere",
+        "Kubernetes",
+        "Artificial Intelligence",
+        "Networking",
         "Ansible",
-        "Runecast",
-        "Automation",
-        "NVIDIA",
-        "Traefik",
-        "Storage",
-        "Synology"
+        "Automation"
       ],
       "tags": [
         null,
