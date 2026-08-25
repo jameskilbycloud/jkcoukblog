@@ -1968,11 +1968,11 @@ document.addEventListener('DOMContentLoaded', function() {
     # shows up as the box changing shape after load. tests/
     # test_search_box_injection.py pins them together.
     SEARCH_BOX_HTML = (
-        '<div id="blog-search-container" style="padding: 16px; margin-bottom: 20px;">'
-        '<div style="max-width: 600px; margin: 0 auto;">'
+        '<div id="blog-search-container" style="padding: 0; margin-bottom: 16px;">'
+        '<div style="max-width: 480px; margin: 0 auto;">'
         '<div style="position: relative;">'
         '<input type="text" id="blog-search-input" placeholder="Search posts…"'
-        ' style="width: 100%; padding: 12px 48px 12px 16px; font-size: 15px;'
+        ' style="width: 100%; padding: 10px 44px 10px 14px; font-size: 15px;'
         ' border: 1px solid #262625; border-radius: 0; outline: none;'
         ' box-sizing: border-box; background: #111110; color: #f5f3ee;'
         ' transition: border-color 0.2s ease, box-shadow 0.2s ease;'
