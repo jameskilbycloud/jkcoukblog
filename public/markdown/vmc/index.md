@@ -10,4 +10,4 @@ url: https://jameskilby.co.uk/vmc/
 image: https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-1024x526.png
 ---
 
-📅**Published:** March 18, 2025•**Updated:** July 23, 2026
+**Published:** March 18, 2025•**Updated:** July 23, 2026

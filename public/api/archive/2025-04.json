@@ -16,11 +16,12 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Veeam",
-        "VMware",
         "Automation",
-        "Storage",
-        "VCF"
+        "Nutanix",
+        "Docker",
+        "TrueNAS Scale",
+        "VMware",
+        "Veeam"
       ],
       "tags": [
         null,

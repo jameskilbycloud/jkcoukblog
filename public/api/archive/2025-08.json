@@ -16,14 +16,10 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
-        "vSphere",
-        "VCF",
-        "Ansible",
-        "Automation",
-        "Docker",
         "Homelab",
-        "Traefik"
+        "AWS",
+        "VCF",
+        "Runecast"
       ],
       "tags": [
         null

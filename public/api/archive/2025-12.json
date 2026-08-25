@@ -15,21 +15,16 @@
       "api_url": "/api/posts/ubuntu-disk-expansion-steps.json",
       "categories": [
         "Ubuntu",
-        "Automation",
-        "Github",
         "Ansible",
-        "Docker",
-        "Homelab",
-        "Traefik",
-        "VCF",
-        "VMware"
+        "Automation",
+        "Github"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)\n\n[Ubuntu](https://jameskilby.co.uk/category/ubuntu/)\n\n# How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step\n\nBy[James](https://jameskilby.co.uk) December 15, 2025 · Updated May 24, 2026 • 📖1 min read(91 words)\n\n📅**Publi..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)\n\n[Ubuntu](https://jameskilby.co.uk/category/ubuntu/)\n\n# How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step\n\nBy[James](https://jameskilby.co.uk) December 15, 2025 · Updated May 24, 2026 • 📖1 min read(91 words)\n\n**Publis..."
     },
     {
       "slug": "time-in-a-vmc-environment",
@@ -43,8 +38,7 @@
       "api_url": "/api/posts/time-in-a-vmc-environment.json",
       "categories": [
         "VMware Cloud on AWS",
-        "VMware",
-        "vSAN"
+        "VMware"
       ],
       "tags": [
         null,
@@ -67,11 +61,11 @@
         "VMware",
         "vSAN",
         "VMware Cloud on AWS",
-        "VCF",
-        "Automation",
+        "TrueNAS Scale",
         "Homelab",
+        "Artificial Intelligence",
+        "Automation",
         "Personal",
-        "vSphere",
         "Veeam"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",

@@ -13,15 +13,10 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Automation",
-        "Homelab",
-        "Runecast",
-        "VCF",
+        "vSAN",
         "Personal",
-        "Artificial Intelligence",
-        "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Homelab",
+        "Runecast"
       ],
       "tags": [
         null,
@@ -44,13 +39,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Homelab",
-        "Storage",
-        "vExpert",
-        "AWS",
         "Personal",
+        "Ansible",
+        "Automation",
         "VCF",
-        "Veeam"
+        "AWS",
+        "vSAN"
       ],
       "tags": [
         null,
@@ -76,14 +70,10 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
-        "vSphere",
-        "VCF",
-        "Ansible",
-        "Automation",
-        "Docker",
         "Homelab",
-        "Traefik"
+        "AWS",
+        "VCF",
+        "Runecast"
       ],
       "tags": [
         null
@@ -104,15 +94,12 @@
       "categories": [
         "Homelab",
         "VMware",
-        "VCF",
         "Ansible",
-        "Networking",
+        "VCF",
         "VMware Cloud on AWS",
+        "Storage",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Docker"
       ],
       "tags": [
         null,
@@ -134,9 +121,9 @@
       "api_url": "/api/posts/veeamon2020.json",
       "categories": [
         "Veeam",
-        "Homelab",
         "VMware",
-        "AWS"
+        "AWS",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -158,13 +145,9 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
         "Homelab",
-        "vSphere",
-        "Storage",
-        "vExpert",
-        "AWS",
-        "Veeam"
+        "Personal",
+        "Networking"
       ],
       "tags": [
         null,
@@ -190,12 +173,14 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Artificial Intelligence",
-        "TrueNAS Scale",
-        "Wordpress",
+        "VCF",
+        "VMware",
+        "Storage",
+        "Mikrotik",
+        "Networking",
+        "Nutanix",
         "Ansible",
-        "Automation",
-        "Github"
+        "Automation"
       ],
       "tags": [
         null,
@@ -218,16 +203,10 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Nutanix",
-        "Storage",
-        "VMware",
-        "vExpert",
-        "Synology",
-        "Artificial Intelligence",
-        "Automation",
         "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Ansible",
+        "VMware",
+        "Storage"
       ],
       "tags": [
         null,
@@ -249,21 +228,16 @@
       "api_url": "/api/posts/ubuntu-disk-expansion-steps.json",
       "categories": [
         "Ubuntu",
-        "Automation",
-        "Github",
         "Ansible",
-        "Docker",
-        "Homelab",
-        "Traefik",
-        "VCF",
-        "VMware"
+        "Automation",
+        "Github"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)\n\n[Ubuntu](https://jameskilby.co.uk/category/ubuntu/)\n\n# How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step\n\nBy[James](https://jameskilby.co.uk) December 15, 2025 · Updated May 24, 2026 • 📖1 min read(91 words)\n\n📅**Publi..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)\n\n[Ubuntu](https://jameskilby.co.uk/category/ubuntu/)\n\n# How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step\n\nBy[James](https://jameskilby.co.uk) December 15, 2025 · Updated May 24, 2026 • 📖1 min read(91 words)\n\n**Publis..."
     },
     {
       "slug": "ubiquiti-udm-beast",
@@ -279,17 +253,13 @@
         "Homelab",
         "Networking",
         "Unifi",
-        "Runecast",
         "VMware",
-        "Ansible",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
+        "Docker",
+        "Hosting",
+        "Ansible",
         "Storage",
-        "vSphere",
-        "Veeam"
+        "Automation"
       ],
       "tags": [
         null,

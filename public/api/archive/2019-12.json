@@ -17,15 +17,12 @@
         "VMware",
         "AWS",
         "Veeam",
-        "vSAN",
-        "VMware Cloud on AWS",
-        "Personal",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
         "Homelab",
-        "NVIDIA",
-        "Traefik"
+        "Storage",
+        "Automation",
+        "Ansible",
+        "Artificial Intelligence",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -48,10 +45,9 @@
       "categories": [
         "AWS",
         "Personal",
-        "Consulting",
         "VMware",
-        "Devops",
-        "Veeam"
+        "VMware Cloud on AWS",
+        "Consulting"
       ],
       "tags": [
         null,

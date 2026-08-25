@@ -17,14 +17,12 @@
         "Homelab",
         "Storage",
         "Synology",
-        "VCF",
+        "Veeam",
+        "Runecast",
         "VMware",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
-        "Artificial Intelligence",
         "Ansible",
-        "Automation"
+        "Automation",
+        "Github"
       ],
       "tags": [
         null,

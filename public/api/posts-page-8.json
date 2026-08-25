@@ -18,7 +18,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2021/02/iu.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2021/02/iu.png)\n\n[Apple](https://jameskilby.co.uk/category/apple/)\n\n# How Apple Content Caching Works: Speed Up iOS & Mac Updates\n\nBy[James](https://jameskilby.co.uk) February 8, 2021 · Updated July 11, 2026 • 📖2 min read(313 words)\n\n📅**Published:** Fe..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2021/02/iu.png)\n\n[Apple](https://jameskilby.co.uk/category/apple/)\n\n# How Apple Content Caching Works: Speed Up iOS & Mac Updates\n\nBy[James](https://jameskilby.co.uk) February 8, 2021 · Updated July 11, 2026 • 📖2 min read(313 words)\n\n**Published:** Feb..."
     },
     {
       "slug": "and-now-for-something-completely-different",
@@ -32,15 +32,14 @@
       "api_url": "/api/posts/and-now-for-something-completely-different.json",
       "categories": [
         "Personal",
-        "VMware",
         "Hosting",
-        "Consulting",
-        "vSphere",
-        "Cloudflare",
-        "Wordpress"
+        "VMware",
+        "Devops",
+        "AWS",
+        "Nutanix"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018 · Updated July 11, 2026 • 📖1 min read(263 words)\n\n📅**Published:** October..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018 · Updated July 11, 2026 • 📖1 min read(263 words)\n\n**Published:** October ..."
     },
     {
       "slug": "analytics-in-a-privacy-focused-world",
@@ -55,16 +54,9 @@
       "categories": [
         "Hosting",
         "Personal",
-        "Nutanix",
         "Cloudflare",
-        "Wordpress",
         "VMware",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "Homelab",
-        "NVIDIA",
-        "Traefik"
+        "Homelab"
       ],
       "tags": [
         null,
@@ -92,15 +84,11 @@
         "VMware",
         "Personal",
         "vSphere",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
-        "VMware Cloud on AWS",
-        "TrueNAS Scale",
-        "vSAN",
-        "Automation",
         "Homelab",
-        "VCF"
+        "Hosting",
+        "VMware Cloud on AWS",
+        "AWS",
+        "Cloudflare"
       ],
       "tags": [
         null,
@@ -125,11 +113,11 @@
         "Networking",
         "Storage",
         "VMware",
-        "Unifi",
-        "AWS",
-        "Veeam",
+        "VCF",
+        "Nutanix",
+        "Artificial Intelligence",
         "VMware Cloud on AWS",
-        "vSAN"
+        "Docker"
       ],
       "tags": [
         null,

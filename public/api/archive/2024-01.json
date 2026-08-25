@@ -16,17 +16,14 @@
       "categories": [
         "VCF",
         "VMware",
-        "Ansible",
         "Automation",
-        "Docker",
-        "Homelab",
-        "Traefik",
-        "Networking",
-        "Storage",
-        "Personal",
-        "Nutanix",
+        "Github",
+        "VMware Cloud on AWS",
+        "Ansible",
         "Artificial Intelligence",
-        "NVIDIA"
+        "Homelab",
+        "Mikrotik",
+        "Networking"
       ],
       "tags": [
         null,
@@ -50,14 +47,10 @@
       "categories": [
         "VMware",
         "VCF",
+        "Ansible",
+        "Automation",
         "Homelab",
         "Storage",
-        "vExpert",
-        "Networking",
-        "AWS",
-        "Veeam",
-        "Nutanix",
-        "vSphere",
         "VMware Cloud on AWS"
       ],
       "tags": [

@@ -16,17 +16,12 @@
       "categories": [
         "Ansible",
         "Homelab",
+        "Storage",
+        "Hosting",
         "Artificial Intelligence",
         "Docker",
-        "Storage",
-        "TrueNAS Scale",
-        "VMware",
-        "vSAN",
-        "vSphere",
-        "Nutanix",
-        "Hosting",
         "Automation",
-        "Github"
+        "Veeam"
       ],
       "tags": [
         null,

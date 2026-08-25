@@ -15,17 +15,11 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "VMware Cloud on AWS",
         "Homelab",
         "Storage",
-        "Synology",
-        "Veeam",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Traefik",
-        "VCF",
-        "AWS"
+        "Mikrotik",
+        "Networking",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -49,18 +43,11 @@
       "api_url": "/api/posts/wrangler-and-node-versions.json",
       "categories": [
         "Cloudflare",
-        "Hosting",
-        "Wordpress",
-        "Personal",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
-        "Docker",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "Devops",
-        "Github"
+        "Hosting",
+        "Personal",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -86,7 +73,7 @@
         "Personal"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png)\n\n[Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# What’s In My Tech Bag? Everyday Carry for IT Consultants\n\nBy[James](https://jameskilby.co.uk) January 10, 2019 · Updated June 1, 2026 • 📖1 min read(251 words)\n\n📅**Pub..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png)\n\n[Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# What’s In My Tech Bag? Everyday Carry for IT Consultants\n\nBy[James](https://jameskilby.co.uk) January 10, 2019 · Updated June 1, 2026 • 📖1 min read(251 words)\n\n**Publ..."
     },
     {
       "slug": "web-development",
@@ -104,15 +91,8 @@
         "Personal",
         "Wordpress",
         "VMware",
-        "Artificial Intelligence",
-        "Docker",
-        "Nutanix",
-        "Automation",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
         "Devops",
-        "Github"
+        "Consulting"
       ],
       "tags": [
         null,
@@ -135,18 +115,11 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Devops",
-        "Personal",
-        "Homelab",
-        "Ansible",
-        "Automation",
         "Docker",
-        "Traefik",
-        "VCF",
-        "VMware",
+        "Homelab",
+        "Devops",
         "Artificial Intelligence",
-        "NVIDIA",
-        "AWS"
+        "Automation"
       ],
       "tags": [
         null,
@@ -170,11 +143,12 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Veeam",
-        "VMware",
         "Automation",
-        "Storage",
-        "VCF"
+        "Nutanix",
+        "Docker",
+        "TrueNAS Scale",
+        "VMware",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -198,13 +172,11 @@
         "Ansible",
         "Automation",
         "Homelab",
-        "Hosting",
-        "Storage",
-        "TrueNAS Scale",
         "Nutanix",
         "VMware",
-        "Artificial Intelligence",
-        "VCF"
+        "AWS",
+        "Storage",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -229,11 +201,8 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
-        "VCF",
         "Homelab",
-        "Networking",
-        "Storage",
-        "Synology"
+        "Personal"
       ],
       "tags": [
         null,
@@ -258,11 +227,11 @@
         "VMware",
         "vSAN",
         "VMware Cloud on AWS",
-        "VCF",
-        "Automation",
+        "TrueNAS Scale",
         "Homelab",
+        "Artificial Intelligence",
+        "Automation",
         "Personal",
-        "vSphere",
         "Veeam"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
@@ -281,19 +250,9 @@
       "categories": [
         "Personal",
         "VMware",
-        "Nutanix",
-        "Homelab",
         "VMware Cloud on AWS",
-        "vSAN",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "vSphere",
-        "Automation",
-        "Docker"
+        "Homelab",
+        "Nutanix"
       ],
       "tags": [
         null,

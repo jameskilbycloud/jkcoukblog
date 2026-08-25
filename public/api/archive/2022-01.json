@@ -15,18 +15,11 @@
       "api_url": "/api/posts/wrangler-and-node-versions.json",
       "categories": [
         "Cloudflare",
-        "Hosting",
-        "Wordpress",
-        "Personal",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
-        "Docker",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "Devops",
-        "Github"
+        "Hosting",
+        "Personal",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -50,19 +43,12 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Networking",
-        "Unifi",
-        "Artificial Intelligence",
-        "Synology",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
+        "Nutanix",
         "Ansible",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "VMware"
+        "Automation",
+        "Artificial Intelligence",
+        "Kubernetes",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
@@ -86,25 +72,19 @@
       "categories": [
         "Homelab",
         "Networking",
-        "VCF",
         "VMware",
-        "Storage",
-        "vExpert",
-        "Hosting",
+        "Veeam",
         "Artificial Intelligence",
-        "Automation",
         "Docker",
-        "NVIDIA",
-        "Traefik",
-        "Kubernetes",
-        "Runecast"
+        "Storage",
+        "Nutanix"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
-      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense\n\nBy[James](https://jameskilby.co.uk) January 6, 2022 · Updated May 31, 2026 • 📖1 min read(113 words)\n\n📅**Published:** January..."
+      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense\n\nBy[James](https://jameskilby.co.uk) January 6, 2022 · Updated May 31, 2026 • 📖1 min read(113 words)\n\n**Published:** January ..."
     },
     {
       "slug": "lab-update-part-5-desired-workloads",
@@ -120,12 +100,11 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "VMware Cloud on AWS",
-        "Nutanix",
+        "Artificial Intelligence",
+        "Automation",
         "Storage",
-        "Networking",
-        "Unifi",
-        "VCF"
+        "Ansible",
+        "Networking"
       ],
       "tags": [
         null,
@@ -133,7 +112,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
-      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Lab Update – Desired Workloads\n\nBy[James](https://jameskilby.co.uk) January 6, 2022 · Updated June 1, 2026 • 📖1 min read(141 words)\n\n📅**P..."
+      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Lab Update – Desired Workloads\n\nBy[James](https://jameskilby.co.uk) January 6, 2022 · Updated June 1, 2026 • 📖1 min read(141 words)\n\n**Pu..."
     },
     {
       "slug": "lab-update-part-1-compute",
@@ -148,11 +127,10 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Mikrotik",
+        "AWS",
         "Networking",
-        "Ansible",
-        "Automation",
-        "Nutanix",
+        "VCF",
+        "VMware Cloud on AWS",
         "Artificial Intelligence",
         "Docker"
       ],
@@ -177,17 +155,11 @@
       "categories": [
         "Hosting",
         "Wordpress",
-        "Artificial Intelligence",
-        "Automation",
         "Docker",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
         "Cloudflare",
-        "Personal",
         "Devops",
-        "Github"
+        "AWS"
       ],
       "tags": [
         null,
@@ -213,15 +185,8 @@
         "Personal",
         "Wordpress",
         "VMware",
-        "Artificial Intelligence",
-        "Docker",
-        "Nutanix",
-        "Automation",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
         "Devops",
-        "Github"
+        "Consulting"
       ],
       "tags": [
         null,

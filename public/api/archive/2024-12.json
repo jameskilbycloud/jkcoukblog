@@ -18,17 +18,11 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "VMware Cloud on AWS",
         "Homelab",
         "Storage",
-        "Synology",
-        "Veeam",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Traefik",
-        "VCF",
-        "AWS"
+        "Mikrotik",
+        "Networking",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,

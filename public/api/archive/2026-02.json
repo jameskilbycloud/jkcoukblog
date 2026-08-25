@@ -22,12 +22,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Personal",
         "Storage",
-        "Synology",
-        "Automation",
-        "VCF",
-        "Networking"
+        "Networking",
+        "Personal",
+        "Nutanix",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
