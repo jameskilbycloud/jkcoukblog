@@ -2008,6 +2008,13 @@ document.addEventListener('DOMContentLoaded', function() {
         main = soup.find('main')
         if not main or soup.find(id='blog-search-container'):
             return  # no <main> on this template, or already injected
+        body = soup.find('body')
+        if not body or 'home' not in (body.get('class') or []):
+            # Homepage only. Interior pages (posts, archives, About) rely on the
+            # header ⌘K button, so the full-width box doesn't duplicate that
+            # affordance and push content down the fold on every page. The
+            # front page carries the WP `home` body class.
+            return
         main.insert(0, BeautifulSoup(self.SEARCH_BOX_HTML, 'html.parser'))
 
     def _inject_brand_logo(self, soup):
@@ -2509,11 +2516,21 @@ document.addEventListener('DOMContentLoaded', function() {
         freshness_div = soup.new_tag('div')
         freshness_div['class'] = 'content-freshness-indicator'
         
-        # Icon and text
+        # Icon and text. Inline mono calendar SVG (stroke=currentColor, coloured
+        # accent-orange via CSS) rather than the off-brand colour 📅 emoji, so
+        # the meta strip stays monochrome and on-theme.
         icon_span = soup.new_tag('span')
         icon_span['class'] = 'freshness-icon'
-        icon_span.string = '📅'
-        
+        icon_span.append(BeautifulSoup(
+            '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" '
+            'stroke="currentColor" stroke-width="1.5" aria-hidden="true" '
+            'focusable="false">'
+            '<rect x="2" y="3" width="12" height="11"></rect>'
+            '<line x1="2" y1="6" x2="14" y2="6"></line>'
+            '<line x1="5" y1="1.5" x2="5" y2="4"></line>'
+            '<line x1="11" y1="1.5" x2="11" y2="4"></line>'
+            '</svg>', 'html.parser'))
+
         text_span = soup.new_tag('span')
         
         # Published date
@@ -3201,22 +3218,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 span.append(soup.new_string(suffix))
             return span
 
-        def _ribbon_dot():
-            dot = soup.new_tag('span', attrs={'class': 'jkr-r-dot'})
-            dot.string = '·'
-            return dot
-
         days = stats['days_since_last']
         days_label = f'{days}d' if days is not None else '—'
 
+        # Separators are drawn by CSS (.jkr-ribbon > span + span::before) so the
+        # middot is glued to the following stat and can never orphan at a wrap
+        # point — no literal '·' spans that flex-wrap onto their own line.
         ribbon.append(_ribbon_stat('', stats['posts_count'], ' posts'))
-        ribbon.append(_ribbon_dot())
         ribbon.append(_ribbon_stat('', stats['words_total'], ' words'))
-        ribbon.append(_ribbon_dot())
         ribbon.append(_ribbon_stat('', days_label, ' since last post'))
-        ribbon.append(_ribbon_dot())
         ribbon.append(_ribbon_stat('', stats['deploys_month'], ' deploys/mo'))
-        ribbon.append(_ribbon_dot())
         ribbon.append(_ribbon_stat('lighthouse ', stats['lighthouse'], ''))
 
         live = soup.new_tag('span', attrs={'class': 'jkr-r-live'})
@@ -3612,6 +3623,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 # Copy all attributes
                 for attr, value in cell.attrs.items():
                     th[attr] = value
+                # Column headers — set scope so screen readers associate each
+                # header with its column's cells.
+                th['scope'] = 'col'
                 # Copy all children (preserves inner structure)
                 for child in list(cell.children):
                     th.append(child.extract())
@@ -4227,7 +4241,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return
 
         # Avoid double-injection on repeat process_html passes
-        for existing in soup.find_all('section', class_='related-posts'):
+        for existing in soup.find_all('section', class_='related-posts-section'):
             existing.decompose()
 
         current_entry = self.post_index.get(current_url)
@@ -4270,36 +4284,24 @@ document.addEventListener('DOMContentLoaded', function() {
         if not selected:
             return
 
+        # Styling lives in brutalist-theme.css (.related-posts-section) using
+        # theme tokens — no inline light-theme styles (they were off-palette
+        # blue/rounded/shadowed and only survived via global !important resets).
         related_section = soup.new_tag('section')
-        related_section['class'] = 'related-posts'
-        related_section['style'] = (
-            'margin: 40px 0; padding: 30px; background: #f7fafc; '
-            'border-radius: 8px; border-left: 4px solid #4299e1;'
-        )
+        related_section['class'] = 'related-posts-section'
 
         heading = soup.new_tag('h2')
-        heading['style'] = 'margin: 0 0 20px 0; font-size: 24px; color: #2d3748;'
         heading.string = '📚 Related Posts'
         related_section.append(heading)
 
         posts_list = soup.new_tag('ul')
-        posts_list['style'] = (
-            'list-style: none; padding: 0; margin: 0; display: grid; '
-            'grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;'
-        )
+        posts_list['class'] = 'related-posts-list'
 
         for _score, _date, rel_url, title in selected:
             li = soup.new_tag('li')
-            li['style'] = (
-                'background: white; padding: 16px; border-radius: 6px; '
-                'box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: box-shadow 0.2s;'
-            )
+            li['class'] = 'related-posts-item'
             link = soup.new_tag('a')
             link['href'] = rel_url
-            link['style'] = (
-                'color: #2d3748; text-decoration: none; display: block; '
-                'font-weight: 500; hover: color: #4299e1;'
-            )
             link.string = title
             li.append(link)
             posts_list.append(li)
