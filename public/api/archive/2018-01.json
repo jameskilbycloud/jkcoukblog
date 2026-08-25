@@ -18,14 +18,14 @@
         "Storage",
         "Synology",
         "Networking",
-        "Veeam",
-        "VMware",
-        "Artificial Intelligence",
+        "vExpert",
+        "Ansible",
         "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
-        "vExpert"
+        "Github",
+        "TrueNAS Scale",
+        "VMware",
+        "vSAN",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -48,16 +48,11 @@
         "Homelab",
         "Nutanix",
         "Storage",
-        "Synology",
-        "vExpert",
-        "Artificial Intelligence",
-        "Docker",
-        "Automation",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
+        "TrueNAS Scale",
         "Networking",
-        "Veeam"
+        "VMware",
+        "Automation",
+        "vExpert"
       ],
       "tags": [
         null

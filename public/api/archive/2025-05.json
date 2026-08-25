@@ -16,19 +16,9 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Homelab",
-        "Nutanix",
-        "VCF",
         "Runecast",
-        "vSphere",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "Automation",
-        "Docker"
+        "Homelab",
+        "VCF"
       ],
       "tags": [
         null,

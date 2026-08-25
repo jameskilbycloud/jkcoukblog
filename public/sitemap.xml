@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://jameskilby.co.uk/</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline-768x452.png</image:loc>
@@ -59,14 +59,6 @@
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2018/04/DeviceToUpdate.png</image:loc>
       <image:title>Nutanix Life Cycle Manager listing available firmware updates on a three-node cluster</image:title>
       <image:caption>Nutanix Life Cycle Manager listing available firmware updates on a three-node cluster</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2018/03/Screen-Shot-2018-03-10-at-20.41.50-300x156.png</image:loc>
-      <image:title>Screen Shot 2018 03 10 At 20.41.50 300X156</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2018/03/Screen-Shot-2018-02-14-at-22.25.32-300x160.png</image:loc>
-      <image:title>Screen Shot 2018 02 14 At 22.25.32 300X160</image:title>
     </image:image>
   </url>
   <url>

@@ -17,11 +17,11 @@
         "Homelab",
         "Nutanix",
         "VMware",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "VMware Cloud on AWS",
-        "Storage"
+        "Networking",
+        "Unifi",
+        "Artificial Intelligence",
+        "Docker",
+        "Hosting"
       ],
       "tags": [
         null,

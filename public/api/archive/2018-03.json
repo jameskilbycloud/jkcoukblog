@@ -17,8 +17,8 @@
         "AWS",
         "VMware",
         "VMware Cloud on AWS",
-        "Veeam",
         "Hosting",
+        "Veeam",
         "Personal"
       ],
       "tags": [
@@ -40,16 +40,16 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
-        "Cloudflare",
-        "Devops",
-        "Github",
-        "Wordpress",
-        "Homelab",
-        "Artificial Intelligence",
-        "Automation",
         "Docker",
-        "NVIDIA",
+        "Homelab",
+        "Kubernetes",
+        "Cloudflare",
+        "Wordpress",
+        "Artificial Intelligence",
+        "Ansible",
+        "Automation",
         "Traefik",
+        "VCF",
         "VMware"
       ],
       "tags": [

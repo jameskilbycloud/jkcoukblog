@@ -15,14 +15,18 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
+        "Veeam",
         "VMware",
+        "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Kubernetes",
-        "Artificial Intelligence",
+        "Mikrotik",
         "Networking",
-        "Ansible",
-        "Automation"
+        "Storage",
+        "vExpert",
+        "Automation",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,

@@ -13,14 +13,14 @@
       "categories": [
         "Kubernetes",
         "TrueNAS Scale",
-        "Docker",
         "Homelab",
-        "Hosting",
         "Storage",
+        "Docker",
+        "Hosting",
+        "vExpert",
         "VMware",
         "vSAN",
-        "vSphere",
-        "vExpert"
+        "vSphere"
       ],
       "tags": [
         null,
@@ -41,7 +41,8 @@
       "api_url": "/api/posts/time-in-a-vmc-environment.json",
       "categories": [
         "VMware Cloud on AWS",
-        "VMware"
+        "VMware",
+        "vSAN"
       ],
       "tags": [
         null,
@@ -64,13 +65,14 @@
         "Homelab",
         "Hosting",
         "VMware",
+        "Cloudflare",
+        "Personal",
+        "Wordpress",
+        "Networking",
+        "Artificial Intelligence",
+        "Docker",
         "Storage",
-        "Synology",
-        "Runecast",
-        "AWS",
-        "vSphere",
-        "Mikrotik",
-        "Networking"
+        "Synology"
       ],
       "tags": [
         null,
@@ -93,14 +95,15 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "Storage",
-        "Synology",
-        "Networking",
+        "Automation",
+        "NVIDIA",
+        "Traefik",
         "VMware",
-        "Runecast",
-        "Veeam",
+        "Networking",
+        "Unifi",
+        "Github",
         "Hosting",
-        "Ansible"
+        "Kubernetes"
       ],
       "tags": [
         null,
@@ -123,13 +126,13 @@
       "categories": [
         "Runecast",
         "VMware",
-        "Homelab",
-        "Networking",
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere",
         "VMware Cloud on AWS",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
-        "Artificial Intelligence"
+        "Homelab",
+        "Veeam",
+        "VCF"
       ],
       "tags": [
         null,
@@ -154,13 +157,15 @@
         "Automation",
         "Github",
         "Homelab",
-        "Nutanix",
-        "VMware",
-        "Storage",
-        "Synology",
         "Networking",
-        "Ansible",
-        "Mikrotik"
+        "Unifi",
+        "Docker",
+        "Hosting",
+        "Kubernetes",
+        "Artificial Intelligence",
+        "NVIDIA",
+        "Traefik",
+        "VMware"
       ],
       "tags": [
         null,
@@ -188,13 +193,13 @@
         "Artificial Intelligence",
         "Automation",
         "Docker",
+        "Hosting",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
         "VMware",
         "Ansible",
-        "Containers",
-        "Devops"
+        "NVIDIA",
+        "Traefik",
+        "Github"
       ],
       "tags": [
         null,
@@ -219,9 +224,10 @@
         "Personal",
         "VMware",
         "vSphere",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress"
+        "AWS",
+        "Devops",
+        "Homelab",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -242,9 +248,9 @@
       "api_url": "/api/posts/nutanix-life-cycle-manager.json",
       "categories": [
         "Nutanix",
-        "Personal",
         "Homelab",
-        "VMware"
+        "VMware",
+        "Personal"
       ],
       "tags": [
         null
@@ -265,8 +271,8 @@
       "categories": [
         "Nutanix",
         "Homelab",
-        "Personal",
-        "VMware"
+        "VMware",
+        "Personal"
       ],
       "tags": [
         null,

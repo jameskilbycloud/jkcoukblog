@@ -17,11 +17,11 @@
         "AWS",
         "Hosting",
         "VMware",
-        "VMware Cloud on AWS",
         "Veeam",
-        "Artificial Intelligence",
-        "Docker",
-        "Personal"
+        "Cloudflare",
+        "Wordpress",
+        "Personal",
+        "Homelab"
       ],
       "tags": [
         null,

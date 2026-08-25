@@ -17,16 +17,15 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
-        "VCF",
-        "Ansible",
-        "Automation",
-        "Docker",
         "Homelab",
-        "Traefik",
         "Storage",
         "Synology",
+        "Nutanix",
         "Artificial Intelligence",
-        "NVIDIA"
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,
@@ -50,9 +49,10 @@
       "categories": [
         "Networking",
         "Homelab",
+        "Unifi",
+        "Mikrotik",
         "Storage",
-        "VMware",
-        "Mikrotik"
+        "VMware"
       ],
       "tags": [
         null,
@@ -76,14 +76,14 @@
       "categories": [
         "Kubernetes",
         "TrueNAS Scale",
-        "Docker",
         "Homelab",
-        "Hosting",
         "Storage",
+        "Docker",
+        "Hosting",
+        "vExpert",
         "VMware",
         "vSAN",
-        "vSphere",
-        "vExpert"
+        "vSphere"
       ],
       "tags": [
         null,
@@ -106,13 +106,16 @@
         "Hosting",
         "Personal",
         "Cloudflare",
-        "Devops",
-        "Github",
         "Wordpress",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Homelab",
+        "Traefik",
+        "VCF",
         "VMware",
-        "vSphere",
-        "Artificial Intelligence",
-        "Docker"
+        "Devops",
+        "AWS"
       ],
       "tags": [
         null,
@@ -140,10 +143,13 @@
         "VMware",
         "Personal",
         "vSphere",
-        "VMware Cloud on AWS",
-        "Devops",
-        "Automation",
         "Homelab",
+        "VMware Cloud on AWS",
+        "Nutanix",
+        "Hosting",
+        "Cloudflare",
+        "Wordpress",
+        "VCF",
         "vSAN"
       ],
       "tags": [

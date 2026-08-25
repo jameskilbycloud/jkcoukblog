@@ -13,19 +13,9 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Homelab",
-        "Nutanix",
-        "VCF",
         "Runecast",
-        "vSphere",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "Automation",
-        "Docker"
+        "Homelab",
+        "VCF"
       ],
       "tags": [
         null,
@@ -48,20 +38,17 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "VCF",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
+        "Nutanix",
+        "Runecast",
+        "Personal",
+        "Ansible",
         "Automation",
         "Docker",
-        "VCF",
-        "Personal",
-        "vSphere",
+        "Traefik",
         "AWS",
-        "Veeam"
+        "Hosting"
       ],
       "tags": [
         null,
@@ -87,10 +74,15 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
+        "Ansible",
+        "Automation",
+        "Docker",
         "Homelab",
-        "Nutanix",
+        "Traefik",
         "VCF",
+        "Veeam",
+        "TrueNAS Scale",
+        "vSAN",
         "vSphere"
       ],
       "tags": [
@@ -112,17 +104,13 @@
       "categories": [
         "Homelab",
         "VMware",
-        "VMware Cloud on AWS",
+        "VCF",
+        "TrueNAS Scale",
         "vSAN",
-        "Networking",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
-        "Runecast",
+        "vSphere",
         "Storage",
-        "Synology"
+        "Synology",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -168,15 +156,17 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
+        "vSAN",
         "Ansible",
+        "Automation",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
+        "Docker",
         "Homelab",
         "NVIDIA",
         "Traefik",
-        "vSAN"
+        "TrueNAS Scale",
+        "vSphere",
+        "VCF"
       ],
       "tags": [
         null,
@@ -202,12 +192,12 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Networking",
-        "Mikrotik",
+        "Storage",
+        "Ansible",
         "VMware",
-        "Nutanix",
-        "Cloudflare",
-        "Wordpress"
+        "vSphere",
+        "Personal",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -230,16 +220,13 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "Docker",
+        "Storage",
         "Automation",
-        "Mikrotik"
+        "VMware",
+        "Artificial Intelligence",
+        "TrueNAS Scale",
+        "Ansible",
+        "Synology"
       ],
       "tags": [
         null,
@@ -261,14 +248,14 @@
       "api_url": "/api/posts/ubuntu-disk-expansion-steps.json",
       "categories": [
         "Ubuntu",
-        "Automation",
-        "Github",
         "Ansible",
+        "Automation",
         "Docker",
         "Homelab",
         "Traefik",
         "VCF",
-        "VMware"
+        "VMware",
+        "Github"
       ],
       "tags": [
         null,
@@ -282,7 +269,7 @@
       "title": "Unleashing the UDM Beast",
       "description": "I retired my 7-year-old WatchGuard M200 for the UniFi UDM Beast — the spec, my iperf and WAN tests, the BGP/FRR setup, and what I consolidated onto it.",
       "date": "2026-06-20T19:49:43Z",
-      "modified": "2026-08-24T17:37:20Z",
+      "modified": "2026-08-24T18:12:00Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/",
       "markdown_url": "/markdown/posts/ubiquiti-udm-beast.md",
@@ -290,15 +277,23 @@
       "categories": [
         "Homelab",
         "Networking",
+        "Unifi",
+        "Hosting",
         "Storage",
         "vExpert",
         "Artificial Intelligence",
         "Docker",
-        "Hosting",
+        "Automation",
+        "Github",
+        "Kubernetes",
+        "TrueNAS Scale",
         "VMware",
-        "Veeam"
+        "vSAN",
+        "vSphere"
       ],
       "tags": [
+        null,
+        null,
         null,
         null
       ],

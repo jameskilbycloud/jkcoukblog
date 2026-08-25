@@ -123,6 +123,10 @@
     "title_hash": "451b55bc608ccb4c",
     "title": "Ubuntu Archives"
   },
+  "category-unifi": {
+    "title_hash": "da7aaffe53c079ce",
+    "title": "Unifi Archives"
+  },
   "category-veeam": {
     "title_hash": "10f5ddb3a5719230",
     "title": "Veeam Archives"
@@ -318,6 +322,10 @@
   "tag-docker": {
     "title_hash": "f011073c802ed00d",
     "title": "Docker Archives"
+  },
+  "tag-dream-machine": {
+    "title_hash": "4cf23fe0874ea612",
+    "title": "Dream Machine Archives"
   },
   "tag-energy": {
     "title_hash": "0fcd86b548c92c87",

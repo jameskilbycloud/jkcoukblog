@@ -14,14 +14,14 @@
       "api_url": "/api/posts/ubuntu-disk-expansion-steps.json",
       "categories": [
         "Ubuntu",
-        "Automation",
-        "Github",
         "Ansible",
+        "Automation",
         "Docker",
         "Homelab",
         "Traefik",
         "VCF",
-        "VMware"
+        "VMware",
+        "Github"
       ],
       "tags": [
         null,

@@ -16,13 +16,13 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Storage",
         "Artificial Intelligence",
-        "Docker",
-        "VMware",
-        "vSphere",
         "Networking",
-        "Runecast"
+        "Storage",
+        "VMware",
+        "Nutanix",
+        "Automation",
+        "Docker"
       ],
       "tags": [
         null,
