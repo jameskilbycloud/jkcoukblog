@@ -15,14 +15,14 @@
       "api_url": "/api/posts/ubuntu-disk-expansion-steps.json",
       "categories": [
         "Ubuntu",
-        "Ansible",
         "Automation",
+        "Github",
+        "Ansible",
         "Docker",
         "Homelab",
         "Traefik",
         "VCF",
-        "VMware",
-        "Github"
+        "VMware"
       ],
       "tags": [
         null,
@@ -67,16 +67,12 @@
         "VMware",
         "vSAN",
         "VMware Cloud on AWS",
+        "VCF",
+        "Automation",
+        "Homelab",
         "Personal",
         "vSphere",
-        "Homelab",
-        "Networking",
-        "Storage",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Traefik",
-        "VCF"
+        "Veeam"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n# vSAN Cluster Shutdown – Orchestration\n\nBy[James](https://jameskilby.co.uk) December 6,..."

@@ -16,13 +16,16 @@
       "categories": [
         "Homelab",
         "Networking",
+        "Nutanix",
         "Storage",
-        "Automation",
         "VMware",
+        "vExpert",
+        "Synology",
         "Artificial Intelligence",
-        "TrueNAS Scale",
-        "Ansible",
-        "Synology"
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,

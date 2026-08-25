@@ -16,15 +16,15 @@
       "categories": [
         "Devops",
         "Personal",
+        "AWS",
+        "Nutanix",
         "Hosting",
-        "Cloudflare",
-        "Wordpress",
         "VMware",
         "vSphere",
         "Automation",
         "Github",
-        "AWS",
-        "Nutanix"
+        "Cloudflare",
+        "Wordpress"
       ],
       "tags": [
         null,

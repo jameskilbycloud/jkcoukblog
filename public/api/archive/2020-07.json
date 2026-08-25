@@ -16,18 +16,15 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "Runecast",
         "Homelab",
-        "Networking",
-        "Storage",
+        "Nutanix",
+        "vSAN",
         "Personal",
+        "TrueNAS Scale",
         "vSphere",
-        "Automation",
-        "AWS",
-        "Veeam",
-        "Artificial Intelligence",
-        "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Networking",
+        "Storage"
       ],
       "tags": [
         null,
@@ -49,12 +46,9 @@
       "categories": [
         "Nutanix",
         "Personal",
-        "VMware",
-        "vSphere",
-        "AWS",
-        "Devops",
         "Homelab",
-        "Hosting"
+        "VMware",
+        "Consulting"
       ],
       "tags": [
         null,

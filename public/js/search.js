@@ -1,13 +1,13 @@
 console.log('[Search] Script loaded');(function(){'use strict';if(window.searchInitialized){console.log('[Search] Already initialized');return;}
 window.searchInitialized=true;let searchIndex=null;let fuse=null;function createSearchBox(){if(document.getElementById('blog-search-container')){attachSearchListener();attachKeyboardShortcut();return;}
 const searchHTML=`
-            <div id="blog-search-container" style="padding: 16px; margin-bottom: 20px;">
-                <div style="max-width: 600px; margin: 0 auto;">
+            <div id="blog-search-container" style="padding: 0; margin-bottom: 16px;">
+                <div style="max-width: 480px; margin: 0 auto;">
                     <div style="position: relative;">
                         <input type="text"
                                id="blog-search-input"
                                placeholder="Search posts…"
-                               style="width: 100%; padding: 12px 48px 12px 16px; font-size: 15px; border: 1px solid #262625; border-radius: 0; outline: none; box-sizing: border-box; background: #111110; color: #f5f3ee; transition: border-color 0.2s ease, box-shadow 0.2s ease; font-family: inherit;">
+                               style="width: 100%; padding: 10px 44px 10px 14px; font-size: 15px; border: 1px solid #262625; border-radius: 0; outline: none; box-sizing: border-box; background: #111110; color: #f5f3ee; transition: border-color 0.2s ease, box-shadow 0.2s ease; font-family: inherit;">
                         <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #7a766c; pointer-events: none; font-size: 12px; font-family: 'JetBrains Mono', monospace;">⌘K</span>
                     </div>
                 </div>

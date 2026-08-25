@@ -17,10 +17,12 @@
         "Automation",
         "Homelab",
         "VMware",
-        "Networking",
+        "VCF",
         "Storage",
+        "Synology",
         "VMware Cloud on AWS",
-        "Hosting"
+        "Veeam",
+        "Networking"
       ],
       "tags": [
         null,
@@ -45,12 +47,9 @@
         "Personal",
         "Consulting",
         "AWS",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
-        "Devops",
+        "Nutanix",
         "VMware",
-        "Nutanix"
+        "vSphere"
       ],
       "tags": [
         null,

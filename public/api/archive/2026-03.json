@@ -21,16 +21,13 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Runecast",
-        "Hosting",
-        "Kubernetes",
-        "VMware Cloud on AWS",
-        "Networking",
-        "Unifi",
-        "Ansible"
+        "Veeam",
+        "Ansible",
+        "Containers",
+        "Devops",
+        "Storage",
+        "Synology",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -64,13 +61,12 @@
         "Artificial Intelligence",
         "Automation",
         "Docker",
-        "Hosting",
         "Homelab",
-        "VMware",
-        "Ansible",
         "NVIDIA",
         "Traefik",
-        "Github"
+        "VMware",
+        "Hosting",
+        "Ansible"
       ],
       "tags": [
         null,

@@ -16,17 +16,13 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "vSAN",
-        "Ansible",
-        "Automation",
-        "Artificial Intelligence",
-        "Docker",
+        "Personal",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "TrueNAS Scale",
         "vSphere",
-        "VCF"
+        "Storage",
+        "vExpert",
+        "AWS",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -52,8 +48,17 @@
         "Hosting",
         "Wordpress",
         "Devops",
-        "Github",
-        "Personal"
+        "Personal",
+        "Homelab",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Traefik",
+        "VCF",
+        "VMware",
+        "Artificial Intelligence",
+        "NVIDIA",
+        "AWS"
       ],
       "tags": [
         null,

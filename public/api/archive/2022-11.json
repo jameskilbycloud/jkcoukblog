@@ -17,13 +17,14 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Ansible",
-        "Automation",
-        "Networking",
-        "Docker",
-        "Traefik",
         "VCF",
-        "VMware"
+        "VMware",
+        "Docker",
+        "Hosting",
+        "Kubernetes",
+        "Artificial Intelligence",
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null,

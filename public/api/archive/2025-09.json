@@ -17,12 +17,16 @@
         "Ansible",
         "Homelab",
         "Artificial Intelligence",
-        "Networking",
+        "Docker",
         "Storage",
+        "TrueNAS Scale",
         "VMware",
+        "vSAN",
+        "vSphere",
         "Nutanix",
+        "Hosting",
         "Automation",
-        "Docker"
+        "Github"
       ],
       "tags": [
         null,

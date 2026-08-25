@@ -16,9 +16,15 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Runecast",
+        "Automation",
         "Homelab",
-        "VCF"
+        "Runecast",
+        "VCF",
+        "Personal",
+        "Artificial Intelligence",
+        "Docker",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,
