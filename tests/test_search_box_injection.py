@@ -28,7 +28,8 @@ def _inject(html):
 
 
 def test_box_is_first_child_of_main():
-    soup = _inject('<html><body><header>h</header>'
+    # The full-width box is homepage-only; the WP front page carries `home`.
+    soup = _inject('<html><body class="home blog"><header>h</header>'
                    '<main><div id="primary">post</div></main></body></html>')
     main = soup.find('main')
     first = next(c for c in main.children if getattr(c, 'name', None))
@@ -38,15 +39,26 @@ def test_box_is_first_child_of_main():
 
 
 def test_injection_is_idempotent():
-    once = _inject('<html><body><main><div id="primary">p</div></main></body></html>')
+    once = _inject('<html><body class="home blog">'
+                   '<main><div id="primary">p</div></main></body></html>')
     twice = BeautifulSoup(str(once), 'html.parser')
     G._inject_search_box(G, twice)
     assert len(twice.find_all(id='blog-search-container')) == 1
     assert str(twice) == str(once)
 
 
+def test_interior_page_gets_no_box():
+    # A post/archive/About page (no `home` body class) relies on the header ⌘K
+    # button, so the full-width box must not be injected there.
+    html = ('<html><body class="single single-post">'
+            '<main><div id="primary">post</div></main></body></html>')
+    soup = _inject(html)
+    assert soup.find(id='blog-search-container') is None
+    assert str(soup) == html
+
+
 def test_page_without_main_is_left_alone():
-    html = '<html><body><div id="primary">no main here</div></body></html>'
+    html = '<html><body class="home"><div id="primary">no main here</div></body></html>'
     soup = _inject(html)
     assert soup.find(id='blog-search-container') is None
     assert str(soup) == html

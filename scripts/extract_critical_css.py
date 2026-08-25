@@ -169,11 +169,15 @@ class CriticalCSSExtractor:
             if parent and hasattr(parent, 'name') and parent.name:
                 critical_selectors.add(f'{parent.name} {element.name}')
 
-        # Always include critical base elements
+        # Always include critical base elements. ':root' carries the design
+        # tokens (custom properties) — inlining it above the fold guarantees
+        # var() refs (e.g. body{background:var(--bg-dark)}) resolve before the
+        # full sheet loads, so a dark page can never flash white (FOUC).
         base_selectors = {
             'html', 'body', 'head', 'meta', 'link',
             'h1', 'h2', 'h3', 'p', 'a', 'img',
             'header', 'nav', 'main', 'article', 'section',
+            ':root',
         }
         critical_selectors.update(base_selectors)
 
@@ -442,6 +446,12 @@ class CriticalCSSExtractor:
 
     def _is_critical_selector(self, selector, critical_selectors):
         """Check if a CSS selector matches critical selectors"""
+        # :root must be matched before the pseudo-class strip below, which
+        # would otherwise reduce ":root" to an empty string and drop the token
+        # definitions from the critical set.
+        if ':root' in critical_selectors and re.search(r'(^|[,\s>+~]):root\b', selector):
+            return True
+
         # Remove pseudo-classes and pseudo-elements for matching
         clean_selector = re.sub(r':+[\w-]+(\([^)]*\))?', '', selector)
         clean_selector = re.sub(r'\[[^\]]+\]', '', clean_selector)

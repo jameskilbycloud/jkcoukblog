@@ -39,11 +39,17 @@
      for normal text. #949494 is ~6.5:1 on #0a0a0a and stays ≥5:1 on the
      lighter card surfaces (#1a1a1a/#262625). Keep it ≥ #8f8f8f. */
   --gray-light: #949494;
+  /* Muted small-label text for the jkr/jk redesign layer. Was hardcoded
+     #7a766c (~4.2:1 on the dark bg — fails WCAG AA for small text); this
+     token matches --gray-light (~6:1) so labels clear the AA floor. */
+  --text-muted: #949494;
 }
 
 /* Apply noise texture to body */
 body {
-  background-color: var(--bg-dark) !important;
+  /* Literal fallback so an above-fold body rule that lands before :root is
+     inlined can never resolve to transparent → white flash on a dark site. */
+  background-color: var(--bg-dark, #0a0a0a) !important;
   color: var(--text-light) !important;
   font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
   line-height: 1.6;
@@ -69,7 +75,7 @@ body::before {
 
 /* Mobile: drop the noise overlay entirely. The full-viewport composited
    z-index:9999 layer was adding ~100–200 ms of styleLayout/paint on mobile
-   for a texture that's barely visible at opacity 0.02. */
+   for a texture that's barely visible at opacity 0.03. */
 @media (max-width: 768px) {
   body::before {
     display: none;
@@ -91,6 +97,10 @@ h1, .site-title { font-size: 3rem !important; }
 h2, .entry-title { font-size: 2.25rem !important; }
 h3 { font-size: 1.75rem !important; }
 h4 { font-size: 1.5rem !important; }
+/* h5/h6 were unsized and inherited body copy despite the uppercase Anton
+   treatment — give them explicit steps so the hierarchy stays legible. */
+h5 { font-size: 1.15rem !important; }
+h6 { font-size: 1rem !important; }
 
 /* Code blocks */
 code, pre, .wp-block-code {
@@ -98,7 +108,16 @@ code, pre, .wp-block-code {
   background-color: rgba(255, 255, 255, 0.05) !important;
   color: var(--accent-orange) !important;
   padding: 0.2em 0.4em;
-  border-radius: 3px;
+  border-radius: 0;
+}
+
+/* Code BLOCK bodies render in the light text token so long listings stay
+   legible; orange is kept as an ACCENT for inline <code> in prose only,
+   not smeared across every line of a multi-line block. */
+pre,
+.wp-block-code,
+pre code {
+  color: #f5f3ee !important;
 }
 
 pre {
@@ -128,7 +147,7 @@ pre:not(:has(code)) {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.2s ease;
-  border-radius: 0 3px 3px 0;
+  border-radius: 0;
 }
 
 /* Show fade when content is scrollable */
@@ -366,6 +385,28 @@ article {
   color: var(--bg-dark) !important;
 }
 
+/* Breadcrumb — keep the "/" separator attached to its trailing crumb so a
+   long, wrapping title on mobile doesn't orphan a lone "/" on its own line.
+   The list wraps by whole crumbs; baseline alignment sits the separator on
+   the first line of a wrapped current title rather than floating it. */
+.breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.breadcrumb-list li {
+  display: inline-flex;
+  align-items: baseline;
+  min-width: 0;
+}
+.breadcrumb-separator {
+  margin: 0 0.4rem;
+  flex: 0 0 auto;
+}
+
 /* Buttons */
 .post-more-link,
 button,
@@ -379,7 +420,9 @@ button,
   font-weight: 700;
   font-size: 0.9rem;
   border-radius: 0 !important;
-  transition: all 0.2s ease;
+  /* Explicit property list (not `all`) to match the perf policy used by the
+     redesign-layer hover rules — avoids compositing unrelated properties. */
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
   min-height: 44px;
   display: inline-flex;
@@ -453,6 +496,19 @@ img {
 .entry-list-item .post-thumbnail-inner,
 .kadence-thumbnail-ratio-2-3 .post-thumbnail-inner {
   background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Frame card thumbnails so white-background images (product/diagram shots)
+   don't punch bright rectangles into the dark grid. A hairline inset border
+   gives every thumbnail a defined edge and a faint dim takes the glare off
+   pure-white sources — subtle enough not to muddy dark/photographic ones. */
+.loop-entry .post-thumbnail-inner,
+.entry-list-item .post-thumbnail-inner {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+.loop-entry .post-thumbnail-inner img,
+.entry-list-item .post-thumbnail-inner img {
+  filter: brightness(0.95) saturate(0.97);
 }
 
 /* Single-post featured image - display at natural proportions.
@@ -572,6 +628,16 @@ img {
   padding: 1.5rem !important;
 }
 
+/* Cap the reading measure on long-form prose so lines stay near the
+   comfortable 66–75 characters. Scoped to direct text children only, so
+   full-bleed .alignfull/.alignwide media (capped elsewhere) stays uncapped. */
+.entry-content > p,
+.entry-content > ul,
+.entry-content > ol,
+.entry-content > blockquote {
+  max-width: 68ch;
+}
+
 /* Footer */
 .site-footer,
 #colophon {
@@ -668,6 +734,29 @@ button.menu-toggle-open:focus .kadence-svg-icon,
 .menu-toggle-open:focus .kadence-svg-icon {
   fill: #f6821f !important;
   color: #f6821f !important;
+}
+
+/* Mobile drawer close (✕): the generic `button` rule makes it a flex child
+   with min-height:44px and no align-self, so it stretches to full drawer-header
+   height as an oversized empty bordered box — same root cause as .jk-search.
+   Pin it to its content and centre it. */
+.menu-toggle-close {
+  align-self: center;
+  min-height: 44px !important;
+  height: 44px !important;
+  width: 44px !important;
+  padding: 0 !important;
+}
+
+/* Code COPY button: the generic `button` rule forces 44px min-height and large
+   padding via !important, oversizing this small overlay control relative to its
+   "📋 Copy" label. Tighten it back to its content (keeps the sharp orange
+   border from the button rule). */
+.copy-code-button {
+  min-height: 0 !important;
+  padding: 0.35rem 0.6rem !important;
+  font-size: 0.72rem !important;
+  align-self: center;
 }
 
 /* Mobile drawer menu */
@@ -793,7 +882,7 @@ nav.pagination .page-numbers {
   min-width: 2.5rem !important;
   height: 2.5rem !important;
   padding: 0 0.75rem !important;
-  border-radius: 6px !important;
+  border-radius: 0 !important;
   border: 1px solid var(--gray-mid) !important;
   background-color: transparent !important;
   color: var(--text-light) !important;
@@ -909,6 +998,14 @@ blockquote {
   font-style: italic;
 }
 
+/* Nudge blockquote body lighter than the default #949494 prose grey — the
+   italic quote text reads dim on near-black otherwise. Higher specificity
+   than `.entry-content p` so it wins on the inner <p>. */
+.entry-content blockquote,
+.entry-content blockquote p {
+  color: #c8c5bd !important;
+}
+
 /* Tables */
 table {
   border: 1px solid var(--gray-mid) !important;
@@ -929,6 +1026,51 @@ th {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-size: 0.9rem;
+}
+
+/* Related posts (score-based list injected by add_related_posts).
+   Tokenised to the brutalist system — sharp corners, orange left-accent,
+   no shadow — replacing the former inline light-theme card. */
+.related-posts-section {
+  margin: 2.5rem 0;
+  padding: 1.5rem 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--gray-mid);
+  border-left: 4px solid var(--accent-orange);
+  border-radius: 0;
+  box-shadow: none;
+}
+.related-posts-section h2 {
+  margin: 0 0 1.25rem;
+  font-size: 1.5rem !important;
+}
+.related-posts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+.related-posts-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--gray-mid);
+  border-radius: 0;
+  padding: 1rem;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.related-posts-item:hover {
+  transform: translate(-2px, -2px);
+  border-color: var(--accent-orange);
+}
+.related-posts-item a {
+  color: var(--gray-light);
+  text-decoration: none;
+  display: block;
+  font-weight: 500;
+}
+.related-posts-item:hover a {
+  color: var(--text-light);
 }
 
 /* Responsive table wrapper */
@@ -1181,6 +1323,18 @@ th {
   color: var(--text-light) !important;
 }
 
+/* Calendar glyph: accent-orange, overriding the generic span colour above.
+   Higher specificity (0,2,0) than `.content-freshness-indicator span`. */
+.content-freshness-indicator .freshness-icon {
+  color: var(--accent-orange) !important;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 0.45rem;
+}
+.content-freshness-indicator .freshness-icon svg {
+  display: block;
+}
+
 /* Smooth transitions - applied only to interactive elements for better performance */
 a,
 button,
@@ -1310,6 +1464,18 @@ div, section, aside, nav {
   flex: 1 !important;
 }
 
+/* Related-posts carousel: Kadence gives these cards a tall 2:3 PORTRAIT
+   thumbnail box, so each slide reserves far more height than its title+byline
+   needs and a large dead gap opens above the footer. Pin the carousel
+   thumbnails to a compact 3:2 landscape box (scoped to the related carousel
+   only, so homepage grid cards and single-post images are untouched) — card
+   height then tracks content and the footer follows naturally. */
+.entry-related-carousel .post-thumbnail {
+  aspect-ratio: 3 / 2;
+  height: auto !important;
+  padding-bottom: 0 !important;
+}
+
 /* ── Homepage Redesign — Direction A (Refined Brutalist + Terminal) ───
    Sections are injected by inject_homepage_redesign() in
    wp_to_static_generator.py. Class prefix: .jkr-* (jk redesign).
@@ -1344,7 +1510,7 @@ div, section, aside, nav {
 .jkr-filter { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
 .jkr-filter-label {
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.6875rem; letter-spacing: 0.16em; color: var(--gray-light, #7a766c);
+  font-size: 0.6875rem; letter-spacing: 0.16em; color: var(--gray-light, #949494);
   margin-right: 0.25rem;
 }
 .jkr-filter a {
@@ -1398,11 +1564,18 @@ div, section, aside, nav {
   border-top: 1px solid var(--gray-mid, #1f1f1f);
   font-family: "JetBrains Mono", monospace;
   font-size: 0.8125rem;
-  color: var(--gray-light, #7a766c);
+  color: var(--gray-light, #949494);
 }
 .jkr-ribbon b { color: #f5f3ee; font-weight: 600; }
 .jkr-ribbon span { color: #c8c5bd; }
-.jkr-r-dot { color: #3a3a38 !important; }
+/* Middot separators rendered as ::before glued to each stat (except the
+   first and the right-aligned live marker), so a wrap never leaves a dangling
+   '·' at a line end. gap handles the space before, margin the space after. */
+.jkr-ribbon > span + span:not(.jkr-r-live)::before {
+  content: '·';
+  color: #3a3a38;
+  margin-right: 0.75rem;
+}
 .jkr-r-live { margin-left: auto; color: #7da87d !important; font-size: 0.72rem; letter-spacing: 0.1em; }
 
 /* mobile: ribbon wraps, live marker drops below */
@@ -1482,7 +1655,7 @@ div, section, aside, nav {
 .jkr-topic-count {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.8125rem;
-  color: #7a766c;
+  color: var(--text-muted);
 }
 
 /* Header active nav state — orange underline on current page --------- */
@@ -1688,7 +1861,7 @@ div, section, aside, nav {
 }
 
 /* Search field (injected by search.js) — placeholder can't be styled inline */
-#blog-search-input::placeholder { color: #7a766c; opacity: 1; }
+#blog-search-input::placeholder { color: var(--text-muted); opacity: 1; }
 #blog-search-input::-webkit-search-cancel-button { filter: invert(0.6); }
 
 /* ============================================================
@@ -1939,7 +2112,7 @@ body:not(.single) .posted-on time ~ time {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
   letter-spacing: 0.04em;
-  color: #7a766c;
+  color: var(--text-muted);
   display: flex;
   align-items: center;
   gap: 0.625rem;
@@ -1997,7 +2170,7 @@ body:not(.single) .posted-on time ~ time {
   font-size: 0.62rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gray-light, #7a766c);
+  color: var(--gray-light, #949494);
   margin-top: 0.34rem;
   white-space: nowrap;
 }
@@ -2054,5 +2227,5 @@ body:not(.single) .posted-on time ~ time {
   font-family: "JetBrains Mono", monospace;
   font-size: 0.72rem;
   letter-spacing: 0.06em;
-  color: var(--gray-light, #7a766c);
+  color: var(--gray-light, #949494);
 }
