@@ -1650,6 +1650,11 @@ div, section, aside, nav {
 .jk-search {
   display: inline-flex;
   align-items: center;
+  /* The generic `button` rule above makes this a flex item with no
+     align-self, so the header's flex row stretches it to full header
+     height — an oversized empty bordered box. Pin it to its content
+     height and centre it in the row. */
+  align-self: center;
   gap: 0.5rem;
   margin-left: 1.5rem;
   padding: 0.5rem 0.75rem;
@@ -1806,6 +1811,28 @@ body:not(.single) .entry-list-item .updated {
 /* Defensive fallback if the theme ever drops the .updated class on the
    second <time>: hide every <time> after the first inside .posted-on. */
 body:not(.single) .posted-on time ~ time {
+  display: none !important;
+}
+
+/* Kadence ships `time.updated { display: none }` globally to suppress the
+   modified date. fix_byline_dates() injects a visible " · Updated " label
+   before it, so on single posts the label dangled with no date after it
+   ("April 30, 2026 · Updated" and nothing else). Reveal the modified date on
+   the single-post title meta so it reads "<published> · Updated <modified>". */
+.single-entry .entry-header .posted-on time.updated {
+  display: inline !important;
+}
+
+/* Related-post carousel cards sit ON single-post pages, so the
+   body:not(.single) archive-card rules above don't reach them: the injected
+   " · Updated " label showed while Kadence hid its date, leaving the same
+   dangling label. Show only the published date here, matching archive cards. */
+.loop-entry .posted-on .byline-sep,
+.loop-entry .posted-on .byline-updated-label,
+.loop-entry .posted-on time.updated,
+.entry-list-item .posted-on .byline-sep,
+.entry-list-item .posted-on .byline-updated-label,
+.entry-list-item .posted-on time.updated {
   display: none !important;
 }
 
