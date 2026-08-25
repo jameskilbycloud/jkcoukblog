@@ -13,7 +13,7 @@ import shutil
 import json
 import re
 from pathlib import Path
-from urllib.parse import urljoin, urlparse, urlunparse
+from urllib.parse import urljoin, urlparse, urlunparse, unquote
 from bs4 import BeautifulSoup
 import concurrent.futures
 from datetime import datetime
@@ -22,6 +22,46 @@ from incremental_builder import IncrementalBuilder
 # Default timeout (seconds) applied to every session HTTP call. Individual
 # calls can still pass an explicit `timeout=` to override this.
 DEFAULT_HTTP_TIMEOUT = 30
+
+
+def image_url_to_output_path(loc, target_domain, output_dir):
+    """Resolve a same-domain image URL back to its on-disk path in output_dir.
+
+    Returns a Path inside output_dir, or None when the URL is not under
+    target_domain (external / CDN images have no local file to verify).
+    Query strings and fragments are stripped and percent-encoding is decoded
+    before the path is built.
+    """
+    output_dir = Path(output_dir)
+    target_domain = (target_domain or '').rstrip('/')
+    clean = loc.split('#', 1)[0].split('?', 1)[0]
+    if target_domain and clean.startswith(target_domain):
+        rel = clean[len(target_domain):]
+    elif clean.startswith('/'):
+        rel = clean
+    else:
+        return None
+    rel = unquote(rel).lstrip('/')
+    if not rel:
+        return None
+    return output_dir / rel
+
+
+def image_file_present(loc, target_domain, output_dir):
+    """True only when an image URL maps to a real, non-empty file on disk.
+
+    Keeps sitemap <image:loc> entries honest: WordPress sometimes references
+    thumbnail variants that were never generated, and those 404 when Google
+    fetches the image sitemap. Defensive — zero-byte files are treated as
+    absent too.
+    """
+    path = image_url_to_output_path(loc, target_domain, output_dir)
+    if path is None:
+        return False
+    try:
+        return path.is_file() and path.stat().st_size > 0
+    except OSError:
+        return False
 
 # Pre-compiled url-path regexes for sitemap noindex policy. Single source of
 # truth is Config.NOINDEX_PATH_PATTERNS. Compiled once at import.
@@ -4413,6 +4453,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     abs_src = src
                 else:
                     continue  # relative path without leading slash — skip
+
+                # Only include images whose file actually exists in the output
+                # dir. WordPress sometimes references thumbnail variants that
+                # were never generated; emitting them as <image:loc> makes
+                # Google fetch a 404 (a sitemap/crawl error). Defensive: also
+                # drops zero-byte files.
+                if not image_file_present(abs_src, self.target_domain, self.output_dir):
+                    continue
 
                 # Skip duplicates (e.g. responsive srcset variations already seen)
                 loc_key = abs_src.split('?')[0]
