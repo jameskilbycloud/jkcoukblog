@@ -191,3 +191,40 @@ class TestFixArticleEntityLinks:
         # appearing only as a substring of another token is fine to skip.
         matched = SEOFixer._match_topic_entities("new laws about flaws", "")
         assert matched == []
+
+
+class TestFixTitleDropBrandSuffix:
+    def test_long_full_title_drops_suffix(self, fixer):
+        # Full title (body + " - James Kilby" = 73c) exceeds the 60c SERP
+        # target, so the suffix is shed and only the body remains.
+        title = 'How to configure VMware vSphere with NSX overlay networking - James Kilby'
+        assert len(title) > SEOFixer._TITLE_SERP_MAX_CHARS
+        soup = _soup(f'<head><title>{title}</title></head>')
+        assert fixer.fix_title_drop_brand_suffix(soup, Path('post.html')) is True
+        assert soup.find('title').get_text() == (
+            'How to configure VMware vSphere with NSX overlay networking')
+
+    def test_short_full_title_keeps_suffix(self, fixer):
+        # Full title (30c) fits within the 60c target — keep the suffix for
+        # brand recall and leave the tag untouched.
+        title = 'Short post title - James Kilby'
+        assert len(title) <= SEOFixer._TITLE_SERP_MAX_CHARS
+        soup = _soup(f'<head><title>{title}</title></head>')
+        assert fixer.fix_title_drop_brand_suffix(soup, Path('post.html')) is False
+        assert soup.find('title').get_text() == title
+
+    def test_no_brand_suffix_left_alone(self, fixer):
+        # A long title without a recognisable brand suffix is not touched.
+        title = 'A very long standalone title with no branded site-name suffix at all'
+        soup = _soup(f'<head><title>{title}</title></head>')
+        assert fixer.fix_title_drop_brand_suffix(soup, Path('post.html')) is False
+        assert soup.find('title').get_text() == title
+
+    def test_homepage_untouched(self, fixer, tmp_path):
+        # index.html is owned by fix_homepage_title — skip it even when its
+        # full title is long enough to otherwise trigger a suffix drop.
+        title = 'How to configure VMware vSphere with NSX overlay networking - James Kilby'
+        soup = _soup(f'<head><title>{title}</title></head>')
+        home = tmp_path / 'index.html'
+        assert fixer.fix_title_drop_brand_suffix(soup, home) is False
+        assert soup.find('title').get_text() == title

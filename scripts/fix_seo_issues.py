@@ -300,25 +300,26 @@ class SEOFixer:
         re.IGNORECASE,
     )
 
-    # Above this body length (chars, excluding the brand suffix), Google
-    # truncates the title in mobile SERP. Keep the suffix only when the body
-    # is short enough to leave room.
-    _TITLE_DROP_SUFFIX_BODY_THRESHOLD = 55
+    # Google truncates titles past roughly this width in the SERP. Keep the
+    # brand suffix only when the WHOLE title (body + suffix) still fits; once
+    # keeping it would push the title over this target, shed it so the body
+    # gets the full width and doesn't render with a clipped "… - James Kilby".
+    _TITLE_SERP_MAX_CHARS = 60
 
     def fix_title_drop_brand_suffix(self, soup, file_path):
-        """Drop the " - James Kilby" suffix from <title> when the body
-        already exceeds the mobile-SERP truncation threshold.
+        """Drop the " - James Kilby" suffix from <title> when keeping it would
+        push the title past the SERP length target.
 
-        Rank Math appends a site-name suffix to every post title. On long
-        titles (body > 55 chars) the suffix pushes total length past
-        Google's ~55–60 char mobile cutoff and the suffix gets clipped
-        anyway — so we shed it pre-emptively to give the body the full
-        width and remove the "…" tail. On short titles the suffix is
-        kept for brand recall.
+        Rank Math appends a site-name suffix to every post title. When the full
+        title (body + " - James Kilby") exceeds ~60 chars, the suffix gets
+        clipped by Google anyway — so we shed it pre-emptively to give the body
+        the full width and remove the "…" tail. Short titles whose full length
+        still fits keep the suffix for brand recall.
 
         Skipped for:
           - The homepage (fix_homepage_title locks its own title)
           - Pages where <title> has no recognisable brand suffix
+          - Pages where the full title still fits within the SERP target
           - Pages where stripping the suffix would not actually shorten
             the title (defensive — should never happen given the regex)
         """
@@ -340,15 +341,15 @@ class SEOFixer:
         body = self._BRAND_SUFFIX_RE.sub('', title_text).strip()
         if body == title_text:
             return False  # no recognisable brand suffix
-        if len(body) <= self._TITLE_DROP_SUFFIX_BODY_THRESHOLD:
-            return False  # short enough to keep the suffix
+        if len(title_text) <= self._TITLE_SERP_MAX_CHARS:
+            return False  # full title still fits — keep the suffix
 
         title_tag.string = body
         self.issues_fixed += 1
         print(
             f"   ✂️  Dropped brand suffix from long <title> "
-            f"(body {len(body)}c > {self._TITLE_DROP_SUFFIX_BODY_THRESHOLD}c): "
-            f"{file_path.name}"
+            f"(full {len(title_text)}c > {self._TITLE_SERP_MAX_CHARS}c, "
+            f"body now {len(body)}c): {file_path.name}"
         )
         return True
 
