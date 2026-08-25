@@ -2008,6 +2008,13 @@ document.addEventListener('DOMContentLoaded', function() {
         main = soup.find('main')
         if not main or soup.find(id='blog-search-container'):
             return  # no <main> on this template, or already injected
+        body = soup.find('body')
+        if not body or 'home' not in (body.get('class') or []):
+            # Homepage only. Interior pages (posts, archives, About) rely on the
+            # header ⌘K button, so the full-width box doesn't duplicate that
+            # affordance and push content down the fold on every page. The
+            # front page carries the WP `home` body class.
+            return
         main.insert(0, BeautifulSoup(self.SEARCH_BOX_HTML, 'html.parser'))
 
     def _inject_brand_logo(self, soup):
@@ -2509,11 +2516,21 @@ document.addEventListener('DOMContentLoaded', function() {
         freshness_div = soup.new_tag('div')
         freshness_div['class'] = 'content-freshness-indicator'
         
-        # Icon and text
+        # Icon and text. Inline mono calendar SVG (stroke=currentColor, coloured
+        # accent-orange via CSS) rather than the off-brand colour 📅 emoji, so
+        # the meta strip stays monochrome and on-theme.
         icon_span = soup.new_tag('span')
         icon_span['class'] = 'freshness-icon'
-        icon_span.string = '📅'
-        
+        icon_span.append(BeautifulSoup(
+            '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" '
+            'stroke="currentColor" stroke-width="1.5" aria-hidden="true" '
+            'focusable="false">'
+            '<rect x="2" y="3" width="12" height="11"></rect>'
+            '<line x1="2" y1="6" x2="14" y2="6"></line>'
+            '<line x1="5" y1="1.5" x2="5" y2="4"></line>'
+            '<line x1="11" y1="1.5" x2="11" y2="4"></line>'
+            '</svg>', 'html.parser'))
+
         text_span = soup.new_tag('span')
         
         # Published date
@@ -3493,18 +3510,15 @@ document.addEventListener('DOMContentLoaded', function() {
             pub_text = published.get_text(strip=True)
             upd_text = updated.get_text(strip=True)
 
-            if not upd_text or pub_text == upd_text:
-                # No distinct modified date (empty, or identical to published) →
-                # drop the updated <time> so no bare "· Updated" label dangles.
+            if pub_text == upd_text:
+                # Same rendered date → drop the updated <time> to avoid duplication
                 updated.decompose()
                 deduped += 1
                 continue
 
-            # Insert separator + label between the two <time> elements. Thin
-            # spaces (U+2009) around the middot keep it from reading as a
-            # spaceless run ("2026·Updated") in the mono meta strip.
+            # Insert separator + label between the two <time> elements
             sep = soup.new_tag('span', attrs={'class': 'byline-sep'})
-            sep.string = ' · '
+            sep.string = ' · '
             label = soup.new_tag('span', attrs={'class': 'meta-label byline-updated-label'})
             label.string = 'Updated '
             updated.insert_before(sep)
@@ -3537,23 +3551,19 @@ document.addEventListener('DOMContentLoaded', function() {
         trimmed = 0
         for links in cards:
             anchors = links.find_all('a', recursive=False)
-            if not anchors:
+            if len(anchors) <= max_categories:
                 continue
 
-            # Remove any surplus anchors beyond the cap, plus everything after
-            # them (later anchors and the separator text nodes between them).
-            if len(anchors) > max_categories:
-                node = anchors[max_categories]
-                while node is not None:
-                    nxt = node.next_sibling
-                    node.extract()
-                    node = nxt
+            # Remove the surplus anchor and everything after it (later anchors
+            # and the separator text nodes between them).
+            node = anchors[max_categories]
+            while node is not None:
+                nxt = node.next_sibling
+                node.extract()
+                node = nxt
 
-            # Always strip separator/whitespace text left trailing after the
-            # last kept anchor. Kadence can emit trailing " | " nodes even when
-            # a post has ≤ max_categories, leaving dangling "| | |" pipes that a
-            # CSS nth-of-type cap can't reach — so this must run regardless of
-            # whether we trimmed anchors above.
+            # Strip any separator/whitespace text left trailing after the last
+            # kept anchor (the " | " that used to sit before the removed one).
             last = links.find_all('a', recursive=False)[-1]
             node = last.next_sibling
             while node is not None:
@@ -3562,9 +3572,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     node.extract()
                 node = nxt
             trimmed += 1
-
-        # trimmed counts every card whose trailing separators were normalised,
-        # not only those where surplus anchors were dropped.
 
         if trimmed:
             print(f"   🏷️  Trimmed categories to {max_categories} on {trimmed} cards")
