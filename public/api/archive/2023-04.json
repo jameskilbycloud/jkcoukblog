@@ -17,15 +17,17 @@
         "Homelab",
         "Storage",
         "vExpert",
+        "Networking",
         "Artificial Intelligence",
         "Automation",
         "Docker",
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Nutanix",
+        "vSphere",
         "Personal",
-        "vSphere"
+        "Runecast",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,

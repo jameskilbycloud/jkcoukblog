@@ -23,12 +23,11 @@
         "Traefik",
         "VMware",
         "Personal",
-        "Networking",
+        "Storage",
+        "Synology",
         "Automation",
-        "Docker",
         "VCF",
-        "AWS",
-        "Veeam"
+        "Networking"
       ],
       "tags": [
         null,

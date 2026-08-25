@@ -15,16 +15,17 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "Personal",
         "VMware Cloud on AWS",
-        "VCF",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
         "Homelab",
-        "NVIDIA",
-        "Traefik"
+        "Storage",
+        "Synology",
+        "Veeam",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Traefik",
+        "VCF",
+        "AWS"
       ],
       "tags": [
         null,
@@ -50,8 +51,7 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Devops",
-        "Github",
+        "Personal",
         "Artificial Intelligence",
         "Automation",
         "Docker",
@@ -59,7 +59,8 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Personal"
+        "Devops",
+        "Github"
       ],
       "tags": [
         null,
@@ -103,13 +104,15 @@
         "Personal",
         "Wordpress",
         "VMware",
-        "Ansible",
-        "Automation",
+        "Artificial Intelligence",
         "Docker",
+        "Nutanix",
+        "Automation",
         "Homelab",
+        "NVIDIA",
         "Traefik",
-        "VCF",
-        "AWS"
+        "Devops",
+        "Github"
       ],
       "tags": [
         null,
@@ -133,8 +136,17 @@
         "Hosting",
         "Wordpress",
         "Devops",
-        "Github",
-        "Personal"
+        "Personal",
+        "Homelab",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Traefik",
+        "VCF",
+        "VMware",
+        "Artificial Intelligence",
+        "NVIDIA",
+        "AWS"
       ],
       "tags": [
         null,
@@ -158,16 +170,11 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
+        "Veeam",
         "VMware",
-        "Docker",
-        "Hosting",
         "Automation",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Ansible",
         "Storage",
-        "Synology"
+        "VCF"
       ],
       "tags": [
         null,
@@ -191,18 +198,13 @@
         "Ansible",
         "Automation",
         "Homelab",
-        "Networking",
+        "Hosting",
         "Storage",
-        "VMware",
-        "VMware Cloud on AWS",
-        "vExpert",
-        "Artificial Intelligence",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
         "TrueNAS Scale",
-        "vSAN",
-        "vSphere"
+        "Nutanix",
+        "VMware",
+        "Artificial Intelligence",
+        "VCF"
       ],
       "tags": [
         null,
@@ -227,15 +229,11 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
+        "VCF",
         "Homelab",
+        "Networking",
         "Storage",
-        "Synology",
-        "Nutanix",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Synology"
       ],
       "tags": [
         null,
@@ -260,16 +258,12 @@
         "VMware",
         "vSAN",
         "VMware Cloud on AWS",
+        "VCF",
+        "Automation",
+        "Homelab",
         "Personal",
         "vSphere",
-        "Homelab",
-        "Networking",
-        "Storage",
-        "Ansible",
-        "Automation",
-        "Docker",
-        "Traefik",
-        "VCF"
+        "Veeam"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n# vSAN Cluster Shutdown – Orchestration\n\nBy[James](https://jameskilby.co.uk) December 6,..."
@@ -287,15 +281,19 @@
       "categories": [
         "Personal",
         "VMware",
-        "Hosting",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "VMware Cloud on AWS",
+        "Nutanix",
         "Homelab",
-        "Veeam",
-        "Networking",
-        "Storage"
+        "VMware Cloud on AWS",
+        "vSAN",
+        "Ansible",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "vSphere",
+        "Automation",
+        "Docker"
       ],
       "tags": [
         null,

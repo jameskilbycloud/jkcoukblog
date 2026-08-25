@@ -16,16 +16,11 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
+        "Veeam",
         "VMware",
-        "Docker",
-        "Hosting",
         "Automation",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Ansible",
         "Storage",
-        "Synology"
+        "VCF"
       ],
       "tags": [
         null,

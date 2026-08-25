@@ -17,15 +17,12 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Networking",
-        "vExpert",
         "Ansible",
         "Automation",
-        "Github",
-        "TrueNAS Scale",
+        "Networking",
         "VMware",
-        "vSAN",
-        "vSphere"
+        "vSphere",
+        "Github"
       ],
       "tags": [
         null,
@@ -47,12 +44,15 @@
       "categories": [
         "Homelab",
         "Nutanix",
+        "Ansible",
         "Storage",
-        "TrueNAS Scale",
-        "Networking",
-        "VMware",
-        "Automation",
-        "vExpert"
+        "Synology",
+        "Artificial Intelligence",
+        "Containers",
+        "Devops",
+        "NVIDIA",
+        "Traefik",
+        "VMware"
       ],
       "tags": [
         null

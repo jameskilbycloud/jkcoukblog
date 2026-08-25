@@ -17,12 +17,14 @@
         "Homelab",
         "VMware",
         "VCF",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Storage",
-        "Synology",
-        "VMware Cloud on AWS"
+        "Ansible",
+        "Networking",
+        "VMware Cloud on AWS",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "NVIDIA",
+        "Traefik"
       ],
       "tags": [
         null,
@@ -46,12 +48,12 @@
         "VMware",
         "Personal",
         "Homelab",
-        "Nutanix",
-        "Veeam",
-        "Networking",
         "Storage",
-        "Devops",
-        "AWS"
+        "vExpert",
+        "VMware Cloud on AWS",
+        "vSAN",
+        "VCF",
+        "Runecast"
       ],
       "tags": [
         null,

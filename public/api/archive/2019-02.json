@@ -17,16 +17,15 @@
         "Homelab",
         "Veeam",
         "VMware",
+        "Runecast",
         "Artificial Intelligence",
-        "Docker",
-        "Hosting",
-        "Mikrotik",
-        "Networking",
-        "Storage",
-        "vExpert",
         "Automation",
+        "Docker",
         "NVIDIA",
-        "Traefik"
+        "Traefik",
+        "Nutanix",
+        "Storage",
+        "vSphere"
       ],
       "tags": [
         null,

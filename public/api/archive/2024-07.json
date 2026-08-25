@@ -17,11 +17,15 @@
         "Homelab",
         "Nutanix",
         "VMware",
-        "Networking",
-        "Unifi",
-        "Artificial Intelligence",
+        "VMware Cloud on AWS",
+        "vSAN",
+        "Ansible",
+        "Automation",
         "Docker",
-        "Hosting"
+        "Traefik",
+        "VCF",
+        "AWS",
+        "Veeam"
       ],
       "tags": [
         null,

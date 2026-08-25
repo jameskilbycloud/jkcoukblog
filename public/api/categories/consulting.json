@@ -16,12 +16,9 @@
         "Personal",
         "Consulting",
         "AWS",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
-        "Devops",
+        "Nutanix",
         "VMware",
-        "Nutanix"
+        "vSphere"
       ],
       "tags": [
         null,
@@ -30,6 +27,30 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1-1024x768.jpeg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1.jpeg)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# My Home Office Setup & Upgrades\n\nBy[James](https://jameskilby.co.uk) January 5, 2021 · Updated Jun..."
+    },
+    {
+      "slug": "nutanix-ncp",
+      "title": "Passing the Nutanix NCP Exam: Free Training & My Experience",
+      "description": "I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam.",
+      "date": "2020-07-02T15:20:30Z",
+      "modified": "2026-05-31T11:36:26Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2020/07/nutanix-ncp/",
+      "markdown_url": "/markdown/posts/nutanix-ncp.md",
+      "api_url": "/api/posts/nutanix-ncp.json",
+      "categories": [
+        "Nutanix",
+        "Personal",
+        "Homelab",
+        "VMware",
+        "Consulting"
+      ],
+      "tags": [
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# Passing the Nutanix NCP Exam: Free Training & My Experience\n\nBy[James](https://jamesk..."
     },
     {
       "slug": "aws-solution-architect-associate",
@@ -44,13 +65,10 @@
       "categories": [
         "AWS",
         "Personal",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
-        "Nutanix",
+        "Consulting",
         "VMware",
-        "Veeam",
-        "Consulting"
+        "Devops",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -88,14 +106,12 @@
       "api_url": "/api/posts/and-now-for-something-completely-different.json",
       "categories": [
         "Personal",
-        "Consulting",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress",
         "VMware",
-        "Nutanix",
-        "AWS",
-        "Devops"
+        "Hosting",
+        "Consulting",
+        "vSphere",
+        "Cloudflare",
+        "Wordpress"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018 · Updated July 11, 2026 • 📖1 min read(263 words)\n\n📅**Published:** October..."
