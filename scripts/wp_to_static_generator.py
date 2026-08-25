@@ -3201,22 +3201,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 span.append(soup.new_string(suffix))
             return span
 
-        def _ribbon_dot():
-            dot = soup.new_tag('span', attrs={'class': 'jkr-r-dot'})
-            dot.string = '·'
-            return dot
-
         days = stats['days_since_last']
         days_label = f'{days}d' if days is not None else '—'
 
+        # Separators are drawn by CSS (.jkr-ribbon > span + span::before) so the
+        # middot is glued to the following stat and can never orphan at a wrap
+        # point — no literal '·' spans that flex-wrap onto their own line.
         ribbon.append(_ribbon_stat('', stats['posts_count'], ' posts'))
-        ribbon.append(_ribbon_dot())
         ribbon.append(_ribbon_stat('', stats['words_total'], ' words'))
-        ribbon.append(_ribbon_dot())
         ribbon.append(_ribbon_stat('', days_label, ' since last post'))
-        ribbon.append(_ribbon_dot())
         ribbon.append(_ribbon_stat('', stats['deploys_month'], ' deploys/mo'))
-        ribbon.append(_ribbon_dot())
         ribbon.append(_ribbon_stat('lighthouse ', stats['lighthouse'], ''))
 
         live = soup.new_tag('span', attrs={'class': 'jkr-r-live'})
@@ -3499,15 +3493,18 @@ document.addEventListener('DOMContentLoaded', function() {
             pub_text = published.get_text(strip=True)
             upd_text = updated.get_text(strip=True)
 
-            if pub_text == upd_text:
-                # Same rendered date → drop the updated <time> to avoid duplication
+            if not upd_text or pub_text == upd_text:
+                # No distinct modified date (empty, or identical to published) →
+                # drop the updated <time> so no bare "· Updated" label dangles.
                 updated.decompose()
                 deduped += 1
                 continue
 
-            # Insert separator + label between the two <time> elements
+            # Insert separator + label between the two <time> elements. Thin
+            # spaces (U+2009) around the middot keep it from reading as a
+            # spaceless run ("2026·Updated") in the mono meta strip.
             sep = soup.new_tag('span', attrs={'class': 'byline-sep'})
-            sep.string = ' · '
+            sep.string = ' · '
             label = soup.new_tag('span', attrs={'class': 'meta-label byline-updated-label'})
             label.string = 'Updated '
             updated.insert_before(sep)
@@ -3540,19 +3537,23 @@ document.addEventListener('DOMContentLoaded', function() {
         trimmed = 0
         for links in cards:
             anchors = links.find_all('a', recursive=False)
-            if len(anchors) <= max_categories:
+            if not anchors:
                 continue
 
-            # Remove the surplus anchor and everything after it (later anchors
-            # and the separator text nodes between them).
-            node = anchors[max_categories]
-            while node is not None:
-                nxt = node.next_sibling
-                node.extract()
-                node = nxt
+            # Remove any surplus anchors beyond the cap, plus everything after
+            # them (later anchors and the separator text nodes between them).
+            if len(anchors) > max_categories:
+                node = anchors[max_categories]
+                while node is not None:
+                    nxt = node.next_sibling
+                    node.extract()
+                    node = nxt
 
-            # Strip any separator/whitespace text left trailing after the last
-            # kept anchor (the " | " that used to sit before the removed one).
+            # Always strip separator/whitespace text left trailing after the
+            # last kept anchor. Kadence can emit trailing " | " nodes even when
+            # a post has ≤ max_categories, leaving dangling "| | |" pipes that a
+            # CSS nth-of-type cap can't reach — so this must run regardless of
+            # whether we trimmed anchors above.
             last = links.find_all('a', recursive=False)[-1]
             node = last.next_sibling
             while node is not None:
@@ -3561,6 +3562,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     node.extract()
                 node = nxt
             trimmed += 1
+
+        # trimmed counts every card whose trailing separators were normalised,
+        # not only those where surplus anchors were dropped.
 
         if trimmed:
             print(f"   🏷️  Trimmed categories to {max_categories} on {trimmed} cards")
@@ -3612,6 +3616,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 # Copy all attributes
                 for attr, value in cell.attrs.items():
                     th[attr] = value
+                # Column headers — set scope so screen readers associate each
+                # header with its column's cells.
+                th['scope'] = 'col'
                 # Copy all children (preserves inner structure)
                 for child in list(cell.children):
                     th.append(child.extract())
@@ -4227,7 +4234,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return
 
         # Avoid double-injection on repeat process_html passes
-        for existing in soup.find_all('section', class_='related-posts'):
+        for existing in soup.find_all('section', class_='related-posts-section'):
             existing.decompose()
 
         current_entry = self.post_index.get(current_url)
@@ -4270,36 +4277,24 @@ document.addEventListener('DOMContentLoaded', function() {
         if not selected:
             return
 
+        # Styling lives in brutalist-theme.css (.related-posts-section) using
+        # theme tokens — no inline light-theme styles (they were off-palette
+        # blue/rounded/shadowed and only survived via global !important resets).
         related_section = soup.new_tag('section')
-        related_section['class'] = 'related-posts'
-        related_section['style'] = (
-            'margin: 40px 0; padding: 30px; background: #f7fafc; '
-            'border-radius: 8px; border-left: 4px solid #4299e1;'
-        )
+        related_section['class'] = 'related-posts-section'
 
         heading = soup.new_tag('h2')
-        heading['style'] = 'margin: 0 0 20px 0; font-size: 24px; color: #2d3748;'
         heading.string = '📚 Related Posts'
         related_section.append(heading)
 
         posts_list = soup.new_tag('ul')
-        posts_list['style'] = (
-            'list-style: none; padding: 0; margin: 0; display: grid; '
-            'grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;'
-        )
+        posts_list['class'] = 'related-posts-list'
 
         for _score, _date, rel_url, title in selected:
             li = soup.new_tag('li')
-            li['style'] = (
-                'background: white; padding: 16px; border-radius: 6px; '
-                'box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: box-shadow 0.2s;'
-            )
+            li['class'] = 'related-posts-item'
             link = soup.new_tag('a')
             link['href'] = rel_url
-            link['style'] = (
-                'color: #2d3748; text-decoration: none; display: block; '
-                'font-weight: 500; hover: color: #4299e1;'
-            )
             link.string = title
             li.append(link)
             posts_list.append(li)
