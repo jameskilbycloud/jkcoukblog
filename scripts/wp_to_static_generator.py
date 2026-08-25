@@ -527,6 +527,12 @@ class WordPressStaticGenerator:
         # label, and hide the updated date if it renders identical to published.
         self.fix_byline_dates(soup)
 
+        # Archive / related cards show at most 2 categories. Kadence joins
+        # categories with literal " | " text nodes, which CSS can't hide, so a
+        # post with 3+ categories left dangling "| | |" pipes on its cards.
+        # Trim the extra links + separators in the DOM instead.
+        self.trim_card_categories(soup)
+
         # Fix table structure (add proper header rows)
         self.fix_table_headers(soup)
         
@@ -3510,6 +3516,54 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if fixed or deduped:
             print(f"   🗓️  Byline dates: separated {fixed}, deduplicated {deduped}")
+
+    def trim_card_categories(self, soup, max_categories=2):
+        """Keep at most `max_categories` category links on archive / loop /
+        related cards, dropping the extras AND their separators.
+
+        Kadence renders a post's categories inside `.category-links` as
+        <a> elements joined by literal " | " NavigableString text nodes:
+
+            <a>Homelab</a> | <a>Networking</a> | <a>Unifi</a>
+
+        A CSS `nth-of-type(n+3)` cap can hide the extra <a> elements, but a
+        bare text node is not an element and cannot be hidden by CSS, so
+        cards for posts with 3+ categories showed dangling "| | |" pipes.
+        Fixing it in the DOM removes both the surplus links and the orphaned
+        separators. Single-post pages (`.single-entry`) are untouched — they
+        keep the full category list.
+        """
+        from bs4 import NavigableString
+
+        cards = soup.select('.loop-entry .category-links, '
+                            '.entry-list-item .category-links')
+        trimmed = 0
+        for links in cards:
+            anchors = links.find_all('a', recursive=False)
+            if len(anchors) <= max_categories:
+                continue
+
+            # Remove the surplus anchor and everything after it (later anchors
+            # and the separator text nodes between them).
+            node = anchors[max_categories]
+            while node is not None:
+                nxt = node.next_sibling
+                node.extract()
+                node = nxt
+
+            # Strip any separator/whitespace text left trailing after the last
+            # kept anchor (the " | " that used to sit before the removed one).
+            last = links.find_all('a', recursive=False)[-1]
+            node = last.next_sibling
+            while node is not None:
+                nxt = node.next_sibling
+                if isinstance(node, NavigableString):
+                    node.extract()
+                node = nxt
+            trimmed += 1
+
+        if trimmed:
+            print(f"   🏷️  Trimmed categories to {max_categories} on {trimmed} cards")
 
     def fix_table_headers(self, soup):
         """Fix table structure by converting first row to proper thead with th elements"""
