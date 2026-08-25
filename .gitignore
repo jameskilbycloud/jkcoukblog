@@ -96,6 +96,15 @@ secrets.*
 credentials.json
 *.pem
 
+# Google Search Console service-account / OAuth credentials (scripts/fetch_gsc.py).
+# The key lives outside the repo at ~/.config/gsc/, but belt-and-braces: never
+# let one of these land in the tree. The gsc-report-*.json data files are data,
+# not secrets, and ARE committable — only the .tmp partials are ignored.
+sa.json
+client_secret.json
+token.json
+/docs/gsc/*.tmp
+
 # Claude Code
 .claude/settings.local.json
 .claude/worktrees/
