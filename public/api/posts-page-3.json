@@ -16,11 +16,7 @@
         "Homelab",
         "Storage",
         "Docker",
-        "Hosting",
-        "VMware",
-        "vSAN",
-        "vSphere",
-        "vExpert"
+        "VMware"
       ],
       "tags": [
         null,
@@ -41,8 +37,7 @@
       "api_url": "/api/posts/time-in-a-vmc-environment.json",
       "categories": [
         "VMware Cloud on AWS",
-        "VMware",
-        "vSAN"
+        "VMware"
       ],
       "tags": [
         null,
@@ -64,15 +59,14 @@
       "categories": [
         "Homelab",
         "Hosting",
-        "Storage",
-        "Runecast",
-        "VMware",
-        "Automation",
-        "Github",
+        "Veeam",
         "Ansible",
-        "Cloudflare",
+        "Artificial Intelligence",
+        "Automation",
         "Personal",
-        "Wordpress"
+        "Wordpress",
+        "Mikrotik",
+        "Networking"
       ],
       "tags": [
         null,
@@ -95,13 +89,12 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "VCF",
-        "VMware",
         "Storage",
-        "Automation",
-        "NVIDIA",
-        "Traefik",
-        "Networking"
+        "Mikrotik",
+        "Networking",
+        "VMware",
+        "TrueNAS Scale",
+        "Automation"
       ],
       "tags": [
         null,
@@ -124,19 +117,13 @@
       "categories": [
         "Runecast",
         "VMware",
-        "VMware Cloud on AWS",
-        "vSAN",
-        "Homelab",
         "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
-        "Docker",
+        "Automation",
+        "Personal",
+        "Homelab",
         "Hosting",
-        "Kubernetes",
-        "Automation"
+        "Storage",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -160,15 +147,13 @@
       "categories": [
         "Automation",
         "Github",
-        "Homelab",
-        "Artificial Intelligence",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
         "Ansible",
-        "Containers",
-        "Devops"
+        "Artificial Intelligence",
+        "Homelab",
+        "Networking",
+        "Storage",
+        "Nutanix",
+        "Docker"
       ],
       "tags": [
         null,
@@ -195,12 +180,8 @@
       "categories": [
         "Artificial Intelligence",
         "Automation",
-        "Docker",
         "Homelab",
-        "NVIDIA",
-        "Traefik",
-        "VMware",
-        "Hosting",
+        "Docker",
         "Ansible"
       ],
       "tags": [
@@ -226,7 +207,7 @@
         "Personal",
         "Homelab",
         "VMware",
-        "Consulting"
+        "Hosting"
       ],
       "tags": [
         null,
@@ -248,14 +229,13 @@
       "categories": [
         "Nutanix",
         "Homelab",
-        "VMware",
         "Personal"
       ],
       "tags": [
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Nutanix Life Cycle Manager\n\nBy[James](https://jameskilby.co.uk) April 3, 2018 · Updated June 5, 2026 • 📖2 min read(432 words)\n\n📅**Published:** ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Nutanix Life Cycle Manager\n\nBy[James](https://jameskilby.co.uk) April 3, 2018 · Updated June 5, 2026 • 📖2 min read(432 words)\n\n**Published:** A..."
     },
     {
       "slug": "nutanix-command-reference-guide",
@@ -270,7 +250,6 @@
       "categories": [
         "Nutanix",
         "Homelab",
-        "VMware",
         "Personal"
       ],
       "tags": [
@@ -278,7 +257,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Nutanix Command Reference Guide\n\nBy[James](https://jameskilby.co.uk) June 5, 2018 · Updated July 11, 2026 • 📖1 min read(106 words)\n\n📅**Publishe..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/)\n\n# Nutanix Command Reference Guide\n\nBy[James](https://jameskilby.co.uk) June 5, 2018 · Updated July 11, 2026 • 📖1 min read(106 words)\n\n**Published..."
     }
   ],
   "page": 3,

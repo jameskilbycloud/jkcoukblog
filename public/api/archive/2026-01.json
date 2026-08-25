@@ -16,13 +16,9 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
         "Homelab",
-        "vSphere",
-        "Storage",
-        "vExpert",
-        "AWS",
-        "Veeam"
+        "Personal",
+        "Networking"
       ],
       "tags": [
         null,
@@ -47,18 +43,11 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Devops",
-        "Personal",
-        "Homelab",
-        "Ansible",
-        "Automation",
         "Docker",
-        "Traefik",
-        "VCF",
-        "VMware",
+        "Homelab",
+        "Devops",
         "Artificial Intelligence",
-        "NVIDIA",
-        "AWS"
+        "Automation"
       ],
       "tags": [
         null,

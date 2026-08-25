@@ -18,14 +18,10 @@
         "Nutanix",
         "VMware",
         "VMware Cloud on AWS",
+        "Storage",
         "vSAN",
-        "Ansible",
-        "Automation",
         "Docker",
-        "Traefik",
-        "VCF",
-        "AWS",
-        "Veeam"
+        "Hosting"
       ],
       "tags": [
         null,

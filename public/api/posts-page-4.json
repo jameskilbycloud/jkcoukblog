@@ -13,14 +13,10 @@
       "categories": [
         "Homelab",
         "Nutanix",
-        "Ansible",
-        "Storage",
-        "Synology",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
+        "Automation",
+        "Networking",
+        "Docker",
         "VMware"
       ],
       "tags": [
@@ -42,12 +38,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "AWS",
-        "Veeam",
+        "Ansible",
+        "Automation",
         "Homelab",
-        "vSAN",
         "Personal",
-        "vSphere"
+        "Artificial Intelligence",
+        "Runecast"
       ],
       "tags": [
         null,
@@ -72,14 +68,10 @@
         "Nutanix",
         "VMware",
         "VMware Cloud on AWS",
+        "Storage",
         "vSAN",
-        "Ansible",
-        "Automation",
         "Docker",
-        "Traefik",
-        "VCF",
-        "AWS",
-        "Veeam"
+        "Hosting"
       ],
       "tags": [
         null,
@@ -108,7 +100,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2018/12/colorware.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/12/colorware.jpg)\n\n[Apple](https://jameskilby.co.uk/category/apple/)\n\n# MacBook Air 2018 Retina Review: My Setup & Build Scripts\n\nBy[James](https://jameskilby.co.uk) December 4, 2018 · Updated June 1, 2026 • 📖1 min read(138 words)\n\n📅**Published:**..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/12/colorware.jpg)\n\n[Apple](https://jameskilby.co.uk/category/apple/)\n\n# MacBook Air 2018 Retina Review: My Setup & Build Scripts\n\nBy[James](https://jameskilby.co.uk) December 4, 2018 · Updated June 1, 2026 • 📖1 min read(138 words)\n\n**Published:** ..."
     },
     {
       "slug": "my-self-hosted-ai-stack-infrastructure-deep-dive-part-2",
@@ -128,10 +120,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VMware Cloud on AWS",
-        "Storage",
-        "Hosting",
-        "Kubernetes"
+        "Github",
+        "Personal",
+        "VCF",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -171,13 +163,9 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Veeam",
         "Ansible",
-        "Containers",
-        "Devops",
-        "Storage",
-        "Synology",
-        "Hosting"
+        "Networking",
+        "Storage"
       ],
       "tags": [
         null,
@@ -210,10 +198,11 @@
       "categories": [
         "Personal",
         "Consulting",
-        "AWS",
-        "Nutanix",
+        "Hosting",
+        "Cloudflare",
         "VMware",
-        "vSphere"
+        "Nutanix",
+        "Devops"
       ],
       "tags": [
         null,
@@ -236,15 +225,12 @@
       "categories": [
         "Devops",
         "Personal",
-        "AWS",
-        "Nutanix",
         "Hosting",
-        "VMware",
-        "vSphere",
-        "Automation",
-        "Github",
+        "Nutanix",
+        "Ansible",
+        "Artificial Intelligence",
         "Cloudflare",
-        "Wordpress"
+        "VMware"
       ],
       "tags": [
         null,
@@ -267,14 +253,10 @@
       "categories": [
         "VMware",
         "VCF",
+        "Ansible",
+        "Automation",
         "Homelab",
         "Storage",
-        "vExpert",
-        "Networking",
-        "AWS",
-        "Veeam",
-        "Nutanix",
-        "vSphere",
         "VMware Cloud on AWS"
       ],
       "tags": [
@@ -300,15 +282,12 @@
         "VMware",
         "AWS",
         "Veeam",
-        "vSAN",
-        "VMware Cloud on AWS",
-        "Personal",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
         "Homelab",
-        "NVIDIA",
-        "Traefik"
+        "Storage",
+        "Automation",
+        "Ansible",
+        "Artificial Intelligence",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,

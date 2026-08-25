@@ -17,17 +17,13 @@
         "Homelab",
         "Networking",
         "Unifi",
-        "Runecast",
         "VMware",
-        "Ansible",
         "Artificial Intelligence",
-        "Containers",
-        "Devops",
-        "NVIDIA",
-        "Traefik",
+        "Docker",
+        "Hosting",
+        "Ansible",
         "Storage",
-        "vSphere",
-        "Veeam"
+        "Automation"
       ],
       "tags": [
         null,

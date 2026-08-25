@@ -22,7 +22,7 @@ image: https://jameskilby.co.uk/wp-content/uploads/2018/12/colorware.jpg
 
 By[James](https://jameskilby.co.uk) December 4, 2018 · Updated June 1, 2026 • 📖1 min read(138 words)
 
-📅**Published:** December 04, 2018•**Updated:** June 01, 2026
+**Published:** December 04, 2018•**Updated:** June 01, 2026
 
 I decided it was about time I replaced my trusted MacBook Air that I purchased back in 2011. After waiting and watching the Apple announcements over the last couple of years I decided the MacBook Pro’s weren’t worth it. So I have replaced my Air with yes you guessed it another [MacBook Air](https://www.apple.com/uk/macbook-air/).
 

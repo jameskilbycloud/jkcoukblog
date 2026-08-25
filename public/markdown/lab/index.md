@@ -8,4 +8,4 @@ url: https://jameskilby.co.uk/lab/
 image: https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6628-1-1024x372.jpeg
 ---
 
-📅**Published:** June 27, 2020•**Updated:** August 21, 2026
+**Published:** June 27, 2020•**Updated:** August 21, 2026

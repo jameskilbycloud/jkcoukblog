@@ -16,15 +16,12 @@
       "categories": [
         "Homelab",
         "VMware",
-        "VCF",
         "Ansible",
-        "Networking",
+        "VCF",
         "VMware Cloud on AWS",
+        "Storage",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "NVIDIA",
-        "Traefik"
+        "Docker"
       ],
       "tags": [
         null,
@@ -47,13 +44,12 @@
       "categories": [
         "VMware",
         "Personal",
+        "Consulting",
+        "AWS",
+        "Automation",
         "Homelab",
-        "Storage",
-        "vExpert",
         "VMware Cloud on AWS",
-        "vSAN",
-        "VCF",
-        "Runecast"
+        "Devops"
       ],
       "tags": [
         null,

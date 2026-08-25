@@ -17,8 +17,9 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Homelab",
-        "Personal"
+        "AWS",
+        "Devops",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -42,15 +43,14 @@
       "categories": [
         "Homelab",
         "Hosting",
-        "Storage",
-        "Runecast",
-        "VMware",
-        "Automation",
-        "Github",
+        "Veeam",
         "Ansible",
-        "Cloudflare",
+        "Artificial Intelligence",
+        "Automation",
         "Personal",
-        "Wordpress"
+        "Wordpress",
+        "Mikrotik",
+        "Networking"
       ],
       "tags": [
         null,

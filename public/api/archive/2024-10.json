@@ -17,13 +17,12 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "VCF",
-        "VMware",
         "Storage",
-        "Automation",
-        "NVIDIA",
-        "Traefik",
-        "Networking"
+        "Mikrotik",
+        "Networking",
+        "VMware",
+        "TrueNAS Scale",
+        "Automation"
       ],
       "tags": [
         null,
