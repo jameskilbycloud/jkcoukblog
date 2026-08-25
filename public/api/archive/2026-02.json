@@ -22,11 +22,13 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Runecast",
+        "Personal",
+        "Networking",
+        "Automation",
+        "Docker",
         "VCF",
-        "Nutanix",
-        "vSAN",
-        "VMware Cloud on AWS"
+        "AWS",
+        "Veeam"
       ],
       "tags": [
         null,

@@ -17,13 +17,15 @@
         "Automation",
         "Github",
         "Homelab",
-        "Nutanix",
-        "VMware",
-        "Storage",
-        "Synology",
         "Networking",
-        "Ansible",
-        "Mikrotik"
+        "Unifi",
+        "Docker",
+        "Hosting",
+        "Kubernetes",
+        "Artificial Intelligence",
+        "NVIDIA",
+        "Traefik",
+        "VMware"
       ],
       "tags": [
         null,
@@ -51,19 +53,18 @@
         "Ansible",
         "Automation",
         "Homelab",
+        "Networking",
         "Storage",
-        "Synology",
-        "Personal",
         "VMware",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
+        "VMware Cloud on AWS",
+        "vExpert",
         "Artificial Intelligence",
+        "Docker",
         "NVIDIA",
         "Traefik",
-        "Mikrotik",
-        "Networking",
-        "VMware Cloud on AWS"
+        "TrueNAS Scale",
+        "vSAN",
+        "vSphere"
       ],
       "tags": [
         null,
@@ -92,14 +93,15 @@
         "Traefik",
         "VCF",
         "VMware",
-        "Hosting",
-        "Personal",
-        "Cloudflare",
-        "Wordpress",
+        "Storage",
+        "Synology",
+        "vSphere",
         "VMware Cloud on AWS",
         "vSAN",
-        "Storage",
-        "Synology"
+        "Hosting",
+        "Wordpress",
+        "Networking",
+        "Unifi"
       ],
       "tags": [
         null,
@@ -140,10 +142,10 @@
         "Traefik",
         "VMware",
         "VMware Cloud on AWS",
-        "Veeam",
-        "Hosting",
         "Ansible",
-        "Networking"
+        "Hosting",
+        "Cloudflare",
+        "Wordpress"
       ],
       "tags": [
         null,
@@ -178,16 +180,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Homelab",
-        "Storage",
-        "vExpert",
         "Ansible",
         "Automation",
-        "Artificial Intelligence",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
-        "VCF"
+        "vSAN",
+        "Personal",
+        "Homelab",
+        "vSphere"
       ],
       "tags": [
         null,

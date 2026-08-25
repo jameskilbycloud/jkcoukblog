@@ -17,14 +17,10 @@
         "Automation",
         "Homelab",
         "VMware",
+        "Networking",
         "Storage",
-        "Ansible",
-        "Artificial Intelligence",
-        "Docker",
-        "NVIDIA",
-        "Traefik",
-        "Hosting",
-        "Personal"
+        "VMware Cloud on AWS",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -48,11 +44,13 @@
       "categories": [
         "Personal",
         "Consulting",
+        "AWS",
         "Hosting",
+        "Cloudflare",
+        "Wordpress",
+        "Devops",
         "VMware",
-        "Nutanix",
-        "vSphere",
-        "Devops"
+        "Nutanix"
       ],
       "tags": [
         null,

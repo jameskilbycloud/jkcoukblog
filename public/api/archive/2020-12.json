@@ -16,21 +16,15 @@
       "categories": [
         "Devops",
         "Personal",
-        "Cloudflare",
         "Hosting",
+        "Cloudflare",
         "Wordpress",
-        "Nutanix",
         "VMware",
         "vSphere",
-        "AWS",
         "Automation",
         "Github",
-        "Ansible",
-        "Artificial Intelligence",
-        "Containers",
-        "Homelab",
-        "NVIDIA",
-        "Traefik"
+        "AWS",
+        "Nutanix"
       ],
       "tags": [
         null,

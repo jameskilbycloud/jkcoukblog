@@ -19,14 +19,15 @@
         "Github",
         "Wordpress",
         "Hosting",
-        "Personal",
         "Ansible",
-        "Automation",
-        "Docker",
+        "Artificial Intelligence",
+        "Containers",
         "Homelab",
+        "NVIDIA",
         "Traefik",
-        "VCF",
-        "VMware"
+        "VMware",
+        "Automation",
+        "Docker"
       ],
       "tags": [
         null,

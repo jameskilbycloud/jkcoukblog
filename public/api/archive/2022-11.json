@@ -17,17 +17,13 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Artificial Intelligence",
-        "Nutanix",
-        "VMware",
+        "Ansible",
         "Automation",
-        "Github",
+        "Networking",
         "Docker",
-        "Hosting",
-        "Kubernetes",
-        "NVIDIA",
         "Traefik",
-        "Runecast"
+        "VCF",
+        "VMware"
       ],
       "tags": [
         null,

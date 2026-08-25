@@ -8,7 +8,7 @@
       "title": "Unleashing the UDM Beast",
       "description": "I retired my 7-year-old WatchGuard M200 for the UniFi UDM Beast — the spec, my iperf and WAN tests, the BGP/FRR setup, and what I consolidated onto it.",
       "date": "2026-06-20T19:49:43Z",
-      "modified": "2026-08-24T17:37:20Z",
+      "modified": "2026-08-24T18:12:00Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/",
       "markdown_url": "/markdown/posts/ubiquiti-udm-beast.md",
@@ -16,15 +16,23 @@
       "categories": [
         "Homelab",
         "Networking",
+        "Unifi",
+        "Hosting",
         "Storage",
         "vExpert",
         "Artificial Intelligence",
         "Docker",
-        "Hosting",
+        "Automation",
+        "Github",
+        "Kubernetes",
+        "TrueNAS Scale",
         "VMware",
-        "Veeam"
+        "vSAN",
+        "vSphere"
       ],
       "tags": [
+        null,
+        null,
         null,
         null
       ],

@@ -17,17 +17,16 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Automation",
         "Homelab",
+        "Storage",
+        "vExpert",
+        "Automation",
         "NVIDIA",
         "Traefik",
         "VMware",
         "Cloudflare",
         "Wordpress",
-        "Mikrotik",
-        "Networking",
-        "Nutanix",
-        "Storage"
+        "VCF"
       ],
       "tags": [
         null,

@@ -19,18 +19,15 @@
         "Homelab",
         "Networking",
         "Storage",
-        "Artificial Intelligence",
+        "Personal",
+        "vSphere",
         "Automation",
+        "AWS",
+        "Veeam",
+        "Artificial Intelligence",
         "Docker",
         "NVIDIA",
-        "Traefik",
-        "TrueNAS Scale",
-        "vSAN",
-        "vSphere",
-        "Ansible",
-        "Containers",
-        "Devops",
-        "Personal"
+        "Traefik"
       ],
       "tags": [
         null,
@@ -54,9 +51,10 @@
         "Personal",
         "VMware",
         "vSphere",
-        "Hosting",
-        "Cloudflare",
-        "Wordpress"
+        "AWS",
+        "Devops",
+        "Homelab",
+        "Hosting"
       ],
       "tags": [
         null,

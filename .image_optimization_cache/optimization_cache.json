@@ -48543,5 +48543,35 @@
     "avif_created": true,
     "webp": "wp-content/uploads/2026/06/Beast2.3Gbps.webp",
     "avif": "wp-content/uploads/2026/06/Beast2.3Gbps.avif"
+  },
+  "wp-content/uploads/2026/06/Beast2.3Gbps.webp": {
+    "hash": "27f17a7a6dadfe0b5f248be026ed8fbf",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/Beast2.3Gbps.webp",
+    "avif": "wp-content/uploads/2026/06/Beast2.3Gbps.avif"
+  },
+  "wp-content/uploads/2026/06/Beast2.3Gbps-300x160.webp": {
+    "hash": "75e0fcafdffb1ca258fbb8be80386c61",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/Beast2.3Gbps-300x160.webp",
+    "avif": "wp-content/uploads/2026/06/Beast2.3Gbps-300x160.avif"
+  },
+  "wp-content/uploads/2026/06/Beast2.3Gbps-150x150.webp": {
+    "hash": "c2bae10bf74118c6d994fa4cfe097311",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/06/Beast2.3Gbps-150x150.webp",
+    "avif": "wp-content/uploads/2026/06/Beast2.3Gbps-150x150.avif"
   }
 }

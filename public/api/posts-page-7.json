@@ -17,10 +17,10 @@
         "Docker",
         "Hosting",
         "Kubernetes",
-        "Personal",
-        "Storage",
-        "Synology",
-        "TrueNAS Scale"
+        "Artificial Intelligence",
+        "Veeam",
+        "Automation",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -42,9 +42,10 @@
       "categories": [
         "Networking",
         "Homelab",
+        "Unifi",
+        "Mikrotik",
         "Storage",
-        "VMware",
-        "Mikrotik"
+        "VMware"
       ],
       "tags": [
         null,
@@ -67,16 +68,16 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
-        "Cloudflare",
-        "Devops",
-        "Github",
-        "Wordpress",
-        "Homelab",
-        "Artificial Intelligence",
-        "Automation",
         "Docker",
-        "NVIDIA",
+        "Homelab",
+        "Kubernetes",
+        "Cloudflare",
+        "Wordpress",
+        "Artificial Intelligence",
+        "Ansible",
+        "Automation",
         "Traefik",
+        "VCF",
         "VMware"
       ],
       "tags": [
@@ -98,12 +99,18 @@
       "categories": [
         "Hosting",
         "Wordpress",
-        "Homelab",
-        "Personal",
-        "Artificial Intelligence",
+        "Ansible",
+        "Automation",
         "Docker",
+        "Homelab",
+        "Traefik",
+        "VCF",
+        "VMware",
+        "Kubernetes",
         "AWS",
-        "Cloudflare"
+        "Cloudflare",
+        "Devops",
+        "Github"
       ],
       "tags": [
         null,
@@ -127,13 +134,11 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
-        "VMware",
-        "Synology",
-        "Docker",
-        "Hosting",
-        "Kubernetes",
         "Ansible",
+        "Networking",
         "Artificial Intelligence",
+        "Nutanix",
+        "VMware",
         "Runecast"
       ],
       "tags": [
@@ -157,11 +162,11 @@
         "AWS",
         "Hosting",
         "VMware",
-        "VMware Cloud on AWS",
         "Veeam",
-        "Artificial Intelligence",
-        "Docker",
-        "Personal"
+        "Cloudflare",
+        "Wordpress",
+        "Personal",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -183,10 +188,13 @@
       "categories": [
         "AWS",
         "Personal",
+        "Hosting",
+        "Cloudflare",
+        "Wordpress",
         "Nutanix",
         "VMware",
         "Veeam",
-        "Devops"
+        "Consulting"
       ],
       "tags": [
         null,
@@ -209,8 +217,8 @@
         "AWS",
         "VMware",
         "VMware Cloud on AWS",
-        "Veeam",
         "Hosting",
+        "Veeam",
         "Personal"
       ],
       "tags": [
@@ -239,11 +247,13 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Runecast",
+        "Personal",
+        "Networking",
+        "Automation",
+        "Docker",
         "VCF",
-        "Nutanix",
-        "vSAN",
-        "VMware Cloud on AWS"
+        "AWS",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -273,14 +283,15 @@
         "Traefik",
         "VCF",
         "VMware",
-        "Hosting",
-        "Personal",
-        "Cloudflare",
-        "Wordpress",
+        "Storage",
+        "Synology",
+        "vSphere",
         "VMware Cloud on AWS",
         "vSAN",
-        "Storage",
-        "Synology"
+        "Hosting",
+        "Wordpress",
+        "Networking",
+        "Unifi"
       ],
       "tags": [
         null,
