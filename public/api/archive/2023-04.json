@@ -17,11 +17,10 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Nutanix",
-        "Ansible",
-        "Automation",
-        "Github",
-        "Artificial Intelligence"
+        "Docker",
+        "VMware",
+        "VMware Cloud on AWS",
+        "Ansible"
       ],
       "tags": [
         null,

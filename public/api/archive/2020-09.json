@@ -16,13 +16,13 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "AWS",
+        "Personal",
+        "VCF",
         "Artificial Intelligence",
         "Automation",
         "Homelab",
-        "VCF",
-        "AWS",
-        "Hosting",
-        "Personal"
+        "Ansible"
       ],
       "tags": [
         null,
@@ -49,8 +49,11 @@
         "Personal",
         "VMware",
         "VMware Cloud on AWS",
-        "VCF",
-        "AWS"
+        "Ansible",
+        "Automation",
+        "Consulting",
+        "Runecast",
+        "Homelab"
       ],
       "tags": [
         null,

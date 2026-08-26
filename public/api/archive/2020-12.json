@@ -16,13 +16,10 @@
       "categories": [
         "Devops",
         "Personal",
-        "VMware",
-        "Automation",
-        "Github",
-        "Hosting",
         "Nutanix",
-        "AWS",
-        "Cloudflare"
+        "VMware",
+        "Cloudflare",
+        "Hosting"
       ],
       "tags": [
         null,

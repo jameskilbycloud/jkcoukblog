@@ -16,10 +16,9 @@
       "categories": [
         "Homelab",
         "Networking",
-        "VMware",
         "Storage",
-        "Automation",
-        "Mikrotik"
+        "Nutanix",
+        "Docker"
       ],
       "tags": [
         null,

@@ -17,8 +17,8 @@
         "AWS",
         "Hosting",
         "VMware",
-        "VMware Cloud on AWS",
-        "Personal"
+        "Personal",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -40,11 +40,9 @@
       "categories": [
         "Hosting",
         "Cloudflare",
-        "Artificial Intelligence",
         "Docker",
-        "AWS",
-        "Ansible",
-        "Automation"
+        "Homelab",
+        "Devops"
       ],
       "tags": [
         null

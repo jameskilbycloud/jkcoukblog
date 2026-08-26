@@ -22,10 +22,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
+        "Automation",
+        "TrueNAS Scale",
+        "Mikrotik",
         "Networking",
-        "Personal",
-        "vSAN",
-        "VMware Cloud on AWS"
+        "Github"
       ],
       "tags": [
         null,
