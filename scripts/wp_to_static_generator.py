@@ -1947,12 +1947,34 @@ document.addEventListener('DOMContentLoaded', function() {
         area can't break the others.
         """
         for step in (self._inject_brand_logo, self._inject_search_button,
-                     self._inject_search_box,
+                     self._inject_search_box, self._relocate_search_into_top,
                      self._relocate_social, self._slim_footer):
             try:
                 step(soup)
             except Exception as e:
                 print(f"   ⚠️  {step.__name__}: {e}")
+
+    def _relocate_search_into_top(self, soup):
+        """Move the homepage search box into the top band, beside the headline.
+
+        _inject_search_box drops the box at main[0] (so its space is reserved at
+        first paint — see that method's CLS note). On the homepage the redesign
+        has already emitted a .jkr-headline-row slot; relocating the box into it
+        turns the lonely centered search island — which sat in a dead band under
+        the header, misaligned with the left-aligned grid below — into part of
+        the top band, filling the empty gutter beside the capped headline. The
+        node (and its reserved height) simply moves within the static HTML, so
+        first-paint layout stability is preserved. Idempotent and homepage-only:
+        the .jkr-headline-row exists only where inject_homepage_redesign ran.
+        """
+        row = soup.find(class_='jkr-headline-row')
+        box = soup.find(id='blog-search-container')
+        if not row or not box:
+            return
+        if box.find_parent(class_='jkr-headline-row') is row:
+            return  # already relocated
+        box.extract()
+        row.append(box)
 
     def _inject_search_button(self, soup):
         """Add a real search button to the header (focuses the search box).
@@ -3198,7 +3220,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         headline = soup.new_tag('p', attrs={'class': 'jkr-headline'})
         headline.string = 'Field notes from a homelab that costs real money to run.'
-        top.append(headline)
+        # Headline shares a row with the homepage search box, which is relocated
+        # here from main[0] once it's injected (see _relocate_search_into_top).
+        # The search fills the dead right-gutter beside the capped headline and
+        # removes the standalone centered search island — reclaiming both the
+        # vertical dead-zone under the header and the empty gutter. The wrapper
+        # is emitted even before the search exists so the relocation has a slot.
+        headline_row = soup.new_tag('div', attrs={'class': 'jkr-headline-row'})
+        headline_row.append(headline)
+        top.append(headline_row)
 
         # ── 3. stats ribbon (replaces the terminal box) ─────────────────
         stats = self._compute_ribbon_stats()
