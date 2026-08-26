@@ -1045,6 +1045,21 @@ th {
   font-size: 0.9rem;
 }
 
+/* Contextual "Related:" link injected into an orphan post's best host by
+   internal_links.py. A restrained inline aside inside the prose — orange
+   left-accent to match the theme, small caps label — not a card. */
+.entry-content p.internal-related-link {
+  margin: 1.25rem 0;
+  padding: 0.35rem 0 0.35rem 0.85rem;
+  border-left: 3px solid var(--accent-orange);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--gray-light);
+}
+.entry-content p.internal-related-link a {
+  color: var(--accent-orange);
+}
+
 /* Related posts (score-based list injected by add_related_posts).
    Tokenised to the brutalist system — sharp corners, orange left-accent,
    no shadow — replacing the former inline light-theme card. */
