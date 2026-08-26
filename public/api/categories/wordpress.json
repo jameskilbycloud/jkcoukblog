@@ -16,11 +16,11 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "AWS",
         "Docker",
         "Homelab",
-        "Devops",
-        "Personal"
+        "Personal",
+        "Artificial Intelligence",
+        "Automation"
       ],
       "tags": [
         null,
@@ -46,11 +46,10 @@
         "Devops",
         "Github",
         "Wordpress",
-        "Ansible",
+        "Hosting",
         "Artificial Intelligence",
         "Automation",
-        "Personal",
-        "Hosting"
+        "Ansible"
       ],
       "tags": [
         null,
@@ -77,11 +76,11 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
+        "Personal",
         "Ansible",
         "Automation",
-        "AWS",
-        "Docker",
-        "Homelab"
+        "Artificial Intelligence",
+        "Docker"
       ],
       "tags": [
         null,
@@ -91,6 +90,36 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-13-at-10.31.30.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/simply-static-logo.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# WordPress Hosting with Cloudflare Pages\n..."
+    },
+    {
+      "slug": "use-portainer-in-a-homelab-with-github",
+      "title": "Use Portainer in a Homelab with GitHub",
+      "description": "How I use Portainer to manage Docker containers in my homelab, deploying stacks straight from a GitHub repository. Setup and a working example.",
+      "date": "2022-12-09T09:06:37Z",
+      "modified": "2026-06-05T18:57:49Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/",
+      "markdown_url": "/markdown/posts/use-portainer-in-a-homelab-with-github.md",
+      "api_url": "/api/posts/use-portainer-in-a-homelab-with-github.json",
+      "categories": [
+        "Docker",
+        "Homelab",
+        "Hosting",
+        "Kubernetes",
+        "Ansible",
+        "VMware",
+        "Networking",
+        "Mikrotik",
+        "Wordpress",
+        "Runecast"
+      ],
+      "tags": [
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png)\n\n[Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernetes/)\n\n# ..."
     },
     {
       "slug": "how-i-moved-my-wordpress-site-to-cloudflare-pages",
@@ -106,9 +135,8 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Docker",
-        "Homelab",
-        "Personal"
+        "Personal",
+        "AWS"
       ],
       "tags": [
         null,
@@ -133,9 +161,10 @@
         "Hosting",
         "Wordpress",
         "Cloudflare",
+        "Devops",
+        "Personal",
         "Artificial Intelligence",
-        "Docker",
-        "Devops"
+        "Automation"
       ],
       "tags": [
         null,
@@ -160,11 +189,10 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
+        "VMware",
         "Consulting",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "Homelab"
+        "Devops",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -188,9 +216,8 @@
         "Hosting",
         "Homelab",
         "Wordpress",
-        "Docker",
-        "Cloudflare",
-        "Personal"
+        "Personal",
+        "Cloudflare"
       ],
       "tags": [
         null,

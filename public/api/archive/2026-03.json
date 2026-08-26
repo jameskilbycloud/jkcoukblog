@@ -21,10 +21,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
+        "Ansible",
         "VMware Cloud on AWS",
-        "Runecast",
-        "Networking",
-        "Storage"
+        "Storage",
+        "VCF"
       ],
       "tags": [
         null,

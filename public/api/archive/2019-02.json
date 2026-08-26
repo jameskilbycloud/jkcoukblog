@@ -15,10 +15,12 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "Storage",
+        "Docker",
+        "Nutanix",
+        "VMware",
+        "Networking",
         "Artificial Intelligence",
-        "Automation",
-        "Docker"
+        "Automation"
       ],
       "tags": [
         null,

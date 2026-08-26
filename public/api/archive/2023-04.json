@@ -17,11 +17,12 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Personal",
+        "Ansible",
+        "VCF",
         "VMware",
-        "TrueNAS Scale",
-        "AWS",
-        "Networking"
+        "Networking",
+        "VMware Cloud on AWS",
+        "Docker"
       ],
       "tags": [
         null,

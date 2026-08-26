@@ -13,11 +13,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "VCF",
-        "vSAN",
-        "Runecast",
         "Artificial Intelligence",
-        "Automation"
+        "Automation",
+        "VCF",
+        "Homelab",
+        "Nutanix",
+        "Personal"
       ],
       "tags": [
         null,
@@ -40,10 +41,9 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "AWS",
-        "Hosting",
+        "vSAN",
         "Personal",
-        "VCF"
+        "Homelab"
       ],
       "tags": [
         null,
@@ -69,11 +69,11 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
-        "vSAN",
+        "Ansible",
         "Artificial Intelligence",
-        "Automation",
-        "Homelab"
+        "Homelab",
+        "Veeam",
+        "Automation"
       ],
       "tags": [
         null
@@ -94,12 +94,12 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Artificial Intelligence",
-        "Automation",
-        "Ansible",
+        "VMware Cloud on AWS",
         "Personal",
-        "Storage",
-        "VMware Cloud on AWS"
+        "Networking",
+        "Veeam",
+        "Ansible",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -145,13 +145,8 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Runecast",
-        "vSAN",
-        "Artificial Intelligence",
-        "Automation",
-        "VCF",
-        "TrueNAS Scale",
-        "Homelab"
+        "Personal",
+        "Runecast"
       ],
       "tags": [
         null,
@@ -177,12 +172,12 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Cloudflare",
+        "Ansible",
+        "VMware",
         "Networking",
-        "Personal",
-        "Nutanix",
-        "VCF",
-        "VMware"
+        "Mikrotik",
+        "Wordpress",
+        "Runecast"
       ],
       "tags": [
         null,
@@ -205,9 +200,9 @@
       "categories": [
         "Homelab",
         "Networking",
+        "Storage",
         "Artificial Intelligence",
-        "Automation",
-        "Storage"
+        "Automation"
       ],
       "tags": [
         null,
@@ -229,9 +224,9 @@
       "api_url": "/api/posts/ubuntu-disk-expansion-steps.json",
       "categories": [
         "Ubuntu",
+        "Ansible",
         "Automation",
-        "Github",
-        "Ansible"
+        "Github"
       ],
       "tags": [
         null,
@@ -254,12 +249,12 @@
         "Homelab",
         "Networking",
         "Unifi",
-        "Ansible",
-        "Automation",
-        "Artificial Intelligence",
-        "Storage",
+        "TrueNAS Scale",
         "VMware",
-        "Runecast"
+        "Artificial Intelligence",
+        "Automation",
+        "Nutanix",
+        "Ansible"
       ],
       "tags": [
         null,
