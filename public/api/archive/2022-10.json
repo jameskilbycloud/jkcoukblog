@@ -17,12 +17,10 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Artificial Intelligence",
-        "Automation",
-        "Devops",
         "Personal",
         "Docker",
-        "Homelab"
+        "Homelab",
+        "Devops"
       ],
       "tags": [
         null,
@@ -47,12 +45,11 @@
         "Homelab",
         "Hosting",
         "Networking",
-        "Nutanix",
-        "Ansible",
-        "Mikrotik",
-        "Automation",
-        "Github",
-        "Cloudflare"
+        "Storage",
+        "Cloudflare",
+        "Artificial Intelligence",
+        "Docker",
+        "Nutanix"
       ],
       "tags": [
         null,

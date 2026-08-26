@@ -15,11 +15,10 @@
       "api_url": "/api/posts/wrangler-and-node-versions.json",
       "categories": [
         "Cloudflare",
-        "Ansible",
+        "Artificial Intelligence",
         "Automation",
-        "Devops",
         "Hosting",
-        "Artificial Intelligence"
+        "Ansible"
       ],
       "tags": [
         null,
@@ -43,9 +42,12 @@
       "categories": [
         "Homelab",
         "Storage",
+        "Kubernetes",
+        "TrueNAS Scale",
+        "Docker",
+        "Automation",
         "Networking",
-        "Hosting",
-        "Nutanix"
+        "Ansible"
       ],
       "tags": [
         null,
@@ -69,11 +71,9 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Ansible",
-        "VMware",
-        "Artificial Intelligence",
+        "Veeam",
         "Storage",
-        "VCF"
+        "VMware"
       ],
       "tags": [
         null,
@@ -96,9 +96,9 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "VMware Cloud on AWS",
-        "Storage",
-        "Nutanix"
+        "Ansible",
+        "Automation",
+        "Docker"
       ],
       "tags": [
         null,
@@ -121,9 +121,13 @@
       "categories": [
         "Homelab",
         "VMware",
-        "VMware Cloud on AWS",
+        "Artificial Intelligence",
+        "Automation",
+        "Veeam",
+        "AWS",
         "Docker",
-        "Networking"
+        "Personal",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -146,10 +150,10 @@
       "categories": [
         "Hosting",
         "Wordpress",
+        "Ansible",
+        "Automation",
         "Cloudflare",
         "Artificial Intelligence",
-        "Automation",
-        "Personal",
         "Docker"
       ],
       "tags": [
@@ -175,7 +179,11 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "VMware"
+        "VMware",
+        "Homelab",
+        "Devops",
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null,

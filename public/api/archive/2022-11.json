@@ -17,12 +17,11 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Ansible",
         "Artificial Intelligence",
-        "VCF",
-        "VMware",
-        "Veeam",
-        "Automation"
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Nutanix"
       ],
       "tags": [
         null,

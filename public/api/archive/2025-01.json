@@ -18,9 +18,11 @@
         "Docker",
         "Hosting",
         "Homelab",
-        "Ansible",
+        "Nutanix",
+        "Networking",
+        "Storage",
         "Automation",
-        "VMware"
+        "Github"
       ],
       "tags": [
         null,

@@ -16,11 +16,9 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Devops",
-        "Personal",
         "AWS",
-        "Docker",
-        "Homelab"
+        "Devops",
+        "Personal"
       ],
       "tags": [
         null,
@@ -46,11 +44,10 @@
         "Devops",
         "Github",
         "Wordpress",
-        "Hosting",
-        "Personal",
-        "Ansible",
+        "Artificial Intelligence",
         "Automation",
-        "Artificial Intelligence"
+        "Hosting",
+        "Personal"
       ],
       "tags": [
         null,
@@ -77,12 +74,10 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "AWS",
-        "Docker",
-        "Homelab",
-        "Ansible",
+        "Artificial Intelligence",
         "Automation",
-        "Artificial Intelligence"
+        "Homelab",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -107,12 +102,10 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Artificial Intelligence",
-        "Automation",
-        "Devops",
         "Personal",
         "Docker",
-        "Homelab"
+        "Homelab",
+        "Devops"
       ],
       "tags": [
         null,
@@ -136,10 +129,10 @@
       "categories": [
         "Hosting",
         "Wordpress",
+        "Ansible",
+        "Automation",
         "Cloudflare",
         "Artificial Intelligence",
-        "Automation",
-        "Personal",
         "Docker"
       ],
       "tags": [
@@ -165,7 +158,11 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "VMware"
+        "VMware",
+        "Homelab",
+        "Devops",
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null,
@@ -173,6 +170,32 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/) | [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Personal](https://jameskilby.co.uk/category/personal/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)..."
+    },
+    {
+      "slug": "aws-status-page-monitoring-included",
+      "title": "AWS Status Page – Monitoring Included",
+      "description": "AWS Status Page – Enhancements The tool I deployed lambstatus supports pulling metrics from AWS Cloudwatch and displaying them.",
+      "date": "2018-05-15T21:41:14Z",
+      "modified": "2026-06-01T19:00:02Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2018/05/aws-status-page-monitoring-included/",
+      "markdown_url": "/markdown/posts/aws-status-page-monitoring-included.md",
+      "api_url": "/api/posts/aws-status-page-monitoring-included.json",
+      "categories": [
+        "AWS",
+        "Hosting",
+        "Personal",
+        "Wordpress",
+        "Cloudflare",
+        "Artificial Intelligence",
+        "Docker"
+      ],
+      "tags": [
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png)\n\n[AWS](https://jameskilby.co.uk/category/aws/) | [Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# AWS Status Page – Monitoring Included\n\nBy[James](https://jameskilby.co.uk) May 15, 2018 · Updated June 1,..."
     }
   ]
 }

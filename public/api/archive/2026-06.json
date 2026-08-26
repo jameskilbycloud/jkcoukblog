@@ -17,12 +17,11 @@
         "Homelab",
         "Networking",
         "Unifi",
+        "Storage",
+        "Artificial Intelligence",
         "VMware",
         "Ansible",
-        "Artificial Intelligence",
-        "Storage",
-        "Nutanix",
-        "Runecast"
+        "Automation"
       ],
       "tags": [
         null,
