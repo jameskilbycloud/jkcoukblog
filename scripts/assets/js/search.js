@@ -40,12 +40,23 @@ console.log('[Search] Script loaded');
             </div>
         `;
         
+        // Interior pages (posts, archives, About): do NOT inject the in-flow
+        // box. Doing so shifted content down ~46px after load — the same CLS
+        // the build-time render was created to avoid, which only covers the
+        // homepage. Those pages search via the header ⌘K button / shortcut,
+        // which opens a fixed command-palette overlay (openInteriorSearch) with
+        // no layout shift. Only the front page keeps the in-flow fallback.
+        if (!document.body.classList.contains('home')) {
+            attachKeyboardShortcut();
+            return;
+        }
+
         const main = document.querySelector('main');
         if (main) {
             main.insertAdjacentHTML('afterbegin', searchHTML);
             attachSearchListener();
-            attachKeyboardShortcut();
         }
+        attachKeyboardShortcut();
     }
     
     function attachSearchListener() {
@@ -73,6 +84,7 @@ console.log('[Search] Script loaded');
             }
             if (e.key === 'Escape') {
                 hideResults();
+                closeInteriorSearch();
             }
         });
     }
@@ -86,7 +98,52 @@ console.log('[Search] Script loaded');
                 && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             input.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
             input.focus();
+            return;
         }
+        // No in-flow box on this page (interior page) — open the command-palette
+        // overlay instead. It's position:fixed, so it never shifts page content.
+        openInteriorSearch();
+    }
+
+    // Fixed search input for pages without the in-flow box. The input only
+    // captures the query; results render in the same body-appended .search-
+    // overlay used everywhere else, so this reuses the whole search path and
+    // just supplies an input that lives outside document flow (no CLS).
+    function openInteriorSearch() {
+        if (document.querySelector('.search-input-overlay')) {
+            const existing = document.getElementById('blog-search-input');
+            if (existing) existing.focus();
+            return;
+        }
+        const overlay = document.createElement('div');
+        overlay.className = 'search-input-overlay';
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;'
+            + 'background:rgba(0,0,0,0.85)!important;z-index:99998;display:flex;'
+            + 'align-items:flex-start;justify-content:center;padding:80px 20px 20px;'
+            + 'animation:fadeIn 0.2s ease;';
+        overlay.innerHTML = '<div style="max-width:650px;width:100%;position:relative;">'
+            + '<input type="text" id="blog-search-input" placeholder="Search posts…"'
+            + ' autocomplete="off" style="width:100%;padding:16px 52px 16px 18px;'
+            + 'font-size:18px;border:1px solid #33322e;border-radius:0;outline:none;'
+            + 'box-sizing:border-box;background:#171613!important;color:#f5f3ee;'
+            + 'font-family:inherit;">'
+            + '<span style="position:absolute;right:16px;top:50%;'
+            + 'transform:translateY(-50%);color:#7a766c;font-size:11px;'
+            + 'font-family:\'JetBrains Mono\',monospace;pointer-events:none;">ESC</span>'
+            + '</div>'
+            + '<style>@keyframes fadeIn{from{opacity:0}to{opacity:1}}</style>';
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) closeInteriorSearch();
+        });
+        document.body.appendChild(overlay);
+        attachSearchListener();
+        const input = document.getElementById('blog-search-input');
+        if (input) input.focus();
+    }
+
+    function closeInteriorSearch() {
+        const overlay = document.querySelector('.search-input-overlay');
+        if (overlay) overlay.remove();
     }
 
     // The header search button (.jk-search) is static HTML; the search box is
