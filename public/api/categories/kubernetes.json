@@ -15,9 +15,9 @@
       "categories": [
         "Kubernetes",
         "TrueNAS Scale",
+        "VMware",
         "Homelab",
         "Storage",
-        "VMware",
         "Docker"
       ],
       "tags": [
@@ -43,10 +43,9 @@
         "Hosting",
         "Kubernetes",
         "Ansible",
+        "Automation",
+        "Storage",
         "VMware",
-        "Networking",
-        "Mikrotik",
-        "Wordpress",
         "Runecast"
       ],
       "tags": [

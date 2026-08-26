@@ -22,12 +22,9 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Docker",
-        "Automation",
-        "Storage",
-        "Mikrotik",
         "Networking",
-        "Personal"
+        "Automation",
+        "VCF"
       ],
       "tags": [
         null,

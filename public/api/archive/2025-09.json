@@ -16,10 +16,9 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Mikrotik",
-        "Networking",
-        "Automation",
-        "Runecast",
+        "Nutanix",
+        "Storage",
+        "TrueNAS Scale",
         "VMware"
       ],
       "tags": [

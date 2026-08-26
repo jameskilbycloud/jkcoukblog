@@ -8,8 +8,8 @@ url: https://jameskilby.co.uk/media/
 image: https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png
 ---
 
-I’m a Solution Architect in Broadcom’s EMEA Hyperscalers team, a twelve-year VMware vExpert, and co-founder of the UK Veeam User Group. Alongside my day-to-day work I share practical insights on VMware, AWS cloud infrastructure, and enterprise AI through podcasts, user group sessions, and conference talks. Below you’ll find recordings of some of those appearances. You can find me on/in the following Videos/Podcasts….
-
+I’m a Solution Architect in Broadcom’s EMEA Hyperscalers team, a twelve-year VMware vExpert, and co-founder of the UK Veeam User Group. Alongside my day-to-day work I share practical insights on VMware, AWS cloud infrastructure, and enterprise AI through podcasts, user group sessions, and conference talks. Below you’ll find recordings of some of those appearances. You can find me on/in the following Videos/Podcasts….  
+  
 ### Xtravirt CloudInsiders Podcast – VMware Cloud on AWS 
 
 In this episode of the [Xtravirt CloudInsiders podcast](https://www.xtravirt.com/cloudinsiders), I discuss the practical realities of running VMware Cloud on AWS (VMC on AWS) — covering architecture decisions, common migration patterns, and what organisations need to consider before moving workloads to the cloud. We explore the commercial model, when VMC on AWS makes sense versus a native AWS approach, and the operational differences teams should plan for.  

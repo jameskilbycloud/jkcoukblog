@@ -22,9 +22,9 @@
         "Traefik",
         "VMware",
         "Ansible",
-        "VMware Cloud on AWS",
-        "Storage",
-        "VCF"
+        "Networking",
+        "Nutanix",
+        "Storage"
       ],
       "tags": [
         null,
@@ -58,8 +58,8 @@
         "Artificial Intelligence",
         "Automation",
         "Docker",
-        "Ansible",
-        "Homelab"
+        "Github",
+        "Ansible"
       ],
       "tags": [
         null,

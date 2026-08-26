@@ -6,10 +6,10 @@ modified: 2026-06-01T21:58:19+00:00
 author: James Kilby
 categories:
   - AWS
-  - Personal
   - VMware
   - Hosting
   - VMware Cloud on AWS
+  - Personal
 tags:
   - #Account Setup
   - #AWS
@@ -51,16 +51,6 @@ Update: AWS now does support Yubikey. Wahoo.
 
 ## Similar Posts
 
-  * [ ![AWS Solution Architect – Associate](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_-768x307.png) ](https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/)
-
-[AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)
-
-### [AWS Solution Architect – Associate](https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/)
-
-By[James](https://jameskilby.co.uk) December 16, 2019 · Updated May 31, 2026
-
-I renewed my AWS Solution Architect certification.
-
   * [ ![Monitoring VMware Cloud on AWS: Tools & Approaches \(Part 1\)](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp) ](https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [AWS](https://jameskilby.co.uk/category/aws/)
@@ -90,3 +80,13 @@ AWS Status Page – Enhancements The tool I deployed, lambstatus, supports pulli
 By[James](https://jameskilby.co.uk) September 15, 2020 · Updated June 5, 2026
 
 Learn how host failures are handled within VMC
+
+  * [ ![AWS Solution Architect – Associate](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_-768x307.png) ](https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/)
+
+[AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)
+
+### [AWS Solution Architect – Associate](https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/)
+
+By[James](https://jameskilby.co.uk) December 16, 2019 · Updated May 31, 2026
+
+I renewed my AWS Solution Architect certification.

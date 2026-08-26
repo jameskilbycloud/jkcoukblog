@@ -17,12 +17,11 @@
         "Homelab",
         "Networking",
         "Unifi",
-        "TrueNAS Scale",
-        "VMware",
         "Artificial Intelligence",
         "Automation",
-        "Nutanix",
-        "Ansible"
+        "Docker",
+        "VCF",
+        "VMware"
       ],
       "tags": [
         null,

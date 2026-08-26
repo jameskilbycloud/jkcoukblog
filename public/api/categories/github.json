@@ -15,14 +15,11 @@
       "categories": [
         "Automation",
         "Github",
-        "Ubuntu",
+        "Ansible",
         "Artificial Intelligence",
-        "Docker",
         "Homelab",
         "VMware",
-        "Networking",
-        "Veeam",
-        "Storage"
+        "Docker"
       ],
       "tags": [
         null,
@@ -37,6 +34,61 @@
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png)\n\n[Automation](https://jameskilby.co.uk/category/automation/) | [Github](https://jameskilby.co.uk/category/github/)\n\n# Automating vSphere Golden Images with Packer and GitHub Actions\n\nBy[James](https:/..."
     },
     {
+      "slug": "vsphere-power-management-driven-by-ansible",
+      "title": "Automating vSphere Power Management driven by Ansible and SemaphoreUI",
+      "description": "Learn how to automate vSphere power management using Ansible and SemaphoreUI, scheduling ESXi host shutdowns based on Octopus Agile energy tariffs to cut costs.",
+      "date": "2026-04-15T21:36:41Z",
+      "modified": "2026-06-01T21:07:22Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/",
+      "markdown_url": "/markdown/posts/vsphere-power-management-driven-by-ansible.md",
+      "api_url": "/api/posts/vsphere-power-management-driven-by-ansible.json",
+      "categories": [
+        "Ansible",
+        "Automation",
+        "Homelab",
+        "Networking",
+        "Github",
+        "Artificial Intelligence",
+        "Docker",
+        "VMware",
+        "Personal"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible.png",
+      "excerpt": "![vSphere Power Management Ansible Playbooks with Semaphore](https://jameskilby.co.uk/wp-content/uploads/2026/04/vsphere-power-management-ansible.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)\n\n# Automating vSphere Power Mana..."
+    },
+    {
+      "slug": "octopus-agile-battery-solar-calculator",
+      "title": "Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested",
+      "description": "I am quite a heavy consumer of electricity at home.",
+      "date": "2026-03-09T23:39:37Z",
+      "modified": "2026-07-11T13:21:16Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/",
+      "markdown_url": "/markdown/posts/octopus-agile-battery-solar-calculator.md",
+      "api_url": "/api/posts/octopus-agile-battery-solar-calculator.json",
+      "categories": [
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "Github",
+        "Ansible"
+      ],
+      "tags": [
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2026/03/Octopus-Energy-logo.jpg",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/03/Octopus-Energy-logo.jpg)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/)\n\n# Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested\n\n..."
+    },
+    {
       "slug": "ubuntu-disk-expansion-steps",
       "title": "How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step",
       "description": "Step-by-step Ubuntu disk expansion with LVM: pvresize, vgextend, lvextend, resize2fs. Works after resizing the VM disk in vSphere/Hyper-V/KVM.",
@@ -48,9 +100,9 @@
       "api_url": "/api/posts/ubuntu-disk-expansion-steps.json",
       "categories": [
         "Ubuntu",
-        "Ansible",
         "Automation",
-        "Github"
+        "Github",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -74,10 +126,11 @@
         "Devops",
         "Github",
         "Wordpress",
-        "Hosting",
+        "Ansible",
         "Artificial Intelligence",
+        "Hosting",
         "Automation",
-        "Ansible"
+        "Personal"
       ],
       "tags": [
         null,
@@ -103,11 +156,12 @@
       "categories": [
         "Mikrotik",
         "Networking",
-        "Homelab",
-        "VMware",
-        "Ansible",
+        "Artificial Intelligence",
         "Automation",
-        "Github"
+        "Github",
+        "Homelab",
+        "VCF",
+        "VMware"
       ],
       "tags": [
         null,

@@ -20,11 +20,11 @@
         "Traefik",
         "VCF",
         "VMware",
-        "Nutanix",
+        "Storage",
         "Cloudflare",
         "Hosting",
-        "VMware Cloud on AWS",
-        "Personal"
+        "Artificial Intelligence",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -64,13 +64,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "AWS",
-        "Cloudflare",
+        "VMware Cloud on AWS",
+        "Storage",
         "Hosting",
-        "Devops",
-        "Mikrotik",
-        "Networking",
-        "Ansible"
+        "Wordpress"
       ],
       "tags": [
         null,
@@ -111,9 +108,9 @@
         "Traefik",
         "VMware",
         "Ansible",
-        "VMware Cloud on AWS",
-        "Storage",
-        "VCF"
+        "Networking",
+        "Nutanix",
+        "Storage"
       ],
       "tags": [
         null,
@@ -152,12 +149,9 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Docker",
-        "Automation",
-        "Storage",
-        "Mikrotik",
         "Networking",
-        "Personal"
+        "Automation",
+        "VCF"
       ],
       "tags": [
         null,

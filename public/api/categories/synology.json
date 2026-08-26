@@ -17,10 +17,10 @@
         "Storage",
         "Synology",
         "Artificial Intelligence",
-        "Runecast",
-        "VMware",
         "Networking",
-        "Docker"
+        "Docker",
+        "Nutanix",
+        "VMware"
       ],
       "tags": [
         null,
@@ -43,13 +43,10 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Networking",
-        "TrueNAS Scale",
         "VMware",
-        "Nutanix",
-        "Artificial Intelligence",
-        "Automation",
-        "Docker"
+        "Networking",
+        "Docker",
+        "VCF"
       ],
       "tags": [
         null,
