@@ -464,9 +464,15 @@ class WordPressStaticGenerator:
         # Add copy code button to code blocks
         self.add_copy_code_button(soup)
         
-        # Add content freshness indicator (published/updated dates)
-        self.add_content_freshness_indicator(soup)
-        
+        # Content freshness indicator disabled: it rendered a standalone
+        # "Published … · Updated …" box that duplicated the dates the byline
+        # (.entry-meta) already shows — same two dates, twice, one row apart.
+        # The box only ever appeared when modified != published, which is
+        # exactly when the byline also shows "Updated", so it was always
+        # redundant. It carried no schema (dates live in the JSON-LD it read
+        # from), so dropping it has no SEO impact. Method kept for reference.
+        # self.add_content_freshness_indicator(soup)
+
         # Add reading time and word count to entry-meta
         self.add_reading_time_indicator(soup)
         
