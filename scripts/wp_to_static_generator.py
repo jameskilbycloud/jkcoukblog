@@ -4391,7 +4391,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 else:
                     entry_content.insert_after(related_section)
                 print(f"   📚 Added {len(selected)} related posts (score-based)")
-    
+
+    def add_internal_orphan_links(self):
+        """Give every orphan post (no inbound post-to-post body link) one
+        contextual, topically-relevant inbound link from a related post.
+
+        Delegates to scripts/internal_links.py, which builds the inbound-link
+        graph over the finished output and injects a single in-content link into
+        each orphan's best-matching host. Relevance uses this build's
+        post_index (shared tags/categories), the same signal as related posts.
+        Non-fatal: a failure here must not sink the build.
+        """
+        try:
+            from internal_links import apply_to_output
+        except ImportError:
+            import importlib.util
+            spec = importlib.util.spec_from_file_location(
+                'internal_links', str(Path(__file__).with_name('internal_links.py')))
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            apply_to_output = mod.apply_to_output
+        print("\n🔗 Internal links (orphan posts):")
+        try:
+            apply_to_output(self.output_dir, index=self.post_index or None)
+        except Exception as e:  # pragma: no cover - defensive
+            print(f"   ⚠️  internal-linking pass failed (non-fatal): {e}")
+
     def add_social_media_links(self, soup):
         """Add social media links (GitHub, Twitter, LinkedIn) to the bottom of each post"""
         
@@ -5571,6 +5596,11 @@ document.addEventListener('DOMContentLoaded', function() {
         self.copy_static_root_files()
         self.inject_search_script()
         self.inject_power_widget()
+
+        # Contextual internal links for orphan posts (SEO: no post-to-post body
+        # link). Runs last, over the finished output, so it sees the complete
+        # inbound-link graph. Uses the authoritative post_index for relevance.
+        self.add_internal_orphan_links()
 
         # Summary
         end_time = time.time()
