@@ -17,12 +17,10 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
+        "Ansible",
+        "Nutanix",
         "Storage",
-        "Mikrotik",
-        "Networking",
-        "VMware",
-        "TrueNAS Scale",
-        "Automation"
+        "Networking"
       ],
       "tags": [
         null,

@@ -18,12 +18,11 @@
         "Networking",
         "Unifi",
         "VMware",
-        "Artificial Intelligence",
-        "Docker",
-        "Hosting",
         "Ansible",
+        "Artificial Intelligence",
         "Storage",
-        "Automation"
+        "Nutanix",
+        "Runecast"
       ],
       "tags": [
         null,

@@ -18,10 +18,9 @@
         "Docker",
         "Hosting",
         "Homelab",
-        "Cloudflare",
-        "Mikrotik",
-        "Networking",
-        "Storage"
+        "Ansible",
+        "Automation",
+        "VMware"
       ],
       "tags": [
         null,

@@ -15,14 +15,13 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "Storage",
         "Artificial Intelligence",
         "Docker",
-        "Mikrotik",
+        "Storage",
         "Networking",
-        "VCF",
         "VMware",
-        "Automation"
+        "Runecast",
+        "Hosting"
       ],
       "tags": [
         null,

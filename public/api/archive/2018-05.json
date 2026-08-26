@@ -17,10 +17,10 @@
         "AWS",
         "Hosting",
         "Cloudflare",
+        "Docker",
         "Homelab",
-        "Personal",
         "VMware",
-        "Docker"
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,

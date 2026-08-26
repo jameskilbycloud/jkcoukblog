@@ -16,11 +16,11 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Docker",
-        "Homelab",
         "Devops",
-        "Artificial Intelligence",
-        "Automation"
+        "Personal",
+        "AWS",
+        "Docker",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -48,6 +48,7 @@
         "Wordpress",
         "Hosting",
         "Personal",
+        "Ansible",
         "Automation",
         "Artificial Intelligence"
       ],
@@ -76,9 +77,12 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Devops",
+        "AWS",
+        "Docker",
+        "Homelab",
         "Ansible",
-        "Automation"
+        "Automation",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -103,8 +107,11 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "AWS",
+        "Artificial Intelligence",
+        "Automation",
         "Devops",
+        "Personal",
+        "Docker",
         "Homelab"
       ],
       "tags": [
@@ -115,35 +122,6 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Static WordPress hosting using Cloudflare\n\nBy[James](ht..."
-    },
-    {
-      "slug": "starlink",
-      "title": "Starlink Satellite Internet Review: Rural Broadband Solution",
-      "description": "Since moving to Dorset last year internet connectivity has been the bane of my existence.",
-      "date": "2022-10-11T21:40:50Z",
-      "modified": "2026-06-01T21:58:46Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2022/10/starlink/",
-      "markdown_url": "/markdown/posts/starlink.md",
-      "api_url": "/api/posts/starlink.json",
-      "categories": [
-        "Homelab",
-        "Hosting",
-        "Veeam",
-        "Ansible",
-        "Artificial Intelligence",
-        "Automation",
-        "Personal",
-        "Wordpress",
-        "Mikrotik",
-        "Networking"
-      ],
-      "tags": [
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# Starlink Satellite Internet Review: Rural Broadband So..."
     },
     {
       "slug": "cloudflare-workers-limits-of-the-free-tier",
@@ -158,11 +136,11 @@
       "categories": [
         "Hosting",
         "Wordpress",
-        "Docker",
-        "Homelab",
         "Cloudflare",
-        "Devops",
-        "AWS"
+        "Artificial Intelligence",
+        "Automation",
+        "Personal",
+        "Docker"
       ],
       "tags": [
         null,
@@ -187,9 +165,7 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "VMware",
-        "Devops",
-        "Consulting"
+        "VMware"
       ],
       "tags": [
         null,
@@ -197,33 +173,6 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/) | [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Personal](https://jameskilby.co.uk/category/personal/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)..."
-    },
-    {
-      "slug": "cloudflare",
-      "title": "What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained",
-      "description": "Cloudflare - What is it and why would I care? I have been using Cloudflare for a long time.",
-      "date": "2018-03-27T12:30:48Z",
-      "modified": "2026-06-01T21:58:21Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2018/03/cloudflare/",
-      "markdown_url": "/markdown/posts/cloudflare.md",
-      "api_url": "/api/posts/cloudflare.json",
-      "categories": [
-        "Hosting",
-        "Docker",
-        "Homelab",
-        "Artificial Intelligence",
-        "Automation",
-        "Cloudflare",
-        "AWS",
-        "Ansible",
-        "Wordpress"
-      ],
-      "tags": [
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained\n\nBy[James](https://jameskilby.co.uk) March 27, 2018 · Updated June 1, 2026 • 📖1 min read(287 words)\n\n**Published:*..."
     }
   ]
 }

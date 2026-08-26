@@ -16,14 +16,10 @@
       "categories": [
         "VCF",
         "VMware",
-        "Automation",
-        "Github",
-        "VMware Cloud on AWS",
-        "Ansible",
-        "Artificial Intelligence",
         "Homelab",
-        "Mikrotik",
-        "Networking"
+        "Networking",
+        "Personal",
+        "vSAN"
       ],
       "tags": [
         null,
@@ -47,10 +43,9 @@
       "categories": [
         "VMware",
         "VCF",
-        "Ansible",
-        "Automation",
+        "Personal",
         "Homelab",
-        "Storage",
+        "Runecast",
         "VMware Cloud on AWS"
       ],
       "tags": [

@@ -17,11 +17,13 @@
         "VMware",
         "vSAN",
         "vSphere",
+        "VMware Cloud on AWS",
+        "Ansible",
         "Homelab",
         "Storage",
-        "Mikrotik",
-        "Networking",
-        "VMware Cloud on AWS"
+        "AWS",
+        "Artificial Intelligence",
+        "Docker"
       ],
       "tags": [
         null,
@@ -48,9 +50,12 @@
         "Personal",
         "vSphere",
         "Homelab",
-        "Hosting",
+        "Storage",
         "VMware Cloud on AWS",
-        "AWS",
+        "Ansible",
+        "Artificial Intelligence",
+        "Devops",
+        "Hosting",
         "Cloudflare"
       ],
       "tags": [
@@ -75,12 +80,11 @@
         "Homelab",
         "VMware",
         "vSphere",
-        "Veeam",
-        "TrueNAS Scale",
-        "Artificial Intelligence",
-        "Docker",
-        "Storage",
-        "VMware Cloud on AWS"
+        "Ansible",
+        "Networking",
+        "vSAN",
+        "VMware Cloud on AWS",
+        "Storage"
       ],
       "tags": [
         null,
