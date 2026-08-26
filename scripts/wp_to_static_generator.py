@@ -1305,6 +1305,28 @@ class WordPressStaticGenerator:
                 print("   🗑️  Removed Kadence WP footer credit")
             else:
                 link.decompose()
+
+        # Remove the wp-emoji loader. WordPress inlines an emoji-detection script
+        # that spins up a Web Worker from a blob: URL to test emoji rendering.
+        # The site CSP has no worker-src, so worker creation falls back to
+        # default-src 'self' and the blob worker is blocked — throwing a console
+        # error on every page (a Lighthouse Best-Practices ding). The polyfill is
+        # dead weight on a static site (modern browsers render emoji natively), so
+        # strip the settings JSON, the inline loader, and its <style>.
+        removed_emoji = 0
+        for script in soup.find_all('script'):
+            sid = script.get('id') or ''
+            body = script.string or ''
+            if sid.startswith('wp-emoji') or '_wpemojiSettings' in body \
+                    or 'wpEmojiSettingsSupports' in body:
+                script.decompose()
+                removed_emoji += 1
+        for style in soup.find_all('style'):
+            if 'img.wp-smiley' in (style.string or ''):
+                style.decompose()
+                removed_emoji += 1
+        if removed_emoji:
+            print(f"   🗑️  Removed wp-emoji loader ({removed_emoji} node(s))")
     
     def process_wordpress_embeds(self, soup):
         """Convert WordPress embed blocks to proper iframe embeds"""
