@@ -18,13 +18,14 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "Homelab",
-        "Artificial Intelligence",
-        "Automation",
-        "Networking",
-        "Personal",
         "VCF",
-        "VMware Cloud on AWS"
+        "Artificial Intelligence",
+        "Homelab",
+        "Automation",
+        "Mikrotik",
+        "Networking",
+        "Storage",
+        "Personal"
       ],
       "tags": [
         null,

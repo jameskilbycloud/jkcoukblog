@@ -16,11 +16,11 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
-        "vSAN",
+        "Ansible",
         "Artificial Intelligence",
-        "Automation",
-        "Homelab"
+        "Homelab",
+        "Veeam",
+        "Automation"
       ],
       "tags": [
         null

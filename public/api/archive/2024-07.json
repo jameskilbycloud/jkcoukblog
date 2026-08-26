@@ -17,12 +17,14 @@
         "Homelab",
         "Nutanix",
         "VMware",
-        "Veeam",
         "Storage",
+        "Ansible",
+        "Automation",
+        "AWS",
+        "VMware Cloud on AWS",
         "Artificial Intelligence",
         "Docker",
-        "Hosting",
-        "Ansible"
+        "Networking"
       ],
       "tags": [
         null,

@@ -17,15 +17,13 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Homelab",
-        "Veeam",
+        "Ansible",
+        "Automation",
         "Runecast",
         "VMware",
-        "VCF",
-        "Automation",
-        "Mikrotik",
-        "Networking",
-        "Storage"
+        "Homelab",
+        "Storage",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,

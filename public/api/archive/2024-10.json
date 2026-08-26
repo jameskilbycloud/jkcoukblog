@@ -17,11 +17,14 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "Nutanix",
-        "Networking",
-        "Automation",
         "Ansible",
-        "Veeam"
+        "Automation",
+        "VCF",
+        "VMware",
+        "TrueNAS Scale",
+        "Veeam",
+        "Mikrotik",
+        "Networking"
       ],
       "tags": [
         null,

@@ -17,10 +17,12 @@
         "VMware",
         "AWS",
         "Veeam",
-        "VCF",
-        "Automation",
+        "Ansible",
+        "Artificial Intelligence",
+        "Personal",
         "Homelab",
-        "VMware Cloud on AWS"
+        "Runecast",
+        "Storage"
       ],
       "tags": [
         null,

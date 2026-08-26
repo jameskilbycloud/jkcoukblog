@@ -16,10 +16,10 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Veeam",
         "Mikrotik",
         "Networking",
-        "Storage",
+        "Automation",
+        "Runecast",
         "VMware"
       ],
       "tags": [
