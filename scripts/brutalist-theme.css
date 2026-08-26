@@ -1487,9 +1487,19 @@ div, section, aside, nav {
    vertical space so the featured hero sits above the fold. */
 .jkr-top {
   max-width: 1280px;
-  margin: 0 auto 2.5rem;
-  padding: 2.5rem 2.5rem 1.75rem;
+  margin: 0 auto 1.75rem;
+  /* Tightened top padding: the standalone search island above this band is
+     gone (relocated into .jkr-headline-row), so the band sits close under the
+     header instead of below a dead vertical gap. */
+  padding: 1.4rem 2.5rem 1.75rem;
   border-bottom: 1px solid var(--gray-mid, #1f1f1f);
+}
+/* Homepage: shrink the content-area's default 80px top margin so the top band
+   rises to just under the header instead of below a dead vertical gap — the
+   band supplies its own top padding. Scoped to the front page (body.home) so
+   interior pages keep their normal header-to-content spacing. */
+body.home .content-area {
+  margin-top: 1.5rem !important;
 }
 .jkr-top-row {
   display: flex;
@@ -1497,7 +1507,45 @@ div, section, aside, nav {
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.1rem;
+}
+/* Headline + search box share a row: the search fills the dead gutter beside
+   the capped-measure headline and bottom-aligns with it. On phones the row
+   stacks and the search goes full-width between headline and ribbon. */
+.jkr-headline-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 0.25rem;
+}
+.jkr-headline-row .jkr-headline {
+  margin: 0;
+  flex: 1 1 auto;
+}
+.jkr-headline-row #blog-search-container {
+  flex: 0 0 360px;
+  width: 360px;
+  margin: 0 0 0.4rem !important;
+  padding: 0 !important;
+  align-self: flex-end;
+}
+.jkr-headline-row #blog-search-container > div {
+  max-width: none !important;
+  margin: 0 !important;
+}
+@media (max-width: 768px) {
+  .jkr-headline-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.1rem;
+    margin-bottom: 0.25rem;
+  }
+  .jkr-headline-row #blog-search-container {
+    flex-basis: auto;
+    width: 100%;
+    margin-bottom: 0 !important;
+  }
 }
 .jkr-strap {
   font-family: "JetBrains Mono", monospace;
@@ -1560,6 +1608,7 @@ div, section, aside, nav {
   align-items: center;
   gap: 0.75rem;
   flex-wrap: wrap;
+  margin-top: 1.25rem;
   padding-top: 1.25rem;
   border-top: 1px solid var(--gray-mid, #1f1f1f);
   font-family: "JetBrains Mono", monospace;
