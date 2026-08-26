@@ -1578,15 +1578,21 @@ body.home .content-area {
   font-size: 0.6875rem; letter-spacing: 0.16em; color: var(--gray-light, #949494);
   margin-right: 0.25rem;
 }
+/* The filter-chip colours need !important: a global `a { color: var(--accent
+   -orange) !important }` (see the base anchor rule) otherwise wins the cascade
+   and paints every chip orange — which on the active chip means orange text on
+   its orange fill, i.e. an invisible "All" label (1:1 contrast). !important
+   restores the intended states: grey inactive, near-black on the active fill,
+   light on hover. */
 .jkr-filter a {
   font-family: "JetBrains Mono", monospace;
   font-size: 0.72rem; letter-spacing: 0.04em;
-  color: #c8c5bd; text-decoration: none;
+  color: #c8c5bd !important; text-decoration: none;
   border: 1px solid var(--gray-mid, #262625);
   padding: 0.3rem 0.7rem;
 }
-.jkr-filter a.is-active { background: var(--accent, #f6821f); color: #0a0a0a; border-color: var(--accent, #f6821f); font-weight: 600; }
-.jkr-filter a:hover:not(.is-active) { border-color: var(--accent, #f6821f); color: #f5f3ee; }
+.jkr-filter a.is-active { background: var(--accent, #f6821f); color: #0a0a0a !important; border-color: var(--accent, #f6821f); font-weight: 600; }
+.jkr-filter a:hover:not(.is-active) { border-color: var(--accent, #f6821f); color: #f5f3ee !important; }
 
 /* ── Touch targets (WCAG 2.5.5) ────────────────────────────────────────────
    On phones the topic-filter chips (~23px tall) and social icons (34px) fall
