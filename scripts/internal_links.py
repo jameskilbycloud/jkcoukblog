@@ -244,11 +244,56 @@ def apply_to_output(output_dir, index: dict | None = None, log=print) -> list:
             htmls[host] = new_html
             applied.append((orphan, host))
             log(f"   🔗 {host}  →  {orphan}")
-    log(f"🔗 Internal links: linked {len(applied)}/{len(orphans)} orphan post(s).")
+
+    # GUARD — re-read from disk and confirm the deployed reality, not the
+    # in-memory DOM. Reason this exists: the earlier in-generator injection
+    # logged "N/N linked" from the pre-transform DOM, but incremental-skip /
+    # snapshot / transform interactions dropped some links from the files that
+    # actually shipped. Running this pass post-transform and verifying against
+    # the bytes on disk makes the count trustworthy.
+    remaining = verify(output_dir, log=lambda *a: None)
+    if remaining:
+        log("   ⚠️  INTERNAL-LINK GUARD FAILED — %d orphan(s) still have NO "
+            "inbound body link in the on-disk output:" % len(remaining))
+        for o in remaining:
+            log("        ✗ " + o)
+    log("🔗 Internal links: linked %d, %d orphan(s) unlinked after verify."
+        % (len(applied), len(remaining)))
     return applied
 
 
+def verify(output_dir, log=print) -> list:
+    """Re-read the built output and return orphan posts that STILL have no
+    inbound post-to-post body link. Empty list == every post is linked."""
+    output_dir = Path(output_dir)
+    files = _post_files(output_dir)
+    if not files:
+        return []
+    htmls = {u: p.read_text(encoding="utf-8", errors="replace") for u, p in files.items()}
+    remaining = find_orphans(build_inbound_graph(htmls))
+    if remaining:
+        log("⚠️  %d orphan post(s) with no inbound body link:" % len(remaining))
+        for o in remaining:
+            log("     ✗ " + o)
+    else:
+        log("✅ every post has an inbound body link.")
+    return remaining
+
+
 if __name__ == "__main__":
-    out = sys.argv[1] if len(sys.argv) > 1 else "public"
-    applied = apply_to_output(out)
-    print(f"\nDone. {len(applied)} orphan link(s) injected under {out}.")
+    import argparse
+    ap = argparse.ArgumentParser(description="Contextual internal links for orphan posts.")
+    ap.add_argument("output_dir", nargs="?", default="public")
+    ap.add_argument("--verify-only", action="store_true",
+                    help="only report orphans, do not inject")
+    args = ap.parse_args()
+    if args.verify_only:
+        remaining = verify(args.output_dir)
+    else:
+        apply_to_output(args.output_dir)
+        remaining = verify(args.output_dir)
+    if remaining:
+        print("\n❌ %d orphan post(s) still unlinked — internal-linking guard "
+              "failed." % len(remaining))
+        sys.exit(1)
+    print("\n✅ Done — all orphan posts have an inbound internal link.")

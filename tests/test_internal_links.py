@@ -163,3 +163,38 @@ def test_apply_to_output_links_every_orphan(tmp_path):
 
     # Idempotent second run.
     assert il.apply_to_output(tmp_path, index=index, log=lambda *a: None) == []
+    # Guard sees a fully-linked site as clean.
+    assert il.verify(tmp_path, log=lambda *a: None) == []
+
+
+def test_verify_flags_unlinked_and_pass_recovers(tmp_path):
+    """Reproduces the deploy defect: a host that lost its injected paragraph.
+    verify() must flag the now-orphaned target, and a re-run must recover it."""
+    # host <-> other link each other, so only `orphan` starts unlinked.
+    _write(tmp_path, '/2024/01/host/',
+           '<div class="entry-content"><p>Host body, links '
+           '<a href="/2024/02/other/">other</a>.</p></div>')
+    _write(tmp_path, '/2024/02/other/',
+           '<div class="entry-content"><p>Other, links '
+           '<a href="/2024/01/host/">host</a>.</p></div>')
+    _write(tmp_path, '/2020/05/orphan/', '<div class="entry-content"><p>Orphan.</p></div>')
+    index = {
+        '/2024/01/host/': {'cats': {'x'}, 'tags': {'t'}, 'date': '2024', 'title': 'Host'},
+        '/2024/02/other/': {'cats': {'x'}, 'tags': set(), 'date': '2024', 'title': 'Other'},
+        '/2020/05/orphan/': {'cats': {'x'}, 'tags': {'t'}, 'date': '2020', 'title': 'Orphan'},
+    }
+    il.apply_to_output(tmp_path, index=index, log=lambda *a: None)
+    assert il.verify(tmp_path, log=lambda *a: None) == []
+
+    # Simulate a later pipeline step reverting the host to its pre-injection
+    # state (keeps its editorial link to `other`, drops the injected paragraph).
+    host_file = tmp_path / '2024/01/host/index.html'
+    host_file.write_text('<html><body><article>'
+                         '<div class="entry-content"><p>Host body, links '
+                         '<a href="/2024/02/other/">other</a>.</p></div>'
+                         '</article></body></html>', encoding='utf-8')
+    assert il.verify(tmp_path, log=lambda *a: None) == ['/2020/05/orphan/']
+
+    # Re-running the pass recovers it; guard then clean.
+    il.apply_to_output(tmp_path, index=index, log=lambda *a: None)
+    assert il.verify(tmp_path, log=lambda *a: None) == []
