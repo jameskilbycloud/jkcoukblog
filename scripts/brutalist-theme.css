@@ -309,6 +309,21 @@ article {
   overflow: hidden;
 }
 
+/* Pull the excerpt up against the meta so category → title → date → excerpt
+   read as one group. Cards in a row are stretched to equal height, so a short
+   excerpt leaves leftover space; keeping the excerpt tight to the meta makes
+   that space fall as uniform bottom padding instead of a gap that strands the
+   excerpt mid-card. Scoped to loop/list cards — single-post prose keeps its
+   original vertical rhythm. */
+.loop-entry .entry-summary,
+.entry-list-item .entry-summary {
+  margin-top: 0 !important;
+}
+.loop-entry .entry-summary p,
+.entry-list-item .entry-summary p {
+  margin-top: 0 !important;
+}
+
 /* Reading time badge styling */
 .reading-time {
   display: inline-flex;
@@ -609,10 +624,12 @@ img {
   margin: 0 !important;
 }
 
-/* Fix alignment for entry headers in grid/loop posts */
+/* Fix alignment for entry headers in grid/loop posts. Trim the bottom padding
+   so the excerpt tucks up under the meta (see the entry-summary rule near the
+   truncation block) instead of floating away from it. */
 .loop-entry .entry-header,
 .entry-list-item .entry-header {
-  padding: 1rem 1.5rem !important;
+  padding: 1rem 1.5rem 0.5rem !important;
 }
 
 /* Ensure taxonomies in grid have proper spacing */
