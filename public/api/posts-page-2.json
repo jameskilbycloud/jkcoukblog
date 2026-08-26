@@ -13,14 +13,11 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "AWS",
-        "Homelab",
-        "Veeam",
-        "Ansible",
-        "Artificial Intelligence",
-        "Networking",
+        "VCF",
+        "vSAN",
         "Runecast",
-        "vSAN"
+        "Artificial Intelligence",
+        "Automation"
       ],
       "tags": [
         null,
@@ -43,13 +40,10 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Runecast",
-        "Homelab",
-        "Veeam",
-        "Storage",
         "AWS",
+        "Hosting",
         "Personal",
-        "Networking"
+        "VCF"
       ],
       "tags": [
         null,
@@ -75,12 +69,11 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Homelab",
-        "Veeam",
-        "Ansible",
-        "Automation",
         "Personal",
-        "VCF"
+        "vSAN",
+        "Artificial Intelligence",
+        "Automation",
+        "Homelab"
       ],
       "tags": [
         null
@@ -101,11 +94,12 @@
       "categories": [
         "Homelab",
         "VMware",
-        "VMware Cloud on AWS",
-        "Storage",
         "Artificial Intelligence",
-        "Nutanix",
-        "Automation"
+        "Automation",
+        "Ansible",
+        "Personal",
+        "Storage",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -127,9 +121,9 @@
       "api_url": "/api/posts/veeamon2020.json",
       "categories": [
         "Veeam",
+        "Homelab",
         "VMware",
-        "AWS",
-        "Homelab"
+        "AWS"
       ],
       "tags": [
         null,
@@ -151,10 +145,13 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Ansible",
+        "Runecast",
+        "vSAN",
         "Artificial Intelligence",
-        "Homelab",
-        "Automation"
+        "Automation",
+        "VCF",
+        "TrueNAS Scale",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -180,10 +177,11 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Artificial Intelligence",
-        "Automation",
-        "Github",
+        "Cloudflare",
         "Networking",
+        "Personal",
+        "Nutanix",
+        "VCF",
         "VMware"
       ],
       "tags": [
@@ -207,11 +205,9 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Nutanix",
-        "Storage",
-        "Automation",
         "Artificial Intelligence",
-        "Veeam"
+        "Automation",
+        "Storage"
       ],
       "tags": [
         null,
@@ -233,16 +229,16 @@
       "api_url": "/api/posts/ubuntu-disk-expansion-steps.json",
       "categories": [
         "Ubuntu",
-        "Ansible",
         "Automation",
-        "Github"
+        "Github",
+        "Ansible"
       ],
       "tags": [
         null,
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)\n\n[Ubuntu](https://jameskilby.co.uk/category/ubuntu/)\n\n# How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step\n\nBy[James](https://jameskilby.co.uk) December 15, 2025 · Updated May 24, 2026 • 📖1 min read(91 words)\n\n**Publis..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)\n\n[Ubuntu](https://jameskilby.co.uk/category/ubuntu/)\n\n# How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step\n\nBy[James](https://jameskilby.co.uk) December 15, 2025 · Updated May 24, 2026 • 📖1 min read(91 words)\n\nHow to e..."
     },
     {
       "slug": "ubiquiti-udm-beast",
@@ -258,11 +254,12 @@
         "Homelab",
         "Networking",
         "Unifi",
-        "Storage",
         "Ansible",
-        "VCF",
+        "Automation",
+        "Artificial Intelligence",
+        "Storage",
         "VMware",
-        "Artificial Intelligence"
+        "Runecast"
       ],
       "tags": [
         null,

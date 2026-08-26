@@ -16,11 +16,12 @@
         "Homelab",
         "Networking",
         "Unifi",
-        "Storage",
         "Ansible",
-        "VCF",
+        "Automation",
+        "Artificial Intelligence",
+        "Storage",
         "VMware",
-        "Artificial Intelligence"
+        "Runecast"
       ],
       "tags": [
         null,

@@ -17,12 +17,10 @@
         "VMware",
         "AWS",
         "Veeam",
-        "Runecast",
-        "TrueNAS Scale",
-        "VMware Cloud on AWS",
+        "VCF",
+        "Automation",
         "Homelab",
-        "Nutanix",
-        "Personal"
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -47,9 +45,7 @@
         "Personal",
         "VMware",
         "Hosting",
-        "Cloudflare",
-        "VMware Cloud on AWS",
-        "Devops"
+        "Cloudflare"
       ],
       "tags": [
         null,

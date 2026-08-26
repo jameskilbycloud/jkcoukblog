@@ -16,11 +16,10 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Docker",
-        "Automation",
+        "Veeam",
+        "Mikrotik",
+        "Networking",
         "Storage",
-        "Artificial Intelligence",
-        "TrueNAS Scale",
         "VMware"
       ],
       "tags": [

@@ -19,8 +19,6 @@ image: https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png
 
 By[James](https://jameskilby.co.uk) January 10, 2019 · Updated June 1, 2026 • 📖1 min read(251 words)
 
-**Published:** January 10, 2019•**Updated:** June 01, 2026
-
 I have seen a few posts online recently about the tools and technology people use on a day to day basis. A few components I have that no one seems to have mentioned yet. So I thought it was probably a good idea to share my list. I will probably do a separate list of the software I use at some point as well.
 
 Below is a list of the things that I tend to carry in my bag. I don’t always have all of them with me but I typically swap out what I need as appropriate depending on if I need to go to a datacenter or just a meeting/onsite client work.

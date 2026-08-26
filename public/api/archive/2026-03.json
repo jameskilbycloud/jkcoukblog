@@ -21,8 +21,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Ansible",
-        "VMware Cloud on AWS"
+        "VMware Cloud on AWS",
+        "Runecast",
+        "Networking",
+        "Storage"
       ],
       "tags": [
         null,
@@ -55,8 +57,8 @@
       "categories": [
         "Artificial Intelligence",
         "Automation",
-        "Ansible",
         "Docker",
+        "Ansible",
         "Homelab"
       ],
       "tags": [

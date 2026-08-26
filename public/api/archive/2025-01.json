@@ -18,10 +18,14 @@
         "Docker",
         "Hosting",
         "Homelab",
-        "Networking",
-        "Ansible",
+        "Veeam",
+        "Runecast",
+        "VMware",
+        "VCF",
         "Automation",
-        "VMware"
+        "Mikrotik",
+        "Networking",
+        "Storage"
       ],
       "tags": [
         null,

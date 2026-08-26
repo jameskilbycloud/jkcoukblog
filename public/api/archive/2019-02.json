@@ -15,12 +15,10 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "Runecast",
-        "VMware",
         "Storage",
-        "Ansible",
+        "Artificial Intelligence",
         "Automation",
-        "Hosting"
+        "Docker"
       ],
       "tags": [
         null,

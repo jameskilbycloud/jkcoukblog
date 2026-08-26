@@ -16,11 +16,9 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Nutanix",
-        "Storage",
-        "Automation",
         "Artificial Intelligence",
-        "Veeam"
+        "Automation",
+        "Storage"
       ],
       "tags": [
         null,

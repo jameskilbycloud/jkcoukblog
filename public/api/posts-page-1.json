@@ -15,11 +15,13 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "Personal",
         "Homelab",
-        "Ansible",
-        "Docker",
-        "Storage"
+        "Artificial Intelligence",
+        "Automation",
+        "Networking",
+        "Personal",
+        "VCF",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -45,9 +47,9 @@
         "Cloudflare",
         "Hosting",
         "Personal",
-        "Wordpress",
-        "Artificial Intelligence",
-        "Automation"
+        "Ansible",
+        "Automation",
+        "Devops"
       ],
       "tags": [
         null,
@@ -73,7 +75,7 @@
         "Personal"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png)\n\n[Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# What’s In My Tech Bag? Everyday Carry for IT Consultants\n\nBy[James](https://jameskilby.co.uk) January 10, 2019 · Updated June 1, 2026 • 📖1 min read(251 words)\n\n**Publ..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1.png)\n\n[Consulting](https://jameskilby.co.uk/category/consulting/)\n\n# What’s In My Tech Bag? Everyday Carry for IT Consultants\n\nBy[James](https://jameskilby.co.uk) January 10, 2019 · Updated June 1, 2026 • 📖1 min read(251 words)\n\nI have..."
     },
     {
       "slug": "web-development",
@@ -90,10 +92,11 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "Ansible",
+        "Consulting",
+        "Artificial Intelligence",
         "Automation",
-        "AWS",
-        "Nutanix"
+        "Docker",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -116,10 +119,11 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
+        "AWS",
         "Docker",
         "Homelab",
-        "Artificial Intelligence",
-        "Automation"
+        "Devops",
+        "Personal"
       ],
       "tags": [
         null,
@@ -143,10 +147,12 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "VMware",
         "Storage",
-        "Automation",
-        "Networking"
+        "Networking",
+        "Docker",
+        "VMware",
+        "Veeam",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -170,12 +176,10 @@
         "Ansible",
         "Automation",
         "Homelab",
-        "VMware",
-        "Runecast",
         "Storage",
-        "Networking",
-        "VMware Cloud on AWS",
-        "VCF"
+        "Artificial Intelligence",
+        "Hosting",
+        "Networking"
       ],
       "tags": [
         null,
@@ -200,13 +204,10 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
-        "Artificial Intelligence",
-        "Automation",
-        "VCF",
         "Homelab",
-        "Veeam",
-        "TrueNAS Scale",
-        "Storage"
+        "Nutanix",
+        "Storage",
+        "Networking"
       ],
       "tags": [
         null,
@@ -233,8 +234,7 @@
         "Automation",
         "Homelab",
         "VMware Cloud on AWS",
-        "AWS",
-        "Personal"
+        "Artificial Intelligence"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n# vSAN Cluster Shutdown – Orchestration\n\nBy[James](https://jameskilby.co.uk) December 6,..."
@@ -252,10 +252,13 @@
       "categories": [
         "Personal",
         "VMware",
+        "Homelab",
+        "Nutanix",
+        "VCF",
         "VMware Cloud on AWS",
+        "TrueNAS Scale",
         "Artificial Intelligence",
-        "Automation",
-        "Consulting"
+        "Automation"
       ],
       "tags": [
         null,

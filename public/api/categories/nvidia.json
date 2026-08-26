@@ -20,12 +20,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
+        "VMware Cloud on AWS",
+        "Networking",
         "Cloudflare",
         "Hosting",
-        "Mikrotik",
-        "Networking",
-        "Storage",
-        "Ansible"
+        "Storage"
       ],
       "tags": [
         null,
@@ -65,8 +64,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Ansible",
-        "VMware Cloud on AWS"
+        "VMware Cloud on AWS",
+        "Runecast",
+        "Networking",
+        "Storage"
       ],
       "tags": [
         null,
@@ -106,9 +107,9 @@
         "Traefik",
         "VMware",
         "VMware Cloud on AWS",
-        "Automation",
+        "Cloudflare",
         "Networking",
-        "Veeam"
+        "Personal"
       ],
       "tags": [
         null,

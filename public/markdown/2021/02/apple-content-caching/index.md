@@ -21,8 +21,6 @@ image: https://jameskilby.co.uk/wp-content/uploads/2021/02/iu.png
 
 By[James](https://jameskilby.co.uk) February 8, 2021 · Updated July 11, 2026 • 📖2 min read(313 words)
 
-**Published:** February 08, 2021•**Updated:** July 11, 2026
-
 I have slowly morphed into an Apple fanboy over the last decade or so collecting a large number of devices ever since my first MacBook Air back in 2011. When you’re in the ecosystem additional devices just make sense. I currently have: 
 
   * Mac Mini M1

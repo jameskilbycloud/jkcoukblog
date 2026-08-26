@@ -16,10 +16,13 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Ansible",
+        "Runecast",
+        "vSAN",
         "Artificial Intelligence",
-        "Homelab",
-        "Automation"
+        "Automation",
+        "VCF",
+        "TrueNAS Scale",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -44,10 +47,11 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
+        "AWS",
         "Docker",
         "Homelab",
-        "Artificial Intelligence",
-        "Automation"
+        "Devops",
+        "Personal"
       ],
       "tags": [
         null,

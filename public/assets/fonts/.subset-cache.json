@@ -2,9 +2,9 @@
   "assets/fonts/anton-v27-latin-400.woff2": {
     "after": 11580,
     "before": 130324,
-    "key": "2700ee58c8e5a992be10b39c54f63313",
-    "total_chars": 114,
-    "used_chars": 87
+    "key": "0f2692c0979a9b709377f96a6630ec77",
+    "total_chars": 109,
+    "used_chars": 82
   },
   "assets/fonts/jetbrainsmono-v24-latin-400.woff2": {
     "after": 17072,
@@ -25,13 +25,13 @@
     "before": 69416,
     "key": "2d76366612f8d930dc683e9004e3ee48",
     "total_chars": 106,
-    "used_chars": 34
+    "used_chars": 25
   },
   "assets/fonts/spacegrotesk-v22-latin-700.woff2": {
     "after": 7536,
     "before": 69308,
-    "key": "dc22c23326673bccd1deebd32c750629",
-    "total_chars": 117,
-    "used_chars": 87
+    "key": "841341a535caf0e88b4da2dfbe1afb0d",
+    "total_chars": 109,
+    "used_chars": 78
   }
 }
