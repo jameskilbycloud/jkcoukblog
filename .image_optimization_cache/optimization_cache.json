@@ -48573,5 +48573,25 @@
     "avif_created": true,
     "webp": "wp-content/uploads/2026/06/Beast2.3Gbps-150x150.webp",
     "avif": "wp-content/uploads/2026/06/Beast2.3Gbps-150x150.avif"
+  },
+  "wp-content/uploads/og/category-unifi.png": {
+    "hash": "a1ef5b17d8e2959a2ecba084b3edbc9a",
+    "optimized_at": "2026-08-26T07:15:22.356133",
+    "optimized_size": 7620,
+    "timestamp": 1787728522.3561609,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/category-unifi.webp",
+    "avif": "wp-content/uploads/og/category-unifi.avif"
+  },
+  "wp-content/uploads/og/tag-dream-machine.png": {
+    "hash": "059ba3d0d3e2eaefb23b13adf7abd7ac",
+    "optimized_at": "2026-08-26T07:15:22.492458",
+    "optimized_size": 10318,
+    "timestamp": 1787728522.4924736,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-dream-machine.webp",
+    "avif": "wp-content/uploads/og/tag-dream-machine.avif"
   }
 }
