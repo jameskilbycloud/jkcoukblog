@@ -17,10 +17,11 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Networking",
         "Nutanix",
+        "Ansible",
         "Artificial Intelligence",
-        "Automation"
+        "Automation",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -42,11 +43,11 @@
       "categories": [
         "Homelab",
         "Nutanix",
-        "Hosting",
-        "Ansible",
-        "Automation",
+        "Personal",
         "Artificial Intelligence",
-        "Storage"
+        "Automation",
+        "Storage",
+        "Ansible"
       ],
       "tags": [
         null

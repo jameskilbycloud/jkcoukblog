@@ -15,12 +15,11 @@
       "categories": [
         "VMware",
         "vSAN",
-        "Ansible",
         "Automation",
         "Homelab",
-        "VCF",
-        "Veeam",
-        "VMware Cloud on AWS"
+        "VMware Cloud on AWS",
+        "AWS",
+        "Personal"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n# vSAN Cluster Shutdown – Orchestration\n\nBy[James](https://jameskilby.co.uk) December 6,..."
@@ -38,11 +37,14 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
+        "AWS",
         "Homelab",
-        "vSAN",
-        "Automation",
-        "Nutanix"
+        "Veeam",
+        "Ansible",
+        "Artificial Intelligence",
+        "Networking",
+        "Runecast",
+        "vSAN"
       ],
       "tags": [
         null,
@@ -67,12 +69,11 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "VCF",
-        "Kubernetes",
-        "Artificial Intelligence",
+        "Personal",
         "Homelab",
-        "Nutanix",
-        "VMware Cloud on AWS"
+        "Ansible",
+        "Docker",
+        "Storage"
       ],
       "tags": [
         null,
@@ -83,6 +84,36 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2024/12/IMG_20140330_210511-1024x845.jpeg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg)\n\n[TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/) | [vSphere](https://jameskilby.co.uk/category/vsph..."
+    },
+    {
+      "slug": "new-nodes",
+      "title": "New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix",
+      "description": "I refreshed my homelab nodes with SuperMicro BigTwin hardware — building a Nutanix CE cluster and an ESXi host, all at very little cost.",
+      "date": "2024-07-02T08:01:04Z",
+      "modified": "2026-07-11T07:47:28Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2024/07/new-nodes/",
+      "markdown_url": "/markdown/posts/new-nodes.md",
+      "api_url": "/api/posts/new-nodes.json",
+      "categories": [
+        "Homelab",
+        "Nutanix",
+        "VMware",
+        "VMware Cloud on AWS",
+        "Veeam",
+        "Docker",
+        "Ansible",
+        "Automation",
+        "vSAN",
+        "Storage"
+      ],
+      "tags": [
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/04/Screenshot-2024-04-06-at-22.50.57.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-scaled.jpeg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# New Homelab Nodes: SuperMicro BigTwin for VMware & Nut..."
     },
     {
       "slug": "vsan-esa-and-the-improvements-it-brings-to-vmc",
@@ -98,10 +129,13 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
-        "Personal",
+        "Artificial Intelligence",
+        "Automation",
+        "VCF",
         "Homelab",
-        "Ansible",
-        "Artificial Intelligence"
+        "Veeam",
+        "TrueNAS Scale",
+        "Storage"
       ],
       "tags": [
         null,
@@ -111,6 +145,38 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n#..."
+    },
+    {
+      "slug": "runecast-remediation-scripts",
+      "title": "Runecast Remediation Scripts: Auto-Fix VMware Storage Issues",
+      "description": "I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.",
+      "date": "2023-05-16T10:38:45Z",
+      "modified": "2026-06-01T21:58:53Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/",
+      "markdown_url": "/markdown/posts/runecast-remediation-scripts.md",
+      "api_url": "/api/posts/runecast-remediation-scripts.json",
+      "categories": [
+        "Runecast",
+        "VMware",
+        "Homelab",
+        "Storage",
+        "Artificial Intelligence",
+        "Docker",
+        "Ansible",
+        "Mikrotik",
+        "Networking",
+        "VMware Cloud on AWS",
+        "vSAN"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)\n\n[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Runecast Remediation Scripts: Auto-Fix VMware Storage Issues\n\nBy[James](https://jameskilby.co.uk) May ..."
     }
   ]
 }

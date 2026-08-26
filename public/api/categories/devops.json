@@ -3,6 +3,39 @@
   "slug": "devops",
   "posts": [
     {
+      "slug": "packer-vsphere-golden-images",
+      "title": "Automating vSphere Golden Images with Packer and GitHub Actions",
+      "description": "Automate your Packer vSphere golden-image pipeline: build 6 Ubuntu LTS templates (22.04, 24.04, 26.04) server & desktop flavours with GitHub Actions.",
+      "date": "2026-04-30T17:22:19Z",
+      "modified": "2026-06-05T10:10:32Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/",
+      "markdown_url": "/markdown/posts/packer-vsphere-golden-images.md",
+      "api_url": "/api/posts/packer-vsphere-golden-images.json",
+      "categories": [
+        "Automation",
+        "Github",
+        "Ansible",
+        "Docker",
+        "Homelab",
+        "Networking",
+        "Artificial Intelligence",
+        "Cloudflare",
+        "Devops"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline.png)\n\n[Automation](https://jameskilby.co.uk/category/automation/) | [Github](https://jameskilby.co.uk/category/github/)\n\n# Automating vSphere Golden Images with Packer and GitHub Actions\n\nBy[James](https:/..."
+    },
+    {
       "slug": "automating-the-deployment-of-my-ai-homelab-and-other-improvements",
       "title": "Automating the Deployment of my Homelab AI Infrastructure",
       "description": "How I automated my homelab AI infrastructure with Ansible — NVIDIA vGPU passthrough, Docker, Traefik, and Semaphore for end-to-end deployment.",
@@ -21,11 +54,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
+        "VMware Cloud on AWS",
         "Automation",
-        "TrueNAS Scale",
-        "Mikrotik",
         "Networking",
-        "Github"
+        "Veeam"
       ],
       "tags": [
         null,
@@ -36,33 +68,6 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/01/VMware-NVIDIA-logos_ee2f18dc-615d-4c9e-8f11-9c3c2ce2bf37-prv.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Containers](https://jameskilby.c..."
-    },
-    {
-      "slug": "web-development-improvements",
-      "title": "Blog Performance & SEO Improvements: Cloudflare, Privacy & More",
-      "description": "I have spent the Christmas break making some improvements to this blog.",
-      "date": "2026-01-15T15:12:16Z",
-      "modified": "2026-07-11T13:21:26Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2026/01/web-development-improvements/",
-      "markdown_url": "/markdown/posts/web-development-improvements.md",
-      "api_url": "/api/posts/web-development-improvements.json",
-      "categories": [
-        "Cloudflare",
-        "Hosting",
-        "Wordpress",
-        "AWS",
-        "Devops",
-        "Personal"
-      ],
-      "tags": [
-        null,
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2026/01/Website-Optimisations.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/01/Website-Optimisations.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Blog Performance & SEO Improvements: ..."
     },
     {
       "slug": "how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare",
@@ -79,10 +84,10 @@
         "Devops",
         "Github",
         "Wordpress",
-        "Artificial Intelligence",
-        "Automation",
         "Hosting",
-        "Personal"
+        "Personal",
+        "Ansible",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -96,23 +101,25 @@
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpr..."
     },
     {
-      "slug": "how-i-moved-my-wordpress-site-to-cloudflare-pages",
-      "title": "Static WordPress hosting using Cloudflare",
-      "description": "For a while now I have been running this site directly from Cloudflare utilising their excellent worker’s product.",
-      "date": "2022-10-20T15:26:08Z",
-      "modified": "2026-07-11T07:46:38Z",
+      "slug": "how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages",
+      "title": "WordPress Hosting with Cloudflare Pages",
+      "description": "Table of Contents The Tooling The Process WordPress Plugin Install GitHub setup Cloudflare setup I have been using Cloudflare to protect my web assets for",
+      "date": "2023-05-14T07:00:35Z",
+      "modified": "2026-06-01T19:02:47Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/",
-      "markdown_url": "/markdown/posts/how-i-moved-my-wordpress-site-to-cloudflare-pages.md",
-      "api_url": "/api/posts/how-i-moved-my-wordpress-site-to-cloudflare-pages.json",
+      "url": "https://jameskilby.co.uk/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages/",
+      "markdown_url": "/markdown/posts/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages.md",
+      "api_url": "/api/posts/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages.json",
       "categories": [
         "Cloudflare",
         "Hosting",
         "Wordpress",
         "Personal",
+        "Devops",
         "Docker",
         "Homelab",
-        "Devops"
+        "Artificial Intelligence",
+        "AWS"
       ],
       "tags": [
         null,
@@ -120,36 +127,8 @@
         null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Static WordPress hosting using Cloudflare\n\nBy[James](ht..."
-    },
-    {
-      "slug": "web-development",
-      "title": "Hosting This Blog on Cloudflare Workers: Why & How I Did It",
-      "description": "A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them.",
-      "date": "2022-01-04T11:27:12Z",
-      "modified": "2026-07-11T07:34:27Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2022/01/web-development/",
-      "markdown_url": "/markdown/posts/web-development.md",
-      "api_url": "/api/posts/web-development.json",
-      "categories": [
-        "Hosting",
-        "Cloudflare",
-        "Personal",
-        "Wordpress",
-        "VMware",
-        "Homelab",
-        "Devops",
-        "Ansible",
-        "Automation"
-      ],
-      "tags": [
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/) | [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Personal](https://jameskilby.co.uk/category/personal/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-13-at-10.31.30.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/simply-static-logo.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# WordPress Hosting with Cloudflare Pages\n..."
     },
     {
       "slug": "my-home-office-setup-upgrades",
@@ -165,9 +144,9 @@
         "Personal",
         "Consulting",
         "VMware",
-        "Hosting",
         "Nutanix",
-        "AWS",
+        "Hosting",
+        "Cloudflare",
         "Devops"
       ],
       "tags": [
@@ -191,10 +170,12 @@
       "categories": [
         "Devops",
         "Personal",
-        "Nutanix",
         "VMware",
-        "Cloudflare",
-        "Hosting"
+        "AWS",
+        "Automation",
+        "Homelab",
+        "Github",
+        "Cloudflare"
       ],
       "tags": [
         null,
@@ -205,29 +186,30 @@
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg)\n\n[Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# My First GitHub Pull Request: Contributing to Open Source\n\nBy[James](https://jameskilby.co.uk) Decemb..."
     },
     {
-      "slug": "nutanix-ncp",
-      "title": "Passing the Nutanix NCP Exam: Free Training & My Experience",
-      "description": "I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam.",
-      "date": "2020-07-02T15:20:30Z",
+      "slug": "aws-solution-architect-associate",
+      "title": "AWS Solution Architect – Associate",
+      "description": "I renewed my AWS Solution Architect certification.",
+      "date": "2019-12-16T23:46:22Z",
       "modified": "2026-05-31T11:36:26Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2020/07/nutanix-ncp/",
-      "markdown_url": "/markdown/posts/nutanix-ncp.md",
-      "api_url": "/api/posts/nutanix-ncp.json",
+      "url": "https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/",
+      "markdown_url": "/markdown/posts/aws-solution-architect-associate.md",
+      "api_url": "/api/posts/aws-solution-architect-associate.json",
       "categories": [
-        "Nutanix",
+        "AWS",
         "Personal",
         "VMware",
-        "Devops",
-        "Homelab",
-        "AWS"
+        "Hosting",
+        "Cloudflare",
+        "VMware Cloud on AWS",
+        "Devops"
       ],
       "tags": [
         null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier.jpg)\n\n[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# Passing the Nutanix NCP Exam: Free Training & My Experience\n\nBy[James](https://jamesk..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png)\n\n[AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# AWS Solution Architect – Associate\n\nBy[James](https://jameskilby.co.uk) December 16, 2019 · Updated May..."
     },
     {
       "slug": "and-now-for-something-completely-different",
@@ -241,10 +223,10 @@
       "api_url": "/api/posts/and-now-for-something-completely-different.json",
       "categories": [
         "Personal",
-        "VMware",
         "Consulting",
+        "Hosting",
+        "VMware",
         "Devops",
-        "Nutanix",
         "AWS"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
@@ -263,9 +245,11 @@
       "categories": [
         "Hosting",
         "Cloudflare",
+        "Devops",
+        "Artificial Intelligence",
         "Docker",
-        "Homelab",
-        "Devops"
+        "Automation",
+        "Personal"
       ],
       "tags": [
         null

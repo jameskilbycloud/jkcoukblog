@@ -18,10 +18,10 @@
         "Networking",
         "Unifi",
         "Storage",
-        "Artificial Intelligence",
-        "VMware",
         "Ansible",
-        "Automation"
+        "VCF",
+        "VMware",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,

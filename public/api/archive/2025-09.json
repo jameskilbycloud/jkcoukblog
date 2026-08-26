@@ -16,13 +16,12 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Artificial Intelligence",
         "Docker",
-        "Hosting",
-        "Mikrotik",
-        "Networking",
         "Automation",
-        "Github"
+        "Storage",
+        "Artificial Intelligence",
+        "TrueNAS Scale",
+        "VMware"
       ],
       "tags": [
         null,

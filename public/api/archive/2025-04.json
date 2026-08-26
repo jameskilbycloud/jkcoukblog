@@ -16,11 +16,10 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Ansible",
-        "Networking",
-        "Veeam",
+        "VMware",
         "Storage",
-        "Automation"
+        "Automation",
+        "Networking"
       ],
       "tags": [
         null,

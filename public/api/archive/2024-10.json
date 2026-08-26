@@ -17,9 +17,11 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
+        "Ansible",
         "Automation",
         "VMware",
-        "Ansible",
+        "Storage",
+        "TrueNAS Scale",
         "Networking"
       ],
       "tags": [

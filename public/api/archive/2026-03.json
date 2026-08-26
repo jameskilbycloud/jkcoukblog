@@ -21,11 +21,8 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Veeam",
         "Ansible",
-        "VMware Cloud on AWS",
-        "Personal",
-        "Hosting"
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -59,6 +56,7 @@
         "Artificial Intelligence",
         "Automation",
         "Ansible",
+        "Docker",
         "Homelab"
       ],
       "tags": [
