@@ -3115,10 +3115,25 @@ document.addEventListener('DOMContentLoaded', function() {
             return []
 
     def _stat_lighthouse_performance(self):
-        # Prefer the build's own changelog copy, but fall back to the committed
-        # public/ copy: on a full rebuild static-output/changelog isn't
-        # populated until generate_changelog runs later in the pipeline, which
-        # would leave the ribbon showing '—' despite a real score existing.
+        # Primary source is data/lighthouse-latest.json — the committed,
+        # always-present single source of truth that generate_changelog itself
+        # reads (a dict: {"performance": 94, ...}). The changelog history files
+        # are only a fallback: static-output/changelog isn't populated until
+        # generate_changelog runs later in the pipeline, and the public/ copy
+        # is not committed (nothing under public/changelog/ is tracked), so on a
+        # clean checkout it is absent and the ribbon showed '—'. Reading the
+        # latest file first also avoids surfacing a stale cold-cache outlier
+        # that lingered in a persisted runner workspace's history file.
+        latest = Path('data') / 'lighthouse-latest.json'
+        try:
+            if latest.exists():
+                data = json.loads(latest.read_text(encoding='utf-8'))
+                perf = data.get('performance') if isinstance(data, dict) else None
+                if isinstance(perf, (int, float)):
+                    return f'{int(perf)}/100'
+        except Exception as e:
+            print(f"   ⚠️  lighthouse ({latest}): {e}")
+
         candidates = [
             self.output_dir / 'changelog' / 'lighthouse-history.json',
             Path('public') / 'changelog' / 'lighthouse-history.json',
