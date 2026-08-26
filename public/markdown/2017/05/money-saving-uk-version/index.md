@@ -16,8 +16,6 @@ image: https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-
 
 By[James](https://jameskilby.co.uk) May 29, 2017 · Updated July 11, 2026 • 📖4 min read(777 words)
 
-**Published:** May 29, 2017•**Updated:** July 11, 2026
-
 I recently got back from an amazing conference in New Orleans. This was the VeeamON conference and I was invited as part of the Veeam Vanguard program that I am part of.
 
 A lot of the UK Vanguards all travelled out together and after numerous discussions, it became clear that a lot of them were paying more for UK and international banking. They were also not capitalising on the deals available for getting rewards where they did need to spend.

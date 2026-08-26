@@ -12,11 +12,30 @@ const searchHTML=`
                     </div>
                 </div>
             </div>
-        `;const main=document.querySelector('main');if(main){main.insertAdjacentHTML('afterbegin',searchHTML);attachSearchListener();attachKeyboardShortcut();}}
+        `;if(!document.body.classList.contains('home')){attachKeyboardShortcut();return;}
+const main=document.querySelector('main');if(main){main.insertAdjacentHTML('afterbegin',searchHTML);attachSearchListener();}
+attachKeyboardShortcut();}
 function attachSearchListener(){const input=document.getElementById('blog-search-input');if(input){input.addEventListener('input',debounce(handleSearch,300));input.addEventListener('focus',function(){this.style.borderColor='#f6821f';this.style.background='#161513';this.style.boxShadow='0 0 0 3px rgba(246, 130, 31, 0.15)';});input.addEventListener('blur',function(){this.style.borderColor='#262625';this.style.background='#111110';this.style.boxShadow='none';});}}
 function attachKeyboardShortcut(){document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();focusSearch();}
-if(e.key==='Escape'){hideResults();}});}
-function focusSearch(){const input=document.getElementById('blog-search-input');if(input){const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;input.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'center'});input.focus();}}
+if(e.key==='Escape'){hideResults();closeInteriorSearch();}});}
+function focusSearch(){const input=document.getElementById('blog-search-input');if(input){const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;input.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'center'});input.focus();return;}
+openInteriorSearch();}
+function openInteriorSearch(){if(document.querySelector('.search-input-overlay')){const existing=document.getElementById('blog-search-input');if(existing)existing.focus();return;}
+const overlay=document.createElement('div');overlay.className='search-input-overlay';overlay.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;'
++'background:rgba(0,0,0,0.85)!important;z-index:99998;display:flex;'
++'align-items:flex-start;justify-content:center;padding:80px 20px 20px;'
++'animation:fadeIn 0.2s ease;';overlay.innerHTML='<div style="max-width:650px;width:100%;position:relative;">'
++'<input type="text" id="blog-search-input" placeholder="Search posts…"'
++' autocomplete="off" style="width:100%;padding:16px 52px 16px 18px;'
++'font-size:18px;border:1px solid #33322e;border-radius:0;outline:none;'
++'box-sizing:border-box;background:#171613!important;color:#f5f3ee;'
++'font-family:inherit;">'
++'<span style="position:absolute;right:16px;top:50%;'
++'transform:translateY(-50%);color:#7a766c;font-size:11px;'
++'font-family:\'JetBrains Mono\',monospace;pointer-events:none;">ESC</span>'
++'</div>'
++'<style>@keyframes fadeIn{from{opacity:0}to{opacity:1}}</style>';overlay.addEventListener('click',function(e){if(e.target===overlay)closeInteriorSearch();});document.body.appendChild(overlay);attachSearchListener();const input=document.getElementById('blog-search-input');if(input)input.focus();}
+function closeInteriorSearch(){const overlay=document.querySelector('.search-input-overlay');if(overlay)overlay.remove();}
 function attachHeaderSearchButton(){document.addEventListener('click',function(e){const btn=e.target.closest&&e.target.closest('.jk-search');if(!btn)return;e.preventDefault();focusSearch();});}
 function debounce(func,ms){let timeout;return function(...args){clearTimeout(timeout);timeout=setTimeout(()=>func.apply(this,args),ms);};}
 function handleSearch(e){const query=e.target.value.trim();if(query.length<2){hideResults();return;}

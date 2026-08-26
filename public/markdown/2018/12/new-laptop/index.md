@@ -22,8 +22,6 @@ image: https://jameskilby.co.uk/wp-content/uploads/2018/12/colorware.jpg
 
 By[James](https://jameskilby.co.uk) December 4, 2018 · Updated June 1, 2026 • 📖1 min read(138 words)
 
-**Published:** December 04, 2018•**Updated:** June 01, 2026
-
 I decided it was about time I replaced my trusted MacBook Air that I purchased back in 2011. After waiting and watching the Apple announcements over the last couple of years I decided the MacBook Pro’s weren’t worth it. So I have replaced my Air with yes you guessed it another [MacBook Air](https://www.apple.com/uk/macbook-air/).
 
 This time I went for the retina version with 16GB of RAM and 512GB PCIe-based SSD. The spec was certainly good enough for 99% of my needs yet still being lighter and with better battery life than a MacBook Pro. It also has the security benefits of the [T2 Security chip](https://support.apple.com/en-gb/HT208862)

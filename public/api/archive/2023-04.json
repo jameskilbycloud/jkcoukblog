@@ -17,12 +17,11 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "VMware",
-        "VMware Cloud on AWS",
-        "Ansible",
-        "Artificial Intelligence",
         "Personal",
-        "Automation"
+        "VMware",
+        "TrueNAS Scale",
+        "AWS",
+        "Networking"
       ],
       "tags": [
         null,

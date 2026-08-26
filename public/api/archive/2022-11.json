@@ -17,9 +17,11 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Ansible",
+        "VMware",
+        "Veeam",
+        "Hosting",
         "Automation",
-        "Artificial Intelligence",
+        "Github",
         "Docker"
       ],
       "tags": [

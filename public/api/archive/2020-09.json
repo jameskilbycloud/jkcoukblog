@@ -16,13 +16,10 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Runecast",
-        "Homelab",
-        "Veeam",
-        "Storage",
         "AWS",
+        "Hosting",
         "Personal",
-        "Networking"
+        "VCF"
       ],
       "tags": [
         null,
@@ -48,10 +45,13 @@
       "categories": [
         "Personal",
         "VMware",
+        "Homelab",
+        "Nutanix",
+        "VCF",
         "VMware Cloud on AWS",
+        "TrueNAS Scale",
         "Artificial Intelligence",
-        "Automation",
-        "Consulting"
+        "Automation"
       ],
       "tags": [
         null,

@@ -17,11 +17,12 @@
         "Devops",
         "Personal",
         "VMware",
-        "AWS",
+        "Ansible",
+        "Artificial Intelligence",
         "Automation",
-        "Homelab",
         "Github",
-        "Cloudflare"
+        "Hosting",
+        "Nutanix"
       ],
       "tags": [
         null,
