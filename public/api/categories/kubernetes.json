@@ -3,38 +3,6 @@
   "slug": "kubernetes",
   "posts": [
     {
-      "slug": "zfs-on-vmware",
-      "title": "How to Run ZFS on VMware vSphere: Setup Guide and Best Practices",
-      "description": "Introduction Copy on Write Disk IDs Trim Introduction I have run a number of systems using ZFS since the earliest days of my homelab using Nexenta, all the",
-      "date": "2024-12-18T17:47:57Z",
-      "modified": "2026-06-01T21:07:03Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2024/12/zfs-on-vmware/",
-      "markdown_url": "/markdown/posts/zfs-on-vmware.md",
-      "api_url": "/api/posts/zfs-on-vmware.json",
-      "categories": [
-        "TrueNAS Scale",
-        "VMware",
-        "vSAN",
-        "vSphere",
-        "VCF",
-        "Kubernetes",
-        "Artificial Intelligence",
-        "Homelab",
-        "Nutanix",
-        "VMware Cloud on AWS"
-      ],
-      "tags": [
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/12/IMG_20140330_210511-1024x845.jpeg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2024/12/ZFS.jpg)\n\n[TrueNAS Scale](https://jameskilby.co.uk/category/truenas-scale/) | [VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/) | [vSphere](https://jameskilby.co.uk/category/vsph..."
-    },
-    {
       "slug": "can-you-really-squeeze-96tb-in-1u",
       "title": "Can you really squeeze 96TB in 1U ?",
       "description": "Yes, that’s a clickbait title.",
@@ -48,11 +16,11 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
-        "Automation",
-        "Ansible",
         "Artificial Intelligence",
+        "Nutanix",
+        "Kubernetes",
         "Networking",
-        "Kubernetes"
+        "Docker"
       ],
       "tags": [
         null,
@@ -101,11 +69,11 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Networking",
+        "Artificial Intelligence",
         "Automation",
         "Github",
-        "AWS",
-        "Mikrotik"
+        "Networking",
+        "VMware"
       ],
       "tags": [
         null,
@@ -128,12 +96,14 @@
       "categories": [
         "Homelab",
         "Storage",
+        "Artificial Intelligence",
+        "Automation",
         "Kubernetes",
         "TrueNAS Scale",
-        "Docker",
-        "Automation",
+        "Ansible",
         "Networking",
-        "Ansible"
+        "Hosting",
+        "Docker"
       ],
       "tags": [
         null,

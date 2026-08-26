@@ -16,9 +16,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "Homelab",
+        "Veeam",
+        "Ansible",
+        "Automation",
         "Personal",
-        "VCF",
-        "TrueNAS Scale"
+        "VCF"
       ],
       "tags": [
         null

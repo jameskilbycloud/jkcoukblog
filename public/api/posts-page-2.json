@@ -13,11 +13,14 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
+        "AWS",
         "Homelab",
-        "vSAN",
-        "Automation",
-        "Nutanix"
+        "Veeam",
+        "Ansible",
+        "Artificial Intelligence",
+        "Networking",
+        "Runecast",
+        "vSAN"
       ],
       "tags": [
         null,
@@ -40,13 +43,13 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "Runecast",
+        "Homelab",
+        "Veeam",
+        "Storage",
         "AWS",
         "Personal",
-        "VCF",
-        "Artificial Intelligence",
-        "Automation",
-        "Homelab",
-        "Ansible"
+        "Networking"
       ],
       "tags": [
         null,
@@ -72,9 +75,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "Homelab",
+        "Veeam",
+        "Ansible",
+        "Automation",
         "Personal",
-        "VCF",
-        "TrueNAS Scale"
+        "VCF"
       ],
       "tags": [
         null
@@ -95,10 +101,11 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Ansible",
+        "VMware Cloud on AWS",
+        "Storage",
         "Artificial Intelligence",
-        "Networking",
-        "AWS"
+        "Nutanix",
+        "Automation"
       ],
       "tags": [
         null,
@@ -120,9 +127,9 @@
       "api_url": "/api/posts/veeamon2020.json",
       "categories": [
         "Veeam",
-        "Homelab",
         "VMware",
-        "AWS"
+        "AWS",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -144,8 +151,9 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
+        "Ansible",
         "Artificial Intelligence",
+        "Homelab",
         "Automation"
       ],
       "tags": [
@@ -172,11 +180,11 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Networking",
+        "Artificial Intelligence",
         "Automation",
         "Github",
-        "AWS",
-        "Mikrotik"
+        "Networking",
+        "VMware"
       ],
       "tags": [
         null,
@@ -199,9 +207,11 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Storage",
         "Nutanix",
-        "Docker"
+        "Storage",
+        "Automation",
+        "Artificial Intelligence",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -249,10 +259,10 @@
         "Networking",
         "Unifi",
         "Storage",
-        "Artificial Intelligence",
-        "VMware",
         "Ansible",
-        "Automation"
+        "VCF",
+        "VMware",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,

@@ -16,10 +16,9 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Networking",
-        "Docker",
         "Hosting",
-        "VMware"
+        "Automation",
+        "Veeam"
       ],
       "tags": [
         null,
@@ -42,13 +41,15 @@
       "categories": [
         "Runecast",
         "VMware",
-        "Ansible",
-        "Artificial Intelligence",
-        "VMware Cloud on AWS",
-        "VCF",
-        "Docker",
         "Homelab",
-        "Storage"
+        "Storage",
+        "Artificial Intelligence",
+        "Docker",
+        "Ansible",
+        "Mikrotik",
+        "Networking",
+        "VMware Cloud on AWS",
+        "vSAN"
       ],
       "tags": [
         null,
@@ -73,10 +74,12 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Artificial Intelligence",
-        "Automation",
+        "Personal",
+        "Devops",
+        "Docker",
         "Homelab",
-        "Ansible"
+        "Artificial Intelligence",
+        "AWS"
       ],
       "tags": [
         null,
