@@ -801,6 +801,21 @@ jobs:
         }
       continue-on-error: true
 
+    - name: Internal links for orphan posts (post-transform + verify)
+      id: internal_links
+      run: |
+        # Runs AFTER the transformer, over the final output, so the links can't
+        # be dropped by the incremental-skip / raw-snapshot / transform
+        # interactions that reverted the earlier in-generator pass. The script
+        # verifies against the bytes on disk and exits non-zero (loud) if any
+        # orphan post is still missing an inbound link — surfaced here but
+        # non-blocking so an SEO-nicety never sinks a deploy.
+        python3 scripts/internal_links.py ./static-output || {
+          echo "::warning::internal-linking guard failed — some orphan posts have no inbound link on disk"
+          exit 0
+        }
+      continue-on-error: true
+
     - name: Generate soft-404 artefacts and stamp Advanced Mode Worker
       run: |
         # Must run BEFORE Brotli compression so _worker.js and
