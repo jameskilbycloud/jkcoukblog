@@ -18,10 +18,10 @@
         "Storage",
         "Synology",
         "Artificial Intelligence",
-        "Runecast",
-        "VMware",
         "Networking",
-        "Docker"
+        "Docker",
+        "Nutanix",
+        "VMware"
       ],
       "tags": [
         null,

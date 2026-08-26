@@ -34,10 +34,10 @@
         "Personal",
         "Hosting",
         "Cloudflare",
-        "Devops",
         "VMware",
-        "AWS",
-        "Consulting"
+        "Devops",
+        "Nutanix",
+        "AWS"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018 · Updated July 11, 2026 • 📖1 min read(263 words)\n\nI have worked for my cu..."
@@ -55,12 +55,13 @@
       "categories": [
         "Hosting",
         "Personal",
-        "Consulting",
-        "Cloudflare",
+        "AWS",
+        "Docker",
         "Homelab",
         "Artificial Intelligence",
-        "Docker",
-        "Automation"
+        "Automation",
+        "Wordpress",
+        "Cloudflare"
       ],
       "tags": [
         null,
@@ -88,13 +89,10 @@
         "VMware",
         "Personal",
         "vSphere",
-        "Ansible",
-        "Automation",
         "VMware Cloud on AWS",
-        "Artificial Intelligence",
-        "Hosting",
-        "Cloudflare",
-        "vSAN"
+        "Homelab",
+        "Nutanix",
+        "Storage"
       ],
       "tags": [
         null,
@@ -119,10 +117,11 @@
         "Networking",
         "Storage",
         "VMware",
-        "Automation",
-        "VMware Cloud on AWS",
         "Artificial Intelligence",
-        "Docker"
+        "VMware Cloud on AWS",
+        "VCF",
+        "Hosting",
+        "Ansible"
       ],
       "tags": [
         null,

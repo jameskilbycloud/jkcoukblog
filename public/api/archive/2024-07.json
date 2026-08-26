@@ -18,13 +18,9 @@
         "Nutanix",
         "VMware",
         "Storage",
-        "Ansible",
-        "Automation",
-        "AWS",
         "VMware Cloud on AWS",
-        "Artificial Intelligence",
-        "Docker",
-        "Networking"
+        "Networking",
+        "Personal"
       ],
       "tags": [
         null,

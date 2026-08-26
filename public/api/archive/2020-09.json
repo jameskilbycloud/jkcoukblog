@@ -16,9 +16,10 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "vSAN",
+        "Homelab",
+        "Storage",
         "Personal",
-        "Homelab"
+        "Networking"
       ],
       "tags": [
         null,
@@ -44,11 +45,10 @@
       "categories": [
         "Personal",
         "VMware",
+        "Devops",
         "VMware Cloud on AWS",
         "VCF",
-        "Artificial Intelligence",
-        "Automation",
-        "TrueNAS Scale"
+        "Homelab"
       ],
       "tags": [
         null,

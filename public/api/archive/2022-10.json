@@ -17,8 +17,10 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Personal",
-        "AWS"
+        "Devops",
+        "Artificial Intelligence",
+        "Docker",
+        "Personal"
       ],
       "tags": [
         null,
@@ -43,11 +45,11 @@
         "Homelab",
         "Hosting",
         "Networking",
-        "Storage",
-        "VMware",
-        "VCF",
+        "Nutanix",
         "Artificial Intelligence",
-        "Docker",
+        "Automation",
+        "Ansible",
+        "VMware",
         "AWS"
       ],
       "tags": [

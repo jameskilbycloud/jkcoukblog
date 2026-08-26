@@ -17,13 +17,13 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Ansible",
         "Automation",
-        "Runecast",
-        "VMware",
         "Homelab",
-        "Storage",
-        "TrueNAS Scale"
+        "Nutanix",
+        "Cloudflare",
+        "Veeam",
+        "VCF",
+        "VMware"
       ],
       "tags": [
         null,

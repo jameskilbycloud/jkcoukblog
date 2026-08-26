@@ -16,11 +16,10 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Artificial Intelligence",
-        "Automation",
-        "VCF",
+        "TrueNAS Scale",
         "Homelab",
-        "Nutanix",
+        "Veeam",
+        "Runecast",
         "Personal"
       ],
       "tags": [

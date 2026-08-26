@@ -16,11 +16,15 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Networking",
-        "Hosting",
+        "TrueNAS Scale",
         "VMware",
-        "Storage",
-        "TrueNAS Scale"
+        "Veeam",
+        "Runecast",
+        "Ansible",
+        "Automation",
+        "Mikrotik",
+        "Networking",
+        "Storage"
       ],
       "tags": [
         null,
