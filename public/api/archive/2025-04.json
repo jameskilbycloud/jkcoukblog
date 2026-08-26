@@ -16,12 +16,9 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Automation",
-        "Nutanix",
         "Docker",
-        "TrueNAS Scale",
-        "VMware",
-        "Veeam"
+        "Automation",
+        "Storage"
       ],
       "tags": [
         null,

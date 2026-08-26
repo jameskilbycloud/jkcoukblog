@@ -7,10 +7,9 @@ author: James Kilby
 categories:
   - Personal
   - Consulting
-  - Hosting
-  - Cloudflare
   - VMware
-  - Nutanix
+  - Hosting
+  - AWS
   - Devops
 tags:
   - #Homeoffice
@@ -145,45 +144,35 @@ When travel was a thing I was lucky enough to visit a number of customers in the
 
 ## Similar Posts
 
-  * [ ![What’s In My Tech Bag? Everyday Carry for IT Consultants](https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1-768x498.png) ](https://jameskilby.co.uk/2019/01/whats-in-my-backpack/)
-
-[Consulting](https://jameskilby.co.uk/category/consulting/)
-
-### [What’s In My Tech Bag? Everyday Carry for IT Consultants](https://jameskilby.co.uk/2019/01/whats-in-my-backpack/)
-
-By[James](https://jameskilby.co.uk) January 10, 2019 · Updated June 1, 2026
-
-I have seen a few posts online recently about the tools and technology people use on a day to day basis.
-
-  * [ ![Hosting This Blog on Cloudflare Workers: Why & How I Did It](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2-768x229.png) ](https://jameskilby.co.uk/2022/01/web-development/)
-
-[Hosting](https://jameskilby.co.uk/category/hosting/) | [Cloudflare](https://jameskilby.co.uk/category/cloudflare/)
-
-### [Hosting This Blog on Cloudflare Workers: Why & How I Did It](https://jameskilby.co.uk/2022/01/web-development/)
-
-By[James](https://jameskilby.co.uk) January 4, 2022 · Updated July 11, 2026
-
-A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them.
-
-  * [ ![VMware – Going out with a Bang!](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo-768x384.png) ](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
+  * [ ![Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png) ](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
 [VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
-### [VMware – Going out with a Bang!](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
+### [Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
 
-By[James](https://jameskilby.co.uk) October 7, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) November 10, 2023 · Updated June 1, 2026
 
-There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom.
+Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal.
 
-  * [ ![Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg) ](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
+  * [ ![Analytics in a privacy focused world](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png) ](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
 
-[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)
+[Hosting](https://jameskilby.co.uk/category/hosting/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
-### [Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
+### [Analytics in a privacy focused world](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
 
-By[James](https://jameskilby.co.uk) July 2, 2020 · Updated May 31, 2026
+By[James](https://jameskilby.co.uk) November 10, 2023 · Updated June 1, 2026
 
-I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam.
+I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance.
+
+  * [ ![AWS Solution Architect – Associate](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_-768x307.png) ](https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/)
+
+[AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)
+
+### [AWS Solution Architect – Associate](https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/)
+
+By[James](https://jameskilby.co.uk) December 16, 2019 · Updated May 31, 2026
+
+I renewed my AWS Solution Architect certification.
 
   * [ ![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png) ](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
@@ -194,6 +183,16 @@ I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free
 By[James](https://jameskilby.co.uk) September 13, 2020 · Updated May 31, 2026
 
 I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.
+
+  * [ ![VMware – Going out with a Bang!](https://jameskilby.co.uk/wp-content/uploads/2023/10/rnli-logo-768x384.png) ](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
+
+[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/)
+
+### [VMware – Going out with a Bang!](https://jameskilby.co.uk/2023/10/going-out-with-a-bang/)
+
+By[James](https://jameskilby.co.uk) October 7, 2023 · Updated June 1, 2026
+
+There is a lot of uncertainty with VMware at the moment. This is all due to the pending acquisition by Broadcom.
 
   * [ ![My First GitHub Pull Request: Contributing to Open Source](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg) ](https://jameskilby.co.uk/2020/12/my-first-pull/)
 

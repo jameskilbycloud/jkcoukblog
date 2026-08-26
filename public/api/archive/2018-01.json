@@ -17,11 +17,11 @@
         "Homelab",
         "Storage",
         "Synology",
-        "VMware",
-        "VMware Cloud on AWS",
-        "Nutanix",
+        "Ansible",
         "Artificial Intelligence",
-        "Automation"
+        "VCF",
+        "VMware",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -45,9 +45,11 @@
         "Nutanix",
         "Artificial Intelligence",
         "Automation",
-        "Networking",
         "Docker",
-        "VMware"
+        "Ansible",
+        "Networking",
+        "Storage",
+        "Veeam"
       ],
       "tags": [
         null

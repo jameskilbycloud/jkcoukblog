@@ -21,10 +21,9 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Storage",
         "Networking",
         "Personal",
-        "Nutanix",
+        "vSAN",
         "VMware Cloud on AWS"
       ],
       "tags": [

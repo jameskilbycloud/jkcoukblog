@@ -17,8 +17,8 @@
         "Cloudflare",
         "Ansible",
         "Automation",
+        "Devops",
         "Hosting",
-        "Personal",
         "Artificial Intelligence"
       ],
       "tags": [
@@ -43,12 +43,9 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Nutanix",
-        "Ansible",
-        "Automation",
-        "Artificial Intelligence",
-        "Kubernetes",
-        "TrueNAS Scale"
+        "Networking",
+        "Hosting",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -72,12 +69,11 @@
       "categories": [
         "Homelab",
         "Networking",
+        "Ansible",
         "VMware",
-        "Veeam",
         "Artificial Intelligence",
-        "Docker",
         "Storage",
-        "Nutanix"
+        "VCF"
       ],
       "tags": [
         null,
@@ -100,11 +96,9 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "Artificial Intelligence",
-        "Automation",
+        "VMware Cloud on AWS",
         "Storage",
-        "Ansible",
-        "Networking"
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -127,12 +121,9 @@
       "categories": [
         "Homelab",
         "VMware",
-        "AWS",
-        "Networking",
-        "VCF",
         "VMware Cloud on AWS",
-        "Artificial Intelligence",
-        "Docker"
+        "Docker",
+        "Networking"
       ],
       "tags": [
         null,
@@ -155,11 +146,11 @@
       "categories": [
         "Hosting",
         "Wordpress",
-        "Docker",
-        "Homelab",
         "Cloudflare",
-        "Devops",
-        "AWS"
+        "Artificial Intelligence",
+        "Automation",
+        "Personal",
+        "Docker"
       ],
       "tags": [
         null,
@@ -184,9 +175,7 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "VMware",
-        "Devops",
-        "Consulting"
+        "VMware"
       ],
       "tags": [
         null,

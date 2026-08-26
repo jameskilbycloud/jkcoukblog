@@ -18,11 +18,13 @@
         "VMware",
         "vSAN",
         "vSphere",
+        "VMware Cloud on AWS",
+        "Ansible",
         "Homelab",
         "Storage",
-        "Mikrotik",
-        "Networking",
-        "VMware Cloud on AWS"
+        "AWS",
+        "Artificial Intelligence",
+        "Docker"
       ],
       "tags": [
         null,

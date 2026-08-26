@@ -17,8 +17,11 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
+        "Automation",
         "Homelab",
-        "Personal"
+        "Storage",
+        "AWS",
+        "VCF"
       ],
       "tags": [
         null,
@@ -91,9 +94,13 @@
       "categories": [
         "Hosting",
         "Personal",
-        "Cloudflare",
-        "VMware",
-        "Homelab"
+        "Nutanix",
+        "Ansible",
+        "Automation",
+        "Docker",
+        "Homelab",
+        "Consulting",
+        "Cloudflare"
       ],
       "tags": [
         null,
@@ -122,9 +129,12 @@
         "Personal",
         "vSphere",
         "Homelab",
-        "Hosting",
+        "Storage",
         "VMware Cloud on AWS",
-        "AWS",
+        "Ansible",
+        "Artificial Intelligence",
+        "Devops",
+        "Hosting",
         "Cloudflare"
       ],
       "tags": [

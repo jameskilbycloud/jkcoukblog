@@ -16,10 +16,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "vSAN",
-        "Personal",
+        "AWS",
         "Homelab",
-        "Runecast"
+        "Veeam",
+        "Networking",
+        "Personal",
+        "VCF"
       ],
       "tags": [
         null,

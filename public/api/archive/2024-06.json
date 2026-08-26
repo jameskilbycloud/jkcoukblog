@@ -16,10 +16,10 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Docker",
-        "Ansible",
         "VMware",
-        "Storage"
+        "Storage",
+        "Automation",
+        "Mikrotik"
       ],
       "tags": [
         null,

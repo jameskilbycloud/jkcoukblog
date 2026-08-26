@@ -30,7 +30,9 @@ VMWARE VEXPERT · HOMELAB · INFRASTRUCTURE-AS-CODE
 
 Field notes from a homelab that costs real money to run.
 
-**75** posts**51k** words**66d** since last post**101** deploys/molighthouse **73/100** ● live
+⌘K
+
+**75** posts**51k** words**66d** since last post**105** deploys/molighthouse **—** ● live
 
 [![UniFi UDM Beast 1U rack-mount gateway shown front-on, with two 3.5-inch drive bays, a bank of RJ45 and SFP network ports, and dimension labels.](https://jameskilby.co.uk/wp-content/uploads/2026/06/UnifiBeast-768x219.webp)LATESTHomelabNetworkingUnleashing the UDM BeastRetiring my ageing WatchGuard M200, I swap in the UniFi UDM Beast — a hardware tour, first iperf and WAN tests, the BGP/FRR setup, and the homelab services I’m consolidating onto it.June 20, 2026Read post →](https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/)
 
