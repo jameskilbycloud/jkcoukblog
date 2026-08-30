@@ -16,11 +16,11 @@
       "categories": [
         "AWS",
         "Hosting",
-        "Personal",
         "Cloudflare",
-        "VMware",
         "Docker",
         "Homelab",
+        "Personal",
+        "VMware",
         "VMware Cloud on AWS"
       ],
       "tags": [

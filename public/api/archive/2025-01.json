@@ -17,12 +17,11 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Automation",
         "Homelab",
-        "Nutanix",
-        "Cloudflare",
-        "Veeam",
-        "VCF",
+        "Networking",
+        "Storage",
+        "Ansible",
+        "Runecast",
         "VMware"
       ],
       "tags": [

@@ -16,12 +16,9 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Hosting",
-        "Nutanix",
-        "Storage",
+        "VMware",
         "Ansible",
-        "Artificial Intelligence",
-        "Mikrotik"
+        "Storage"
       ],
       "tags": [
         null,

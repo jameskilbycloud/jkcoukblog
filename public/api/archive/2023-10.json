@@ -16,12 +16,14 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Ansible",
+        "Mikrotik",
+        "Networking",
+        "Artificial Intelligence",
         "Automation",
-        "Nutanix",
-        "VCF",
         "Personal",
-        "VMware Cloud on AWS"
+        "Docker",
+        "vSAN",
+        "AWS"
       ],
       "tags": [
         null,
@@ -44,14 +46,11 @@
       "categories": [
         "VMware",
         "Personal",
-        "VCF",
-        "Artificial Intelligence",
         "Automation",
-        "Consulting",
-        "Ansible",
-        "AWS",
         "Homelab",
-        "Storage"
+        "VMware Cloud on AWS",
+        "Ansible",
+        "Nutanix"
       ],
       "tags": [
         null,

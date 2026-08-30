@@ -17,9 +17,9 @@
         "Homelab",
         "Nutanix",
         "VMware",
-        "Storage",
         "VMware Cloud on AWS",
-        "Networking",
+        "Ansible",
+        "Automation",
         "Personal"
       ],
       "tags": [

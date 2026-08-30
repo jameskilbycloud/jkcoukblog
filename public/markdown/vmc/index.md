@@ -10,8 +10,8 @@ url: https://jameskilby.co.uk/vmc/
 image: https://jameskilby.co.uk/wp-content/uploads/2022/11/iu-1-1024x526.png
 ---
 
-# VMware Cloud on AWS (VMC) – Links & Resources
-
+# VMware Cloud on AWS (VMC) – Links & Resources  
+  
 This page is a curated hub of links, documentation and tools for **VMware Cloud on AWS (VMC)** — Broadcom’s managed VMware-as-a-service running on dedicated AWS bare-metal hosts. It covers service status, design and sizing, networking, HCX migration, automation (PowerCLI, Terraform, API), Aria integration, security, performance, workloads (SQL, Oracle) and VMware Live Recovery.
 
 In my role at Broadcom I look after the VMware-on-AWS HyperScaler solutions — VMware Cloud on AWS (VMC) and[ Elastic VMware Service (EVS)](https://jameskilby.co.uk/evs/). The shortcuts below are the public docs I use day-to-day.
