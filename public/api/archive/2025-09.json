@@ -16,10 +16,12 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Nutanix",
+        "Artificial Intelligence",
+        "Veeam",
         "Storage",
-        "TrueNAS Scale",
-        "VMware"
+        "VCF",
+        "VMware",
+        "Nutanix"
       ],
       "tags": [
         null,

@@ -16,13 +16,13 @@
       "categories": [
         "VCF",
         "VMware",
-        "Ansible",
-        "Automation",
-        "Artificial Intelligence",
-        "Docker",
         "Homelab",
         "Storage",
-        "VMware Cloud on AWS"
+        "Personal",
+        "AWS",
+        "Ansible",
+        "VMware Cloud on AWS",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -47,10 +47,12 @@
         "VMware",
         "VCF",
         "Homelab",
+        "Networking",
+        "VMware Cloud on AWS",
         "Ansible",
         "Automation",
-        "Veeam",
-        "Artificial Intelligence"
+        "vSAN",
+        "Personal"
       ],
       "tags": [
         null,

@@ -22,9 +22,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Networking",
-        "Automation",
-        "VCF"
+        "Hosting",
+        "Personal",
+        "VMware Cloud on AWS",
+        "Automation"
       ],
       "tags": [
         null,

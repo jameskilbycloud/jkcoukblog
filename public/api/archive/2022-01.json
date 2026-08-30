@@ -15,11 +15,11 @@
       "api_url": "/api/posts/wrangler-and-node-versions.json",
       "categories": [
         "Cloudflare",
-        "Devops",
         "Hosting",
-        "Artificial Intelligence",
+        "Ansible",
         "Automation",
-        "Wordpress"
+        "Personal",
+        "Devops"
       ],
       "tags": [
         null,
@@ -43,9 +43,10 @@
       "categories": [
         "Homelab",
         "Storage",
-        "VMware",
-        "Nutanix",
         "Networking",
+        "VMware",
+        "Ansible",
+        "Automation",
         "Artificial Intelligence"
       ],
       "tags": [
@@ -73,9 +74,9 @@
         "VCF",
         "VMware",
         "Artificial Intelligence",
-        "Automation",
         "Docker",
-        "Ansible"
+        "Storage",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -98,10 +99,12 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "Ansible",
         "VMware Cloud on AWS",
-        "Personal",
-        "TrueNAS Scale"
+        "Ansible",
+        "Automation",
+        "Artificial Intelligence",
+        "Networking",
+        "Storage"
       ],
       "tags": [
         null,
@@ -124,12 +127,11 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Storage",
-        "Ansible",
-        "Automation",
-        "Artificial Intelligence",
         "VMware Cloud on AWS",
-        "Networking"
+        "Networking",
+        "Automation",
+        "Github",
+        "Docker"
       ],
       "tags": [
         null,
@@ -152,10 +154,12 @@
       "categories": [
         "Hosting",
         "Wordpress",
-        "Homelab",
+        "AWS",
         "Cloudflare",
         "Artificial Intelligence",
-        "Docker"
+        "Docker",
+        "Devops",
+        "Personal"
       ],
       "tags": [
         null,
@@ -181,8 +185,9 @@
         "Personal",
         "Wordpress",
         "Artificial Intelligence",
-        "Docker",
-        "Homelab",
+        "Automation",
+        "AWS",
+        "Ansible",
         "VMware"
       ],
       "tags": [
