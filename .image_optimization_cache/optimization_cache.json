@@ -48633,5 +48633,65 @@
     "avif_created": true,
     "webp": "wp-content/uploads/og/tag-dream-machine.webp",
     "avif": "wp-content/uploads/og/tag-dream-machine.avif"
+  },
+  "wp-content/uploads/2026/08/Beast-Sata-Storage-150x150.png": {
+    "hash": "8a183b062954eb29eebff6da2e731284",
+    "optimized_at": "2026-09-06T07:50:32.644401",
+    "optimized_size": 1612,
+    "timestamp": 1788681032.6444275,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/08/Beast-Sata-Storage-150x150.webp",
+    "avif": "wp-content/uploads/2026/08/Beast-Sata-Storage-150x150.avif"
+  },
+  "wp-content/uploads/2026/08/Beast-Sata-Storage-300x139.png": {
+    "hash": "d6b3cd0c7f2d2404cd79e79a4eb4297e",
+    "optimized_at": "2026-09-06T07:50:32.868399",
+    "optimized_size": 3640,
+    "timestamp": 1788681032.8684146,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/08/Beast-Sata-Storage-300x139.webp",
+    "avif": "wp-content/uploads/2026/08/Beast-Sata-Storage-300x139.avif"
+  },
+  "wp-content/uploads/2026/08/Beast-Sata-Storage-768x357.png": {
+    "hash": "472a598dd67b8589e0b06af50e07862a",
+    "optimized_at": "2026-09-06T07:50:36.194427",
+    "optimized_size": 14534,
+    "timestamp": 1788681036.1944435,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/08/Beast-Sata-Storage-768x357.webp",
+    "avif": "wp-content/uploads/2026/08/Beast-Sata-Storage-768x357.avif"
+  },
+  "wp-content/uploads/2026/08/Beast-Sata-Storage-1024x476.png": {
+    "hash": "20ead5fd44bc98d0f075c2492c094726",
+    "optimized_at": "2026-09-06T07:50:38.000518",
+    "optimized_size": 20538,
+    "timestamp": 1788681038.000531,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/08/Beast-Sata-Storage-1024x476.webp",
+    "avif": "wp-content/uploads/2026/08/Beast-Sata-Storage-1024x476.avif"
+  },
+  "wp-content/uploads/2026/08/Beast-Sata-Storage-1536x713.png": {
+    "hash": "beb50f1fc616090fce0405a803797018",
+    "optimized_at": "2026-09-06T07:50:41.057914",
+    "optimized_size": 33616,
+    "timestamp": 1788681041.0579288,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/08/Beast-Sata-Storage-1536x713.webp",
+    "avif": "wp-content/uploads/2026/08/Beast-Sata-Storage-1536x713.avif"
+  },
+  "wp-content/uploads/2026/08/Beast-Sata-Storage.png": {
+    "hash": "fade9ee1e1167f1b7eb5d509a9c24686",
+    "optimized_at": "2026-09-06T07:50:41.786416",
+    "optimized_size": 39364,
+    "timestamp": 1788681041.78643,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/08/Beast-Sata-Storage.webp",
+    "avif": "wp-content/uploads/2026/08/Beast-Sata-Storage.avif"
   }
 }
