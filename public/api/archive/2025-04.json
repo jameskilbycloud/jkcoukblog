@@ -16,13 +16,12 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Hosting",
-        "Veeam",
+        "Docker",
         "Networking",
-        "Runecast",
-        "VMware",
         "Ansible",
-        "Automation"
+        "Veeam",
+        "Storage",
+        "Hosting"
       ],
       "tags": [
         null,

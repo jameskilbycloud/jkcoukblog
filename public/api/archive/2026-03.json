@@ -21,9 +21,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
+        "Networking",
         "VMware Cloud on AWS",
-        "Storage",
-        "Personal"
+        "Veeam",
+        "VCF"
       ],
       "tags": [
         null,
@@ -57,9 +58,8 @@
         "Artificial Intelligence",
         "Automation",
         "Homelab",
-        "Ansible",
-        "Github",
-        "Docker"
+        "Docker",
+        "Ansible"
       ],
       "tags": [
         null,

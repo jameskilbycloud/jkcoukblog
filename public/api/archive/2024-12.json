@@ -18,12 +18,12 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "VMware Cloud on AWS",
         "Homelab",
-        "Nutanix",
-        "VCF",
+        "Storage",
+        "Artificial Intelligence",
         "Automation",
-        "Github"
+        "Personal",
+        "Ansible"
       ],
       "tags": [
         null,

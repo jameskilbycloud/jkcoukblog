@@ -16,12 +16,11 @@
       "categories": [
         "Ansible",
         "Homelab",
+        "Nutanix",
+        "Networking",
+        "Automation",
         "Artificial Intelligence",
-        "Veeam",
-        "Storage",
-        "VCF",
-        "VMware",
-        "Nutanix"
+        "Github"
       ],
       "tags": [
         null,

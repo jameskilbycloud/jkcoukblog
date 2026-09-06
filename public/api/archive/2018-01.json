@@ -19,11 +19,10 @@
         "Synology",
         "Ansible",
         "Automation",
-        "Nutanix",
-        "Artificial Intelligence",
-        "Github",
         "VMware",
-        "Networking"
+        "Artificial Intelligence",
+        "Docker",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
@@ -46,9 +45,9 @@
         "Homelab",
         "Nutanix",
         "Networking",
-        "Storage",
-        "Automation",
-        "VMware"
+        "Ansible",
+        "Artificial Intelligence",
+        "Storage"
       ],
       "tags": [
         null
