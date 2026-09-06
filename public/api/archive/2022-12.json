@@ -18,10 +18,12 @@
         "Networking",
         "Storage",
         "VMware",
-        "Docker",
+        "Nutanix",
+        "AWS",
+        "VMware Cloud on AWS",
+        "Mikrotik",
         "Artificial Intelligence",
-        "Automation",
-        "Ansible"
+        "Docker"
       ],
       "tags": [
         null,
@@ -44,13 +46,10 @@
         "Homelab",
         "VMware",
         "vSphere",
-        "Veeam",
-        "AWS",
-        "Artificial Intelligence",
-        "Docker",
-        "Nutanix",
-        "Automation",
-        "VMware Cloud on AWS"
+        "VMware Cloud on AWS",
+        "Networking",
+        "Personal",
+        "Runecast"
       ],
       "tags": [
         null,
@@ -75,7 +74,10 @@
         "Hosting",
         "Kubernetes",
         "VMware",
-        "Artificial Intelligence"
+        "Networking",
+        "Artificial Intelligence",
+        "Automation",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,

@@ -16,11 +16,12 @@
       "categories": [
         "Homelab",
         "Storage",
+        "Kubernetes",
+        "TrueNAS Scale",
+        "Ansible",
         "Artificial Intelligence",
-        "Docker",
-        "Networking",
-        "VMware",
-        "Ansible"
+        "Hosting",
+        "Automation"
       ],
       "tags": [
         null,
@@ -43,14 +44,12 @@
       "categories": [
         "Runecast",
         "VMware",
-        "Ansible",
-        "Automation",
-        "Personal",
-        "Homelab",
-        "Nutanix",
-        "Artificial Intelligence",
         "VMware Cloud on AWS",
-        "Docker"
+        "VCF",
+        "Automation",
+        "Homelab",
+        "Docker",
+        "Personal"
       ],
       "tags": [
         null,
@@ -75,9 +74,9 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
+        "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "Artificial Intelligence",
         "Devops"
       ],
       "tags": [

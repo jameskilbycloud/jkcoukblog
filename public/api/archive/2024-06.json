@@ -17,8 +17,9 @@
         "Homelab",
         "Networking",
         "VMware",
-        "Ansible",
-        "Storage"
+        "Nutanix",
+        "Mikrotik",
+        "Automation"
       ],
       "tags": [
         null,

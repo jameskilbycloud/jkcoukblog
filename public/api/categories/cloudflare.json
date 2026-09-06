@@ -21,12 +21,10 @@
         "Traefik",
         "VMware",
         "VMware Cloud on AWS",
+        "Personal",
         "Ansible",
-        "VCF",
         "Cloudflare",
-        "Hosting",
-        "Storage",
-        "Personal"
+        "vSAN"
       ],
       "tags": [
         null,
@@ -62,11 +60,9 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Devops",
-        "Personal",
-        "Docker",
-        "Homelab",
-        "Artificial Intelligence"
+        "Ansible",
+        "Automation",
+        "Devops"
       ],
       "tags": [
         null,
@@ -94,8 +90,9 @@
         "Wordpress",
         "Ansible",
         "Artificial Intelligence",
-        "Personal",
-        "Hosting"
+        "Hosting",
+        "Automation",
+        "Personal"
       ],
       "tags": [
         null,
@@ -121,11 +118,12 @@
       "categories": [
         "Hosting",
         "Personal",
-        "Cloudflare",
-        "Devops",
         "Docker",
         "Homelab",
-        "AWS"
+        "Devops",
+        "Cloudflare",
+        "VMware",
+        "Consulting"
       ],
       "tags": [
         null,
@@ -153,9 +151,9 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
+        "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "Artificial Intelligence",
         "Devops"
       ],
       "tags": [
@@ -181,11 +179,11 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
+        "AWS",
         "Homelab",
-        "Artificial Intelligence",
-        "Automation",
         "Devops",
-        "Docker"
+        "Artificial Intelligence",
+        "Automation"
       ],
       "tags": [
         null,
@@ -209,10 +207,11 @@
       "categories": [
         "Cloudflare",
         "Hosting",
+        "Wordpress",
+        "Personal",
         "Ansible",
         "Automation",
-        "Personal",
-        "Devops"
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -236,12 +235,12 @@
       "categories": [
         "Hosting",
         "Wordpress",
-        "AWS",
+        "Homelab",
         "Cloudflare",
-        "Artificial Intelligence",
-        "Docker",
         "Devops",
-        "Personal"
+        "Artificial Intelligence",
+        "Automation",
+        "Docker"
       ],
       "tags": [
         null,
@@ -268,9 +267,8 @@
         "Wordpress",
         "Artificial Intelligence",
         "Automation",
-        "AWS",
-        "Ansible",
-        "VMware"
+        "Consulting",
+        "AWS"
       ],
       "tags": [
         null,
@@ -292,12 +290,15 @@
       "categories": [
         "Devops",
         "Personal",
+        "Automation",
+        "Github",
+        "AWS",
         "Ansible",
         "Artificial Intelligence",
-        "Consulting",
+        "VMware",
         "Hosting",
         "Cloudflare",
-        "AWS"
+        "Homelab"
       ],
       "tags": [
         null,
@@ -308,28 +309,52 @@
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg)\n\n[Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# My First GitHub Pull Request: Contributing to Open Source\n\nBy[James](https://jameskilby.co.uk) Decemb..."
     },
     {
-      "slug": "aws-solution-architect-associate",
-      "title": "AWS Solution Architect – Associate",
-      "description": "I renewed my AWS Solution Architect certification.",
-      "date": "2019-12-16T23:46:22Z",
+      "slug": "vmware-certified-master-specialist-hci-2020",
+      "title": "VMware Certified Master Specialist HCI 2020",
+      "description": "I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.",
+      "date": "2020-09-13T21:38:48Z",
       "modified": "2026-05-31T11:36:26Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/",
-      "markdown_url": "/markdown/posts/aws-solution-architect-associate.md",
-      "api_url": "/api/posts/aws-solution-architect-associate.json",
+      "url": "https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/",
+      "markdown_url": "/markdown/posts/vmware-certified-master-specialist-hci-2020.md",
+      "api_url": "/api/posts/vmware-certified-master-specialist-hci-2020.json",
       "categories": [
-        "AWS",
         "Personal",
+        "VMware",
         "Hosting",
         "Cloudflare",
-        "Devops"
+        "VMware Cloud on AWS",
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null,
+        null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png)\n\n[AWS](https://jameskilby.co.uk/category/aws/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# AWS Solution Architect – Associate\n\nBy[James](https://jameskilby.co.uk) December 16, 2019 · Updated May..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# VMware Certified Master Specialist HCI 2020\n\nBy[James](https://jameskilby.co.uk) September 13, 2020 · Updated..."
+    },
+    {
+      "slug": "and-now-for-something-completely-different",
+      "title": "And now for something completely different",
+      "description": "I have worked for my current employer Zen Internet for 3.",
+      "date": "2018-10-16T08:22:45Z",
+      "modified": "2026-07-11T07:46:38Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2018/10/and-now-for-something-completely-different/",
+      "markdown_url": "/markdown/posts/and-now-for-something-completely-different.md",
+      "api_url": "/api/posts/and-now-for-something-completely-different.json",
+      "categories": [
+        "Personal",
+        "VMware",
+        "Devops",
+        "Hosting",
+        "Cloudflare",
+        "Nutanix"
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018 · Updated July 11, 2026 • 📖1 min read(263 words)\n\nI have worked for my cu..."
     },
     {
       "slug": "aws-status-page-monitoring-included",
@@ -345,11 +370,10 @@
         "AWS",
         "Hosting",
         "Cloudflare",
-        "Docker",
-        "Homelab",
-        "Personal",
         "VMware",
-        "VMware Cloud on AWS"
+        "VMware Cloud on AWS",
+        "Artificial Intelligence",
+        "Docker"
       ],
       "tags": [
         null,
@@ -370,11 +394,12 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
-        "AWS",
         "Cloudflare",
-        "Devops",
-        "Artificial Intelligence",
-        "Docker"
+        "Docker",
+        "Homelab",
+        "Wordpress",
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null

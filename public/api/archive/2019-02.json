@@ -15,11 +15,14 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
+        "Docker",
+        "Hosting",
         "Networking",
-        "VMware",
-        "Ansible",
-        "Veeam",
-        "Storage"
+        "Automation",
+        "Github",
+        "Storage",
+        "VCF",
+        "VMware"
       ],
       "tags": [
         null,
