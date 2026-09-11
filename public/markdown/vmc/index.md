@@ -2,7 +2,7 @@
 title: "VMware Cloud on AWS (VMC) – Links & Resources"
 description: "Curated VMware Cloud on AWS (VMC) resources: official docs, release notes, HCX, networking, automation, Aria integration and hands-on blogs."
 date: 2025-03-18T12:20:48+00:00
-modified: 2026-09-01T14:33:00+00:00
+modified: 2026-09-11T08:22:03+00:00
 author: James Kilby
 categories:
   - Patrick Kremer
@@ -139,6 +139,8 @@ In my role at Broadcom I look after the VMware-on-AWS HyperScaler solutions — 
 ## Security
 
 [Broadcom security announcements ](https://github.com/vmware/vcf-security-and-compliance-guidelines)
+
+[Cloud Principals](https://www.vmware.com/docs/vmware-fourteen-cloud-security-principles)
 
 [Privacy](https://www.vmware.com/docs/vmw-datasheet-vmc-on-aws-privacy)
 
