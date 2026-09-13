@@ -17,10 +17,10 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Personal",
         "Ansible",
         "Automation",
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Personal"
       ],
       "tags": [
         null,
@@ -44,13 +44,12 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Networking",
-        "Artificial Intelligence",
-        "Automation",
-        "Kubernetes",
-        "TrueNAS Scale",
+        "Hosting",
         "VMware",
-        "Ansible"
+        "Artificial Intelligence",
+        "Docker",
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null,
@@ -74,10 +73,13 @@
       "categories": [
         "Homelab",
         "Networking",
+        "Ansible",
         "Artificial Intelligence",
         "Automation",
+        "Mikrotik",
         "Storage",
-        "VMware"
+        "Github",
+        "Docker"
       ],
       "tags": [
         null,
@@ -100,10 +102,11 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "Networking",
-        "Storage",
         "Artificial Intelligence",
         "Docker",
+        "Networking",
+        "Ansible",
+        "Storage",
         "VMware Cloud on AWS"
       ],
       "tags": [
@@ -127,11 +130,13 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Networking",
         "VMware Cloud on AWS",
-        "Artificial Intelligence",
-        "Docker",
-        "Personal"
+        "Veeam",
+        "Ansible",
+        "Automation",
+        "Personal",
+        "Mikrotik",
+        "Networking"
       ],
       "tags": [
         null,
@@ -154,12 +159,11 @@
       "categories": [
         "Hosting",
         "Wordpress",
+        "Docker",
         "Homelab",
         "Cloudflare",
-        "Devops",
         "Artificial Intelligence",
-        "Automation",
-        "Docker"
+        "Automation"
       ],
       "tags": [
         null,
@@ -186,8 +190,9 @@
         "Wordpress",
         "Artificial Intelligence",
         "Automation",
-        "Consulting",
-        "AWS"
+        "Nutanix",
+        "VMware",
+        "Devops"
       ],
       "tags": [
         null,

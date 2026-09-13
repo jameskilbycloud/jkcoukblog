@@ -59,13 +59,15 @@
       "categories": [
         "Homelab",
         "Hosting",
-        "Automation",
-        "Github",
-        "Wordpress",
-        "VMware",
-        "Nutanix",
         "Veeam",
-        "Ansible"
+        "VCF",
+        "VMware",
+        "Ansible",
+        "Cloudflare",
+        "Mikrotik",
+        "Networking",
+        "Automation",
+        "Github"
       ],
       "tags": [
         null,
@@ -88,11 +90,12 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "Networking",
-        "Runecast",
         "VMware",
-        "VCF",
-        "Nutanix"
+        "Ansible",
+        "Automation",
+        "Networking",
+        "Nutanix",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -116,11 +119,10 @@
         "Runecast",
         "VMware",
         "VMware Cloud on AWS",
-        "VCF",
-        "Automation",
         "Homelab",
-        "Docker",
-        "Personal"
+        "Veeam",
+        "Personal",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -144,13 +146,13 @@
       "categories": [
         "Automation",
         "Github",
-        "Homelab",
-        "Storage",
+        "Ansible",
         "Artificial Intelligence",
-        "Networking",
-        "Docker",
-        "Runecast",
-        "VMware"
+        "Homelab",
+        "VMware",
+        "Veeam",
+        "Devops",
+        "Personal"
       ],
       "tags": [
         null,
@@ -203,7 +205,7 @@
         "Nutanix",
         "Personal",
         "VMware",
-        "Hosting",
+        "Homelab",
         "Consulting"
       ],
       "tags": [
@@ -225,8 +227,8 @@
       "api_url": "/api/posts/nutanix-life-cycle-manager.json",
       "categories": [
         "Nutanix",
-        "Homelab",
-        "Personal"
+        "Personal",
+        "Homelab"
       ],
       "tags": [
         null

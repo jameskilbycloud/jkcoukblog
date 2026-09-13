@@ -16,13 +16,13 @@
       "categories": [
         "Automation",
         "Github",
-        "Homelab",
-        "Storage",
+        "Ansible",
         "Artificial Intelligence",
-        "Networking",
-        "Docker",
-        "Runecast",
-        "VMware"
+        "Homelab",
+        "VMware",
+        "Veeam",
+        "Devops",
+        "Personal"
       ],
       "tags": [
         null,
@@ -50,12 +50,13 @@
         "Ansible",
         "Automation",
         "VMware",
-        "VMware Cloud on AWS",
+        "VCF",
+        "Homelab",
+        "Storage",
         "Artificial Intelligence",
-        "Personal",
-        "Github",
-        "Runecast",
-        "TrueNAS Scale"
+        "Docker",
+        "TrueNAS Scale",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -84,11 +85,13 @@
         "Traefik",
         "VCF",
         "VMware",
-        "Artificial Intelligence",
-        "vSAN",
+        "Personal",
+        "Storage",
+        "Cloudflare",
         "Hosting",
-        "Veeam",
-        "Storage"
+        "VMware Cloud on AWS",
+        "Devops",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -129,10 +132,8 @@
         "Traefik",
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
-        "Ansible",
-        "Cloudflare",
-        "vSAN"
+        "TrueNAS Scale",
+        "VCF"
       ],
       "tags": [
         null,
@@ -159,7 +160,7 @@
       "title": "New VMware Cloud on AWS Host: i7i.metal-24xl",
       "description": "We’ve expanded the VMC fleet with the new i7i (i7i.",
       "date": "2026-04-01T08:06:00Z",
-      "modified": "2026-07-11T07:46:38Z",
+      "modified": "2026-09-11T15:16:17Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/",
       "markdown_url": "/markdown/posts/new-vmc-host-i7i-metal-24xl.md",
@@ -167,9 +168,11 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "AWS",
-        "Automation",
-        "Homelab"
+        "Homelab",
+        "Networking",
+        "TrueNAS Scale",
+        "Veeam",
+        "VCF"
       ],
       "tags": [
         null,

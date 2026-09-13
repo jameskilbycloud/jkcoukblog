@@ -17,10 +17,11 @@
         "Automation",
         "Homelab",
         "VMware",
+        "Personal",
         "Artificial Intelligence",
+        "Docker",
         "VMware Cloud on AWS",
-        "Nutanix",
-        "Hosting"
+        "vSAN"
       ],
       "tags": [
         null,
@@ -44,10 +45,9 @@
       "categories": [
         "Personal",
         "Consulting",
+        "VMware",
         "AWS",
-        "Devops",
-        "Hosting",
-        "VMware"
+        "Hosting"
       ],
       "tags": [
         null,

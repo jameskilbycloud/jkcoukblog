@@ -18,10 +18,8 @@
         "VMware Cloud on AWS",
         "Homelab",
         "Nutanix",
-        "Ansible",
-        "Artificial Intelligence",
-        "Automation",
-        "Personal"
+        "Networking",
+        "VCF"
       ],
       "tags": [
         null

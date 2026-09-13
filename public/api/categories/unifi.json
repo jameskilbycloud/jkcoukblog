@@ -16,12 +16,11 @@
         "Homelab",
         "Networking",
         "Unifi",
-        "Mikrotik",
-        "Ansible",
-        "Automation",
-        "Github",
+        "Nutanix",
         "VMware",
-        "Veeam"
+        "Ansible",
+        "Runecast",
+        "Storage"
       ],
       "tags": [
         null,

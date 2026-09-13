@@ -17,12 +17,9 @@
         "VMware",
         "vSAN",
         "vSphere",
+        "VMware Cloud on AWS",
         "Homelab",
-        "Storage",
-        "Artificial Intelligence",
-        "Automation",
-        "Personal",
-        "Ansible"
+        "Personal"
       ],
       "tags": [
         null,
@@ -48,10 +45,12 @@
         "VMware",
         "Personal",
         "vSphere",
-        "vSAN",
-        "Consulting",
+        "Hosting",
+        "Cloudflare",
         "Homelab",
-        "Storage",
+        "Nutanix",
+        "Artificial Intelligence",
+        "Automation",
         "VMware Cloud on AWS"
       ],
       "tags": [
@@ -76,10 +75,11 @@
         "Homelab",
         "VMware",
         "vSphere",
+        "Ansible",
+        "Artificial Intelligence",
         "VMware Cloud on AWS",
-        "Networking",
-        "Personal",
-        "Runecast"
+        "Storage",
+        "Nutanix"
       ],
       "tags": [
         null,

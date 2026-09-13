@@ -17,11 +17,11 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Automation",
-        "Veeam",
-        "Networking",
         "Personal",
-        "VMware"
+        "VMware",
+        "Automation",
+        "Github",
+        "Nutanix"
       ],
       "tags": [
         null,

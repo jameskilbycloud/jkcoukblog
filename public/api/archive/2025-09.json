@@ -16,11 +16,12 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Nutanix",
-        "Networking",
-        "Automation",
         "Artificial Intelligence",
-        "Github"
+        "Automation",
+        "Networking",
+        "Storage",
+        "Nutanix",
+        "Docker"
       ],
       "tags": [
         null,

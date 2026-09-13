@@ -17,11 +17,11 @@
         "Homelab",
         "Nutanix",
         "VMware",
-        "VCF",
-        "Artificial Intelligence",
-        "Automation",
+        "Networking",
+        "VMware Cloud on AWS",
         "Storage",
-        "VMware Cloud on AWS"
+        "Automation",
+        "Ansible"
       ],
       "tags": [
         null,

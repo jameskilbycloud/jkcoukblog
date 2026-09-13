@@ -19,7 +19,10 @@
         "Hosting",
         "Homelab",
         "Storage",
-        "Wordpress"
+        "Networking",
+        "Personal",
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null,
