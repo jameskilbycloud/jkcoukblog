@@ -16,11 +16,12 @@
       "categories": [
         "AWS",
         "Hosting",
-        "Cloudflare",
         "VMware",
-        "VMware Cloud on AWS",
-        "Artificial Intelligence",
-        "Docker"
+        "Personal",
+        "Cloudflare",
+        "Wordpress",
+        "Docker",
+        "Homelab"
       ],
       "tags": [
         null,

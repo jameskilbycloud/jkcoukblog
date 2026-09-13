@@ -32,7 +32,7 @@ Field notes from a homelab that costs real money to run.
 
 ⌘K
 
-**75** posts**51k** words**82d** since last post**12** deploys/molighthouse **95/100** ● live
+**75** posts**51k** words**84d** since last post**16** deploys/molighthouse **89/100** ● live
 
 [![UniFi UDM Beast 1U rack-mount gateway shown front-on, with two 3.5-inch drive bays, a bank of RJ45 and SFP network ports, and dimension labels.](https://jameskilby.co.uk/wp-content/uploads/2026/06/UnifiBeast-768x219.webp)LATESTHomelabNetworkingUnleashing the UDM BeastRetiring my ageing WatchGuard M200, I swap in the UniFi UDM Beast — a hardware tour, first iperf and WAN tests, the BGP/FRR setup, and the homelab services I’m consolidating onto it.June 20, 2026Read post →](https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/)
 
@@ -82,7 +82,7 @@ Part 2 of my self-hosted AI stack series. I cover container resource sizing, dua
 
 ## [New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
 
-By[James](https://jameskilby.co.uk) April 1, 2026 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk) April 1, 2026 · Updated September 11, 2026
 
 We’ve expanded the VMC fleet with the new i7i (i7i.
 

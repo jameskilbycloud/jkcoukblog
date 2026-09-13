@@ -21,10 +21,8 @@
         "Traefik",
         "VMware",
         "VMware Cloud on AWS",
-        "Personal",
-        "Ansible",
-        "Cloudflare",
-        "vSAN"
+        "TrueNAS Scale",
+        "VCF"
       ],
       "tags": [
         null,
@@ -64,10 +62,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Networking",
         "VMware Cloud on AWS",
-        "Veeam",
-        "VCF"
+        "Storage",
+        "AWS",
+        "Github"
       ],
       "tags": [
         null,
@@ -106,10 +104,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Veeam",
-        "Storage",
+        "Networking",
+        "Hosting",
+        "Automation",
         "Nutanix",
-        "Personal"
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,

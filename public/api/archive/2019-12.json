@@ -17,12 +17,13 @@
         "VMware",
         "AWS",
         "Veeam",
-        "Personal",
-        "VMware Cloud on AWS",
-        "Ansible",
-        "Artificial Intelligence",
         "VCF",
-        "Homelab"
+        "vSAN",
+        "VMware Cloud on AWS",
+        "Artificial Intelligence",
+        "Automation",
+        "Homelab",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -45,11 +46,11 @@
       "categories": [
         "AWS",
         "Personal",
-        "Nutanix",
-        "Consulting",
+        "Hosting",
+        "Cloudflare",
         "VMware",
-        "VMware Cloud on AWS",
-        "Hosting"
+        "Devops",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,

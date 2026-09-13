@@ -17,13 +17,12 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Hosting",
         "Artificial Intelligence",
         "Docker",
+        "Hosting",
         "Ansible",
-        "Automation",
-        "Github",
-        "Networking"
+        "TrueNAS Scale",
+        "VMware"
       ],
       "tags": [
         null,
