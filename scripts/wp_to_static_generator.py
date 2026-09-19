@@ -515,13 +515,20 @@ class WordPressStaticGenerator:
 
         # Inject the homepage top band first: it emits the editorial
         # <h1 class="jkr-headline">, which must be the page's single H1.
-        # fix_homepage_h1() below is a fallback that only converts the
+        # ensure_homepage_h1() below is a fallback that only converts the
         # site-title to an H1 when none exists — running it after the inject
         # means it correctly stands down, leaving exactly one H1.
+        #
+        # This is a *structural* fallback only — it doesn't touch the h1's
+        # text. A later pipeline stage, SEOFixer.lock_homepage_h1_text()
+        # (scripts/fix_seo_issues.py), rewrites whatever h1 text ends up
+        # here to the canonical Config.HOMEPAGE_TITLE. Same-named methods
+        # in the two files used to make this two-stage relationship easy to
+        # miss; the distinct names now say what each one actually does.
         self.inject_homepage_redesign(soup, current_url)
 
-        # Fix missing H1 on homepage (fallback if the redesign didn't inject)
-        self.fix_homepage_h1(soup, current_url)
+        # Ensure the homepage has an H1 (fallback if the redesign didn't inject)
+        self.ensure_homepage_h1(soup, current_url)
 
         # Brutalist header/footer chrome (every page): JK monogram logo lockup,
         # relocate the footer social icons into the header (+ mobile drawer),
@@ -2838,7 +2845,7 @@ document.addEventListener('DOMContentLoaded', function() {
         soup.head.insert(0, robots_meta)
         print(f"   🚫 Added noindex, follow: {current_url}")
 
-    def fix_homepage_h1(self, soup, current_url):
+    def ensure_homepage_h1(self, soup, current_url):
         """Fix missing H1 tag on homepage by converting site title to H1"""
         # Only apply to homepage
         if current_url not in ['/', '']:
