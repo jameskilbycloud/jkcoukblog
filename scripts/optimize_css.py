@@ -196,7 +196,7 @@ class CSSOptimizer:
     # Not included, deliberately: classes JS only *queries* (querySelector,
     # closest, matches). Those must already exist in the served HTML to be
     # found, so _collect_used_selectors picks them up. Splide's splide__*
-    # markup is server-rendered by wp_to_static_generator.fix_splide_carousel
+    # markup is server-rendered by inline_css_fixups.InlineCSSFixups.fix_splide_carousel
     # and is covered the same way — verified present in post-page HTML.
     _DYNAMIC_CLASSES = frozenset({
         # Generic interactive state
