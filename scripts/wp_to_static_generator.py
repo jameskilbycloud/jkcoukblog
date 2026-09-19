@@ -58,6 +58,8 @@ from content_enrichment_ux import ContentEnrichmentUX
 # Breadcrumb navigation + BreadcrumbList schema — only needs target_domain,
 # see that module's docstring.
 from breadcrumb_navigation import BreadcrumbNavigation
+# Social links footer — fully stateless, see that module's docstring.
+from social_links import SocialLinks
 
 # Default timeout (seconds) applied to every session HTTP call. Individual
 # calls can still pass an explicit `timeout=` to override this.
@@ -121,6 +123,9 @@ class WordPressStaticGenerator:
         # Breadcrumb navigation + schema — see breadcrumb_navigation.py.
         # Only needs target_domain.
         self.breadcrumbs = BreadcrumbNavigation(self.target_domain)
+        # Social links footer — see social_links.py. Fully stateless;
+        # takes no constructor arguments.
+        self.social = SocialLinks()
 
     def _paginate_taxonomy(self, endpoint: str, kind: str) -> list:
         """Fetch every item from a WP taxonomy endpoint (tags, categories, ...).
@@ -559,7 +564,7 @@ class WordPressStaticGenerator:
         self.add_related_posts(soup, current_url)
         
         # Add social media links to bottom of posts
-        self.add_social_media_links(soup)
+        self.social.add_social_media_links(soup)
 
         # Add BlogPosting JSON-LD schema to article pages
         self.schema.add_blogposting_schema(soup, current_url)
@@ -2171,71 +2176,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     entry_content.insert_after(related_section)
                 print(f"   📚 Added {len(selected)} related posts (score-based)")
 
-    def add_social_media_links(self, soup):
-        """Add social media links (GitHub, Twitter, LinkedIn) to the bottom of each post"""
-        
-        # Only add to single post pages and regular pages
-        body = soup.find('body')
-        if not body:
-            return
-        
-        body_classes = body.get('class', [])
-        body_class_str = ' '.join(body_classes).lower()
-        
-        # Add to single posts and pages (not archive/list pages)
-        is_single_post = 'single-post' in body_class_str or 'single' in body_classes
-        is_page = 'page-template' in body_class_str or ('page' in body_classes and 'single' not in body_class_str)
-        
-        if not (is_single_post or is_page):
-            return  # Not a single post/page, skip social links
-        
-        # Find the entry-content div to add social links after it
-        entry_content = soup.find('div', class_=lambda x: x and 'entry-content' in x)
-        
-        if not entry_content:
-            return
-        
-        # Create social media section
-        social_section = soup.new_tag('div')
-        social_section['class'] = 'social-media-links'
-        social_section['style'] = '''margin: 40px 0 20px 0; padding: 20px 0; border-top: 2px solid #e2e8f0; text-align: center;'''
-        
-        # Heading
-        heading = soup.new_tag('p')
-        heading['style'] = 'margin: 0 0 15px 0; font-size: 16px; color: #4a5568; font-weight: 500;'
-        heading.string = 'Connect with me:'
-        social_section.append(heading)
-        
-        # Links container
-        links_container = soup.new_tag('div')
-        links_container['style'] = 'display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;'
-        
-        # Social media links — Config.SOCIAL_PROFILES is the single source of
-        # truth, shared with the JSON-LD sameAs graph.
-        from config import Config as _social_config
-        social_links = list(_social_config.SOCIAL_PROFILES)
-        
-        # Create link for each platform
-        for platform in social_links:
-            link = soup.new_tag('a')
-            link['href'] = platform['url']
-            link['target'] = '_blank'
-            link['rel'] = 'noopener noreferrer'
-            link['style'] = f'''display: inline-block; padding: 8px 16px; 
-                background: transparent; border: 1px solid {platform['color']}; border-radius: 4px; 
-                color: {platform['color']}; text-decoration: none; font-weight: 500; font-size: 14px;
-                transition: all 0.2s; hover: background: {platform['color']}; hover: color: white;'''
-            link.string = platform['name']
-            
-            links_container.append(link)
-        
-        social_section.append(links_container)
-        
-        # Insert after the entry-content
-        entry_content.insert_after(social_section)
-        
-        print("   🔗 Added social media links (GitHub, Twitter, LinkedIn)")
-    
     def generate_static_site(self):
         """Main generation process"""
         print("🚀 WordPress to Static Site Generator")
