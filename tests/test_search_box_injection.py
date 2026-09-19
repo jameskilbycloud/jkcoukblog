@@ -1,5 +1,6 @@
 """Tests for build-time injection of the blog search box into <main>
-(wp_to_static_generator._inject_search_box).
+(header_footer_chrome._inject_search_box, extracted from
+wp_to_static_generator).
 
 search.js originally built this box at runtime and inserted it at the top of
 <main> ~2s after load. That pushed every page's content down 82px — 0.079 CLS
@@ -7,8 +8,9 @@ on the homepage, 0.099 on posts, measured on a throttled Pixel 7 profile — and
 took the origin's p75 CLS from 0.05 to 0.22 between the CrUX windows ending
 2026-07-25 and 2026-08-22. Rendering it at build time reserves the space.
 
-_inject_search_box only touches the soup it is handed, so it runs against a
-lightweight stub rather than the full WordPress-dependent generator.
+_inject_search_box only touches the soup it is handed and a class-level
+markup constant, so we call it unbound against the class itself rather than
+constructing an instance.
 """
 
 import re
@@ -16,7 +18,7 @@ from pathlib import Path
 
 from bs4 import BeautifulSoup
 
-from wp_to_static_generator import WordPressStaticGenerator as G
+from header_footer_chrome import HeaderFooterChrome as G
 
 SEARCH_JS = Path(__file__).resolve().parent.parent / 'scripts' / 'assets' / 'js' / 'search.js'
 
