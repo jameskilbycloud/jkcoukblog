@@ -12,7 +12,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'scripts'))
 
-from wp_to_static_generator import WordPressStaticGenerator  # noqa: E402
+from site_artifacts_builder import SiteArtifactsBuilder  # noqa: E402
 
 # The indexer skips anything under 50 words as a navigation page.
 BODY = ' '.join(f'word{i}' for i in range(80))
@@ -35,14 +35,8 @@ def _build(root: Path, order) -> list:
         page_dir.mkdir(parents=True, exist_ok=True)
         (page_dir / 'index.html').write_text(_page(slug), encoding='utf-8')
 
-    generator = WordPressStaticGenerator(
-        'https://wordpress.example',
-        'test-token',
-        str(root),
-        'https://example.com',
-        use_incremental=False,
-    )
-    generator.generate_search_index()
+    builder = SiteArtifactsBuilder(root, 'https://example.com')
+    builder.generate_search_index()
     return json.loads((root / 'search-index.json').read_text(encoding='utf-8'))
 
 
