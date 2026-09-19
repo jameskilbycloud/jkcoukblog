@@ -166,7 +166,7 @@ class Config:
     # the URL path (with trailing slash, e.g. "/category/aws/").
     #
     # See scripts/fix_seo_issues.py:fix_thin_archive_noindex (injects the
-    # meta tag) and wp_to_static_generator.py:_should_exclude_from_sitemap
+    # meta tag) and scripts/site_artifacts_builder.py:_should_exclude_from_sitemap
     # (drops them from sitemap). Both read this list — single source of truth.
     NOINDEX_PATH_PATTERNS = (
         r'^/category/.+',          # category archives (thin — list of post excerpts)

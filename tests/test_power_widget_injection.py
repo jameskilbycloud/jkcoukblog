@@ -1,5 +1,6 @@
 """Tests for build-time injection of the homelab power widget into the lab
-page (wp_to_static_generator.inject_power_widget).
+page (site_artifacts_builder.inject_power_widget, extracted from
+wp_to_static_generator).
 
 The widget is a repo-maintained partial injected into public/lab/index.html at
 build time (not WordPress content). Injection is idempotent via the widget's
@@ -8,12 +9,12 @@ lab page.
 
 inject_power_widget only uses self.output_dir and self._POWER_WIDGET_ANCHORS
 (and reads the real partial from scripts/assets/), so we exercise it against a
-lightweight stub rather than the full WordPress-dependent generator.
+lightweight stub rather than the full SiteArtifactsBuilder.
 """
 
 import types
 
-from wp_to_static_generator import WordPressStaticGenerator as G
+from site_artifacts_builder import SiteArtifactsBuilder as G
 
 TOC = '<div class="wp-block-rank-math-toc-block" id="rank-math-toc">'
 CONTENT = '<div class="entry-content single-content">'
@@ -138,7 +139,7 @@ def test_partial_root_is_stampable():
     """The injector stamps the version onto this exact root; guard the contract."""
     from pathlib import Path
     import re as _re
-    import wp_to_static_generator as mod
+    import site_artifacts_builder as mod
     partial = (Path(mod.__file__).parent / 'partials'
                / 'homelab-power-widget.html').read_text()
     assert _re.search(r'<div\b[^>]*\bid="homelab-power-block"', partial), \
@@ -148,7 +149,7 @@ def test_partial_root_is_stampable():
 def test_partial_contains_expected_hooks():
     # Guard the contract the injector/JS relies on.
     from pathlib import Path
-    import wp_to_static_generator as mod
+    import site_artifacts_builder as mod
     partial = (Path(mod.__file__).parent / 'partials'
                / 'homelab-power-widget.html').read_text()
     assert 'id="homelab-power"' in partial

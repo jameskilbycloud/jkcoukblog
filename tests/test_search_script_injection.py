@@ -1,5 +1,5 @@
 """Tests for the search-script injection + cache-busting in
-wp_to_static_generator.
+site_artifacts_builder (extracted from wp_to_static_generator).
 
 The generator copies /js/search.js and injects a single <script> reference
 into every page. /js/search.js is served with a ~186-day max-age and no
@@ -9,14 +9,14 @@ immediately while the long cache lifetime is preserved.
 
 inject_search_script only touches self.output_dir, self._SEARCH_SCRIPT_TAG_RE
 and self._search_script_version(), so we exercise it against a lightweight
-stub rather than constructing the full (WordPress-dependent) generator.
+stub rather than constructing the full SiteArtifactsBuilder.
 """
 
 import types
 
 import pytest
 
-from wp_to_static_generator import WordPressStaticGenerator as G
+from site_artifacts_builder import SiteArtifactsBuilder as G
 
 RE = G._SEARCH_SCRIPT_TAG_RE
 VER = 'abc123def456'
