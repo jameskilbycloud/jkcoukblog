@@ -554,8 +554,8 @@ class SEOFixer:
         pages, and we don't Disallow them in robots.txt (per the comment
         there — Google has to crawl to see the noindex directive).
 
-        Pairs with wp_to_static_generator._matches_noindex_pattern which
-        drops these from sitemap.xml using the same Config list.
+        Pairs with site_artifacts_builder.SiteArtifactsBuilder._matches_noindex_pattern
+        which drops these from sitemap.xml using the same Config list.
         """
         if not NOINDEX_PATH_PATTERNS:
             return False
