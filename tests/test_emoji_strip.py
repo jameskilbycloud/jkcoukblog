@@ -1,5 +1,6 @@
 """Tests for stripping the wp-emoji loader
-(wp_to_static_generator.remove_wordpress_elements).
+(wordpress_cleanup.remove_wordpress_elements, extracted from
+wp_to_static_generator).
 
 WordPress inlines an emoji-detection script that creates a Web Worker from a
 blob: URL. The site CSP has no worker-src, so the worker is blocked and every
@@ -10,7 +11,7 @@ inline loader, and the emoji <style>. Critical CSS must survive untouched.
 
 from bs4 import BeautifulSoup
 
-from wp_to_static_generator import WordPressStaticGenerator as G
+from wordpress_cleanup import WordPressCleanup as G
 
 EMOJI_HTML = """
 <html><head>
