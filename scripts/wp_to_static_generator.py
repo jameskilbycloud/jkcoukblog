@@ -70,6 +70,9 @@ from wp_content_discovery import WPContentDiscovery
 # Static asset extraction + download — needs session/wp_url/target_domain/
 # output_dir/downloaded_assets, see that module's docstring.
 from asset_pipeline import AssetPipeline
+# Related-posts index + injection — needs session/wp_url, see that
+# module's docstring.
+from related_posts import RelatedPosts
 
 # Default timeout (seconds) applied to every session HTTP call. Individual
 # calls can still pass an explicit `timeout=` to override this.
@@ -99,12 +102,6 @@ class WordPressStaticGenerator:
         self.css_output_dir = self.output_dir / 'assets' / 'css'
         self.use_incremental = use_incremental
         self.incremental_builder = IncrementalBuilder() if use_incremental else None
-        # Map of relative_url -> {'cats': set[int], 'tags': set[int],
-        # 'date': str, 'title': str}. Populated once per build by
-        # build_post_index() and consumed by add_related_posts(); writes
-        # finish before the parallel processing pool starts, so reads from
-        # worker threads are safe.
-        self.post_index = {}
         # Post-build artifact generation (sitemap, RSS, search index, script/
         # widget injection) — see site_artifacts_builder.py. Only needs
         # output_dir/target_domain, so it's built once here and reused.
@@ -151,6 +148,11 @@ class WordPressStaticGenerator:
         self.assets = AssetPipeline(
             self.session, self.wp_url, self.target_domain, self.output_dir, self.downloaded_assets
         )
+        # Related-posts index + injection — see related_posts.py. Needs
+        # session/wp_url; owns post_index (built once per build, read per
+        # single-post page — see that module's docstring for the threading
+        # note).
+        self.related_posts = RelatedPosts(self.session, self.wp_url)
 
     def download_and_process_url(self, url_path):
         """Download a single URL and process it for static hosting"""
@@ -326,7 +328,7 @@ class WordPressStaticGenerator:
         self.breadcrumbs.add_breadcrumb_navigation(soup, current_url)
         
         # Add related posts section (only for single posts)
-        self.add_related_posts(soup, current_url)
+        self.related_posts.add_related_posts(soup, current_url)
         
         # Add social media links to bottom of posts
         self.social.add_social_media_links(soup)
@@ -915,171 +917,6 @@ document.addEventListener('DOMContentLoaded', function() {
             soup.head.append(plausible_script)
             print("   📊 Added Plausible analytics script to page")
     
-    def build_post_index(self):
-        """Bulk-fetch all published posts once and store in self.post_index.
-
-        Replaces the per-post WordPress API calls previously made from
-        add_related_posts(). After this runs, related-post scoring is a pure
-        in-memory operation against integer category/tag ID sets.
-
-        Index entry shape:
-            {
-                'cats':  set[int],   # category term IDs
-                'tags':  set[int],   # tag term IDs
-                'date':  str,        # ISO 8601 published date
-                'title': str,        # rendered title (may contain HTML entities)
-            }
-
-        Keyed by relative URL (`post['link']` minus `self.wp_url`), matching
-        the `current_url` argument that process_html() passes to
-        add_related_posts().
-        """
-        print("📚 Building post index for related-posts scoring...")
-        index = {}
-        page = 1
-        while True:
-            resp = self.session.get(
-                f'{self.wp_url}/wp-json/wp/v2/posts',
-                params={
-                    'per_page': 100,
-                    'page': page,
-                    'status': 'publish',
-                    '_fields': 'id,link,date,categories,tags,title',
-                },
-            )
-            if resp.status_code != 200:
-                # 400 = past the last page on WP REST; anything else is a real
-                # failure but should not break the rest of the build — the
-                # related-posts section just won't render.
-                if resp.status_code not in (400,):
-                    print(f"   ⚠️  Post index fetch returned {resp.status_code} on page {page}")
-                break
-            try:
-                posts = resp.json()
-            except (json.JSONDecodeError, ValueError):
-                print(f"   ⚠️  Invalid JSON on post-index page {page}")
-                break
-            if not posts:
-                break
-            for post in posts:
-                relative_url = post['link'].replace(self.wp_url, '')
-                index[relative_url] = {
-                    'cats': set(post.get('categories') or []),
-                    'tags': set(post.get('tags') or []),
-                    'date': post.get('date') or '',
-                    'title': (post.get('title') or {}).get('rendered', ''),
-                }
-            page += 1
-
-        self.post_index = index
-        total_cats = sum(len(p['cats']) for p in index.values())
-        total_tags = sum(len(p['tags']) for p in index.values())
-        print(f"   ✅ Indexed {len(index)} posts ({total_tags} tag refs, {total_cats} category refs)")
-
-    def add_related_posts(self, soup, current_url):
-        """Inject a 'Related Posts' section scored against self.post_index.
-
-        Score formula:
-            score = 3 * |shared_tags| + 2 * |shared_categories|
-        Ties broken by recency (newer first). Top 3 selected.
-
-        Tags are weighted higher than categories because categories are
-        coarse hubs ("Homelab") while tags are specific facets ("packer",
-        "vsan") — overlap on a tag is a stronger topical signal.
-
-        Fallback when no candidate has any overlap: newest 3 posts that
-        share at least one category (matches the legacy behaviour). This
-        preserves the section's existence on posts whose tags/categories
-        are unique enough to score zero against the rest of the corpus.
-        """
-        body = soup.find('body')
-        if not body:
-            return
-
-        body_classes = body.get('class', [])
-        body_class_str = ' '.join(body_classes).lower()
-        if 'single-post' not in body_class_str and 'single' not in body_classes:
-            return
-
-        # Avoid double-injection on repeat process_html passes
-        for existing in soup.find_all('section', class_='related-posts-section'):
-            existing.decompose()
-
-        current_entry = self.post_index.get(current_url)
-        if not current_entry:
-            # Post isn't in the index — index didn't build, or this is a
-            # page/archive misclassified as a single post. Skip silently.
-            return
-
-        cur_cats = current_entry['cats']
-        cur_tags = current_entry['tags']
-        if not cur_cats and not cur_tags:
-            return
-
-        scored = []
-        for url, entry in self.post_index.items():
-            if url == current_url:
-                continue
-            shared_tags = len(cur_tags & entry['tags'])
-            shared_cats = len(cur_cats & entry['cats'])
-            score = 3 * shared_tags + 2 * shared_cats
-            if score > 0:
-                scored.append((score, entry['date'], url, entry['title']))
-
-        if scored:
-            # Sort by score desc, then date desc (newer breaks ties). ISO 8601
-            # dates sort lexicographically the same as chronologically, so a
-            # single tuple sort works.
-            scored.sort(key=lambda x: (x[0], x[1]), reverse=True)
-            selected = scored[:3]
-        else:
-            # Fallback: newest 3 sharing any category
-            fallback = [
-                (entry['date'], url, entry['title'])
-                for url, entry in self.post_index.items()
-                if url != current_url and (cur_cats & entry['cats'])
-            ]
-            fallback.sort(reverse=True)  # date desc
-            selected = [(0, d, u, t) for d, u, t in fallback[:3]]
-
-        if not selected:
-            return
-
-        # Styling lives in brutalist-theme.css (.related-posts-section) using
-        # theme tokens — no inline light-theme styles (they were off-palette
-        # blue/rounded/shadowed and only survived via global !important resets).
-        related_section = soup.new_tag('section')
-        related_section['class'] = 'related-posts-section'
-
-        heading = soup.new_tag('h2')
-        heading.string = '📚 Related Posts'
-        related_section.append(heading)
-
-        posts_list = soup.new_tag('ul')
-        posts_list['class'] = 'related-posts-list'
-
-        for _score, _date, rel_url, title in selected:
-            li = soup.new_tag('li')
-            li['class'] = 'related-posts-item'
-            link = soup.new_tag('a')
-            link['href'] = rel_url
-            link.string = title
-            li.append(link)
-            posts_list.append(li)
-
-        related_section.append(posts_list)
-
-        entry_content = soup.find('div', class_=lambda x: x and 'entry-content' in x)
-        if entry_content:
-            article = entry_content.find_parent('article')
-            if article:
-                comments = article.find('div', id='comments')
-                if comments:
-                    comments.insert_after(related_section)
-                else:
-                    entry_content.insert_after(related_section)
-                print(f"   📚 Added {len(selected)} related posts (score-based)")
-
     def generate_static_site(self):
         """Main generation process"""
         print("🚀 WordPress to Static Site Generator")
@@ -1128,7 +965,7 @@ document.addEventListener('DOMContentLoaded', function() {
         # Build the post index used by add_related_posts(). Must happen
         # before the parallel processing pool starts so worker threads see
         # a fully-populated, read-only dict.
-        self.build_post_index()
+        self.related_posts.build_post_index()
 
         # Download and process all content
         print(f"\\n⬇️  Processing {len(urls)} URLs...")
