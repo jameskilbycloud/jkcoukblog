@@ -548,8 +548,8 @@ class HTMLTransformer:
     # plugin CSS would ever be considered. The wpo-minify entry is kept so
     # re-enabling the plugin (or replaying an older build) still works.
     # '-inline-css-' catches the pipeline's OWN extracted files under
-    # /assets/css/. wp_to_static_generator.extract_inline_css lifts WordPress's
-    # inline <style> blocks out to disk; WP-Optimize used to absorb those into
+    # /assets/css/. inline_css_fixups.InlineCSSFixups.extract_inline_css lifts
+    # WordPress's inline <style> blocks out to disk; WP-Optimize used to absorb those into
     # its bundle, so with minify off they surface as extra requests on 170
     # pages (kadence-global-inline-css 11450 B, wp-emoji-styles-inline-css
     # 340 B). Putting them back as <style> restores the form WordPress emitted
