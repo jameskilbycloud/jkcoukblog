@@ -1,5 +1,5 @@
 """Tests for the homepage stats-ribbon Lighthouse value
-(wp_to_static_generator._stat_lighthouse_performance).
+(homepage_redesign.HomepageRedesign._stat_lighthouse_performance).
 
 The ribbon used to read only changelog/lighthouse-history.json. That file is
 written by generate_changelog, which runs *later* in the pipeline than the
@@ -12,7 +12,7 @@ generate_changelog itself consumes. These tests pin that precedence.
 import json
 from pathlib import Path
 
-from wp_to_static_generator import WordPressStaticGenerator as G
+from homepage_redesign import HomepageRedesign as G
 
 
 class _Stub:
