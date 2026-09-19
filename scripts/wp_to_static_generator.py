@@ -41,6 +41,9 @@ from header_footer_chrome import HeaderFooterChrome
 # wlwmanifest links, Rank Math comments, Kadence credit) and embed-block ->
 # iframe conversion — see that module's docstring. Only needs wp_url.
 from wordpress_cleanup import WordPressCleanup
+# Image loading/priority strategy + responsive sizes tuning — fully
+# stateless, see that module's docstring.
+from image_loading_optimizer import ImageLoadingOptimizer
 
 # Default timeout (seconds) applied to every session HTTP call. Individual
 # calls can still pass an explicit `timeout=` to override this.
@@ -89,6 +92,9 @@ class WordPressStaticGenerator:
         # WordPress artifact cleanup + embed conversion — see
         # wordpress_cleanup.py. Only needs wp_url.
         self.wp_cleanup = WordPressCleanup(self.wp_url)
+        # Image loading/priority strategy — see image_loading_optimizer.py.
+        # Fully stateless; takes no constructor arguments.
+        self.images = ImageLoadingOptimizer()
 
     def _paginate_taxonomy(self, endpoint: str, kind: str) -> list:
         """Fetch every item from a WP taxonomy endpoint (tags, categories, ...).
@@ -423,10 +429,10 @@ class WordPressStaticGenerator:
         self.add_static_optimizations(soup)
         
         # Add lazy loading to images
-        self.add_lazy_loading(soup)
-        
+        self.images.add_lazy_loading(soup)
+
         # Optimize responsive image sizes
-        self.optimize_responsive_images(soup)
+        self.images.optimize_responsive_images(soup)
         
         # Add copy code button to code blocks
         self.add_copy_code_button(soup)
@@ -1112,145 +1118,6 @@ document.addEventListener('DOMContentLoaded', function() {
             plausible_script['src'] = plausible_script_url
             soup.head.append(plausible_script)
             print("   📊 Added Plausible analytics script to page")
-    
-    def add_lazy_loading(self, soup):
-        """Add intelligent lazy loading based on image position and priority"""
-        
-        # Find all images
-        images = soup.find_all('img')
-        
-        if not images:
-            return
-        
-        eager_count = 0
-        lazy_count = 0
-        high_priority_count = 0
-        
-        for idx, img in enumerate(images):
-            # Skip if image already has loading attribute
-            if img.get('loading'):
-                continue
-            
-            # Determine if this is a high-priority image
-            is_hero_image = self._is_hero_image(img)
-            is_featured_post = self._is_featured_post_image(img, idx)
-            is_above_fold = idx < 3  # First 3 images likely above fold
-            
-            # High priority images: load eagerly with high fetchpriority
-            if is_hero_image or (is_featured_post and idx == 0):
-                img['loading'] = 'eager'
-                img['fetchpriority'] = 'high'
-                high_priority_count += 1
-                eager_count += 1
-                print(f"   🚀 Image {idx + 1}: HIGH PRIORITY (hero/featured)")
-            
-            # Above-fold images: eager loading but normal priority
-            elif is_above_fold and (is_featured_post or idx < 2):
-                img['loading'] = 'eager'
-                img['decoding'] = 'async'
-                eager_count += 1
-                print(f"   ⚡ Image {idx + 1}: eager loading (above fold)")
-            
-            # Below-fold images: lazy loading
-            else:
-                img['loading'] = 'lazy'
-                img['decoding'] = 'async'
-                lazy_count += 1
-                # Reduce priority for way-below-fold images
-                if idx > 10:
-                    # These are far down the page, lowest priority
-                    pass
-        
-        print("   ✅ Image loading strategy:")
-        print(f"      🚀 High priority: {high_priority_count}")
-        print(f"      ⚡ Eager: {eager_count - high_priority_count}")
-        print(f"      📦 Lazy: {lazy_count}")
-    
-    def _is_hero_image(self, img):
-        """Determine if an image is a hero/banner image"""
-        # Check for hero image classes or attributes
-        img_class = ' '.join(img.get('class', []))
-        
-        # Common hero image patterns
-        hero_patterns = ['hero', 'banner', 'featured-image', 'masthead']
-        
-        for pattern in hero_patterns:
-            if pattern in img_class.lower():
-                return True
-        
-        # Check parent elements for hero sections
-        parent = img.parent
-        for _ in range(3):  # Check up to 3 levels up
-            if parent and parent.name:
-                parent_class = ' '.join(parent.get('class', []))
-                for pattern in hero_patterns:
-                    if pattern in parent_class.lower():
-                        return True
-                parent = parent.parent
-            else:
-                break
-        
-        return False
-    
-    def _is_featured_post_image(self, img, idx):
-        """Determine if an image is a featured post thumbnail"""
-        img_class = ' '.join(img.get('class', []))
-        
-        # WordPress post thumbnail classes
-        if 'wp-post-image' in img_class or 'post-thumbnail' in img_class:
-            return True
-        
-        # Check if inside a post entry/article
-        parent = img.parent
-        for _ in range(5):  # Check up to 5 levels up
-            if parent and parent.name:
-                parent_class = ' '.join(parent.get('class', []))
-                # Archive/list page entry classes
-                if any(cls in parent_class for cls in ['entry', 'post', 'article']):
-                    return True
-                parent = parent.parent
-            else:
-                break
-        
-        return False
-    
-    def optimize_responsive_images(self, soup):
-        """Optimize responsive image sizes attribute for better mobile performance"""
-        # Find featured images (post thumbnails) that have srcset
-        featured_images = soup.find_all('img', class_=lambda x: x and 'wp-post-image' in x and 'attachment-medium_large' in x)
-        
-        if not featured_images:
-            return
-        
-        optimized_count = 0
-        
-        for img in featured_images:
-            srcset = img.get('srcset', '')
-            sizes = img.get('sizes', '')
-            
-            if not srcset or not sizes:
-                continue
-            
-            # Mobile-optimized sizes attribute with granular breakpoints
-            # Tells browser to load appropriately sized images for each device
-            # Original: sizes="(max-width: 768px) 100vw, 768px" or similar
-            # Optimized with mobile breakpoints:
-            #   - 320px screens (iPhone SE): ~95vw = 304px -> use 300w image
-            #   - 375px screens (iPhone): ~95vw = 356px -> use 300w image
-            #   - 480px screens: ~90vw = 432px -> use 768w image
-            #   - 768px tablets: ~90vw = 691px -> use 768w image
-            #   - Desktop: fixed 400px
-            
-            # Check if this needs optimization (has old pattern)
-            if sizes and ('768px' in sizes or '100vw' in sizes):
-                # New mobile-optimized sizes with multiple breakpoints
-                new_sizes = '(max-width: 480px) 95vw, (max-width: 768px) 90vw, 400px'
-                img['sizes'] = new_sizes
-                optimized_count += 1
-                print("   📱 Optimized image sizes for mobile: added 480px breakpoint")
-        
-        if optimized_count > 0:
-            print(f"   ✅ Optimized {optimized_count} featured image(s) with mobile-specific breakpoints")
     
     def add_copy_code_button(self, soup):
         """Add copy code button to all code blocks"""
