@@ -492,7 +492,7 @@ class SEOFixer:
         """Drop standalone BreadcrumbList JSON-LD blocks when an @graph
         block on the same page already contains a BreadcrumbList.
 
-        Background: wp_to_static_generator.add_breadcrumb_navigation()
+        Background: breadcrumb_navigation.BreadcrumbNavigation.add_breadcrumb_navigation()
         emits a standalone BreadcrumbList JSON-LD block as a safety net
         for pages where Rank Math doesn't. On pages where Rank Math
         DOES emit one inside the main @graph, we end up with two —
