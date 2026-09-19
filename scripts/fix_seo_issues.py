@@ -266,10 +266,11 @@ class SEOFixer:
         actually about (VMware, homelab, cloud infrastructure).
 
         Targets only the first/primary h1 in the document. Runs after
-        wp_to_static_generator.WordPressStaticGenerator.ensure_homepage_h1(),
-        which guarantees an h1 exists structurally but doesn't touch its
-        text — this method assumes that stage already ran and requires an
-        h1 to be present (returns False otherwise).
+        page_seo_meta.PageSeoMeta.ensure_homepage_h1() (called via
+        WordPressStaticGenerator.process_html), which guarantees an h1
+        exists structurally but doesn't touch its text — this method
+        assumes that stage already ran and requires an h1 to be present
+        (returns False otherwise).
         """
         if not HOMEPAGE_TITLE:
             return False
