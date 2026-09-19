@@ -10,37 +10,46 @@ Creates a public stats page combining:
 - Deployment history
 """
 
-import subprocess
 import json
 import os
 from datetime import datetime
 from pathlib import Path
-import requests
+
+from config import Config
+from build_stats import get_lighthouse_scores as _get_real_lighthouse_scores, get_git_stats
+
+TARGET_DOMAIN = Config.TARGET_DOMAIN
+TARGET_HOST = TARGET_DOMAIN.replace('https://', '').replace('http://', '')
+PLAUSIBLE_HOST = Config.PLAUSIBLE_URL
 
 def get_lighthouse_scores():
-    """Fetch latest Lighthouse scores from history"""
-    print("📊 Loading Lighthouse scores...")
-    
+    """Latest Lighthouse scores: the real measurement if one exists this run,
+    else the most recent real entry already recorded in history. Never
+    fabricates numbers — see build_stats.get_lighthouse_scores for why."""
+    real = _get_real_lighthouse_scores()
+    if real:
+        return real
+
+    print("📊 No fresh measurement — falling back to Lighthouse history...")
     history_file = Path('public/changelog/lighthouse-history.json')
     if history_file.exists():
         try:
             with open(history_file, 'r') as f:
                 history = json.load(f)
                 if history:
-                    # Get the most recent entry
                     latest = history[-1]
                     print(f"   ✅ Loaded scores from {latest.get('date', 'unknown')}")
                     return latest
-        except Exception as e:
-            print(f"   ⚠️  Error loading scores: {e}")
-    
-    # Fallback to estimated scores
+        except (json.JSONDecodeError, OSError) as e:
+            print(f"   ⚠️  Error loading history: {e}")
+
+    print("   ⚠️  No Lighthouse data available yet — rendering placeholder scores")
     return {
         'date': datetime.now().strftime('%Y-%m-%d'),
-        'performance': 95,
-        'accessibility': 95,
-        'best_practices': 100,
-        'seo': 100
+        'performance': 0,
+        'accessibility': 0,
+        'best_practices': 0,
+        'seo': 0,
     }
 
 def get_build_metrics():
@@ -81,46 +90,6 @@ def get_build_metrics():
     print(f"   ✅ Found {metrics['total_pages']} pages, {metrics['posts']} posts, {metrics['total_images']} images")
     return metrics
 
-def get_git_stats():
-    """Get git repository statistics"""
-    print("📈 Gathering git statistics...")
-    
-    stats = {}
-    
-    # Total commits
-    result = subprocess.run(['git', 'rev-list', '--count', 'HEAD'], 
-                          capture_output=True, text=True)
-    stats['total_commits'] = result.stdout.strip() if result.returncode == 0 else 'N/A'
-    
-    # Last deployment
-    result = subprocess.run(['git', 'log', '-1', '--format=%ci'], 
-                          capture_output=True, text=True)
-    if result.returncode == 0 and result.stdout.strip():
-        last_deploy = result.stdout.strip()
-        stats['last_deploy'] = last_deploy.split()[0]  # Just the date
-        stats['last_deploy_time'] = last_deploy.split()[1]  # Time
-    else:
-        stats['last_deploy'] = 'Unknown'
-        stats['last_deploy_time'] = ''
-    
-    # Commits this month
-    result = subprocess.run([
-        'git', 'log', '--since', '1 month ago', '--oneline'
-    ], capture_output=True, text=True)
-    stats['commits_this_month'] = len(result.stdout.strip().split('\n')) if result.stdout.strip() else 0
-    
-    print(f"   ✅ {stats['total_commits']} total commits, {stats['commits_this_month']} this month")
-    return stats
-
-def get_plausible_stats():
-    """Get Plausible Analytics stats via embed"""
-    # Note: We'll use an iframe embed for Plausible
-    # Real-time stats require API key which we'll keep private
-    return {
-        'embed_url': 'https://plausible.jameskilby.cloud/share/jameskilby.co.uk?auth=YOUR_SHARE_LINK',
-        'has_api': False  # Set to True if you want to use Plausible API
-    }
-
 def generate_stats_html(lighthouse, build_metrics, git_stats):
     """Generate the stats page HTML"""
     print("🏗️  Generating stats page HTML...")
@@ -154,18 +123,18 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
         in at source prevents the post-transform overwrite from undoing it.
     -->
     <meta name="robots" content="noindex, follow">
-    <link rel="canonical" href="https://jameskilby.co.uk/stats/">
-    
+    <link rel="canonical" href="{TARGET_DOMAIN}/stats/">
+
     <!-- Open Graph -->
     <meta property="og:title" content="Site Statistics - James Kilby">
     <meta property="og:description" content="Public statistics and metrics for James Kilby's technical blog.">
-    <meta property="og:url" content="https://jameskilby.co.uk/stats/">
+    <meta property="og:url" content="{TARGET_DOMAIN}/stats/">
     <meta property="og:type" content="website">
-    
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Site Statistics">
-    <meta name="twitter:description" content="Public statistics and metrics for jameskilby.co.uk">
+    <meta name="twitter:description" content="Public statistics and metrics for {TARGET_HOST}">
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap');
@@ -464,14 +433,14 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
             }}
         }}
     </style>
-    <script defer data-cfasync="false" data-domain="jameskilby.co.uk" src="/js/script.js"></script>
+    <script defer data-cfasync="false" data-domain="{TARGET_HOST}" src="/js/script.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
             <a href="/" class="back-link">← Back to Home</a>
             <h1>📊 Site Statistics</h1>
-            <p class="subtitle">Public metrics, performance scores, and analytics for jameskilby.co.uk</p>
+            <p class="subtitle">Public metrics, performance scores, and analytics for {TARGET_HOST}</p>
         </header>
         
         <!-- Quick Stats -->
@@ -595,7 +564,7 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
                 </tr>
                 <tr>
                     <td>Last Deployment</td>
-                    <td>{git_stats['last_deploy']} {git_stats['last_deploy_time']}</td>
+                    <td>{git_stats['last_deploy_date']} {git_stats['last_deploy_time']}</td>
                     <td>Most recent static site generation</td>
                 </tr>
                 <tr>
@@ -619,7 +588,7 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
             
             <!-- Plausible Embed -->
             {f'''<iframe class="plausible-embed" 
-                    src="https://plausible.jameskilby.cloud/share/jameskilby.co.uk?auth={plausible_share_link}&embed=true&theme=light"
+                    src="https://{PLAUSIBLE_HOST}/share/{TARGET_HOST}?auth={plausible_share_link}&embed=true&theme=light"
                     scrolling="yes"
                     frameborder="0"
                     loading="lazy"></iframe>''' if plausible_share_link else '<div class="info-box"><p><strong>⚠️  Analytics Not Configured:</strong> Set PLAUSIBLE_SHARE_LINK environment variable to display analytics.</p></div>'}
@@ -677,7 +646,7 @@ def main():
     
     print("\n✅ Stats page generated successfully!")
     print(f"   📄 Output: {output_file}")
-    print("   🌐 URL: https://jameskilby.co.uk/stats/")
+    print(f"   🌐 URL: {TARGET_DOMAIN}/stats/")
     print(f"   📊 Lighthouse Performance: {lighthouse['performance']}/100")
     print(f"   📈 Total Pages: {build_metrics['total_pages']}")
     print(f"   🚀 Total Deployments: {git_stats['total_commits']}")
