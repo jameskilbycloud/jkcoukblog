@@ -1,4 +1,5 @@
-"""Tests for FAQPage JSON-LD generation in wp_to_static_generator.
+"""Tests for FAQPage JSON-LD generation in content_schema_rewriter
+(extracted from wp_to_static_generator).
 
 Covers the pure extraction helper (_extract_faq_pairs) and the injection
 method (add_faq_schema), both of which must be conservative: they only emit
@@ -9,18 +10,15 @@ import json
 
 from bs4 import BeautifulSoup
 
-from wp_to_static_generator import WordPressStaticGenerator
+from content_schema_rewriter import ContentSchemaRewriter
 
 
 def _gen():
-    # Network is never touched by the schema helpers; build a generator with
-    # incremental mode off so no cache/state is initialised.
-    return WordPressStaticGenerator(
+    # Network is never touched by the schema helpers; wp_url/target_domain
+    # are the only inputs these methods need.
+    return ContentSchemaRewriter(
         wp_url='https://wp.example',
-        auth_token='x',
-        output_dir='/tmp/faq-test-out',
         target_domain='https://example.com',
-        use_incremental=False,
     )
 
 
@@ -40,7 +38,7 @@ def test_heading_based_faq_pairs_extracted():
         '<h3>What is it?</h3><p>It is a thing.</p>'
         '<h3>How much?</h3><p>It is free.</p>'
     )
-    pairs = WordPressStaticGenerator._extract_faq_pairs(soup)
+    pairs = ContentSchemaRewriter._extract_faq_pairs(soup)
     assert pairs == [
         {'question': 'What is it?', 'answer': 'It is a thing.'},
         {'question': 'How much?', 'answer': 'It is free.'},
@@ -53,7 +51,7 @@ def test_frequently_asked_questions_heading_is_recognised():
         '<h3>Q one?</h3><p>A one.</p>'
         '<h3>Q two?</h3><p>A two.</p>'
     )
-    pairs = WordPressStaticGenerator._extract_faq_pairs(soup)
+    pairs = ContentSchemaRewriter._extract_faq_pairs(soup)
     assert len(pairs) == 2
 
 
@@ -65,7 +63,7 @@ def test_definition_list_faq_extracted():
         '<dt>Second question</dt><dd>Second answer.</dd>'
         '</dl>'
     )
-    pairs = WordPressStaticGenerator._extract_faq_pairs(soup)
+    pairs = ContentSchemaRewriter._extract_faq_pairs(soup)
     assert pairs == [
         {'question': 'First question', 'answer': 'First answer.'},
         {'question': 'Second question', 'answer': 'Second answer.'},
@@ -79,7 +77,7 @@ def test_section_ends_at_next_same_level_heading():
         '<h2>Related Posts</h2>'
         '<h3>Not a question?</h3><p>Should be ignored.</p>'
     )
-    pairs = WordPressStaticGenerator._extract_faq_pairs(soup)
+    pairs = ContentSchemaRewriter._extract_faq_pairs(soup)
     assert pairs == [{'question': 'In scope?', 'answer': 'Yes.'}]
 
 
@@ -89,19 +87,19 @@ def test_subheading_without_question_mark_is_skipped():
         '<h3>Just a note</h3><p>Not a question.</p>'
         '<h3>Real question?</h3><p>Real answer.</p>'
     )
-    pairs = WordPressStaticGenerator._extract_faq_pairs(soup)
+    pairs = ContentSchemaRewriter._extract_faq_pairs(soup)
     assert pairs == [{'question': 'Real question?', 'answer': 'Real answer.'}]
 
 
 def test_no_faq_section_returns_empty():
     soup = _soup('<h2>Introduction</h2><p>Hello.</p>')
-    assert WordPressStaticGenerator._extract_faq_pairs(soup) == []
+    assert ContentSchemaRewriter._extract_faq_pairs(soup) == []
 
 
 def test_faq_in_word_boundary_only():
     # "FAQS" appearing inside another word must not trip detection.
     soup = _soup('<h2>Effaqsomething overview</h2><p>x</p>')
-    assert WordPressStaticGenerator._extract_faq_pairs(soup) == []
+    assert ContentSchemaRewriter._extract_faq_pairs(soup) == []
 
 
 # ── add_faq_schema ────────────────────────────────────────────────────────
