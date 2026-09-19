@@ -15,7 +15,7 @@ console.log('[Search] Script loaded');
     
     function createSearchBox() {
         // The box is pre-rendered into <main> at build time
-        // (wp_to_static_generator._inject_search_box) so it occupies its 82px
+        // (header_footer_chrome._inject_search_box) so it occupies its 82px
         // from first paint. Injecting it here instead pushed every page's
         // content down ~2s after load, which is what took the origin's p75
         // CLS from 0.05 to 0.22. When the markup is already there, skip

@@ -2232,7 +2232,7 @@ body:not(.single) .posted-on time ~ time {
 }
 
 /* ── Header logo lockup · relocated social · slim footer ──────────────
-   Injected by brand_and_relocate_social() in wp_to_static_generator.py.
+   Injected by brand_and_relocate_social() in scripts/header_footer_chrome.py.
    Logo = the locked JK monogram (.jk-mark); socials move from the footer
    into the header (desktop) + mobile drawer; the footer slims to a
    logo + copyright line. */
