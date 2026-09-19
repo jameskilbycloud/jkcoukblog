@@ -35,61 +35,16 @@ import argparse
 import json
 import os
 import sys
-import urllib.error
-import urllib.request
 from pathlib import Path
 
-DEFAULT_NAMESPACE_ID = "5528672ccf0644c9bd65e7de8b629189"
-CF_API_BASE = "https://api.cloudflare.com/client/v4"
-BULK_DELETE_LIMIT = 10_000
+from cf_kv_client import (
+    DEFAULT_HTML_CACHE_NAMESPACE_ID as DEFAULT_NAMESPACE_ID,
+    list_all_keys,
+    bulk_delete as _cf_bulk_delete,
+)
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MANIFEST = REPO_ROOT / "public" / "path-manifest.json"
-
-
-def cf_request(method: str, path: str, token: str, account_id: str, body=None):
-    url = f"{CF_API_BASE}/accounts/{account_id}{path}"
-    data = json.dumps(body).encode() if body is not None else None
-    req = urllib.request.Request(
-        url,
-        data=data,
-        method=method,
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Content-Type": "application/json",
-        },
-    )
-    try:
-        with urllib.request.urlopen(req) as resp:
-            return json.loads(resp.read())
-    except urllib.error.HTTPError as e:
-        body_text = e.read().decode(errors="replace")
-        print(f"❌ HTTP {e.code} from Cloudflare API: {body_text}", file=sys.stderr)
-        sys.exit(1)
-
-
-def list_all_keys(token: str, account_id: str, namespace_id: str) -> list[str]:
-    keys: list[str] = []
-    cursor = None
-    page = 1
-    while True:
-        path = (
-            f"/storage/kv/namespaces/{namespace_id}/keys?limit=1000&prefix=html:"
-        )
-        if cursor:
-            path += f"&cursor={cursor}"
-        print(f"  📋 Page {page}…", end=" ", flush=True)
-        result = cf_request("GET", path, token, account_id)
-        if not result.get("success"):
-            print(f"\n❌ API error: {result.get('errors')}", file=sys.stderr)
-            sys.exit(1)
-        batch = result.get("result", [])
-        keys.extend(k["name"] for k in batch)
-        print(f"{len(batch)} keys")
-        cursor = result.get("result_info", {}).get("cursor")
-        if not cursor or not batch:
-            break
-        page += 1
-    return keys
 
 
 def load_manifest(manifest_path: Path) -> set[str]:
@@ -132,32 +87,6 @@ def classify(keys: list[str], valid_paths: set[str]) -> tuple[list[str], list[st
     return poisoned, legitimate
 
 
-def bulk_delete(token: str, account_id: str, namespace_id: str,
-                keys: list[str], dry_run: bool) -> None:
-    if not keys:
-        print("ℹ️  Nothing to delete.")
-        return
-    if dry_run:
-        print(f"🔍 DRY RUN — would delete {len(keys)} poisoned keys:")
-        for k in keys[:30]:
-            print(f"   {k}")
-        if len(keys) > 30:
-            print(f"   … and {len(keys) - 30} more")
-        return
-    deleted = 0
-    for i in range(0, len(keys), BULK_DELETE_LIMIT):
-        batch = keys[i:i + BULK_DELETE_LIMIT]
-        path = f"/storage/kv/namespaces/{namespace_id}/bulk/delete"
-        result = cf_request("POST", path, token, account_id, body=batch)
-        if result.get("success"):
-            deleted += len(batch)
-            print(f"  🗑️  {deleted}/{len(keys)} deleted")
-        else:
-            print(f"❌ Bulk delete failed: {result.get('errors')}", file=sys.stderr)
-            sys.exit(1)
-    print(f"\n✅ Purged {deleted} poisoned KV entries")
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=__doc__,
@@ -198,7 +127,10 @@ def main() -> int:
     print(f"✅ {len(legitimate)} keys map to legitimate paths (kept)")
     print(f"💀 {len(poisoned)} keys are poisoned soft-404 entries (purging)")
 
-    bulk_delete(token, account_id, namespace_id, poisoned, dry_run=args.dry_run)
+    deleted = _cf_bulk_delete(token, account_id, namespace_id, poisoned,
+                               dry_run=args.dry_run, preview_limit=30)
+    if deleted:
+        print(f"\n✅ Purged {deleted} poisoned KV entries")
     return 0
 
 
