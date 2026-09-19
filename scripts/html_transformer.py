@@ -335,7 +335,7 @@ class HTMLTransformer:
             modified = True
         if self.seo.fix_homepage_title(soup, file_path):
             modified = True
-        if self.seo.fix_homepage_h1(soup, file_path):
+        if self.seo.lock_homepage_h1_text(soup, file_path):
             modified = True
         if self.seo.fix_title_drop_brand_suffix(soup, file_path):
             modified = True

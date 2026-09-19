@@ -93,7 +93,7 @@ class SEOFixer:
             if self.fix_homepage_title(soup, file_path):
                 modified = True
 
-            if self.fix_homepage_h1(soup, file_path):
+            if self.lock_homepage_h1_text(soup, file_path):
                 modified = True
 
             if self.fix_title_drop_brand_suffix(soup, file_path):
@@ -255,7 +255,7 @@ class SEOFixer:
             print(f"   🏷️  Locked homepage title to canonical form ({len(HOMEPAGE_TITLE)} chars)")
         return modified
 
-    def fix_homepage_h1(self, soup, file_path):
+    def lock_homepage_h1_text(self, soup, file_path):
         """Replace the homepage <h1> with Config.HOMEPAGE_TITLE.
 
         WordPress emits "James Kilby" (the site name) as the homepage h1
@@ -265,7 +265,11 @@ class SEOFixer:
         for <title>/og:title so the heading conveys what the site is
         actually about (VMware, homelab, cloud infrastructure).
 
-        Targets only the first/primary h1 in the document.
+        Targets only the first/primary h1 in the document. Runs after
+        wp_to_static_generator.WordPressStaticGenerator.ensure_homepage_h1(),
+        which guarantees an h1 exists structurally but doesn't touch its
+        text — this method assumes that stage already ran and requires an
+        h1 to be present (returns False otherwise).
         """
         if not HOMEPAGE_TITLE:
             return False
