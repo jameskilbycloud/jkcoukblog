@@ -40,11 +40,19 @@ paths = [
 ]
 
 # Commits to exclude from scanning (if needed)
+#
+# The two "Initial example code" entries this list used to carry are gone:
+# they allowlisted a real WordPress admin credential that leaked into the
+# repo's first commits and was scrubbed from git history entirely (via
+# git-filter-repo, 2026-09-20) rather than just hidden from the scanner —
+# so there's no longer any commit content for those hashes to match. The
+# credential itself was rotated before the scrub.
 commits = [
-    # Old commits with example/placeholder code (not real secrets)
-    "df684bc8eab0da7cc57ad8c975ac980b7f9b5aa1",  # Initial example code
-    "3cda9950e41bcd69ff321701dfa8efed878f8587",  # Initial example code
-    "ea1e4ac145bfbe3d4765cf6ba758035d1c039a3f",  # test-secret-config.env (test data, file removed)
+    # test-secret-config.env (deliberately fake keys, created to prove the
+    # scanner works — see the file's own commit message). Hash is the
+    # post-scrub value; every commit hash in this repo changed when history
+    # was rewritten, so re-check this after any future rewrite.
+    "2a294d302460b25c7179c5c1d295dc9e5373939a",
 ]
 
 # Stopwords - strings that if found will stop the scan
