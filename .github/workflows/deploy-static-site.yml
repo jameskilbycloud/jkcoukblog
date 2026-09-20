@@ -880,6 +880,20 @@ jobs:
         python3 scripts/minify_js.py ./static-output || echo "⚠️  JS minification failed (non-blocking)"
       continue-on-error: true
 
+    - name: Copy standalone pages (self-contained tools)
+      id: standalone_pages
+      # Self-contained static apps (e.g. the VMC analyzer at /vmc-analyzer/)
+      # must bypass the HTML pipeline — html_transformer.py and the search /
+      # widget injection assume a WordPress-shaped page and would break them.
+      # Copy them in AFTER every transform and BEFORE compression, so the
+      # .br/.gz sidecars are built but nothing rewrites the files. Added after
+      # the sitemap and search index are generated, so they stay undiscovered
+      # until linked deliberately.
+      run: |
+        echo "📄 Copying standalone pages..."
+        python3 scripts/copy_standalone_pages.py ./static-output || echo "⚠️  Standalone copy failed (non-blocking)"
+      continue-on-error: true
+
     - name: Brotli + Gzip compress static files
       id: compress
       timeout-minutes: 10
