@@ -38,24 +38,43 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── workflows/
 │   │   ├── deploy-static-site.yml         # Main build + deploy pipeline
 │   │   ├── force-full-deploy.yml          # Full (non-incremental) rebuild trigger
+│   │   ├── python-checks.yml              # pytest + ruff on scripts/ and tests/ changes
 │   │   ├── quality-checks.yml             # Lighthouse + live site formatting tests (daily)
 │   │   ├── lighthouse-pr.yml              # Lighthouse audit on pull requests
-│   │   ├── spell-check-consolidated.yml   # AI spell checking (Ollama/Llama)
+│   │   ├── crux-field-data.yml            # Scheduled Chrome UX Report field-data capture
 │   │   ├── spell-check-approval-handler.yml # Spell check approval flow
 │   │   ├── apply-typo-patches.yml         # Apply approved typo fixes to WordPress
 │   │   ├── apply-alt-patches.yml          # Apply approved image alt-text fixes
 │   │   ├── wordpress-backup.yml           # WordPress backup (1st + 15th of month)
 │   │   ├── secret-scan.yml                # Gitleaks secret scanning (weekly)
 │   │   ├── rollback-site.yml              # Deployment rollback
-│   │   ├── issue-to-slack-improved.yml    # GitHub issue → Slack notifications
-│   │   └── enable-cloudflare-indexing.yml # Cloudflare indexing setup
+│   │   └── issue-to-slack-improved.yml    # GitHub issue → Slack notifications
 │   └── CODEOWNERS                         # Auto-assign PR reviewers
 ├── scripts/                               # Python & shell automation
-│   ├── wp_to_static_generator.py          # Core WordPress → static converter
+│   ├── wp_to_static_generator.py          # Core WordPress → static converter (orchestrator;
+│   │                                      #   wires the collaborators below, one per page/build)
+│   │   ├── site_artifacts_builder.py      #   sitemap/RSS/robots.txt, search index, script injection
+│   │   ├── content_schema_rewriter.py     #   URL rewriting + schema.org JSON-LD
+│   │   ├── header_footer_chrome.py        #   logo, search box, social icons, footer credit
+│   │   ├── wordpress_cleanup.py           #   WP artifact stripping + embed→iframe conversion
+│   │   ├── image_loading_optimizer.py     #   lazy-loading strategy, responsive sizes
+│   │   ├── page_seo_meta.py               #   taxonomy meta, pagination dedup, thin-page noindex
+│   │   ├── content_card_fixups.py         #   footer links, byline dates, category trimming
+│   │   ├── content_enrichment_ux.py       #   copy-code button, reading-time indicator
+│   │   ├── breadcrumb_navigation.py       #   breadcrumb trail + BreadcrumbList schema
+│   │   ├── social_links.py                #   "Connect with me" footer links
+│   │   ├── homepage_redesign.py           #   stats ribbon + homepage hero/layout
+│   │   ├── wp_content_discovery.py        #   WP REST content-URL + media-asset discovery
+│   │   ├── asset_pipeline.py              #   asset extraction + concurrent download
+│   │   ├── related_posts.py               #   post index + scored related-posts injection
+│   │   ├── inline_css_fixups.py           #   inline-CSS extraction, ?ver= stripping, Splide carousel
+│   │   └── head_chrome_optimizations.py   #   comments, favicons, brutalist CSS, analytics
+│   ├── wp_session.py                      # Shared WP REST session factory (auth + retry/backoff)
 │   ├── incremental_builder.py             # BLAKE2b incremental build cache
 │   ├── config.py                          # Centralised configuration
 │   ├── optimize_images.py                 # AVIF/WebP generation (parallel, cached)
 │   ├── optimize_css.py                    # CSS unused-selector removal + minification
+│   ├── derive_dynamic_classes.py          # Derives the JS-applied class allowlist for optimize_css.py
 │   ├── html_transformer.py                # Single-pass HTML transformer (SEO, <picture>,
 │   │                                      #   perf hints, critical CSS, minify)
 │   ├── convert_images_to_picture.py       # <picture> conversion (used by transformer)
@@ -63,8 +82,11 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── enhance_html_performance.py        # Performance hints (used by transformer)
 │   ├── fix_seo_issues.py                  # SEO auto-fixer (used by transformer)
 │   ├── minify_html.py                     # HTML minification (used by transformer)
+│   ├── minify_js.py                       # JavaScript minification
+│   ├── internal_links.py                  # Contextual internal links for orphan posts
 │   ├── brotli_compress.py                 # Brotli + Gzip pre-encoding
 │   ├── generate_og_images.py              # Per-post Open Graph image generation
+│   ├── generate_favicon.py                # Favicons generated from the locked JK logo
 │   ├── generate_llms_txt.py               # llms.txt generation for AI crawlers
 │   ├── generate_soft404_artefacts.py      # Soft-404 detection artefacts
 │   ├── stamp_worker_manifest.py           # Stamps Advanced Mode Worker manifest
@@ -75,6 +97,10 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── validate_deployment.py             # Post-optimisation deployment checks
 │   ├── validate_seo.py                    # SEO validation
 │   ├── validate_wordpress_source.py       # Pre-build WordPress health check
+│   ├── drift_baseline.py                  # SEO drift check — catches silent regressions on
+│   │                                      #   unattended auto-deploys
+│   ├── fetch_crux_metrics.py              # Real Core Web Vitals field data from the CrUX API
+│   ├── fetch_gsc.py                       # Google Search Console indexing/coverage data
 │   ├── test_csp.py                        # CSP validation (Utterances, Credly, Plausible)
 │   ├── test_interactive_ui.py             # Playwright interactive UI smoke tests
 │   ├── test_live_site_formatting.py       # Live site formatting + performance tests
@@ -84,12 +110,14 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── generate_changelog.py              # Generates changelog page
 │   ├── generate_stats_page.py             # Generates Plausible stats embed page
 │   ├── generate_build_report.py           # Build metrics reporting
+│   ├── build_stats.py                     # Shared Lighthouse/git stats helpers (changelog + stats page)
 │   ├── convert_to_staging.py              # Converts URLs for staging deployment
 │   ├── ollama_spell_checker.py            # AI spell checker (Ollama/Llama)
 │   ├── wp_spell_check_and_fix.py          # WordPress spell check + auto-fix
 │   ├── apply_typo_patches.py              # Applies approved typo patches to WordPress
 │   ├── apply_alt_patches.py               # Applies approved alt-text patches
 │   ├── manage_build_cache.py              # Build cache management tool
+│   ├── cf_kv_client.py                    # Shared Cloudflare Workers KV helpers (purge scripts)
 │   ├── purge_html_kv_cache.py             # Bulk-delete html:* entries from KV
 │   ├── purge_soft404_kv_cache.py          # Ad-hoc soft-404 KV purge
 │   ├── restore_seeded_urls.py             # Restore seeded URLs after build
@@ -115,6 +143,7 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── STREAMDECK_DEPLOY_SETUP.md         # Stream Deck integration
 │   ├── STREAMDECK_QUICK_REFERENCE.md      # Stream Deck quick reference card
 │   ├── STREAMDECK_README.md               # Stream Deck overview
+│   ├── homelab-power-widget.md            # Live homelab power-draw widget on /lab/
 │   └── ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md  # Extra performance tips
 ├── public/                                # Generated static site (Cloudflare Pages)
 ├── workers/                               # Cloudflare Workers (deployed independently)
@@ -175,33 +204,38 @@ The `deploy-static-site.yml` workflow runs a non-blocking spell-check job, then 
 |---|------|-------|
 | 0 | AI spell check | Separate job, Ollama/Llama, `continue-on-error` — never blocks the build |
 | 1 | Validate environment variables | Fails fast on missing secrets |
-| 2 | Restore build caches | `actions/cache` — image cache + incremental build cache + spell-check timestamp |
-| 3 | Install system + Python dependencies | apt packages (`avifenc`, `optipng`, `jpegoptim`, `jq`, `bc`) + `pip install -r requirements.txt` |
+| 2 | Restore build caches | `actions/cache` — incremental build cache + raw pre-transform HTML snapshot |
+| 3 | Install system + Python dependencies | apt packages (`avifenc`, `optipng`, `jpegoptim`, `cwebp`, `jq`, `bc`) + `pip install -r requirements.txt` |
 | 4 | Validate CSP (Utterances, Plausible, Credly) | `test_csp.py` — fails build if the CSP would block them |
-| 5 | Validate WordPress source health | Pre-flight check before generation |
-| 6 | Generate static site | `wp_to_static_generator.py` — incremental (WP `modified_after`) or full build; HTML, assets, sitemap, search index |
-| 7 | Export to Markdown + Markdown API | `markdown_exporter.py`, `markdown_api.py` — `/markdown/` and `/api/` paths |
-| 8 | Generate llms.txt | `generate_llms_txt.py` |
-| 9 | Content quality validation | `content_validator.py` — non-blocking |
-| 10 | Optimise images | AVIF + WebP, 4 parallel workers, BLAKE2b cache |
-| 11 | Optimise CSS | Remove unused selectors + minify |
-| 12 | Single-pass HTML transformer | `html_transformer.py` — SEO fixes, `<img>` → `<picture>`, performance hints, critical CSS inlining, and HTML minification in one parse cycle per file |
-| 13 | Soft-404 artefacts + worker stamp | `generate_soft404_artefacts.py`, `stamp_worker_manifest.py` |
-| 14 | Generate per-post Open Graph images | `generate_og_images.py` |
-| 15 | Subset heading font | `subset_fonts.py` — Anton subset to characters used in headings |
-| 16 | Rewrite stale vendored-CDN URLs | `rewrite_vendored_urls.py` |
-| 17 | Brotli + Gzip compression | `.br` (primary) + `.gz` (fallback) for all text assets |
-| 18 | Interactive UI smoke tests | Playwright (`test_interactive_ui.py`) |
-| 19 | Validate HTML + deployment | `validate_html.py` + `validate_deployment.py` in parallel — Brotli integrity, AVIF/WebP presence, picture structure |
-| 20 | Prepare output + changelog/stats | Copies to `public/`, generates changelog and stats pages, recompresses |
-| 21 | Commit and push to git | Triggers Cloudflare Pages auto-deploy |
-| 22 | Upload search index to Workers KV | `wrangler kv key put` |
-| 23 | Purge all HTML from KV cache | Waits for the Pages deploy of the pushed commit, then wipes `html:*` entries |
-| 24 | Purge static assets from Cloudflare | Edge cache purge via Cloudflare API |
-| 25 | Submit URLs to IndexNow | Runs after deployment so crawlers see fresh content |
-| 26 | Ping Google sitemap | Only when a new post was published |
-| 27 | Notify Slack | Success or failure notification |
-| 28 | Clean up on failure | Removes `./static-output` if build failed |
+| 5 | Validate `_redirects` size | Fails the build if it would exceed the Cloudflare Pages free-plan limit |
+| 6 | Validate WordPress source health | Pre-flight check before generation |
+| 7 | Generate static site | `wp_to_static_generator.py` — incremental (WP `modified_after`) or full build; HTML, assets, sitemap, search index |
+| 8 | Export to Markdown + Markdown API | `markdown_exporter.py`, `markdown_api.py` — `/markdown/` and `/api/` paths |
+| 9 | Generate llms.txt | `generate_llms_txt.py` |
+| 10 | Content quality validation | `content_validator.py` — non-blocking |
+| 11 | Optimise images | AVIF + WebP, 4 parallel workers, BLAKE2b cache |
+| 12 | Optimise CSS | Remove unused selectors + minify |
+| 13 | Single-pass HTML transformer | `html_transformer.py` — SEO fixes, `<img>` → `<picture>`, performance hints, critical CSS inlining, and HTML minification in one parse cycle per file |
+| 14 | Internal links for orphan posts | `internal_links.py` — post-transform pass + verification |
+| 15 | Soft-404 artefacts + worker stamp | `generate_soft404_artefacts.py`, `stamp_worker_manifest.py` |
+| 16 | Generate per-post Open Graph images | `generate_og_images.py` |
+| 17 | Subset heading font | `subset_fonts.py` — Anton subset to characters used in headings |
+| 18 | Rewrite stale vendored-CDN URLs | `rewrite_vendored_urls.py` |
+| 19 | Minify JavaScript | `minify_js.py` |
+| 20 | Brotli + Gzip compression | `.br` (primary) + `.gz` (fallback) for all text assets |
+| 21 | Interactive UI smoke tests | Playwright (`test_interactive_ui.py`) |
+| 22 | Validate HTML + deployment | `validate_html.py` + `validate_deployment.py` in parallel — Brotli integrity, AVIF/WebP presence, picture structure |
+| 23 | SEO drift check | `drift_baseline.py` — non-blocking; catches silent regressions on unattended auto-deploys |
+| 24 | Prepare output + changelog/stats | Copies to `public/`, generates changelog and stats pages, recompresses |
+| 25 | Commit and push to git | Triggers Cloudflare Pages auto-deploy |
+| 26 | Upload search index to Workers KV | `wrangler kv key put` |
+| 27 | Purge changed HTML from KV cache | Waits for the Pages deploy of the pushed commit, then wipes the changed `html:*` entries |
+| 28 | Purge static assets from Cloudflare | Edge cache purge via Cloudflare API |
+| 29 | Submit URLs to IndexNow | Runs after deployment so crawlers see fresh content (Google's sitemap-ping endpoint was retired in 2024 — IndexNow + Search Console now cover discovery) |
+| 30 | Report non-blocking step failures | Collects every `continue-on-error` step's outcome so a degraded-but-deployed build isn't silently green |
+| 31 | Trigger Lighthouse quality checks | Explicit `workflow_dispatch` of `quality-checks.yml` — a push with the default `GITHUB_TOKEN` can't trigger it itself (GitHub loop prevention) |
+| 32 | Notify Slack | Success or failure notification |
+| 33 | Clean up on failure | Removes `./static-output` if build failed |
 
 ## ✨ Features
 
@@ -273,21 +307,23 @@ Secrets (tokens, credentials) remain in environment variables and GitHub Secrets
 ### Workflow Status Badges
 
 [![Deploy Static Site](https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/deploy-static-site.yml/badge.svg)](https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/deploy-static-site.yml)
+[![Python Checks](https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/python-checks.yml/badge.svg)](https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/python-checks.yml)
 [![Quality Checks](https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/quality-checks.yml/badge.svg)](https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/quality-checks.yml)
 [![Secret Scan](https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/secret-scan.yml/badge.svg)](https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/secret-scan.yml)
 
 | Workflow | Purpose |
 |----------|---------|
-| `deploy-static-site.yml` | Main build + deploy pipeline |
+| `deploy-static-site.yml` | Main build + deploy pipeline (spell check runs as a non-blocking job within it) |
 | `force-full-deploy.yml` | Force a full (non-incremental) rebuild |
+| `python-checks.yml` | `pytest` + `ruff` on every change under `scripts/`/`tests/` |
 | `quality-checks.yml` | Lighthouse audits + live site formatting tests (daily, 03:00 UTC) |
 | `lighthouse-pr.yml` | Lighthouse audit on pull requests |
-| `spell-check-consolidated.yml` | AI spell checking via Ollama/Llama |
+| `crux-field-data.yml` | Scheduled Chrome UX Report (real-user Core Web Vitals) capture |
 | `spell-check-approval-handler.yml` | PR-based spell correction approval |
 | `apply-typo-patches.yml` | Apply approved typo fixes back to WordPress |
 | `apply-alt-patches.yml` | Apply approved image alt-text fixes |
 | `wordpress-backup.yml` | WordPress backup (1st + 15th of month) |
-| `secret-scan.yml` | Gitleaks secret scanning (weekly) |
+| `secret-scan.yml` | Gitleaks secret scanning (on push/PR to main, plus weekly full-history scan) |
 | `rollback-site.yml` | Deployment rollback |
 | `issue-to-slack-improved.yml` | GitHub issue → Slack notifications |
 
@@ -328,6 +364,7 @@ gh run rerun <run-id> --failed
 | [docs/STREAMDECK_DEPLOY_SETUP.md](docs/STREAMDECK_DEPLOY_SETUP.md) | Stream Deck integration |
 | [docs/STREAMDECK_QUICK_REFERENCE.md](docs/STREAMDECK_QUICK_REFERENCE.md) | Stream Deck quick reference |
 | [docs/STREAMDECK_README.md](docs/STREAMDECK_README.md) | Stream Deck overview |
+| [docs/homelab-power-widget.md](docs/homelab-power-widget.md) | Live homelab power-draw widget on `/lab/` |
 | [docs/ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md](docs/ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md) | Additional performance recommendations |
 
 ---
