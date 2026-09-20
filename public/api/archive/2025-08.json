@@ -17,9 +17,9 @@
         "VMware",
         "VMware Cloud on AWS",
         "Homelab",
-        "Nutanix",
-        "Networking",
-        "VCF"
+        "VCF",
+        "vSAN",
+        "Personal"
       ],
       "tags": [
         null

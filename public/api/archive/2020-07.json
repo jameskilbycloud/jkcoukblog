@@ -16,12 +16,11 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "AWS",
-        "Homelab",
-        "Networking",
         "Artificial Intelligence",
         "Automation",
-        "Runecast"
+        "VCF",
+        "Personal",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -43,9 +42,9 @@
       "categories": [
         "Nutanix",
         "Personal",
-        "VMware",
+        "AWS",
         "Homelab",
-        "Consulting"
+        "VMware"
       ],
       "tags": [
         null,

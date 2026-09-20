@@ -17,11 +17,11 @@
         "Homelab",
         "Nutanix",
         "VMware",
-        "Networking",
         "VMware Cloud on AWS",
-        "Storage",
         "Automation",
-        "Ansible"
+        "Github",
+        "Docker",
+        "Runecast"
       ],
       "tags": [
         null,

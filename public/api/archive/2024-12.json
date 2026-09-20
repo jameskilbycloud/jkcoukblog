@@ -18,9 +18,12 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "VMware Cloud on AWS",
         "Homelab",
-        "Personal"
+        "Storage",
+        "Ansible",
+        "Automation",
+        "Artificial Intelligence",
+        "VCF"
       ],
       "tags": [
         null,

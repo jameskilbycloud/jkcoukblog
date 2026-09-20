@@ -17,10 +17,10 @@
         "Artificial Intelligence",
         "Homelab",
         "Storage",
-        "Automation",
         "VMware",
-        "Docker",
-        "Ansible"
+        "Nutanix",
+        "Automation",
+        "Docker"
       ],
       "tags": [
         null,

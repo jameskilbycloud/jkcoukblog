@@ -13,10 +13,10 @@
       "categories": [
         "Kubernetes",
         "TrueNAS Scale",
-        "Homelab",
-        "Storage",
         "VMware",
-        "Docker"
+        "Docker",
+        "Homelab",
+        "Storage"
       ],
       "tags": [
         null,
@@ -59,15 +59,12 @@
       "categories": [
         "Homelab",
         "Hosting",
-        "Veeam",
+        "Docker",
         "VCF",
         "VMware",
-        "Ansible",
         "Cloudflare",
-        "Mikrotik",
-        "Networking",
         "Automation",
-        "Github"
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -91,11 +88,7 @@
         "Docker",
         "Homelab",
         "VMware",
-        "Ansible",
-        "Automation",
-        "Networking",
-        "Nutanix",
-        "Hosting"
+        "Automation"
       ],
       "tags": [
         null,
@@ -118,11 +111,12 @@
       "categories": [
         "Runecast",
         "VMware",
-        "VMware Cloud on AWS",
+        "Automation",
         "Homelab",
-        "Veeam",
-        "Personal",
-        "Nutanix"
+        "Ansible",
+        "Networking",
+        "Storage",
+        "VCF"
       ],
       "tags": [
         null,
@@ -146,13 +140,12 @@
       "categories": [
         "Automation",
         "Github",
+        "Homelab",
         "Ansible",
         "Artificial Intelligence",
-        "Homelab",
         "VMware",
-        "Veeam",
-        "Devops",
-        "Personal"
+        "Storage",
+        "Networking"
       ],
       "tags": [
         null,
@@ -179,7 +172,7 @@
       "categories": [
         "Artificial Intelligence",
         "Automation",
-        "Homelab",
+        "Github",
         "Docker",
         "Ansible"
       ],
@@ -204,9 +197,9 @@
       "categories": [
         "Nutanix",
         "Personal",
-        "VMware",
+        "AWS",
         "Homelab",
-        "Consulting"
+        "VMware"
       ],
       "tags": [
         null,
@@ -248,8 +241,8 @@
       "api_url": "/api/posts/nutanix-command-reference-guide.json",
       "categories": [
         "Nutanix",
-        "Homelab",
-        "Personal"
+        "Personal",
+        "Homelab"
       ],
       "tags": [
         null,

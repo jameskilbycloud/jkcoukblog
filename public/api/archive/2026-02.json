@@ -22,11 +22,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Networking",
-        "Hosting",
+        "Personal",
         "Automation",
-        "Nutanix",
-        "VMware Cloud on AWS"
+        "Docker",
+        "Networking",
+        "Storage"
       ],
       "tags": [
         null,

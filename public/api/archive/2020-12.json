@@ -16,13 +16,11 @@
       "categories": [
         "Devops",
         "Personal",
-        "Consulting",
-        "AWS",
+        "Cloudflare",
         "Hosting",
-        "Ansible",
-        "Artificial Intelligence",
-        "VMware",
-        "Cloudflare"
+        "Automation",
+        "Homelab",
+        "VMware"
       ],
       "tags": [
         null,

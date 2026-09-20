@@ -17,12 +17,10 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
-        "VMware",
-        "Artificial Intelligence",
-        "Docker",
-        "Automation",
         "Nutanix",
-        "Ansible"
+        "Automation",
+        "Github",
+        "Networking"
       ],
       "tags": [
         null,
@@ -44,10 +42,12 @@
       "categories": [
         "Mikrotik",
         "Networking",
+        "Ansible",
+        "Artificial Intelligence",
+        "VCF",
+        "VMware",
         "Homelab",
-        "Automation",
-        "Github",
-        "Artificial Intelligence"
+        "Veeam"
       ],
       "tags": [
         null,

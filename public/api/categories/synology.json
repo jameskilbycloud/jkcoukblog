@@ -18,9 +18,8 @@
         "Synology",
         "Artificial Intelligence",
         "Docker",
-        "Hosting",
-        "Ansible",
-        "TrueNAS Scale",
+        "Automation",
+        "VCF",
         "VMware"
       ],
       "tags": [
@@ -44,10 +43,11 @@
         "Homelab",
         "Storage",
         "Synology",
-        "VMware",
-        "VMware Cloud on AWS",
+        "Hosting",
         "Networking",
-        "Docker"
+        "VMware",
+        "Mikrotik",
+        "Runecast"
       ],
       "tags": [
         null,

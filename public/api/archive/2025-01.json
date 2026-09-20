@@ -18,11 +18,11 @@
         "Docker",
         "Hosting",
         "Homelab",
-        "Storage",
-        "Networking",
-        "Personal",
         "Ansible",
-        "Automation"
+        "Runecast",
+        "VMware",
+        "Storage",
+        "AWS"
       ],
       "tags": [
         null,
