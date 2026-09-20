@@ -108,3 +108,4 @@ token.json
 # Claude Code
 .claude/settings.local.json
 .claude/worktrees/
+docs/seo-fix-backlog.md
