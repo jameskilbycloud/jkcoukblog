@@ -816,6 +816,21 @@ jobs:
         }
       continue-on-error: true
 
+    - name: Copy standalone pages (self-contained tools)
+      id: standalone_pages
+      # Self-contained static apps (e.g. the VMC analyzer at /vmc-analyzer/)
+      # must bypass the HTML pipeline — html_transformer.py and the
+      # internal-link / search / widget passes assume a WordPress-shaped page
+      # and would rewrite or break them. So copy them in AFTER every HTML
+      # transform above, but BEFORE the soft-404 step below: that step builds
+      # path-manifest.json (rglob of *.html) which the Advanced Mode Worker
+      # uses to tell a real content URL from a soft-404. A standalone page
+      # copied in after the manifest is stamped would be served as a 404.
+      run: |
+        echo "📄 Copying standalone pages..."
+        python3 scripts/copy_standalone_pages.py ./static-output || echo "⚠️  Standalone copy failed (non-blocking)"
+      continue-on-error: true
+
     - name: Generate soft-404 artefacts and stamp Advanced Mode Worker
       run: |
         # Must run BEFORE Brotli compression so _worker.js and
@@ -878,20 +893,6 @@ jobs:
       run: |
         echo "📜 Minifying JavaScript..."
         python3 scripts/minify_js.py ./static-output || echo "⚠️  JS minification failed (non-blocking)"
-      continue-on-error: true
-
-    - name: Copy standalone pages (self-contained tools)
-      id: standalone_pages
-      # Self-contained static apps (e.g. the VMC analyzer at /vmc-analyzer/)
-      # must bypass the HTML pipeline — html_transformer.py and the search /
-      # widget injection assume a WordPress-shaped page and would break them.
-      # Copy them in AFTER every transform and BEFORE compression, so the
-      # .br/.gz sidecars are built but nothing rewrites the files. Added after
-      # the sitemap and search index are generated, so they stay undiscovered
-      # until linked deliberately.
-      run: |
-        echo "📄 Copying standalone pages..."
-        python3 scripts/copy_standalone_pages.py ./static-output || echo "⚠️  Standalone copy failed (non-blocking)"
       continue-on-error: true
 
     - name: Brotli + Gzip compress static files
