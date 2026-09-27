@@ -16,10 +16,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Ansible",
-        "Automation",
+        "Personal",
         "Artificial Intelligence",
-        "Personal"
+        "Automation",
+        "Homelab",
+        "TrueNAS Scale",
+        "AWS"
       ],
       "tags": [
         null,

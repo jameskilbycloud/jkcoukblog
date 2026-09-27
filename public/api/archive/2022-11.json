@@ -18,10 +18,10 @@
         "Storage",
         "Synology",
         "Artificial Intelligence",
-        "Docker",
         "Automation",
-        "VCF",
-        "VMware"
+        "Ansible",
+        "VMware",
+        "Runecast"
       ],
       "tags": [
         null,

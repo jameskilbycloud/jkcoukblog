@@ -17,12 +17,12 @@
         "Automation",
         "Homelab",
         "VMware",
-        "Personal",
-        "Networking",
-        "VMware Cloud on AWS",
-        "Nutanix",
         "Artificial Intelligence",
-        "Docker"
+        "Storage",
+        "VMware Cloud on AWS",
+        "TrueNAS Scale",
+        "Mikrotik",
+        "Networking"
       ],
       "tags": [
         null,
@@ -46,9 +46,9 @@
       "categories": [
         "Personal",
         "Consulting",
-        "VMware",
         "Hosting",
-        "Nutanix",
+        "VMware",
+        "AWS",
         "Devops"
       ],
       "tags": [

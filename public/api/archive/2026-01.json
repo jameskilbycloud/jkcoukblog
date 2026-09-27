@@ -16,11 +16,8 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Homelab",
-        "Ansible",
-        "Automation",
-        "VCF",
-        "AWS"
+        "Runecast",
+        "Personal"
       ],
       "tags": [
         null,
@@ -48,6 +45,7 @@
         "Devops",
         "Personal",
         "Artificial Intelligence",
+        "Automation",
         "Docker"
       ],
       "tags": [

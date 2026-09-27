@@ -17,13 +17,13 @@
         "Homelab",
         "Networking",
         "Unifi",
+        "Storage",
+        "Automation",
+        "Artificial Intelligence",
+        "Docker",
         "Runecast",
         "VMware",
-        "Hosting",
-        "Automation",
-        "Ansible",
-        "Artificial Intelligence",
-        "Storage"
+        "Ansible"
       ],
       "tags": [
         null,

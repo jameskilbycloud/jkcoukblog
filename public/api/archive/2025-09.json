@@ -16,12 +16,13 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "VMware",
-        "Artificial Intelligence",
-        "Networking",
-        "VCF",
         "Storage",
-        "Automation"
+        "Artificial Intelligence",
+        "Docker",
+        "Mikrotik",
+        "Networking",
+        "Nutanix",
+        "Hosting"
       ],
       "tags": [
         null,

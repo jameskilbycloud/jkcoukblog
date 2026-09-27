@@ -7,12 +7,13 @@ author: James Kilby
 categories:
   - Ansible
   - Homelab
-  - VMware
-  - Artificial Intelligence
-  - Networking
-  - VCF
   - Storage
-  - Automation
+  - Artificial Intelligence
+  - Docker
+  - Mikrotik
+  - Networking
+  - Nutanix
+  - Hosting
 tags:
   - #Ansible
   - #Homelab
@@ -417,44 +418,6 @@ I have been really impressed with Semaphore and am migrating more and more of my
 
 ## Similar Posts
 
-  * [ ![Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1-768x1024.jpg) ](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
-
-By[James](https://jameskilby.co.uk) January 6, 2022 · Updated February 16, 2026
-
-Quite a few changes have happened in the lab recently. I decided to do a multipart blog on the changes.
-
-  * [ ![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-768x180.png) ](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
-
-[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
-
-### [Warp – The intelligent terminal](https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/)
-
-By[James](https://jameskilby.co.uk) April 11, 2025 · Updated June 1, 2026
-
-How Warp is helping me run my homelab. 
-
-  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
-
-### [Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense](https://jameskilby.co.uk/2022/01/lab-update-part-3-network/)
-
-By[James](https://jameskilby.co.uk) January 6, 2022 · Updated May 31, 2026
-
-I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes.
-
-  * [ ![VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743-768x737.jpg) ](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
-
-[VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
-
-By[James](https://jameskilby.co.uk) January 18, 2024 · Updated June 1, 2026
-
-How to deploy Holodeck with Legacy CPU’s
-
   * [ ![Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png) ](https://jameskilby.co.uk/2023/04/intel-optane/)
 
 [Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)
@@ -465,12 +428,50 @@ By[James](https://jameskilby.co.uk) April 17, 2023 · Updated June 1, 2026
 
 I have been a VMware vExpert for many years and it has brought me many benefits over the years.
 
-  * [ ![Template Deployment with Packer](https://jameskilby.co.uk/wp-content/uploads/2021/01/logo_packer.png) ](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
+  * [ ![How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.30.47-768x411.png) ](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
 
-[Automation](https://jameskilby.co.uk/category/automation/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
+[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Docker](https://jameskilby.co.uk/category/docker/)
 
-### [Template Deployment with Packer](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
+### [How I Migrated from Pocket to Hoarder with AI Integration](https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/)
 
-By[James](https://jameskilby.co.uk) January 21, 2021 · Updated June 5, 2026
+By[James](https://jameskilby.co.uk) January 29, 2025 · Updated July 11, 2026
 
-Packer is one of those tools I have heard about, and some of the cool people on Twitter that I follow have been using it for a while.
+Update: Hoarder has now been renamed to Karakeep due to a trademark issue I’ve been on a mission recently to regain control of my data.
+
+  * [ ![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600-768x427.jpg) ](https://jameskilby.co.uk/2024/09/home-network-upgrade/)
+
+[Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)
+
+### [Home Network Upgrade to 25Gb/s with MikroTik Switching](https://jameskilby.co.uk/2024/09/home-network-upgrade/)
+
+By[James](https://jameskilby.co.uk) September 9, 2024 · Updated June 5, 2026
+
+My journey to superfast networking in my homelab
+
+  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
+
+### [Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense](https://jameskilby.co.uk/2022/01/lab-update-part-3-network/)
+
+By[James](https://jameskilby.co.uk) January 6, 2022 · Updated May 31, 2026
+
+I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes.
+
+  * [ ![New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-768x149.jpeg) ](https://jameskilby.co.uk/2024/07/new-nodes/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/)
+
+### [New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix](https://jameskilby.co.uk/2024/07/new-nodes/)
+
+By[James](https://jameskilby.co.uk) July 2, 2024 · Updated July 11, 2026
+
+I recently decided to update some of my homelab hosts and I managed to do this at very little cost by offloading 2 of my Supermicro e200’s to fellow vExpert Paul .
+
+  * [ ![Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/wp-content/uploads/2022/10/spacexs-starlink-to-supply-free-satellite-internet-to-famili_u44u.1920-768x432.jpg) ](https://jameskilby.co.uk/2022/10/starlink/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/)
+
+### [Starlink Satellite Internet Review: Rural Broadband Solution](https://jameskilby.co.uk/2022/10/starlink/)
+
+By[James](https://jameskilby.co.uk) October 11, 2022 · Updated June 1, 2026
+
+Since moving to Dorset last year internet connectivity has been the bane of my existence. Currently, I have an ADSL connection provided by my old employer Zen and a 5G connection provided by Three.

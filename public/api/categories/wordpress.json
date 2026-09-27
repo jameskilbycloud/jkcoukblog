@@ -19,6 +19,7 @@
         "Devops",
         "Personal",
         "Artificial Intelligence",
+        "Automation",
         "Docker"
       ],
       "tags": [
@@ -48,8 +49,8 @@
         "Automation",
         "Hosting",
         "Personal",
-        "Artificial Intelligence",
-        "Ansible"
+        "Ansible",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -78,8 +79,7 @@
         "Wordpress",
         "Artificial Intelligence",
         "Docker",
-        "AWS",
-        "Automation"
+        "Homelab"
       ],
       "tags": [
         null,
@@ -89,6 +89,36 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-13-at-10.31.30.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/simply-static-logo.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# WordPress Hosting with Cloudflare Pages\n..."
+    },
+    {
+      "slug": "use-portainer-in-a-homelab-with-github",
+      "title": "Use Portainer in a Homelab with GitHub",
+      "description": "How I use Portainer to manage Docker containers in my homelab, deploying stacks straight from a GitHub repository. Setup and a working example.",
+      "date": "2022-12-09T09:06:37Z",
+      "modified": "2026-06-05T18:57:49Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/",
+      "markdown_url": "/markdown/posts/use-portainer-in-a-homelab-with-github.md",
+      "api_url": "/api/posts/use-portainer-in-a-homelab-with-github.json",
+      "categories": [
+        "Docker",
+        "Homelab",
+        "Hosting",
+        "Kubernetes",
+        "Personal",
+        "Artificial Intelligence",
+        "Automation",
+        "Networking",
+        "Wordpress",
+        "Cloudflare"
+      ],
+      "tags": [
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/12/22225832.png)\n\n[Docker](https://jameskilby.co.uk/category/docker/) | [Homelab](https://jameskilby.co.uk/category/homelab/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Kubernetes](https://jameskilby.co.uk/category/kubernetes/)\n\n# ..."
     },
     {
       "slug": "how-i-moved-my-wordpress-site-to-cloudflare-pages",
@@ -105,11 +135,11 @@
         "Hosting",
         "Wordpress",
         "Artificial Intelligence",
+        "Docker",
+        "Ansible",
         "Automation",
-        "Homelab",
-        "AWS",
-        "Personal",
-        "Docker"
+        "Devops",
+        "Personal"
       ],
       "tags": [
         null,
@@ -119,6 +149,34 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/10/iu.jpeg)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# Static WordPress hosting using Cloudflare\n\nBy[James](ht..."
+    },
+    {
+      "slug": "wrangler-and-node-versions",
+      "title": "Fixing Wrangler Node.js Version Conflicts After Brew Upgrade",
+      "description": "I am a massive fan of the brew package management system for macOS and use it on all of my Mac's I typically just upgrade everything blindly and have never",
+      "date": "2022-01-15T08:42:36Z",
+      "modified": "2026-07-11T07:47:13Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/",
+      "markdown_url": "/markdown/posts/wrangler-and-node-versions.md",
+      "api_url": "/api/posts/wrangler-and-node-versions.json",
+      "categories": [
+        "Cloudflare",
+        "Artificial Intelligence",
+        "Automation",
+        "Hosting",
+        "Wordpress",
+        "Devops",
+        "Ansible"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/)\n\n# Fixing Wrangler Node.js Version Conflicts After Brew Upgrade\n\nBy[James](https://jameskilby.co.uk) January 15, 2022 · Updated July 11, 2026 • 📖1 min read(217 wor..."
     },
     {
       "slug": "cloudflare-workers-limits-of-the-free-tier",
@@ -133,9 +191,13 @@
       "categories": [
         "Hosting",
         "Wordpress",
+        "Personal",
+        "Docker",
+        "Homelab",
+        "Artificial Intelligence",
+        "Automation",
         "Cloudflare",
-        "AWS",
-        "Personal"
+        "Ansible"
       ],
       "tags": [
         null,
@@ -160,11 +222,10 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "VMware",
+        "AWS",
+        "Docker",
         "Homelab",
-        "Devops",
-        "Ansible",
-        "Automation"
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -174,31 +235,31 @@
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/) | [Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Personal](https://jameskilby.co.uk/category/personal/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)..."
     },
     {
-      "slug": "aws-status-page-monitoring-included",
-      "title": "AWS Status Page – Monitoring Included",
-      "description": "AWS Status Page – Enhancements The tool I deployed lambstatus supports pulling metrics from AWS Cloudwatch and displaying them.",
-      "date": "2018-05-15T21:41:14Z",
-      "modified": "2026-06-01T19:00:02Z",
+      "slug": "cloudflare",
+      "title": "What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained",
+      "description": "Cloudflare - What is it and why would I care? I have been using Cloudflare for a long time.",
+      "date": "2018-03-27T12:30:48Z",
+      "modified": "2026-06-01T21:58:21Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2018/05/aws-status-page-monitoring-included/",
-      "markdown_url": "/markdown/posts/aws-status-page-monitoring-included.md",
-      "api_url": "/api/posts/aws-status-page-monitoring-included.json",
+      "url": "https://jameskilby.co.uk/2018/03/cloudflare/",
+      "markdown_url": "/markdown/posts/cloudflare.md",
+      "api_url": "/api/posts/cloudflare.json",
       "categories": [
-        "AWS",
         "Hosting",
-        "Personal",
+        "Cloudflare",
+        "AWS",
+        "Wordpress",
         "Docker",
         "Homelab",
-        "Wordpress",
-        "VMware",
-        "Artificial Intelligence"
+        "Personal",
+        "Artificial Intelligence",
+        "Automation"
       ],
       "tags": [
-        null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png)\n\n[AWS](https://jameskilby.co.uk/category/aws/) | [Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# AWS Status Page – Monitoring Included\n\nBy[James](https://jameskilby.co.uk) May 15, 2018 · Updated June 1,..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained\n\nBy[James](https://jameskilby.co.uk) March 27, 2018 · Updated June 1, 2026 • 📖1 min read(287 words)\n\n## Cloudflare..."
     }
   ]
 }

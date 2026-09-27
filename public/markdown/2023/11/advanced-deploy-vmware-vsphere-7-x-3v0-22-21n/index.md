@@ -8,14 +8,12 @@ categories:
   - VMware
   - Personal
   - vSphere
-  - vSAN
-  - VMware Cloud on AWS
-  - Ansible
+  - Artificial Intelligence
   - Automation
   - Homelab
-  - Storage
-  - VCF
   - Nutanix
+  - Devops
+  - Veeam
 tags:
   - #Certification
   - #VCAP
@@ -46,55 +44,35 @@ I have now scheduled the VCAP-Design exam and hopefully I will be able to pass t
 
 ## Similar Posts
 
-  * [ ![vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg) ](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
+  * [ ![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png) ](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
-[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)
+[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/)
 
-### [vSAN Cluster Shutdown – Orchestration](https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/)
+### [My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
-By[James](https://jameskilby.co.uk) December 6, 2025 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) April 4, 2026 · Updated July 11, 2026
 
-How to safely shut down a vSAN Environment
+Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each.
 
-  * [ ![New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp) ](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
+  * [ ![Template Deployment with Packer](https://jameskilby.co.uk/wp-content/uploads/2021/01/logo_packer.png) ](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
 
-[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)
+[Automation](https://jameskilby.co.uk/category/automation/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
 
-### [New VMware Cloud on AWS Host: i7i.metal-24xl](https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/)
+### [Template Deployment with Packer](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
 
-By[James](https://jameskilby.co.uk) April 1, 2026 · Updated September 11, 2026
+By[James](https://jameskilby.co.uk) January 21, 2021 · Updated June 5, 2026
 
-We’ve expanded the VMC fleet with the new i7i (i7i.
+Packer is one of those tools I have heard about, and some of the cool people on Twitter that I follow have been using it for a while.
 
-  * [ ![Automated VCF 9 Offline Depot architecture diagram showing Traefik reverse proxy and Nginx file server stack](https://jameskilby.co.uk/wp-content/uploads/2026/04/offlinedepot.png) ](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
+  * [ ![And now for something completely different](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7-768x193.png) ](https://jameskilby.co.uk/2018/10/and-now-for-something-completely-different/)
 
-[Ansible](https://jameskilby.co.uk/category/ansible/) | [Automation](https://jameskilby.co.uk/category/automation/)
+[Personal](https://jameskilby.co.uk/category/personal/)
 
-### [Automated VCF 9 Offline Depot](https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/)
+### [And now for something completely different](https://jameskilby.co.uk/2018/10/and-now-for-something-completely-different/)
 
-By[James](https://jameskilby.co.uk) April 10, 2026 · Updated July 11, 2026
+By[James](https://jameskilby.co.uk) October 16, 2018 · Updated July 11, 2026
 
-One Bash script turns a fresh Ubuntu VM into a VCF 9 Offline Depot: Traefik, Nginx, basic auth, and Let’s Encrypt wildcard certs via Cloudflare DNS.
-
-  * [ ![Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/wp-content/uploads/2023/04/intel_optane_ssd_900p_series_aic_-_right_angle_575px.png) ](https://jameskilby.co.uk/2023/04/intel-optane/)
-
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)
-
-### [Using Intel Optane NVMe in a VMware Homelab: Setup & Results](https://jameskilby.co.uk/2023/04/intel-optane/)
-
-By[James](https://jameskilby.co.uk) April 17, 2023 · Updated June 1, 2026
-
-I have been a VMware vExpert for many years and it has brought me many benefits over the years.
-
-  * [ ![VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/wp-content/uploads/2024/01/40oOd8IipPvtrPJs-1198788743-768x737.jpg) ](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
-
-[VCF](https://jameskilby.co.uk/category/vmware/vcf/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [VMware Holodeck on Older CPUs: Fixing Compatibility Issues](https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/)
-
-By[James](https://jameskilby.co.uk) January 18, 2024 · Updated June 1, 2026
-
-How to deploy Holodeck with Legacy CPU’s
+I have worked for my current employer Zen Internet for 3. Over that time I have changed roles from what was originally a customer-focused role into a role with one of the core platform teams.
 
   * [ ![Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg) ](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
 
@@ -105,3 +83,21 @@ How to deploy Holodeck with Legacy CPU’s
 By[James](https://jameskilby.co.uk) July 2, 2020 · Updated May 31, 2026
 
 I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam.
+
+  * [ ![My First GitHub Pull Request: Contributing to Open Source](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg) ](https://jameskilby.co.uk/2020/12/my-first-pull/)
+
+[Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)
+
+### [My First GitHub Pull Request: Contributing to Open Source](https://jameskilby.co.uk/2020/12/my-first-pull/)
+
+By[James](https://jameskilby.co.uk) December 22, 2020 · Updated June 5, 2026
+
+I was initially going to add in the contents of this post to one that I have been writing about my exploits with HashiCorp Packer but I decided it probably warranted being separated out.
+
+  * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/)
+
+### [Lab Update – Desired Workloads](https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/)
+
+By[James](https://jameskilby.co.uk) January 6, 2022 · Updated June 1, 2026
+
+My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.

@@ -16,10 +16,12 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Storage",
-        "VMware",
         "Nutanix",
+        "Storage",
         "Automation",
+        "Github",
+        "VCF",
+        "VMware",
         "Docker"
       ],
       "tags": [

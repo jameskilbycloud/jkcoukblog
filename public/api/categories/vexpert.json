@@ -17,10 +17,13 @@
         "Storage",
         "vExpert",
         "VMware",
-        "TrueNAS Scale",
+        "Networking",
         "Artificial Intelligence",
-        "Automation",
-        "Networking"
+        "Docker",
+        "Hosting",
+        "VMware Cloud on AWS",
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null,

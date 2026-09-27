@@ -20,13 +20,12 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "TrueNAS Scale",
-        "Mikrotik",
-        "Networking",
-        "VMware Cloud on AWS",
+        "Personal",
+        "Cloudflare",
+        "Devops",
+        "Storage",
         "Nutanix",
-        "Hosting",
-        "Cloudflare"
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -66,10 +65,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Veeam",
-        "Storage",
-        "Networking",
-        "Personal"
+        "Github",
+        "Personal",
+        "Ansible",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -108,11 +107,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Personal",
-        "Automation",
+        "Storage",
         "Docker",
-        "Networking",
-        "Storage"
+        "vSAN",
+        "Automation",
+        "Github"
       ],
       "tags": [
         null,

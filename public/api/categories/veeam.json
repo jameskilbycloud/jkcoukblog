@@ -3,86 +3,77 @@
   "slug": "veeam",
   "posts": [
     {
-      "slug": "my-self-hosted-ai-stack-a-technical-deep-dive",
-      "title": "My Self-Hosted AI Stack: Architecture Overview (Part 1)",
-      "description": "How I built a fully self-hosted AI stack with Ollama, Open WebUI, n8n, ComfyUI, Qdrant and SearxNG on Docker Compose. Configs, costs, observability.",
-      "date": "2026-03-27T11:56:33Z",
-      "modified": "2026-05-31T11:36:30Z",
+      "slug": "new-vmc-host-i7i-metal-24xl",
+      "title": "New VMware Cloud on AWS Host: i7i.metal-24xl",
+      "description": "We’ve expanded the VMC fleet with the new i7i (i7i.",
+      "date": "2026-04-01T08:06:00Z",
+      "modified": "2026-09-11T15:16:17Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/",
-      "markdown_url": "/markdown/posts/my-self-hosted-ai-stack-a-technical-deep-dive.md",
-      "api_url": "/api/posts/my-self-hosted-ai-stack-a-technical-deep-dive.json",
+      "url": "https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/",
+      "markdown_url": "/markdown/posts/new-vmc-host-i7i-metal-24xl.md",
+      "api_url": "/api/posts/new-vmc-host-i7i-metal-24xl.json",
       "categories": [
-        "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "Homelab",
-        "NVIDIA",
-        "Traefik",
         "VMware",
+        "VMware Cloud on AWS",
+        "Homelab",
         "Veeam",
-        "Storage",
-        "Networking",
-        "Personal"
+        "Automation",
+        "Runecast",
+        "Ansible",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
         null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured.png",
-      "excerpt": "![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured.png)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# New VMware Cloud on AWS Host: i7i.metal-24xl\n\nBy[James](https://jameskilby.co.uk) ..."
     },
     {
-      "slug": "vsan-cluster-shutdown",
-      "title": "vSAN Cluster Shutdown – Orchestration",
-      "description": "As can be seen on my Lab Overview page. I have a GPU/Management cluster that is usually running 24x7.",
-      "date": "2025-12-06T10:59:14Z",
-      "modified": "2026-06-01T21:07:13Z",
+      "slug": "vmc-host-deepdive",
+      "title": "An in-depth look at VMware Cloud on AWS hosts",
+      "description": "A full side-by-side comparison of every VMware Cloud on AWS host type — I3.metal, I3en.metal and I4i.metal — covering CPU, memory, storage and networking specs.",
+      "date": "2025-08-14T12:32:01Z",
+      "modified": "2026-07-11T13:21:16Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/",
-      "markdown_url": "/markdown/posts/vsan-cluster-shutdown.md",
-      "api_url": "/api/posts/vsan-cluster-shutdown.json",
+      "url": "https://jameskilby.co.uk/2025/08/vmc-host-deepdive/",
+      "markdown_url": "/markdown/posts/vmc-host-deepdive.md",
+      "api_url": "/api/posts/vmc-host-deepdive.json",
       "categories": [
         "VMware",
-        "vSAN",
         "VMware Cloud on AWS",
+        "Homelab",
+        "Networking",
+        "Artificial Intelligence",
+        "Automation",
+        "Veeam"
+      ],
+      "tags": [
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# An in-depth look at VMware Cloud on AWS hosts\n\nBy[James](https://jamesk..."
+    },
+    {
+      "slug": "advanced-deploy-vmware-vsphere-7-x-3v0-22-21n",
+      "title": "Advanced Deploy VMware vSphere 7.x 3V0-22.21N",
+      "description": "Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years.",
+      "date": "2023-11-10T11:34:42Z",
+      "modified": "2026-06-01T19:02:52Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/",
+      "markdown_url": "/markdown/posts/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n.md",
+      "api_url": "/api/posts/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n.json",
+      "categories": [
+        "VMware",
+        "Personal",
+        "vSphere",
         "Artificial Intelligence",
         "Automation",
         "Homelab",
-        "Veeam"
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n# vSAN Cluster Shutdown – Orchestration\n\nBy[James](https://jameskilby.co.uk) December 6,..."
-    },
-    {
-      "slug": "home-network-upgrade",
-      "title": "Home Network Upgrade to 25Gb/s with MikroTik Switching",
-      "description": "My home network upgrade to 25Gb/s: MikroTik CRS504 switching, DACs, optics, and the gotchas I hit going beyond 10Gb at home.",
-      "date": "2024-09-09T08:25:08Z",
-      "modified": "2026-06-05T18:49:23Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2024/09/home-network-upgrade/",
-      "markdown_url": "/markdown/posts/home-network-upgrade.md",
-      "api_url": "/api/posts/home-network-upgrade.json",
-      "categories": [
-        "Mikrotik",
-        "Networking",
-        "Ansible",
-        "Artificial Intelligence",
-        "VCF",
-        "VMware",
-        "Homelab",
+        "Nutanix",
+        "Devops",
         "Veeam"
       ],
       "tags": [
@@ -90,26 +81,26 @@
         null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg",
-      "excerpt": "![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg)\n\n[Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Home Network Upgrade to 25Gb/s with MikroTik Switching\n\nBy[James](https://jameskilby.co.uk) September ..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)\n\n# Advanced Deploy VMware vSphere 7.x 3V0-22.21N\n\nBy[James](https:..."
     },
     {
-      "slug": "vsan-esa-and-the-improvements-it-brings-to-vmc",
-      "title": "vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24",
-      "description": "vSAN ESA - Benefits Performance benefits Efficiency benefits Resilience Benefits Sizing vSAN Express Storage Architecture (ESA) was announced at VMware Exp",
-      "date": "2023-11-17T11:29:42Z",
-      "modified": "2026-06-01T21:58:58Z",
+      "slug": "runecast-remediation-scripts",
+      "title": "Runecast Remediation Scripts: Auto-Fix VMware Storage Issues",
+      "description": "I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.",
+      "date": "2023-05-16T10:38:45Z",
+      "modified": "2026-06-01T21:58:53Z",
       "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/",
-      "markdown_url": "/markdown/posts/vsan-esa-and-the-improvements-it-brings-to-vmc.md",
-      "api_url": "/api/posts/vsan-esa-and-the-improvements-it-brings-to-vmc.json",
+      "url": "https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/",
+      "markdown_url": "/markdown/posts/runecast-remediation-scripts.md",
+      "api_url": "/api/posts/runecast-remediation-scripts.json",
       "categories": [
+        "Runecast",
         "VMware",
+        "Homelab",
+        "Personal",
         "VMware Cloud on AWS",
-        "vSAN",
-        "Homelab",
-        "Storage",
-        "TrueNAS Scale",
+        "Networking",
         "Veeam"
       ],
       "tags": [
@@ -118,8 +109,8 @@
         null,
         null
       ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n#..."
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)\n\n[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Runecast Remediation Scripts: Auto-Fix VMware Storage Issues\n\nBy[James](https://jameskilby.co.uk) May ..."
     },
     {
       "slug": "lab-update-part-5-desired-workloads",
@@ -135,11 +126,11 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "VCF",
-        "Networking",
-        "Mikrotik",
-        "VMware Cloud on AWS",
-        "Ansible"
+        "Docker",
+        "Storage",
+        "TrueNAS Scale",
+        "Artificial Intelligence",
+        "Automation"
       ],
       "tags": [
         null,
@@ -161,9 +152,9 @@
       "api_url": "/api/posts/veeamon2020.json",
       "categories": [
         "Veeam",
-        "Homelab",
         "VMware",
-        "AWS"
+        "AWS",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -189,10 +180,9 @@
         "Artificial Intelligence",
         "Automation",
         "Homelab",
-        "Ansible",
-        "Nutanix",
+        "VCF",
         "VMware Cloud on AWS",
-        "Personal"
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
@@ -201,6 +191,32 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2026/03/VMConAWS.png.webp)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [AWS](https://jameskilby.co.uk/category/aws/) | [Veeam](https://jameskilby.co.uk/category/veeam/)\n\n# Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1)\n\nBy[James..."
+    },
+    {
+      "slug": "lab-storage-2",
+      "title": "Homelab Storage Upgrade: Synology DS918 for VMware & NFS",
+      "description": "My homelab storage upgrade — adding a Synology DS918+ with SSDs, presenting it to VMware over NFS 4.1, and testing VAAI and NFS multipathing.",
+      "date": "2019-02-10T23:59:20Z",
+      "modified": "2026-06-05T19:12:06Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2019/02/lab-storage-2/",
+      "markdown_url": "/markdown/posts/lab-storage-2.md",
+      "api_url": "/api/posts/lab-storage-2.json",
+      "categories": [
+        "Homelab",
+        "Storage",
+        "Networking",
+        "Docker",
+        "Automation",
+        "Veeam"
+      ],
+      "tags": [
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/04/81-ZoEW24UL._SL1500_.jpg",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/04/81-ZoEW24UL._SL1500_.jpg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Homelab Storage Upgrade: Synology DS918 for VMware & NFS\n\nBy[James](https://jameskilby.co.uk) February 10, 2019 · Updated June 5, 2026 • 📖1 min read(224 words)\n..."
     }
   ]
 }

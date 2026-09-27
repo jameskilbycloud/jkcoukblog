@@ -17,9 +17,10 @@
         "VMware",
         "VMware Cloud on AWS",
         "Homelab",
-        "VCF",
-        "vSAN",
-        "Personal"
+        "Networking",
+        "Artificial Intelligence",
+        "Automation",
+        "Veeam"
       ],
       "tags": [
         null

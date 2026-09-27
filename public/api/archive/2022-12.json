@@ -18,11 +18,10 @@
         "Networking",
         "Storage",
         "VMware",
-        "Personal",
-        "TrueNAS Scale",
-        "VCF",
+        "Ansible",
         "Automation",
-        "Github"
+        "VCF",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -46,11 +45,11 @@
         "VMware",
         "vSphere",
         "Artificial Intelligence",
-        "Docker",
-        "Storage",
-        "Networking",
         "Automation",
-        "Ansible"
+        "Networking",
+        "vSAN",
+        "VMware Cloud on AWS",
+        "Storage"
       ],
       "tags": [
         null,
@@ -74,11 +73,12 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Artificial Intelligence",
-        "Networking",
         "Personal",
-        "Mikrotik",
-        "Storage"
+        "Artificial Intelligence",
+        "Automation",
+        "Networking",
+        "Wordpress",
+        "Cloudflare"
       ],
       "tags": [
         null,

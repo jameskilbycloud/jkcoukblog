@@ -1,41 +1,16 @@
 [
   {
-    "date": "2026-09-20",
-    "timestamp": "2026-09-20 08:42:15 UTC",
-    "runs": 2,
+    "date": "2026-09-27",
+    "timestamp": "2026-09-27 09:07:11 UTC",
+    "runs": 1,
     "performance": 96,
     "accessibility": 96,
     "best_practices": 100,
     "seo": 100,
     "samples": [
       {
-        "timestamp": "2026-09-20 08:28:38 UTC",
-        "performance": 95,
-        "accessibility": 96,
-        "best_practices": 100,
-        "seo": 100
-      },
-      {
-        "timestamp": "2026-09-20 08:42:15 UTC",
+        "timestamp": "2026-09-27 09:07:11 UTC",
         "performance": 96,
-        "accessibility": 96,
-        "best_practices": 100,
-        "seo": 100
-      }
-    ]
-  },
-  {
-    "date": "2026-09-22",
-    "timestamp": "2026-09-21 08:46:47 UTC",
-    "runs": 1,
-    "performance": 78,
-    "accessibility": 96,
-    "best_practices": 100,
-    "seo": 100,
-    "samples": [
-      {
-        "timestamp": "2026-09-21 08:46:47 UTC",
-        "performance": 78,
         "accessibility": 96,
         "best_practices": 100,
         "seo": 100

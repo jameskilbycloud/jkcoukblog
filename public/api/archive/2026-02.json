@@ -22,11 +22,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Personal",
-        "Automation",
+        "Storage",
         "Docker",
-        "Networking",
-        "Storage"
+        "vSAN",
+        "Automation",
+        "Github"
       ],
       "tags": [
         null,

@@ -8,11 +8,12 @@ categories:
   - Ansible
   - Automation
   - Homelab
+  - Storage
   - Networking
-  - Personal
   - VMware
   - VCF
-  - Runecast
+  - Artificial Intelligence
+  - Mikrotik
 tags:
   - #Ansible
   - #Homelab
@@ -247,6 +248,16 @@ Before running these playbooks, make sure you have the following in place:
 
 ## Similar Posts
 
+  * [ ![Can you really squeeze 96TB in 1U ?](https://jameskilby.co.uk/wp-content/uploads/2024/09/QuantaGrid-SD1Q-1ULH-Front-Three-Quarter.png) ](https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/)
+
+[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)
+
+### [Can you really squeeze 96TB in 1U ?](https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/)
+
+By[James](https://jameskilby.co.uk) September 12, 2024 · Updated July 11, 2026
+
+Yes, that’s a clickbait title. But technically it’s possible if I dropped all drive redundancy… I recently saw an advert for a server that was just too good to be true.
+
   * [Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/)
 
 ### [Homelab Network Upgrade: DACs, 40Gb/s vMotion & pfSense](https://jameskilby.co.uk/2022/01/lab-update-part-3-network/)
@@ -254,26 +265,6 @@ Before running these playbooks, make sure you have the following in place:
 By[James](https://jameskilby.co.uk) January 6, 2022 · Updated May 31, 2026
 
 I have retired the WatchGuard Devices with the migration to PFSense running bare-metal in one of the Supermicro Nodes.
-
-  * [ ![Template Deployment with Packer](https://jameskilby.co.uk/wp-content/uploads/2021/01/logo_packer.png) ](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
-
-[Automation](https://jameskilby.co.uk/category/automation/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
-
-### [Template Deployment with Packer](https://jameskilby.co.uk/2021/01/hashicorp-packer/)
-
-By[James](https://jameskilby.co.uk) January 21, 2021 · Updated June 5, 2026
-
-Packer is one of those tools I have heard about, and some of the cool people on Twitter that I follow have been using it for a while.
-
-  * [ ![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png) ](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
-
-[Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)
-
-### [VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
-
-By[James](https://jameskilby.co.uk) September 13, 2020 · Updated May 31, 2026
-
-I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.
 
   * [ ![VMware Holodeck Multi-Host VCF: Lab Setup & Configuration](https://jameskilby.co.uk/wp-content/uploads/2023/12/Holodeck-Overview.png) ](https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/)
 
@@ -285,22 +276,32 @@ By[James](https://jameskilby.co.uk) January 17, 2024 · Updated June 1, 2026
 
 How to Deploy VMware Holodeck on multiple hosts
 
-  * [ ![Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1-768x1024.jpg) ](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
+  * [ ![Self-hosted AI stack operations architecture — Ansible automation, Uptime Kuma monitoring, Open WebUI backup, and container orchestration with Docker and Traefik](https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-768x403.png) ](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
-[Homelab](https://jameskilby.co.uk/category/homelab/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Automation](https://jameskilby.co.uk/category/automation/)
 
-### [Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup](https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/)
+### [My Self-Hosted AI Stack: Infrastructure Deep Dive (Part 2)](https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/)
 
-By[James](https://jameskilby.co.uk) January 6, 2022 · Updated February 16, 2026
+By[James](https://jameskilby.co.uk) April 4, 2026 · Updated July 11, 2026
 
-Quite a few changes have happened in the lab recently. I decided to do a multipart blog on the changes.
+Part 2 of my self-hosted AI stack series. I cover container resource sizing, dual-network isolation via Traefik and Cloudflare Tunnels, and every database powering the stack — PostgreSQL, ClickHouse, Redis, Qdrant, MinIO, MongoDB, SQLite, Prometheus, and Jaeger — plus the backup strategy for each.
 
-  * [ ![Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png) ](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
+  * [ ![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600-768x427.jpg) ](https://jameskilby.co.uk/2024/09/home-network-upgrade/)
 
-[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)
+[Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)
 
-### [Runecast Remediation Scripts: Auto-Fix VMware Storage Issues](https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/)
+### [Home Network Upgrade to 25Gb/s with MikroTik Switching](https://jameskilby.co.uk/2024/09/home-network-upgrade/)
 
-By[James](https://jameskilby.co.uk) May 16, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) September 9, 2024 · Updated June 5, 2026
 
-I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.
+My journey to superfast networking in my homelab
+
+  * [ ![Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore-768x768.png) ](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
+
+[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)
+
+### [Managing my Homelab with SemaphoreUI](https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/)
+
+By[James](https://jameskilby.co.uk) September 2, 2025 · Updated June 5, 2026
+
+An intro on how I use SemaphoreUI to manage my Homelab
