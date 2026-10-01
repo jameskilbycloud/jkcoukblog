@@ -2587,8 +2587,12 @@ dropZone.addEventListener('drop', e => {
   if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
 });
 fileInput.addEventListener('change', e => {
-  if (e.target.files.length) handleFiles(e.target.files);
-  fileInput.value = '';  // allow re-dropping/re-picking the same filename later
+  if (!e.target.files.length) return;
+  // Reset the input (so the same filename can be re-picked later) only AFTER
+  // the files have been read. Clearing it synchronously while the async read
+  // is still pending invalidates the File in Chromium and throws
+  // NotReadableError ("could not be read… permissions problems").
+  Promise.resolve(handleFiles(e.target.files)).finally(() => { fileInput.value = ''; });
 });
 
 function handleFiles(fileList) {
@@ -2605,15 +2609,38 @@ function handleFiles(fileList) {
 }
 
 function handleJsonFile(file) {
-  const reader = new FileReader();
-  reader.onload = e => {
-    let report;
-    try { report = JSON.parse(e.target.result); }
-    catch (err) { alert('That file is not valid JSON:\n\n' + err.message); return; }
-    try { loadReportObject(report); }
-    catch (err) { alert(err.message); }
-  };
-  reader.readAsText(file);
+  return new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onerror = () => {
+      alert(`Could not read ${file.name}. If it's open in another program (e.g. a text editor), close it and try again.`);
+      resolve();
+    };
+    reader.onload = e => {
+      let report;
+      try { report = JSON.parse(e.target.result); }
+      catch (err) { alert('That file is not valid JSON:\n\n' + err.message); resolve(); return; }
+      try { loadReportObject(report); }
+      catch (err) { alert(err.message); }
+      resolve();
+    };
+    reader.readAsText(file);
+  });
+}
+
+// Read a File to an ArrayBuffer, tolerating browsers/paths where one read
+// strategy fails. Blob.arrayBuffer() and FileReader can each throw
+// NotReadableError if the file is locked (open in Excel) or was moved after
+// selection — try both before giving up.
+async function readFileArrayBuffer(file) {
+  try {
+    if (typeof file.arrayBuffer === 'function') return await file.arrayBuffer();
+  } catch (e) { /* fall through to the FileReader attempt below */ }
+  return await new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(r.result);
+    r.onerror = () => reject(r.error || new Error('file read failed'));
+    r.readAsArrayBuffer(file);
+  });
 }
 
 async function handleXlsxFiles(files) {
@@ -2635,15 +2662,23 @@ async function handleXlsxFiles(files) {
     // mirroring build_report()'s per-source skip behaviour.
     const sources = [];
     const parseErrors = [];
+    let anyUnreadable = false;
     for (const f of files) {
       try {
-        const buf = await f.arrayBuffer();
+        const buf = await readFileArrayBuffer(f);
         sources.push({ name: f.name, workbook: XLSX.read(new Uint8Array(buf), { type: 'array' }) });
       } catch (e) {
+        const name = e && e.name;
+        if (name === 'NotReadableError' || name === 'NotFoundError' || name === 'SecurityError') anyUnreadable = true;
         parseErrors.push(`${f.name}: ${e && e.message ? e.message : e}`);
       }
     }
-    if (!sources.length) throw new Error(parseErrors.join('; ') || 'no readable .xlsx files');
+    if (!sources.length) {
+      const hint = anyUnreadable
+        ? ' — the browser could not read the file off disk. If it\'s open in Excel (or another program), close it and drop it again.'
+        : '';
+      throw new Error((parseErrors.join('; ') || 'no readable .xlsx files') + hint);
+    }
 
     const report = VMCAnalyzer.buildReport(XLSX, sources);
     loadReportObject(report, files.map(f => f.name).join(', '));
