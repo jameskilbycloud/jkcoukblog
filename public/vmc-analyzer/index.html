@@ -1184,7 +1184,7 @@ pre.code {
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/>
           </svg>
           <div class="zone-title">Drop <code>report.json</code>, or RVTools <code>.xlsx</code> export(s), here — or click to browse</div>
-          <div class="zone-sub">.xlsx needs the local analyzer server running (see below) — nothing leaves this machine either way</div>
+          <div class="zone-sub">.xlsx is analysed right here in your browser — nothing is uploaded</div>
         </div>
         <div class="alert alert-warning" id="urlLoadAlert" style="display:none;margin-top:0.8rem;">
           <span class="alert-icon">!</span>
@@ -1193,14 +1193,13 @@ pre.code {
       </div>
       <div class="card-footer">
         <p class="card-text" style="color:var(--clr-text-muted);font-size:0.6rem;margin-bottom:0.4rem;">
-          Two ways to load a report — pick whichever fits: run the CLI once and drop the JSON it writes,
-          or start the local analyzer server and drop the raw RVTools workbook(s) straight in.
+          Just drop your RVTools <code>.xlsx</code> export(s) above — they're parsed and analysed
+          in your browser, nothing is uploaded. Prefer the command line, or want the raw JSON for
+          your own tooling? Run the CLI and drop the <code>report.json</code> it writes instead:
         </p>
         <pre class="code">pip install pandas openpyxl
 
-python vmc_rvtools_analyzer.py my_rvtools_export.xlsx --output report.json
-# — or, to drop .xlsx directly instead —
-python vmc_analyzer_server.py --open</pre>
+python vmc_rvtools_analyzer.py my_rvtools_export.xlsx --output report.json</pre>
       </div>
     </div>
 
@@ -2193,6 +2192,14 @@ python vmc_analyzer_server.py --open</pre>
 
 </main>
 
+<!-- Client-side RVTools .xlsx analysis: SheetJS parses the workbook, vmc_analyzer.js
+     runs the same checks as vmc_rvtools_analyzer.py — all in the browser, nothing
+     uploaded. Both are same-origin files (the page's CSP allows script-src 'self').
+     If they're absent (e.g. the single HTML opened without its siblings), the
+     report.json drop path still works; only the raw-.xlsx path needs them. -->
+<script src="xlsx.full.min.js"></script>
+<script src="vmc_analyzer.js"></script>
+
 <script>
 // ══════════════════════════════════════════════════════════════════════════
 //  VMware Cloud on AWS — Starter Workflow
@@ -2547,16 +2554,12 @@ function renderChecklistFlags() {
 const dropZone  = $('dropZone');
 const fileInput = $('fileInput');
 
-// The dashboard is normally opened straight from disk (file://) with no
-// server at all — dropping a report.json works there today, unchanged.
-// Dropping a raw .xlsx needs *something* to parse it (a real workbook is a
-// zip, not something to hand-roll in JS without reimplementing — and
-// drifting out of sync with — every rule in vmc_rvtools_analyzer.py), so
-// that path POSTs to the local helper server (`python vmc_analyzer_server.py`)
-// over loopback. Same default port whether the page itself is being served
-// by that server (recommended: guaranteed same-origin) or opened via
-// file:// with the helper running alongside it (works too, via CORS).
-const ANALYZE_ENDPOINT = 'http://127.0.0.1:8420/api/analyze';
+// Dropping a report.json works everywhere (file://, hosted) with no backend.
+// Dropping a raw .xlsx is now parsed entirely in the browser: SheetJS unzips
+// the workbook and vmc_analyzer.js (a faithful port of vmc_rvtools_analyzer.py,
+// kept honest by tools/check_analyzer_parity.py) runs the same checks. Nothing
+// is uploaded, and no local server is needed. Both libraries are same-origin
+// <script> tags loaded above.
 
 const zoneTitleEl = dropZone.querySelector('.zone-title');
 const zoneSubEl   = dropZone.querySelector('.zone-sub');
@@ -2617,33 +2620,34 @@ async function handleXlsxFiles(files) {
   setDropZoneBusy(true, `Analyzing ${files.length} file${files.length === 1 ? '' : 's'}…`);
   $('urlLoadAlert').style.display = 'none';
 
-  // Split into two try/catches so we know structurally whether fetch()
-  // itself failed (network/CORS — the server isn't reachable) versus a
-  // response came back and something after that went wrong. Deliberately
-  // not `err instanceof TypeError` to tell these apart: that's realm-
-  // sensitive (a cross-context fetch implementation throws a TypeError
-  // from its own realm, which can fail an instanceof check against this
-  // page's), so it's a fragile signal even though real single-realm
-  // browser use wouldn't hit that edge.
-  let res;
-  try {
-    const form = new FormData();
-    files.forEach(f => form.append('files', f, f.name));
-    res = await fetch(ANALYZE_ENDPOINT, { method: 'POST', body: form });
-  } catch (err) {
-    showXlsxLoadError(true, err, files);
+  // The parser is two same-origin <script> tags. If they didn't load (e.g.
+  // the single HTML was opened without its sibling files), say so and point
+  // at the report.json path, which needs nothing.
+  if (typeof XLSX === 'undefined' || typeof VMCAnalyzer === 'undefined') {
+    showXlsxLoadError(true, new Error('parser not loaded'), files);
     setDropZoneBusy(false);
     return;
   }
 
   try {
-    if (!res.ok) {
-      let msg = `Analyzer server returned HTTP ${res.status}.`;
-      try { const errBody = await res.json(); if (errBody.error) msg = errBody.error; } catch { /* non-JSON error body */ }
-      throw new Error(msg);
+    // Parse each workbook in the browser. A file that isn't a real .xlsx
+    // throws here; collect those as skipped rather than aborting the batch,
+    // mirroring build_report()'s per-source skip behaviour.
+    const sources = [];
+    const parseErrors = [];
+    for (const f of files) {
+      try {
+        const buf = await f.arrayBuffer();
+        sources.push({ name: f.name, workbook: XLSX.read(new Uint8Array(buf), { type: 'array' }) });
+      } catch (e) {
+        parseErrors.push(`${f.name}: ${e && e.message ? e.message : e}`);
+      }
     }
-    const report = await res.json();
+    if (!sources.length) throw new Error(parseErrors.join('; ') || 'no readable .xlsx files');
+
+    const report = VMCAnalyzer.buildReport(XLSX, sources);
     loadReportObject(report, files.map(f => f.name).join(', '));
+    if (parseErrors.length) showUrlLoadError('Some files could not be read: ' + parseErrors.join('; '));
   } catch (err) {
     showXlsxLoadError(false, err, files);
   } finally {
@@ -2651,12 +2655,12 @@ async function handleXlsxFiles(files) {
   }
 }
 
-function showXlsxLoadError(isNetworkFailure, err, files) {
+function showXlsxLoadError(isParserMissing, err, files) {
   const names = files.map(f => f.name).join(', ');
-  const message = isNetworkFailure
-    ? `Couldn't reach the local analyzer server at ${ANALYZE_ENDPOINT} to analyze ${names}. ` +
-      `Start it with "python3 vmc_analyzer_server.py --open" in the repo, then drop the file(s) again ` +
-      `— or run vmc_rvtools_analyzer.py yourself and drop the report.json it writes instead.`
+  const message = isParserMissing
+    ? `Couldn't analyze ${names}: the in-browser analyzer (xlsx.full.min.js + vmc_analyzer.js) ` +
+      `didn't load. Make sure those files sit next to this page, or run ` +
+      `vmc_rvtools_analyzer.py yourself and drop the report.json it writes instead.`
     : `${names}: ${err.message}`;
   $('urlLoadText').textContent = message;
   $('urlLoadAlert').style.display = 'flex';

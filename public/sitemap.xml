@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://jameskilby.co.uk/</loc>
-    <lastmod>2026-09-27</lastmod>
+    <lastmod>2026-10-01</lastmod>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline-768x452.png</image:loc>
@@ -1069,7 +1069,7 @@
   <url>
     <loc>https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/</loc>
     <lastmod>2026-04-16</lastmod>
-    <priority>0.9</priority>
+    <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-1024x538.png</image:loc>
       <image:title>Self-hosted AI stack architecture overview</image:title>
@@ -1084,7 +1084,7 @@
   <url>
     <loc>https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/</loc>
     <lastmod>2026-04-16</lastmod>
-    <priority>0.9</priority>
+    <priority>0.7</priority>
     <image:image>
       <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/03/Screenshot-2026-03-07-at-07.30.35-1024x713.png</image:loc>
       <image:title>Agile Rate Profile</image:title>
