@@ -16,9 +16,12 @@
       "categories": [
         "AWS",
         "Hosting",
-        "Cloudflare",
+        "Wordpress",
+        "Artificial Intelligence",
+        "Docker",
         "Homelab",
-        "Personal"
+        "Personal",
+        "Cloudflare"
       ],
       "tags": [
         null,

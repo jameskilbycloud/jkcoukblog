@@ -16,11 +16,11 @@
         "Homelab",
         "Storage",
         "Synology",
+        "VMware",
+        "Networking",
         "Artificial Intelligence",
         "Automation",
-        "Ansible",
-        "VMware",
-        "Runecast"
+        "VCF"
       ],
       "tags": [
         null,
@@ -43,10 +43,9 @@
         "Homelab",
         "Storage",
         "Synology",
+        "Networking",
         "Artificial Intelligence",
         "Automation",
-        "Hosting",
-        "VMware",
         "Docker"
       ],
       "tags": [

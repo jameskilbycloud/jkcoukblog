@@ -17,13 +17,13 @@
         "VMware",
         "vSAN",
         "vSphere",
+        "AWS",
         "VMware Cloud on AWS",
         "Homelab",
-        "Hosting",
         "Storage",
-        "Networking",
-        "Artificial Intelligence",
-        "Docker"
+        "Automation",
+        "Github",
+        "Personal"
       ],
       "tags": [
         null,
@@ -49,12 +49,10 @@
         "VMware",
         "Personal",
         "vSphere",
-        "Artificial Intelligence",
-        "Automation",
+        "VCF",
         "Homelab",
-        "Nutanix",
-        "Devops",
-        "Veeam"
+        "VMware Cloud on AWS",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -78,12 +76,11 @@
         "Homelab",
         "VMware",
         "vSphere",
+        "VCF",
+        "Personal",
         "Artificial Intelligence",
         "Automation",
-        "Networking",
-        "vSAN",
-        "VMware Cloud on AWS",
-        "Storage"
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,

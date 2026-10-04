@@ -32,11 +32,11 @@
       "api_url": "/api/posts/and-now-for-something-completely-different.json",
       "categories": [
         "Personal",
-        "VMware",
         "Hosting",
+        "VMware",
+        "Consulting",
         "AWS",
-        "Devops",
-        "Consulting"
+        "Cloudflare"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018 · Updated July 11, 2026 • 📖1 min read(263 words)\n\nI have worked for my cu..."
@@ -55,7 +55,9 @@
         "Hosting",
         "Personal",
         "Cloudflare",
+        "Consulting",
         "Artificial Intelligence",
+        "Docker",
         "Automation",
         "VMware"
       ],
@@ -85,12 +87,10 @@
         "VMware",
         "Personal",
         "vSphere",
-        "Artificial Intelligence",
-        "Automation",
+        "VCF",
         "Homelab",
-        "Nutanix",
-        "Devops",
-        "Veeam"
+        "VMware Cloud on AWS",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -115,10 +115,10 @@
         "Networking",
         "Storage",
         "VMware",
-        "Ansible",
-        "Automation",
+        "TrueNAS Scale",
+        "Hosting",
         "VCF",
-        "VMware Cloud on AWS"
+        "Personal"
       ],
       "tags": [
         null,

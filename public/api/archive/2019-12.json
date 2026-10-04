@@ -17,12 +17,11 @@
         "VMware",
         "AWS",
         "Veeam",
-        "Artificial Intelligence",
-        "Automation",
-        "Homelab",
-        "VCF",
+        "Personal",
         "VMware Cloud on AWS",
-        "TrueNAS Scale"
+        "Ansible",
+        "Automation",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -46,9 +45,7 @@
         "AWS",
         "Personal",
         "VMware",
-        "Consulting",
-        "Hosting",
-        "Cloudflare"
+        "Hosting"
       ],
       "tags": [
         null,

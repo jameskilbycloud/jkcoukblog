@@ -15,8 +15,8 @@
         "TrueNAS Scale",
         "Homelab",
         "Storage",
-        "VMware",
-        "Docker"
+        "Docker",
+        "VMware"
       ],
       "tags": [
         null,
@@ -59,11 +59,11 @@
       "categories": [
         "Homelab",
         "Hosting",
-        "Cloudflare",
+        "Networking",
         "Automation",
         "Github",
-        "Ansible",
-        "VMware"
+        "VMware",
+        "Storage"
       ],
       "tags": [
         null,
@@ -86,9 +86,12 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
+        "Automation",
+        "Github",
         "Storage",
-        "Nutanix",
-        "Networking"
+        "VMware",
+        "Networking",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -111,11 +114,14 @@
       "categories": [
         "Runecast",
         "VMware",
-        "Homelab",
         "Personal",
+        "Artificial Intelligence",
+        "Automation",
         "VMware Cloud on AWS",
-        "Networking",
-        "Veeam"
+        "VCF",
+        "Homelab",
+        "Storage",
+        "Networking"
       ],
       "tags": [
         null,
@@ -139,13 +145,12 @@
       "categories": [
         "Automation",
         "Github",
-        "Runecast",
-        "VMware",
-        "Homelab",
-        "Storage",
-        "Hosting",
+        "Artificial Intelligence",
         "Docker",
-        "Nutanix"
+        "Homelab",
+        "Networking",
+        "Storage",
+        "VMware"
       ],
       "tags": [
         null,
@@ -172,9 +177,10 @@
       "categories": [
         "Artificial Intelligence",
         "Automation",
+        "Docker",
         "Homelab",
-        "Ansible",
-        "Github"
+        "Github",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -198,10 +204,10 @@
         "Nutanix",
         "Personal",
         "AWS",
-        "VMware",
-        "Devops",
+        "Consulting",
         "Hosting",
-        "Cloudflare"
+        "Cloudflare",
+        "Homelab"
       ],
       "tags": [
         null,

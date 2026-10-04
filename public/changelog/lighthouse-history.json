@@ -1,7 +1,7 @@
 [
   {
-    "date": "2026-09-27",
-    "timestamp": "2026-09-27 09:07:11 UTC",
+    "date": "2026-10-04",
+    "timestamp": "2026-10-04 09:33:13 UTC",
     "runs": 1,
     "performance": 96,
     "accessibility": 96,
@@ -9,33 +9,8 @@
     "seo": 100,
     "samples": [
       {
-        "timestamp": "2026-09-27 09:07:11 UTC",
+        "timestamp": "2026-10-04 09:33:13 UTC",
         "performance": 96,
-        "accessibility": 96,
-        "best_practices": 100,
-        "seo": 100
-      }
-    ]
-  },
-  {
-    "date": "2026-10-01",
-    "timestamp": "2026-10-01 09:29:59 UTC",
-    "runs": 2,
-    "performance": 95,
-    "accessibility": 96,
-    "best_practices": 100,
-    "seo": 100,
-    "samples": [
-      {
-        "timestamp": "2026-09-30 09:31:09 UTC",
-        "performance": 95,
-        "accessibility": 96,
-        "best_practices": 100,
-        "seo": 100
-      },
-      {
-        "timestamp": "2026-10-01 09:29:59 UTC",
-        "performance": 95,
         "accessibility": 96,
         "best_practices": 100,
         "seo": 100

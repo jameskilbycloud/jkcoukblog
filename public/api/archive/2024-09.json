@@ -17,11 +17,12 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
-        "Kubernetes",
+        "VCF",
+        "VMware",
         "Artificial Intelligence",
-        "Automation",
         "Docker",
-        "Networking"
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null,
@@ -45,9 +46,9 @@
         "Networking",
         "Homelab",
         "Storage",
-        "TrueNAS Scale",
-        "VMware",
-        "VCF"
+        "Ansible",
+        "Artificial Intelligence",
+        "Docker"
       ],
       "tags": [
         null,

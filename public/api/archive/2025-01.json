@@ -17,11 +17,12 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
+        "Cloudflare",
         "Homelab",
-        "Storage",
-        "VMware",
         "Networking",
-        "Automation"
+        "Storage",
+        "Automation",
+        "AWS"
       ],
       "tags": [
         null,

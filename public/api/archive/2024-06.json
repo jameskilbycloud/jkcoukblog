@@ -16,9 +16,10 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Automation",
-        "Storage",
-        "Docker"
+        "VMware",
+        "Ansible",
+        "Artificial Intelligence",
+        "Nutanix"
       ],
       "tags": [
         null,

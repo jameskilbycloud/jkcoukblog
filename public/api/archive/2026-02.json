@@ -22,11 +22,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
+        "Personal",
+        "VMware Cloud on AWS",
         "Storage",
-        "Docker",
-        "vSAN",
-        "Automation",
-        "Github"
+        "Veeam",
+        "Docker"
       ],
       "tags": [
         null,

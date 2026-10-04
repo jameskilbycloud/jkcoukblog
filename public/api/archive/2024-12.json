@@ -18,13 +18,13 @@
         "VMware",
         "vSAN",
         "vSphere",
+        "AWS",
         "VMware Cloud on AWS",
         "Homelab",
-        "Hosting",
         "Storage",
-        "Networking",
-        "Artificial Intelligence",
-        "Docker"
+        "Automation",
+        "Github",
+        "Personal"
       ],
       "tags": [
         null,

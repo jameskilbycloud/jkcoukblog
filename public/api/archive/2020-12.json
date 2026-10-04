@@ -16,14 +16,13 @@
       "categories": [
         "Devops",
         "Personal",
-        "AWS",
-        "Consulting",
-        "Cloudflare",
-        "Ansible",
-        "Artificial Intelligence",
         "Nutanix",
+        "Consulting",
         "Automation",
-        "Github"
+        "Homelab",
+        "Cloudflare",
+        "Hosting",
+        "AWS"
       ],
       "tags": [
         null,
