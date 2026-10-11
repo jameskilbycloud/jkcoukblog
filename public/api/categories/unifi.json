@@ -16,14 +16,13 @@
         "Homelab",
         "Networking",
         "Unifi",
-        "Runecast",
+        "Ansible",
+        "Automation",
         "VMware",
         "Storage",
-        "Hosting",
         "Artificial Intelligence",
-        "Automation",
-        "Mikrotik",
-        "Github"
+        "Docker",
+        "Mikrotik"
       ],
       "tags": [
         null,

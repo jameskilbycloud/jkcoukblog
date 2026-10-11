@@ -16,13 +16,11 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Homelab",
-        "Personal",
-        "AWS",
-        "Ansible",
-        "Automation",
         "Artificial Intelligence",
-        "Docker"
+        "Automation",
+        "Homelab",
+        "AWS",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -48,9 +46,9 @@
         "Devops",
         "Github",
         "Wordpress",
-        "Hosting",
+        "Automation",
         "Ansible",
-        "Automation"
+        "Hosting"
       ],
       "tags": [
         null,
@@ -77,9 +75,9 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
+        "Personal",
         "Devops",
-        "Docker",
-        "Homelab"
+        "AWS"
       ],
       "tags": [
         null,
@@ -104,9 +102,11 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "AWS",
-        "Homelab",
-        "Devops"
+        "Artificial Intelligence",
+        "Docker",
+        "Ansible",
+        "Automation",
+        "Personal"
       ],
       "tags": [
         null,
@@ -130,12 +130,9 @@
       "categories": [
         "Hosting",
         "Wordpress",
-        "Ansible",
-        "Automation",
         "Cloudflare",
-        "Artificial Intelligence",
-        "Docker",
-        "Homelab"
+        "Homelab",
+        "Devops"
       ],
       "tags": [
         null,
@@ -160,11 +157,9 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "Devops",
-        "Homelab",
-        "Artificial Intelligence",
         "Docker",
-        "VMware"
+        "Homelab",
+        "Devops"
       ],
       "tags": [
         null,
@@ -186,11 +181,11 @@
       "categories": [
         "AWS",
         "Hosting",
-        "Wordpress",
+        "VMware",
+        "Homelab",
         "Artificial Intelligence",
         "Docker",
-        "Homelab",
-        "Personal",
+        "Wordpress",
         "Cloudflare"
       ],
       "tags": [
@@ -199,6 +194,33 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/05/AmazonWebservices_Logo.svg_.png)\n\n[AWS](https://jameskilby.co.uk/category/aws/) | [Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# AWS Status Page – Monitoring Included\n\nBy[James](https://jameskilby.co.uk) May 15, 2018 · Updated June 1,..."
+    },
+    {
+      "slug": "cloudflare",
+      "title": "What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained",
+      "description": "Cloudflare - What is it and why would I care? I have been using Cloudflare for a long time.",
+      "date": "2018-03-27T12:30:48Z",
+      "modified": "2026-06-01T21:58:21Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2018/03/cloudflare/",
+      "markdown_url": "/markdown/posts/cloudflare.md",
+      "api_url": "/api/posts/cloudflare.json",
+      "categories": [
+        "Hosting",
+        "Docker",
+        "Homelab",
+        "AWS",
+        "Artificial Intelligence",
+        "Automation",
+        "Wordpress",
+        "Cloudflare",
+        "Personal"
+      ],
+      "tags": [
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2020/06/iu-2.png)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/)\n\n# What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained\n\nBy[James](https://jameskilby.co.uk) March 27, 2018 · Updated June 1, 2026 • 📖1 min read(287 words)\n\n## Cloudflare..."
     }
   ]
 }

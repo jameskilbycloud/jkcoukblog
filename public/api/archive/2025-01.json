@@ -17,12 +17,13 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Cloudflare",
-        "Homelab",
+        "Mikrotik",
         "Networking",
+        "VCF",
+        "VMware",
+        "Homelab",
         "Storage",
-        "Automation",
-        "AWS"
+        "Cloudflare"
       ],
       "tags": [
         null,

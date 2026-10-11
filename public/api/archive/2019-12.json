@@ -20,8 +20,10 @@
         "Personal",
         "VMware Cloud on AWS",
         "Ansible",
-        "Automation",
-        "Homelab"
+        "Artificial Intelligence",
+        "Runecast",
+        "Homelab",
+        "Storage"
       ],
       "tags": [
         null,
@@ -44,8 +46,10 @@
       "categories": [
         "AWS",
         "Personal",
+        "Devops",
         "VMware",
-        "Hosting"
+        "Hosting",
+        "Consulting"
       ],
       "tags": [
         null,

@@ -17,11 +17,12 @@
         "Homelab",
         "Storage",
         "Synology",
+        "Runecast",
         "VMware",
+        "Nutanix",
         "Networking",
-        "Artificial Intelligence",
-        "Automation",
-        "VCF"
+        "Ansible",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,

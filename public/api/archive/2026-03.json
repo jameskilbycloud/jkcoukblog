@@ -21,9 +21,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VMware Cloud on AWS",
+        "Personal",
+        "Networking",
         "Storage",
-        "Github"
+        "Nutanix",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -56,7 +58,6 @@
       "categories": [
         "Artificial Intelligence",
         "Automation",
-        "Docker",
         "Homelab",
         "Github",
         "Ansible"

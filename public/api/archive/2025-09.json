@@ -16,12 +16,12 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Artificial Intelligence",
-        "Automation",
-        "Storage",
         "Runecast",
         "VMware",
-        "Networking"
+        "Hosting",
+        "Storage",
+        "Artificial Intelligence",
+        "Automation"
       ],
       "tags": [
         null,
