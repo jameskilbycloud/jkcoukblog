@@ -17,13 +17,12 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Runecast",
-        "VMware",
+        "Ansible",
         "Automation",
-        "Networking",
+        "VMware",
+        "Nutanix",
         "Artificial Intelligence",
-        "Docker",
-        "Ansible"
+        "Docker"
       ],
       "tags": [
         null,
@@ -45,10 +44,10 @@
       "categories": [
         "Homelab",
         "Nutanix",
-        "Artificial Intelligence",
-        "Personal",
-        "VMware",
-        "Ansible"
+        "Storage",
+        "Hosting",
+        "Ansible",
+        "Networking"
       ],
       "tags": [
         null

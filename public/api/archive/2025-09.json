@@ -18,10 +18,10 @@
         "Homelab",
         "Runecast",
         "VMware",
-        "Hosting",
+        "TrueNAS Scale",
+        "Nutanix",
         "Storage",
-        "Artificial Intelligence",
-        "Automation"
+        "Networking"
       ],
       "tags": [
         null,

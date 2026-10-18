@@ -16,13 +16,10 @@
         "Homelab",
         "Networking",
         "Unifi",
-        "Ansible",
-        "Automation",
-        "VMware",
         "Storage",
         "Artificial Intelligence",
         "Docker",
-        "Mikrotik"
+        "Ansible"
       ],
       "tags": [
         null,

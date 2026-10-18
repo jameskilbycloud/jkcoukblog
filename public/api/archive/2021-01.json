@@ -17,12 +17,13 @@
         "Automation",
         "Homelab",
         "VMware",
+        "Devops",
+        "Personal",
+        "Ansible",
+        "Runecast",
         "VCF",
-        "TrueNAS Scale",
-        "Mikrotik",
         "Networking",
-        "Veeam",
-        "VMware Cloud on AWS"
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -46,11 +47,11 @@
       "categories": [
         "Personal",
         "Consulting",
+        "Devops",
         "VMware",
         "Nutanix",
         "Hosting",
-        "Cloudflare",
-        "AWS"
+        "Cloudflare"
       ],
       "tags": [
         null,

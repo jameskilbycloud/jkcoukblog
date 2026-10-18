@@ -15,10 +15,12 @@
         "VMware",
         "vSAN",
         "vSphere",
+        "Artificial Intelligence",
+        "Automation",
         "Homelab",
-        "Ansible",
-        "VCF",
-        "Personal"
+        "Storage",
+        "Veeam",
+        "Docker"
       ],
       "tags": [
         null,
@@ -42,10 +44,10 @@
       "api_url": "/api/posts/wrangler-and-node-versions.json",
       "categories": [
         "Cloudflare",
+        "Hosting",
         "Artificial Intelligence",
         "Automation",
-        "Hosting",
-        "Personal"
+        "Devops"
       ],
       "tags": [
         null,
@@ -88,9 +90,11 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "Docker",
-        "Homelab",
-        "Devops"
+        "Artificial Intelligence",
+        "Automation",
+        "Consulting",
+        "AWS",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -114,10 +118,10 @@
         "Hosting",
         "Wordpress",
         "Artificial Intelligence",
-        "Automation",
-        "Homelab",
+        "Docker",
         "AWS",
-        "Ansible"
+        "Devops",
+        "Personal"
       ],
       "tags": [
         null,
@@ -141,12 +145,12 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Veeam",
-        "Storage",
+        "Ansible",
+        "Docker",
+        "VCF",
         "VMware",
-        "Automation",
-        "Github",
-        "Nutanix"
+        "Storage",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
@@ -170,11 +174,12 @@
         "Ansible",
         "Automation",
         "Artificial Intelligence",
-        "Homelab",
-        "VMware",
-        "AWS",
         "Docker",
+        "VMware",
         "VMware Cloud on AWS",
+        "Personal",
+        "Homelab",
+        "Hosting",
         "Storage"
       ],
       "tags": [
@@ -200,11 +205,13 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
-        "AWS",
         "Personal",
+        "Runecast",
+        "Ansible",
+        "Artificial Intelligence",
+        "AWS",
         "Homelab",
-        "Veeam",
-        "VCF"
+        "Networking"
       ],
       "tags": [
         null,
@@ -228,12 +235,11 @@
       "categories": [
         "VMware",
         "vSAN",
-        "Personal",
+        "Homelab",
+        "VMware Cloud on AWS",
         "Artificial Intelligence",
         "Automation",
-        "Homelab",
-        "Veeam",
-        "VMware Cloud on AWS"
+        "VCF"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n# vSAN Cluster Shutdown – Orchestration\n\nBy[James](https://jameskilby.co.uk) December 6,..."
@@ -252,10 +258,9 @@
         "Personal",
         "VMware",
         "VMware Cloud on AWS",
-        "Artificial Intelligence",
         "Automation",
-        "Ansible",
-        "Consulting"
+        "Homelab",
+        "Storage"
       ],
       "tags": [
         null,

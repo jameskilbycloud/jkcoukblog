@@ -17,12 +17,13 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Runecast",
-        "VMware",
-        "Nutanix",
         "Networking",
+        "Hosting",
+        "TrueNAS Scale",
+        "VMware",
         "Ansible",
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Nutanix"
       ],
       "tags": [
         null,

@@ -17,12 +17,12 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
-        "Runecast",
+        "VCF",
         "VMware",
-        "Kubernetes",
+        "Runecast",
         "Mikrotik",
         "Networking",
-        "Ansible"
+        "Hosting"
       ],
       "tags": [
         null,
@@ -46,10 +46,12 @@
         "Networking",
         "TrueNAS Scale",
         "VMware",
-        "Homelab",
+        "Ansible",
         "Artificial Intelligence",
+        "Homelab",
+        "Veeam",
         "Docker",
-        "Storage"
+        "Runecast"
       ],
       "tags": [
         null,

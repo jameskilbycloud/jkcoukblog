@@ -21,11 +21,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
+        "VMware Cloud on AWS",
+        "Docker",
         "Storage",
-        "Mikrotik",
-        "Networking",
-        "Personal",
-        "Cloudflare"
+        "Automation"
       ],
       "tags": [
         null,

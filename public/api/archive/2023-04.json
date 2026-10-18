@@ -17,10 +17,14 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Ansible",
-        "Automation",
         "Artificial Intelligence",
-        "Docker"
+        "Docker",
+        "Networking",
+        "Kubernetes",
+        "TrueNAS Scale",
+        "VMware",
+        "Personal",
+        "Nutanix"
       ],
       "tags": [
         null,
