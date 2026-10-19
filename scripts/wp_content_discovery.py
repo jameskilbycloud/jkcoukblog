@@ -7,7 +7,8 @@ the first).
 
 Runs once per build, before any page processing starts:
 - get_all_content_urls(): discovers every URL to generate (posts, pages,
-  categories/tags with posts, homepage pagination), in either incremental
+  categories/tags with posts, homepage and category/tag archive
+  pagination), in either incremental
   mode (only changed posts/pages, via incremental_builder) or full-build
   mode (walks every WP REST endpoint).
 - get_all_media_assets(): discovers every media-library URL (including size
@@ -82,6 +83,52 @@ class WPContentDiscovery:
             page += 1
         return items
 
+    def _probe_pagination(self, base_path: str) -> list:
+        """Return the /page/N/ URLs WordPress actually serves under base_path.
+
+        HEADs {base_path}page/2/, page/3/, ... until the first non-200.
+        base_path is '/' for the homepage or a taxonomy archive such as
+        '/category/homelab/'. Returns relative URLs, page 2 first.
+        """
+        found = []
+        n = 2
+        while True:
+            pagination_url = f'{base_path}page/{n}/'
+            try:
+                resp = self.session.head(f'{self.wp_url}{pagination_url}',
+                                         timeout=15, allow_redirects=False)
+            except Exception as e:
+                print(f"   ⚠️  Pagination discovery stopped at {pagination_url}: {e}")
+                break
+            if resp.status_code != 200:
+                break
+            found.append(pagination_url)
+            n += 1
+        return found
+
+    def _discover_taxonomy_pagination(self, terms: list) -> list:
+        """Return /category/<slug>/page/N/ and /tag/<slug>/page/N/ URLs.
+
+        The archive pages render "page 2 / page 3" links and rel="next" for
+        any term with more posts than WP's posts_per_page, so those pages
+        must be generated too (they 404'd on the live site before this).
+        Terms are probed in descending post count; whether page 2 exists
+        depends only on the count, so once one term has no page 2 every
+        smaller term is skipped. That keeps it to a handful of HEADs rather
+        than one per tag.
+        """
+        urls = []
+        for term in sorted(terms, key=lambda t: t.get('count', 0), reverse=True):
+            if term.get('count', 0) <= 0:
+                break
+            base_path = term['link'].replace(self.wp_url, '')
+            pages = self._probe_pagination(base_path)
+            if not pages:
+                break
+            urls.extend(pages)
+            print(f"   📄 Archive pages: {base_path} (+{len(pages)})")
+        return urls
+
     def get_all_content_urls(self):
         """Get all content URLs from WordPress REST API"""
         urls = set()
@@ -115,34 +162,27 @@ class WPContentDiscovery:
                 urls.add('/')
 
                 # Get all categories and tags (archives need full list)
-                for category in self._paginate_taxonomy('categories', 'Categories'):
+                categories = self._paginate_taxonomy('categories', 'Categories')
+                for category in categories:
                     if category.get('count', 0) > 0:
                         relative_url = category['link'].replace(self.wp_url, '')
                         urls.add(relative_url)
                         print(f"   📁 Category: {category['name']}")
 
-                for tag in self._paginate_taxonomy('tags', 'Tags'):
+                tags = self._paginate_taxonomy('tags', 'Tags')
+                for tag in tags:
                     if tag.get('count', 0) > 0:
                         relative_url = tag['link'].replace(self.wp_url, '')
                         urls.add(relative_url)
                         print(f"   🏷️  Tag: {tag['name']}")
 
-                # Discover homepage pagination pages (/page/2/, /page/3/, etc.)
-                pagination_page = 2
-                while True:
-                    pagination_url = f'/page/{pagination_page}/'
-                    check_url = f'{self.wp_url}{pagination_url}'
-                    try:
-                        resp = self.session.head(check_url, timeout=15, allow_redirects=False)
-                        if resp.status_code == 200:
-                            urls.add(pagination_url)
-                            print(f"   📄 Homepage page: {pagination_url}")
-                            pagination_page += 1
-                        else:
-                            break
-                    except Exception as e:
-                        print(f"   ⚠️  Pagination discovery stopped at page {pagination_page}: {e}")
-                        break
+                # Archive pagination: homepage (/page/N/) plus category/tag
+                # archives (/category/<slug>/page/N/, /tag/<slug>/page/N/)
+                for pagination_url in self._probe_pagination('/'):
+                    urls.add(pagination_url)
+                    print(f"   📄 Homepage page: {pagination_url}")
+                urls.update(self._discover_taxonomy_pagination(categories))
+                urls.update(self._discover_taxonomy_pagination(tags))
 
             print(f"\n✅ Incremental build: {len(urls)} URLs to process")
             return sorted(list(urls))
@@ -216,7 +256,8 @@ class WPContentDiscovery:
             page += 1
 
         # Get categories
-        for category in self._paginate_taxonomy('categories', 'Categories'):
+        categories = self._paginate_taxonomy('categories', 'Categories')
+        for category in categories:
             if category.get('count', 0) > 0:  # Only categories with posts
                 relative_url = category['link'].replace(self.wp_url, '')
                 urls.add(relative_url)
@@ -224,7 +265,8 @@ class WPContentDiscovery:
 
         # Get tags with posts (paginated — see _paginate_taxonomy for the
         # per_page=100 bug this fixes).
-        for tag in self._paginate_taxonomy('tags', 'Tags'):
+        tags = self._paginate_taxonomy('tags', 'Tags')
+        for tag in tags:
             if tag.get('count', 0) > 0:
                 relative_url = tag['link'].replace(self.wp_url, '')
                 urls.add(relative_url)
@@ -239,23 +281,21 @@ class WPContentDiscovery:
 
         # Discover homepage pagination pages (/page/2/, /page/3/, etc.)
         print("   🔍 Discovering homepage pagination pages...")
-        pagination_page = 2
-        while True:
-            pagination_url = f'/page/{pagination_page}/'
-            check_url = f'{self.wp_url}{pagination_url}'
-            try:
-                resp = self.session.head(check_url, timeout=15, allow_redirects=False)
-                if resp.status_code == 200:
-                    urls.add(pagination_url)
-                    print(f"   📄 Homepage page: {pagination_url}")
-                    pagination_page += 1
-                else:
-                    break
-            except Exception as e:
-                print(f"   ⚠️  Pagination discovery stopped at page {pagination_page}: {e}")
-                break
-        if pagination_page > 2:
-            print(f"   ✅ Found {pagination_page - 2} homepage pagination pages")
+        home_pages = self._probe_pagination('/')
+        for pagination_url in home_pages:
+            urls.add(pagination_url)
+            print(f"   📄 Homepage page: {pagination_url}")
+        if home_pages:
+            print(f"   ✅ Found {len(home_pages)} homepage pagination pages")
+
+        # Category/tag archive pagination — linked via rel="next" from the
+        # first archive page, so it must exist in the static build.
+        print("   🔍 Discovering category/tag archive pagination...")
+        archive_pages = (self._discover_taxonomy_pagination(categories)
+                         + self._discover_taxonomy_pagination(tags))
+        urls.update(archive_pages)
+        if archive_pages:
+            print(f"   ✅ Found {len(archive_pages)} category/tag pagination pages")
 
         print(f"\n✅ Total URLs to process: {len(urls)}")
         return sorted(list(urls))
