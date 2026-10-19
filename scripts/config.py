@@ -71,9 +71,9 @@ class Config:
     # footer "Connect with me" links (wp_to_static_generator.add_social_links)
     # AND the JSON-LD sameAs graph below. name/color feed the rendered links.
     SOCIAL_PROFILES = (
-        {'name': 'GitHub',   'url': 'https://github.com/jameskilbynet',         'color': '#333'},
-        {'name': 'Twitter',  'url': 'https://x.com/jameskilbynet',              'color': '#1da1f2'},
-        {'name': 'LinkedIn', 'url': 'https://www.linkedin.com/in/james-kilby/', 'color': '#0077b5'},
+        {'name': 'GitHub',   'url': 'https://github.com/jameskilbynet',           'color': '#333'},
+        {'name': 'Twitter',  'url': 'https://x.com/jameskilbynet',                'color': '#1da1f2'},
+        {'name': 'LinkedIn', 'url': 'https://www.linkedin.com/in/jameskilbynet/', 'color': '#0077b5'},
     )
 
     # sameAs URLs — the canonical professional profile graph for entity linking.
