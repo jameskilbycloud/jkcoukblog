@@ -2,7 +2,7 @@
 title: "Amazon Elastic VMware Service (AWS EVS) – Links & Resources"
 description: "A curated collection of links and resources for Amazon Elastic VMware Service (AWS EVS) — official docs, design guides, pricing, networking, HCX, and the latest announcements from Broadcom and AWS."
 date: 2025-06-18T11:21:48+00:00
-modified: 2026-07-23T21:17:22+00:00
+modified: 2026-10-19T12:31:09+00:00
 author: James Kilby
 url: https://jameskilby.co.uk/evs/
 image: https://jameskilby.co.uk/wp-content/uploads/2026/02/maxresdefault.jpg
@@ -151,6 +151,6 @@ NSX Edge| 4| 8| 197
 
 ## Useful Blogs
 
-[vcloudone.com](http://vcloudone.com)
+[vcloudone.com](https://vcloudone.com)
 
 [Deploying VCF 9.1 on Amazon EVS with End-to-End Automation](https://aws.amazon.com/blogs/migration-and-modernization/deploying-vcf-9-1-on-amazon-evs-with-end-to-end-automation/)

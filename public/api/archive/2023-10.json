@@ -16,12 +16,12 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Artificial Intelligence",
-        "Docker",
-        "Personal",
-        "Nutanix",
+        "Ansible",
+        "Automation",
+        "VMware Cloud on AWS",
+        "Storage",
         "vSAN",
-        "Storage"
+        "Docker"
       ],
       "tags": [
         null,
@@ -44,8 +44,13 @@
       "categories": [
         "VMware",
         "Personal",
+        "VCF",
+        "Nutanix",
+        "Hosting",
+        "Cloudflare",
         "VMware Cloud on AWS",
-        "Hosting"
+        "Homelab",
+        "Veeam"
       ],
       "tags": [
         null,

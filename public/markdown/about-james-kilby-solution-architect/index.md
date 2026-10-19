@@ -2,7 +2,7 @@
 title: "About Me"
 description: "About Me: I'm a Solution Architect in Dorset, specializing in AWS based Hyperscaler VMware solutions and a vExpert for 11 years. Passionate about tech and photography."
 date: 2020-06-27T19:58:34+00:00
-modified: 2026-10-19T11:35:44+00:00
+modified: 2026-10-19T12:31:09+00:00
 author: James Kilby
 url: https://jameskilby.co.uk/about-james-kilby-solution-architect/
 image: https://jameskilby.co.uk/wp-content/uploads/2026/02/vexpert-badge_Years-12.png
@@ -33,11 +33,11 @@ A collection of products and services that I use and highly recommend. If you si
 
 [Nutmeg](https://nutmeg.mention-me.com/m/ol/wi1ns-james-kilby)
 
-[Trading212](http://www.trading212.com/invite/FMStpMpc)
+[Trading212](https://www.trading212.com/invite/FMStpMpc)
 
 [Krisp](https://ref.krisp.ai/u/u99ee3e7c6)
 
-[Octopus Energy](http://share.octopus.energy/pale-llama-822)
+[Octopus Energy](https://share.octopus.energy/pale-llama-822)
 
 [Zen Internet](https://zen.mention-me.com/m/ol/zm4qj-james-kilby)
 

@@ -15,12 +15,12 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "Networking",
-        "TrueNAS Scale",
-        "VMware",
-        "Storage",
-        "VCF",
-        "VMware Cloud on AWS"
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "Ansible",
+        "Veeam",
+        "VMware"
       ],
       "tags": [
         null,

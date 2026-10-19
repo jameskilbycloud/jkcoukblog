@@ -21,11 +21,12 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Storage",
+        "VMware Cloud on AWS",
+        "Runecast",
+        "Mikrotik",
         "Networking",
-        "VCF",
-        "AWS",
-        "VMware Cloud on AWS"
+        "Storage",
+        "Docker"
       ],
       "tags": [
         null,

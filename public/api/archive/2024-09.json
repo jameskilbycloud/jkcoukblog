@@ -8,7 +8,7 @@
       "title": "Can you really squeeze 96TB in 1U ?",
       "description": "Yes, that’s a clickbait title.",
       "date": "2024-09-12T12:39:16Z",
-      "modified": "2026-07-11T07:34:03Z",
+      "modified": "2026-10-19T12:31:09Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/",
       "markdown_url": "/markdown/posts/can-you-really-squeeze-96tb-in-1u.md",
@@ -17,11 +17,12 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
+        "VMware",
+        "VMware Cloud on AWS",
+        "Docker",
         "Artificial Intelligence",
         "Automation",
-        "Runecast",
-        "VMware",
-        "Docker"
+        "Networking"
       ],
       "tags": [
         null,
@@ -43,11 +44,12 @@
       "categories": [
         "Mikrotik",
         "Networking",
-        "Ansible",
-        "Automation",
         "Homelab",
+        "Veeam",
+        "Ansible",
         "Artificial Intelligence",
         "Docker",
+        "VCF",
         "VMware"
       ],
       "tags": [

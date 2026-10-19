@@ -8,7 +8,7 @@
       "title": "Using Intel Optane NVMe in a VMware Homelab: Setup & Results",
       "description": "I have been a VMware vExpert for many years and it has brought me many many benefits over the years.",
       "date": "2023-04-17T12:20:04Z",
-      "modified": "2026-06-01T21:06:47Z",
+      "modified": "2026-10-19T12:31:09Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2023/04/intel-optane/",
       "markdown_url": "/markdown/posts/intel-optane.md",
@@ -17,13 +17,14 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Veeam",
+        "Kubernetes",
+        "TrueNAS Scale",
+        "Nutanix",
         "VMware",
-        "Personal",
         "AWS",
+        "Ansible",
         "Artificial Intelligence",
-        "Docker",
-        "Runecast"
+        "Personal"
       ],
       "tags": [
         null,

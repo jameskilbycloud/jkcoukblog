@@ -16,8 +16,10 @@
       "categories": [
         "Cloudflare",
         "Hosting",
+        "Ansible",
+        "Automation",
         "Artificial Intelligence",
-        "Automation"
+        "Wordpress"
       ],
       "tags": [
         null,
@@ -41,11 +43,11 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Artificial Intelligence",
-        "Docker",
         "Kubernetes",
         "TrueNAS Scale",
-        "Automation"
+        "Artificial Intelligence",
+        "Networking",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -69,10 +71,9 @@
       "categories": [
         "Homelab",
         "Networking",
-        "VMware",
         "Storage",
-        "Ansible",
         "Automation",
+        "Github",
         "Nutanix"
       ],
       "tags": [
@@ -96,13 +97,13 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "VMware Cloud on AWS",
-        "Docker",
-        "Mikrotik",
-        "Networking",
-        "Storage",
         "Ansible",
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Automation",
+        "vSAN",
+        "AWS",
+        "Storage",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -125,14 +126,12 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Mikrotik",
-        "Networking",
-        "VCF",
-        "Personal",
-        "Artificial Intelligence",
-        "Docker",
+        "TrueNAS Scale",
+        "Automation",
+        "Storage",
         "VMware Cloud on AWS",
-        "AWS"
+        "Networking",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -156,10 +155,9 @@
         "Hosting",
         "Wordpress",
         "Cloudflare",
-        "Docker",
-        "Homelab",
-        "Ansible",
+        "Artificial Intelligence",
         "Automation",
+        "Docker",
         "AWS"
       ],
       "tags": [
@@ -185,12 +183,10 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
+        "VMware",
+        "Nutanix",
         "Artificial Intelligence",
-        "Docker",
-        "Homelab",
-        "Automation",
-        "Devops",
-        "Consulting"
+        "Docker"
       ],
       "tags": [
         null,

@@ -14,11 +14,12 @@
         "Homelab",
         "VMware",
         "vSphere",
-        "VMware Cloud on AWS",
-        "Runecast",
-        "Artificial Intelligence",
-        "Personal",
-        "Hosting"
+        "Ansible",
+        "Automation",
+        "Hosting",
+        "Storage",
+        "Veeam",
+        "vSAN"
       ],
       "tags": [
         null,
@@ -63,11 +64,10 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
-        "Artificial Intelligence",
-        "Automation",
         "Cloudflare",
-        "Ansible",
-        "Wordpress",
+        "Personal",
+        "Docker",
+        "Homelab",
         "AWS"
       ],
       "tags": [
@@ -90,10 +90,9 @@
         "Hosting",
         "Wordpress",
         "Cloudflare",
-        "Docker",
-        "Homelab",
-        "Ansible",
+        "Artificial Intelligence",
         "Automation",
+        "Docker",
         "AWS"
       ],
       "tags": [
@@ -109,7 +108,7 @@
       "title": "Can you really squeeze 96TB in 1U ?",
       "description": "Yes, that’s a clickbait title.",
       "date": "2024-09-12T12:39:16Z",
-      "modified": "2026-07-11T07:34:03Z",
+      "modified": "2026-10-19T12:31:09Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/",
       "markdown_url": "/markdown/posts/can-you-really-squeeze-96tb-in-1u.md",
@@ -118,11 +117,12 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
+        "VMware",
+        "VMware Cloud on AWS",
+        "Docker",
         "Artificial Intelligence",
         "Automation",
-        "Runecast",
-        "VMware",
-        "Docker"
+        "Networking"
       ],
       "tags": [
         null,
@@ -147,7 +147,9 @@
         "Cloudflare",
         "Docker",
         "Homelab",
-        "Personal"
+        "Personal",
+        "Wordpress",
+        "VMware"
       ],
       "tags": [
         null,
@@ -170,10 +172,8 @@
         "AWS",
         "Personal",
         "Hosting",
-        "Consulting",
-        "Nutanix",
-        "Cloudflare",
-        "VMware"
+        "VMware",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -194,10 +194,10 @@
       "api_url": "/api/posts/aws-for-beginners1.json",
       "categories": [
         "AWS",
-        "Hosting",
-        "Personal",
         "VMware",
-        "VMware Cloud on AWS"
+        "VMware Cloud on AWS",
+        "Hosting",
+        "Personal"
       ],
       "tags": [
         null,
@@ -225,11 +225,12 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Storage",
+        "VMware Cloud on AWS",
+        "Runecast",
+        "Mikrotik",
         "Networking",
-        "VCF",
-        "AWS",
-        "VMware Cloud on AWS"
+        "Storage",
+        "Docker"
       ],
       "tags": [
         null,
@@ -259,10 +260,11 @@
         "Traefik",
         "VCF",
         "VMware",
-        "AWS",
         "VMware Cloud on AWS",
+        "Artificial Intelligence",
         "Hosting",
-        "Artificial Intelligence"
+        "Runecast",
+        "Storage"
       ],
       "tags": [
         null,

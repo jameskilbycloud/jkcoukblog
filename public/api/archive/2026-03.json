@@ -21,10 +21,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Github",
         "VMware Cloud on AWS",
-        "Ansible",
-        "Storage"
+        "Storage",
+        "Github",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -49,7 +49,7 @@
       "title": "Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested",
       "description": "I am quite a heavy consumer of electricity at home.",
       "date": "2026-03-09T23:39:37Z",
-      "modified": "2026-07-11T13:21:16Z",
+      "modified": "2026-10-19T12:31:09Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/",
       "markdown_url": "/markdown/posts/octopus-agile-battery-solar-calculator.md",
@@ -57,8 +57,9 @@
       "categories": [
         "Artificial Intelligence",
         "Automation",
+        "Ansible",
         "Docker",
-        "Ansible"
+        "Homelab"
       ],
       "tags": [
         null,

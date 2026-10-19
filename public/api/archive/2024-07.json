@@ -18,9 +18,10 @@
         "Nutanix",
         "VMware",
         "Storage",
-        "Networking",
+        "VMware Cloud on AWS",
+        "Veeam",
         "Artificial Intelligence",
-        "Automation"
+        "Docker"
       ],
       "tags": [
         null,

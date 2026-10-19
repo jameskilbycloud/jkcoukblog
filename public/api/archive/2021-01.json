@@ -17,10 +17,11 @@
         "Automation",
         "Homelab",
         "VMware",
-        "VMware Cloud on AWS",
+        "Hosting",
+        "Docker",
         "Storage",
-        "VCF",
-        "Ansible"
+        "Networking",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -45,10 +46,10 @@
         "Personal",
         "Consulting",
         "VMware",
-        "Nutanix",
+        "Devops",
         "Hosting",
         "Cloudflare",
-        "Devops"
+        "AWS"
       ],
       "tags": [
         null,

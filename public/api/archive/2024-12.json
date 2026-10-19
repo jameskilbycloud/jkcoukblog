@@ -19,10 +19,12 @@
         "vSAN",
         "vSphere",
         "Homelab",
+        "Nutanix",
         "Storage",
-        "Ansible",
+        "Runecast",
         "Automation",
-        "Hosting",
+        "Github",
+        "Artificial Intelligence",
         "VMware Cloud on AWS"
       ],
       "tags": [

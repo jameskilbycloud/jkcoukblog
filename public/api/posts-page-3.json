@@ -59,12 +59,14 @@
       "categories": [
         "Homelab",
         "Hosting",
-        "Personal",
-        "Artificial Intelligence",
         "Storage",
-        "Ansible",
-        "Automation",
-        "Docker"
+        "Cloudflare",
+        "VCF",
+        "VMware",
+        "Mikrotik",
+        "Networking",
+        "Artificial Intelligence",
+        "Automation"
       ],
       "tags": [
         null,
@@ -88,11 +90,9 @@
         "Docker",
         "Homelab",
         "Automation",
-        "Github",
-        "VCF",
-        "VMware",
         "Hosting",
-        "Ansible"
+        "VMware",
+        "Storage"
       ],
       "tags": [
         null,
@@ -115,13 +115,12 @@
       "categories": [
         "Runecast",
         "VMware",
-        "vSAN",
-        "Artificial Intelligence",
-        "Docker",
-        "Automation",
-        "Github",
-        "VMware Cloud on AWS",
         "Homelab",
+        "Hosting",
+        "Ansible",
+        "Artificial Intelligence",
+        "Personal",
+        "Docker",
         "Networking"
       ],
       "tags": [
@@ -148,11 +147,11 @@
         "Github",
         "Homelab",
         "Storage",
-        "VMware",
+        "Networking",
+        "Nutanix",
         "Artificial Intelligence",
-        "Ansible",
-        "Mikrotik",
-        "Networking"
+        "Docker",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -171,7 +170,7 @@
       "title": "Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested",
       "description": "I am quite a heavy consumer of electricity at home.",
       "date": "2026-03-09T23:39:37Z",
-      "modified": "2026-07-11T13:21:16Z",
+      "modified": "2026-10-19T12:31:09Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/",
       "markdown_url": "/markdown/posts/octopus-agile-battery-solar-calculator.md",
@@ -179,8 +178,9 @@
       "categories": [
         "Artificial Intelligence",
         "Automation",
+        "Ansible",
         "Docker",
-        "Ansible"
+        "Homelab"
       ],
       "tags": [
         null,
@@ -203,8 +203,7 @@
       "categories": [
         "Nutanix",
         "Personal",
-        "Consulting",
-        "Hosting",
+        "AWS",
         "VMware",
         "Homelab"
       ],
@@ -227,8 +226,8 @@
       "api_url": "/api/posts/nutanix-life-cycle-manager.json",
       "categories": [
         "Nutanix",
-        "Personal",
-        "Homelab"
+        "Homelab",
+        "Personal"
       ],
       "tags": [
         null

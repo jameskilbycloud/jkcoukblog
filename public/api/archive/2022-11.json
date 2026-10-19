@@ -17,10 +17,14 @@
         "Homelab",
         "Storage",
         "Synology",
-        "VMware",
+        "Mikrotik",
+        "Networking",
+        "Ansible",
         "Automation",
-        "Nutanix",
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Hosting",
+        "VCF",
+        "VMware"
       ],
       "tags": [
         null,

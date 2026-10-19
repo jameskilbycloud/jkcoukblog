@@ -15,10 +15,10 @@
       "api_url": "/api/posts/aws-for-beginners1.json",
       "categories": [
         "AWS",
-        "Hosting",
-        "Personal",
         "VMware",
-        "VMware Cloud on AWS"
+        "VMware Cloud on AWS",
+        "Hosting",
+        "Personal"
       ],
       "tags": [
         null,
@@ -39,11 +39,10 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
-        "Artificial Intelligence",
-        "Automation",
         "Cloudflare",
-        "Ansible",
-        "Wordpress",
+        "Personal",
+        "Docker",
+        "Homelab",
         "AWS"
       ],
       "tags": [

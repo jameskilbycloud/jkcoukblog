@@ -32,10 +32,12 @@
       "api_url": "/api/posts/and-now-for-something-completely-different.json",
       "categories": [
         "Personal",
-        "Hosting",
+        "Consulting",
+        "AWS",
         "VMware",
-        "Devops",
-        "AWS"
+        "Hosting",
+        "Nutanix",
+        "Devops"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018 · Updated July 11, 2026 • 📖1 min read(263 words)\n\nI have worked for my cu..."
@@ -45,7 +47,7 @@
       "title": "Analytics in a privacy focused world",
       "description": "I recently helped my friend Dean Lewis @veducate with some hosting issues.",
       "date": "2023-11-10T16:45:03Z",
-      "modified": "2026-06-01T19:02:53Z",
+      "modified": "2026-10-19T12:31:09Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/",
       "markdown_url": "/markdown/posts/analytics-in-a-privacy-focused-world.md",
@@ -53,9 +55,11 @@
       "categories": [
         "Hosting",
         "Personal",
-        "VMware",
         "Cloudflare",
-        "Wordpress"
+        "Devops",
+        "Wordpress",
+        "AWS",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -83,10 +87,10 @@
         "VMware",
         "Personal",
         "vSphere",
-        "Hosting",
-        "Cloudflare",
         "Homelab",
-        "VMware Cloud on AWS"
+        "Nutanix",
+        "VMware Cloud on AWS",
+        "Devops"
       ],
       "tags": [
         null,
@@ -111,9 +115,10 @@
         "Networking",
         "Storage",
         "VMware",
-        "Hosting",
-        "VMware Cloud on AWS",
-        "AWS"
+        "VCF",
+        "Ansible",
+        "Automation",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,

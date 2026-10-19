@@ -17,10 +17,12 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
-        "VCF",
         "Homelab",
         "Nutanix",
-        "TrueNAS Scale"
+        "Runecast",
+        "Ansible",
+        "Artificial Intelligence",
+        "AWS"
       ],
       "tags": [
         null,
@@ -85,7 +87,7 @@
       "title": "Analytics in a privacy focused world",
       "description": "I recently helped my friend Dean Lewis @veducate with some hosting issues.",
       "date": "2023-11-10T16:45:03Z",
-      "modified": "2026-06-01T19:02:53Z",
+      "modified": "2026-10-19T12:31:09Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/",
       "markdown_url": "/markdown/posts/analytics-in-a-privacy-focused-world.md",
@@ -93,9 +95,11 @@
       "categories": [
         "Hosting",
         "Personal",
-        "VMware",
         "Cloudflare",
-        "Wordpress"
+        "Devops",
+        "Wordpress",
+        "AWS",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -123,10 +127,10 @@
         "VMware",
         "Personal",
         "vSphere",
-        "Hosting",
-        "Cloudflare",
         "Homelab",
-        "VMware Cloud on AWS"
+        "Nutanix",
+        "VMware Cloud on AWS",
+        "Devops"
       ],
       "tags": [
         null,

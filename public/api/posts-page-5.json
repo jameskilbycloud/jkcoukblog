@@ -29,10 +29,11 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Nutanix",
+        "Networking",
+        "Docker",
+        "Mikrotik",
         "VMware",
-        "Storage",
-        "Networking"
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -57,13 +58,13 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "VMware Cloud on AWS",
-        "Docker",
-        "Mikrotik",
-        "Networking",
-        "Storage",
         "Ansible",
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Automation",
+        "vSAN",
+        "AWS",
+        "Storage",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -86,10 +87,9 @@
       "categories": [
         "Homelab",
         "Networking",
-        "VMware",
         "Storage",
-        "Ansible",
         "Automation",
+        "Github",
         "Nutanix"
       ],
       "tags": [
@@ -112,11 +112,11 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Artificial Intelligence",
-        "Docker",
         "Kubernetes",
         "TrueNAS Scale",
-        "Automation"
+        "Artificial Intelligence",
+        "Networking",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -140,14 +140,12 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Mikrotik",
-        "Networking",
-        "VCF",
-        "Personal",
-        "Artificial Intelligence",
-        "Docker",
+        "TrueNAS Scale",
+        "Automation",
+        "Storage",
         "VMware Cloud on AWS",
-        "AWS"
+        "Networking",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -171,13 +169,12 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Mikrotik",
+        "Nutanix",
+        "Hosting",
         "Networking",
-        "TrueNAS Scale",
+        "Ansible",
         "VMware",
-        "Runecast",
-        "Artificial Intelligence",
-        "Automation"
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -198,12 +195,12 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "Networking",
-        "TrueNAS Scale",
-        "VMware",
-        "Storage",
-        "VCF",
-        "VMware Cloud on AWS"
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "Ansible",
+        "Veeam",
+        "VMware"
       ],
       "tags": [
         null,
@@ -218,7 +215,7 @@
       "title": "Using Intel Optane NVMe in a VMware Homelab: Setup & Results",
       "description": "I have been a VMware vExpert for many years and it has brought me many many benefits over the years.",
       "date": "2023-04-17T12:20:04Z",
-      "modified": "2026-06-01T21:06:47Z",
+      "modified": "2026-10-19T12:31:09Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2023/04/intel-optane/",
       "markdown_url": "/markdown/posts/intel-optane.md",
@@ -227,13 +224,14 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Veeam",
+        "Kubernetes",
+        "TrueNAS Scale",
+        "Nutanix",
         "VMware",
-        "Personal",
         "AWS",
+        "Ansible",
         "Artificial Intelligence",
-        "Docker",
-        "Runecast"
+        "Personal"
       ],
       "tags": [
         null,
@@ -260,10 +258,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "Homelab",
+        "Runecast",
         "Artificial Intelligence",
         "Automation",
-        "Runecast",
-        "Personal"
+        "TrueNAS Scale",
+        "Veeam"
       ],
       "tags": [
         null,
