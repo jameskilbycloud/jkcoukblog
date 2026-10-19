@@ -22,7 +22,7 @@
   {
     "name": "AWS",
     "slug": "aws",
-    "count": 18
+    "count": 17
   },
   {
     "name": "Cloudflare",
@@ -102,12 +102,12 @@
   {
     "name": "Runecast",
     "slug": "runecast",
-    "count": 10
+    "count": 9
   },
   {
     "name": "Storage",
     "slug": "storage",
-    "count": 27
+    "count": 28
   },
   {
     "name": "Synology",
@@ -122,7 +122,7 @@
   {
     "name": "TrueNAS Scale",
     "slug": "truenas-scale",
-    "count": 11
+    "count": 10
   },
   {
     "name": "Ubuntu",

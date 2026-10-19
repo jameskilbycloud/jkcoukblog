@@ -718,5 +718,33 @@
   "tag-zoom": {
     "title_hash": "98aca0ceaa1b5bab",
     "title": "Zoom Archives"
+  },
+  "category-homelab-page-2": {
+    "title_hash": "045189d237ba9f99",
+    "title": "Homelab Archives - Page 2 of 3"
+  },
+  "category-homelab-page-3": {
+    "title_hash": "3b6043ad9a49fafd",
+    "title": "Homelab Archives - Page 3 of 3"
+  },
+  "category-vmware-page-2": {
+    "title_hash": "87083f76c52b2c75",
+    "title": "VMware Archives - Page 2 of 3"
+  },
+  "category-vmware-page-3": {
+    "title_hash": "e511e37853d2cbf3",
+    "title": "VMware Archives - Page 3 of 3"
+  },
+  "tag-homelab-page-2": {
+    "title_hash": "045189d237ba9f99",
+    "title": "Homelab Archives - Page 2 of 3"
+  },
+  "tag-homelab-page-3": {
+    "title_hash": "3b6043ad9a49fafd",
+    "title": "Homelab Archives - Page 3 of 3"
+  },
+  "tag-vmware-page-2": {
+    "title_hash": "796ad5a97616f26d",
+    "title": "VMware Archives - Page 2 of 2"
   }
 }
