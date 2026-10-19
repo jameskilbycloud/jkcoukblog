@@ -16,10 +16,8 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Runecast",
-        "VMware",
-        "TrueNAS Scale",
         "Nutanix",
+        "VMware",
         "Storage",
         "Networking"
       ],

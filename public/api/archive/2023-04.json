@@ -17,14 +17,13 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Artificial Intelligence",
-        "Docker",
-        "Networking",
-        "Kubernetes",
-        "TrueNAS Scale",
+        "Veeam",
         "VMware",
         "Personal",
-        "Nutanix"
+        "AWS",
+        "Artificial Intelligence",
+        "Docker",
+        "Runecast"
       ],
       "tags": [
         null,

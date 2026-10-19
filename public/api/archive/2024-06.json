@@ -16,11 +16,12 @@
       "categories": [
         "Homelab",
         "Networking",
-        "VMware",
-        "Automation",
         "Storage",
+        "VMware",
+        "Hosting",
         "Artificial Intelligence",
-        "Hosting"
+        "Docker",
+        "Nutanix"
       ],
       "tags": [
         null,

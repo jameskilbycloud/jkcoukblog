@@ -17,13 +17,10 @@
         "VMware",
         "VMware Cloud on AWS",
         "vSAN",
-        "Personal",
-        "Runecast",
-        "Ansible",
-        "Artificial Intelligence",
-        "AWS",
+        "VCF",
         "Homelab",
-        "Networking"
+        "Nutanix",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
@@ -73,8 +70,8 @@
         "TrueNAS Scale",
         "Homelab",
         "Storage",
-        "VMware",
-        "Docker"
+        "Docker",
+        "VMware"
       ],
       "tags": [
         null,
@@ -96,13 +93,9 @@
       "categories": [
         "Hosting",
         "Personal",
-        "AWS",
-        "Homelab",
-        "Consulting",
-        "Wordpress",
+        "VMware",
         "Cloudflare",
-        "Devops",
-        "VMware"
+        "Wordpress"
       ],
       "tags": [
         null,
@@ -130,11 +123,10 @@
         "VMware",
         "Personal",
         "vSphere",
+        "Hosting",
+        "Cloudflare",
         "Homelab",
-        "AWS",
-        "Ansible",
-        "Automation",
-        "Artificial Intelligence"
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,

@@ -17,12 +17,13 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Homelab",
-        "VMware",
         "Ansible",
-        "Networking",
-        "Wordpress",
-        "Storage"
+        "Homelab",
+        "AWS",
+        "Runecast",
+        "VMware",
+        "Storage",
+        "Cloudflare"
       ],
       "tags": [
         null,

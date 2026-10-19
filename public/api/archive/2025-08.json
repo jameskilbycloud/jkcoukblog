@@ -16,12 +16,11 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "vSAN",
-        "AWS",
-        "Automation",
         "Homelab",
-        "Ansible",
-        "Nutanix"
+        "Veeam",
+        "TrueNAS Scale",
+        "vSAN",
+        "AWS"
       ],
       "tags": [
         null

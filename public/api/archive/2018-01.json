@@ -17,12 +17,13 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Ansible",
-        "Automation",
+        "Mikrotik",
+        "Networking",
+        "TrueNAS Scale",
         "VMware",
-        "Nutanix",
+        "Runecast",
         "Artificial Intelligence",
-        "Docker"
+        "Automation"
       ],
       "tags": [
         null,
@@ -45,9 +46,10 @@
         "Homelab",
         "Nutanix",
         "Storage",
-        "Hosting",
+        "Networking",
+        "VMware",
         "Ansible",
-        "Networking"
+        "Automation"
       ],
       "tags": [
         null

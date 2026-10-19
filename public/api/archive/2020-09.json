@@ -17,9 +17,9 @@
         "VMware",
         "VMware Cloud on AWS",
         "Homelab",
-        "Ansible",
+        "Artificial Intelligence",
         "Automation",
-        "Artificial Intelligence"
+        "AWS"
       ],
       "tags": [
         null,
@@ -45,10 +45,13 @@
       "categories": [
         "Personal",
         "VMware",
-        "VMware Cloud on AWS",
+        "Hosting",
+        "Cloudflare",
+        "Nutanix",
+        "TrueNAS Scale",
         "Automation",
         "Homelab",
-        "Storage"
+        "AWS"
       ],
       "tags": [
         null,

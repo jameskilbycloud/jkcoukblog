@@ -48843,5 +48843,145 @@
     "avif_created": true,
     "webp": "wp-content/uploads/og/category-homelab-page-2.webp",
     "avif": "wp-content/uploads/og/category-homelab-page-2.avif"
+  },
+  "wp-content/uploads/og/tag-homelab-page-3-480x252.webp": {
+    "hash": "39156e901e68fc3f1c2fd699d92f01ee",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-homelab-page-3-480x252.webp",
+    "avif": "wp-content/uploads/og/tag-homelab-page-3-480x252.avif"
+  },
+  "wp-content/uploads/og/tag-vmware-page-2-480x252.webp": {
+    "hash": "059d1005b1318f160a323d4c9a07b23a",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-vmware-page-2-480x252.webp",
+    "avif": "wp-content/uploads/og/tag-vmware-page-2-480x252.avif"
+  },
+  "wp-content/uploads/og/category-homelab-page-3-480x252.webp": {
+    "hash": "39156e901e68fc3f1c2fd699d92f01ee",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/category-homelab-page-3-480x252.webp",
+    "avif": "wp-content/uploads/og/category-homelab-page-3-480x252.avif"
+  },
+  "wp-content/uploads/og/category-homelab-page-3.webp": {
+    "hash": "a60dc9b725a9d785c3204b6ead125297",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/category-homelab-page-3.webp",
+    "avif": "wp-content/uploads/og/category-homelab-page-3.avif"
+  },
+  "wp-content/uploads/og/tag-homelab-page-2-480x252.webp": {
+    "hash": "d3ebe7125f0164871acd797841b77dbf",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-homelab-page-2-480x252.webp",
+    "avif": "wp-content/uploads/og/tag-homelab-page-2-480x252.avif"
+  },
+  "wp-content/uploads/og/category-vmware-page-2.webp": {
+    "hash": "d214a27b1e454ee1ae95f6b34755de1f",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/category-vmware-page-2.webp",
+    "avif": "wp-content/uploads/og/category-vmware-page-2.avif"
+  },
+  "wp-content/uploads/og/tag-homelab-page-2.webp": {
+    "hash": "2e24a00769de6d86c32b6731c7fd7501",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-homelab-page-2.webp",
+    "avif": "wp-content/uploads/og/tag-homelab-page-2.avif"
+  },
+  "wp-content/uploads/og/category-homelab-page-2-480x252.webp": {
+    "hash": "d3ebe7125f0164871acd797841b77dbf",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/category-homelab-page-2-480x252.webp",
+    "avif": "wp-content/uploads/og/category-homelab-page-2-480x252.avif"
+  },
+  "wp-content/uploads/og/category-vmware-page-3-480x252.webp": {
+    "hash": "bd28bb6b14b4fd838c141303025aecf6",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/category-vmware-page-3-480x252.webp",
+    "avif": "wp-content/uploads/og/category-vmware-page-3-480x252.avif"
+  },
+  "wp-content/uploads/og/category-vmware-page-3.webp": {
+    "hash": "3aa8940b06bc1300365339f0e61de6cb",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/category-vmware-page-3.webp",
+    "avif": "wp-content/uploads/og/category-vmware-page-3.avif"
+  },
+  "wp-content/uploads/og/tag-vmware-page-2.webp": {
+    "hash": "b909cf8ccc9ee7d1e813012fdb3e7a02",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-vmware-page-2.webp",
+    "avif": "wp-content/uploads/og/tag-vmware-page-2.avif"
+  },
+  "wp-content/uploads/og/tag-homelab-page-3.webp": {
+    "hash": "a60dc9b725a9d785c3204b6ead125297",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/tag-homelab-page-3.webp",
+    "avif": "wp-content/uploads/og/tag-homelab-page-3.avif"
+  },
+  "wp-content/uploads/og/category-homelab-page-2.webp": {
+    "hash": "2e24a00769de6d86c32b6731c7fd7501",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/category-homelab-page-2.webp",
+    "avif": "wp-content/uploads/og/category-homelab-page-2.avif"
+  },
+  "wp-content/uploads/og/category-vmware-page-2-480x252.webp": {
+    "hash": "2580deb58449551ecbaa1cffa292f0f3",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/category-vmware-page-2-480x252.webp",
+    "avif": "wp-content/uploads/og/category-vmware-page-2-480x252.avif"
   }
 }

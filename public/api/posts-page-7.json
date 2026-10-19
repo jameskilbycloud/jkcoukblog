@@ -14,11 +14,11 @@
         "Homelab",
         "VMware",
         "vSphere",
-        "VCF",
-        "Networking",
-        "Veeam",
-        "Storage",
-        "Automation"
+        "VMware Cloud on AWS",
+        "Runecast",
+        "Artificial Intelligence",
+        "Personal",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -63,14 +63,12 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
-        "Cloudflare",
         "Artificial Intelligence",
-        "Docker",
-        "Homelab",
-        "AWS",
-        "Devops",
+        "Automation",
+        "Cloudflare",
         "Ansible",
-        "Automation"
+        "Wordpress",
+        "AWS"
       ],
       "tags": [
         null
@@ -91,12 +89,12 @@
       "categories": [
         "Hosting",
         "Wordpress",
+        "Cloudflare",
         "Docker",
         "Homelab",
-        "Cloudflare",
-        "AWS",
-        "Artificial Intelligence",
-        "Automation"
+        "Ansible",
+        "Automation",
+        "AWS"
       ],
       "tags": [
         null,
@@ -120,12 +118,11 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
-        "VCF",
-        "VMware",
+        "Artificial Intelligence",
+        "Automation",
         "Runecast",
-        "Mikrotik",
-        "Networking",
-        "Hosting"
+        "VMware",
+        "Docker"
       ],
       "tags": [
         null,
@@ -148,7 +145,7 @@
         "AWS",
         "Hosting",
         "Cloudflare",
-        "Wordpress",
+        "Docker",
         "Homelab",
         "Personal"
       ],
@@ -173,10 +170,10 @@
         "AWS",
         "Personal",
         "Hosting",
+        "Consulting",
+        "Nutanix",
         "Cloudflare",
-        "Devops",
-        "VMware",
-        "Consulting"
+        "VMware"
       ],
       "tags": [
         null,
@@ -197,10 +194,10 @@
       "api_url": "/api/posts/aws-for-beginners1.json",
       "categories": [
         "AWS",
-        "VMware",
-        "VMware Cloud on AWS",
+        "Hosting",
         "Personal",
-        "Hosting"
+        "VMware",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -228,9 +225,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VMware Cloud on AWS",
         "Storage",
-        "Networking"
+        "Networking",
+        "VCF",
+        "AWS",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -260,12 +259,10 @@
         "Traefik",
         "VCF",
         "VMware",
-        "Artificial Intelligence",
-        "Hosting",
-        "Networking",
+        "AWS",
         "VMware Cloud on AWS",
-        "Storage",
-        "Mikrotik"
+        "Hosting",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,

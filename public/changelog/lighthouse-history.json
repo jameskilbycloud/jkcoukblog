@@ -1,48 +1,16 @@
 [
   {
-    "date": "2026-10-18",
-    "timestamp": "2026-10-18 07:56:54 UTC",
-    "runs": 1,
-    "performance": 95,
-    "accessibility": 96,
-    "best_practices": 100,
-    "seo": 100,
-    "samples": [
-      {
-        "timestamp": "2026-10-18 07:56:54 UTC",
-        "performance": 95,
-        "accessibility": 96,
-        "best_practices": 100,
-        "seo": 100
-      }
-    ]
-  },
-  {
     "date": "2026-10-19",
-    "timestamp": "2026-10-19 11:57:52 UTC",
-    "runs": 3,
-    "performance": 95,
+    "timestamp": "2026-10-19 12:16:51 UTC",
+    "runs": 1,
+    "performance": 94,
     "accessibility": 96,
     "best_practices": 100,
     "seo": 100,
     "samples": [
       {
-        "timestamp": "2026-10-19 08:40:58 UTC",
-        "performance": 96,
-        "accessibility": 96,
-        "best_practices": 100,
-        "seo": 100
-      },
-      {
-        "timestamp": "2026-10-19 11:02:47 UTC",
+        "timestamp": "2026-10-19 12:16:51 UTC",
         "performance": 94,
-        "accessibility": 96,
-        "best_practices": 100,
-        "seo": 100
-      },
-      {
-        "timestamp": "2026-10-19 11:57:52 UTC",
-        "performance": 95,
         "accessibility": 96,
         "best_practices": 100,
         "seo": 100

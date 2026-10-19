@@ -29,10 +29,8 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Runecast",
-        "VMware",
-        "TrueNAS Scale",
         "Nutanix",
+        "VMware",
         "Storage",
         "Networking"
       ],
@@ -59,15 +57,13 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "Storage",
         "VMware Cloud on AWS",
-        "Artificial Intelligence",
         "Docker",
-        "Automation",
-        "Github",
-        "AWS",
         "Mikrotik",
-        "Networking"
+        "Networking",
+        "Storage",
+        "Ansible",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -90,12 +86,11 @@
       "categories": [
         "Homelab",
         "Networking",
+        "VMware",
+        "Storage",
         "Ansible",
         "Automation",
-        "VCF",
-        "VMware",
-        "Artificial Intelligence",
-        "Docker"
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -117,11 +112,11 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Ansible",
         "Artificial Intelligence",
-        "Automation",
-        "VMware",
-        "Nutanix"
+        "Docker",
+        "Kubernetes",
+        "TrueNAS Scale",
+        "Automation"
       ],
       "tags": [
         null,
@@ -145,12 +140,14 @@
       "categories": [
         "Homelab",
         "VMware",
-        "Ansible",
-        "Automation",
+        "Mikrotik",
+        "Networking",
+        "VCF",
+        "Personal",
         "Artificial Intelligence",
         "Docker",
-        "Networking",
-        "Personal"
+        "VMware Cloud on AWS",
+        "AWS"
       ],
       "tags": [
         null,
@@ -174,12 +171,13 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Ansible",
-        "Automation",
+        "Mikrotik",
+        "Networking",
+        "TrueNAS Scale",
         "VMware",
-        "Nutanix",
+        "Runecast",
         "Artificial Intelligence",
-        "Docker"
+        "Automation"
       ],
       "tags": [
         null,
@@ -200,10 +198,12 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "Hosting",
-        "Artificial Intelligence",
-        "Veeam",
-        "Storage"
+        "Networking",
+        "TrueNAS Scale",
+        "VMware",
+        "Storage",
+        "VCF",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -227,14 +227,13 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Artificial Intelligence",
-        "Docker",
-        "Networking",
-        "Kubernetes",
-        "TrueNAS Scale",
+        "Veeam",
         "VMware",
         "Personal",
-        "Nutanix"
+        "AWS",
+        "Artificial Intelligence",
+        "Docker",
+        "Runecast"
       ],
       "tags": [
         null,
@@ -261,12 +260,10 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "Ansible",
+        "Artificial Intelligence",
         "Automation",
-        "TrueNAS Scale",
-        "Homelab",
-        "Nutanix",
-        "AWS"
+        "Runecast",
+        "Personal"
       ],
       "tags": [
         null,

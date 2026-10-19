@@ -16,12 +16,12 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Ansible",
-        "Docker",
-        "VCF",
-        "VMware",
         "Storage",
-        "TrueNAS Scale"
+        "Networking",
+        "Ansible",
+        "TrueNAS Scale",
+        "VMware",
+        "Automation"
       ],
       "tags": [
         null,

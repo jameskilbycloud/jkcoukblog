@@ -18,13 +18,9 @@
         "Networking",
         "Storage",
         "VMware",
-        "Veeam",
+        "Hosting",
         "VMware Cloud on AWS",
-        "TrueNAS Scale",
-        "Artificial Intelligence",
-        "Automation",
-        "Nutanix",
-        "Runecast"
+        "AWS"
       ],
       "tags": [
         null,
@@ -47,11 +43,11 @@
         "Homelab",
         "VMware",
         "vSphere",
-        "VCF",
-        "Networking",
-        "Veeam",
-        "Storage",
-        "Automation"
+        "VMware Cloud on AWS",
+        "Runecast",
+        "Artificial Intelligence",
+        "Personal",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -75,10 +71,11 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Ansible",
-        "Cloudflare",
+        "Runecast",
+        "VMware",
+        "Nutanix",
         "Artificial Intelligence",
-        "Networking"
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
