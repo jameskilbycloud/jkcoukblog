@@ -71,13 +71,10 @@ class BreadcrumbNavigation:
                 })
 
         elif 'tag' in url_parts:
-            # Tag archive: Home > Tags > Tag Name
-            breadcrumb_items.append({
-                'name': 'Tags',
-                'url': f"{self.target_domain}/tag/",
-                'position': position
-            })
-            position += 1
+            # Tag archive: Home > Tag Name. Mirrors the category trail —
+            # there is no /tag/ index page (WordPress 404s the bare
+            # taxonomy root), so a "Tags" crumb linking there was a broken
+            # link on every tag page.
             tag_index = url_parts.index('tag')
             if tag_index + 1 < len(url_parts):
                 tag_slug = url_parts[tag_index + 1]
