@@ -56,6 +56,17 @@ class WordPressCleanup:
                 link.decompose()
                 print("   🗑️  Removed xmlrpc.php RSD link")
 
+        # Remove xmlrpc.php pingback links (xmlrpc.php 404s on the static site)
+        for link in soup.find_all('link', rel='pingback'):
+            link.decompose()
+            print("   🗑️  Removed pingback link")
+
+        # Remove shortlinks (/?p=ID) — the static site ignores the query string
+        # and serves the homepage, a misleading 200
+        for link in soup.find_all('link', rel='shortlink'):
+            link.decompose()
+            print("   🗑️  Removed shortlink")
+
         # Remove Windows Live Writer manifest links
         for link in soup.find_all('link', rel='wlwmanifest'):
             link.decompose()
