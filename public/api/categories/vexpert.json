@@ -16,14 +16,15 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Kubernetes",
-        "TrueNAS Scale",
-        "Nutanix",
         "VMware",
-        "AWS",
+        "VCF",
         "Ansible",
+        "Automation",
+        "VMware Cloud on AWS",
+        "Mikrotik",
+        "Networking",
         "Artificial Intelligence",
-        "Personal"
+        "Docker"
       ],
       "tags": [
         null,

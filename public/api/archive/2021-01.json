@@ -17,11 +17,10 @@
         "Automation",
         "Homelab",
         "VMware",
-        "Hosting",
-        "Docker",
         "Storage",
-        "Networking",
-        "Artificial Intelligence"
+        "Personal",
+        "TrueNAS Scale",
+        "VCF"
       ],
       "tags": [
         null,
@@ -45,11 +44,10 @@
       "categories": [
         "Personal",
         "Consulting",
-        "VMware",
+        "Nutanix",
         "Devops",
         "Hosting",
-        "Cloudflare",
-        "AWS"
+        "VMware"
       ],
       "tags": [
         null,

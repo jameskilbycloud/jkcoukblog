@@ -39,11 +39,13 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
-        "Cloudflare",
-        "Personal",
+        "Artificial Intelligence",
         "Docker",
-        "Homelab",
-        "AWS"
+        "Ansible",
+        "Automation",
+        "Cloudflare",
+        "AWS",
+        "Homelab"
       ],
       "tags": [
         null

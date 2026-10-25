@@ -16,12 +16,10 @@
         "Homelab",
         "Networking",
         "Unifi",
-        "Storage",
-        "Artificial Intelligence",
+        "Nutanix",
         "Automation",
-        "Docker",
-        "Github",
-        "Ansible"
+        "Ansible",
+        "Storage"
       ],
       "tags": [
         null,

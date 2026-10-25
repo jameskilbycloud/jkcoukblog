@@ -15,11 +15,10 @@
         "VMware",
         "vSphere",
         "Ansible",
+        "Artificial Intelligence",
         "Automation",
-        "Hosting",
-        "Storage",
-        "Veeam",
-        "vSAN"
+        "Networking",
+        "Docker"
       ],
       "tags": [
         null,
@@ -40,8 +39,8 @@
       "api_url": "/api/posts/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router.json",
       "categories": [
         "Networking",
-        "Mikrotik",
-        "Homelab"
+        "Homelab",
+        "Mikrotik"
       ],
       "tags": [
         null,
@@ -64,11 +63,13 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
-        "Cloudflare",
-        "Personal",
+        "Artificial Intelligence",
         "Docker",
-        "Homelab",
-        "AWS"
+        "Ansible",
+        "Automation",
+        "Cloudflare",
+        "AWS",
+        "Homelab"
       ],
       "tags": [
         null
@@ -89,11 +90,11 @@
       "categories": [
         "Hosting",
         "Wordpress",
+        "Docker",
+        "Homelab",
         "Cloudflare",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "AWS"
+        "Automation"
       ],
       "tags": [
         null,
@@ -117,12 +118,11 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
-        "VMware",
-        "VMware Cloud on AWS",
-        "Docker",
         "Artificial Intelligence",
-        "Automation",
-        "Networking"
+        "Docker",
+        "Ansible",
+        "VMware",
+        "VCF"
       ],
       "tags": [
         null,
@@ -144,12 +144,12 @@
       "categories": [
         "AWS",
         "Hosting",
-        "Cloudflare",
-        "Docker",
-        "Homelab",
         "Personal",
-        "Wordpress",
-        "VMware"
+        "VMware",
+        "VMware Cloud on AWS",
+        "Artificial Intelligence",
+        "Docker",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -172,8 +172,10 @@
         "AWS",
         "Personal",
         "Hosting",
-        "VMware",
-        "Nutanix"
+        "Cloudflare",
+        "Consulting",
+        "Nutanix",
+        "Devops"
       ],
       "tags": [
         null,
@@ -225,12 +227,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VMware Cloud on AWS",
-        "Runecast",
-        "Mikrotik",
-        "Networking",
         "Storage",
-        "Docker"
+        "Networking",
+        "Hosting",
+        "VMware Cloud on AWS",
+        "Personal"
       ],
       "tags": [
         null,
@@ -261,10 +262,9 @@
         "VCF",
         "VMware",
         "VMware Cloud on AWS",
+        "Storage",
         "Artificial Intelligence",
-        "Hosting",
-        "Runecast",
-        "Storage"
+        "Nutanix"
       ],
       "tags": [
         null,

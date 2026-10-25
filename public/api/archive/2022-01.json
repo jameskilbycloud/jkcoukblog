@@ -16,10 +16,10 @@
       "categories": [
         "Cloudflare",
         "Hosting",
+        "Personal",
+        "Wordpress",
         "Ansible",
-        "Automation",
-        "Artificial Intelligence",
-        "Wordpress"
+        "Automation"
       ],
       "tags": [
         null,
@@ -43,11 +43,12 @@
       "categories": [
         "Homelab",
         "Storage",
+        "Nutanix",
         "Kubernetes",
         "TrueNAS Scale",
-        "Artificial Intelligence",
         "Networking",
-        "Nutanix"
+        "Artificial Intelligence",
+        "Docker"
       ],
       "tags": [
         null,
@@ -72,8 +73,11 @@
         "Homelab",
         "Networking",
         "Storage",
+        "Docker",
+        "Ansible",
+        "Artificial Intelligence",
+        "Mikrotik",
         "Automation",
-        "Github",
         "Nutanix"
       ],
       "tags": [
@@ -97,13 +101,11 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "Ansible",
+        "Storage",
         "Artificial Intelligence",
         "Automation",
-        "vSAN",
-        "AWS",
-        "Storage",
-        "Hosting"
+        "Personal",
+        "Networking"
       ],
       "tags": [
         null,
@@ -126,12 +128,12 @@
       "categories": [
         "Homelab",
         "VMware",
-        "TrueNAS Scale",
+        "VCF",
+        "Ansible",
+        "Artificial Intelligence",
+        "vSAN",
         "Automation",
-        "Storage",
-        "VMware Cloud on AWS",
-        "Networking",
-        "Hosting"
+        "Networking"
       ],
       "tags": [
         null,
@@ -154,11 +156,11 @@
       "categories": [
         "Hosting",
         "Wordpress",
+        "Docker",
+        "Homelab",
         "Cloudflare",
         "Artificial Intelligence",
-        "Automation",
-        "Docker",
-        "AWS"
+        "Automation"
       ],
       "tags": [
         null,
@@ -184,7 +186,6 @@
         "Personal",
         "Wordpress",
         "VMware",
-        "Nutanix",
         "Artificial Intelligence",
         "Docker"
       ],

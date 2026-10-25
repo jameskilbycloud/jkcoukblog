@@ -17,12 +17,11 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
-        "VMware",
-        "VMware Cloud on AWS",
-        "Docker",
         "Artificial Intelligence",
-        "Automation",
-        "Networking"
+        "Docker",
+        "Ansible",
+        "VMware",
+        "VCF"
       ],
       "tags": [
         null,
@@ -46,11 +45,11 @@
         "Networking",
         "Homelab",
         "Veeam",
-        "Ansible",
-        "Artificial Intelligence",
-        "Docker",
+        "Automation",
         "VCF",
-        "VMware"
+        "VMware",
+        "Artificial Intelligence",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,

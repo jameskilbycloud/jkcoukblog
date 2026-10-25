@@ -20,9 +20,12 @@
         "NVIDIA",
         "Traefik",
         "VMware",
+        "AWS",
         "Networking",
-        "VMware Cloud on AWS",
-        "Ansible"
+        "Personal",
+        "Hosting",
+        "Nutanix",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -62,9 +65,8 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VMware Cloud on AWS",
         "Storage",
-        "Github",
+        "VMware Cloud on AWS",
         "Ansible"
       ],
       "tags": [
@@ -104,12 +106,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VMware Cloud on AWS",
-        "Runecast",
-        "Mikrotik",
-        "Networking",
         "Storage",
-        "Docker"
+        "Networking",
+        "Hosting",
+        "VMware Cloud on AWS",
+        "Personal"
       ],
       "tags": [
         null,

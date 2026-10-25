@@ -13,10 +13,10 @@
       "categories": [
         "Kubernetes",
         "TrueNAS Scale",
+        "VMware",
         "Homelab",
         "Storage",
-        "Docker",
-        "VMware"
+        "Docker"
       ],
       "tags": [
         null,
@@ -59,14 +59,13 @@
       "categories": [
         "Homelab",
         "Hosting",
+        "Artificial Intelligence",
+        "Docker",
         "Storage",
         "Cloudflare",
-        "VCF",
-        "VMware",
-        "Mikrotik",
-        "Networking",
-        "Artificial Intelligence",
-        "Automation"
+        "Automation",
+        "Github",
+        "VMware"
       ],
       "tags": [
         null,
@@ -89,10 +88,10 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
+        "Nutanix",
         "Automation",
-        "Hosting",
-        "VMware",
-        "Storage"
+        "Storage",
+        "Github"
       ],
       "tags": [
         null,
@@ -117,11 +116,11 @@
         "VMware",
         "Homelab",
         "Hosting",
-        "Ansible",
+        "Storage",
+        "Networking",
+        "Automation",
         "Artificial Intelligence",
-        "Personal",
-        "Docker",
-        "Networking"
+        "Docker"
       ],
       "tags": [
         null,
@@ -145,13 +144,13 @@
       "categories": [
         "Automation",
         "Github",
-        "Homelab",
-        "Storage",
-        "Networking",
-        "Nutanix",
         "Artificial Intelligence",
         "Docker",
-        "Ansible"
+        "Homelab",
+        "Runecast",
+        "VMware",
+        "Mikrotik",
+        "Networking"
       ],
       "tags": [
         null,
@@ -178,9 +177,10 @@
       "categories": [
         "Artificial Intelligence",
         "Automation",
+        "Github",
         "Ansible",
-        "Docker",
-        "Homelab"
+        "Homelab",
+        "Docker"
       ],
       "tags": [
         null,
@@ -203,9 +203,10 @@
       "categories": [
         "Nutanix",
         "Personal",
-        "AWS",
+        "Hosting",
+        "Homelab",
         "VMware",
-        "Homelab"
+        "AWS"
       ],
       "tags": [
         null,
@@ -226,8 +227,8 @@
       "api_url": "/api/posts/nutanix-life-cycle-manager.json",
       "categories": [
         "Nutanix",
-        "Homelab",
-        "Personal"
+        "Personal",
+        "Homelab"
       ],
       "tags": [
         null

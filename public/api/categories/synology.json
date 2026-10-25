@@ -16,14 +16,11 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Mikrotik",
-        "Networking",
+        "Docker",
         "Ansible",
         "Automation",
-        "Artificial Intelligence",
-        "Hosting",
-        "VCF",
-        "VMware"
+        "VMware",
+        "Runecast"
       ],
       "tags": [
         null,
@@ -46,12 +43,10 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Nutanix",
-        "Hosting",
-        "Networking",
         "Ansible",
-        "VMware",
-        "VMware Cloud on AWS"
+        "Automation",
+        "Artificial Intelligence",
+        "Docker"
       ],
       "tags": [
         null,

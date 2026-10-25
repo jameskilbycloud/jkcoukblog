@@ -20,10 +20,10 @@
         "Homelab",
         "Networking",
         "Ansible",
-        "Artificial Intelligence",
         "Automation",
-        "Personal",
-        "VMware Cloud on AWS"
+        "Storage",
+        "VMware Cloud on AWS",
+        "Personal"
       ],
       "tags": [
         null,
@@ -47,8 +47,10 @@
         "AWS",
         "Personal",
         "Hosting",
-        "VMware",
-        "Nutanix"
+        "Cloudflare",
+        "Consulting",
+        "Nutanix",
+        "Devops"
       ],
       "tags": [
         null,

@@ -21,12 +21,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VMware Cloud on AWS",
-        "Runecast",
-        "Mikrotik",
-        "Networking",
         "Storage",
-        "Docker"
+        "Networking",
+        "Hosting",
+        "VMware Cloud on AWS",
+        "Personal"
       ],
       "tags": [
         null,

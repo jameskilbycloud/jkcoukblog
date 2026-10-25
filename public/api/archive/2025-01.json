@@ -17,12 +17,13 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
+        "Cloudflare",
+        "Automation",
         "Homelab",
-        "Runecast",
-        "VMware",
-        "VCF",
-        "TrueNAS Scale",
-        "Veeam"
+        "Wordpress",
+        "Mikrotik",
+        "Networking",
+        "Ansible"
       ],
       "tags": [
         null,
