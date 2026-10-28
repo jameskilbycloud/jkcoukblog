@@ -8,7 +8,7 @@
 pyspellchecker==0.9.1
 
 # Lint + tests (python-checks workflow; run locally with `ruff check` / `pytest`)
-ruff==0.17.1
+ruff==0.17.2
 pytest==9.1.1
 
 # AVIF encoder — also in requirements-images.txt (versions must match; see
