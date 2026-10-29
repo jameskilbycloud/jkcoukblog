@@ -294,9 +294,6 @@ class WordPressStaticGenerator:
         # Deduplicate meta descriptions on paginated archive pages
         self.seo_meta.fix_pagination_meta_description(soup, current_url)
 
-        # Add noindex to thin archive/taxonomy pages (tags, categories)
-        self.seo_meta.add_noindex_to_thin_pages(soup, current_url)
-
         # Inject the homepage top band first: it emits the editorial
         # <h1 class="jkr-headline">, which must be the page's single H1.
         # ensure_homepage_h1() below is a fallback that only converts the

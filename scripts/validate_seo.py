@@ -12,7 +12,9 @@ Catches the specific class of bugs that put pages into Google's
   - More than one <title> or <h1> tag
   - JSON-LD that can't be parsed
   - Canonical URL missing on post pages
-  - noindex on a page that isn't a tag/archive
+  - noindex on a post, or on any page with Article JSON-LD that isn't in
+    Config.NOINDEX_CONTENT_ALLOWLIST
+  - Article author that isn't the site's #person entity; dates with no offset
 
 Errors fail the build. Warnings show in the summary but don't fail.
 
@@ -49,10 +51,11 @@ TITLE_MIN_LEN          = 15    # under this is suspicious (auto-generated?)
 # pragmatic threshold — anything past gets display-truncated and Google
 # may rewrite the title in SERPs, so the declared title is not what users
 # actually see. Previous threshold (80) let titles slip through that were
-# guaranteed to be rewritten. Warnings here are non-failing.
-TITLE_MAX_LEN          = 65
-META_DESC_MIN_LEN      = 50
-META_DESC_MAX_LEN      = 200
+# guaranteed to be rewritten. Warnings here are non-failing. The upper
+# limits come from Config so the fixer and the validator agree.
+TITLE_MAX_LEN          = getattr(Config, 'SEO_TITLE_MAX_CHARS', 60)
+META_DESC_MIN_LEN      = 50    # under this is suspicious; the fixer targets Config.SEO_META_DESC_MIN_CHARS
+META_DESC_MAX_LEN      = getattr(Config, 'SEO_META_DESC_MAX_CHARS', 160)
 THIN_CONTENT_WORDS     = 150   # post pages under this are flagged warn
 
 # Globs that we treat as post pages (the "Article" form factor) where
@@ -65,7 +68,6 @@ SKIP_PATH_PARTS = (
     '/markdown/',  # plain-text mirrors
     '/api/',       # JSON endpoints
     '/changelog/', # auto-generated changelog
-    '/evs/',       # raw event log
     '/feed/',      # RSS XML doesn't need SEO meta
 )
 
@@ -102,6 +104,10 @@ ARTICLE_TYPES = (
 ARTICLE_REQUIRED_ERROR = ('headline', 'datePublished')
 ARTICLE_RECOMMENDED_WARN = ('author', 'image')
 
+# ISO-8601 datetime without a UTC offset — Google asks for a timezone on
+# Article dates, and a naive value disagrees with the offset-aware WebPage node.
+NAIVE_DATETIME_RE = re.compile(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?$')
+
 
 def _node_types(node: dict) -> list:
     t = node.get('@type', '')
@@ -112,14 +118,18 @@ def _node_types(node: dict) -> list:
     return []
 
 
+def _article_nodes(ld_nodes: list) -> list:
+    return [
+        n for n in ld_nodes
+        if isinstance(n, dict) and any(t in ARTICLE_TYPES for t in _node_types(n))
+    ]
+
+
 def _validate_article_jsonld(ld_nodes: list, html_path: Path) -> list:
     """Assert the post's Article-family JSON-LD node carries the fields Google
     requires for an Article rich result, and that references resolve."""
     issues = []
-    articles = [
-        n for n in ld_nodes
-        if isinstance(n, dict) and any(t in ARTICLE_TYPES for t in _node_types(n))
-    ]
+    articles = _article_nodes(ld_nodes)
     if not articles:
         issues.append(Issue('error', 'jsonld-article-missing',
                             'no Article/BlogPosting/TechArticle JSON-LD node on post page',
@@ -148,6 +158,28 @@ def _validate_article_jsonld(ld_nodes: list, html_path: Path) -> list:
         if node_id and not str(node_id).startswith('http'):
             issues.append(Issue('warning', 'jsonld-id-relative',
                                 f'{atype} @id is not an absolute URL: {node_id!r}', html_path))
+    return issues
+
+
+def _validate_article_identity(articles: list, html_path: Path) -> list:
+    """Checks for every indexable page with an Article node (posts AND hub
+    pages such as /lab/, /vmc/, /evs/, About): the author must be the site's
+    one Person entity, and dates must carry a UTC offset."""
+    issues = []
+    person_id = Config.TARGET_DOMAIN.rstrip('/') + '/#person' if Config else None
+    for art in articles:
+        atype = '/'.join(_node_types(art)) or 'Article'
+        author = art.get('author')
+        for a in (author if isinstance(author, list) else [author]):
+            if person_id and isinstance(a, dict) and a.get('@id') and a['@id'] != person_id:
+                issues.append(Issue('error', 'jsonld-author-not-person',
+                                    f'{atype} author @id {a["@id"]!r} != {person_id!r} — splits the author entity',
+                                    html_path))
+        for field in ('datePublished', 'dateModified'):
+            value = art.get(field)
+            if isinstance(value, str) and NAIVE_DATETIME_RE.match(value):
+                issues.append(Issue('warning', 'jsonld-date-no-offset',
+                                    f'{atype} {field} {value!r} has no UTC offset', html_path))
     return issues
 
 
@@ -279,14 +311,29 @@ def validate_page(html_path: Path, public_dir: Path) -> list:
         if is_post:
             issues.extend(_validate_article_jsonld(ld_nodes, html_path))
 
-    # ── robots noindex on a post page ────────────────────────────────────────
+    articles = _article_nodes(ld_nodes)
+
+    # ── robots noindex on a post or other content page ───────────────────────
     robots = soup.find('meta', attrs={'name': 'robots'})
-    if robots and is_post:
-        content = (robots.get('content') or '').lower()
-        if 'noindex' in content:
-            issues.append(Issue('error', 'noindex-on-post',
-                                f'robots="{content}" on a post page — page will not be indexed',
+    robots_content = (robots.get('content') or '').lower() if robots else ''
+    noindex = 'noindex' in robots_content
+    if noindex and is_post:
+        issues.append(Issue('error', 'noindex-on-post',
+                            f'robots="{robots_content}" on a post page — page will not be indexed',
+                            html_path))
+    elif noindex and articles:
+        # A non-post page with Article schema is a content page (hub, About).
+        # Noindexing one must be a listed decision, not a config typo.
+        page_path = rel[:-len('index.html')] if rel.endswith('/index.html') else rel
+        allow = getattr(Config, 'NOINDEX_CONTENT_ALLOWLIST', ()) if Config else ()
+        if page_path not in allow:
+            issues.append(Issue('error', 'noindex-on-article',
+                                f'robots="{robots_content}" on a page with Article JSON-LD; '
+                                f'add {page_path!r} to Config.NOINDEX_CONTENT_ALLOWLIST if intended',
                                 html_path))
+
+    if articles and not noindex:
+        issues.extend(_validate_article_identity(articles, html_path))
 
     # ── og:title / og:description / og:image ─────────────────────────────────
     # These power social-share previews. Missing them is a warn, not an error.
