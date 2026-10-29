@@ -31,14 +31,12 @@ python3 scripts/submit_indexnow.py ./public
 
 ### Testing
 ```bash
-# Start local test server
-python3 scripts/deploy_static_site.py server ./static-output 8080
+# Start local test server (serves ./public on :8080)
+make deploy-local
 
-# Test search functionality
-python3 scripts/test_search.py
-
-# Test environment configuration (runner validation)
-python3 scripts/test_runner_env.py
+# Unit tests and lint
+make test
+make lint
 
 # Test live site formatting and structure
 python3 scripts/test_live_site_formatting.py
@@ -48,10 +46,7 @@ python3 scripts/test_live_site_formatting.py --url https://jkcoukblog.pages.dev
 ```
 
 ### Search Index
-```bash
-# Generate search index from static site
-python3 scripts/generate_search_index.py ./public
-```
+The search index is built during generation by `scripts/site_artifacts_builder.py` (called from `wp_to_static_generator.py`); there is no separate command.
 
 ### URL Conversion
 ```bash
@@ -102,21 +97,12 @@ gh workflow run test-live-site.yml -f test_url='https://jkcoukblog.pages.dev'
 - Uses concurrent processing (ThreadPoolExecutor) for performance
 - **Key class:** `WordPressStaticGenerator`
 
-#### deploy_static_site.py
-**Multi-platform deployment tool**
+#### site_artifacts_builder.py
+**Sitemap, robots.txt and search index**
 
-- Supports Cloudflare Pages, Netlify, AWS S3, rsync, and Git deployment
-- Provides local HTTP server for testing
-- Can generate GitHub Actions workflows and cron scripts
-- **Key class:** `StaticSiteDeployer`
-
-#### generate_search_index.py
-**Search index generator**
-
-- Extracts clean text from HTML files
-- Creates structured JSON with title, description, content, categories, tags
-- Outputs both full (`search-index.json`) and minified (`search-index.min.json`) versions
-- **Key class:** `SearchIndexGenerator`
+- Writes `sitemap.xml` (with lastmod and image entries) and `robots.txt`
+- Builds the client-side search index from the generated pages
+- Called by `wp_to_static_generator.py`; not run on its own
 
 #### ollama_spell_checker.py
 **AI-powered spell checker**
@@ -176,9 +162,9 @@ wordpress.jameskilby.cloud         (Self-Hosted Runner)       (public/ dir)     
 - `SINCE_TIMESTAMP` - ISO timestamp for incremental spell checking
 - `SLACK_WEBHOOK_URL` - For Slack notifications in GitHub Actions
 
-### Hardcoded Configuration
+### Configuration
 
-In `wp_to_static_generator.py` and `deploy_static_site.py`:
+All hostnames live in `scripts/config.py` (`Config`). Do not hardcode them elsewhere:
 - **WordPress URL**: `https://wordpress.jameskilby.cloud`
 - **Target Domain**: `https://jameskilby.co.uk`
 - **Staging Domain**: `jkcoukblog.pages.dev`
@@ -356,8 +342,8 @@ Uses WordPress REST API endpoints:
 ```bash
 # Generate and test locally
 export WP_AUTH_TOKEN="your_token"
-python3 wp_to_static_generator.py ./test-output
-python3 deploy_static_site.py server ./test-output 8080
+python3 scripts/wp_to_static_generator.py ./test-output
+python3 -m http.server 8080 --directory ./test-output
 # Visit http://localhost:8080
 ```
 

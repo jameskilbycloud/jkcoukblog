@@ -161,7 +161,7 @@ public/wp-content/uploads/
 
 ### Integrate with Static Site Generation
 
-Add to your `deploy_static_site.py` or deployment script:
+The CI workflow (`.github/workflows/deploy-static-site.yml`) already runs this after generation. To do the same in your own script:
 
 ```python
 import subprocess
@@ -270,7 +270,7 @@ Each workflow run generates a summary showing:
 Optimize images after adding new blog posts:
 ```bash
 # Generate new static site
-python3 scripts/deploy_static_site.py generate ./public
+python3 scripts/wp_to_static_generator.py ./public
 
 # Optimize all images (including new ones)
 python3 scripts/optimize_images.py ./public

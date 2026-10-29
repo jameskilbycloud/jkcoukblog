@@ -4,7 +4,8 @@ Welcome to the jkcoukblog documentation! This site automatically converts a Word
 
 ## 📚 Documentation Categories
 
-### Getting Started
+### Start here
+- [TODO.md](TODO.md) - **The open-work list** (SEO phases, typo patches, docs)
 - [Main README](../README.md) - Project overview, quick start, and architecture
 - [DEVELOPMENT.md](DEVELOPMENT.md) - Development environment, commands, and workflow
 
@@ -18,19 +19,23 @@ Welcome to the jkcoukblog documentation! This site automatically converts a Word
 - [TESTING.md](TESTING.md) - Live site tests, spell checking, and test procedures
 
 ### Reference Documentation
-- [CHANGELOG.md](CHANGELOG.md) - Version history and improvements
+- [CHANGELOG.md](CHANGELOG.md) - How the public /changelog/ page is generated
 - [BUILD_AND_DEPLOY_DOCUMENTATION.md](BUILD_AND_DEPLOY_DOCUMENTATION.md) - Comprehensive build and deployment guide
 - [IMAGE_OPTIMIZATION.md](IMAGE_OPTIMIZATION.md) - Image optimization strategy and implementation
 - [PAGES_KV_SETUP.md](PAGES_KV_SETUP.md) - Cloudflare KV namespace setup
-- [ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md](ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md) - Extra performance tips
+- [homelab-power-widget.md](homelab-power-widget.md) - Live homelab power-draw widget on /lab/
 
 ### Stream Deck Integration
 - [STREAMDECK_DEPLOY_SETUP.md](STREAMDECK_DEPLOY_SETUP.md) - Stream Deck deployment setup
 - [STREAMDECK_QUICK_REFERENCE.md](STREAMDECK_QUICK_REFERENCE.md) - Quick reference card
 - [STREAMDECK_README.md](STREAMDECK_README.md) - Stream Deck overview
 
+### SEO evidence
+- [seo/](seo/) - October 2026 SEO recommendations, code review, Search Console insights and link audit (the basis for TODO.md)
+- [Style/style-guide.md](Style/style-guide.md) - Blog voice, formatting and visual style
+
 ### Archive
-- [archive/](archive/) - Historical implementation docs and archived guides
+- [archive/](archive/) - Superseded audits and recommendations; do not work from them
 
 ## 🚀 Quick Links
 
@@ -73,6 +78,7 @@ python3 scripts/test_live_site_formatting.py
 ```
 docs/
 ├── README.md                                  # Documentation hub
+├── TODO.md                                    # Open-work list
 ├── DEVELOPMENT.md                             # Development guide
 ├── FEATURES.md                                # Feature documentation
 ├── OPTIMIZATION.md                            # Performance optimization
@@ -81,18 +87,16 @@ docs/
 ├── DEPLOYMENT.md                              # Deployment and CI/CD
 ├── BUILD_AND_DEPLOY_DOCUMENTATION.md          # Build system guide
 ├── TESTING.md                                 # Testing procedures
-├── CHANGELOG.md                               # Version history
+├── CHANGELOG.md                               # /changelog/ page generator
 ├── PAGES_KV_SETUP.md                          # Cloudflare KV setup
 ├── STREAMDECK_DEPLOY_SETUP.md                 # Stream Deck deployment setup
 ├── STREAMDECK_QUICK_REFERENCE.md              # Stream Deck quick reference
 ├── STREAMDECK_README.md                       # Stream Deck overview
-├── ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md  # Extra performance tips
-└── archive/                                   # Historical implementation docs
-    ├── Implementation-specific docs (CLS, CSS, fonts, etc.)
-    ├── Build & validation docs (HTML cache, incremental build)
-    ├── Mobile optimization docs
-    ├── Spell checker implementation history
-    └── Feature implementation records
+├── homelab-power-widget.md                    # /lab/ power widget
+├── Style/style-guide.md                       # Blog style guide
+├── seo/                                       # Current SEO evidence (Oct 2026)
+├── seo-audit-2026-06/seo-baseline.json        # Drift baseline (scripts/drift_baseline.py)
+└── archive/                                   # Superseded audits and recommendations
 ```
 
 ## 🔗 External Resources

@@ -129,6 +129,7 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │                                          #   security headers, /markdown/ + /api/ routing
 ├── docs/                                  # Documentation hub
 │   ├── README.md                          # Documentation index
+│   ├── TODO.md                            # Open-work list
 │   ├── DEPLOYMENT.md                      # Deployment guide
 │   ├── OPTIMIZATION.md                    # Performance optimisation reference
 │   ├── FEATURES.md                        # Feature documentation
@@ -136,14 +137,15 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── IMAGE_OPTIMIZATION.md              # Image optimisation guide
 │   ├── DEVELOPMENT.md                     # Local development guide
 │   ├── TESTING.md                         # Testing procedures
-│   ├── CHANGELOG.md                       # Version history
+│   ├── CHANGELOG.md                       # /changelog/ page generator
 │   ├── PAGES_KV_SETUP.md                  # Cloudflare KV setup
 │   ├── BUILD_AND_DEPLOY_DOCUMENTATION.md  # Build system reference
 │   ├── STREAMDECK_DEPLOY_SETUP.md         # Stream Deck integration
 │   ├── STREAMDECK_QUICK_REFERENCE.md      # Stream Deck quick reference card
 │   ├── STREAMDECK_README.md               # Stream Deck overview
 │   ├── homelab-power-widget.md            # Live homelab power-draw widget on /lab/
-│   └── ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md  # Extra performance tips
+│   ├── seo/                               # Current SEO evidence (Oct 2026)
+│   └── archive/                           # Superseded audits
 ├── public/                                # Generated static site (Cloudflare Pages)
 ├── workers/                               # Cloudflare Workers (deployed independently)
 │   ├── search-api.js                      # Search API endpoint
@@ -349,6 +351,7 @@ gh run rerun <run-id> --failed
 | File | Contents |
 |------|----------|
 | [docs/README.md](docs/README.md) | Documentation hub |
+| [docs/TODO.md](docs/TODO.md) | Open-work list |
 | [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Workflow steps, secrets, troubleshooting |
 | [docs/OPTIMIZATION.md](docs/OPTIMIZATION.md) | Compression, image, CSS, and JS optimisations |
 | [docs/FEATURES.md](docs/FEATURES.md) | Analytics, search, RSS, comments |
@@ -356,14 +359,15 @@ gh run rerun <run-id> --failed
 | [docs/IMAGE_OPTIMIZATION.md](docs/IMAGE_OPTIMIZATION.md) | Image optimisation deep-dive |
 | [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) | Local development guide |
 | [docs/TESTING.md](docs/TESTING.md) | Testing procedures and live site checks |
-| [docs/CHANGELOG.md](docs/CHANGELOG.md) | Version history and improvements |
+| [docs/CHANGELOG.md](docs/CHANGELOG.md) | How the public `/changelog/` page is generated |
 | [docs/PAGES_KV_SETUP.md](docs/PAGES_KV_SETUP.md) | Cloudflare KV setup |
 | [docs/BUILD_AND_DEPLOY_DOCUMENTATION.md](docs/BUILD_AND_DEPLOY_DOCUMENTATION.md) | Build system reference |
 | [docs/STREAMDECK_DEPLOY_SETUP.md](docs/STREAMDECK_DEPLOY_SETUP.md) | Stream Deck integration |
 | [docs/STREAMDECK_QUICK_REFERENCE.md](docs/STREAMDECK_QUICK_REFERENCE.md) | Stream Deck quick reference |
 | [docs/STREAMDECK_README.md](docs/STREAMDECK_README.md) | Stream Deck overview |
 | [docs/homelab-power-widget.md](docs/homelab-power-widget.md) | Live homelab power-draw widget on `/lab/` |
-| [docs/ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md](docs/ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md) | Additional performance recommendations |
+| [docs/seo/](docs/seo/) | Current SEO evidence (Oct 2026) |
+| [docs/archive/](docs/archive/) | Superseded audits; do not work from them |
 
 ---
 
