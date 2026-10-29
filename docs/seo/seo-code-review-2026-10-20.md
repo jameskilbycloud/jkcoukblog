@@ -5,7 +5,7 @@ Read-only code review. Nothing was fixed, committed, pushed or deployed. This fi
 **How this was checked**
 - Code read at `origin/main` = `70716dcf8a` (local `main` is 17 commits behind; all `file:line` references below are at `origin/main`).
 - Files: `config.py`, `fix_seo_issues.py`, `validate_seo.py`, `breadcrumb_navigation.py`, `wp_content_discovery.py`, `page_seo_meta.py`, `content_schema_rewriter.py`, `site_artifacts_builder.py` (sitemap/robots/lastmod), `generate_og_images.py`, the SEO calls in `wp_to_static_generator.py:process_html` and `html_transformer.py:_apply_seo_fixes`.
-- Grounded against `docs/seo/seo-recommendations-2026-10-19.md` (B1–B11), `docs/seo/seo-gsc-insights-2026-10-19.md` and `docs/seo-fix-backlog.md` (local only). Those findings are not re-derived here; this report gives their **code cause** plus new defects.
+- Grounded against `docs/seo/seo-recommendations-2026-10-19.md` (B1–B11), `docs/seo/seo-gsc-insights-2026-10-19.md` and the SEO fix backlog (2026-08-31, since deleted). Those findings are not re-derived here; this report gives their **code cause** plus new defects.
 - Behaviour checked three ways: a JSON-LD scan of all `public/**/index.html` at `origin/main`; small probes that call the real functions on crafted input (results quoted below); `pytest tests/test_fix_seo_issues.py tests/test_config.py` → **30 passed**.
 
 ## Summary

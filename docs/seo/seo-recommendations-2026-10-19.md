@@ -6,7 +6,7 @@ Read-only review. Nothing was changed, committed or deployed.
 - Code: `scripts/config.py`, `fix_seo_issues.py`, `content_schema_rewriter.py`, `site_artifacts_builder.py` read at `origin/main` (local `main` is 15 commits behind; PRs #212–#214 are included).
 - Live `<head>` of 8 pages fetched with curl on 2026-10-19 ~13:50 UTC: home, `/2026/04/automated-vcf-9-offline-depot/`, `/category/homelab/`, `/tag/homelab/`, `/page/2/`, About, `/evs/`, plus `sitemap.xml` and `robots.txt`.
 - Site-wide scan of all 264 HTML pages in `public/` at `origin/main` (81 indexable, 183 noindex).
-- Reconciled with `docs/seo-fix-backlog.md` (2026-08-31, local only), `docs/archive/site-audit-2026-06-01-v2.md` and `docs/seo/link-audit-2026-10-19.md`.
+- Reconciled with the SEO fix backlog (2026-08-31, since deleted; superseded by this report), `docs/archive/site-audit-2026-06-01-v2.md` and `docs/seo/link-audit-2026-10-19.md`.
 
 ## Summary
 
