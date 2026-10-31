@@ -1,16 +1,16 @@
 [
   {
-    "date": "2026-10-25",
-    "timestamp": "2026-10-25 08:17:25 UTC",
+    "date": "2026-10-31",
+    "timestamp": "2026-10-30 09:49:02 UTC",
     "runs": 1,
-    "performance": 95,
+    "performance": 94,
     "accessibility": 96,
     "best_practices": 100,
     "seo": 100,
     "samples": [
       {
-        "timestamp": "2026-10-25 08:17:25 UTC",
-        "performance": 95,
+        "timestamp": "2026-10-30 09:49:02 UTC",
+        "performance": 94,
         "accessibility": 96,
         "best_practices": 100,
         "seo": 100

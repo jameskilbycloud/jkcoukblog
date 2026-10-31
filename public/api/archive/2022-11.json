@@ -17,11 +17,11 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Docker",
+        "Networking",
+        "Nutanix",
+        "Veeam",
         "Ansible",
-        "Automation",
-        "VMware",
-        "Runecast"
+        "Artificial Intelligence"
       ],
       "tags": [
         null,

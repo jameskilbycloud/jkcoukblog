@@ -20,12 +20,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "AWS",
-        "Networking",
-        "Personal",
+        "Storage",
+        "VMware Cloud on AWS",
         "Hosting",
-        "Nutanix",
-        "VMware Cloud on AWS"
+        "Personal"
       ],
       "tags": [
         null,
@@ -66,11 +64,12 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Storage",
-        "Networking",
+        "AWS",
         "Hosting",
+        "Personal",
         "VMware Cloud on AWS",
-        "Personal"
+        "Docker",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -96,13 +95,12 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Devops",
-        "Personal",
-        "AWS",
-        "Artificial Intelligence",
         "Docker",
+        "Homelab",
+        "AWS",
         "Ansible",
-        "Automation"
+        "Automation",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -129,7 +127,8 @@
         "Github",
         "Wordpress",
         "Hosting",
-        "Personal"
+        "Artificial Intelligence",
+        "Automation"
       ],
       "tags": [
         null,
@@ -141,6 +140,35 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpr..."
+    },
+    {
+      "slug": "warp-the-intelligent-terminal",
+      "title": "Warp – The intelligent terminal",
+      "description": "Warp is helping me run my homelab.",
+      "date": "2025-04-11T15:46:23Z",
+      "modified": "2026-06-01T21:07:06Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/",
+      "markdown_url": "/markdown/posts/warp-the-intelligent-terminal.md",
+      "api_url": "/api/posts/warp-the-intelligent-terminal.json",
+      "categories": [
+        "Artificial Intelligence",
+        "Homelab",
+        "Mikrotik",
+        "Networking",
+        "Automation",
+        "Hosting",
+        "TrueNAS Scale",
+        "VMware",
+        "Nutanix"
+      ],
+      "tags": [
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21-1024x240.png",
+      "excerpt": "![Wa](https://jameskilby.co.uk/wp-content/uploads/2025/04/210902461-012e7273-413a-4ec7-be44-e854347f5a21.png)\n\n[Artificial Intelligence](https://jameskilby.co.uk/category/artificial-intelligence/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Warp – The intelligent terminal\n\nBy[James](h..."
     },
     {
       "slug": "how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way",
@@ -156,13 +184,9 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Cloudflare",
-        "Automation",
         "Homelab",
-        "Wordpress",
-        "Mikrotik",
-        "Networking",
-        "Ansible"
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null,
@@ -187,10 +211,13 @@
       "categories": [
         "Hosting",
         "Personal",
-        "Homelab",
         "Docker",
-        "Nutanix",
-        "Devops"
+        "Homelab",
+        "AWS",
+        "Wordpress",
+        "Artificial Intelligence",
+        "Automation",
+        "Consulting"
       ],
       "tags": [
         null,
@@ -203,65 +230,6 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# Analytics in a privacy focused world\n\nBy[James](https://jameskilby.co.uk) November 10, 2023 · ..."
-    },
-    {
-      "slug": "advanced-deploy-vmware-vsphere-7-x-3v0-22-21n",
-      "title": "Advanced Deploy VMware vSphere 7.x 3V0-22.21N",
-      "description": "Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years.",
-      "date": "2023-11-10T11:34:42Z",
-      "modified": "2026-06-01T19:02:52Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/",
-      "markdown_url": "/markdown/posts/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n.md",
-      "api_url": "/api/posts/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n.json",
-      "categories": [
-        "VMware",
-        "Personal",
-        "vSphere",
-        "VMware Cloud on AWS",
-        "Artificial Intelligence",
-        "Automation",
-        "Hosting",
-        "Homelab",
-        "Storage"
-      ],
-      "tags": [
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/) | [vSphere](https://jameskilby.co.uk/category/vsphere/)\n\n# Advanced Deploy VMware vSphere 7.x 3V0-22.21N\n\nBy[James](https:..."
-    },
-    {
-      "slug": "runecast-remediation-scripts",
-      "title": "Runecast Remediation Scripts: Auto-Fix VMware Storage Issues",
-      "description": "I am a huge fan of the Runecast product and luckily as a vExpert they give out NFR licences for my lab.",
-      "date": "2023-05-16T10:38:45Z",
-      "modified": "2026-06-01T21:58:53Z",
-      "author": "James Kilby",
-      "url": "https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/",
-      "markdown_url": "/markdown/posts/runecast-remediation-scripts.md",
-      "api_url": "/api/posts/runecast-remediation-scripts.json",
-      "categories": [
-        "Runecast",
-        "VMware",
-        "Homelab",
-        "Hosting",
-        "Storage",
-        "Networking",
-        "Automation",
-        "Artificial Intelligence",
-        "Docker"
-      ],
-      "tags": [
-        null,
-        null,
-        null,
-        null
-      ],
-      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/Runecast-Solutions-Ltd.png)\n\n[Runecast](https://jameskilby.co.uk/category/runecast/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Runecast Remediation Scripts: Auto-Fix VMware Storage Issues\n\nBy[James](https://jameskilby.co.uk) May ..."
     },
     {
       "slug": "how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages",
@@ -277,12 +245,12 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
+        "Devops",
         "Ansible",
         "Automation",
-        "Homelab",
-        "Artificial Intelligence",
         "Docker",
-        "Devops"
+        "Homelab",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -292,6 +260,36 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-13-at-10.31.30.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/05/simply-static-logo.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Hosting](https://jameskilby.co.uk/category/hosting/) | [Wordpress](https://jameskilby.co.uk/category/wordpress/)\n\n# WordPress Hosting with Cloudflare Pages\n..."
+    },
+    {
+      "slug": "100gb-s-in-my-homelab-sort-of",
+      "title": "MikroTik CRS504 Review: 100Gb/s Networking in My Homelab",
+      "description": "For a while, I've been looking to update the networking at the core of my homelab.",
+      "date": "2022-12-19T10:09:58Z",
+      "modified": "2026-06-01T19:02:42Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/",
+      "markdown_url": "/markdown/posts/100gb-s-in-my-homelab-sort-of.md",
+      "api_url": "/api/posts/100gb-s-in-my-homelab-sort-of.json",
+      "categories": [
+        "Homelab",
+        "Networking",
+        "Storage",
+        "VMware",
+        "VMware Cloud on AWS",
+        "Artificial Intelligence",
+        "Automation",
+        "Ansible",
+        "Docker",
+        "Hosting",
+        "Mikrotik"
+      ],
+      "tags": [
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res.png)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Networking](https://jameskilby.co.uk/category/networking/) | [Storage](https://jameskilby.co.uk/category/storage/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n..."
     },
     {
       "slug": "use-portainer-in-a-homelab-with-github",
@@ -308,12 +306,12 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
+        "Personal",
         "Storage",
-        "VCF",
-        "VMware",
-        "Ansible",
+        "Cloudflare",
         "Artificial Intelligence",
-        "TrueNAS Scale"
+        "Automation",
+        "VMware"
       ],
       "tags": [
         null,
@@ -337,12 +335,9 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "Ansible",
-        "Automation",
-        "Personal",
         "AWS",
-        "Docker",
-        "Homelab"
+        "Artificial Intelligence",
+        "Automation"
       ],
       "tags": [
         null,
@@ -366,13 +361,12 @@
       "categories": [
         "Homelab",
         "Hosting",
-        "Artificial Intelligence",
-        "Docker",
-        "Storage",
-        "Cloudflare",
         "Automation",
         "Github",
-        "VMware"
+        "Storage",
+        "Artificial Intelligence",
+        "Cloudflare",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -393,11 +387,13 @@
       "api_url": "/api/posts/wrangler-and-node-versions.json",
       "categories": [
         "Cloudflare",
+        "Devops",
         "Hosting",
         "Personal",
-        "Wordpress",
         "Ansible",
-        "Automation"
+        "Automation",
+        "Wordpress",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -407,6 +403,61 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/01/WranglerCrab-1.png)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/)\n\n# Fixing Wrangler Node.js Version Conflicts After Brew Upgrade\n\nBy[James](https://jameskilby.co.uk) January 15, 2022 · Updated July 11, 2026 • 📖1 min read(217 wor..."
+    },
+    {
+      "slug": "lab-update-part-2-storage",
+      "title": "Lab Update – Part 2 Storage Truenas Scale",
+      "description": "The HP Z840 has changed its role to a permanent storage box running Truenas Scale.",
+      "date": "2022-01-11T22:35:02Z",
+      "modified": "2026-06-01T21:58:40Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/",
+      "markdown_url": "/markdown/posts/lab-update-part-2-storage.md",
+      "api_url": "/api/posts/lab-update-part-2-storage.json",
+      "categories": [
+        "Homelab",
+        "Storage",
+        "Hosting",
+        "Automation",
+        "Ansible",
+        "Nutanix"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault.jpeg",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2022/01/maxresdefault.jpeg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Storage](https://jameskilby.co.uk/category/storage/)\n\n# Lab Update – Part 2 Storage Truenas Scale\n\nBy[James](https://jameskilby.co.uk) January 11, 2022 · Updated June..."
+    },
+    {
+      "slug": "lab-update-part-5-desired-workloads",
+      "title": "Lab Update – Desired Workloads",
+      "description": "My lab is always undergoing change. Partially as I want to try new things or new ways of doing things.",
+      "date": "2022-01-06T19:23:11Z",
+      "modified": "2026-06-01T19:02:36Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/",
+      "markdown_url": "/markdown/posts/lab-update-part-5-desired-workloads.md",
+      "api_url": "/api/posts/lab-update-part-5-desired-workloads.json",
+      "categories": [
+        "Homelab",
+        "Veeam",
+        "VMware",
+        "Hosting",
+        "Networking",
+        "Nutanix",
+        "AWS",
+        "Storage"
+      ],
+      "tags": [
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
+      "excerpt": "[Homelab](https://jameskilby.co.uk/category/homelab/) | [Veeam](https://jameskilby.co.uk/category/veeam/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# Lab Update – Desired Workloads\n\nBy[James](https://jameskilby.co.uk) January 6, 2022 · Updated June 1, 2026 • 📖1 min read(141 words)\n\nMy l..."
     },
     {
       "slug": "cloudflare-workers-limits-of-the-free-tier",
@@ -421,11 +472,13 @@
       "categories": [
         "Hosting",
         "Wordpress",
+        "Personal",
+        "Ansible",
+        "Automation",
+        "Cloudflare",
         "Docker",
         "Homelab",
-        "Cloudflare",
-        "Artificial Intelligence",
-        "Automation"
+        "Devops"
       ],
       "tags": [
         null,
@@ -450,9 +503,10 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
+        "Docker",
+        "Homelab",
         "VMware",
-        "Artificial Intelligence",
-        "Docker"
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -474,9 +528,10 @@
       "categories": [
         "Personal",
         "Consulting",
-        "Nutanix",
         "Devops",
         "Hosting",
+        "Cloudflare",
+        "Nutanix",
         "VMware"
       ],
       "tags": [
@@ -500,12 +555,12 @@
       "categories": [
         "Devops",
         "Personal",
-        "Hosting",
+        "Automation",
+        "Github",
+        "VMware",
         "Cloudflare",
-        "AWS",
-        "Ansible",
-        "Artificial Intelligence",
-        "Consulting"
+        "Hosting",
+        "AWS"
       ],
       "tags": [
         null,
@@ -528,10 +583,11 @@
       "categories": [
         "Nutanix",
         "Personal",
-        "Hosting",
         "Homelab",
-        "VMware",
-        "AWS"
+        "Hosting",
+        "Cloudflare",
+        "Devops",
+        "Consulting"
       ],
       "tags": [
         null,
@@ -553,11 +609,10 @@
       "categories": [
         "AWS",
         "Personal",
+        "VMware",
+        "VMware Cloud on AWS",
         "Hosting",
-        "Cloudflare",
-        "Consulting",
-        "Nutanix",
-        "Devops"
+        "Cloudflare"
       ],
       "tags": [
         null,
@@ -578,12 +633,13 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "Nutanix",
-        "Hosting",
         "Ansible",
-        "Networking",
         "Artificial Intelligence",
-        "Automation"
+        "Automation",
+        "Github",
+        "VCF",
+        "VMware",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -605,13 +661,11 @@
       "api_url": "/api/posts/and-now-for-something-completely-different.json",
       "categories": [
         "Personal",
-        "Devops",
         "Hosting",
         "Cloudflare",
         "VMware",
-        "AWS",
-        "Consulting",
-        "Nutanix"
+        "Nutanix",
+        "Consulting"
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/ChatGPT-Image-Dec-17-2025-at-09_03_10-PM.png",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2018/10/fWbXybA7.png)\n\n[Personal](https://jameskilby.co.uk/category/personal/)\n\n# And now for something completely different\n\nBy[James](https://jameskilby.co.uk) October 16, 2018 · Updated July 11, 2026 • 📖1 min read(263 words)\n\nI have worked for my cu..."
@@ -629,10 +683,10 @@
       "categories": [
         "AWS",
         "Hosting",
-        "Personal",
+        "Cloudflare",
+        "Wordpress",
         "VMware",
         "VMware Cloud on AWS",
-        "Artificial Intelligence",
         "Docker",
         "Homelab"
       ],
@@ -657,8 +711,8 @@
         "AWS",
         "VMware",
         "VMware Cloud on AWS",
-        "Hosting",
-        "Personal"
+        "Personal",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -679,13 +733,11 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
-        "Artificial Intelligence",
-        "Docker",
-        "Ansible",
-        "Automation",
-        "Cloudflare",
+        "Homelab",
         "AWS",
-        "Homelab"
+        "Wordpress",
+        "Cloudflare",
+        "Personal"
       ],
       "tags": [
         null

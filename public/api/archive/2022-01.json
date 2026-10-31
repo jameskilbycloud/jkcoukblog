@@ -15,11 +15,13 @@
       "api_url": "/api/posts/wrangler-and-node-versions.json",
       "categories": [
         "Cloudflare",
+        "Devops",
         "Hosting",
         "Personal",
-        "Wordpress",
         "Ansible",
-        "Automation"
+        "Automation",
+        "Wordpress",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -43,12 +45,10 @@
       "categories": [
         "Homelab",
         "Storage",
-        "Nutanix",
-        "Kubernetes",
-        "TrueNAS Scale",
-        "Networking",
-        "Artificial Intelligence",
-        "Docker"
+        "Hosting",
+        "Automation",
+        "Ansible",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -72,13 +72,12 @@
       "categories": [
         "Homelab",
         "Networking",
-        "Storage",
-        "Docker",
-        "Ansible",
         "Artificial Intelligence",
-        "Mikrotik",
         "Automation",
-        "Nutanix"
+        "Github",
+        "Storage",
+        "Ansible",
+        "VMware"
       ],
       "tags": [
         null,
@@ -101,11 +100,11 @@
         "Homelab",
         "Veeam",
         "VMware",
-        "Storage",
-        "Artificial Intelligence",
-        "Automation",
-        "Personal",
-        "Networking"
+        "Hosting",
+        "Networking",
+        "Nutanix",
+        "AWS",
+        "Storage"
       ],
       "tags": [
         null,
@@ -128,12 +127,12 @@
       "categories": [
         "Homelab",
         "VMware",
-        "VCF",
-        "Ansible",
         "Artificial Intelligence",
-        "vSAN",
+        "Veeam",
+        "Storage",
         "Automation",
-        "Networking"
+        "Github",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -156,11 +155,13 @@
       "categories": [
         "Hosting",
         "Wordpress",
+        "Personal",
+        "Ansible",
+        "Automation",
+        "Cloudflare",
         "Docker",
         "Homelab",
-        "Cloudflare",
-        "Artificial Intelligence",
-        "Automation"
+        "Devops"
       ],
       "tags": [
         null,
@@ -185,9 +186,10 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
+        "Docker",
+        "Homelab",
         "VMware",
-        "Artificial Intelligence",
-        "Docker"
+        "Artificial Intelligence"
       ],
       "tags": [
         null,

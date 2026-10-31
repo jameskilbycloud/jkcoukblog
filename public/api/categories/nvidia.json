@@ -20,12 +20,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "AWS",
-        "Networking",
-        "Personal",
+        "Storage",
+        "VMware Cloud on AWS",
         "Hosting",
-        "Nutanix",
-        "VMware Cloud on AWS"
+        "Personal"
       ],
       "tags": [
         null,
@@ -65,9 +63,9 @@
         "NVIDIA",
         "Traefik",
         "VMware",
+        "Nutanix",
         "Storage",
-        "VMware Cloud on AWS",
-        "Ansible"
+        "Veeam"
       ],
       "tags": [
         null,
@@ -106,11 +104,12 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Storage",
-        "Networking",
+        "AWS",
         "Hosting",
+        "Personal",
         "VMware Cloud on AWS",
-        "Personal"
+        "Docker",
+        "Nutanix"
       ],
       "tags": [
         null,

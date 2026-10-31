@@ -19,8 +19,8 @@
         "Synology",
         "Ansible",
         "Automation",
-        "Artificial Intelligence",
-        "Docker"
+        "VMware",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -42,11 +42,10 @@
       "categories": [
         "Homelab",
         "Nutanix",
-        "VMware",
-        "Ansible",
-        "Automation",
+        "Networking",
         "Storage",
-        "Artificial Intelligence"
+        "Automation",
+        "VMware"
       ],
       "tags": [
         null

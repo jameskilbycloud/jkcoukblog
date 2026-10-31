@@ -14,9 +14,9 @@
       "api_url": "/api/posts/ubuntu-disk-expansion-steps.json",
       "categories": [
         "Ubuntu",
-        "Ansible",
         "Automation",
-        "Github"
+        "Github",
+        "Ansible"
       ],
       "tags": [
         null,

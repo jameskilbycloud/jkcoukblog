@@ -17,8 +17,8 @@
         "AWS",
         "VMware",
         "VMware Cloud on AWS",
-        "Hosting",
-        "Personal"
+        "Personal",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -39,13 +39,11 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
-        "Artificial Intelligence",
-        "Docker",
-        "Ansible",
-        "Automation",
-        "Cloudflare",
+        "Homelab",
         "AWS",
-        "Homelab"
+        "Wordpress",
+        "Cloudflare",
+        "Personal"
       ],
       "tags": [
         null

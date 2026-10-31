@@ -16,12 +16,13 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Nutanix",
-        "Storage",
-        "Automation",
-        "Github",
         "Mikrotik",
-        "Networking"
+        "Networking",
+        "Automation",
+        "Hosting",
+        "TrueNAS Scale",
+        "VMware",
+        "Nutanix"
       ],
       "tags": [
         null,

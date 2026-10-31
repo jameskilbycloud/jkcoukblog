@@ -18,14 +18,13 @@
         "VMware",
         "vSAN",
         "vSphere",
-        "Runecast",
-        "Homelab",
-        "Storage",
-        "Ansible",
-        "Automation",
+        "Personal",
         "VMware Cloud on AWS",
+        "Homelab",
+        "Networking",
         "Artificial Intelligence",
-        "Docker"
+        "Automation",
+        "Mikrotik"
       ],
       "tags": [
         null,

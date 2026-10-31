@@ -14,11 +14,11 @@
         "Homelab",
         "VMware",
         "vSphere",
-        "Ansible",
-        "Artificial Intelligence",
         "Automation",
-        "Networking",
-        "Docker"
+        "Docker",
+        "Nutanix",
+        "VMware Cloud on AWS",
+        "Storage"
       ],
       "tags": [
         null,
@@ -63,13 +63,11 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
-        "Artificial Intelligence",
-        "Docker",
-        "Ansible",
-        "Automation",
-        "Cloudflare",
+        "Homelab",
         "AWS",
-        "Homelab"
+        "Wordpress",
+        "Cloudflare",
+        "Personal"
       ],
       "tags": [
         null
@@ -90,11 +88,13 @@
       "categories": [
         "Hosting",
         "Wordpress",
+        "Personal",
+        "Ansible",
+        "Automation",
+        "Cloudflare",
         "Docker",
         "Homelab",
-        "Cloudflare",
-        "Artificial Intelligence",
-        "Automation"
+        "Devops"
       ],
       "tags": [
         null,
@@ -118,11 +118,10 @@
         "Homelab",
         "Storage",
         "TrueNAS Scale",
-        "Artificial Intelligence",
-        "Docker",
-        "Ansible",
+        "Mikrotik",
+        "Networking",
         "VMware",
-        "VCF"
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -144,10 +143,10 @@
       "categories": [
         "AWS",
         "Hosting",
-        "Personal",
+        "Cloudflare",
+        "Wordpress",
         "VMware",
         "VMware Cloud on AWS",
-        "Artificial Intelligence",
         "Docker",
         "Homelab"
       ],
@@ -171,11 +170,10 @@
       "categories": [
         "AWS",
         "Personal",
+        "VMware",
+        "VMware Cloud on AWS",
         "Hosting",
-        "Cloudflare",
-        "Consulting",
-        "Nutanix",
-        "Devops"
+        "Cloudflare"
       ],
       "tags": [
         null,
@@ -198,8 +196,8 @@
         "AWS",
         "VMware",
         "VMware Cloud on AWS",
-        "Hosting",
-        "Personal"
+        "Personal",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -227,11 +225,12 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Storage",
-        "Networking",
+        "AWS",
         "Hosting",
+        "Personal",
         "VMware Cloud on AWS",
-        "Personal"
+        "Docker",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -262,9 +261,11 @@
         "VCF",
         "VMware",
         "VMware Cloud on AWS",
-        "Storage",
         "Artificial Intelligence",
-        "Nutanix"
+        "Cloudflare",
+        "Devops",
+        "Networking",
+        "Storage"
       ],
       "tags": [
         null,

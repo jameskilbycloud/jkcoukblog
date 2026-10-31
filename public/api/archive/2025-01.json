@@ -17,13 +17,9 @@
         "Artificial Intelligence",
         "Docker",
         "Hosting",
-        "Cloudflare",
-        "Automation",
         "Homelab",
-        "Wordpress",
-        "Mikrotik",
-        "Networking",
-        "Ansible"
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null,

@@ -17,10 +17,10 @@
         "Homelab",
         "Networking",
         "Unifi",
+        "Storage",
         "Nutanix",
-        "Automation",
-        "Ansible",
-        "Storage"
+        "VCF",
+        "VMware"
       ],
       "tags": [
         null,

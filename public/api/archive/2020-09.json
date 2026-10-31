@@ -16,9 +16,11 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "Artificial Intelligence",
+        "Automation",
+        "vSAN",
         "VCF",
-        "Personal",
-        "Runecast"
+        "Ansible"
       ],
       "tags": [
         null,
@@ -44,10 +46,12 @@
       "categories": [
         "Personal",
         "VMware",
-        "VMware Cloud on AWS",
-        "VCF",
-        "vSAN",
+        "Homelab",
+        "Veeam",
         "Ansible",
+        "Automation",
+        "VMware Cloud on AWS",
+        "TrueNAS Scale",
         "Artificial Intelligence"
       ],
       "tags": [
