@@ -228,3 +228,115 @@ class TestFixTitleDropBrandSuffix:
         home = tmp_path / 'index.html'
         assert fixer.fix_title_drop_brand_suffix(soup, home) is False
         assert soup.find('title').get_text() == title
+
+
+def _ld(graph):
+    import json
+    return ('<script type="application/ld+json">'
+            + json.dumps({'@context': 'https://schema.org', '@graph': graph})
+            + '</script>')
+
+
+def _graph(soup):
+    import json
+    return json.loads(soup.find('script', type='application/ld+json').string)['@graph']
+
+
+PERSON = {'@type': ['Person', 'Organization'], '@id': 'https://jameskilby.co.uk/#person',
+          'name': 'James Kilby'}
+WP_AUTHOR = {'@type': 'Person', '@id': 'https://jameskilby.co.uk/author/admin/', 'name': 'James'}
+
+
+class TestAuthorEntity:
+    def test_wp_author_rewritten_to_person_and_orphan_dropped(self, fixer):
+        article = {'@type': 'Article', '@id': 'https://jameskilby.co.uk/evs/#richSnippet',
+                   'headline': 'EVS', 'author': {'@id': WP_AUTHOR['@id'], 'name': 'James'}}
+        soup = _soup(f'<head>{_ld([PERSON, WP_AUTHOR, article])}</head>')
+        assert fixer.fix_article_entity_links(soup, Path('evs.html')) is True
+        graph = _graph(soup)
+        art = next(n for n in graph if n['@type'] == 'Article')
+        assert art['author'] == {'@id': PERSON['@id']}
+        assert all(n.get('@id') != WP_AUTHOR['@id'] for n in graph)
+
+    def test_idempotent(self, fixer):
+        article = {'@type': 'Article', 'headline': 'x', 'author': {'@id': PERSON['@id']}}
+        soup = _soup(f'<head>{_ld([PERSON, article])}</head>')
+        assert fixer.fix_article_entity_links(soup, Path('p.html')) is False
+
+    def test_wp_author_person_not_enriched(self, fixer):
+        soup = _soup(f'<head>{_ld([dict(PERSON), dict(WP_AUTHOR)])}</head>')
+        fixer.fix_person_enrichment(soup, Path('p.html'))
+        graph = _graph(soup)
+        wp = next(n for n in graph if n['@id'] == WP_AUTHOR['@id'])
+        assert 'sameAs' not in wp
+
+
+class TestArticleDates:
+    def test_dates_taken_from_webpage_and_meta_aligned(self, fixer):
+        webpage = {'@type': 'WebPage', '@id': 'https://jameskilby.co.uk/p/#webpage',
+                   'datePublished': '2025-09-02T16:01:48+00:00',
+                   'dateModified': '2026-06-05T18:42:51+00:00'}
+        article = {'@type': 'TechArticle', 'headline': 'x',
+                   'datePublished': '2025-09-02T16:01:48', 'dateModified': '2026-03-10T20:35:11'}
+        soup = _soup('<head><meta property="article:published_time" content="2025-09-02T16:01:48">'
+                     '<meta property="article:modified_time" content="2026-03-10T20:35:11">'
+                     f'{_ld([webpage, article])}</head>')
+        assert fixer.fix_techarticle_dedupe_and_dates(soup, Path('p.html')) is True
+        art = next(n for n in _graph(soup) if n['@type'] == 'TechArticle')
+        assert art['datePublished'] == '2025-09-02T16:01:48+00:00'
+        assert art['dateModified'] == '2026-06-05T18:42:51+00:00'
+        assert soup.find('meta', property='article:modified_time')['content'] == art['dateModified']
+        assert fixer.fix_techarticle_dedupe_and_dates(soup, Path('p.html')) is False
+
+    def test_naive_dates_get_utc_offset_without_webpage(self, fixer):
+        article = {'@type': 'Article', 'headline': 'x',
+                   'datePublished': '2020-01-01T10:00:00', 'dateModified': '2020-02-01T10:00:00'}
+        soup = _soup(f'<head>{_ld([article])}</head>')
+        assert fixer.fix_techarticle_dedupe_and_dates(soup, Path('p.html')) is True
+        art = _graph(soup)[0]
+        assert art['datePublished'] == '2020-01-01T10:00:00+00:00'
+        assert art['dateModified'] == '2020-02-01T10:00:00+00:00'
+
+
+class TestDuplicateOrganization:
+    def test_standalone_organization_dropped_when_person_is_org(self, fixer):
+        org = {'@type': 'Organization', '@id': 'https://jameskilby.co.uk/#organization',
+               'name': 'James Kilby'}
+        site = {'@type': 'WebSite', '@id': 'https://jameskilby.co.uk/#website',
+                'publisher': {'@id': org['@id']}}
+        soup = _soup(f'<head>{_ld([dict(PERSON), site, org])}</head>')
+        assert fixer.fix_organization_sameas(soup, Path('p.html')) is True
+        graph = _graph(soup)
+        assert all(n.get('@id') != org['@id'] for n in graph)
+        assert next(n for n in graph if n['@type'] == 'WebSite')['publisher'] == {'@id': PERSON['@id']}
+
+    def test_organization_kept_without_person_identity(self, fixer):
+        org = {'@type': 'Organization', '@id': 'https://jameskilby.co.uk/#organization',
+               'name': 'James Kilby'}
+        soup = _soup(f'<head>{_ld([org])}</head>')
+        fixer.fix_organization_sameas(soup, Path('index.html'))
+        assert _graph(soup)[0]['@id'] == org['@id']
+
+
+class TestStaleNoindex:
+    ARTICLE = {'@type': 'Article', 'headline': 'x'}
+
+    def _page(self, tmp_path, rel, robots, graph):
+        path = tmp_path / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        soup = _soup(f'<head><meta name="robots" content="{robots}">{_ld(graph)}</head>')
+        return soup, path
+
+    def test_removed_from_content_page_no_longer_listed(self, fixer, tmp_path):
+        soup, path = self._page(tmp_path, 'evs/index.html', 'noindex,follow', [self.ARTICLE])
+        assert fixer.fix_thin_archive_noindex(soup, path) is True
+        assert 'noindex' not in soup.find('meta', attrs={'name': 'robots'})['content']
+
+    def test_non_content_page_keeps_noindex(self, fixer, tmp_path):
+        soup, path = self._page(tmp_path, '404.html', 'noindex,follow', [])
+        assert fixer.fix_thin_archive_noindex(soup, path) is False
+        assert soup.find('meta', attrs={'name': 'robots'})['content'] == 'noindex,follow'
+
+    def test_rank_math_noindex_left_alone(self, fixer, tmp_path):
+        soup, path = self._page(tmp_path, 'some-page/index.html', 'noindex, follow', [self.ARTICLE])
+        assert fixer.fix_thin_archive_noindex(soup, path) is False

@@ -392,11 +392,12 @@ class SiteArtifactsBuilder:
         print(f"✅ Created sitemap.xml with {len(seen_urls)} URLs and {total_images} image entries")
 
     def _extract_modified_date(self, html_file):
-        """Best <lastmod> date for the sitemap, most-trustworthy source first.
+        """Best <lastmod> date for the sitemap.
 
-        Order of preference:
-          1. <meta property="article:modified_time"> — the real WordPress
-             "last edited" timestamp from Rank Math. Present on every post and,
+        Sources 1 and 2 are pooled and the latest date wins (plus
+        og:updated_time); 3 and 4 are fallbacks in order:
+          1. <meta property="article:modified_time"> — Rank Math's "last
+             edited" timestamp (stale on saved-schema posts). Present on every post and,
              crucially, available even on incrementally-seeded HTML that skipped
              JSON-LD re-injection.
           2. JSON-LD dateModified on any Article-family / WebPage node
@@ -428,13 +429,18 @@ class SiteArtifactsBuilder:
                 html_content = f.read()
             soup = BeautifulSoup(html_content, 'html.parser')
 
-            # 1. article:modified_time meta (primary)
-            tag = soup.find('meta', attrs={'property': 'article:modified_time'})
-            d = _to_date(tag.get('content')) if tag else None
-            if d:
-                return d.strftime('%Y-%m-%d')
-
-            # 2. JSON-LD dateModified on any *Article / WebPage node
+            # 1 + 2. The LATEST of article:modified_time, og:updated_time and
+            # JSON-LD dateModified on any *Article / WebPage node. Rank Math
+            # saved schemas freeze article:modified_time at the date the
+            # schema was saved, so taking the first value found clustered
+            # most <lastmod> on one stale day; the WebPage node and
+            # og:updated_time carry the real WordPress modified date.
+            candidates = []
+            for prop in ('article:modified_time', 'og:updated_time'):
+                tag = soup.find('meta', attrs={'property': prop})
+                d = _to_date(tag.get('content')) if tag else None
+                if d:
+                    candidates.append(d)
             for script in soup.find_all('script', type='application/ld+json'):
                 try:
                     data = json.loads(script.string)
@@ -454,7 +460,9 @@ class SiteArtifactsBuilder:
                     if any(str(x).endswith('Article') or x == 'WebPage' for x in types):
                         d = _to_date(item.get('dateModified'))
                         if d:
-                            return d.strftime('%Y-%m-%d')
+                            candidates.append(d)
+            if candidates:
+                return max(candidates).strftime('%Y-%m-%d')
 
             # 3. article:published_time meta
             tag = soup.find('meta', attrs={'property': 'article:published_time'})

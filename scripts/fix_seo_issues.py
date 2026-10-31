@@ -36,6 +36,10 @@ try:
     TOPIC_ENTITIES = dict(getattr(Config, 'TOPIC_ENTITIES', {}))
     WP_HOST = _hostname(getattr(Config, 'WP_URL', None))
     TARGET_HOST = _hostname(TARGET_DOMAIN)
+    SEO_TITLE_MAX_CHARS = Config.SEO_TITLE_MAX_CHARS
+    SEO_META_DESC_MIN_CHARS = Config.SEO_META_DESC_MIN_CHARS
+    SEO_META_DESC_MAX_CHARS = Config.SEO_META_DESC_MAX_CHARS
+    NOINDEX_CONTENT_ALLOWLIST = tuple(getattr(Config, 'NOINDEX_CONTENT_ALLOWLIST', ()))
 except (ImportError, AttributeError):
     TARGET_DOMAIN = 'https://jameskilby.co.uk'
     HOMEPAGE_TITLE = None
@@ -49,6 +53,18 @@ except (ImportError, AttributeError):
     TOPIC_ENTITIES = {}
     WP_HOST = None
     TARGET_HOST = _hostname(TARGET_DOMAIN)
+    SEO_TITLE_MAX_CHARS = 60
+    SEO_META_DESC_MIN_CHARS = 120
+    SEO_META_DESC_MAX_CHARS = 160
+    NOINDEX_CONTENT_ALLOWLIST = ()
+
+# A WordPress author-archive URL used as a Person @id by Rank Math. The static
+# site never generates /author/ pages, so these ids point at a 404.
+_WP_AUTHOR_ID_RE = re.compile(r'/author/[^/]+/?$')
+
+# ISO-8601 datetime with no UTC offset, e.g. Rank Math saved-schema
+# "2026-04-10T11:36:03".
+_NAIVE_DATETIME_RE = re.compile(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?$')
 
 
 class SEOFixer:
@@ -309,7 +325,7 @@ class SEOFixer:
     # brand suffix only when the WHOLE title (body + suffix) still fits; once
     # keeping it would push the title over this target, shed it so the body
     # gets the full width and doesn't render with a clipped "… - James Kilby".
-    _TITLE_SERP_MAX_CHARS = 60
+    _TITLE_SERP_MAX_CHARS = SEO_TITLE_MAX_CHARS
 
     def fix_title_drop_brand_suffix(self, soup, file_path):
         """Drop the " - James Kilby" suffix from <title> when keeping it would
@@ -540,6 +556,22 @@ class SEOFixer:
         )
         return True
 
+    # Rank Math's robots value for an indexable page; restored when a path
+    # leaves NOINDEX_PATH_PATTERNS (see fix_thin_archive_noindex).
+    _DEFAULT_ROBOTS = 'index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large'
+
+    def _has_article_jsonld(self, soup):
+        """True if any JSON-LD block on the page holds an Article-family node."""
+        for script in soup.find_all('script', type='application/ld+json'):
+            try:
+                data = json.loads(script.string or '')
+            except json.JSONDecodeError:
+                continue
+            nodes = data.get('@graph', [data]) if isinstance(data, dict) else data
+            if isinstance(nodes, list) and any(self._is_article_node(n) for n in nodes):
+                return True
+        return False
+
     def fix_thin_archive_noindex(self, soup, file_path):
         """Inject <meta name="robots" content="noindex,follow"> on thin
         archive pages (categories, tags, pagination, auto-generated meta
@@ -549,7 +581,7 @@ class SEOFixer:
           - /category/aws/ is 63 words of unique text → Google's "thin
             content" zone. Categories add crawl cost without ranking value.
           - /page/2/ etc. duplicate the homepage's post snippets.
-          - /changelog/, /stats/, /evs/, /privacy-policy-2/ are utility pages.
+          - /changelog/, /stats/, /privacy-policy-2/ are utility pages.
 
         We keep `follow` so Google still discovers post links from these
         pages, and we don't Disallow them in robots.txt (per the comment
@@ -569,11 +601,26 @@ class SEOFixer:
         # Convert /foo/bar/index.html → /foo/bar/ for matching
         url_path = re.sub(r'/index\.html$', '/', rel)
 
-        if not any(p.match(url_path) for p in NOINDEX_PATH_PATTERNS):
-            return False
-
         existing = soup.find('meta', attrs={'name': 'robots'})
         existing_content = (existing.get('content') if existing else '') or ''
+
+        if not any(p.match(url_path) for p in NOINDEX_PATH_PATTERNS):
+            # A path removed from NOINDEX_PATH_PATTERNS keeps the tag this
+            # method injected on an incrementally-seeded page (that is how
+            # /evs/ stayed noindexed). Undo it only on content pages (Article
+            # JSON-LD, the same test validate_seo uses) and only for our exact
+            # injected value: Rank Math writes "noindex, follow" for a
+            # deliberate per-page choice, and non-content pages such as
+            # 404.html carry the same "noindex,follow" from WordPress.
+            if (existing is not None and existing_content == 'noindex,follow'
+                    and url_path not in NOINDEX_CONTENT_ALLOWLIST
+                    and self._has_article_jsonld(soup)):
+                existing['content'] = self._DEFAULT_ROBOTS
+                self.issues_fixed += 1
+                print(f"   ✅ Removed stale noindex (no longer in config): {url_path}")
+                return True
+            return False
+
         if 'noindex' in existing_content.lower():
             return False  # already noindexed — nothing to do
 
@@ -646,11 +693,11 @@ class SEOFixer:
         #   - desc ends in '...' from a previous build: regenerate cleanly
         #     from the first article paragraph (truncated to a word/sentence
         #     boundary, NOT with another ellipsis)
-        #   - desc is too short (<120 chars): expand from article content
+        #   - desc is too short (<SEO_META_DESC_MIN_CHARS): expand from article content
         #     using the same clean truncation
-        too_long = len(desc) > 160
+        too_long = len(desc) > SEO_META_DESC_MAX_CHARS
         broken = desc.endswith('...')
-        too_short = len(desc) < 120
+        too_short = len(desc) < SEO_META_DESC_MIN_CHARS
 
         if too_long and not broken:
             return modified
@@ -677,10 +724,10 @@ class SEOFixer:
         if broken:
             new_desc = self._clean_truncate(p_text, 155)
             label = 'Restored truncated description'
-        elif len(p_text) >= 120:
+        elif len(p_text) >= SEO_META_DESC_MIN_CHARS:
             new_desc = self._clean_truncate(p_text, 155)
             label = 'Expanded short description'
-        elif len(desc + ' ' + p_text) <= 160:
+        elif len(desc + ' ' + p_text) <= SEO_META_DESC_MAX_CHARS:
             new_desc = f"{desc} {p_text}"
             label = 'Expanded short description (concat)'
         else:
@@ -1022,6 +1069,9 @@ class SEOFixer:
           2. For each surviving Article-family entry that's still missing
              datePublished / dateModified, inject from <meta property=
              "article:published_time" / "article:modified_time">.
+          3. Overwrite Article dates with the same graph's WebPage dates
+             (offset-aware, real WordPress values) or add +00:00 to naive
+             ones, then copy them to article:published_time/modified_time.
 
         Idempotent — re-running on a cleaned file is a no-op.
         """
@@ -1050,6 +1100,7 @@ class SEOFixer:
             ) if item.get(f))
 
         blocks_modified = 0
+        article_dates = None  # (published, modified) of the first Article node
         for script in soup.find_all('script', type='application/ld+json'):
             raw = script.string or ''
             if not raw.strip():
@@ -1101,6 +1152,35 @@ class SEOFixer:
                         item['dateModified'] = fallback_modified
                         block_changed = True
 
+            # ── Step 3: reconcile dates with the WebPage node ──────────────
+            # Rank Math *saved* schemas (@id …#schema-NNNNN) freeze the dates
+            # at the moment the schema was saved, with no UTC offset. The
+            # WebPage node in the same @graph carries WordPress's real
+            # post_date/post_modified with an offset, so it wins. Without a
+            # WebPage node, naive values get +00:00 (WP REST date_gmt is UTC).
+            webpage = next(
+                (n for n in graph if isinstance(n, dict)
+                 and 'WebPage' in (n.get('@type') if isinstance(n.get('@type'), list) else [n.get('@type')])),
+                None,
+            )
+            for item in graph:
+                if not is_article(item):
+                    continue
+                for field in ('datePublished', 'dateModified'):
+                    value = item.get(field)
+                    source = webpage.get(field) if webpage else None
+                    if source and not _NAIVE_DATETIME_RE.match(str(source)):
+                        new = source
+                    elif isinstance(value, str) and _NAIVE_DATETIME_RE.match(value):
+                        new = value + '+00:00'
+                    else:
+                        continue
+                    if new != value:
+                        item[field] = new
+                        block_changed = True
+                if article_dates is None:
+                    article_dates = (item.get('datePublished'), item.get('dateModified'))
+
             if block_changed:
                 # Compact serialization — matches how Rank Math emits it,
                 # so the diff stays minimal on pages already clean.
@@ -1109,10 +1189,19 @@ class SEOFixer:
                 )
                 blocks_modified += 1
 
-        if blocks_modified:
+        # Keep article:*_time in step with the Article node: the sitemap's
+        # <lastmod> and social crawlers read these meta tags, not JSON-LD.
+        meta_changed = False
+        if article_dates:
+            for tag, value in ((pub_meta, article_dates[0]), (mod_meta, article_dates[1])):
+                if tag is not None and value and tag.get('content') != value:
+                    tag['content'] = value
+                    meta_changed = True
+
+        if blocks_modified or meta_changed:
             self.issues_fixed += 1
             print(f"   🧬 Cleaned JSON-LD Article duplicates/dates: {file_path.name}")
-        return blocks_modified > 0
+        return blocks_modified > 0 or meta_changed
 
     # Cap on `mentions` entities per article — past a handful it stops helping
     # entity reconciliation and just bloats the @graph.
@@ -1172,7 +1261,11 @@ class SEOFixer:
         Adds ``@id`` to any author object that lacks one, or — when the article
         has no author at all — sets a reference to the known Person (safe only
         because the caller has confirmed that Person node exists in the graph;
-        single-author blog). Idempotent. Returns True if anything changed.
+        single-author blog). An author pointing at a WordPress ``/author/<slug>/``
+        archive (Rank Math's ``{"@id": ".../author/admin/", "name": "James"}``)
+        is replaced by a bare reference: that URL is a 404 on the static site
+        and splits the author into a second entity. Idempotent. Returns True if
+        anything changed.
         """
         author = item.get('author')
         if author is None:
@@ -1180,11 +1273,53 @@ class SEOFixer:
             return True
         authors = author if isinstance(author, list) else [author]
         changed = False
-        for a in authors:
-            if isinstance(a, dict) and not a.get('@id'):
+        for i, a in enumerate(authors):
+            if not isinstance(a, dict):
+                continue
+            if not a.get('@id'):
                 a['@id'] = person_id
                 changed = True
+            elif a['@id'] != person_id and _WP_AUTHOR_ID_RE.search(str(a['@id'])):
+                authors[i] = {'@id': person_id}
+                changed = True
+        if changed and not isinstance(author, list):
+            item['author'] = authors[0]
         return changed
+
+    @staticmethod
+    def _drop_wp_author_persons(graph, person_id):
+        """Remove ``/author/<slug>/`` Person nodes nothing references any more.
+
+        Mutates ``graph`` in place. Returns True if a node was removed.
+        """
+        refs = set()
+
+        def _collect(obj, top=False):
+            if isinstance(obj, dict):
+                if not top and set(obj) == {'@id'}:
+                    refs.add(obj['@id'])
+                for v in obj.values():
+                    _collect(v)
+            elif isinstance(obj, list):
+                for v in obj:
+                    _collect(v)
+
+        for node in graph:
+            _collect(node, top=True)
+        keep = [
+            n for n in graph
+            if not (
+                isinstance(n, dict)
+                and n.get('@id') != person_id
+                and _WP_AUTHOR_ID_RE.search(str(n.get('@id', '')))
+                and any('Person' in str(t) for t in (n.get('@type') if isinstance(n.get('@type'), list) else [n.get('@type')]))
+                and n['@id'] not in refs
+            )
+        ]
+        if len(keep) == len(graph):
+            return False
+        graph[:] = keep
+        return True
 
     def fix_article_entity_links(self, soup, file_path):
         """Tighten Article entity links — audit items M1 + L3.
@@ -1222,7 +1357,9 @@ class SEOFixer:
             if not graph:
                 continue
 
-            # Resolve the canonical Person @id from a top-level Person node.
+            # Resolve the canonical Person @id from a top-level Person node,
+            # preferring the site-wide "#person" node over a Rank Math
+            # /author/<slug>/ Person that carries the same name.
             person_id = None
             for item in graph:
                 if not isinstance(item, dict):
@@ -1233,8 +1370,10 @@ class SEOFixer:
                     continue
                 name = (item.get('name') or '').strip().lower()
                 if (not canonical_set or name in canonical_set) and item.get('@id'):
-                    person_id = item['@id']
-                    break
+                    if str(item['@id']).endswith('#person'):
+                        person_id = item['@id']
+                        break
+                    person_id = person_id or item['@id']
 
             block_changed = False
             for item in graph:
@@ -1268,6 +1407,9 @@ class SEOFixer:
                         self._entity_node(e) for _, e in matched[:self._MAX_MENTIONS]
                     ]
                     block_changed = True
+
+            if person_id and self._drop_wp_author_persons(graph, person_id):
+                block_changed = True
 
             if block_changed:
                 script.string = json.dumps(data, separators=(',', ':'), ensure_ascii=False)
@@ -1358,6 +1500,11 @@ class SEOFixer:
             t = item.get('@type')
             types = t if isinstance(t, list) else [t]
             if not any('Person' in str(x) for x in types if x):
+                return False
+            # 'James' stays a canonical name for matching, but a Rank Math
+            # /author/<slug>/ Person is a 404 duplicate of #person — giving it
+            # the full sameAs graph would declare a second owner entity.
+            if _WP_AUTHOR_ID_RE.search(str(item.get('@id', ''))):
                 return False
             name = (item.get('name') or '').strip().lower()
             return name in canonical_set
@@ -1490,6 +1637,42 @@ class SEOFixer:
                 continue
 
             block_changed = False
+
+            # Rank Math's identity node is already ["Person","Organization"]
+            # @id #person; content_schema_rewriter used to append a second
+            # Organization #organization node for the same identity. Drop it
+            # and point any reference at #person instead.
+            identity = next(
+                (n for n in graph_items if is_target_org(n)
+                 and str(n.get('@id', '')).endswith('/#person')),
+                None,
+            )
+            if identity is not None and isinstance(data.get('@graph'), list):
+                dup_ids = {
+                    n['@id'] for n in graph_items
+                    if is_target_org(n) and n is not identity
+                    and str(n.get('@id', '')).endswith('/#organization')
+                }
+                if dup_ids:
+                    data['@graph'] = graph_items = [
+                        n for n in graph_items
+                        if not (isinstance(n, dict) and n.get('@id') in dup_ids)
+                    ]
+
+                    def _repoint(obj):
+                        if isinstance(obj, dict):
+                            for k, v in obj.items():
+                                if isinstance(v, dict) and set(v) == {'@id'} and v['@id'] in dup_ids:
+                                    obj[k] = {'@id': identity['@id']}
+                                else:
+                                    _repoint(v)
+                        elif isinstance(obj, list):
+                            for v in obj:
+                                _repoint(v)
+
+                    _repoint(graph_items)
+                    block_changed = True
+
             for item in graph_items:
                 if not is_target_org(item):
                     continue
