@@ -35,7 +35,7 @@ Not indexed: lab-storage, and-now-for-something-completely-different, vmc-host-e
 
 ## SEO Phase 2: generator fixes (code), PR [#220](https://github.com/jameskilbycloud/jkcoukblog/pull/220)
 
-- [ ] Merge #220. It fixes:
+- [x] Merge #220 (merged and deployed 2026-10-31, verified live). It fixes:
   - `/evs/` noindex *(B1, CR#1)*
   - the author linked to the 404 `/author/admin/` *(B3, CR#2)*
   - Article dates with no timezone, and stale sitemap lastmod *(B2, CR#3)*
@@ -43,7 +43,7 @@ Not indexed: lab-storage, and-now-for-something-completely-different, vmc-host-e
   - validator blind spots *(CR#7)*
   - the duplicate noindex code *(CR#8)*
 - [ ] After deploy, in Search Console: resubmit `sitemap.xml` and request indexing of `/evs/` and the About page.
-- [ ] Check `/evs/` is in `sitemap.xml`. The first deploy may miss it, and the next build adds it.
+- [x] Check `/evs/` is in `sitemap.xml` (it is, after the 2026-10-31 deploy).
 
 ## SEO Phase 3: content decisions (James)
 
