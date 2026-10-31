@@ -173,10 +173,23 @@ class Config:
         r'^/tag/.+',               # tag archives (currently 404 but future-proof)
         r'^/page/\d+/?$',          # root pagination (no unique content)
         r'^/changelog/?$',          # auto-generated changelog
-        r'^/evs/?$',               # raw event log (described as "non-content" in validate_seo)
         r'^/stats/?$',             # auto-generated stats page
         r'^/privacy-policy-2/?$',  # legal page — required, doesn't need to rank
     )
+
+    # Pages that carry Article-family JSON-LD and are noindexed ON PURPOSE.
+    # scripts/validate_seo.py fails the build when any other page has an
+    # Article node AND noindex — a content page hidden from Google by mistake
+    # (as /evs/ was, wrongly listed above as a "raw event log").
+    NOINDEX_CONTENT_ALLOWLIST = ('/privacy-policy-2/',)
+
+    # SERP length limits shared by scripts/fix_seo_issues.py (which repairs
+    # titles/descriptions) and scripts/validate_seo.py (which warns on them),
+    # so the two can't drift apart. Google's title pixel budget (~580px) is
+    # roughly 55-60 chars; descriptions display up to ~155-160 chars.
+    SEO_TITLE_MAX_CHARS = 60
+    SEO_META_DESC_MIN_CHARS = 120
+    SEO_META_DESC_MAX_CHARS = 160
     
     @classmethod
     def get_plausible_script_url(cls):

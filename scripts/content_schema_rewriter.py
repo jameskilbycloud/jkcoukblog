@@ -686,7 +686,11 @@ class ContentSchemaRewriter:
                         if 'publisher' not in item:
                             item['publisher'] = {"@id": f"{self.target_domain}/#organization"}
                         enriched = True
-                    if item.get('@type') == 'Organization':
+                    # Rank Math's identity node is typed ["Person","Organization"];
+                    # an equality test missed it and appended a second
+                    # #organization node claiming the same identity.
+                    t = item.get('@type')
+                    if 'Organization' in (t if isinstance(t, list) else [t]):
                         has_org = True
 
                 if enriched:
