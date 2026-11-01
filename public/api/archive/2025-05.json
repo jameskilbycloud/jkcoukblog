@@ -17,11 +17,10 @@
         "VMware",
         "VMware Cloud on AWS",
         "VCF",
-        "Homelab",
-        "AWS",
         "Ansible",
-        "Artificial Intelligence",
-        "vSAN"
+        "Automation",
+        "Homelab",
+        "Veeam"
       ],
       "tags": [
         null,

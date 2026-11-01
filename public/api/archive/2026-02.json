@@ -22,12 +22,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "AWS",
-        "Hosting",
-        "Personal",
-        "VMware Cloud on AWS",
         "Docker",
-        "Nutanix"
+        "VMware Cloud on AWS",
+        "Runecast",
+        "Automation"
       ],
       "tags": [
         null,

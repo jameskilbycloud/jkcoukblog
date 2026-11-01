@@ -17,11 +17,10 @@
         "Homelab",
         "Storage",
         "Synology",
+        "Hosting",
+        "Automation",
         "Networking",
-        "Nutanix",
-        "Veeam",
-        "Ansible",
-        "Artificial Intelligence"
+        "Ansible"
       ],
       "tags": [
         null,

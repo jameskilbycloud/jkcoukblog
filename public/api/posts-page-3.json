@@ -13,10 +13,10 @@
       "categories": [
         "Kubernetes",
         "TrueNAS Scale",
-        "Homelab",
-        "Storage",
         "VMware",
-        "Docker"
+        "Docker",
+        "Homelab",
+        "Storage"
       ],
       "tags": [
         null,
@@ -61,10 +61,10 @@
         "Hosting",
         "Automation",
         "Github",
-        "Storage",
-        "Artificial Intelligence",
+        "Docker",
         "Cloudflare",
-        "Ansible"
+        "Storage",
+        "VMware"
       ],
       "tags": [
         null,
@@ -87,10 +87,10 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
-        "VMware",
+        "Storage",
         "Nutanix",
         "Ansible",
-        "Automation"
+        "Networking"
       ],
       "tags": [
         null,
@@ -113,12 +113,13 @@
       "categories": [
         "Runecast",
         "VMware",
-        "Personal",
-        "VMware Cloud on AWS",
         "Homelab",
-        "Storage",
+        "Veeam",
+        "Networking",
         "Ansible",
-        "VCF"
+        "Artificial Intelligence",
+        "VMware Cloud on AWS",
+        "Docker"
       ],
       "tags": [
         null,
@@ -142,14 +143,14 @@
       "categories": [
         "Automation",
         "Github",
-        "Homelab",
-        "Storage",
-        "Artificial Intelligence",
-        "VMware",
-        "Nutanix",
         "Devops",
         "Personal",
-        "Runecast"
+        "TrueNAS Scale",
+        "VMware",
+        "Homelab",
+        "Hosting",
+        "Ubuntu",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -176,9 +177,10 @@
       "categories": [
         "Artificial Intelligence",
         "Automation",
-        "Ansible",
+        "Homelab",
         "Github",
-        "Docker"
+        "Docker",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -201,11 +203,11 @@
       "categories": [
         "Nutanix",
         "Personal",
-        "Homelab",
         "Hosting",
         "Cloudflare",
-        "Devops",
-        "Consulting"
+        "Consulting",
+        "VMware",
+        "Homelab"
       ],
       "tags": [
         null,

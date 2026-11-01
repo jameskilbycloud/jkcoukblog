@@ -17,12 +17,10 @@
         "Automation",
         "Homelab",
         "VMware",
-        "Runecast",
-        "Networking",
-        "Ansible",
-        "Storage",
-        "Artificial Intelligence",
-        "Docker"
+        "Docker",
+        "Veeam",
+        "VMware Cloud on AWS",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -49,7 +47,6 @@
         "Devops",
         "Hosting",
         "Cloudflare",
-        "Nutanix",
         "VMware"
       ],
       "tags": [

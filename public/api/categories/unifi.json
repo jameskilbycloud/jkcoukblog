@@ -16,10 +16,12 @@
         "Homelab",
         "Networking",
         "Unifi",
-        "Storage",
-        "Nutanix",
+        "Artificial Intelligence",
+        "Automation",
         "VCF",
-        "VMware"
+        "VMware",
+        "Nutanix",
+        "Mikrotik"
       ],
       "tags": [
         null,

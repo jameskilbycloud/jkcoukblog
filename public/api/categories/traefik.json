@@ -20,12 +20,11 @@
         "Traefik",
         "VCF",
         "VMware",
-        "VMware Cloud on AWS",
-        "Artificial Intelligence",
-        "Cloudflare",
-        "Devops",
-        "Networking",
-        "Storage"
+        "Veeam",
+        "Personal",
+        "Hosting",
+        "Runecast",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -65,10 +64,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Storage",
         "VMware Cloud on AWS",
+        "Cloudflare",
         "Hosting",
-        "Personal"
+        "Nutanix",
+        "VCF"
       ],
       "tags": [
         null,
@@ -108,9 +108,11 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Nutanix",
-        "Storage",
-        "Veeam"
+        "VMware Cloud on AWS",
+        "AWS",
+        "Personal",
+        "Networking",
+        "TrueNAS Scale"
       ],
       "tags": [
         null,
@@ -149,12 +151,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "AWS",
-        "Hosting",
-        "Personal",
-        "VMware Cloud on AWS",
         "Docker",
-        "Nutanix"
+        "VMware Cloud on AWS",
+        "Runecast",
+        "Automation"
       ],
       "tags": [
         null,

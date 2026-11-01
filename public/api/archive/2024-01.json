@@ -18,11 +18,11 @@
         "VMware",
         "Homelab",
         "Storage",
-        "Networking",
+        "Veeam",
+        "Ansible",
         "Automation",
-        "Github",
-        "Mikrotik",
-        "Personal"
+        "AWS",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -47,10 +47,13 @@
         "VMware",
         "VCF",
         "Homelab",
-        "Veeam",
+        "Nutanix",
         "VMware Cloud on AWS",
+        "Personal",
         "Storage",
-        "Networking"
+        "Ansible",
+        "Artificial Intelligence",
+        "AWS"
       ],
       "tags": [
         null,

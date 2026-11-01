@@ -10,7 +10,6 @@ categories:
   - Devops
   - Hosting
   - Cloudflare
-  - Nutanix
   - VMware
 tags:
   - #Homeoffice
@@ -153,16 +152,6 @@ By[James](https://jameskilby.co.uk) October 16, 2018 · Updated July 11, 2026
 
 I have worked for my current employer Zen Internet for 3. Over that time I have changed roles from what was originally a customer-focused role into a role with one of the core platform teams.
 
-  * [ ![What’s In My Tech Bag? Everyday Carry for IT Consultants](https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1-768x498.png) ](https://jameskilby.co.uk/2019/01/whats-in-my-backpack/)
-
-[Consulting](https://jameskilby.co.uk/category/consulting/)
-
-### [What’s In My Tech Bag? Everyday Carry for IT Consultants](https://jameskilby.co.uk/2019/01/whats-in-my-backpack/)
-
-By[James](https://jameskilby.co.uk) January 10, 2019 · Updated June 1, 2026
-
-I have seen a few posts online recently about the tools and technology people use on a day to day basis.
-
   * [ ![My First GitHub Pull Request: Contributing to Open Source](https://jameskilby.co.uk/wp-content/uploads/2020/12/175jvBleoQfAZJc3sgTSPQA.jpg) ](https://jameskilby.co.uk/2020/12/my-first-pull/)
 
 [Devops](https://jameskilby.co.uk/category/devops/) | [Personal](https://jameskilby.co.uk/category/personal/)
@@ -183,22 +172,32 @@ By[James](https://jameskilby.co.uk) January 4, 2022 · Updated July 11, 2026
 
 A while ago I started messing with Cloudflare Workers. I have now moved this site permanently over to them.
 
-  * [ ![Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/wp-content/uploads/2020/07/nutanix-logo-HI-REZ_reverse-w-carrier-768x196.jpg) ](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
+  * [ ![VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/wp-content/uploads/2020/09/vmware_SP_HCI20.png) ](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
-[Nutanix](https://jameskilby.co.uk/category/nutanix/) | [Personal](https://jameskilby.co.uk/category/personal/)
+[Personal](https://jameskilby.co.uk/category/personal/) | [VMware](https://jameskilby.co.uk/category/vmware/)
 
-### [Passing the Nutanix NCP Exam: Free Training & My Experience](https://jameskilby.co.uk/2020/07/nutanix-ncp/)
+### [VMware Certified Master Specialist HCI 2020](https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/)
 
-By[James](https://jameskilby.co.uk) July 2, 2020 · Updated May 31, 2026
+By[James](https://jameskilby.co.uk) September 13, 2020 · Updated May 31, 2026
 
-I saw a tweet a couple of weeks ago mentioning that Nutanix were offering a free go at the Nutanix Certified Professional exam.
+I recently sat (and passed the VMware HCI Master Specialist exam (5V0-21.
 
-  * [ ![Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/wp-content/uploads/2023/11/image.png) ](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
+  * [ ![Analytics in a privacy focused world](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png) ](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
 
-[VMware](https://jameskilby.co.uk/category/vmware/) | [Personal](https://jameskilby.co.uk/category/personal/)
+[Hosting](https://jameskilby.co.uk/category/hosting/) | [Personal](https://jameskilby.co.uk/category/personal/)
 
-### [Advanced Deploy VMware vSphere 7.x 3V0-22.21N](https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/)
+### [Analytics in a privacy focused world](https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/)
 
-By[James](https://jameskilby.co.uk) November 10, 2023 · Updated June 1, 2026
+By[James](https://jameskilby.co.uk) November 10, 2023 · Updated October 19, 2026
 
-Yesterday I sat and passed the above exam. It had been on my todo list for a good number of years. With the current pause in the Broadcom VMware takeover deal.
+I recently helped my friend Dean Lewis @veducate with some hosting issues. As part of the testing of this he kindly gave me a login to his WordPress instance.
+
+  * [ ![What’s In My Tech Bag? Everyday Carry for IT Consultants](https://jameskilby.co.uk/wp-content/uploads/2019/01/Picture1-768x498.png) ](https://jameskilby.co.uk/2019/01/whats-in-my-backpack/)
+
+[Consulting](https://jameskilby.co.uk/category/consulting/)
+
+### [What’s In My Tech Bag? Everyday Carry for IT Consultants](https://jameskilby.co.uk/2019/01/whats-in-my-backpack/)
+
+By[James](https://jameskilby.co.uk) January 10, 2019 · Updated June 1, 2026
+
+I have seen a few posts online recently about the tools and technology people use on a day to day basis.

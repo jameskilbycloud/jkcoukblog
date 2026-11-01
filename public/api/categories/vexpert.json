@@ -16,11 +16,10 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Ansible",
         "Networking",
-        "VMware",
-        "VMware Cloud on AWS",
-        "VCF"
+        "Artificial Intelligence",
+        "Docker",
+        "Mikrotik"
       ],
       "tags": [
         null,

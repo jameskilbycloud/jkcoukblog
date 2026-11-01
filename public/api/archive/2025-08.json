@@ -16,12 +16,12 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
+        "vSAN",
+        "Ansible",
+        "Artificial Intelligence",
         "Automation",
         "Homelab",
-        "Runecast",
-        "VCF",
-        "Veeam",
-        "Personal"
+        "Veeam"
       ],
       "tags": [
         null

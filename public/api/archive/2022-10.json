@@ -18,8 +18,11 @@
         "Hosting",
         "Wordpress",
         "AWS",
+        "Devops",
+        "Homelab",
         "Artificial Intelligence",
-        "Automation"
+        "Docker",
+        "Personal"
       ],
       "tags": [
         null,
@@ -45,10 +48,10 @@
         "Hosting",
         "Automation",
         "Github",
-        "Storage",
-        "Artificial Intelligence",
+        "Docker",
         "Cloudflare",
-        "Ansible"
+        "Storage",
+        "VMware"
       ],
       "tags": [
         null,
