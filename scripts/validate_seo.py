@@ -354,10 +354,79 @@ def validate_page(html_path: Path, public_dir: Path) -> list:
                                     f'~{word_count} words in <article> (<{THIN_CONTENT_WORDS}) — Google may treat as low-value',
                                     html_path))
 
+    # ── image alt text on indexable content pages ───────────────────────────
+    # fix_seo_issues no longer invents alt text from filenames; it leaves
+    # alt="". These warnings are the running to-do list for writing real alt
+    # text in the WordPress Media Library.
+    if (is_post or articles) and not noindex:
+        issues.extend(_validate_image_alt(soup, html_path))
+
     return issues
 
 
-def validate_site_artifacts(public_dir: Path) -> list:
+# Camera / screenshot / hash-style alt text: a filename, not a description.
+FILENAME_ALT_RE = re.compile(
+    r'^(img|dsc|dscn|pxl|image|photo|screenshot|screen shot|capture)[\s_-]*\d'
+    r'|^[0-9a-f]{12,}$'
+    r'|\.(png|jpe?g|gif|webp|avif)$',
+    re.IGNORECASE,
+)
+
+
+def _validate_image_alt(soup, html_path: Path) -> list:
+    content = soup.find('article') or soup.find('main')
+    if not content:
+        return []
+    missing, filename_like = [], []
+    for img in content.find_all('img'):
+        src = img.get('src') or img.get('data-src') or ''
+        if src.startswith('data:'):
+            continue
+        alt = (img.get('alt') or '').strip()
+        name = src.rsplit('/', 1)[-1]
+        if not alt:
+            missing.append(name)
+        elif FILENAME_ALT_RE.search(alt):
+            filename_like.append(f'{name} ({alt!r})')
+    issues = []
+    if missing:
+        issues.append(Issue('warning', 'img-alt-missing',
+                            f'{len(missing)} image(s) with empty alt: {", ".join(missing[:5])}',
+                            html_path))
+    if filename_like:
+        issues.append(Issue('warning', 'img-alt-filename',
+                            f'{len(filename_like)} image(s) with filename-style alt: '
+                            f'{", ".join(filename_like[:5])}',
+                            html_path))
+    return issues
+
+
+# The new sitemap may not lose more than this share of the previous build's
+# page URLs. A bigger drop means discovery silently missed content (e.g. a
+# WordPress API error), not that posts were really deleted.
+SITEMAP_MAX_SHRINK = 0.10
+
+
+def _check_sitemap_shrink(page_locs, baseline_sitemap, sm_ns, sitemap) -> list:
+    if not baseline_sitemap or not Path(baseline_sitemap).is_file():
+        return []
+    try:
+        base_root = ET.fromstring(Path(baseline_sitemap).read_text(encoding='utf-8', errors='ignore'))
+    except ET.ParseError:
+        return []
+    base_locs = {e.text.strip() for e in base_root.iter(f'{{{sm_ns}}}loc') if e.text}
+    if not base_locs:
+        return []
+    lost = base_locs - set(page_locs)
+    if len(lost) / len(base_locs) > SITEMAP_MAX_SHRINK:
+        sample = ', '.join(sorted(lost)[:5])
+        return [Issue('error', 'sitemap-shrunk',
+                      f'{len(lost)} of {len(base_locs)} URLs from the previous sitemap are gone '
+                      f'(>{SITEMAP_MAX_SHRINK:.0%}): {sample}', sitemap)]
+    return []
+
+
+def validate_site_artifacts(public_dir: Path, baseline_sitemap: Path | None = None) -> list:
     """Validate sitemap.xml, robots.txt and the RSS feed — site-wide artifacts
     that nothing else in the pipeline checks. A sitemap that lost half its URLs,
     gained a wrong-host <loc>, referenced a 404, or shipped a future <lastmod>
@@ -395,6 +464,7 @@ def validate_site_artifacts(public_dir: Path) -> list:
             if not page_locs:
                 issues.append(Issue('error', 'sitemap-empty',
                                     'sitemap.xml has zero page <loc> entries', sitemap))
+            issues.extend(_check_sitemap_shrink(page_locs, baseline_sitemap, sm_ns, sitemap))
 
             def _on_host(u):  # host + scheme check
                 return u == target or u.startswith(target + '/')
@@ -475,7 +545,17 @@ def validate_site_artifacts(public_dir: Path) -> list:
 
 
 def main(argv):
-    public_dir = Path(argv[1] if len(argv) > 1 else 'public').resolve()
+    # Usage: validate_seo.py [public_dir] [--baseline-sitemap PATH]
+    args = list(argv[1:])
+    baseline = None
+    if '--baseline-sitemap' in args:
+        i = args.index('--baseline-sitemap')
+        if i + 1 >= len(args):
+            print('❌ --baseline-sitemap needs a path', file=sys.stderr)
+            return 2
+        baseline = Path(args[i + 1])
+        del args[i:i + 2]
+    public_dir = Path(args[0] if args else 'public').resolve()
     if not public_dir.is_dir():
         print(f'❌ {public_dir} is not a directory', file=sys.stderr)
         return 2
@@ -490,7 +570,7 @@ def main(argv):
         all_issues.extend(validate_page(f, public_dir))
 
     # Site-wide artifacts (sitemap.xml, robots.txt, RSS feed).
-    all_issues.extend(validate_site_artifacts(public_dir))
+    all_issues.extend(validate_site_artifacts(public_dir, baseline))
 
     errors    = [i for i in all_issues if i.severity == 'error']
     warnings  = [i for i in all_issues if i.severity == 'warning']

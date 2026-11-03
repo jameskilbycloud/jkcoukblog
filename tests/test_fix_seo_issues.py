@@ -1,5 +1,6 @@
 """Tests for the SEO fixer's pure transforms."""
 
+import json
 from pathlib import Path
 
 import pytest
@@ -62,20 +63,45 @@ class TestFixMultipleH1:
 
 
 class TestEnsureImageAltText:
-    def test_alt_derived_from_filename(self, fixer):
+    def test_missing_alt_becomes_empty_not_filename(self, fixer):
         soup = _soup('<img src="/wp-content/uploads/my-test-image.png">')
         assert fixer.ensure_image_alt_text(soup, Path('x.html')) is True
-        assert soup.find('img')['alt'] == 'My Test Image'
+        assert soup.find('img')['alt'] == ''
 
     def test_existing_alt_untouched(self, fixer):
         soup = _soup('<img src="/a.png" alt="Hand written alt">')
         assert fixer.ensure_image_alt_text(soup, Path('x.html')) is False
         assert soup.find('img')['alt'] == 'Hand written alt'
 
-    def test_srcless_image_gets_generic_alt(self, fixer):
+    def test_decorative_empty_alt_untouched(self, fixer):
+        soup = _soup('<img src="/wp-content/uploads/IMG_8711.jpg" alt="">')
+        assert fixer.ensure_image_alt_text(soup, Path('x.html')) is False
+        assert soup.find('img')['alt'] == ''
+
+    def test_srcless_image_gets_empty_alt(self, fixer):
         soup = _soup('<img>')
         fixer.ensure_image_alt_text(soup, Path('x.html'))
-        assert soup.find('img')['alt'] == 'Image'
+        assert soup.find('img')['alt'] == ''
+
+    def test_data_uri_not_turned_into_alt(self, fixer):
+        soup = _soup('<img src="data:image/gif;base64,R0lGODlh">')
+        fixer.ensure_image_alt_text(soup, Path('x.html'))
+        assert soup.find('img')['alt'] == ''
+
+    def test_previously_invented_filename_alt_reset(self, fixer):
+        soup = _soup('<img src="/wp-content/uploads/2022/10/IMG_8711.jpg?x=1" alt="Img 8711">')
+        assert fixer.ensure_image_alt_text(soup, Path('x.html')) is True
+        assert soup.find('img')['alt'] == ''
+
+    def test_invented_alt_matched_on_data_src(self, fixer):
+        soup = _soup('<img src="data:image/gif;base64,R0" data-src="/u/my-shot.png" alt="My Shot">')
+        assert fixer.ensure_image_alt_text(soup, Path('x.html')) is True
+        assert soup.find('img')['alt'] == ''
+
+    def test_idempotent(self, fixer):
+        soup = _soup('<img src="/u/IMG_1.jpg">')
+        fixer.ensure_image_alt_text(soup, Path('x.html'))
+        assert fixer.ensure_image_alt_text(soup, Path('x.html')) is False
 
 
 class TestFixTitleLength:
@@ -340,3 +366,54 @@ class TestStaleNoindex:
     def test_rank_math_noindex_left_alone(self, fixer, tmp_path):
         soup, path = self._page(tmp_path, 'some-page/index.html', 'noindex, follow', [self.ARTICLE])
         assert fixer.fix_thin_archive_noindex(soup, path) is False
+
+
+class TestFixJsonldAbsoluteIds:
+    PAGE = 'https://jameskilby.co.uk/2024/12/zfs-on-vmware/'
+
+    def _run(self, fixer, graph):
+        soup = _soup(
+            f'<head><link rel="canonical" href="{self.PAGE}">'
+            '<script type="application/ld+json">'
+            + json.dumps({'@graph': graph}) + '</script></head>'
+        )
+        changed = fixer.fix_jsonld_absolute_ids(soup, Path('x.html'))
+        return changed, json.loads(soup.find('script').string)['@graph']
+
+    def test_root_relative_url_keys_made_absolute(self, fixer):
+        changed, g = self._run(fixer, [{'@type': 'WebPage', '@id': '/about/#webpage',
+                                        'url': '/about/', 'sameAs': ['/x/']}])
+        assert changed
+        assert g[0]['@id'] == 'https://jameskilby.co.uk/about/#webpage'
+        assert g[0]['url'] == 'https://jameskilby.co.uk/about/'
+        assert g[0]['sameAs'] == ['https://jameskilby.co.uk/x/']
+
+    def test_protocol_relative_url_gets_https_scheme(self, fixer):
+        _, g = self._run(fixer, [{'@type': 'ImageObject', 'url': '//cdn.example.com/x.png'}])
+        assert g[0]['url'] == 'https://cdn.example.com/x.png'
+
+    def test_text_fields_starting_with_slash_untouched(self, fixer):
+        changed, g = self._run(fixer, [{'@type': 'Answer', 'text': '/etc/hosts must list it'}])
+        assert not changed
+        assert g[0]['text'] == '/etc/hosts must list it'
+
+    def test_duplicate_fragment_ids_made_unique_and_absolute(self, fixer):
+        toc = [{'@type': 'SiteNavigationElement', '@id': '#rank-math-toc', 'name': n}
+               for n in ('Intro', 'Disk IDs', 'Pools')]
+        _, g = self._run(fixer, [toc, {'@type': 'WebPage', '@id': self.PAGE + '#webpage'}])
+        ids = [n['@id'] for n in g[0]]
+        assert ids == [self.PAGE + '#rank-math-toc-1', self.PAGE + '#rank-math-toc-2',
+                       self.PAGE + '#rank-math-toc-3']
+
+    def test_single_fragment_id_anchored_without_suffix(self, fixer):
+        _, g = self._run(fixer, [{'@type': 'Thing', '@id': '#only', 'name': 'x'}])
+        assert g[0]['@id'] == self.PAGE + '#only'
+
+    def test_idempotent(self, fixer):
+        toc = [{'@type': 'SiteNavigationElement', '@id': '#rank-math-toc', 'name': n}
+               for n in ('A', 'B')]
+        soup = _soup(f'<head><link rel="canonical" href="{self.PAGE}">'
+                     '<script type="application/ld+json">'
+                     + json.dumps({'@graph': [toc]}) + '</script></head>')
+        fixer.fix_jsonld_absolute_ids(soup, Path('x.html'))
+        assert fixer.fix_jsonld_absolute_ids(soup, Path('x.html')) is False

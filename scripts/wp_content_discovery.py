@@ -200,22 +200,25 @@ class WPContentDiscovery:
                 params={'per_page': 100, 'page': page, 'status': 'publish'}
             )
 
-            if posts_response.status_code != 200:
-                print(f"   ⚠️  Posts API returned status {posts_response.status_code} on page {page}")
-                if posts_response.status_code == 400:
-                    # Reached end of pagination
-                    print(f"   ℹ️  Reached end of posts (page {page})")
-                elif posts_response.status_code == 401:
-                    print("   ❌ Authentication failed - check WP_AUTH_TOKEN")
-                else:
-                    print(f"   ❌ Error: {posts_response.text[:200]}")
+            if posts_response.status_code == 400 and page > 1:
+                # WP returns 400 rest_post_invalid_page_number past the end
+                print(f"   ℹ️  Reached end of posts (page {page})")
                 break
+            if posts_response.status_code != 200:
+                # Any other failure (401, 5xx, a 400 on page 1) means the
+                # post list is incomplete. Carrying on would build — and
+                # sitemap — a site missing posts, so stop the build instead.
+                hint = (' - check WP_AUTH_TOKEN'
+                        if posts_response.status_code == 401 else '')
+                raise RuntimeError(
+                    f"Posts API returned status {posts_response.status_code} "
+                    f"on page {page}{hint}: {posts_response.text[:200]}"
+                )
 
             try:
                 posts = posts_response.json()
-            except (json.JSONDecodeError, ValueError):
-                print(f"   ⚠️  Invalid JSON on post page {page}, stopping")
-                break
+            except (json.JSONDecodeError, ValueError) as e:
+                raise RuntimeError(f"Invalid JSON on posts page {page}") from e
             if not posts:
                 print(f"   ℹ️  No more posts on page {page}")
                 break
@@ -238,13 +241,18 @@ class WPContentDiscovery:
                 f'{self.wp_url}/wp-json/wp/v2/pages',
                 params={'per_page': 100, 'page': page, 'status': 'publish'}
             )
+            if pages_response.status_code == 400 and page > 1:
+                break  # past the last page
             if pages_response.status_code != 200:
-                break
+                raise RuntimeError(
+                    f"Pages API returned status {pages_response.status_code} "
+                    f"on page {page}: {pages_response.text[:200]}"
+                )
 
             try:
                 pages = pages_response.json()
-            except (json.JSONDecodeError, ValueError):
-                break
+            except (json.JSONDecodeError, ValueError) as e:
+                raise RuntimeError(f"Invalid JSON on pages page {page}") from e
             if not pages:
                 break
 

@@ -58,32 +58,28 @@ class BreadcrumbNavigation:
         position = 2
 
         # Determine breadcrumb structure based on URL pattern
-        if 'category' in url_parts:
-            # Category archive: Home > Category Name
-            category_index = url_parts.index('category')
-            if category_index + 1 < len(url_parts):
-                category_slug = url_parts[category_index + 1]
-                category_name = category_slug.replace('-', ' ').title()
+        if 'category' in url_parts or 'tag' in url_parts:
+            # Category/tag archive: Home > Term (> Page N). There is no
+            # /tag/ or /category/ index page (WordPress 404s the bare
+            # taxonomy root), so no crumb links there.
+            kind = 'category' if 'category' in url_parts else 'tag'
+            idx = url_parts.index(kind)
+            if idx + 1 < len(url_parts):
+                slug = url_parts[idx + 1]
                 breadcrumb_items.append({
-                    'name': category_name,
-                    'url': f"{self.target_domain}/category/{category_slug}/",
+                    'name': self._term_name(soup, slug),
+                    'url': f"{self.target_domain}/{kind}/{slug}/",
                     'position': position
                 })
-
-        elif 'tag' in url_parts:
-            # Tag archive: Home > Tag Name. Mirrors the category trail —
-            # there is no /tag/ index page (WordPress 404s the bare
-            # taxonomy root), so a "Tags" crumb linking there was a broken
-            # link on every tag page.
-            tag_index = url_parts.index('tag')
-            if tag_index + 1 < len(url_parts):
-                tag_slug = url_parts[tag_index + 1]
-                tag_name = tag_slug.replace('-', ' ').title()
-                breadcrumb_items.append({
-                    'name': tag_name,
-                    'url': f"{self.target_domain}/tag/{tag_slug}/",
-                    'position': position
-                })
+                # /category/x/page/N/: the term crumb is a link, and the
+                # current page is "Page N" (not the term's first page).
+                rest = url_parts[idx + 2:]
+                if len(rest) == 2 and rest[0] == 'page' and rest[1].isdigit():
+                    breadcrumb_items.append({
+                        'name': f"Page {rest[1]}",
+                        'url': f"{self.target_domain}{current_url}",
+                        'position': position + 1
+                    })
 
         elif len(url_parts) >= 3 and url_parts[0].isdigit():
             # Single post: Home > Category > Post Title
@@ -204,6 +200,15 @@ class BreadcrumbNavigation:
                 print(f"   🍞 Added breadcrumb navigation: {' > '.join([item['name'] for item in breadcrumb_items])}")
             else:
                 print(f"   🍞 Added breadcrumb nav (HTML only — existing BreadcrumbList in @graph): {' > '.join([item['name'] for item in breadcrumb_items])}")
+
+    @staticmethod
+    def _term_name(soup, slug):
+        """The archive's display name as WordPress renders it in the archive
+        <h1> ("AWS", "VMware"); title-casing the slug gave "Aws", "Vmware"."""
+        h1 = soup.find('h1', class_=lambda c: c and 'archive-title' in c)
+        if h1 and h1.get_text(strip=True):
+            return h1.get_text(strip=True)
+        return slug.replace('-', ' ').title()
 
     @staticmethod
     def _has_existing_breadcrumblist(soup):
