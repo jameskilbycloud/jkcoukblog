@@ -188,28 +188,28 @@
     "title": "Media"
   },
   "page-2": {
-    "title_hash": "6b19aa2368bb02a2",
-    "title": "James Kilby"
+    "title_hash": "542dd2e332ba84e3",
+    "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automa"
   },
   "page-3": {
-    "title_hash": "6b19aa2368bb02a2",
-    "title": "James Kilby"
+    "title_hash": "542dd2e332ba84e3",
+    "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automa"
   },
   "page-4": {
-    "title_hash": "6b19aa2368bb02a2",
-    "title": "James Kilby"
+    "title_hash": "542dd2e332ba84e3",
+    "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automa"
   },
   "page-5": {
-    "title_hash": "6b19aa2368bb02a2",
-    "title": "James Kilby"
+    "title_hash": "542dd2e332ba84e3",
+    "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automa"
   },
   "page-6": {
-    "title_hash": "6b19aa2368bb02a2",
-    "title": "James Kilby"
+    "title_hash": "542dd2e332ba84e3",
+    "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automa"
   },
   "page-7": {
-    "title_hash": "6b19aa2368bb02a2",
-    "title": "James Kilby"
+    "title_hash": "542dd2e332ba84e3",
+    "title": "James Kilby - James Kilby's technical blog covering VMware, homelab projects, cloud computing, and infrastructure automa"
   },
   "privacy-policy-2": {
     "title_hash": "f970655a0d2b8ba3",
@@ -746,5 +746,193 @@
   "tag-zoom": {
     "title_hash": "98aca0ceaa1b5bab",
     "title": "Zoom Archives"
+  },
+  "aws-for-beginners1": {
+    "title_hash": "33efff6ec0c0b7c9",
+    "title": "AWS For Beginners: IAM Setup, Root Security & Billing Alerts"
+  },
+  "cloudflare": {
+    "title_hash": "9feb43bff1031bfe",
+    "title": "What Is Cloudflare? Free CDN, WAF & DDoS Protection Explained"
+  },
+  "whats-in-my-backpack": {
+    "title_hash": "e0ab9590d950de48",
+    "title": "What's In My Tech Bag? Everyday Carry for IT Consultants"
+  },
+  "monitoring-vmc-part-1": {
+    "title_hash": "b799fcae783d9ed1",
+    "title": "Monitoring VMware Cloud on AWS: Tools & Approaches (Part 1)"
+  },
+  "i3en": {
+    "title_hash": "6a7b59b1ed5fa04f",
+    "title": "VMware Cloud on AWS i3en Host: Specs, Storage & Performance"
+  },
+  "vmc-host-errors": {
+    "title_hash": "b385728939d8eec8",
+    "title": "How VMware Cloud on AWS Handles Host Failures Automatically"
+  },
+  "vmware-certified-master-specialist-hci-2020": {
+    "title_hash": "90a3f670b3c6d2c8",
+    "title": "VMware Certified Master Specialist HCI 2020"
+  },
+  "my-first-pull": {
+    "title_hash": "f1381343fbb01bfd",
+    "title": "My First GitHub Pull Request: Contributing to Open Source"
+  },
+  "hashicorp-packer": {
+    "title_hash": "6716c58a74f36713",
+    "title": "Template Deployment with Packer"
+  },
+  "my-home-office-setup-upgrades": {
+    "title_hash": "3d0d478040577084",
+    "title": "My Home Office Setup & Upgrades"
+  },
+  "cloudflare-workers-limits-of-the-free-tier": {
+    "title_hash": "e93a98b3a26e6db0",
+    "title": "Cloudflare Workers - Limits of the free tier"
+  },
+  "lab-update-part-1-compute": {
+    "title_hash": "4fb861fb63b52d2a",
+    "title": "Homelab Compute Upgrade: SuperMicro BigTwin & vSphere Setup"
+  },
+  "web-development": {
+    "title_hash": "dede5e95d7ad779f",
+    "title": "Hosting This Blog on Cloudflare Workers: Why & How I Did It"
+  },
+  "how-i-moved-my-wordpress-site-to-cloudflare-pages": {
+    "title_hash": "33ffec883c423e0f",
+    "title": "Static Wordpress hosting using Cloudflare"
+  },
+  "use-portainer-in-a-homelab-with-github": {
+    "title_hash": "d8f0ded86406df80",
+    "title": "Use Portainer in a Homelab with GitHub"
+  },
+  "intel-optane": {
+    "title_hash": "eaa89dc80ca0c93f",
+    "title": "Using Intel Optane NVMe in a VMware Homelab: Setup & Results"
+  },
+  "homelab-storage-refresh-part-1": {
+    "title_hash": "d285cb1fb2f39f4c",
+    "title": "Homelab Storage Refresh (Part 1)"
+  },
+  "runecast-remediation-scripts": {
+    "title_hash": "fd2b8a075ccaf527",
+    "title": "Runecast Remediation Scripts: Auto-Fix VMware Storage Issues"
+  },
+  "vgpu-setup-in-my-homelab": {
+    "title_hash": "ac102ed682fd5de6",
+    "title": "Nvidia Tesla P4 vGPU on VMware ESXi: Homelab Guide"
+  },
+  "advanced-deploy-vmware-vsphere-7-x-3v0-22-21n": {
+    "title_hash": "dc22dc689e0ea56e",
+    "title": "Advanced Deploy VMware vSphere 7.x 3V0-22.21N"
+  },
+  "analytics-in-a-privacy-focused-world": {
+    "title_hash": "b6de6a54604f60ab",
+    "title": "Analytics in a privacy focused world"
+  },
+  "configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router": {
+    "title_hash": "132277bff87c530a",
+    "title": "Configuring a Zen Internet and City Fibre connection with a 3rd party router"
+  },
+  "truenas-scale-useful-commands": {
+    "title_hash": "e10ad58c5b97d4dc",
+    "title": "TrueNAS Scale CLI Reference: Storage & Kubernetes Commands"
+  },
+  "vsan-esa-and-the-improvements-it-brings-to-vmc": {
+    "title_hash": "f468b05dbd509f6f",
+    "title": "vSAN ESA in VMware Cloud on AWS: What Changed in VMC M24"
+  },
+  "holodeck-cpu-fixes": {
+    "title_hash": "9ad9167891dfb3cd",
+    "title": "VMware Holodeck on Older CPUs: Fixing Compatibility Issues"
+  },
+  "multihost-holodeck-vcf": {
+    "title_hash": "296008d2c1f9ed17",
+    "title": "VMware Holodeck Multi-Host VCF: Lab Setup Guide"
+  },
+  "unifi-dhcp-option-43": {
+    "title_hash": "f9f78590c6954ab1",
+    "title": "UniFi DHCP Option 43: Adopt Devices Across Subnets"
+  },
+  "new-nodes": {
+    "title_hash": "71093d74a6ac316f",
+    "title": "New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix"
+  },
+  "can-you-really-squeeze-96tb-in-1u": {
+    "title_hash": "f6a6c59e86bab959",
+    "title": "Can you really squeeze 96TB in 1U ?"
+  },
+  "self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu": {
+    "title_hash": "ba0575e900d745f1",
+    "title": "Self Hosting AI Stack using vSphere, Docker and NVIDIA GPU"
+  },
+  "zfs-on-vmware": {
+    "title_hash": "22a2ffd35fa04a18",
+    "title": "How to Run ZFS on VMware vSphere: Setup Guide and Best Practices"
+  },
+  "how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way": {
+    "title_hash": "5a057e3e643fad37",
+    "title": "Migrating from Pocket to Hoarder (now Karakeep) with AI"
+  },
+  "warp-the-intelligent-terminal": {
+    "title_hash": "a42ccd966e201d7b",
+    "title": "Warp \u2013 The intelligent terminal"
+  },
+  "vmc-quick-sizing-guide": {
+    "title_hash": "77bd3b3080cd6630",
+    "title": "VMware Cloud on AWS Storage Sizing: Quick Guide (2-16 Hosts)"
+  },
+  "vmc-host-deepdive": {
+    "title_hash": "3bd226686a06f374",
+    "title": "VMware Cloud on AWS Hosts: Full Spec Comparison"
+  },
+  "managing-my-homelab-with-semaphoreui": {
+    "title_hash": "662014ff97797ecc",
+    "title": "Managing My Homelab with SemaphoreUI (Ansible Web UI)"
+  },
+  "how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare": {
+    "title_hash": "e725f253ad98d2d3",
+    "title": "Deploy a Static Site Blog with GitHub Actions & Cloudflare"
+  },
+  "time-in-a-vmc-environment": {
+    "title_hash": "b32cebc601981e44",
+    "title": "Time Sync & NTP Config in VMware Cloud on AWS"
+  },
+  "vsan-cluster-shutdown": {
+    "title_hash": "1e22820bd988e84e",
+    "title": "vSAN Cluster Shutdown - Orchestration"
+  },
+  "using-content-libraries-in-vmc-to-deploy-software-faster": {
+    "title_hash": "76fa4673eb5b3792",
+    "title": "Content Libraries in VMC: Faster Software Deployment"
+  },
+  "web-development-improvements": {
+    "title_hash": "ad964891be161475",
+    "title": "Blog Performance & SEO Improvements: Cloudflare, Privacy & More"
+  },
+  "octopus-agile-battery-solar-calculator": {
+    "title_hash": "340222432eb7eef8",
+    "title": "Free Octopus Agile Battery & Solar Calculator: 5 Batteries Tested"
+  },
+  "automated-vcf-9-offline-depot": {
+    "title_hash": "c506d2e3eb2e1c90",
+    "title": "Automated VCF 9 Offline Depot"
+  },
+  "new-vmc-host-i7i-metal-24xl": {
+    "title_hash": "7fd02fa477c8de6a",
+    "title": "New VMware Cloud on AWS Host: i7i.metal-24xl"
+  },
+  "about-james-kilby-solution-architect": {
+    "title_hash": "193f2f403728b442",
+    "title": "about me"
+  },
+  "lab": {
+    "title_hash": "991fc926a960599a",
+    "title": "Homelab - Hardware"
+  },
+  "vmc": {
+    "title_hash": "f30f38dccb242832",
+    "title": "VMware Cloud on AWS (VMC) \u2013 Links & Resources"
   }
 }
