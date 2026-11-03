@@ -4,6 +4,7 @@ SEO Issues Fixer
 Fixes common SEO problems in generated HTML files
 """
 
+import os
 import sys
 import json
 from collections import defaultdict
@@ -70,13 +71,93 @@ _NAIVE_DATETIME_RE = re.compile(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)
 class SEOFixer:
     """Fix SEO issues in HTML files"""
 
+    # The order the fixes run in. Single source of truth for both
+    # process_file() and html_transformer.HTMLTransformer._apply_seo_fixes
+    # (via apply_all), so a new fix only has to be added here. Order matters:
+    # e.g. fix_canonical_url before fix_jsonld_absolute_ids (which anchors
+    # fragment @ids to the canonical), and fix_og_meta_alignment last so it
+    # mirrors the final <title>/description.
+    FIX_ORDER = (
+        'fix_title_length',
+        'fix_homepage_title',
+        'lock_homepage_h1_text',
+        'fix_title_drop_brand_suffix',
+        'fix_thin_archive_noindex',
+        'fix_meta_description',
+        'fix_multiple_h1',
+        'ensure_image_alt_text',
+        'fix_og_absolute_urls',
+        'fix_canonical_url',
+        'fix_jsonld_absolute_ids',
+        'fix_blogposting_to_techarticle',
+        'fix_breadcrumb_positions',
+        'fix_dedupe_breadcrumblist',
+        'fix_techarticle_dedupe_and_dates',
+        'fix_jsonld_headline_brand_suffix',
+        'fix_article_entity_links',
+        'fix_person_name',
+        'fix_person_enrichment',
+        'fix_organization_sameas',
+        'fix_og_site_name',
+        'fix_twitter_attribution',
+        'fix_wordpress_host_leak',
+        'fix_og_meta_alignment',
+        'fix_malformed_stylesheet_attr',
+    )
+
+    # Cap on per-error lines printed / annotated, so a site-wide breakage
+    # doesn't flood the build log.
+    _MAX_ERROR_LINES = 20
+
     def __init__(self, public_dir='public'):
         self.public_dir = Path(public_dir)
         self.files_fixed = 0
         self.issues_fixed = 0
+        # (file_path, fix name, exception) for every fix that raised.
+        self.errors = []
+
+    def apply_all(self, soup, file_path):
+        """Run every fix in FIX_ORDER on an already-parsed soup.
+
+        Each fix is isolated: one that raises is recorded in self.errors and
+        the remaining fixes still run (previously a single exception dropped
+        every fix for the page, silently). Returns True if anything changed.
+        """
+        modified = False
+        for name in self.FIX_ORDER:
+            try:
+                if getattr(self, name)(soup, file_path):
+                    modified = True
+            except Exception as e:
+                self.errors.append((file_path, name, e))
+                if len(self.errors) <= self._MAX_ERROR_LINES:
+                    print(f"⚠️  SEO fix {name} failed on {file_path}: {e!r}")
+        return modified
+
+    def report_errors(self):
+        """Print a summary of failed fixes (and GitHub annotations in CI).
+        Returns the error count."""
+        if not self.errors:
+            return 0
+        print(f"\n❌ {len(self.errors)} SEO fix call(s) raised:")
+        in_ci = bool(os.environ.get('GITHUB_ACTIONS'))
+        for file_path, name, e in self.errors[:self._MAX_ERROR_LINES]:
+            print(f"   • {name}: {file_path}: {e!r}")
+            if in_ci:
+                print(f"::warning title=SEO fix failed::{name} on {file_path}: {e!r}")
+        if len(self.errors) > self._MAX_ERROR_LINES:
+            print(f"   … and {len(self.errors) - self._MAX_ERROR_LINES} more")
+        out = os.environ.get('GITHUB_OUTPUT')
+        if out:
+            try:
+                with open(out, 'a', encoding='utf-8') as fh:
+                    fh.write(f"seo_fix_errors={len(self.errors)}\n")
+            except OSError:
+                pass
+        return len(self.errors)
 
     def process_all_files(self):
-        """Process all HTML files"""
+        """Process all HTML files. Returns the number of fix errors."""
         html_files = list(self.public_dir.rglob('*.html'))
 
         # Exclude feeds and sitemaps
@@ -92,103 +173,23 @@ class SEOFixer:
 
         print(f"\n✅ Fixed {self.files_fixed} files")
         print(f"   Resolved {self.issues_fixed} SEO issues")
+        return self.report_errors()
 
     def process_file(self, file_path):
         """Process a single HTML file"""
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 html = f.read()
-
-            soup = BeautifulSoup(html, 'html.parser')
-            modified = False
-
-            # Apply fixes
-            if self.fix_title_length(soup, file_path):
-                modified = True
-
-            if self.fix_homepage_title(soup, file_path):
-                modified = True
-
-            if self.lock_homepage_h1_text(soup, file_path):
-                modified = True
-
-            if self.fix_title_drop_brand_suffix(soup, file_path):
-                modified = True
-
-            if self.fix_thin_archive_noindex(soup, file_path):
-                modified = True
-
-            if self.fix_meta_description(soup, file_path):
-                modified = True
-
-            if self.fix_multiple_h1(soup, file_path):
-                modified = True
-
-            if self.ensure_image_alt_text(soup, file_path):
-                modified = True
-
-            if self.fix_canonical_url(soup, file_path):
-                modified = True
-
-            if self.fix_og_absolute_urls(soup, file_path):
-                modified = True
-
-            if self.fix_jsonld_absolute_ids(soup, file_path):
-                modified = True
-
-            if self.fix_blogposting_to_techarticle(soup, file_path):
-                modified = True
-
-            if self.fix_breadcrumb_positions(soup, file_path):
-                modified = True
-
-            if self.fix_dedupe_breadcrumblist(soup, file_path):
-                modified = True
-
-            if self.fix_techarticle_dedupe_and_dates(soup, file_path):
-                modified = True
-
-            if self.fix_jsonld_headline_brand_suffix(soup, file_path):
-                modified = True
-
-            if self.fix_article_entity_links(soup, file_path):
-                modified = True
-
-            if self.fix_person_name(soup, file_path):
-                modified = True
-
-            if self.fix_person_enrichment(soup, file_path):
-                modified = True
-
-            if self.fix_organization_sameas(soup, file_path):
-                modified = True
-
-            if self.fix_og_site_name(soup, file_path):
-                modified = True
-
-            if self.fix_twitter_attribution(soup, file_path):
-                modified = True
-
-            if self.fix_wordpress_host_leak(soup, file_path):
-                modified = True
-
-            if self.fix_og_meta_alignment(soup, file_path):
-                modified = True
-
-            if self.fix_malformed_stylesheet_attr(soup, file_path):
-                modified = True
-
-            # Save if modified
-            if modified:
-                with open(file_path, 'w', encoding='utf-8') as f:
-                    f.write(str(soup))
-                return True
-
+        except (OSError, UnicodeDecodeError) as e:
+            self.errors.append((file_path, 'read', e))
             return False
 
-        except Exception as e:
-            print(f"⚠️  Error processing {file_path}: {e}")
+        soup = BeautifulSoup(html, 'html.parser')
+        if not self.apply_all(soup, file_path):
             return False
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(str(soup))
+        return True
 
     # When a previous build truncated the <title>, it ends with this literal
     # ellipsis. We restore the full title from JSON-LD if we can find it.
@@ -2007,9 +2008,11 @@ def main():
         public_dir = 'public'
 
     fixer = SEOFixer(public_dir)
-    fixer.process_all_files()
+    errors = fixer.process_all_files()
 
-    sys.exit(0)
+    # Non-zero so a crashing fix is visible; validate_seo is still the gate
+    # that decides whether the output is fit to deploy.
+    sys.exit(1 if errors else 0)
 
 
 if __name__ == '__main__':

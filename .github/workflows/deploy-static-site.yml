@@ -1084,7 +1084,9 @@ jobs:
         PID_HTML=$!
         python3 scripts/validate_deployment.py ./static-output &
         PID_DEPLOY=$!
-        python3 scripts/validate_seo.py ./static-output &
+        # --baseline-sitemap: the committed public/sitemap.xml is the last
+        # deployed one; fail if this build silently dropped >10% of its URLs.
+        python3 scripts/validate_seo.py ./static-output --baseline-sitemap ./public/sitemap.xml &
         PID_SEO=$!
 
         HTML_OK=true
