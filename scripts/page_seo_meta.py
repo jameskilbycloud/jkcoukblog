@@ -30,24 +30,17 @@ class PageSeoMeta:
         if '/tag/' not in current_url and '/category/' not in current_url:
             return
 
-        # Check if description already exists
         existing_desc = soup.find('meta', attrs={'name': 'description'})
-        if existing_desc and existing_desc.get('content'):
-            # Check if it's the default site description
-            content = existing_desc.get('content', '')
-            if 'James Kilby' in content and 'technical blog' in content:
-                # This is the generic site description, replace it
-                pass
-            else:
-                # Already has a specific description
-                return
 
         # Extract taxonomy name from URL and title
         taxonomy_type = 'tag' if '/tag/' in current_url else 'category'
 
-        # Try to get taxonomy name from the page title
+        # Prefer the archive <h1> WordPress renders ("AWS"), then the title.
         title_tag = soup.find('title')
-        if title_tag:
+        archive_h1 = soup.find('h1', class_=lambda c: c and 'archive-title' in c)
+        if archive_h1 and archive_h1.get_text(strip=True):
+            taxonomy_name = archive_h1.get_text(strip=True)
+        elif title_tag:
             title = title_tag.get_text().strip()
             # Extract taxonomy name from title (e.g., "Docker Archives - James Kilby" -> "Docker")
             import re
@@ -63,8 +56,23 @@ class PageSeoMeta:
             # Fallback to URL
             taxonomy_name = current_url.strip('/').split('/')[-1].replace('-', ' ').title()
 
+        # Rank Math falls back to the generic site description or to the
+        # first post's excerpt (which describes another page), so the
+        # existing tag is never trusted. A real term description, set in
+        # WordPress and rendered by the theme as .archive-description, wins;
+        # otherwise use the template.
+        term_desc_el = soup.find(class_=lambda c: c and (
+            'archive-description' in c or 'term-description' in c))
+        term_desc = ' '.join(term_desc_el.get_text(' ', strip=True).split()) if term_desc_el else ''
+
         # Generate appropriate description
-        if taxonomy_type == 'tag':
+        if term_desc:
+            description = term_desc
+            if len(description) > 155:
+                cut = description[:155]
+                end = cut.rfind('. ')
+                description = cut[:end + 1] if end >= 77 else cut[:cut.rfind(' ')].rstrip(',;:—–-')
+        elif taxonomy_type == 'tag':
             description = f"Articles tagged with {taxonomy_name}. Explore technical guides, tutorials, and insights about {taxonomy_name} from James Kilby's blog."
         else:
             description = f"Browse all {taxonomy_name} articles. In-depth technical content covering {taxonomy_name} topics, best practices, and real-world solutions."
@@ -124,10 +132,15 @@ class PageSeoMeta:
             tag = soup.find('meta', **tag_spec)
             if tag and tag.get('content'):
                 content = tag['content'].rstrip('.')
-                # Truncate if adding suffix would exceed 160 chars
+                if content.endswith(suffix):
+                    continue  # already applied (idempotent)
+                # Trim at a word boundary if adding the suffix would exceed
+                # 160 chars — no literal '...', which reads as broken.
                 max_len = 160 - len(suffix)
                 if len(content) > max_len:
-                    content = content[:max_len - 3].rstrip() + '...'
+                    cut = content[:max_len]
+                    space = cut.rfind(' ')
+                    content = (cut[:space] if space > 0 else cut).rstrip(',;:—–-').rstrip()
                 tag['content'] = content + suffix
                 print(f"   📄 Deduplicated meta description for page {page_num}")
 
@@ -166,7 +179,7 @@ class PageSeoMeta:
                     h1_tag[attr] = value
 
             # Copy all children (preserves inner structure)
-            for child in title_elem.children:
+            for child in list(title_elem.children):
                 h1_tag.append(child)
 
             # Replace old tag with H1

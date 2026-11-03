@@ -679,10 +679,22 @@ class SEOFixer:
                 return candidates[needle_type]
         return None
 
+    _ARCHIVE_PATH_RE = re.compile(r'^/(category|tag)/|/page/\d+/(index\.html)?$')
+
     def fix_meta_description(self, soup, file_path):
         """Fix meta description length"""
         meta_desc = soup.find('meta', attrs={'name': 'description'})
         if not meta_desc:
+            return False
+
+        # Archive pages (category/tag/pagination): their first <article> is
+        # another post's card, so "expanding" from it would give the archive
+        # that post's excerpt. page_seo_meta templates their descriptions.
+        try:
+            rel = '/' + file_path.resolve().relative_to(self.public_dir.resolve()).as_posix()
+        except (ValueError, AttributeError):
+            rel = ''
+        if self._ARCHIVE_PATH_RE.search(rel):
             return False
 
         desc = meta_desc.get('content', '')
@@ -1048,8 +1060,14 @@ class SEOFixer:
                     )
                     if is_blogpost:
                         node['@type'] = 'TechArticle'
-                        if 'proficiencyLevel' not in node:
-                            node['proficiencyLevel'] = 'Expert'
+                        script_modified = True
+                    # Older builds stamped proficiencyLevel "Expert" on every
+                    # post, diary posts included. It isn't a claim we can
+                    # make per post, so drop the blanket value.
+                    is_tech = (schema_type == 'TechArticle'
+                               or (isinstance(schema_type, list) and 'TechArticle' in schema_type))
+                    if (is_blogpost or is_tech) and node.get('proficiencyLevel') == 'Expert':
+                        del node['proficiencyLevel']
                         script_modified = True
 
                 if script_modified:

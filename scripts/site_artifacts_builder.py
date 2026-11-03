@@ -356,18 +356,12 @@ class SiteArtifactsBuilder:
 
                 # Add image entries for post/page URLs (skip feeds, api, assets, etc.)
                 url_path = item['url'].replace(self.target_domain, '')
-                is_content_page = (
-                    html_file := item.get('html_file')
-                ) and html_file is not None and any(
-                    url_path.startswith(f'/{y}/') for y in range(2010, 2035)
-                ) or url_path in (
-                    '/',
-                    '/about-james-kilby-solution-architect/',  # was '/about-me/' — renamed in WP
-                    '/lab/',
-                    '/homelab-software/',
-                    '/media/',
-                    '/vmc/',
-                )
+                # Every page still in the sitemap is indexable content
+                # (noindex archives were filtered out above), so list its
+                # images. This used to be a hard-coded list of pages, which
+                # left out new pages such as /evs/.
+                is_content_page = item.get('html_file') is not None and not re.search(
+                    r'^/(category|tag)/|/page/\d+/$', url_path)
 
                 if is_content_page and item.get('html_file'):
                     images = self._extract_page_images(item['html_file'])
@@ -548,9 +542,17 @@ class SiteArtifactsBuilder:
             if not html_file.exists():
                 return False
             with open(html_file, 'r', encoding='utf-8', errors='ignore') as f:
-                # Only read the first 4KB — robots meta is always in <head>
-                head_content = f.read(4096)
-            return 'noindex' in head_content.lower() and 'name="robots"' in head_content.lower()
+                html = f.read()
+            # Read the whole <head>: inline critical CSS can push the robots
+            # meta well past the first few KB, and fix_seo_issues appends
+            # its noindex at the END of <head>.
+            end = html.lower().find('</head>')
+            head = html[:end] if end != -1 else html
+            for m in re.finditer(r'<meta\b[^>]*>', head, re.IGNORECASE):
+                tag = m.group(0).lower()
+                if re.search(r'name=["\']robots["\']', tag) and 'noindex' in tag:
+                    return True
+            return False
         except Exception as e:
             print(f"   ⚠️  noindex check failed for {html_file}: {e}")
             return False
