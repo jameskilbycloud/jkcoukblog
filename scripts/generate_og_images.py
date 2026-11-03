@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Generate per-post Open Graph (og:image) images for posts using the fallback.
+Generate per-post Open Graph (og:image) images for posts using the fallback,
+or whose own og:image is narrower than 1200 px.
 
 About 60% of the site (107 pages) used to ship the same generic ChatGPT-
 generated image as og:image. Every social share looked identical and told a
@@ -9,8 +10,10 @@ fallback uses with a 1200×630 PNG composed from the post's own title.
 
 Workflow:
     1. Scan {site_dir}/**/*.html for <meta property="og:image">.
-    2. For pages whose og:image points at the fallback URL pattern,
-       generate a branded PNG with the post title.
+    2. For pages whose og:image points at the fallback URL pattern, or
+       is narrower than MIN_OG_WIDTH (summary_large_image / Discover want
+       >= 1200 px), generate a branded PNG with the post title. The JSON-LD
+       `image` keeps the real featured image; only og:/twitter: tags change.
     3. Write the PNG to {site_dir}/wp-content/uploads/og/<slug>.png and
        rewrite the og:image / og:image:secure_url / og:image:width /
        og:image:height / twitter:image meta tags in the HTML.
@@ -64,6 +67,10 @@ FALLBACK_URL_PATTERNS = (
 CANVAS_WIDTH = 1200
 CANVAS_HEIGHT = 630
 
+# Below this width a page's own og:image is replaced by a generated card:
+# X/Twitter summary_large_image and Google Discover want >= 1200 px.
+MIN_OG_WIDTH = 1200
+
 # Visual palette — sourced from brutalist-theme.css so generated cards
 # feel consistent with the site chrome.
 COLOR_BG = '#0a0a0a'
@@ -90,7 +97,8 @@ class OGImageGenerator:
         # Stats
         self.generated = 0
         self.cached = 0
-        self.skipped_no_fallback = 0
+        self.skipped_no_fallback = 0  # og:image is fine (not fallback, wide enough)
+        self.small_replaced = 0
         self.skipped_no_title = 0
 
     def _load_cache(self):
@@ -140,28 +148,74 @@ class OGImageGenerator:
         re.IGNORECASE,
     )
     OG_TITLE_RE = re.compile(
-        r'<meta\s+[^>]*property=["\']og:title["\'][^>]*content=["\']([^"\']+)["\']',
+        r'<meta\s+[^>]*property=["\']og:title["\'][^>]*>',
         re.IGNORECASE,
     )
     TITLE_TAG_RE = re.compile(r'<title>([^<]+)</title>', re.IGNORECASE)
-    CONTENT_ATTR_RE = re.compile(r'content=["\']([^"\']+)["\']', re.IGNORECASE)
+    # Backreference on the opening quote: an apostrophe inside a
+    # double-quoted value ("Can't") must not end the match.
+    CONTENT_ATTR_RE = re.compile(r'content=(["\'])(.+?)\1', re.IGNORECASE)
 
     def _extract_og_image_url(self, html):
         tag = self.OG_IMAGE_TAG_RE.search(html)
         if not tag:
             return None
         m = self.CONTENT_ATTR_RE.search(tag.group(0))
-        return m.group(1) if m else None
+        return m.group(2) if m else None
 
     def _is_fallback(self, url):
         return any(p in url for p in FALLBACK_URL_PATTERNS)
 
+    OG_WIDTH_TAG_RE = re.compile(
+        r'<meta\s+[^>]*property=["\']og:image:width["\'][^>]*>',
+        re.IGNORECASE,
+    )
+
+    def _og_image_width(self, html, og_url):
+        """Width of the page's og:image in px, or None if unknown.
+
+        Trusts og:image:width when present; otherwise measures the file in
+        the site dir (same-domain images only)."""
+        tag = self.OG_WIDTH_TAG_RE.search(html)
+        if tag:
+            m = self.CONTENT_ATTR_RE.search(tag.group(0))
+            if m and m.group(2).strip().isdigit():
+                return int(m.group(2).strip())
+        path = og_url.split('?')[0]
+        if path.startswith(TARGET_DOMAIN):
+            path = path[len(TARGET_DOMAIN):]
+        if not path.startswith('/'):
+            return None
+        local = self.site_dir / path.lstrip('/')
+        if not local.is_file():
+            return None
+        try:
+            with Image.open(local) as im:
+                return im.size[0]
+        except Exception:
+            return None
+
+    def _is_generated_card(self, url):
+        return f'/{OG_OUTPUT_REL}/' in url
+
+    def _needs_card(self, html, og_url):
+        """'fallback', 'small' or None (keep the page's own og:image)."""
+        if not og_url or self._is_generated_card(og_url):
+            return None
+        if self._is_fallback(og_url):
+            return 'fallback'
+        width = self._og_image_width(html, og_url)
+        if width is not None and width < MIN_OG_WIDTH:
+            return 'small'
+        return None
+
     def _extract_title(self, html):
         """Prefer og:title (already brand-trimmed by SEO fixer), fall back
         to the document title with the trailing "- James Kilby" stripped."""
-        m = self.OG_TITLE_RE.search(html)
+        tag = self.OG_TITLE_RE.search(html)
+        m = self.CONTENT_ATTR_RE.search(tag.group(0)) if tag else None
         if m:
-            return self._normalise_title(m.group(1))
+            return self._normalise_title(m.group(2))
         m = self.TITLE_TAG_RE.search(html)
         if m:
             t = m.group(1).strip()
@@ -283,15 +337,17 @@ class OGImageGenerator:
     # ── HTML rewriting ───────────────────────────────────────────────────
 
     @staticmethod
-    def _rewrite_meta(html, new_url):
+    def _rewrite_meta(html, new_url, alt=None):
         """Update every meta tag that should point at the post-specific
         image: og:image, og:image:secure_url, og:image:url, twitter:image.
-        Also corrects width/height to our canvas dimensions.
+        Also corrects width/height/type to our canvas, and — when alt is
+        given — og:image:alt / twitter:image:alt, which otherwise still
+        describe the replaced image. Only existing tags are rewritten.
         """
         def replace_content(tag_html, value):
             return re.sub(
-                r'content=["\'][^"\']*["\']',
-                f'content="{value}"',
+                r'content=(["\'])(.*?)\1',
+                lambda _m: f'content="{value}"',
                 tag_html,
                 count=1,
                 flags=re.IGNORECASE,
@@ -304,7 +360,15 @@ class OGImageGenerator:
             ('twitter:image', new_url, 'name'),
             ('og:image:width', str(CANVAS_WIDTH), 'property'),
             ('og:image:height', str(CANVAS_HEIGHT), 'property'),
+            ('og:image:type', 'image/png', 'property'),
         )
+        if alt:
+            safe_alt = (alt.replace('&', '&amp;').replace('"', '&quot;')
+                        .replace('<', '&lt;').replace('>', '&gt;'))
+            targets += (
+                ('og:image:alt', safe_alt, 'property'),
+                ('twitter:image:alt', safe_alt, 'name'),
+            )
         for prop, value, attr in targets:
             pattern = re.compile(
                 rf'<meta\s+[^>]*{attr}=["\']{re.escape(prop)}["\'][^>]*>',
@@ -337,13 +401,15 @@ class OGImageGenerator:
         print("\n✅ og:image generation complete")
         print(f"   Generated: {self.generated}")
         print(f"   Cached:    {self.cached}")
-        print(f"   Skipped (no fallback): {self.skipped_no_fallback}")
+        print(f"   Small og:image (<{MIN_OG_WIDTH}px) replaced: {self.small_replaced}")
+        print(f"   Skipped (og:image fine): {self.skipped_no_fallback}")
         print(f"   Skipped (no title):    {self.skipped_no_title}")
 
     def _process_one(self, html_file):
         html = html_file.read_text(encoding='utf-8', errors='ignore')
         og_url = self._extract_og_image_url(html)
-        if not og_url or not self._is_fallback(og_url):
+        reason = self._needs_card(html, og_url)
+        if not reason:
             self.skipped_no_fallback += 1
             return
 
@@ -374,9 +440,11 @@ class OGImageGenerator:
             self.generated += 1
 
         # Rewrite HTML to point at the new image.
-        new_html = self._rewrite_meta(html, new_url)
+        new_html = self._rewrite_meta(html, new_url, alt=title)
         if new_html != html:
             html_file.write_text(new_html, encoding='utf-8')
+            if reason == 'small':
+                self.small_replaced += 1
 
     def _slug_for(self, html_file):
         """Stable filename for the generated image.

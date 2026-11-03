@@ -93,6 +93,9 @@ class HTMLTransformer:
 
         elapsed = time.time() - start_time
         self._print_summary(elapsed)
+        # Failed SEO fixes are reported (and annotated in CI) but don't stop
+        # the transform: validate_seo is the blocking gate on the output.
+        self.seo.report_errors()
         self._write_github_output()
 
     def _write_github_output(self):
@@ -323,65 +326,13 @@ class HTMLTransformer:
         return html[:head_match.start()] + head_open + head_body + head_close + html[head_match.end():]
 
     def _apply_seo_fixes(self, soup, file_path):
-        """Apply all SEO transforms from SEOFixer on the soup object.
+        """Apply every SEOFixer transform to the soup, in SEOFixer.FIX_ORDER.
 
-        Mirrors SEOFixer.process_file's call order. When you add a fix method
-        to SEOFixer, you MUST also add it here — this orchestrator bypasses
-        process_file (which reads/writes the file itself) and drives the
-        SEOFixer methods on an already-parsed soup.
+        This orchestrator bypasses SEOFixer.process_file (which reads/writes
+        the file itself) but shares its fix list via apply_all, so a new fix
+        only needs adding to FIX_ORDER.
         """
-        modified = False
-        if self.seo.fix_title_length(soup, file_path):
-            modified = True
-        if self.seo.fix_homepage_title(soup, file_path):
-            modified = True
-        if self.seo.lock_homepage_h1_text(soup, file_path):
-            modified = True
-        if self.seo.fix_title_drop_brand_suffix(soup, file_path):
-            modified = True
-        if self.seo.fix_thin_archive_noindex(soup, file_path):
-            modified = True
-        if self.seo.fix_meta_description(soup, file_path):
-            modified = True
-        if self.seo.fix_multiple_h1(soup, file_path):
-            modified = True
-        if self.seo.ensure_image_alt_text(soup, file_path):
-            modified = True
-        if self.seo.fix_canonical_url(soup, file_path):
-            modified = True
-        if self.seo.fix_og_absolute_urls(soup, file_path):
-            modified = True
-        if self.seo.fix_jsonld_absolute_ids(soup, file_path):
-            modified = True
-        if self.seo.fix_blogposting_to_techarticle(soup, file_path):
-            modified = True
-        if self.seo.fix_breadcrumb_positions(soup, file_path):
-            modified = True
-        if self.seo.fix_dedupe_breadcrumblist(soup, file_path):
-            modified = True
-        if self.seo.fix_techarticle_dedupe_and_dates(soup, file_path):
-            modified = True
-        if self.seo.fix_jsonld_headline_brand_suffix(soup, file_path):
-            modified = True
-        if self.seo.fix_article_entity_links(soup, file_path):
-            modified = True
-        if self.seo.fix_person_name(soup, file_path):
-            modified = True
-        if self.seo.fix_person_enrichment(soup, file_path):
-            modified = True
-        if self.seo.fix_organization_sameas(soup, file_path):
-            modified = True
-        if self.seo.fix_og_site_name(soup, file_path):
-            modified = True
-        if self.seo.fix_twitter_attribution(soup, file_path):
-            modified = True
-        if self.seo.fix_wordpress_host_leak(soup, file_path):
-            modified = True
-        if self.seo.fix_og_meta_alignment(soup, file_path):
-            modified = True
-        if self.seo.fix_malformed_stylesheet_attr(soup, file_path):
-            modified = True
-        return modified
+        return self.seo.apply_all(soup, file_path)
 
     # Counters for the late-stage repair (Phase 4.8). We report these in the
     # final summary so it's obvious from the build log whether the safety net

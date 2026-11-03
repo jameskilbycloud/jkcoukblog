@@ -4,6 +4,7 @@ SEO Issues Fixer
 Fixes common SEO problems in generated HTML files
 """
 
+import os
 import sys
 import json
 from collections import defaultdict
@@ -70,13 +71,93 @@ _NAIVE_DATETIME_RE = re.compile(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)
 class SEOFixer:
     """Fix SEO issues in HTML files"""
 
+    # The order the fixes run in. Single source of truth for both
+    # process_file() and html_transformer.HTMLTransformer._apply_seo_fixes
+    # (via apply_all), so a new fix only has to be added here. Order matters:
+    # e.g. fix_canonical_url before fix_jsonld_absolute_ids (which anchors
+    # fragment @ids to the canonical), and fix_og_meta_alignment last so it
+    # mirrors the final <title>/description.
+    FIX_ORDER = (
+        'fix_title_length',
+        'fix_homepage_title',
+        'lock_homepage_h1_text',
+        'fix_title_drop_brand_suffix',
+        'fix_thin_archive_noindex',
+        'fix_meta_description',
+        'fix_multiple_h1',
+        'ensure_image_alt_text',
+        'fix_og_absolute_urls',
+        'fix_canonical_url',
+        'fix_jsonld_absolute_ids',
+        'fix_blogposting_to_techarticle',
+        'fix_breadcrumb_positions',
+        'fix_dedupe_breadcrumblist',
+        'fix_techarticle_dedupe_and_dates',
+        'fix_jsonld_headline_brand_suffix',
+        'fix_article_entity_links',
+        'fix_person_name',
+        'fix_person_enrichment',
+        'fix_organization_sameas',
+        'fix_og_site_name',
+        'fix_twitter_attribution',
+        'fix_wordpress_host_leak',
+        'fix_og_meta_alignment',
+        'fix_malformed_stylesheet_attr',
+    )
+
+    # Cap on per-error lines printed / annotated, so a site-wide breakage
+    # doesn't flood the build log.
+    _MAX_ERROR_LINES = 20
+
     def __init__(self, public_dir='public'):
         self.public_dir = Path(public_dir)
         self.files_fixed = 0
         self.issues_fixed = 0
+        # (file_path, fix name, exception) for every fix that raised.
+        self.errors = []
+
+    def apply_all(self, soup, file_path):
+        """Run every fix in FIX_ORDER on an already-parsed soup.
+
+        Each fix is isolated: one that raises is recorded in self.errors and
+        the remaining fixes still run (previously a single exception dropped
+        every fix for the page, silently). Returns True if anything changed.
+        """
+        modified = False
+        for name in self.FIX_ORDER:
+            try:
+                if getattr(self, name)(soup, file_path):
+                    modified = True
+            except Exception as e:
+                self.errors.append((file_path, name, e))
+                if len(self.errors) <= self._MAX_ERROR_LINES:
+                    print(f"⚠️  SEO fix {name} failed on {file_path}: {e!r}")
+        return modified
+
+    def report_errors(self):
+        """Print a summary of failed fixes (and GitHub annotations in CI).
+        Returns the error count."""
+        if not self.errors:
+            return 0
+        print(f"\n❌ {len(self.errors)} SEO fix call(s) raised:")
+        in_ci = bool(os.environ.get('GITHUB_ACTIONS'))
+        for file_path, name, e in self.errors[:self._MAX_ERROR_LINES]:
+            print(f"   • {name}: {file_path}: {e!r}")
+            if in_ci:
+                print(f"::warning title=SEO fix failed::{name} on {file_path}: {e!r}")
+        if len(self.errors) > self._MAX_ERROR_LINES:
+            print(f"   … and {len(self.errors) - self._MAX_ERROR_LINES} more")
+        out = os.environ.get('GITHUB_OUTPUT')
+        if out:
+            try:
+                with open(out, 'a', encoding='utf-8') as fh:
+                    fh.write(f"seo_fix_errors={len(self.errors)}\n")
+            except OSError:
+                pass
+        return len(self.errors)
 
     def process_all_files(self):
-        """Process all HTML files"""
+        """Process all HTML files. Returns the number of fix errors."""
         html_files = list(self.public_dir.rglob('*.html'))
 
         # Exclude feeds and sitemaps
@@ -92,103 +173,23 @@ class SEOFixer:
 
         print(f"\n✅ Fixed {self.files_fixed} files")
         print(f"   Resolved {self.issues_fixed} SEO issues")
+        return self.report_errors()
 
     def process_file(self, file_path):
         """Process a single HTML file"""
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 html = f.read()
-
-            soup = BeautifulSoup(html, 'html.parser')
-            modified = False
-
-            # Apply fixes
-            if self.fix_title_length(soup, file_path):
-                modified = True
-
-            if self.fix_homepage_title(soup, file_path):
-                modified = True
-
-            if self.lock_homepage_h1_text(soup, file_path):
-                modified = True
-
-            if self.fix_title_drop_brand_suffix(soup, file_path):
-                modified = True
-
-            if self.fix_thin_archive_noindex(soup, file_path):
-                modified = True
-
-            if self.fix_meta_description(soup, file_path):
-                modified = True
-
-            if self.fix_multiple_h1(soup, file_path):
-                modified = True
-
-            if self.ensure_image_alt_text(soup, file_path):
-                modified = True
-
-            if self.fix_canonical_url(soup, file_path):
-                modified = True
-
-            if self.fix_og_absolute_urls(soup, file_path):
-                modified = True
-
-            if self.fix_jsonld_absolute_ids(soup, file_path):
-                modified = True
-
-            if self.fix_blogposting_to_techarticle(soup, file_path):
-                modified = True
-
-            if self.fix_breadcrumb_positions(soup, file_path):
-                modified = True
-
-            if self.fix_dedupe_breadcrumblist(soup, file_path):
-                modified = True
-
-            if self.fix_techarticle_dedupe_and_dates(soup, file_path):
-                modified = True
-
-            if self.fix_jsonld_headline_brand_suffix(soup, file_path):
-                modified = True
-
-            if self.fix_article_entity_links(soup, file_path):
-                modified = True
-
-            if self.fix_person_name(soup, file_path):
-                modified = True
-
-            if self.fix_person_enrichment(soup, file_path):
-                modified = True
-
-            if self.fix_organization_sameas(soup, file_path):
-                modified = True
-
-            if self.fix_og_site_name(soup, file_path):
-                modified = True
-
-            if self.fix_twitter_attribution(soup, file_path):
-                modified = True
-
-            if self.fix_wordpress_host_leak(soup, file_path):
-                modified = True
-
-            if self.fix_og_meta_alignment(soup, file_path):
-                modified = True
-
-            if self.fix_malformed_stylesheet_attr(soup, file_path):
-                modified = True
-
-            # Save if modified
-            if modified:
-                with open(file_path, 'w', encoding='utf-8') as f:
-                    f.write(str(soup))
-                return True
-
+        except (OSError, UnicodeDecodeError) as e:
+            self.errors.append((file_path, 'read', e))
             return False
 
-        except Exception as e:
-            print(f"⚠️  Error processing {file_path}: {e}")
+        soup = BeautifulSoup(html, 'html.parser')
+        if not self.apply_all(soup, file_path):
             return False
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(str(soup))
+        return True
 
     # When a previous build truncated the <title>, it ends with this literal
     # ellipsis. We restore the full title from JSON-LD if we can find it.
@@ -678,10 +679,22 @@ class SEOFixer:
                 return candidates[needle_type]
         return None
 
+    _ARCHIVE_PATH_RE = re.compile(r'^/(category|tag)/|/page/\d+/(index\.html)?$')
+
     def fix_meta_description(self, soup, file_path):
         """Fix meta description length"""
         meta_desc = soup.find('meta', attrs={'name': 'description'})
         if not meta_desc:
+            return False
+
+        # Archive pages (category/tag/pagination): their first <article> is
+        # another post's card, so "expanding" from it would give the archive
+        # that post's excerpt. page_seo_meta templates their descriptions.
+        try:
+            rel = '/' + file_path.resolve().relative_to(self.public_dir.resolve()).as_posix()
+        except (ValueError, AttributeError):
+            rel = ''
+        if self._ARCHIVE_PATH_RE.search(rel):
             return False
 
         desc = meta_desc.get('content', '')
@@ -777,96 +790,165 @@ class SEOFixer:
         print(f"   🏷️  Fixed multiple H1 tags: {file_path.name} ({len(h1_tags)} → 1)")
         return True
 
+    @staticmethod
+    def _filename_alt(src):
+        """The alt text older builds invented from an image URL: the file stem,
+        with dashes/underscores as spaces, title-cased ('IMG_8711.jpg' →
+        'Img 8711'). None for data: URIs and empty sources."""
+        if not src or src.startswith('data:'):
+            return None
+        stem = Path(src.split('?')[0].split('#')[0]).stem
+        return stem.replace('-', ' ').replace('_', ' ').title() or None
+
     def ensure_image_alt_text(self, soup, file_path):
-        """Add generic alt text to images missing it"""
+        """Give every <img> an alt attribute without inventing its text.
+
+        - No alt attribute → add alt="" (valid HTML; screen readers skip the
+          image). A filename is not a description, so we no longer make one up.
+        - alt="" already present → left alone (a deliberate decorative image).
+        - alt equal to the title-cased filename that older builds invented
+          (e.g. 'Img 8711', 'Screenshot 2022 10 05 At 12.56.21') → reset to "".
+          Incrementally seeded pages still carry those.
+
+        Images that end up with alt="" are listed by validate_seo
+        (img-alt-missing) so real alt text can be written in WordPress.
+        """
         modified = False
 
         for img in soup.find_all('img'):
-            if not img.get('alt'):
-                # Try to generate alt text from image filename
-                src = img.get('src', '')
-                if src:
-                    # Extract filename without extension
-                    filename = Path(src).stem
-                    # Convert dashes/underscores to spaces and capitalize
-                    alt_text = filename.replace('-', ' ').replace('_', ' ').title()
-                    img['alt'] = alt_text
-                    self.issues_fixed += 1
-                    modified = True
-                else:
-                    # Generic fallback
-                    img['alt'] = 'Image'
-                    self.issues_fixed += 1
-                    modified = True
+            alt = img.get('alt')
+            if alt is None:
+                img['alt'] = ''
+                modified = True
+                continue
+            if not alt.strip():
+                continue
+            invented = {
+                self._filename_alt(img.get(attr, ''))
+                for attr in ('src', 'data-src')
+            } - {None}
+            if alt.strip() in invented:
+                img['alt'] = ''
+                modified = True
 
         if modified:
-            print(f"   🖼️  Added alt text to images: {file_path.name}")
+            self.issues_fixed += 1
+            print(f"   🖼️  Normalised missing/filename alt text to alt=\"\": {file_path.name}")
 
         return modified
 
+    # JSON-LD keys whose string values are URLs/IRIs. Only these are made
+    # absolute — text fields (articleBody, FAQ answers, description) can
+    # legitimately start with "/" (e.g. "/etc/hosts …").
+    JSONLD_URL_KEYS = frozenset({
+        '@id', 'url', 'logo', 'image', 'thumbnailUrl', 'contentUrl',
+        'embedUrl', 'sameAs', 'item', 'mainEntityOfPage', 'target',
+        'urlTemplate', 'discussionUrl', 'license',
+    })
+
+    @staticmethod
+    def _absolutify_url(value):
+        """Root-relative path → absolute on TARGET_DOMAIN; protocol-relative
+        "//host/…" → "https://host/…"; anything else unchanged."""
+        if not isinstance(value, str):
+            return value
+        if value.startswith('//'):
+            return 'https:' + value
+        if value.startswith('/'):
+            return f"{TARGET_DOMAIN}{value}"
+        return value
+
     def fix_jsonld_absolute_ids(self, soup, file_path):
-        """Ensure JSON-LD @id and url values use absolute URLs.
+        """Ensure JSON-LD @id and URL values are absolute IRIs.
 
         convert_to_staging.py strips all domain prefixes including those inside
         <script type="application/ld+json"> blocks, turning @id and url values
         like 'https://jameskilby.co.uk/about/' into '/about/'.  Search engines
         and validators require fully-qualified IRIs for @id.
+
+        Also handles fragment-only @ids ("#rank-math-toc"): they are anchored
+        to the page's canonical URL, and when several nodes share one (Rank
+        Math gives every table-of-contents entry the same id, which JSON-LD
+        processors merge into a single node) each gets a numbered suffix.
         """
-        import json as _json
-
         modified = False
-        # Keys whose string values should be made absolute.
-        # Note: values for these keys can also be nested objects (e.g. "image"
-        # can be an ImageObject dict), so we always recurse into dicts/lists
-        # regardless of the key name.
-        URL_KEYS = {'@id', 'url', 'logo', 'image', 'thumbnailUrl', 'contentUrl',
-                    'sameAs', 'item'}
+        URL_KEYS = self.JSONLD_URL_KEYS
 
-        def absolutify(value):
-            """Return absolute URL if value is a root-relative path."""
-            if isinstance(value, str) and value.startswith('/'):
-                return f"{TARGET_DOMAIN}{value}"
-            return value
+        canon = soup.find('link', rel='canonical')
+        page_url = (canon.get('href') or '').strip() if canon else ''
+        if not page_url.startswith('http'):
+            page_url = self._derive_canonical_url(soup, file_path) or ''
+        page_url = page_url.split('#')[0]
+
+        scripts = []
+        for script in soup.find_all('script', type='application/ld+json'):
+            try:
+                scripts.append((script, json.loads(script.string or '')))
+            except (json.JSONDecodeError, TypeError):
+                continue  # malformed JSON-LD – skip silently
+
+        # Count fragment-only @ids across the whole page so duplicates
+        # can be told apart.
+        frag_counts = defaultdict(int)
+
+        def count_frags(obj):
+            if isinstance(obj, dict):
+                v = obj.get('@id')
+                if isinstance(v, str) and v.startswith('#') and len(obj) > 1:
+                    frag_counts[v] += 1
+                for val in obj.values():
+                    count_frags(val)
+            elif isinstance(obj, list):
+                for item in obj:
+                    count_frags(item)
+
+        for _, data in scripts:
+            count_frags(data)
+        frag_seen = defaultdict(int)
+
+        def fix_frag_id(obj):
+            """Anchor a node's fragment @id to the page URL. A bare
+            {"@id": "#x"} reference is anchored but never numbered."""
+            v = obj['@id']
+            if not page_url:
+                return v
+            if len(obj) > 1 and frag_counts[v] > 1:
+                frag_seen[v] += 1
+                return f"{page_url}{v}-{frag_seen[v]}"
+            return f"{page_url}{v}"
 
         def fix_node(obj):
             """Recursively walk a JSON-LD node and absolutify URL fields."""
             nonlocal modified
             if isinstance(obj, dict):
                 for key, val in obj.items():
-                    if key == 'sameAs':
-                        if isinstance(val, list):
-                            new_list = [absolutify(v) for v in val]
-                            if new_list != val:
-                                obj[key] = new_list
-                                modified = True
-                        else:
-                            new_val = absolutify(val)
-                            if new_val != val:
-                                obj[key] = new_val
-                                modified = True
+                    if key == '@id' and isinstance(val, str) and val.startswith('#'):
+                        new_val = fix_frag_id(obj)
                     elif key in URL_KEYS and isinstance(val, str):
-                        # String value — absolutify directly
-                        new_val = absolutify(val)
-                        if new_val != val:
-                            obj[key] = new_val
-                            modified = True
+                        new_val = self._absolutify_url(val)
+                    elif key in URL_KEYS and isinstance(val, list):
+                        new_val = [self._absolutify_url(v) for v in val]
+                    else:
+                        new_val = val
+                    if new_val != val:
+                        obj[key] = new_val
+                        modified = True
                     # Always recurse into nested dicts/lists so that e.g.
                     # "image": {"@id": "/#logo", "url": "/..."} gets fixed too.
-                    if isinstance(val, (dict, list)):
-                        fix_node(val)
+                    if isinstance(obj[key], (dict, list)):
+                        fix_node(obj[key])
             elif isinstance(obj, list):
                 for item in obj:
                     fix_node(item)
 
-        for script in soup.find_all('script', type='application/ld+json'):
-            try:
-                data = _json.loads(script.string or '')
-                fix_node(data)
-                if modified:
-                    script.string = _json.dumps(data, ensure_ascii=False,
-                                                separators=(',', ':'))
-            except (_json.JSONDecodeError, TypeError):
-                continue  # malformed JSON-LD – skip silently
+        for script, data in scripts:
+            before = modified
+            modified = False
+            fix_node(data)
+            if modified:
+                script.string = json.dumps(data, ensure_ascii=False,
+                                           separators=(',', ':'))
+            modified = modified or before
 
         if modified:
             self.issues_fixed += 1
@@ -978,8 +1060,14 @@ class SEOFixer:
                     )
                     if is_blogpost:
                         node['@type'] = 'TechArticle'
-                        if 'proficiencyLevel' not in node:
-                            node['proficiencyLevel'] = 'Expert'
+                        script_modified = True
+                    # Older builds stamped proficiencyLevel "Expert" on every
+                    # post, diary posts included. It isn't a claim we can
+                    # make per post, so drop the blanket value.
+                    is_tech = (schema_type == 'TechArticle'
+                               or (isinstance(schema_type, list) and 'TechArticle' in schema_type))
+                    if (is_blogpost or is_tech) and node.get('proficiencyLevel') == 'Expert':
+                        del node['proficiencyLevel']
                         script_modified = True
 
                 if script_modified:
@@ -1938,9 +2026,11 @@ def main():
         public_dir = 'public'
 
     fixer = SEOFixer(public_dir)
-    fixer.process_all_files()
+    errors = fixer.process_all_files()
 
-    sys.exit(0)
+    # Non-zero so a crashing fix is visible; validate_seo is still the gate
+    # that decides whether the output is fit to deploy.
+    sys.exit(1 if errors else 0)
 
 
 if __name__ == '__main__':
