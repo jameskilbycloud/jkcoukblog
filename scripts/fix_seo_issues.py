@@ -824,69 +824,118 @@ class SEOFixer:
 
         return modified
 
+    # JSON-LD keys whose string values are URLs/IRIs. Only these are made
+    # absolute — text fields (articleBody, FAQ answers, description) can
+    # legitimately start with "/" (e.g. "/etc/hosts …").
+    JSONLD_URL_KEYS = frozenset({
+        '@id', 'url', 'logo', 'image', 'thumbnailUrl', 'contentUrl',
+        'embedUrl', 'sameAs', 'item', 'mainEntityOfPage', 'target',
+        'urlTemplate', 'discussionUrl', 'license',
+    })
+
+    @staticmethod
+    def _absolutify_url(value):
+        """Root-relative path → absolute on TARGET_DOMAIN; protocol-relative
+        "//host/…" → "https://host/…"; anything else unchanged."""
+        if not isinstance(value, str):
+            return value
+        if value.startswith('//'):
+            return 'https:' + value
+        if value.startswith('/'):
+            return f"{TARGET_DOMAIN}{value}"
+        return value
+
     def fix_jsonld_absolute_ids(self, soup, file_path):
-        """Ensure JSON-LD @id and url values use absolute URLs.
+        """Ensure JSON-LD @id and URL values are absolute IRIs.
 
         convert_to_staging.py strips all domain prefixes including those inside
         <script type="application/ld+json"> blocks, turning @id and url values
         like 'https://jameskilby.co.uk/about/' into '/about/'.  Search engines
         and validators require fully-qualified IRIs for @id.
+
+        Also handles fragment-only @ids ("#rank-math-toc"): they are anchored
+        to the page's canonical URL, and when several nodes share one (Rank
+        Math gives every table-of-contents entry the same id, which JSON-LD
+        processors merge into a single node) each gets a numbered suffix.
         """
-        import json as _json
-
         modified = False
-        # Keys whose string values should be made absolute.
-        # Note: values for these keys can also be nested objects (e.g. "image"
-        # can be an ImageObject dict), so we always recurse into dicts/lists
-        # regardless of the key name.
-        URL_KEYS = {'@id', 'url', 'logo', 'image', 'thumbnailUrl', 'contentUrl',
-                    'sameAs', 'item'}
+        URL_KEYS = self.JSONLD_URL_KEYS
 
-        def absolutify(value):
-            """Return absolute URL if value is a root-relative path."""
-            if isinstance(value, str) and value.startswith('/'):
-                return f"{TARGET_DOMAIN}{value}"
-            return value
+        canon = soup.find('link', rel='canonical')
+        page_url = (canon.get('href') or '').strip() if canon else ''
+        if not page_url.startswith('http'):
+            page_url = self._derive_canonical_url(soup, file_path) or ''
+        page_url = page_url.split('#')[0]
+
+        scripts = []
+        for script in soup.find_all('script', type='application/ld+json'):
+            try:
+                scripts.append((script, json.loads(script.string or '')))
+            except (json.JSONDecodeError, TypeError):
+                continue  # malformed JSON-LD – skip silently
+
+        # Count fragment-only @ids across the whole page so duplicates
+        # can be told apart.
+        frag_counts = defaultdict(int)
+
+        def count_frags(obj):
+            if isinstance(obj, dict):
+                v = obj.get('@id')
+                if isinstance(v, str) and v.startswith('#') and len(obj) > 1:
+                    frag_counts[v] += 1
+                for val in obj.values():
+                    count_frags(val)
+            elif isinstance(obj, list):
+                for item in obj:
+                    count_frags(item)
+
+        for _, data in scripts:
+            count_frags(data)
+        frag_seen = defaultdict(int)
+
+        def fix_frag_id(obj):
+            """Anchor a node's fragment @id to the page URL. A bare
+            {"@id": "#x"} reference is anchored but never numbered."""
+            v = obj['@id']
+            if not page_url:
+                return v
+            if len(obj) > 1 and frag_counts[v] > 1:
+                frag_seen[v] += 1
+                return f"{page_url}{v}-{frag_seen[v]}"
+            return f"{page_url}{v}"
 
         def fix_node(obj):
             """Recursively walk a JSON-LD node and absolutify URL fields."""
             nonlocal modified
             if isinstance(obj, dict):
                 for key, val in obj.items():
-                    if key == 'sameAs':
-                        if isinstance(val, list):
-                            new_list = [absolutify(v) for v in val]
-                            if new_list != val:
-                                obj[key] = new_list
-                                modified = True
-                        else:
-                            new_val = absolutify(val)
-                            if new_val != val:
-                                obj[key] = new_val
-                                modified = True
+                    if key == '@id' and isinstance(val, str) and val.startswith('#'):
+                        new_val = fix_frag_id(obj)
                     elif key in URL_KEYS and isinstance(val, str):
-                        # String value — absolutify directly
-                        new_val = absolutify(val)
-                        if new_val != val:
-                            obj[key] = new_val
-                            modified = True
+                        new_val = self._absolutify_url(val)
+                    elif key in URL_KEYS and isinstance(val, list):
+                        new_val = [self._absolutify_url(v) for v in val]
+                    else:
+                        new_val = val
+                    if new_val != val:
+                        obj[key] = new_val
+                        modified = True
                     # Always recurse into nested dicts/lists so that e.g.
                     # "image": {"@id": "/#logo", "url": "/..."} gets fixed too.
-                    if isinstance(val, (dict, list)):
-                        fix_node(val)
+                    if isinstance(obj[key], (dict, list)):
+                        fix_node(obj[key])
             elif isinstance(obj, list):
                 for item in obj:
                     fix_node(item)
 
-        for script in soup.find_all('script', type='application/ld+json'):
-            try:
-                data = _json.loads(script.string or '')
-                fix_node(data)
-                if modified:
-                    script.string = _json.dumps(data, ensure_ascii=False,
-                                                separators=(',', ':'))
-            except (_json.JSONDecodeError, TypeError):
-                continue  # malformed JSON-LD – skip silently
+        for script, data in scripts:
+            before = modified
+            modified = False
+            fix_node(data)
+            if modified:
+                script.string = json.dumps(data, ensure_ascii=False,
+                                           separators=(',', ':'))
+            modified = modified or before
 
         if modified:
             self.issues_fixed += 1

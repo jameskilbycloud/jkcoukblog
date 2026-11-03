@@ -201,33 +201,48 @@ class ContentSchemaRewriter:
                 except Exception as e:
                     print(f"   ⚠️  Error fixing JSON-LD: {str(e)}")
 
-    def _fix_jsonld_object(self, obj):
-        """Recursively fix URLs in JSON-LD object"""
+    # Keys whose string values are URLs. Only these are made absolute: text
+    # fields (articleBody, FAQ answers) can legitimately start with "/".
+    # Kept in step with SEOFixer.JSONLD_URL_KEYS (fix_seo_issues.py).
+    _JSONLD_URL_KEYS = frozenset({
+        '@id', 'url', 'logo', 'image', 'thumbnailUrl', 'contentUrl',
+        'embedUrl', 'sameAs', 'item', 'mainEntityOfPage', 'target',
+        'urlTemplate', 'discussionUrl', 'license',
+    })
+
+    def _fix_jsonld_string(self, value, is_url):
+        """WordPress host → target domain in any string; root-relative paths
+        made absolute only for URL-valued keys (never '//host' values)."""
+        new = value.replace(self.wp_url, self.target_domain) if self.wp_url in value else value
+        if is_url and new.startswith('/') and not new.startswith('//'):
+            new = f"{self.target_domain}{new}"
+        return new
+
+    def _fix_jsonld_object(self, obj, is_url=False):
+        """Recursively fix URLs in a JSON-LD object (strings in lists too)."""
         modified = False
 
         if isinstance(obj, dict):
             for key, value in obj.items():
-                # Fix URL strings
+                key_is_url = key in self._JSONLD_URL_KEYS
                 if isinstance(value, str):
-                    # Convert relative URLs to absolute
-                    if value.startswith('/'):
-                        # Relative URL - make absolute
-                        obj[key] = f"{self.target_domain}{value}"
+                    new = self._fix_jsonld_string(value, key_is_url)
+                    if new != value:
+                        obj[key] = new
                         modified = True
-                    elif self.wp_url in value:
-                        # WordPress URL - replace with target
-                        obj[key] = value.replace(self.wp_url, self.target_domain)
-                        modified = True
-
-                # Recursively process nested objects/arrays
                 elif isinstance(value, (dict, list)):
-                    if self._fix_jsonld_object(value):
+                    if self._fix_jsonld_object(value, key_is_url):
                         modified = True
 
         elif isinstance(obj, list):
-            for item in obj:
-                if isinstance(item, (dict, list)):
-                    if self._fix_jsonld_object(item):
+            for i, item in enumerate(obj):
+                if isinstance(item, str):
+                    new = self._fix_jsonld_string(item, is_url)
+                    if new != item:
+                        obj[i] = new
+                        modified = True
+                elif isinstance(item, (dict, list)):
+                    if self._fix_jsonld_object(item, is_url):
                         modified = True
 
         return modified

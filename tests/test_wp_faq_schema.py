@@ -161,3 +161,15 @@ def test_existing_faqpage_schema_not_duplicated():
     _gen().add_faq_schema(soup)
     # Still only the one we pre-seeded — no second FAQPage added.
     assert len(_faq_schemas(soup)) == 1
+
+
+def test_jsonld_text_fields_not_turned_into_urls():
+    rw = ContentSchemaRewriter('https://wordpress.jameskilby.cloud', 'https://jameskilby.co.uk')
+    data = {'@type': 'FAQPage',
+            'mainEntity': [{'@type': 'Answer', 'text': '/etc/hosts must contain it'}],
+            'image': ['/wp-content/a.png', '//cdn.example.com/b.png'],
+            'sameAs': ['https://wordpress.jameskilby.cloud/about/']}
+    rw._fix_jsonld_object(data)
+    assert data['mainEntity'][0]['text'] == '/etc/hosts must contain it'
+    assert data['image'] == ['https://jameskilby.co.uk/wp-content/a.png', '//cdn.example.com/b.png']
+    assert data['sameAs'] == ['https://jameskilby.co.uk/about/']
