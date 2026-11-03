@@ -251,12 +251,10 @@ class SiteArtifactsBuilder:
                 alt   = img.get('alt', '').strip()
                 title = img.get('title', '').strip()
 
-                # Derive a title from alt text, explicit title, or filename
+                # Title from the explicit title or the alt text only — a
+                # title-cased filename ('Img 8711') tells Google nothing.
                 if not title and alt:
                     title = alt
-                if not title:
-                    from pathlib import Path as _Path
-                    title = _Path(src).stem.replace('-', ' ').replace('_', ' ').title()
 
                 images.append({
                     'loc':     abs_src,

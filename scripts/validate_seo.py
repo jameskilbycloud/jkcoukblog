@@ -354,6 +354,50 @@ def validate_page(html_path: Path, public_dir: Path) -> list:
                                     f'~{word_count} words in <article> (<{THIN_CONTENT_WORDS}) — Google may treat as low-value',
                                     html_path))
 
+    # ── image alt text on indexable content pages ───────────────────────────
+    # fix_seo_issues no longer invents alt text from filenames; it leaves
+    # alt="". These warnings are the running to-do list for writing real alt
+    # text in the WordPress Media Library.
+    if (is_post or articles) and not noindex:
+        issues.extend(_validate_image_alt(soup, html_path))
+
+    return issues
+
+
+# Camera / screenshot / hash-style alt text: a filename, not a description.
+FILENAME_ALT_RE = re.compile(
+    r'^(img|dsc|dscn|pxl|image|photo|screenshot|screen shot|capture)[\s_-]*\d'
+    r'|^[0-9a-f]{12,}$'
+    r'|\.(png|jpe?g|gif|webp|avif)$',
+    re.IGNORECASE,
+)
+
+
+def _validate_image_alt(soup, html_path: Path) -> list:
+    content = soup.find('article') or soup.find('main')
+    if not content:
+        return []
+    missing, filename_like = [], []
+    for img in content.find_all('img'):
+        src = img.get('src') or img.get('data-src') or ''
+        if src.startswith('data:'):
+            continue
+        alt = (img.get('alt') or '').strip()
+        name = src.rsplit('/', 1)[-1]
+        if not alt:
+            missing.append(name)
+        elif FILENAME_ALT_RE.search(alt):
+            filename_like.append(f'{name} ({alt!r})')
+    issues = []
+    if missing:
+        issues.append(Issue('warning', 'img-alt-missing',
+                            f'{len(missing)} image(s) with empty alt: {", ".join(missing[:5])}',
+                            html_path))
+    if filename_like:
+        issues.append(Issue('warning', 'img-alt-filename',
+                            f'{len(filename_like)} image(s) with filename-style alt: '
+                            f'{", ".join(filename_like[:5])}',
+                            html_path))
     return issues
 
 

@@ -777,30 +777,50 @@ class SEOFixer:
         print(f"   🏷️  Fixed multiple H1 tags: {file_path.name} ({len(h1_tags)} → 1)")
         return True
 
+    @staticmethod
+    def _filename_alt(src):
+        """The alt text older builds invented from an image URL: the file stem,
+        with dashes/underscores as spaces, title-cased ('IMG_8711.jpg' →
+        'Img 8711'). None for data: URIs and empty sources."""
+        if not src or src.startswith('data:'):
+            return None
+        stem = Path(src.split('?')[0].split('#')[0]).stem
+        return stem.replace('-', ' ').replace('_', ' ').title() or None
+
     def ensure_image_alt_text(self, soup, file_path):
-        """Add generic alt text to images missing it"""
+        """Give every <img> an alt attribute without inventing its text.
+
+        - No alt attribute → add alt="" (valid HTML; screen readers skip the
+          image). A filename is not a description, so we no longer make one up.
+        - alt="" already present → left alone (a deliberate decorative image).
+        - alt equal to the title-cased filename that older builds invented
+          (e.g. 'Img 8711', 'Screenshot 2022 10 05 At 12.56.21') → reset to "".
+          Incrementally seeded pages still carry those.
+
+        Images that end up with alt="" are listed by validate_seo
+        (img-alt-missing) so real alt text can be written in WordPress.
+        """
         modified = False
 
         for img in soup.find_all('img'):
-            if not img.get('alt'):
-                # Try to generate alt text from image filename
-                src = img.get('src', '')
-                if src:
-                    # Extract filename without extension
-                    filename = Path(src).stem
-                    # Convert dashes/underscores to spaces and capitalize
-                    alt_text = filename.replace('-', ' ').replace('_', ' ').title()
-                    img['alt'] = alt_text
-                    self.issues_fixed += 1
-                    modified = True
-                else:
-                    # Generic fallback
-                    img['alt'] = 'Image'
-                    self.issues_fixed += 1
-                    modified = True
+            alt = img.get('alt')
+            if alt is None:
+                img['alt'] = ''
+                modified = True
+                continue
+            if not alt.strip():
+                continue
+            invented = {
+                self._filename_alt(img.get(attr, ''))
+                for attr in ('src', 'data-src')
+            } - {None}
+            if alt.strip() in invented:
+                img['alt'] = ''
+                modified = True
 
         if modified:
-            print(f"   🖼️  Added alt text to images: {file_path.name}")
+            self.issues_fixed += 1
+            print(f"   🖼️  Normalised missing/filename alt text to alt=\"\": {file_path.name}")
 
         return modified
 

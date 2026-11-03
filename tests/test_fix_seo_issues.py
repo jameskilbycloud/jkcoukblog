@@ -62,20 +62,45 @@ class TestFixMultipleH1:
 
 
 class TestEnsureImageAltText:
-    def test_alt_derived_from_filename(self, fixer):
+    def test_missing_alt_becomes_empty_not_filename(self, fixer):
         soup = _soup('<img src="/wp-content/uploads/my-test-image.png">')
         assert fixer.ensure_image_alt_text(soup, Path('x.html')) is True
-        assert soup.find('img')['alt'] == 'My Test Image'
+        assert soup.find('img')['alt'] == ''
 
     def test_existing_alt_untouched(self, fixer):
         soup = _soup('<img src="/a.png" alt="Hand written alt">')
         assert fixer.ensure_image_alt_text(soup, Path('x.html')) is False
         assert soup.find('img')['alt'] == 'Hand written alt'
 
-    def test_srcless_image_gets_generic_alt(self, fixer):
+    def test_decorative_empty_alt_untouched(self, fixer):
+        soup = _soup('<img src="/wp-content/uploads/IMG_8711.jpg" alt="">')
+        assert fixer.ensure_image_alt_text(soup, Path('x.html')) is False
+        assert soup.find('img')['alt'] == ''
+
+    def test_srcless_image_gets_empty_alt(self, fixer):
         soup = _soup('<img>')
         fixer.ensure_image_alt_text(soup, Path('x.html'))
-        assert soup.find('img')['alt'] == 'Image'
+        assert soup.find('img')['alt'] == ''
+
+    def test_data_uri_not_turned_into_alt(self, fixer):
+        soup = _soup('<img src="data:image/gif;base64,R0lGODlh">')
+        fixer.ensure_image_alt_text(soup, Path('x.html'))
+        assert soup.find('img')['alt'] == ''
+
+    def test_previously_invented_filename_alt_reset(self, fixer):
+        soup = _soup('<img src="/wp-content/uploads/2022/10/IMG_8711.jpg?x=1" alt="Img 8711">')
+        assert fixer.ensure_image_alt_text(soup, Path('x.html')) is True
+        assert soup.find('img')['alt'] == ''
+
+    def test_invented_alt_matched_on_data_src(self, fixer):
+        soup = _soup('<img src="data:image/gif;base64,R0" data-src="/u/my-shot.png" alt="My Shot">')
+        assert fixer.ensure_image_alt_text(soup, Path('x.html')) is True
+        assert soup.find('img')['alt'] == ''
+
+    def test_idempotent(self, fixer):
+        soup = _soup('<img src="/u/IMG_1.jpg">')
+        fixer.ensure_image_alt_text(soup, Path('x.html'))
+        assert fixer.ensure_image_alt_text(soup, Path('x.html')) is False
 
 
 class TestFixTitleLength:
