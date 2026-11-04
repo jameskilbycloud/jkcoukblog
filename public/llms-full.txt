@@ -3249,7 +3249,7 @@ Categories: Ubuntu, Ansible, Automation, Github
 
 # How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step
 
-By[James](https://jameskilby.co.uk) December 15, 2025 · Updated May 24, 2026 • 📖1 min read(91 words)
+By[James](https://jameskilby.co.uk) December 15, 2025 · Updated November 4, 2026 • 📖1 min read(104 words)
 
 How to expand disks from the command line in Ubuntu.
 
@@ -3280,6 +3280,8 @@ sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
 ## 6\. Verify the new size
 
 df -h
+
+sudo lvextend -r -l +100%FREE /dev/ubuntu-vg/ubuntu-lv. does it all with a single command
 
 ## 📚 Related Posts
 

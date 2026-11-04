@@ -2,7 +2,7 @@
 title: "VMware Cloud on AWS (VMC) – Links & Resources"
 description: "Curated VMware Cloud on AWS (VMC) resources: official docs, release notes, HCX, networking, automation, Aria integration and hands-on blogs."
 date: 2025-03-18T12:20:48+00:00
-modified: 2026-10-19T12:31:09+00:00
+modified: 2026-11-04T22:15:04+00:00
 author: James Kilby
 categories:
   - Patrick Kremer
@@ -50,7 +50,7 @@ In my role at Broadcom I look after the VMware-on-AWS HyperScaler solutions — 
 
 [Sizing](https://vmc.broadcom.com/sizer/home)
 
-[Legacy Sizer](https://vmc.vmware.com/sizer/aws/advanced-sizing/v5)
+[Legacy](https://vmc.vmware.com/sizer/aws/quick-sizing/workload-based)[ Sizer](https://vmc.vmware.com/sizer/aws/advanced-sizing/v5)
 
 [Configuration Maximums](https://configmax.broadcom.com/guest?vmwareproduct=VMware%20Cloud%20on%20AWS&release=SDDC%201.24&categories=3-0) ( Current SDDC Version)
 

@@ -2,7 +2,7 @@
 title: "How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step"
 description: "Step-by-step Ubuntu disk expansion with LVM: pvresize, vgextend, lvextend, resize2fs. Works after resizing the VM disk in vSphere/Hyper-V/KVM."
 date: 2025-12-15T20:56:40+00:00
-modified: 2026-05-24T06:41:45+00:00
+modified: 2026-11-04T11:43:29+00:00
 author: James Kilby
 categories:
   - Ubuntu
@@ -22,7 +22,7 @@ image: https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png
 
 # How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step
 
-By[James](https://jameskilby.co.uk) December 15, 2025 · Updated May 24, 2026 • 📖1 min read(91 words)
+By[James](https://jameskilby.co.uk) December 15, 2025 · Updated November 4, 2026 • 📖1 min read(104 words)
 
 How to expand disks from the command line in Ubuntu.
 
@@ -53,6 +53,8 @@ sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
 ## 6\. Verify the new size
 
 df -h
+
+sudo lvextend -r -l +100%FREE /dev/ubuntu-vg/ubuntu-lv. does it all with a single command
 
 ## 📚 Related Posts
 

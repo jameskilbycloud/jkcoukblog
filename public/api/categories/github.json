@@ -67,7 +67,7 @@
       "title": "How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step",
       "description": "Step-by-step Ubuntu disk expansion with LVM: pvresize, vgextend, lvextend, resize2fs. Works after resizing the VM disk in vSphere/Hyper-V/KVM.",
       "date": "2025-12-15T20:56:40Z",
-      "modified": "2026-05-24T06:41:45Z",
+      "modified": "2026-11-04T11:43:29Z",
       "author": "James Kilby",
       "url": "https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/",
       "markdown_url": "/markdown/posts/ubuntu-disk-expansion-steps.md",
@@ -83,7 +83,7 @@
         null
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png",
-      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)\n\n[Ubuntu](https://jameskilby.co.uk/category/ubuntu/)\n\n# How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step\n\nBy[James](https://jameskilby.co.uk) December 15, 2025 · Updated May 24, 2026 • 📖1 min read(91 words)\n\nHow to e..."
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)\n\n[Ubuntu](https://jameskilby.co.uk/category/ubuntu/)\n\n# How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step\n\nBy[James](https://jameskilby.co.uk) December 15, 2025 · Updated November 4, 2026 • 📖1 min read(104 words)\n\nHow..."
     },
     {
       "slug": "how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare",
