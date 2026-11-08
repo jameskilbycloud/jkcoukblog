@@ -16,12 +16,9 @@
       "categories": [
         "VMware",
         "VMware Cloud on AWS",
-        "vSAN",
-        "Ansible",
         "Artificial Intelligence",
         "Automation",
-        "Homelab",
-        "Veeam"
+        "Ansible"
       ],
       "tags": [
         null

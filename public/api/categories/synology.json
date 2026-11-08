@@ -16,10 +16,13 @@
         "Homelab",
         "Storage",
         "Synology",
-        "Hosting",
+        "TrueNAS Scale",
+        "VMware",
+        "Ansible",
+        "Artificial Intelligence",
         "Automation",
         "Networking",
-        "Ansible"
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -43,6 +46,8 @@
         "Storage",
         "Synology",
         "Ansible",
+        "Automation",
+        "Hosting",
         "Artificial Intelligence",
         "VMware",
         "VMware Cloud on AWS"

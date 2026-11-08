@@ -18,9 +18,10 @@
         "Homelab",
         "VMware",
         "Docker",
-        "Veeam",
         "VMware Cloud on AWS",
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Networking",
+        "Ansible"
       ],
       "tags": [
         null,
@@ -44,10 +45,9 @@
       "categories": [
         "Personal",
         "Consulting",
-        "Devops",
         "Hosting",
-        "Cloudflare",
-        "VMware"
+        "VMware",
+        "Cloudflare"
       ],
       "tags": [
         null,

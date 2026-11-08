@@ -18,8 +18,11 @@
         "Networking",
         "Storage",
         "VMware",
+        "Personal",
         "Nutanix",
-        "Ansible"
+        "Hosting",
+        "AWS",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -42,10 +45,11 @@
         "Homelab",
         "VMware",
         "vSphere",
+        "Networking",
         "Personal",
         "Storage",
-        "vSAN",
-        "VMware Cloud on AWS"
+        "Veeam",
+        "Hosting"
       ],
       "tags": [
         null,
@@ -69,11 +73,11 @@
         "Homelab",
         "Hosting",
         "Kubernetes",
-        "Nutanix",
-        "VMware",
         "Storage",
-        "Cloudflare",
-        "Networking"
+        "Networking",
+        "Artificial Intelligence",
+        "VMware",
+        "Nutanix"
       ],
       "tags": [
         null,

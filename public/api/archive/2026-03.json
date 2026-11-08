@@ -21,11 +21,10 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "VMware Cloud on AWS",
-        "AWS",
-        "Personal",
         "Networking",
-        "TrueNAS Scale"
+        "Nutanix",
+        "Ansible",
+        "VMware Cloud on AWS"
       ],
       "tags": [
         null,
@@ -58,7 +57,6 @@
       "categories": [
         "Artificial Intelligence",
         "Automation",
-        "Homelab",
         "Github",
         "Docker",
         "Ansible"

@@ -13,10 +13,10 @@
       "categories": [
         "Kubernetes",
         "TrueNAS Scale",
-        "VMware",
-        "Docker",
         "Homelab",
-        "Storage"
+        "Storage",
+        "Docker",
+        "VMware"
       ],
       "tags": [
         null,
@@ -59,10 +59,10 @@
       "categories": [
         "Homelab",
         "Hosting",
+        "Personal",
+        "Artificial Intelligence",
         "Automation",
-        "Github",
-        "Docker",
-        "Cloudflare",
+        "AWS",
         "Storage",
         "VMware"
       ],
@@ -87,10 +87,10 @@
         "Artificial Intelligence",
         "Docker",
         "Homelab",
+        "Automation",
+        "Github",
         "Storage",
-        "Nutanix",
-        "Ansible",
-        "Networking"
+        "Hosting"
       ],
       "tags": [
         null,
@@ -113,12 +113,12 @@
       "categories": [
         "Runecast",
         "VMware",
-        "Homelab",
-        "Veeam",
-        "Networking",
-        "Ansible",
-        "Artificial Intelligence",
+        "Automation",
+        "Github",
         "VMware Cloud on AWS",
+        "Personal",
+        "Artificial Intelligence",
+        "Homelab",
         "Docker"
       ],
       "tags": [
@@ -143,14 +143,13 @@
       "categories": [
         "Automation",
         "Github",
-        "Devops",
-        "Personal",
-        "TrueNAS Scale",
-        "VMware",
+        "Ansible",
+        "Artificial Intelligence",
         "Homelab",
-        "Hosting",
         "Ubuntu",
-        "Ansible"
+        "Runecast",
+        "VMware",
+        "Nutanix"
       ],
       "tags": [
         null,
@@ -177,7 +176,6 @@
       "categories": [
         "Artificial Intelligence",
         "Automation",
-        "Homelab",
         "Github",
         "Docker",
         "Ansible"
@@ -203,10 +201,10 @@
       "categories": [
         "Nutanix",
         "Personal",
+        "AWS",
+        "VMware",
         "Hosting",
         "Cloudflare",
-        "Consulting",
-        "VMware",
         "Homelab"
       ],
       "tags": [
@@ -249,8 +247,8 @@
       "api_url": "/api/posts/nutanix-command-reference-guide.json",
       "categories": [
         "Nutanix",
-        "Personal",
-        "Homelab"
+        "Homelab",
+        "Personal"
       ],
       "tags": [
         null,

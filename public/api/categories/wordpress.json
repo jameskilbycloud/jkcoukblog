@@ -16,10 +16,13 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
+        "AWS",
+        "Devops",
         "Personal",
-        "Artificial Intelligence",
-        "Automation",
-        "AWS"
+        "Docker",
+        "Homelab",
+        "Ansible",
+        "Automation"
       ],
       "tags": [
         null,
@@ -46,8 +49,9 @@
         "Github",
         "Wordpress",
         "Hosting",
-        "Artificial Intelligence",
-        "Automation"
+        "Ansible",
+        "Automation",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,
@@ -59,6 +63,39 @@
       ],
       "image": "https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp",
       "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/10/Github-Actions.webp)\n\n[Cloudflare](https://jameskilby.co.uk/category/cloudflare/) | [Devops](https://jameskilby.co.uk/category/devops/) | [Github](https://jameskilby.co.uk/category/github/) | [Wordpress](https://jameskilby.co.uk/category/wordpr..."
+    },
+    {
+      "slug": "analytics-in-a-privacy-focused-world",
+      "title": "Analytics in a privacy focused world",
+      "description": "I recently helped my friend Dean Lewis @veducate with some hosting issues.",
+      "date": "2023-11-10T16:45:03Z",
+      "modified": "2026-10-19T12:31:09Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/",
+      "markdown_url": "/markdown/posts/analytics-in-a-privacy-focused-world.md",
+      "api_url": "/api/posts/analytics-in-a-privacy-focused-world.json",
+      "categories": [
+        "Hosting",
+        "Personal",
+        "AWS",
+        "Wordpress",
+        "Docker",
+        "Homelab",
+        "Cloudflare",
+        "Ansible",
+        "Automation"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/plausible-analytics-icon-top.png)\n\n[Hosting](https://jameskilby.co.uk/category/hosting/) | [Personal](https://jameskilby.co.uk/category/personal/)\n\n# Analytics in a privacy focused world\n\nBy[James](https://jameskilby.co.uk) November 10, 2023 · ..."
     },
     {
       "slug": "how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages",
@@ -74,12 +111,11 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
+        "Devops",
+        "Homelab",
         "Artificial Intelligence",
         "Docker",
-        "Ansible",
-        "Automation",
-        "Personal",
-        "Devops"
+        "Personal"
       ],
       "tags": [
         null,
@@ -104,12 +140,10 @@
         "Cloudflare",
         "Hosting",
         "Wordpress",
-        "AWS",
-        "Devops",
         "Homelab",
         "Artificial Intelligence",
         "Docker",
-        "Personal"
+        "AWS"
       ],
       "tags": [
         null,
@@ -133,9 +167,11 @@
       "categories": [
         "Cloudflare",
         "Hosting",
+        "Wordpress",
         "Personal",
-        "Devops",
-        "Wordpress"
+        "Ansible",
+        "Automation",
+        "Devops"
       ],
       "tags": [
         null,
@@ -159,12 +195,12 @@
       "categories": [
         "Hosting",
         "Wordpress",
+        "Cloudflare",
+        "Personal",
         "Artificial Intelligence",
-        "Automation",
         "Docker",
-        "Homelab",
-        "AWS",
-        "Cloudflare"
+        "Automation",
+        "Homelab"
       ],
       "tags": [
         null,
@@ -189,9 +225,11 @@
         "Cloudflare",
         "Personal",
         "Wordpress",
-        "Homelab",
-        "Devops",
-        "VMware"
+        "VMware",
+        "Artificial Intelligence",
+        "Automation",
+        "Docker",
+        "Devops"
       ],
       "tags": [
         null,
@@ -213,9 +251,9 @@
       "categories": [
         "AWS",
         "Hosting",
-        "VMware",
-        "Wordpress",
-        "Cloudflare"
+        "Cloudflare",
+        "Personal",
+        "Wordpress"
       ],
       "tags": [
         null,
@@ -236,11 +274,12 @@
       "api_url": "/api/posts/cloudflare.json",
       "categories": [
         "Hosting",
-        "Homelab",
-        "Artificial Intelligence",
-        "Docker",
+        "AWS",
         "Cloudflare",
+        "Homelab",
         "Devops",
+        "Ansible",
+        "Automation",
         "Wordpress"
       ],
       "tags": [

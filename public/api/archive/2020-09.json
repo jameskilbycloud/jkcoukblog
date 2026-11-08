@@ -17,11 +17,10 @@
         "VMware",
         "VMware Cloud on AWS",
         "Homelab",
-        "Ansible",
-        "Automation",
-        "Personal",
-        "Nutanix",
-        "TrueNAS Scale"
+        "Veeam",
+        "Networking",
+        "Runecast",
+        "Personal"
       ],
       "tags": [
         null,
@@ -47,15 +46,11 @@
       "categories": [
         "Personal",
         "VMware",
-        "Homelab",
-        "Networking",
-        "TrueNAS Scale",
-        "Hosting",
-        "Cloudflare",
-        "Runecast",
-        "VCF",
         "Ansible",
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "TrueNAS Scale",
+        "VMware Cloud on AWS",
+        "Automation"
       ],
       "tags": [
         null,

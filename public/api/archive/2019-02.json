@@ -15,11 +15,12 @@
       "api_url": "/api/posts/lab-storage-2.json",
       "categories": [
         "Homelab",
-        "Storage",
         "Networking",
         "VMware",
-        "VMware Cloud on AWS",
-        "Ansible",
+        "Veeam",
+        "VCF",
+        "Nutanix",
+        "Artificial Intelligence",
         "Automation"
       ],
       "tags": [

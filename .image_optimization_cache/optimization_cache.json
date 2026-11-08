@@ -49453,5 +49453,1005 @@
     "avif_created": true,
     "webp": "wp-content/uploads/og/time-in-a-vmc-environment.webp",
     "avif": "wp-content/uploads/og/time-in-a-vmc-environment.avif"
+  },
+  "wp-content/uploads/og/unifi-dhcp-option-43-480x252.webp": {
+    "hash": "252c9d59fd6fc9c07ea340750a5a70bb",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/unifi-dhcp-option-43-480x252.webp",
+    "avif": "wp-content/uploads/og/unifi-dhcp-option-43-480x252.avif"
+  },
+  "wp-content/uploads/og/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare-480x252.webp": {
+    "hash": "d26de5c72a8ae735d0d244d085c9b228",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare-480x252.webp",
+    "avif": "wp-content/uploads/og/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare-480x252.avif"
+  },
+  "wp-content/uploads/og/page-6-480x252.webp": {
+    "hash": "1c835615cfd276a005519afad384905f",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/page-6-480x252.webp",
+    "avif": "wp-content/uploads/og/page-6-480x252.avif"
+  },
+  "wp-content/uploads/og/lab.webp": {
+    "hash": "d74f5895554944507de04342c4a5f694",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/lab.webp",
+    "avif": "wp-content/uploads/og/lab.avif"
+  },
+  "wp-content/uploads/og/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way-480x252.webp": {
+    "hash": "314bc5b1c98f2ac9d394d4e20c965898",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way-480x252.webp",
+    "avif": "wp-content/uploads/og/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way-480x252.avif"
+  },
+  "wp-content/uploads/og/web-development-480x252.webp": {
+    "hash": "a5b849837b1d23d2158bf35e62a2ebe7",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/web-development-480x252.webp",
+    "avif": "wp-content/uploads/og/web-development-480x252.avif"
+  },
+  "wp-content/uploads/og/page-7-480x252.webp": {
+    "hash": "1c835615cfd276a005519afad384905f",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/page-7-480x252.webp",
+    "avif": "wp-content/uploads/og/page-7-480x252.avif"
+  },
+  "wp-content/uploads/og/vsan-cluster-shutdown-480x252.webp": {
+    "hash": "ecafbadf4fa1bb7c245c0bd46f650cac",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/vsan-cluster-shutdown-480x252.webp",
+    "avif": "wp-content/uploads/og/vsan-cluster-shutdown-480x252.avif"
+  },
+  "wp-content/uploads/og/automated-vcf-9-offline-depot.webp": {
+    "hash": "25fa20c3138df21f310b27c59c9dc089",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/automated-vcf-9-offline-depot.webp",
+    "avif": "wp-content/uploads/og/automated-vcf-9-offline-depot.avif"
+  },
+  "wp-content/uploads/og/truenas-scale-useful-commands.webp": {
+    "hash": "9dabbdcde0c5b6aa1a8ec31f769e1bc8",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/truenas-scale-useful-commands.webp",
+    "avif": "wp-content/uploads/og/truenas-scale-useful-commands.avif"
+  },
+  "wp-content/uploads/og/vmc-quick-sizing-guide.webp": {
+    "hash": "8b6fc34b1cf445803108add48f24fb4d",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/vmc-quick-sizing-guide.webp",
+    "avif": "wp-content/uploads/og/vmc-quick-sizing-guide.avif"
+  },
+  "wp-content/uploads/og/i3en-480x252.webp": {
+    "hash": "c431c9ee13dffbd21ec68422a93c3136",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/i3en-480x252.webp",
+    "avif": "wp-content/uploads/og/i3en-480x252.avif"
+  },
+  "wp-content/uploads/og/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n-480x252.webp": {
+    "hash": "939eec1599f8d177981c7383e7bd1033",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n-480x252.webp",
+    "avif": "wp-content/uploads/og/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n-480x252.avif"
+  },
+  "wp-content/uploads/og/new-vmc-host-i7i-metal-24xl.webp": {
+    "hash": "b74716ebb200fb193274bf46fb4201ef",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/new-vmc-host-i7i-metal-24xl.webp",
+    "avif": "wp-content/uploads/og/new-vmc-host-i7i-metal-24xl.avif"
+  },
+  "wp-content/uploads/og/my-first-pull-480x252.webp": {
+    "hash": "96918b1a9efd7491b36bb0695ade3e57",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/my-first-pull-480x252.webp",
+    "avif": "wp-content/uploads/og/my-first-pull-480x252.avif"
+  },
+  "wp-content/uploads/og/runecast-remediation-scripts-480x252.webp": {
+    "hash": "823e7791fb58d7fd4053da86ca67114f",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/runecast-remediation-scripts-480x252.webp",
+    "avif": "wp-content/uploads/og/runecast-remediation-scripts-480x252.avif"
+  },
+  "wp-content/uploads/og/can-you-really-squeeze-96tb-in-1u.webp": {
+    "hash": "95f209478324e675c5b1c22b456aab6e",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/can-you-really-squeeze-96tb-in-1u.webp",
+    "avif": "wp-content/uploads/og/can-you-really-squeeze-96tb-in-1u.avif"
+  },
+  "wp-content/uploads/og/whats-in-my-backpack-480x252.webp": {
+    "hash": "720889332cfe9ed0647a97a11f186e7e",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/whats-in-my-backpack-480x252.webp",
+    "avif": "wp-content/uploads/og/whats-in-my-backpack-480x252.avif"
+  },
+  "wp-content/uploads/og/warp-the-intelligent-terminal-480x252.webp": {
+    "hash": "703e2b679426b6d537b2693404271d16",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/warp-the-intelligent-terminal-480x252.webp",
+    "avif": "wp-content/uploads/og/warp-the-intelligent-terminal-480x252.avif"
+  },
+  "wp-content/uploads/og/automated-vcf-9-offline-depot-480x252.webp": {
+    "hash": "70ca186e35e601a8e4a66068691f129c",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/automated-vcf-9-offline-depot-480x252.webp",
+    "avif": "wp-content/uploads/og/automated-vcf-9-offline-depot-480x252.avif"
+  },
+  "wp-content/uploads/og/page-2-480x252.webp": {
+    "hash": "1c835615cfd276a005519afad384905f",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/page-2-480x252.webp",
+    "avif": "wp-content/uploads/og/page-2-480x252.avif"
+  },
+  "wp-content/uploads/og/cloudflare-480x252.webp": {
+    "hash": "1f1e458f30de2a20c7c48cda5dd5d4ff",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/cloudflare-480x252.webp",
+    "avif": "wp-content/uploads/og/cloudflare-480x252.avif"
+  },
+  "wp-content/uploads/og/runecast-remediation-scripts.webp": {
+    "hash": "a124b12281f320ac175e72806e1c54b3",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/runecast-remediation-scripts.webp",
+    "avif": "wp-content/uploads/og/runecast-remediation-scripts.avif"
+  },
+  "wp-content/uploads/og/vmc-host-errors.webp": {
+    "hash": "8d0a71397419aea7b3d3f93362c17c44",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/vmc-host-errors.webp",
+    "avif": "wp-content/uploads/og/vmc-host-errors.avif"
+  },
+  "wp-content/uploads/og/web-development-improvements.webp": {
+    "hash": "daa1869b2e3ca08b2763edea8c55b73a",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/web-development-improvements.webp",
+    "avif": "wp-content/uploads/og/web-development-improvements.avif"
+  },
+  "wp-content/uploads/og/vsan-esa-and-the-improvements-it-brings-to-vmc-480x252.webp": {
+    "hash": "9ee72ca1cf5360190f5526d023811cf7",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/vsan-esa-and-the-improvements-it-brings-to-vmc-480x252.webp",
+    "avif": "wp-content/uploads/og/vsan-esa-and-the-improvements-it-brings-to-vmc-480x252.avif"
+  },
+  "wp-content/uploads/og/multihost-holodeck-vcf-480x252.webp": {
+    "hash": "b96a662d0be6f7df81a615ae55de8321",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/multihost-holodeck-vcf-480x252.webp",
+    "avif": "wp-content/uploads/og/multihost-holodeck-vcf-480x252.avif"
+  },
+  "wp-content/uploads/og/cloudflare.webp": {
+    "hash": "78aa76878045575e92a77e8a330059dc",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/cloudflare.webp",
+    "avif": "wp-content/uploads/og/cloudflare.avif"
+  },
+  "wp-content/uploads/og/time-in-a-vmc-environment-480x252.webp": {
+    "hash": "320c2c5b86986d4a362b0a9166ec63d3",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/time-in-a-vmc-environment-480x252.webp",
+    "avif": "wp-content/uploads/og/time-in-a-vmc-environment-480x252.avif"
+  },
+  "wp-content/uploads/og/intel-optane-480x252.webp": {
+    "hash": "60647632b411238f18a6eb0fef7b1c70",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/intel-optane-480x252.webp",
+    "avif": "wp-content/uploads/og/intel-optane-480x252.avif"
+  },
+  "wp-content/uploads/og/octopus-agile-battery-solar-calculator.webp": {
+    "hash": "c20441f6e9b3f8855e790c26798db279",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/octopus-agile-battery-solar-calculator.webp",
+    "avif": "wp-content/uploads/og/octopus-agile-battery-solar-calculator.avif"
+  },
+  "wp-content/uploads/og/new-nodes.webp": {
+    "hash": "2e26aaa4298c22f93d155bb465ddddf6",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/new-nodes.webp",
+    "avif": "wp-content/uploads/og/new-nodes.avif"
+  },
+  "wp-content/uploads/og/i3en.webp": {
+    "hash": "23d8522635703fe0a93011feb1b23ef5",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/i3en.webp",
+    "avif": "wp-content/uploads/og/i3en.avif"
+  },
+  "wp-content/uploads/og/aws-for-beginners1-480x252.webp": {
+    "hash": "dd56e51230c058d5921417f01ca46e14",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/aws-for-beginners1-480x252.webp",
+    "avif": "wp-content/uploads/og/aws-for-beginners1-480x252.avif"
+  },
+  "wp-content/uploads/og/vsan-cluster-shutdown.webp": {
+    "hash": "c19a85327bfcc77b0c4edd9862bbcf59",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/vsan-cluster-shutdown.webp",
+    "avif": "wp-content/uploads/og/vsan-cluster-shutdown.avif"
+  },
+  "wp-content/uploads/og/my-home-office-setup-upgrades.webp": {
+    "hash": "8825ce90954c97dc73cda3077f210a8e",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/my-home-office-setup-upgrades.webp",
+    "avif": "wp-content/uploads/og/my-home-office-setup-upgrades.avif"
+  },
+  "wp-content/uploads/og/unifi-dhcp-option-43.webp": {
+    "hash": "08b981319aed0fc54a7e022986bdbf25",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/unifi-dhcp-option-43.webp",
+    "avif": "wp-content/uploads/og/unifi-dhcp-option-43.avif"
+  },
+  "wp-content/uploads/og/using-content-libraries-in-vmc-to-deploy-software-faster-480x252.webp": {
+    "hash": "6ef5c3038a5be5265a87b0aceaa6c4cc",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/using-content-libraries-in-vmc-to-deploy-software-faster-480x252.webp",
+    "avif": "wp-content/uploads/og/using-content-libraries-in-vmc-to-deploy-software-faster-480x252.avif"
+  },
+  "wp-content/uploads/og/holodeck-cpu-fixes.webp": {
+    "hash": "e9b86791743dd5b54eb44be3f3be0c40",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/holodeck-cpu-fixes.webp",
+    "avif": "wp-content/uploads/og/holodeck-cpu-fixes.avif"
+  },
+  "wp-content/uploads/og/vmc-host-deepdive.webp": {
+    "hash": "c680f0f073702badcb61a830ca20980f",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/vmc-host-deepdive.webp",
+    "avif": "wp-content/uploads/og/vmc-host-deepdive.avif"
+  },
+  "wp-content/uploads/og/monitoring-vmc-part-1.webp": {
+    "hash": "f7b84c642d89cac1f0fdd40e36fac5c3",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/monitoring-vmc-part-1.webp",
+    "avif": "wp-content/uploads/og/monitoring-vmc-part-1.avif"
+  },
+  "wp-content/uploads/og/warp-the-intelligent-terminal.webp": {
+    "hash": "f562ca0e9b7dba15e6522f00adf64f66",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/warp-the-intelligent-terminal.webp",
+    "avif": "wp-content/uploads/og/warp-the-intelligent-terminal.avif"
+  },
+  "wp-content/uploads/og/intel-optane.webp": {
+    "hash": "458202aa012b6f552ad9e28ff08017fb",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/intel-optane.webp",
+    "avif": "wp-content/uploads/og/intel-optane.avif"
+  },
+  "wp-content/uploads/og/page-3-480x252.webp": {
+    "hash": "1c835615cfd276a005519afad384905f",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/page-3-480x252.webp",
+    "avif": "wp-content/uploads/og/page-3-480x252.avif"
+  },
+  "wp-content/uploads/og/analytics-in-a-privacy-focused-world.webp": {
+    "hash": "5fc969bede5c292231425bb626c00350",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/analytics-in-a-privacy-focused-world.webp",
+    "avif": "wp-content/uploads/og/analytics-in-a-privacy-focused-world.avif"
+  },
+  "wp-content/uploads/og/use-portainer-in-a-homelab-with-github-480x252.webp": {
+    "hash": "b94e2f7a86fb572372d4879af38d8d90",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/use-portainer-in-a-homelab-with-github-480x252.webp",
+    "avif": "wp-content/uploads/og/use-portainer-in-a-homelab-with-github-480x252.avif"
+  },
+  "wp-content/uploads/og/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu.webp": {
+    "hash": "01d806e8c6e12d8d6c5757027d0b392f",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu.webp",
+    "avif": "wp-content/uploads/og/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu.avif"
+  },
+  "wp-content/uploads/og/lab-update-part-1-compute.webp": {
+    "hash": "e8fd30dce1abfbc95bf594ea8e788cbd",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/lab-update-part-1-compute.webp",
+    "avif": "wp-content/uploads/og/lab-update-part-1-compute.avif"
+  },
+  "wp-content/uploads/og/new-vmc-host-i7i-metal-24xl-480x252.webp": {
+    "hash": "6f0c90f1724b408d042a29ea87522b49",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/new-vmc-host-i7i-metal-24xl-480x252.webp",
+    "avif": "wp-content/uploads/og/new-vmc-host-i7i-metal-24xl-480x252.avif"
+  },
+  "wp-content/uploads/og/hashicorp-packer-480x252.webp": {
+    "hash": "18893e47ed3984eed46492d75f44596e",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/hashicorp-packer-480x252.webp",
+    "avif": "wp-content/uploads/og/hashicorp-packer-480x252.avif"
+  },
+  "wp-content/uploads/og/truenas-scale-useful-commands-480x252.webp": {
+    "hash": "a6dbef110c0ca312688c09735c72bc5b",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/truenas-scale-useful-commands-480x252.webp",
+    "avif": "wp-content/uploads/og/truenas-scale-useful-commands-480x252.avif"
+  },
+  "wp-content/uploads/og/zfs-on-vmware-480x252.webp": {
+    "hash": "2204d2a542b0c4f052ef6df9a6256c06",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/zfs-on-vmware-480x252.webp",
+    "avif": "wp-content/uploads/og/zfs-on-vmware-480x252.avif"
+  },
+  "wp-content/uploads/og/vmc-host-errors-480x252.webp": {
+    "hash": "e840175dc60a265d25c791af3c76b210",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/vmc-host-errors-480x252.webp",
+    "avif": "wp-content/uploads/og/vmc-host-errors-480x252.avif"
+  },
+  "wp-content/uploads/og/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router.webp": {
+    "hash": "dd77a5f283fcf1d99344e0d9b8420c86",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router.webp",
+    "avif": "wp-content/uploads/og/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router.avif"
+  },
+  "wp-content/uploads/og/about-james-kilby-solution-architect.webp": {
+    "hash": "8c84190e39d92ecf8f4d19e5d852d745",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/about-james-kilby-solution-architect.webp",
+    "avif": "wp-content/uploads/og/about-james-kilby-solution-architect.avif"
+  },
+  "wp-content/uploads/og/vsan-esa-and-the-improvements-it-brings-to-vmc.webp": {
+    "hash": "62f39edeb68f579ef76b2c70ed662f2d",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/vsan-esa-and-the-improvements-it-brings-to-vmc.webp",
+    "avif": "wp-content/uploads/og/vsan-esa-and-the-improvements-it-brings-to-vmc.avif"
+  },
+  "wp-content/uploads/og/hashicorp-packer.webp": {
+    "hash": "a657cf4fc0f07451d1aa14139c04ca7c",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/hashicorp-packer.webp",
+    "avif": "wp-content/uploads/og/hashicorp-packer.avif"
+  },
+  "wp-content/uploads/og/about-james-kilby-solution-architect-480x252.webp": {
+    "hash": "744c18b395f36ae1248b2d7611475609",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/about-james-kilby-solution-architect-480x252.webp",
+    "avif": "wp-content/uploads/og/about-james-kilby-solution-architect-480x252.avif"
+  },
+  "wp-content/uploads/og/multihost-holodeck-vcf.webp": {
+    "hash": "9a55e447fe4d1af844c7972e4037e90c",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/multihost-holodeck-vcf.webp",
+    "avif": "wp-content/uploads/og/multihost-holodeck-vcf.avif"
+  },
+  "wp-content/uploads/og/page-4-480x252.webp": {
+    "hash": "1c835615cfd276a005519afad384905f",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/page-4-480x252.webp",
+    "avif": "wp-content/uploads/og/page-4-480x252.avif"
+  },
+  "wp-content/uploads/og/web-development-improvements-480x252.webp": {
+    "hash": "44debf631cd96662534bc5310db52bc4",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/web-development-improvements-480x252.webp",
+    "avif": "wp-content/uploads/og/web-development-improvements-480x252.avif"
+  },
+  "wp-content/uploads/og/analytics-in-a-privacy-focused-world-480x252.webp": {
+    "hash": "f828471ab350f3098e2c1ca3e82f40f5",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/analytics-in-a-privacy-focused-world-480x252.webp",
+    "avif": "wp-content/uploads/og/analytics-in-a-privacy-focused-world-480x252.avif"
+  },
+  "wp-content/uploads/og/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way.webp": {
+    "hash": "a0d28641f8605a37eec8376aab3ca215",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way.webp",
+    "avif": "wp-content/uploads/og/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way.avif"
+  },
+  "wp-content/uploads/og/vmc-480x252.webp": {
+    "hash": "837ed755bd8552eccaca5c5ad89fce35",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/vmc-480x252.webp",
+    "avif": "wp-content/uploads/og/vmc-480x252.avif"
+  },
+  "wp-content/uploads/og/whats-in-my-backpack.webp": {
+    "hash": "e4c063ca1513560097390674bc89f2a0",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/whats-in-my-backpack.webp",
+    "avif": "wp-content/uploads/og/whats-in-my-backpack.avif"
+  },
+  "wp-content/uploads/og/homelab-storage-refresh-part-1-480x252.webp": {
+    "hash": "5dbbfcae20f4489be89ba7dd4ea03e0f",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/homelab-storage-refresh-part-1-480x252.webp",
+    "avif": "wp-content/uploads/og/homelab-storage-refresh-part-1-480x252.avif"
+  },
+  "wp-content/uploads/og/homelab-storage-refresh-part-1.webp": {
+    "hash": "6fbee5fc95ddbd9f3e31e261d23abdd3",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/homelab-storage-refresh-part-1.webp",
+    "avif": "wp-content/uploads/og/homelab-storage-refresh-part-1.avif"
+  },
+  "wp-content/uploads/og/using-content-libraries-in-vmc-to-deploy-software-faster.webp": {
+    "hash": "b199816919c7509e72359d933170467d",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/using-content-libraries-in-vmc-to-deploy-software-faster.webp",
+    "avif": "wp-content/uploads/og/using-content-libraries-in-vmc-to-deploy-software-faster.avif"
+  },
+  "wp-content/uploads/og/vmware-certified-master-specialist-hci-2020-480x252.webp": {
+    "hash": "ca83a515e5efa5c923c243f3da3104a3",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/vmware-certified-master-specialist-hci-2020-480x252.webp",
+    "avif": "wp-content/uploads/og/vmware-certified-master-specialist-hci-2020-480x252.avif"
+  },
+  "wp-content/uploads/og/holodeck-cpu-fixes-480x252.webp": {
+    "hash": "f09f32c7d1db44fc3d62174d617712d1",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/holodeck-cpu-fixes-480x252.webp",
+    "avif": "wp-content/uploads/og/holodeck-cpu-fixes-480x252.avif"
+  },
+  "wp-content/uploads/og/octopus-agile-battery-solar-calculator-480x252.webp": {
+    "hash": "73e51fdbeb3e1a9059c84b1a64820fd9",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/octopus-agile-battery-solar-calculator-480x252.webp",
+    "avif": "wp-content/uploads/og/octopus-agile-battery-solar-calculator-480x252.avif"
+  },
+  "wp-content/uploads/og/vmc-quick-sizing-guide-480x252.webp": {
+    "hash": "d31aba83bc6abe5dfeb346850e5959da",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/vmc-quick-sizing-guide-480x252.webp",
+    "avif": "wp-content/uploads/og/vmc-quick-sizing-guide-480x252.avif"
+  },
+  "wp-content/uploads/og/lab-480x252.webp": {
+    "hash": "9c1c9a408b1869b35b77c07c51ae6caf",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/lab-480x252.webp",
+    "avif": "wp-content/uploads/og/lab-480x252.avif"
+  },
+  "wp-content/uploads/og/zfs-on-vmware.webp": {
+    "hash": "431f960073e431979ef9e59317e73d2c",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/zfs-on-vmware.webp",
+    "avif": "wp-content/uploads/og/zfs-on-vmware.avif"
+  },
+  "wp-content/uploads/og/can-you-really-squeeze-96tb-in-1u-480x252.webp": {
+    "hash": "2a402d79546143185d41cdabd2e2b0b6",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/can-you-really-squeeze-96tb-in-1u-480x252.webp",
+    "avif": "wp-content/uploads/og/can-you-really-squeeze-96tb-in-1u-480x252.avif"
+  },
+  "wp-content/uploads/og/cloudflare-workers-limits-of-the-free-tier.webp": {
+    "hash": "303e35640da7809281cbf66bde01aa82",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/cloudflare-workers-limits-of-the-free-tier.webp",
+    "avif": "wp-content/uploads/og/cloudflare-workers-limits-of-the-free-tier.avif"
+  },
+  "wp-content/uploads/og/my-first-pull.webp": {
+    "hash": "e7796a722a94c5ca462c3a27f0dd4dc2",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/my-first-pull.webp",
+    "avif": "wp-content/uploads/og/my-first-pull.avif"
+  },
+  "wp-content/uploads/og/how-i-moved-my-wordpress-site-to-cloudflare-pages.webp": {
+    "hash": "2d5dab21434cec1ca3485b52b7068501",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/how-i-moved-my-wordpress-site-to-cloudflare-pages.webp",
+    "avif": "wp-content/uploads/og/how-i-moved-my-wordpress-site-to-cloudflare-pages.avif"
+  },
+  "wp-content/uploads/og/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n.webp": {
+    "hash": "427cc9d91951738a030258db80819913",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n.webp",
+    "avif": "wp-content/uploads/og/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n.avif"
+  },
+  "wp-content/uploads/og/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router-480x252.webp": {
+    "hash": "32f350407665c0fb3dc7832bf0903b36",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router-480x252.webp",
+    "avif": "wp-content/uploads/og/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router-480x252.avif"
+  },
+  "wp-content/uploads/og/monitoring-vmc-part-1-480x252.webp": {
+    "hash": "2ddb4fa8b26fd6e71101d456424d6ae3",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/monitoring-vmc-part-1-480x252.webp",
+    "avif": "wp-content/uploads/og/monitoring-vmc-part-1-480x252.avif"
+  },
+  "wp-content/uploads/og/vgpu-setup-in-my-homelab.webp": {
+    "hash": "486cd9e5c12175c6a0354471d40eca37",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/vgpu-setup-in-my-homelab.webp",
+    "avif": "wp-content/uploads/og/vgpu-setup-in-my-homelab.avif"
+  },
+  "wp-content/uploads/og/vmc-host-deepdive-480x252.webp": {
+    "hash": "15c72b31dbbbdf803ed0cb48a88b9d6b",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/vmc-host-deepdive-480x252.webp",
+    "avif": "wp-content/uploads/og/vmc-host-deepdive-480x252.avif"
+  },
+  "wp-content/uploads/og/how-i-moved-my-wordpress-site-to-cloudflare-pages-480x252.webp": {
+    "hash": "77cdb7b56e658444cdb65d8644461d9d",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/how-i-moved-my-wordpress-site-to-cloudflare-pages-480x252.webp",
+    "avif": "wp-content/uploads/og/how-i-moved-my-wordpress-site-to-cloudflare-pages-480x252.avif"
+  },
+  "wp-content/uploads/og/vgpu-setup-in-my-homelab-480x252.webp": {
+    "hash": "d095f5055cf4b4be4f81fee456480b2d",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/vgpu-setup-in-my-homelab-480x252.webp",
+    "avif": "wp-content/uploads/og/vgpu-setup-in-my-homelab-480x252.avif"
+  },
+  "wp-content/uploads/og/managing-my-homelab-with-semaphoreui.webp": {
+    "hash": "30144ee8b2407aa6345fbdc1d6b16a00",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/managing-my-homelab-with-semaphoreui.webp",
+    "avif": "wp-content/uploads/og/managing-my-homelab-with-semaphoreui.avif"
+  },
+  "wp-content/uploads/og/time-in-a-vmc-environment.webp": {
+    "hash": "9a2bf530152b6aea2170d085c9803529",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/time-in-a-vmc-environment.webp",
+    "avif": "wp-content/uploads/og/time-in-a-vmc-environment.avif"
+  },
+  "wp-content/uploads/og/vmware-certified-master-specialist-hci-2020.webp": {
+    "hash": "1f5ff0c9f9660e7a71fc379a01a1fd5a",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/vmware-certified-master-specialist-hci-2020.webp",
+    "avif": "wp-content/uploads/og/vmware-certified-master-specialist-hci-2020.avif"
+  },
+  "wp-content/uploads/og/cloudflare-workers-limits-of-the-free-tier-480x252.webp": {
+    "hash": "18347afd07bef1c2412f16b904c33b61",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/cloudflare-workers-limits-of-the-free-tier-480x252.webp",
+    "avif": "wp-content/uploads/og/cloudflare-workers-limits-of-the-free-tier-480x252.avif"
+  },
+  "wp-content/uploads/og/aws-for-beginners1.webp": {
+    "hash": "25d16d18faa45db7a46355da0b1bab1b",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/aws-for-beginners1.webp",
+    "avif": "wp-content/uploads/og/aws-for-beginners1.avif"
+  },
+  "wp-content/uploads/og/new-nodes-480x252.webp": {
+    "hash": "64c8a4a8102f513923568f59e6b1516b",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/new-nodes-480x252.webp",
+    "avif": "wp-content/uploads/og/new-nodes-480x252.avif"
+  },
+  "wp-content/uploads/og/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare.webp": {
+    "hash": "6a141102132b6a757c55a689fb1fb04c",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare.webp",
+    "avif": "wp-content/uploads/og/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare.avif"
+  },
+  "wp-content/uploads/og/use-portainer-in-a-homelab-with-github.webp": {
+    "hash": "2bcfdca31d51169378d40d0ee3829e62",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/use-portainer-in-a-homelab-with-github.webp",
+    "avif": "wp-content/uploads/og/use-portainer-in-a-homelab-with-github.avif"
+  },
+  "wp-content/uploads/og/page-5-480x252.webp": {
+    "hash": "1c835615cfd276a005519afad384905f",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/page-5-480x252.webp",
+    "avif": "wp-content/uploads/og/page-5-480x252.avif"
+  },
+  "wp-content/uploads/og/lab-update-part-1-compute-480x252.webp": {
+    "hash": "1d5201b75e8ee27124af004d67376054",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/lab-update-part-1-compute-480x252.webp",
+    "avif": "wp-content/uploads/og/lab-update-part-1-compute-480x252.avif"
+  },
+  "wp-content/uploads/og/web-development.webp": {
+    "hash": "af6c2f2ce3f5c2f76e200fc2fe11860a",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/web-development.webp",
+    "avif": "wp-content/uploads/og/web-development.avif"
+  },
+  "wp-content/uploads/og/vmc.webp": {
+    "hash": "07a6fcae2b9f3e6054c9fef65f4f867f",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/vmc.webp",
+    "avif": "wp-content/uploads/og/vmc.avif"
+  },
+  "wp-content/uploads/og/my-home-office-setup-upgrades-480x252.webp": {
+    "hash": "4ec0afab6ca67d5ef1620694e20bff91",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/my-home-office-setup-upgrades-480x252.webp",
+    "avif": "wp-content/uploads/og/my-home-office-setup-upgrades-480x252.avif"
+  },
+  "wp-content/uploads/og/managing-my-homelab-with-semaphoreui-480x252.webp": {
+    "hash": "72bc57bde0ad5707ce0ab47f9c570a5b",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/managing-my-homelab-with-semaphoreui-480x252.webp",
+    "avif": "wp-content/uploads/og/managing-my-homelab-with-semaphoreui-480x252.avif"
+  },
+  "wp-content/uploads/og/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu-480x252.webp": {
+    "hash": "3500c4a5a9d0fb46a11e19a7ebdef3c7",
+    "optimized_at": "",
+    "optimized_size": 0,
+    "timestamp": 0,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/og/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu-480x252.webp",
+    "avif": "wp-content/uploads/og/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu-480x252.avif"
   }
 }

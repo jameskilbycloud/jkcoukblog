@@ -21,10 +21,9 @@
         "NVIDIA",
         "Traefik",
         "VMware",
-        "Docker",
         "VMware Cloud on AWS",
-        "Runecast",
-        "Automation"
+        "VCF",
+        "Docker"
       ],
       "tags": [
         null,

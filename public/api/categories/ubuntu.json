@@ -15,14 +15,13 @@
       "categories": [
         "Automation",
         "Github",
-        "Devops",
-        "Personal",
-        "TrueNAS Scale",
-        "VMware",
+        "Ansible",
+        "Artificial Intelligence",
         "Homelab",
-        "Hosting",
         "Ubuntu",
-        "Ansible"
+        "Runecast",
+        "VMware",
+        "Nutanix"
       ],
       "tags": [
         null,

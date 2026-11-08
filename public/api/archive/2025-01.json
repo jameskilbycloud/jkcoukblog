@@ -19,10 +19,9 @@
         "Hosting",
         "Automation",
         "Homelab",
-        "Networking",
-        "VMware",
-        "AWS",
-        "Cloudflare"
+        "Storage",
+        "Cloudflare",
+        "Ansible"
       ],
       "tags": [
         null,

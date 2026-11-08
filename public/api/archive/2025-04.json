@@ -16,10 +16,11 @@
       "categories": [
         "Artificial Intelligence",
         "Homelab",
-        "Storage",
-        "Ansible",
+        "Networking",
+        "Automation",
         "VMware",
-        "Docker"
+        "Storage",
+        "Hosting"
       ],
       "tags": [
         null,

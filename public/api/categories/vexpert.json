@@ -16,10 +16,14 @@
         "Homelab",
         "Storage",
         "vExpert",
-        "Networking",
         "Artificial Intelligence",
+        "Kubernetes",
+        "TrueNAS Scale",
+        "Ansible",
+        "Automation",
         "Docker",
-        "Mikrotik"
+        "Runecast",
+        "VMware"
       ],
       "tags": [
         null,

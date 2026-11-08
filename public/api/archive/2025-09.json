@@ -16,12 +16,9 @@
       "categories": [
         "Ansible",
         "Homelab",
-        "Docker",
-        "Nutanix",
-        "VCF",
-        "VMware",
-        "TrueNAS Scale",
-        "Runecast"
+        "Automation",
+        "Storage",
+        "Artificial Intelligence"
       ],
       "tags": [
         null,

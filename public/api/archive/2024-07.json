@@ -17,11 +17,13 @@
         "Homelab",
         "Nutanix",
         "VMware",
+        "Mikrotik",
         "Networking",
-        "Ansible",
-        "Automation",
         "VMware Cloud on AWS",
-        "Github"
+        "Ansible",
+        "Artificial Intelligence",
+        "TrueNAS Scale",
+        "Automation"
       ],
       "tags": [
         null,
