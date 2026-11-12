@@ -4,126 +4,74 @@
   <meta name="robots" content="noindex, nofollow">  <!-- jk: standalone tool, not indexed while testing -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="preload" href="/assets/fonts/spacegrotesk-v22-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/anton-v27-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <title>VMware Cloud on AWS — Starter Workflow</title>
 <meta name="description" content="Plan a VMware Cloud on AWS migration in your browser: business case, RVTools analysis, SDDC sizing, readiness checks and post-migration advice.">
 <style>
 /* ══════════════════════════════════════════════════════════════════
-   Clarity Design System tokens
-   Root is 125% (20px) so Clarity's rem values map to their real sizes:
-   0.7rem = 14px body, 1.2rem = 24px baseline grid.
+   Site theme — the same brutalist dark palette, fonts and square
+   corners as the rest of jameskilby.co.uk (scripts/brutalist-theme.css).
+   The component CSS below still reads the --clr-* names it was built on;
+   only their values changed. Dark only, like the site; print gets its own
+   light palette further down.
+   Root is 125% (20px): the layout's rem values were sized against it
+   (0.7rem = 14px body, 1.2rem = 24px rhythm).
    ══════════════════════════════════════════════════════════════════ */
+/* Self-hosted site fonts (same files and font-display as the site). */
+@font-face{font-family:"Anton";font-style:normal;font-weight:400;font-display:optional;src:url(/assets/fonts/anton-v27-latin-400.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:optional;src:url(/assets/fonts/jetbrainsmono-v24-latin-400.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:700;font-display:optional;src:url(/assets/fonts/jetbrainsmono-v24-latin-700.woff2) format("woff2")}
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:400;font-display:optional;src:url(/assets/fonts/spacegrotesk-v22-latin-400.woff2) format("woff2")}
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:500;font-display:optional;src:url(/assets/fonts/spacegrotesk-v22-latin-500.woff2) format("woff2")}
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:700;font-display:optional;src:url(/assets/fonts/spacegrotesk-v22-latin-700.woff2) format("woff2")}
+
 :root {
   font-size: 125%;
+  color-scheme: dark;   /* native selects, checkboxes and scrollbars follow */
 
-  --clr-app-bg:        #fafafa;
-  --clr-card-bg:       #ffffff;
-  --clr-card-bg-alt:   #f3f3f3;
-  --clr-border:        #cccccc;
-  --clr-border-subtle: #e9e9e9;
-  --clr-text:          #565656;
-  --clr-text-strong:   #313131;
-  --clr-text-muted:    #757575;
+  --font-body:    "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading: "Anton", "Arial Narrow", sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  --clr-action:        #0072a3;
-  --clr-action-hover:  #00567d;
-  --clr-action-tint:   rgba(0,114,163,.08);
+  --clr-app-bg:        #0a0a0a;   /* --bg-dark */
+  --clr-card-bg:       #111111;
+  --clr-card-bg-alt:   #1a1a1a;
+  --clr-border:        #404040;   /* --gray-mid */
+  --clr-border-subtle: #262626;
+  --clr-text:          #c4c4c4;
+  --clr-text-strong:   #fafafa;   /* --text-light */
+  --clr-text-muted:    #949494;   /* --gray-light: >= 6:1 on these surfaces */
 
-  --clr-success:       #318700;
-  --clr-success-text:  #266900;
-  --clr-success-tint:  rgba(49,135,0,.10);
+  --clr-action:        #f6821f;   /* --accent-orange */
+  --clr-action-hover:  #ff9d4d;
+  --clr-action-tint:   rgba(246,130,31,.10);
 
-  --clr-warning:       #efc006;
-  --clr-warning-text:  #6f5c00;
-  --clr-warning-tint:  rgba(239,192,6,.16);
+  --clr-success:       #5fbf3a;
+  --clr-success-text:  #8fd16a;
+  --clr-success-tint:  rgba(95,191,58,.14);
 
-  --clr-danger:        #c92100;
-  --clr-danger-text:   #a32100;
-  --clr-danger-tint:   rgba(201,33,0,.09);
+  --clr-warning:       #f5c518;
+  --clr-warning-text:  #f5c518;
+  --clr-warning-tint:  rgba(245,197,24,.12);
 
-  --clr-purple:        #781da0;
-  --clr-purple-tint:   rgba(120,29,160,.09);
-  --clr-magenta:       #9b1d5b;
-  --clr-magenta-tint:  rgba(155,29,91,.09);
-
-  --clr-header-bg:     #0e171c;
-  --clr-header-text:   #eaedf0;
-  --clr-header-muted:  #9aa9b2;
-
-  --clr-radius:        0.125rem;
-  --clr-shadow:        0 0.125rem 0 0 rgba(0,0,0,.08);
-  --clr-shadow-raise:  0 0.15rem 0.3rem 0 rgba(0,0,0,.16);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --clr-app-bg:        #1b2a32;
-    --clr-card-bg:       #22343c;
-    --clr-card-bg-alt:   #1d2e35;
-    --clr-border:        #4d5f68;
-    --clr-border-subtle: #314351;
-    --clr-text:          #eaedf0;
-    --clr-text-strong:   #ffffff;
-    --clr-text-muted:    #adbbc4;
-
-    --clr-action:        #49afd9;
-    --clr-action-hover:  #89cbdf;
-    --clr-action-tint:   rgba(73,175,217,.12);
-
-    --clr-success:       #62a420;
-    --clr-success-text:  #85c81a;
-    --clr-success-tint:  rgba(98,164,32,.16);
-
-    --clr-warning:       #ffdc0b;
-    --clr-warning-text:  #ffdc0b;
-    --clr-warning-tint:  rgba(255,220,11,.14);
-
-    --clr-danger:        #f54f47;
-    --clr-danger-text:   #f8b7b6;
-    --clr-danger-tint:   rgba(245,79,71,.16);
-
-    --clr-purple:        #b070c8;
-    --clr-purple-tint:   rgba(176,112,200,.16);
-    --clr-magenta:       #f1428a;
-    --clr-magenta-tint:  rgba(241,66,138,.16);
-
-    --clr-shadow:        0 0.125rem 0 0 rgba(0,0,0,.25);
-    --clr-shadow-raise:  0 0.15rem 0.3rem 0 rgba(0,0,0,.4);
-  }
-}
-
-:root[data-theme="dark"] {
-  --clr-app-bg:        #1b2a32;
-  --clr-card-bg:       #22343c;
-  --clr-card-bg-alt:   #1d2e35;
-  --clr-border:        #4d5f68;
-  --clr-border-subtle: #314351;
-  --clr-text:          #eaedf0;
-  --clr-text-strong:   #ffffff;
-  --clr-text-muted:    #adbbc4;
-
-  --clr-action:        #49afd9;
-  --clr-action-hover:  #89cbdf;
-  --clr-action-tint:   rgba(73,175,217,.12);
-
-  --clr-success:       #62a420;
-  --clr-success-text:  #85c81a;
-  --clr-success-tint:  rgba(98,164,32,.16);
-
-  --clr-warning:       #ffdc0b;
-  --clr-warning-text:  #ffdc0b;
-  --clr-warning-tint:  rgba(255,220,11,.14);
-
-  --clr-danger:        #f54f47;
-  --clr-danger-text:   #f8b7b6;
-  --clr-danger-tint:   rgba(245,79,71,.16);
+  --clr-danger:        #ef4444;
+  --clr-danger-text:   #f87171;
+  --clr-danger-tint:   rgba(239,68,68,.14);
 
   --clr-purple:        #b070c8;
   --clr-purple-tint:   rgba(176,112,200,.16);
   --clr-magenta:       #f1428a;
   --clr-magenta-tint:  rgba(241,66,138,.16);
 
-  --clr-shadow:        0 0.125rem 0 0 rgba(0,0,0,.25);
-  --clr-shadow-raise:  0 0.15rem 0.3rem 0 rgba(0,0,0,.4);
+  --clr-header-bg:     #0a0a0a;
+  --clr-header-text:   #fafafa;
+  --clr-header-muted:  #949494;
+
+  --clr-radius:        0;          /* square, like the site */
+  --clr-shadow:        none;       /* flat: borders, not shadows */
+  --clr-shadow-raise:  none;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -131,63 +79,78 @@
 body {
   background: var(--clr-app-bg);
   color: var(--clr-text);
-  font-family: "Clarity City","Avenir Next","Metropolis",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-family: var(--font-body);
   font-size: 0.7rem;
   line-height: 1.2rem;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── Clarity type scale (light weights on large headings) ── */
-h1 { font-size:1.6rem; line-height:2.4rem; font-weight:200; color:var(--clr-text-strong); letter-spacing:-0.01em; }
-h2 { font-size:1.4rem; line-height:2.4rem; font-weight:200; color:var(--clr-text-strong); }
-h3 { font-size:1.1rem; line-height:1.8rem; font-weight:200; color:var(--clr-text-strong); }
-h4 { font-size:0.9rem; line-height:1.2rem; font-weight:200; color:var(--clr-text-strong); }
-h5 { font-size:0.7rem; line-height:1.2rem; font-weight:500; color:var(--clr-text-strong); }
-h6 { font-size:0.6rem; line-height:1.2rem; font-weight:600; color:var(--clr-text-strong); letter-spacing:0.01em; }
+/* ── Type scale: Anton, uppercase, like the site's headings ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family:var(--font-heading); font-weight:400; text-transform:uppercase;
+  letter-spacing:0.02em; color:var(--clr-text-strong);
+}
+h1 { font-size:1.6rem; line-height:2.2rem; }
+h2 { font-size:1.4rem; line-height:2rem; }
+h3 { font-size:1.1rem; line-height:1.6rem; }
+h4 { font-size:0.9rem; line-height:1.2rem; }
+h5 { font-size:0.75rem; line-height:1.1rem; }
+h6 { font-size:0.65rem; line-height:1rem; }
+code, kbd, pre { font-family:var(--font-mono); }
+
+/* Same faint grain as the site's body::before; dropped on mobile there
+   too, for the same paint-cost reason. */
+@media (min-width:769px) {
+  body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:9999; opacity:0.03;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+}
 
 a { color:var(--clr-action); text-decoration:none; }
 a:hover { color:var(--clr-action-hover); text-decoration:underline; }
 
-/* ══════════════ Clarity header ══════════════ */
+/* ══════════════ Header (site lockup) ══════════════ */
 .header {
-  height: 3rem;
+  height: 3.2rem;
   background: var(--clr-header-bg);
   color: var(--clr-header-text);
+  border-bottom: 1px solid var(--clr-border);
   display: flex;
   align-items: center;
-  padding: 0 0.5rem;
+  padding: 0 0.6rem;
   gap: 0.5rem;
 }
 .branding {
-  display:flex; align-items:center; gap:0.5rem;
-  padding: 0 0.5rem; height:3rem; min-width:0;
+  display:flex; align-items:center; gap:0.6rem;
+  padding: 0 0.3rem; height:3.2rem; min-width:0;
 }
-.branding .logo {
-  width:1.4rem; height:1.4rem; flex-shrink:0;
-  display:flex; align-items:center; justify-content:center;
-  color: var(--clr-action);
-}
+.branding .logo { display:flex; flex-shrink:0; line-height:0; }
+.branding .logo:hover { text-decoration:none; }
+.branding .logo svg { width:1.8rem; height:1.8rem; }
+.branding .divider { width:1px; height:1.4rem; background:var(--clr-border); flex-shrink:0; }
 .branding .title {
   /* The page's <h1>: undo the UA margin and the page-wide h1 rule so it
      still looks like the header label it was. */
-  margin:0; line-height:inherit; letter-spacing:normal;
-  font-size:0.8rem; font-weight:400; color:#fff;
+  margin:0; line-height:inherit;
+  font-size:0.95rem; color:var(--clr-header-text);
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 .header-actions { margin-left:auto; display:flex; align-items:center; gap:0.25rem; padding-right:0.25rem; }
+/* Like the site's SEARCH button: orange outline, mono caps. */
 .header-btn {
-  background:none; border:1px solid transparent; color:var(--clr-header-muted);
-  height:1.8rem; padding:0 0.5rem; border-radius:var(--clr-radius);
-  font-family:inherit; font-size:0.55rem; font-weight:500;
+  background:none; border:2px solid var(--clr-action); color:var(--clr-text-strong);
+  height:1.6rem; padding:0 0.6rem; border-radius:var(--clr-radius);
+  font-family:var(--font-mono); font-size:0.5rem; font-weight:700;
   letter-spacing:0.12em; text-transform:uppercase; cursor:pointer;
-  display:flex; align-items:center; gap:0.25rem; transition:.15s;
+  display:flex; align-items:center; gap:0.3rem; transition:.15s;
 }
-.header-btn:hover { color:#fff; background:rgba(255,255,255,.08); }
+.header-btn:hover { background:var(--clr-action); color:#0a0a0a; }
 
 /* ══════════════ Clarity subnav (tabs) ══════════════ */
 .subnav {
-  background: var(--clr-card-bg);
+  background: var(--clr-app-bg);
   border-bottom: 1px solid var(--clr-border-subtle);
   display:flex; align-items:stretch;
   padding: 0 0.6rem;
@@ -195,13 +158,13 @@ a:hover { color:var(--clr-action-hover); text-decoration:underline; }
 }
 .subnav .nav-link {
   background:none; border:none; border-bottom:3px solid transparent;
-  color: var(--clr-text); font-family:inherit;
-  font-size:0.7rem; font-weight:400;
+  color: var(--clr-text-strong); font-family:var(--font-body);
+  font-size:0.65rem; font-weight:500; text-transform:uppercase; letter-spacing:0.04em;
   padding: 0 0.6rem; height:2.4rem; line-height:2.4rem;
   cursor:pointer; white-space:nowrap; transition:.15s;
 }
 .subnav .nav-link:hover { color:var(--clr-action); }
-.subnav .nav-link.active { color:var(--clr-action); border-bottom-color:var(--clr-action); font-weight:500; }
+.subnav .nav-link.active { color:var(--clr-action); border-bottom-color:var(--clr-action); font-weight:700; }
 
 /* ══════════════ Content area ══════════════ */
 .content-container { max-width:60rem; margin:0 auto; padding:1.2rem 0.6rem 3rem; }
@@ -222,9 +185,10 @@ a:hover { color:var(--clr-action-hover); text-decoration:underline; }
   padding: 0.6rem 1rem;
   border-bottom: 1px solid var(--clr-border-subtle);
   display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;
-  font-size:0.7rem; font-weight:500; color:var(--clr-text-strong);
+  font-family:var(--font-heading); font-size:0.8rem; font-weight:400;
+  text-transform:uppercase; letter-spacing:0.03em; color:var(--clr-text-strong);
 }
-.card-header .count { margin-left:auto; font-size:0.55rem; font-weight:400; color:var(--clr-text-muted); font-variant-numeric:tabular-nums; }
+.card-header .count { margin-left:auto; font-family:var(--font-mono); font-size:0.55rem; font-weight:400; text-transform:none; letter-spacing:0; color:var(--clr-text-muted); font-variant-numeric:tabular-nums; }
 .card-block { padding: 0.6rem 1rem; }
 .card-footer { padding:0.5rem 1rem; border-top:1px solid var(--clr-border-subtle); background:var(--clr-card-bg-alt); }
 .card-text { color:var(--clr-text); font-size:0.65rem; }
@@ -232,9 +196,9 @@ a:hover { color:var(--clr-action-hover); text-decoration:underline; }
 /* ══════════════ Clarity label ══════════════ */
 .label {
   display:inline-flex; align-items:center;
-  border:1px solid var(--clr-border); border-radius:0.5rem;
+  border:1px solid var(--clr-border); border-radius:var(--clr-radius);
   padding:0 0.35rem; height:0.95rem;
-  font-size:0.5rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+  font-family:var(--font-body); font-size:0.5rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
   white-space:nowrap; color:var(--clr-text-muted); background:transparent;
 }
 .label-info    { color:var(--clr-action);       border-color:var(--clr-action);       background:var(--clr-action-tint); }
@@ -250,15 +214,15 @@ a:hover { color:var(--clr-action-hover); text-decoration:underline; }
   height:1.8rem; padding:0 0.7rem;
   border:1px solid var(--clr-action); border-radius:var(--clr-radius);
   background:transparent; color:var(--clr-action);
-  font-family:inherit; font-size:0.55rem; font-weight:500;
-  letter-spacing:0.12em; text-transform:uppercase;
+  font-family:var(--font-mono); font-size:0.5rem; font-weight:700;
+  letter-spacing:0.1em; text-transform:uppercase;
   cursor:pointer; transition:.15s; white-space:nowrap;
 }
-.btn:hover { background:var(--clr-action-tint); }
-.btn.active { background:var(--clr-action); color:var(--clr-card-bg); border-color:var(--clr-action); }
+.btn:hover { background:var(--clr-action); color:#0a0a0a; }
+.btn.active { background:var(--clr-action); color:#0a0a0a; border-color:var(--clr-action); }
 .btn-sm { height:1.4rem; padding:0 0.5rem; font-size:0.5rem; }
 .btn-link { border-color:transparent; }
-.btn-link:hover { border-color:transparent; text-decoration:underline; }
+.btn-link:hover { border-color:transparent; background:transparent; color:var(--clr-action-hover); text-decoration:underline; }
 
 /* ══════════════ Clarity progress ══════════════ */
 .progress-wrap { display:flex; align-items:center; gap:0.6rem; }
@@ -267,7 +231,7 @@ a:hover { color:var(--clr-action-hover); text-decoration:underline; }
   border-radius:var(--clr-radius); overflow:hidden;
 }
 .progress > .progress-meter { height:100%; width:0; background:var(--clr-action); transition:width .25s ease; }
-.progress-value { font-size:0.6rem; font-weight:500; color:var(--clr-text-strong); font-variant-numeric:tabular-nums; min-width:3.4rem; text-align:right; }
+.progress-value { font-family:var(--font-mono); font-size:0.6rem; font-weight:700; color:var(--clr-text-strong); font-variant-numeric:tabular-nums; min-width:3.4rem; text-align:right; }
 
 /* ══════════════ Checklist ══════════════ */
 .checklist { list-style:none; }
@@ -306,7 +270,7 @@ a:hover { color:var(--clr-action-hover); text-decoration:underline; }
 /* ══════════════ Clarity alert ══════════════ */
 .alert {
   display:flex; gap:0.5rem; align-items:flex-start;
-  border:1px solid var(--clr-action); border-left-width:0.15rem;
+  border:1px solid var(--clr-action); border-left-width:0.2rem;
   border-radius:var(--clr-radius); background:var(--clr-action-tint);
   padding:0.5rem 0.7rem; margin-bottom:1.2rem;
   font-size:0.62rem; color:var(--clr-text);
@@ -317,7 +281,7 @@ a:hover { color:var(--clr-action-hover); text-decoration:underline; }
 .alert-warning .alert-icon { color:var(--clr-warning-text); }
 .alert-meta { border-color:var(--clr-border); background:var(--clr-card-bg-alt); }
 .alert-meta .alert-icon { color:var(--clr-text-muted); }
-.alert-meta code { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; color:var(--clr-text-strong); }
+.alert-meta code { font-family:var(--font-mono); color:var(--clr-text-strong); }
 
 /* ══════════════ Clarity form controls ══════════════ */
 .form-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(9rem,1fr)); gap:0.7rem 1rem; }
@@ -346,7 +310,7 @@ select.form-control option { background:var(--clr-card-bg); color:var(--clr-text
 .sizing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:0.8rem; }
 .sizing-grid .card { margin-bottom:0; }
 .sizing-host { display:flex; align-items:baseline; gap:0.4rem; }
-.sizing-host .hosts { font-size:2.2rem; line-height:2.6rem; font-weight:200; color:var(--clr-text-strong); font-variant-numeric:tabular-nums; }
+.sizing-host .hosts { font-family:var(--font-heading); font-size:2.2rem; line-height:2.6rem; font-weight:400; color:var(--clr-action); font-variant-numeric:tabular-nums; }
 .sizing-host .hosts-unit { font-size:0.6rem; color:var(--clr-text-muted); }
 .sizing-driver { font-size:0.6rem; color:var(--clr-text-muted); margin-bottom:0.5rem; }
 .sizing-driver b { color:var(--clr-text-strong); font-weight:600; }
@@ -384,7 +348,7 @@ tr.open .expander { transform:rotate(90deg); color:var(--clr-action); }
 /* ══════════════ Checklist finding flags ══════════════ */
 .flag {
   display:inline-flex; align-items:center; gap:0.2rem; margin-left:0.3rem;
-  border:1px solid var(--clr-danger); border-radius:0.5rem;
+  border:1px solid var(--clr-danger); border-radius:var(--clr-radius);
   background:var(--clr-danger-tint); color:var(--clr-danger-text);
   padding:0 0.3rem; height:0.85rem;
   font-size:0.5rem; font-weight:600; letter-spacing:0.04em;
@@ -413,7 +377,7 @@ tr.open .expander { transform:rotate(90deg); color:var(--clr-action); }
   border-radius:var(--clr-radius); box-shadow:var(--clr-shadow);
   padding:0.7rem; text-align:center;
 }
-.stat-card .num { font-size:1.4rem; line-height:1.8rem; font-weight:200; color:var(--clr-text-strong); font-variant-numeric:tabular-nums; }
+.stat-card .num { font-family:var(--font-heading); font-size:1.4rem; line-height:1.8rem; font-weight:400; color:var(--clr-text-strong); font-variant-numeric:tabular-nums; }
 .stat-card .label-text { font-size:0.5rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--clr-text-muted); }
 
 .filter-row { display:flex; gap:0.3rem; flex-wrap:wrap; }
@@ -422,7 +386,7 @@ tr.open .expander { transform:rotate(90deg); color:var(--clr-action); }
 pre.code {
   background:var(--clr-card-bg-alt); border:1px solid var(--clr-border-subtle);
   border-radius:var(--clr-radius); padding:0.6rem 0.8rem;
-  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-family:var(--font-mono);
   font-size:0.6rem; line-height:1.1rem; color:var(--clr-text); overflow-x:auto;
 }
 
@@ -434,7 +398,9 @@ pre.code {
 .rec-grid p { color:var(--clr-text-muted); font-size:0.62rem; line-height:1.05rem; }
 
 @media (max-width:640px) {
-  .branding .title { font-size:0.7rem; }
+  .branding .title { font-size:0.75rem; }
+  .branding .divider { display:none; }
+  .header-btn span { display:none; }
   .content-container { padding:0.8rem 0.5rem 2.4rem; }
   .card-block, .card-header { padding-left:0.7rem; padding-right:0.7rem; }
 }
@@ -442,8 +408,19 @@ pre.code {
 /* ══════════════ Print ══════════════
    Everything on one document: all tabs expand, controls drop away. ══════════ */
 @media print {
-  :root { font-size:100%; }
+  /* The screen palette is dark-only; print on white with dark ink and a
+     darker orange that still reads as the site's accent. */
+  :root {
+    font-size:100%; color-scheme:light;
+    --clr-app-bg:#fff; --clr-card-bg:#fff; --clr-card-bg-alt:#f3f3f3;
+    --clr-border:#999; --clr-border-subtle:#ddd;
+    --clr-text:#222; --clr-text-strong:#000; --clr-text-muted:#555;
+    --clr-action:#b35200; --clr-action-hover:#b35200; --clr-action-tint:rgba(179,82,0,.08);
+    --clr-success:#2e7d32; --clr-success-text:#1b5e20; --clr-warning:#a07800; --clr-warning-text:#6f5300;
+    --clr-danger:#c62828; --clr-danger-text:#b71c1c;
+  }
   body { background:#fff; color:#000; }
+  body::before { display:none; }
   .header, .subnav, .header-actions, .toolbar, .filter-row,
   .upload-zone, .btn, .flag, #resetWrap, .no-print { display:none !important; }
   .tab-content { display:block !important; page-break-before:always; }
@@ -463,20 +440,15 @@ pre.code {
 <!-- ══════════════ Header ══════════════ -->
 <header class="header">
   <div class="branding">
-    <span class="logo" aria-hidden="true">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-        <path d="M3.27 6.96 12 12.01l8.73-5.05"/><path d="M12 22.08V12"/>
-      </svg>
-    </span>
+    <a class="logo" href="/" rel="home" title="jameskilby.co.uk">
+      <svg aria-label="JK — James Kilby, back to the blog" role="img" focusable="false" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect fill="#0a0a0a" height="92" stroke="#f6821f" stroke-width="5" width="92" x="4" y="4"/><text dominant-baseline="central" fill="#f6821f" font-family="Anton, sans-serif" font-size="56" letter-spacing="-2" text-anchor="middle" x="50" y="52">JK</text></svg>
+    </a>
+    <span class="divider" aria-hidden="true"></span>
     <h1 class="title">VMware Cloud on AWS — Starter Workflow</h1>
   </div>
   <div class="header-actions">
     <button class="header-btn" id="printBtn" type="button" title="Print or save the whole workflow as PDF">
       ⎙ <span>Print</span>
-    </button>
-    <button class="header-btn" id="themeToggle" type="button" title="Switch light / dark theme">
-      <span id="themeIcon">◐</span> <span id="themeLabel">Theme</span>
     </button>
   </div>
 </header>
@@ -561,17 +533,17 @@ pre.code {
         </div>
 
         <div class="table-scroll">
-          <svg viewBox="0 0 640 312" width="640" height="312" role="img" aria-labelledby="dualRunTitle dualRunDesc" style="width:100%;height:auto;min-width:32rem;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;">
+          <svg viewBox="0 0 640 312" width="640" height="312" role="img" aria-labelledby="dualRunTitle dualRunDesc" style="width:100%;height:auto;min-width:32rem;font-family:var(--font-body);">
             <title id="dualRunTitle">Dual-running cost exposure across three migration paths</title>
             <desc id="dualRunDesc">A schematic timeline comparing how long the legacy platform and a new platform run in parallel — and are both being paid for — under a self-managed hardware refresh, a cloud-native re-architecture, and a VMC migration. The cloud-native path shows the longest overlap; VMC shows the shortest.</desc>
 
             <!-- Legend -->
             <g transform="translate(0,4)" style="font-size:9px;">
-              <rect x="0" y="0" width="14" height="10" rx="2" fill="var(--clr-text-muted)"/>
+              <rect x="0" y="0" width="14" height="10" fill="var(--clr-text-muted)"/>
               <text x="18" y="8.5" fill="var(--clr-text)">Legacy platform still running</text>
-              <rect x="185" y="0" width="14" height="10" rx="2" fill="var(--clr-action)"/>
+              <rect x="185" y="0" width="14" height="10" fill="var(--clr-action)"/>
               <text x="203" y="8.5" fill="var(--clr-text)">Target platform now running</text>
-              <rect x="400" y="0" width="14" height="10" rx="2" fill="var(--clr-warning)" fill-opacity="0.3" stroke="var(--clr-warning)" stroke-width="1"/>
+              <rect x="400" y="0" width="14" height="10" fill="var(--clr-warning)" fill-opacity="0.3" stroke="var(--clr-warning)" stroke-width="1"/>
               <text x="418" y="8.5" fill="var(--clr-text)">Dual-running window — paying for both</text>
             </g>
 
@@ -579,8 +551,8 @@ pre.code {
             <g transform="translate(0,32)">
               <text x="0" y="10" style="font-size:10px;font-weight:600;" fill="var(--clr-text-strong)">Self-managed on-prem (hardware refresh)</text>
               <rect x="430" y="16" width="140" height="30" fill="var(--clr-warning)" fill-opacity="0.22"/>
-              <rect x="140" y="18" width="430" height="12" rx="4" fill="var(--clr-text-muted)"/>
-              <rect x="430" y="34" width="190" height="12" rx="4" fill="var(--clr-action)"/>
+              <rect x="140" y="18" width="430" height="12" fill="var(--clr-text-muted)"/>
+              <rect x="430" y="34" width="190" height="12" fill="var(--clr-action)"/>
               <circle cx="500" cy="10" r="6" fill="var(--clr-warning)"/>
               <text x="500" y="13" text-anchor="middle" style="font-size:8px;font-weight:700;" fill="var(--clr-text-strong)">!</text>
               <text x="0" y="60" style="font-size:8.5px;" fill="var(--clr-text-muted)">Old + new hardware both powered through cutover/validation — typically weeks.</text>
@@ -590,8 +562,8 @@ pre.code {
             <g transform="translate(0,108)">
               <text x="0" y="10" style="font-size:10px;font-weight:600;" fill="var(--clr-text-strong)">Refactor to cloud-native</text>
               <rect x="210" y="16" width="390" height="30" fill="var(--clr-warning)" fill-opacity="0.32"/>
-              <rect x="140" y="18" width="460" height="12" rx="4" fill="var(--clr-text-muted)"/>
-              <rect x="210" y="34" width="410" height="12" rx="4" fill="var(--clr-action)"/>
+              <rect x="140" y="18" width="460" height="12" fill="var(--clr-text-muted)"/>
+              <rect x="210" y="34" width="410" height="12" fill="var(--clr-action)"/>
               <circle cx="405" cy="10" r="6" fill="var(--clr-warning)"/>
               <text x="405" y="13" text-anchor="middle" style="font-size:8px;font-weight:700;" fill="var(--clr-text-strong)">!</text>
               <text x="0" y="60" style="font-size:8.5px;" fill="var(--clr-text-muted)">Legacy stays live the entire re-architecture — commonly months to years (see the McKinsey-sourced figures below).</text>
@@ -601,8 +573,8 @@ pre.code {
             <g transform="translate(0,184)">
               <text x="0" y="10" style="font-size:10px;font-weight:600;" fill="var(--clr-text-strong)">VMC migration (HCX)</text>
               <rect x="150" y="16" width="80" height="30" fill="var(--clr-warning)" fill-opacity="0.32"/>
-              <rect x="140" y="18" width="90" height="12" rx="4" fill="var(--clr-text-muted)"/>
-              <rect x="150" y="34" width="470" height="12" rx="4" fill="var(--clr-action)"/>
+              <rect x="140" y="18" width="90" height="12" fill="var(--clr-text-muted)"/>
+              <rect x="150" y="34" width="470" height="12" fill="var(--clr-action)"/>
               <circle cx="190" cy="10" r="6" fill="var(--clr-warning)"/>
               <text x="190" y="13" text-anchor="middle" style="font-size:8px;font-weight:700;" fill="var(--clr-text-strong)">!</text>
               <text x="0" y="60" style="font-size:8.5px;" fill="var(--clr-text-muted)">SDDC deploys in ~2 hours; HCX migration is typically days — legacy decommissioned fast.</text>
@@ -2238,28 +2210,8 @@ const esc = s => { const d = document.createElement('div'); d.textContent = s ??
 const fmt = n => Number(n).toLocaleString(undefined, { maximumFractionDigits: 0 });
 
 // ══════════════ Theme ══════════════
-const root = document.documentElement;
-
-function currentTheme() {
-  return root.dataset.theme
-    || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-}
-function paintThemeButton() {
-  const dark = currentTheme() === 'dark';
-  $('themeIcon').textContent  = dark ? '☾' : '☀';
-  $('themeLabel').textContent = dark ? 'Dark' : 'Light';
-}
-const savedTheme = localStorage.getItem('vmc_theme');
-if (savedTheme) root.dataset.theme = savedTheme;
-paintThemeButton();
-
-$('themeToggle').addEventListener('click', () => {
-  const next = currentTheme() === 'dark' ? 'light' : 'dark';
-  root.dataset.theme = next;
-  localStorage.setItem('vmc_theme', next);
-  paintThemeButton();
-});
-matchMedia('(prefers-color-scheme: dark)').addEventListener('change', paintThemeButton);
+// Dark only, like the rest of the site — the light/dark toggle (and its
+// vmc_theme localStorage key) went with the site-theme restyle.
 $('printBtn').addEventListener('click', () => window.print());
 
 // ══════════════ Tabs + hash routing ══════════════
@@ -4536,7 +4488,7 @@ function officialSizerResultHtml(status, data) {
         <code>sddcList[0].clusterList.${esc($('sizeStretched').value === 'yes' ? 'mazClusters' : 'sazClusters')}.hostBreakupList[0].totalHostCount</code>
         for the host count, and <code>...recommendationType</code> for the driver.
       </p>
-      <pre style="font-size:0.6rem;overflow-x:auto;background:var(--clr-bg-alt,rgba(127,127,127,0.08));padding:0.6rem;border-radius:4px;">${esc(JSON.stringify(data.sizer_response, null, 2))}</pre>
+      <pre style="font-size:0.6rem;overflow-x:auto;background:var(--clr-card-bg-alt);padding:0.6rem;border-radius:var(--clr-radius);">${esc(JSON.stringify(data.sizer_response, null, 2))}</pre>
     </div>`;
 }
 
