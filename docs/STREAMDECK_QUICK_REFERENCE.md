@@ -26,7 +26,7 @@ Test the deployment script before adding to Stream Deck:
 If you prefer to open the GitHub Actions page and click "Run workflow" manually:
 
 1. **Drag "Website" action** onto a button
-2. **URL**: `https://github.com/jameskilbynet/jkcoukblog/actions/workflows/deploy-static-site.yml`
+2. **URL**: `https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/deploy-static-site.yml`
 3. **Title**: `Deploy`
 
 ---
@@ -34,7 +34,7 @@ If you prefer to open the GitHub Actions page and click "Run workflow" manually:
 ## 📊 Monitor Deployment
 
 **GitHub Actions Page**:
-- https://github.com/jameskilbynet/jkcoukblog/actions
+- https://github.com/jameskilbycloud/jkcoukblog/actions
 
 **View Latest Run**:
 ```bash

@@ -1,269 +1,208 @@
-# Deployment Documentation
+# Deployment
+
+How the site gets from WordPress to `jameskilby.co.uk`: the build-and-deploy
+workflow, where the built site lives, the Cloudflare Worker in front of it, and
+how to roll back. The workflow file itself
+(`.github/workflows/deploy-static-site.yml`) is the source of truth — every
+step carries a comment explaining why it exists.
 
 ## Table of Contents
-- [GitHub Actions Workflow](#github-actions-workflow)
-- [Build Steps Reference](#build-steps-reference)
+- [Overview](#overview)
+- [The site branch](#the-site-branch)
+- [Build and deploy workflow](#build-and-deploy-workflow)
+- [Caches between runs](#caches-between-runs)
 - [Cloudflare Pages Advanced Mode Worker](#cloudflare-pages-advanced-mode-worker)
-- [KV Cache](#kv-cache)
-- [Build Cache Persistence](#build-cache-persistence)
-- [Deployment Options](#deployment-options)
-- [Environment Variables & Secrets](#environment-variables--secrets)
+- [Rollback](#rollback)
+- [Other deploy-related workflows](#other-deploy-related-workflows)
+- [Secrets](#secrets)
 - [Troubleshooting](#troubleshooting)
 
 ---
 
-## GitHub Actions Workflow
+## Overview
 
-**File:** `.github/workflows/deploy-static-site.yml`
+```
+WordPress (private)  ──REST──►  self-hosted runner  ──force-push──►  site branch  ──►  Cloudflare Pages  ──►  jameskilby.co.uk
+wordpress.jameskilby.cloud      deploy-static-site.yml               (public/ only)     production branch     + Advanced Mode Worker
+(behind Cloudflare Access)                                                              = site                + KV HTML cache
+```
 
-**Triggers:**
-- Manual (`workflow_dispatch`)
-- Webhook (`repository_dispatch` — sent by WordPress plugin on publish)
+- **Triggers:** `repository_dispatch` (type `wordpress-update`, sent when a post
+  is published) and manual `workflow_dispatch`.
+- **Runner:** self-hosted — the WordPress instance is behind Cloudflare Access,
+  which a GitHub-hosted runner can't reach.
+- **Concurrency:** group `wordpress-static-site-deploy`,
+  `cancel-in-progress: false` — a second trigger queues behind the running
+  build rather than cancelling it.
 
-**Runner:** Self-hosted (required to reach WordPress behind Cloudflare Access)
-
-**Concurrency:** `cancel-in-progress: false` — concurrent runs queue rather than cancel, so no deployment is skipped.
-
-**Manual trigger:**
 ```bash
 gh workflow run deploy-static-site.yml
 ```
 
 ---
 
-## Build Steps Reference
+## The site branch
 
-| # | Step | Script / Tool | Blocking? |
-|---|------|--------------|-----------|
-| 1 | Validate env vars | bash | ✅ Yes |
-| 2 | Checkout repository | `actions/checkout@v4` | ✅ Yes |
-| 3 | Restore build cache | `actions/cache@v4` | ✅ Yes |
-| 4 | Install system dependencies | apt-get | ✅ Yes |
-| 5 | Install Python dependencies | pip | ✅ Yes |
-| 6 | Validate WordPress source | `validate_wordpress_source.py` | ✅ Yes |
-| 7 | Generate static site | `wp_to_static_generator.py` | ✅ Yes |
-| 8 | Export to Markdown | `markdown_exporter.py` | ⚠️ Non-blocking |
-| 9 | Generate Markdown API | `markdown_api.py` | ⚠️ Non-blocking |
-| 10 | Validate CSP (Utterances) | `test_csp_utterances.py` | ✅ Yes |
-| 11 | Validate CSP (Plausible) | `test_plausible_analytics.py` | ✅ Yes |
-| 12 | Content quality validation | `content_validator.py` | ⚠️ Non-blocking |
-| 13 | Optimise images | `optimize_images.py` | ⚠️ Non-blocking |
-| 14 | Convert `<img>` → `<picture>` | `convert_images_to_picture.py` | ⚠️ Non-blocking |
-| 15 | Optimise CSS | `optimize_css.py` | ⚠️ Non-blocking |
-| 16 | Apply SEO fixes | `fix_seo_issues.py` | ⚠️ Non-blocking |
-| 17 | Extract and inline critical CSS | `extract_critical_css.py` | ⚠️ Non-blocking |
-| 18 | Apply performance enhancements | `enhance_html_performance.py` | ⚠️ Non-blocking |
-| 19 | Minify CSS | `optimize_css.py --minify-only` | ⚠️ Non-blocking |
-| 20 | Minify HTML | `minify_html.py` | ⚠️ Non-blocking |
-| 21 | Brotli + Gzip compression | `brotli_compress.py` | ⚠️ Non-blocking |
-| 22 | Validate final HTML | `validate_html.py` | ✅ Yes |
-| 23 | Comprehensive deployment validation | `validate_deployment.py` | ✅ Yes |
-| 24 | Commit and push to git | git | ✅ Yes |
-| 25 | Upload search index to KV | `wrangler kv:key put` | ⚠️ Non-blocking |
-| 26 | Selective KV cache purge | `/.purge` endpoint | ⚠️ Non-blocking |
-| 27 | Purge Cloudflare static cache | `purge_static_cache.sh` | ⚠️ Non-blocking |
-| 28 | Submit URLs to IndexNow | `submit_indexnow.py` | ⚠️ Non-blocking |
-| 29 | Notify Slack | `slackapi/slack-github-action` | ⚠️ Non-blocking |
-| 30 | Clean up on failure | bash `rm -rf ./static-output` | On failure only |
+`main` holds code. The built site lives on the **`site` branch**: one
+parentless commit containing `public/`, replaced on every deploy. Cloudflare
+Pages' production branch is `site` and preview deployments are off, so pushes
+to `main` and PR branches don't build anything on Cloudflare.
 
-> **Why IndexNow runs last:** It fires after both Cloudflare cache purge steps so search engine crawlers arrive to find the fresh, correctly-served content rather than a cached stale version.
+Why: committing `public/` to `main` on every deploy grew the repository to 2 GB
+of build history. `main`'s history was rewritten to remove it in November 2026.
+
+What this means in practice:
+
+- `public/` is gitignored on `main`. To look at the live build locally, run
+  `make fetch-site` (extracts `site` into `./public`).
+- `site` has no history by design — don't branch from it, merge it, or open PRs
+  against it. Use [rollback](#rollback) to go back to an earlier build.
+- The push is a force-push with a lease pinned to the `site` commit the build
+  started from. If anything else published in between, the build fails rather
+  than overwrite it.
+
+---
+
+## Build and deploy workflow
+
+Two jobs. `build-and-deploy` does everything below; `spell-check` runs **after**
+it (`needs: build-and-deploy`, so it doesn't compete for the runner) and is
+`continue-on-error` — it never affects the deploy.
+
+| Stage | Steps | Blocking? |
+|-------|-------|-----------|
+| Set up | Validate secrets (only `WP_AUTH_TOKEN` is required) · checkout · **restore `public/` from the `site` branch** · restore the incremental build cache and raw HTML snapshot (Actions cache) · install system tools (`avifenc`, `optipng`, `jpegoptim`, `cwebp`, `jq`, `bc` — apt only if missing) · install Python deps (skipped when `requirements.txt` is unchanged) | Yes |
+| Pre-flight | CSP check (`test_csp.py` — Utterances, Plausible, Credly) · `_redirects` under the Pages free-plan limit · WordPress source health (`validate_wordpress_source.py`) | Yes |
+| Generate | `wp_to_static_generator.py` into `./static-output`, seeded from the restored `public/` so only posts modified since the last build are re-fetched · save build cache + raw snapshot | Yes |
+| Extras | Markdown export + `/api/` JSON · `llms.txt` · content quality report (`content_validator.py`) | Content report is non-blocking |
+| Optimise | Images to AVIF/WebP (`optimize_images.py`, cached) · CSS unused-rule removal + minify · single-pass HTML transformer (`html_transformer.py`: SEO fixes, `<picture>`, perf hints, critical CSS, minify) · internal links for orphan posts · standalone pages (`copy_standalone_pages.py`) · soft-404 artefacts + Worker stamp · per-post OG images · Anton font subset · vendored-URL rewrite · JS minify · Brotli + Gzip | Images, soft-404/Worker stamp and vendored-URL rewrite block; the rest are non-blocking — a failed pass ships that file unoptimised and is listed by "Report non-blocking step failures" |
+| Validate | Playwright UI smoke tests · `validate_html.py`, `validate_deployment.py`, `validate_seo.py` in parallel (sitemap compared with the previous build's) · SEO drift check | Validators yes; Playwright and drift are non-blocking |
+| Publish | Move `static-output` → `public/`, write `security.txt`, convert to relative URLs · changelog + stats pages, recompress · **commit build caches to `main` (if changed) and force-push `public/` to `site`** | Yes, except changelog/stats |
+| Post-deploy | Search index → Workers KV · wait for the Pages deployment of the pushed `site` commit, then purge the changed pages from the KV HTML cache (purge-all above 30 pages) · purge changed static assets from the CDN · IndexNow · report non-blocking failures · dispatch `quality-checks.yml` · Slack | Non-blocking |
+
+Changed pages are found by diffing the new `site` commit against the one the
+build started from, so an incremental build with one edited post purges only
+the pages that actually changed.
+
+---
+
+## Caches between runs
+
+| What | Where it persists | Notes |
+|------|-------------------|-------|
+| Previous build (`public/`) | `site` branch | Seed for incremental generation; source of reused AVIF/WebP; sitemap baseline |
+| `.build-cache.json` | Actions cache `incremental-build-cache-<run>` | Which posts were built and when (`modified_after` for the next run) |
+| `.raw-html-snapshot/` | Actions cache `raw-html-snapshot-<run>` | Pre-transform HTML/CSS, so the optimisation passes always start from the same input |
+| `.image_optimization_cache/optimization_cache.json` | Git, on `main` | BLAKE2b hashes of optimised images |
+| `.last_spell_check_timestamp` | Actions cache `spell-check-<sha>` (spell-check job) | Incremental spell checking. The copy in git is a stale fallback (2025-12-27) used only when no cache exists |
+
+The two Actions caches are restored by prefix, so the most recent one wins.
+`force-full-deploy.yml` deletes them and triggers a deploy; the next run is a
+full rebuild.
 
 ---
 
 ## Cloudflare Pages Advanced Mode Worker
 
-**Source:** `_worker.template.js` (tracked in git)
-**Deployed as:** `public/_worker.js` (copied during the "Commit and push" step)
-
-When `_worker.js` is present in the Pages deployment root, Cloudflare Pages activates **Advanced Mode** — the worker intercepts every request, including static file requests.
-
-### Features
+**Source:** `_worker.template.js`. The build stamps it into `public/_worker.js`
+("Generate soft-404 artefacts and stamp Advanced Mode Worker"). When
+`_worker.js` exists, Pages runs it for every request.
 
 | Feature | Detail |
 |---------|--------|
-| KV HTML cache | Caches rendered HTML in `HTML_CACHE` KV namespace |
-| Smart TTL | Homepage 5 min, recent posts 15 min, older content 1 hour |
-| Absolute KV expiry | Expiry is set as an absolute Unix timestamp on first cache write; view-count updates reuse the original expiry and do not reset the TTL clock |
-| View count tracking | Incremented asynchronously on each cache hit (stored in KV metadata) |
-| Selective purge | `/.purge?path=<url>` endpoint — requires `X-Purge-Token` header |
-| Security headers | CSP, HSTS, X-Frame-Options, Referrer-Policy, Permissions-Policy |
-| Cache API fallback | Falls back to the Cache API if KV is unavailable |
-| Static asset bypass | `.js`, `.css`, `.br`, `.gz`, `.avif`, `.webp`, etc. are served directly without KV caching |
+| KV HTML cache | Rendered HTML in the `HTML_CACHE` namespace |
+| Smart TTL | Homepage 5 min · posts from this or last month 15 min · everything else 1 h |
+| Absolute expiry | Set on first write; view-count updates reuse it, so popular pages don't stay cached longer |
+| Fallback | Uses the Cache API when KV isn't bound |
+| Purge | `POST /.purge?path=<url>` or `POST /.purge?all=true` with `X-Purge-Token` |
+| Admin endpoints | `/diagnostic`, `/trace?path=<url>`, `/test` — all require the purge token |
+| Also | Security headers on Worker-built responses (the CSP line is stamped in from `_headers`, which Pages doesn't apply to those), view tracking, `/markdown/` + `/api/` routing, Plausible proxy, `/api/power` (homelab power widget) |
 
-### KV Bindings Required
+**Bindings and secrets** (set in the Pages dashboard, not `wrangler.toml` —
+see [PAGES_KV_SETUP.md](PAGES_KV_SETUP.md)):
 
-| Binding | Purpose |
-|---------|---------|
-| `HTML_CACHE` | HTML page cache (also backs the `/api/power` widget under `power:latest`) |
-| `SEARCH_INDEX` | Search index storage |
-| `PURGE_TOKEN` | Secret for `/.purge` endpoint |
-| `POWER_TOKEN` | Secret gating `POST /api/power` (Home Assistant → homelab power widget) |
-| `ASSETS` | Cloudflare Pages static asset binding (automatic) |
+| Name | Kind | Purpose |
+|------|------|---------|
+| `HTML_CACHE` | KV | HTML cache; also holds the latest power reading |
+| `SEARCH_INDEX` | KV | Search index, uploaded by CI |
+| `PURGE_TOKEN` | Secret | Gates `/.purge` and the admin endpoints |
+| `POWER_TOKEN` | Secret | Gates `POST /api/power` ([homelab-power-widget.md](homelab-power-widget.md)) |
+| `ASSETS` | Automatic | The static files of the deployment |
 
-> **Note:** `POWER_TOKEN` is a Pages **secret** — set it under Settings →
-> Variables and secrets, not in `wrangler.toml`. Pages only binds
-> variable/secret changes on a **new deployment**, so redeploy after adding it.
-> The widget is injected into the lab page at build time (not WordPress) — see
-> `docs/homelab-power-widget.md` for the partial, injector, and Home Assistant
-> push config.
-
-### Diagnostic Endpoints
-
-> These are **currently public** — see open issue #17.
-
-| Path | Purpose |
-|------|---------|
-| `/diagnostic` | Reports binding status, KV test |
-| `/trace?path=<url>` | Shows caching decision for any path |
-| `/test` | Confirms Advanced Mode is active |
-
----
-
-## KV Cache
-
-### TTL Logic
-
-```
-/ or /index.html     → 300 s  (5 min)
-/YYYY/MM/ paths      → 900 s  (15 min) if year+month ≥ current month − 1
-everything else      → 3600 s (1 hour)
-```
-
-### Expiry Behaviour
-
-When a page is first cached, the worker stores:
-- `expiration` — absolute Unix timestamp (`now + ttl`)
-- `abs_expiry` — same value, persisted in KV metadata
-
-On subsequent cache hits (view count updates), `expiration: abs_expiry` is reused — the TTL is **not** extended. This means:
-- Popular pages expire on the same schedule as unpopular ones
-- Deleted or renamed pages are naturally evicted from KV within their TTL window
-
-### Selective Purge
-
-Changed HTML files are purged from KV automatically after each deployment:
+Pages only picks up new variables and secrets on the **next deployment**.
 
 ```bash
-curl -X GET "https://jameskilby.co.uk/.purge?path=/2026/01/my-post/" \
+curl -X POST "https://jameskilby.co.uk/.purge?path=/2026/01/my-post/" \
   -H "X-Purge-Token: $CACHE_PURGE_TOKEN"
 ```
 
-> **Note:** The purge endpoint currently uses GET — see open issue #18.
+---
+
+## Rollback
+
+`rollback-site.yml` (manual) uses Cloudflare Pages' own deployment history:
+with no input it switches production to the successful deployment before the
+live one; give it a `deployment_id` to pick a specific one. It then purges the
+KV HTML cache.
+
+The rollback lasts until the next deploy, which rebuilds from `main` — revert
+the change that broke the site on `main` first.
 
 ---
 
-## Build Cache Persistence
+## Other deploy-related workflows
 
-The `actions/cache@v4` step saves and restores:
-
-| Path | Purpose |
-|------|---------|
-| `.image_optimization_cache/` | BLAKE2b image hashes — skips unchanged images |
-| `.last_spell_check_timestamp` | ISO timestamp for incremental spell checking |
-| `.build-cache.json` | Incremental build cache (post/page content hashes) |
-
-**Cache key:** `build-cache-avif-v3-${{ github.sha }}`
-**Restore keys:** `build-cache-avif-v3-` (partial match — uses most recent cache)
-
-> The key was bumped from v2 → v3 when MD5 hashing was replaced with BLAKE2b. A v2 cache contains MD5 hashes that no longer match the BLAKE2b hashes produced by the current code, which would cause every post to be treated as changed.
+| Workflow | Trigger | What it does |
+|----------|---------|--------------|
+| `force-full-deploy.yml` | Manual · Sundays 03:00 UTC | Deletes the incremental caches, then dispatches a deploy with `force_static_purge=true` |
+| `quality-checks.yml` | Dispatched after each deploy · daily 03:00 UTC · manual | Lighthouse + live-site formatting checks against production; records scores to `data/lighthouse-latest.json` on `main` |
+| `wordpress-backup.yml` | 1st + 15th of the month · manual | WordPress backup |
 
 ---
 
-## Deployment Options
+## Secrets
 
-### 1. Cloudflare Pages (Primary)
+| Secret | Required | Used for |
+|--------|----------|----------|
+| `WP_AUTH_TOKEN` | Yes | WordPress REST API |
+| `CLOUDFLARE_API_TOKEN` | No | KV upload, deployment polling, CDN purge, rollback |
+| `CLOUDFLARE_ACCOUNT_ID` | No | Pages and KV API calls |
+| `CLOUDFLARE_ZONE_ID` | No | CDN static-asset purge |
+| `KV_SEARCH_INDEX_ID` | No | Search index namespace |
+| `CACHE_PURGE_TOKEN` | No | `/.purge` (must match the Worker's `PURGE_TOKEN`) |
+| `SLACK_WEBHOOK_URL` | No | Notifications |
+| `OLLAMA_API_CREDENTIALS` | No | Spell check (`user:password`) |
+| `PLAUSIBLE_SHARE_LINK` | No | `/stats/` page |
 
-Automatic deployment from the `public/` directory in the git repository.
-
-**Setup:**
-1. Connect Cloudflare Pages to this GitHub repository
-2. Set publish directory: `public/`
-3. No build command — site is pre-built by GitHub Actions
-4. Custom domain: `jameskilby.co.uk`
-
-### 2. Manual (Wrangler)
-
-```bash
-npx wrangler pages publish ./public --project-name=jameskilby-co-uk
-```
-
-### 3. Git Commit (What GitHub Actions does)
-
-```bash
-git add public/
-git commit -m "🚀 Auto-update static site - $(date '+%Y-%m-%d %H:%M:%S')"
-git push origin main
-```
-
----
-
-## Environment Variables & Secrets
-
-### Required
-
-| Secret | Purpose |
-|--------|---------|
-| `WP_AUTH_TOKEN` | WordPress Basic Auth token for REST API |
-
-### Optional
-
-| Secret | Purpose |
-|--------|---------|
-| `OLLAMA_API_CREDENTIALS` | `username:password` for AI spell checker |
-| `SLACK_WEBHOOK_URL` | Slack notifications on success/failure |
-| `CACHE_PURGE_TOKEN` | Token for `/.purge` KV cache endpoint |
-| `CLOUDFLARE_API_TOKEN` | Cloudflare API — static asset cache purge + KV upload |
-| `CLOUDFLARE_ZONE_ID` | Zone ID for static asset cache purge |
-| `KV_SEARCH_INDEX_ID` | KV namespace ID for search index |
-| `PLAUSIBLE_SHARE_LINK` | Plausible Analytics share link for stats page |
-
-### Environment Variables (set in workflow)
-
-| Variable | Default | Purpose |
-|----------|---------|---------|
-| `OLLAMA_URL` | `https://ollama.jameskilby.cloud` | Ollama API endpoint |
-| `OLLAMA_MODEL` | `llama3.1:8b` | Model for spell checking |
+Missing optional secrets skip the step that needs them; the build still deploys.
 
 ---
 
 ## Troubleshooting
 
-### Build fails at "Validate WordPress Source"
+**"site branch moved since this build started"** — something else published
+while this build ran (a second runner, a manual push). Re-run the workflow; it
+will seed from the newer `site` commit.
 
+**Site shows old content after a deploy**
+1. Check the "Purge changed HTML from KV cache" step: did it find the deployment
+   for the pushed commit, and which paths did it purge?
+2. Purge by hand: `curl -X POST "https://jameskilby.co.uk/.purge?path=/your-path/" -H "X-Purge-Token: $TOKEN"`
+3. In the Pages dashboard, check the latest production deployment is for the
+   `site` commit in the step summary.
+
+**A change to a template or script didn't reach old posts** — incremental builds
+skip unchanged posts. Run `force-full-deploy.yml` (or wait for Sunday's).
+
+**Images not converting to AVIF** — check `avifenc --version` on the runner and
+the "Optimize images" step log. To force re-optimisation, delete
+`.image_optimization_cache/optimization_cache.json` on `main`.
+
+**WordPress source validation fails**
 ```bash
-# Check WordPress API is reachable from the runner
-curl -H "Authorization: Basic $WP_AUTH_TOKEN" https://wordpress.jameskilby.cloud/wp-json/wp/v2/posts?per_page=1
+curl -H "Authorization: Basic $WP_AUTH_TOKEN" \
+  "https://wordpress.jameskilby.cloud/wp-json/wp/v2/posts?per_page=1"
 ```
-
-### Images not converting to AVIF
-
-- Check `avifenc` is installed: `avifenc --version`
-- Review the "Optimise images" step logs for per-image errors
-- Verify the image cache hasn't incorrectly marked files as up to date: delete `.image_optimization_cache/optimization_cache.json` and re-run
-
-### Build cache not surviving between runs
-
-- Confirm the `actions/cache@v4` step shows "Cache restored" in the logs
-- Check the cache key: `build-cache-avif-v3-` prefix should match between save and restore
-- GitHub cache has a 10 GB limit per repository — old caches are evicted automatically
-
-### Cloudflare Pages shows old content after deploy
-
-1. Check the "Selective KV cache purge" step — did it purge the affected URLs?
-2. Manually purge via: `curl -X GET "https://jameskilby.co.uk/.purge?path=/your-path/" -H "X-Purge-Token: $TOKEN"`
-3. Check the Cloudflare Pages deployment list to confirm the commit was picked up
-
-### Python dependency errors
-
-```bash
-pip install -r requirements.txt --break-system-packages
-```
-
-### Git push conflicts
-
-The workflow attempts rebase before force-push. If you see `[force-resolved]` in a commit message, the rebase failed and the site was regenerated from scratch without optimisations applied — see open issue #13.
-
-### Viewing workflow logs
 
 ```bash
 gh run list --workflow=deploy-static-site.yml
@@ -276,5 +215,5 @@ gh run rerun <run-id> --failed
 ## Related Documentation
 - [Main README](../README.md)
 - [OPTIMIZATION.md](OPTIMIZATION.md)
-- [FEATURES.md](FEATURES.md)
 - [PAGES_KV_SETUP.md](PAGES_KV_SETUP.md)
+- [homelab-power-widget.md](homelab-power-widget.md)

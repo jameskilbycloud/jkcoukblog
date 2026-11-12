@@ -69,7 +69,7 @@ gh run watch
 ```
 
 **Browser**:
-- Actions: https://github.com/jameskilbynet/jkcoukblog/actions
+- Actions: https://github.com/jameskilbycloud/jkcoukblog/actions
 - Production: https://jameskilby.co.uk
 - Staging: https://jkcoukblog.pages.dev
 
@@ -93,9 +93,9 @@ See `STREAMDECK_DEPLOY_SETUP.md` for detailed troubleshooting.
 
 ## 🔗 Related
 
-- **Main Project Docs**: `docs/archive/WARP.md`
+- **Main Project Docs**: `docs/DEPLOYMENT.md`
 - **GitHub Actions**: `.github/workflows/deploy-static-site.yml`
-- **Common Commands**: See WARP.md for all deployment commands
+- **Common Commands**: `README.md` → Useful Commands
 
 ---
 

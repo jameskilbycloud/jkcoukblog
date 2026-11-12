@@ -9,7 +9,7 @@ If you ever recreate the Pages project (or move it to a new Cloudflare account) 
 | Binding | Type | Used by |
 |---|---|---|
 | `HTML_CACHE` | KV namespace | `env.HTML_CACHE` in `_worker.template.js` — smart-TTL HTML cache with view counts |
-| `SEARCH_INDEX` | KV namespace | `env.SEARCH_INDEX` — search index uploaded by CI via `wrangler kv:key put` |
+| `SEARCH_INDEX` | KV namespace | `env.SEARCH_INDEX` — search index uploaded by CI via `wrangler kv key put` |
 | `PURGE_TOKEN` | Encrypted environment variable | Token check on `/.purge`, `/diagnostic`, `/trace` in the worker |
 
 The current namespace IDs (also documented in `wrangler.toml` for ad-hoc CLI use):

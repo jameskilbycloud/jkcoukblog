@@ -54,19 +54,7 @@ Cache directory: `.image_optimization_cache/optimization_cache.json`
 
 ### Cache Persistence
 
-The image optimisation cache is preserved across GitHub Actions runs via `actions/cache@v4`:
-
-```yaml
-- uses: actions/cache@v4
-  with:
-    path: |
-      .image_optimization_cache
-      .last_spell_check_timestamp
-      .build-cache.json
-    key: build-cache-avif-v3-${{ github.sha }}
-    restore-keys: |
-      build-cache-avif-v3-
-```
+`.image_optimization_cache/optimization_cache.json` is committed to `main` by the deploy workflow whenever it changes, so it is restored by the checkout. The AVIF/WebP files themselves come back with the previous build, restored from the `site` branch. The incremental build cache and raw HTML snapshot live in the Actions cache — see [DEPLOYMENT.md](DEPLOYMENT.md#caches-between-runs).
 
 ### Performance
 
@@ -228,7 +216,7 @@ Without resource hints, loading the Plausible script involves serial DNS → TCP
 
 **File:** `.github/workflows/quality-checks.yml`
 
-Runs automatically on push to main and daily at 03:00 UTC.
+Dispatched by the deploy workflow after every deploy, and daily at 03:00 UTC.
 
 #### Pages tested
 1. Homepage — `https://jameskilby.co.uk`

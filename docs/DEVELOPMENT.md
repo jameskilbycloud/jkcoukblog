@@ -31,7 +31,7 @@ python3 scripts/submit_indexnow.py ./public
 
 ### Testing
 ```bash
-# Start local test server (serves ./public on :8080)
+# Start local test server (serves ./static-output on :8080; OUTPUT_DIR=./public after `make fetch-site`)
 make deploy-local
 
 # Unit tests and lint
@@ -57,10 +57,10 @@ python3 scripts/convert_to_staging.py
 ### Spell Checking
 ```bash
 # Check last 3 posts (requires WP_AUTH_TOKEN and OLLAMA_API_CREDENTIALS)
-./ollama_spell_checker.py 3
+python3 scripts/ollama_spell_checker.py 3
 
 # Check posts modified since timestamp (uses SINCE_TIMESTAMP env var)
-./ollama_spell_checker.py
+python3 scripts/ollama_spell_checker.py
 ```
 
 ### GitHub Actions
@@ -72,10 +72,10 @@ gh workflow run deploy-static-site.yml
 gh run list --workflow=deploy-static-site.yml
 
 # Manually trigger live site testing
-gh workflow run test-live-site.yml
+gh workflow run quality-checks.yml
 
 # Test staging site
-gh workflow run test-live-site.yml -f test_url='https://jkcoukblog.pages.dev'
+gh workflow run quality-checks.yml -f test_url='https://jkcoukblog.pages.dev'
 ```
 
 ---
@@ -132,8 +132,8 @@ gh workflow run test-live-site.yml -f test_url='https://jkcoukblog.pages.dev'
 ### Deployment Flow
 
 ```
-WordPress CMS (Private)     →     Static Generator     →     GitHub Repo     →     Cloudflare Pages (Public)
-wordpress.jameskilby.cloud         (Self-Hosted Runner)       (public/ dir)           jameskilby.co.uk
+WordPress CMS (Private)     →     Static Generator     →     `site` branch   →     Cloudflare Pages (Public)
+wordpress.jameskilby.cloud         (Self-Hosted Runner)       (public/ only)          jameskilby.co.uk
 (Behind Cloudflare Access)                                                            
 ```
 
@@ -143,8 +143,8 @@ wordpress.jameskilby.cloud         (Self-Hosted Runner)       (public/ dir)     
 2. **HTML Processing**: Download pages → BeautifulSoup parsing → URL replacement → Asset extraction
 3. **Asset Management**: Concurrent downloads of CSS, JS, images, fonts
 4. **Transformations**: Embed processing, WordPress cleanup, analytics injection
-5. **Optimization**: Image optimization (optipng/jpegoptim), URL conversion
-6. **Deployment**: Git commit → Cloudflare Pages auto-deploy
+5. **Optimization**: AVIF/WebP, CSS, single-pass HTML transform, Brotli/Gzip, URL conversion
+6. **Deployment**: force-push `public/` to the `site` branch → Cloudflare Pages auto-deploy (see [DEPLOYMENT.md](DEPLOYMENT.md))
 
 ---
 
@@ -174,12 +174,12 @@ All hostnames live in `scripts/config.py` (`Config`). Do not hardcode them elsew
 
 - Must be **self-hosted** (not GitHub-hosted) to access WordPress behind Cloudflare Access
 - Requires Python 3.11+
-- Optional but recommended: `optipng` and `jpegoptim` for image optimization
+- System tools: `avifenc`, `cwebp`, `optipng`, `jpegoptim`, `jq`, `bc` (the deploy workflow installs any that are missing)
 
 ### Python Dependencies
 
 ```bash
-pip install requests beautifulsoup4
+make install-dev   # requirements.txt + requirements-dev.txt
 ```
 
 ---
@@ -203,22 +203,22 @@ pip install requests beautifulsoup4
 - Handles absolute, relative, and WordPress-specific paths
 
 ### Spell Checking
-- Runs before site generation in CI/CD pipeline
+- Runs as a separate job after the deploy (so it doesn't compete with the build for the runner)
 - Non-blocking: continues on error to avoid failed deployments
 - Tracks last check timestamp to only check modified posts
 - Uses incremental checking (modified since last run) by default
 
 ### Image Optimization
 - Reuses already-optimized images from previous builds
-- Tracks optimized images with MD5 hash cache
+- Tracks optimized images with a BLAKE2b hash cache
 - Skips re-optimization of unchanged images
 - Non-blocking: continues on error
 
 ### Deployment Strategy
-- Commits to `public/` directory in repository
-- Cloudflare Pages auto-deploys when `public/` changes
-- No Cloudflare API token needed (Pages monitors repo)
-- Git conflict resolution with automatic retry logic
+- The built site is force-pushed as one parentless commit to the `site` branch; `main` never contains `public/`
+- Cloudflare Pages' production branch is `site`, so the push is the deploy
+- The push is leased to the `site` commit the build started from — a concurrent publish fails the build instead of being overwritten
+- `CLOUDFLARE_API_TOKEN` is only needed for the post-deploy steps (KV, cache purge, rollback)
 
 ### Search Implementation
 - Client-side search using Fuse.js (no server required)
@@ -244,10 +244,10 @@ pip install requests beautifulsoup4
 - Ensure self-hosted runner can access `wordpress.jameskilby.cloud`
 - Check Cloudflare Access policies
 
-### Git push conflicts
-- Workflow includes automatic conflict resolution
-- First attempts rebase, then falls back to force-with-lease
-- Regenerates site if needed to ensure consistency
+### "site branch moved since this build started"
+- Something else published to `site` during the build
+- Re-run the workflow; it seeds from the newer `site` commit
+- Build-cache commits to `main` rebase and retry automatically, and are non-fatal if they still fail
 
 ### Image optimization not working
 - Check if `optipng` and `jpegoptim` are installed on runner
@@ -268,12 +268,12 @@ pip install requests beautifulsoup4
 ## File Structure
 
 ### `/public/`
-- Generated static site output
-- Deployed by Cloudflare Pages
-- Not tracked in git until generated
+- Build output, gitignored on `main`
+- CI publishes it to the `site` branch, which Cloudflare Pages deploys
+- `make fetch-site` recreates it locally from `site`
 
 ### `/.image_optimization_cache/`
-- MD5 hashes of optimized images
+- `optimization_cache.json`: BLAKE2b hashes of optimized images (plus `words_total.json`, the homepage word-count cache)
 - Prevents re-optimization of unchanged images
 - Tracked in git to persist across workflow runs
 

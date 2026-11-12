@@ -1,6 +1,11 @@
-# Scripts Directory - Complete Inventory
+# Scripts Directory
 
-This directory contains all automation scripts for the blog's static site generation pipeline. This document provides a comprehensive guide to understanding what each script does and when to use it.
+A guide to the scripts you run or debug directly. It is **not** a full
+inventory: `scripts/` holds 70+ modules, many of them collaborators that
+`wp_to_static_generator.py` and `html_transformer.py` import. The complete
+list, one line per file, is the repository structure in the
+[main README](../README.md#-repository-structure); the order they run in is in
+[docs/DEPLOYMENT.md](../docs/DEPLOYMENT.md#build-and-deploy-workflow).
 
 ## Quick Reference: Which Script Should I Use?
 
@@ -13,7 +18,6 @@ This directory contains all automation scripts for the blog's static site genera
 | Optimize images (AVIF/WebP) | `optimize_images.py` | ✅ CI/CD |
 | Test live site manually | `test_live_site_formatting.py` | 🔧 Manual |
 | Manage build cache | `manage_build_cache.py` | 🔧 Manual |
-| Configure Cloudflare indexing | `archive/enable_cloudflare_indexing.py` | 🔧 One-time (archived) |
 | Purge Cloudflare cache | `purge_static_cache.sh` | ✅ CI/CD |
 
 ## Legend
@@ -358,88 +362,15 @@ These scripts are for manual use during development or debugging.
 
 ---
 
-## One-Time Setup (1 script)
-
-#### `archive/enable_cloudflare_indexing.py` 🔧
-**Purpose:** Enable search engine indexing via Cloudflare
-**What it does:** Configures Cloudflare to allow search engine crawlers
-**Usage:** `CLOUDFLARE_API_TOKEN=<token> CLOUDFLARE_ZONE_ID=<id> python3 scripts/archive/enable_cloudflare_indexing.py`
-**When to use:** Run once during initial blog setup
-**Status:** Archived — one-time setup script, already executed
-
----
-
-## Script Categories Summary
-
-| Category | Count | Purpose |
-|----------|-------|---------|
-| CI/CD Pipeline | 24 | Automated build, optimization, and deployment |
-| Development Tools | 3 | Manual testing and utilities |
-| Support/Config | 3 | Configuration and external triggers |
-| Frontend | 1 | Client-side functionality |
-| One-Time Setup | 1 | Initial configuration |
-| **Total** | **32** | All Python scripts |
-
-Plus 2 shell scripts and 1 JavaScript file = **40 total files**
-
----
-
 ## Workflow Integration
 
-All ✅ CI/CD scripts are called in `.github/workflows/deploy-static-site.yml` in this order:
-
-1. **Pre-Generation:**
-   - `validate_wordpress_source.py` - Validate WordPress health
-
-2. **Generation:**
-   - `wp_to_static_generator.py` - Generate static site
-   - `markdown_exporter.py` - Export to markdown
-   - `markdown_api.py` - Generate JSON API
-
-3. **CSP Testing:**
-   - `test_csp.py` - Validate CSP for all providers (Utterances, Credly, Plausible)
-
-4. **Content Validation:**
-   - `content_validator.py` - Quality checks (non-blocking)
-
-5. **Image Optimization:**
-   - `optimize_images.py` - Generate AVIF/WebP
-   - `convert_images_to_picture.py` - Update HTML
-
-6. **SEO & Performance:**
-   - `fix_seo_issues.py` - Fix SEO issues
-   - `extract_critical_css.py` - Extract critical CSS
-   - `enhance_html_performance.py` - Add lazy loading, async/defer
-
-7. **CSS Optimization:**
-   - `optimize_css.py --remove-unused` - Remove unused CSS
-   - `optimize_css.py --minify` - Minify CSS
-
-8. **HTML Optimization:**
-   - `minify_html.py` - Minify HTML
-
-9. **Compression:**
-   - `brotli_compress.py` - Pre-compress static files
-
-10. **Validation:**
-    - `validate_html.py` - Validate HTML
-    - `validate_deployment.py` - Final validation
-
-11. **Metadata:**
-    - `convert_to_staging.py` - Convert URLs (if needed)
-    - `generate_changelog.py` - Generate changelog
-    - `generate_stats_page.py` - Generate stats page
-
-12. **SEO:**
-    - `submit_indexnow.py` - Submit to search engines
-
-13. **Cache:**
-    - `purge_static_cache.sh` - Purge Cloudflare cache
-
-14. **Spell Check (Separate Job):**
-    - `ollama_spell_checker.py` - AI spell checking
-
----
+The order the ✅ CI/CD scripts run in, and which steps are blocking, is in
+[docs/DEPLOYMENT.md](../docs/DEPLOYMENT.md#build-and-deploy-workflow). In short:
+CSP and WordPress pre-flight checks → generate → Markdown/`llms.txt` →
+images → CSS → single-pass HTML transform (`html_transformer.py`, which runs
+the SEO, `<picture>`, performance, critical-CSS and minify passes) → extras →
+Brotli/Gzip → validation → publish to the `site` branch → KV/CDN purge and
+IndexNow.
 
 ## Common Tasks
 
@@ -473,8 +404,7 @@ python3 scripts/wp_spell_check_and_fix.py
 ## Maintainers
 
 For questions or issues with these scripts, refer to:
-- GitHub repository: https://github.com/jameskilbynet/jkcoukblog
+- GitHub repository: https://github.com/jameskilbycloud/jkcoukblog
 - Workflow file: `.github/workflows/deploy-static-site.yml`
-- Plan files: `.claude/plans/`
 
-Last updated: 2026-02-16
+Last updated: 2026-11-12

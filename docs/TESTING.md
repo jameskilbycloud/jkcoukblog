@@ -5,8 +5,7 @@ This document covers all testing procedures and tools.
 ## Table of Contents
 - [Live Site Testing](#live-site-testing)
 - [Spell Checking](#spell-checking)
-- [Search Testing](#search-testing)
-- [Environment Testing](#environment-testing)
+- [Unit tests](#unit-tests)
 
 ---
 
@@ -22,17 +21,17 @@ Automated tests for site formatting, SEO, and technical standards.
 
 **Test production:**
 ```bash
-./test_live_site_formatting.py
+python3 scripts/test_live_site_formatting.py
 ```
 
 **Test staging:**
 ```bash
-./test_live_site_formatting.py --url https://jkcoukblog.pages.dev
+python3 scripts/test_live_site_formatting.py --url https://jkcoukblog.pages.dev
 ```
 
 **Test specific post:**
 ```bash
-./test_live_site_formatting.py --post https://jameskilby.co.uk/2025/12/post-slug/
+python3 scripts/test_live_site_formatting.py --post https://jameskilby.co.uk/2025/12/post-slug/
 ```
 
 ### What Gets Tested (14 Tests)
@@ -78,10 +77,10 @@ Automated tests for site formatting, SEO, and technical standards.
 **Via CLI:**
 ```bash
 # Test production
-gh workflow run test-live-site.yml
+gh workflow run quality-checks.yml
 
 # Test staging
-gh workflow run test-live-site.yml -f test_url='https://jkcoukblog.pages.dev'
+gh workflow run quality-checks.yml -f test_url='https://jkcoukblog.pages.dev'
 ```
 
 ---
@@ -104,18 +103,18 @@ Script: `ollama_spell_checker.py`
 
 **Check last 3 posts:**
 ```bash
-./ollama_spell_checker.py 3
+python3 scripts/ollama_spell_checker.py 3
 ```
 
 **Check posts modified since timestamp:**
 ```bash
 export SINCE_TIMESTAMP="2025-01-01T00:00:00Z"
-./ollama_spell_checker.py
+python3 scripts/ollama_spell_checker.py
 ```
 
 **Check all recent posts:**
 ```bash
-./ollama_spell_checker.py
+python3 scripts/ollama_spell_checker.py
 ```
 
 ### Configuration
@@ -136,133 +135,22 @@ The spell checker knows common technical terms:
 
 ### GitHub Actions Integration
 
-Spell checking runs automatically in the deployment workflow:
-```yaml
-- name: Spell check recent posts
-  continue-on-error: true  # Non-blocking
-  run: |
-    export SINCE_TIMESTAMP=$(date -u -d '24 hours ago' +%Y-%m-%dT%H:%M:%SZ)
-    ./ollama_spell_checker.py
-```
-
-### Spell Check Tracking
-
-Results are logged to `spell-check-history.json`:
-```json
-{
-  "checks": [
-    {
-      "timestamp": "2025-12-26T10:00:00Z",
-      "post_title": "Example Post",
-      "issues_found": 3,
-      "fixed": true
-    }
-  ]
-}
-```
+Spell checking runs as the `spell-check` job of `deploy-static-site.yml`, after the build (`needs: build-and-deploy`) and `continue-on-error`, so it never affects a deploy. It sets `SINCE_TIMESTAMP` from `.last_spell_check_timestamp` (restored from the `spell-check-` Actions cache), checks posts modified since then (or the last 3 if there's no timestamp), and writes the new timestamp back for the next run.
 
 ---
 
-## Search Testing
+## Unit tests
 
-### Overview
-Tests the search index generation and validates search functionality.
+`tests/` holds the pytest suite for the build scripts (`conftest.py` puts `scripts/` on the path):
 
-### Test Script
-`test_search.py`
-
-### Usage
-
-**Run search tests:**
 ```bash
-python3 test_search.py
+make test    # pytest tests/ -v
+make lint    # ruff check scripts/ tests/
 ```
 
-**Start local server for testing:**
-```bash
-python3 test_search.py --server
-# Then open http://localhost:8000
-```
+Both run in CI via `python-checks.yml` on changes to `scripts/`, `tests/` or the requirements files. Tests that need the image toolchain (Pillow AVIF) skip when it isn't installed.
 
-### What Gets Tested
-
-**Search Index Tests:**
-- Validates search index file exists
-- Checks JSON structure is valid
-- Verifies required fields are present
-- Tests search index size and performance
-- Validates URLs in search results
-
-**Search Query Tests:**
-- Tests various search queries
-- Validates search results relevance
-- Checks fuzzy search functionality
-- Tests category and tag filtering
-
-### Requirements
-Already installed via `requirements.txt`:
-- requests
-- beautifulsoup4
-
----
-
-## Environment Testing
-
-### Overview
-Validates that the GitHub runner environment is properly configured.
-
-### Test Script
-`test_runner_env.py`
-
-### Usage
-
-**Run environment validation:**
-```bash
-python3 test_runner_env.py
-```
-
-### What Gets Checked
-
-**Python Environment:**
-- Python version
-- Python executable path
-- Current working directory
-
-**File System:**
-- Lists files in current directory
-- Checks for required Python scripts
-- Verifies GitHub Actions workflow files exist
-
-**Python Dependencies:**
-- Tests `requests` library import and version
-- Tests `beautifulsoup4` library import and version
-- Reports missing dependencies
-
-**Environment Variables:**
-- Checks for `WP_AUTH_TOKEN` presence
-- Masks token value for security
-- Warns if not set
-
-### Exit Codes
-- **0** = All checks passed ✅
-- **1** = Some checks failed ❌
-
-### Sample Output
-
-```
-======================================================================
-🚀 Starting Environment Validation
-======================================================================
-
-✅ Python 3.11.5 found
-✅ Required scripts exist
-✅ Dependencies installed (requests, beautifulsoup4)
-✅ WP_AUTH_TOKEN environment variable set
-
-======================================================================
-📈 Results: All checks passed
-======================================================================
-```
+The deploy workflow also has a manual-only "Test runner environment" step (runs on `workflow_dispatch`) that prints the runner's Python, tools and paths — there's no separate script for it.
 
 ---
 

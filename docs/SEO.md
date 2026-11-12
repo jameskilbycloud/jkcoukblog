@@ -274,24 +274,7 @@ Disables unnecessary browser features.
 
 ### Configuration
 
-**Cloudflare Pages:**
-Add to `_headers` file in public directory:
-```
-/*
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: SAMEORIGIN
-  Referrer-Policy: strict-origin-when-cross-origin
-```
-
-**Netlify:**
-Add to `netlify.toml`:
-```toml
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Content-Type-Options = "nosniff"
-    X-Frame-Options = "SAMEORIGIN"
-```
+The headers are defined in the repo-root `_headers` file, which the generator copies into the build (`site_artifacts_builder.py`). Pages applies `_headers` to static files; the Worker (`_worker.template.js`) re-applies the same headers to the HTML responses it builds itself, with the CSP line stamped in from `_headers` at build time. `scripts/test_csp.py` reads `_headers` and fails the build if the CSP would block Utterances, Plausible or Credly.
 
 ### Verification
 Check headers:

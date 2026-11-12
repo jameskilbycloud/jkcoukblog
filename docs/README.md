@@ -15,12 +15,11 @@ Welcome to the jkcoukblog documentation! This site automatically converts a Word
 - [SEO.md](SEO.md) - IndexNow, rich results, security headers, and SEO improvements
 
 ### Deployment & Testing
-- [DEPLOYMENT.md](DEPLOYMENT.md) - GitHub Actions, deployment guide, and environment setup
+- [DEPLOYMENT.md](DEPLOYMENT.md) - Deploy workflow, the `site` branch, the Worker, rollback and secrets
 - [TESTING.md](TESTING.md) - Live site tests, spell checking, and test procedures
 
 ### Reference Documentation
 - [CHANGELOG.md](CHANGELOG.md) - How the public /changelog/ page is generated
-- [BUILD_AND_DEPLOY_DOCUMENTATION.md](BUILD_AND_DEPLOY_DOCUMENTATION.md) - Comprehensive build and deployment guide
 - [IMAGE_OPTIMIZATION.md](IMAGE_OPTIMIZATION.md) - Image optimization strategy and implementation
 - [PAGES_KV_SETUP.md](PAGES_KV_SETUP.md) - Cloudflare KV namespace setup
 - [homelab-power-widget.md](homelab-power-widget.md) - Live homelab power-draw widget on /lab/
@@ -41,15 +40,16 @@ Welcome to the jkcoukblog documentation! This site automatically converts a Word
 
 ### Common Tasks
 
-**Generate Static Site:**
+**Build locally** (needs `WP_AUTH_TOKEN` and the Cloudflare Access token, so in practice the self-hosted runner):
 ```bash
-export WP_AUTH_TOKEN="your_token"
-python3 scripts/wp_to_static_generator.py ./public
+make build          # generate → optimise → validate, all in ./static-output
+make deploy-local   # serve ./static-output on :8080
 ```
 
-**Test Locally:**
+**Inspect the live build:**
 ```bash
-python3 -m http.server 8080 --directory ./public
+make fetch-site                          # site branch → ./public
+make deploy-local OUTPUT_DIR=./public
 ```
 
 **Deploy via GitHub Actions:**
@@ -85,7 +85,6 @@ docs/
 ├── IMAGE_OPTIMIZATION.md                      # Image optimization
 ├── SEO.md                                     # SEO and search engines
 ├── DEPLOYMENT.md                              # Deployment and CI/CD
-├── BUILD_AND_DEPLOY_DOCUMENTATION.md          # Build system guide
 ├── TESTING.md                                 # Testing procedures
 ├── CHANGELOG.md                               # /changelog/ page generator
 ├── PAGES_KV_SETUP.md                          # Cloudflare KV setup
@@ -105,7 +104,7 @@ docs/
 - **Staging Site:** [jkcoukblog.pages.dev](https://jkcoukblog.pages.dev)
 - **WordPress CMS:** wordpress.jameskilby.cloud (private)
 - **Analytics:** plausible.jameskilby.cloud
-- **GitHub:** [jameskilbynet/jkcoukblog](https://github.com/jameskilbynet/jkcoukblog)
+- **GitHub:** [jameskilbycloud/jkcoukblog](https://github.com/jameskilbycloud/jkcoukblog)
 
 ## 💡 Contributing
 
