@@ -6,12 +6,12 @@
 # This script should be configured in Stream Deck with:
 # - Action: System > Open
 # - Path: /Users/w20kilja/Github/jkcoukblog/scripts/streamdeck-deploy.sh
-# - Or use System > Website to open: https://github.com/jameskilbynet/jkcoukblog/actions/workflows/deploy-static-site.yml
+# - Or use System > Website to open: https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/deploy-static-site.yml
 
 set -e
 
 # Configuration
-REPO="jameskilbynet/jkcoukblog"
+REPO="jameskilbycloud/jkcoukblog"
 WORKFLOW="deploy-static-site.yml"
 WORKFLOW_FILE=".github/workflows/deploy-static-site.yml"
 

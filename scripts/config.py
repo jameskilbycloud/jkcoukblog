@@ -86,6 +86,11 @@ class Config:
     # describe the same identity graph.
     PERSON_SAME_AS = tuple(p['url'] for p in SOCIAL_PROFILES)
 
+    # This code repository (owner/name): links, badges and the GitHub API.
+    # Moved from jameskilbynet/ to jameskilbycloud/; the old name only works
+    # while GitHub keeps redirecting it.
+    GITHUB_REPO = 'jameskilbycloud/jkcoukblog'
+
     # GitHub repo (owner/name) whose issues back Utterances comments. The
     # Utterances app must stay installed on this exact repo — do not change
     # this to the code repo without migrating the comment issues.

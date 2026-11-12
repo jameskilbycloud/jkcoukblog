@@ -22,6 +22,8 @@ from PIL import Image
 from bs4 import BeautifulSoup
 import json
 
+from config import Config
+
 
 class DeploymentValidator:
     """Validates optimized static site before deployment."""
@@ -438,7 +440,7 @@ class DeploymentValidator:
                     script = utterances_section.find('script', src=lambda x: x and 'utteranc.es' in x)
                     if script:
                         repo = script.get('data-repo')
-                        if repo == 'jameskilbynet/jkcoukblog':
+                        if repo == Config.UTTERANCES_REPO:
                             posts_with_comments += 1
                         else:
                             malformed_comments += 1

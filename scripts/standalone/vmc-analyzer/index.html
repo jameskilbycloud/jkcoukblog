@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VMware Cloud on AWS — Starter Workflow</title>
+<meta name="description" content="Plan a VMware Cloud on AWS migration in your browser: business case, RVTools analysis, SDDC sizing, readiness checks and post-migration advice.">
 <style>
 /* ══════════════════════════════════════════════════════════════════
    Clarity Design System tokens
@@ -168,6 +169,9 @@ a:hover { color:var(--clr-action-hover); text-decoration:underline; }
   color: var(--clr-action);
 }
 .branding .title {
+  /* The page's <h1>: undo the UA margin and the page-wide h1 rule so it
+     still looks like the header label it was. */
+  margin:0; line-height:inherit; letter-spacing:normal;
   font-size:0.8rem; font-weight:400; color:#fff;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
@@ -465,7 +469,7 @@ pre.code {
         <path d="M3.27 6.96 12 12.01l8.73-5.05"/><path d="M12 22.08V12"/>
       </svg>
     </span>
-    <span class="title">VMware Cloud on AWS — Starter Workflow</span>
+    <h1 class="title">VMware Cloud on AWS — Starter Workflow</h1>
   </div>
   <div class="header-actions">
     <button class="header-btn" id="printBtn" type="button" title="Print or save the whole workflow as PDF">
