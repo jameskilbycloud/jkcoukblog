@@ -4,7 +4,10 @@ How the site gets from WordPress to `jameskilby.co.uk`: the build-and-deploy
 workflow, where the built site lives, the Cloudflare Worker in front of it, and
 how to roll back. The workflow file itself
 (`.github/workflows/deploy-static-site.yml`) is the source of truth — every
-step carries a comment explaining why it exists.
+step carries a comment explaining why it exists. The six longest step bodies
+live in `scripts/ci/` (`generate_site.sh`, `optimize_images.sh`, `compress.sh`,
+`prepare_output.sh`, `publish_site.sh`, `kv_purge.sh`); the workflow snapshots
+that directory right after checkout and runs them from the snapshot.
 
 ## Table of Contents
 - [Overview](#overview)
