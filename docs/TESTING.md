@@ -5,6 +5,7 @@ This document covers all testing procedures and tools.
 ## Table of Contents
 - [Live Site Testing](#live-site-testing)
 - [Spell Checking](#spell-checking)
+- [UI smoke tests (Playwright)](#ui-smoke-tests-playwright)
 - [Unit tests](#unit-tests)
 
 ---
@@ -136,6 +137,31 @@ The spell checker knows common technical terms:
 ### GitHub Actions Integration
 
 Spell checking runs as the `spell-check` job of `deploy-static-site.yml`, after the build (`needs: build-and-deploy`) and `continue-on-error`, so it never affects a deploy. It sets `SINCE_TIMESTAMP` from `.last_spell_check_timestamp` (restored from the `spell-check-` Actions cache), checks posts modified since then (or the last 3 if there's no timestamp), and writes the new timestamp back for the next run.
+
+---
+
+## UI smoke tests (Playwright)
+
+`scripts/test_interactive_ui.py` serves the build locally and drives headless Chromium through the JS-driven UI (mobile drawer, Splide carousel, sticky header, sub-menus). The deploy runs it after compression with `--require-browser`, so a run that can't launch Chromium fails the step instead of skipping silently. The step is `continue-on-error`: a failure is reported in "Report non-blocking step failures" and the Slack warning, and the deploy still goes out.
+
+Playwright is pinned in `requirements-ui.txt` (Dependabot bumps it); the step installs the pin whenever the runner's copy differs, then `playwright install --only-shell chromium`.
+
+**Runner setup (one-off, per runner).** The browser needs shared libraries from apt, which the step can't install (no passwordless sudo). The step names any that are missing. On Ubuntu 26.04:
+
+```bash
+sudo apt-get install -y libasound2t64 libatk1.0-0t64 libatk-bridge2.0-0t64 \
+  libatspi2.0-0t64 libxcomposite1 libxdamage1 libxfixes3 libxrandr2
+```
+
+Do this on both runners (`uk-bhr-ghr-1`, `uk-bhr-p-ghr-2`) — either can pick up a deploy. `sudo python3 -m playwright install-deps` doesn't work here: Playwright is a per-user install under `~/.local`, which root's Python can't import.
+
+Locally:
+
+```bash
+pip install -r requirements-ui.txt
+python3 -m playwright install --only-shell chromium
+python3 scripts/test_interactive_ui.py ./static-output
+```
 
 ---
 

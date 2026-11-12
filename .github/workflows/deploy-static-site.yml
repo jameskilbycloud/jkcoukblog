@@ -17,6 +17,18 @@ on:
         options:
           - 'false'
           - 'true'
+      reencode_images:
+        # Re-encode every AVIF/WebP from its source instead of reusing the
+        # previous build's (optimize_images.py --force). Only for an encoder
+        # or quality change: it takes most of the 40-minute image budget.
+        # force-full-deploy.yml exposes the same input.
+        description: 'Re-encode every image (encoder/quality change only — slow)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
   repository_dispatch:      # Webhook trigger
     types: [wordpress-update]
 
@@ -218,10 +230,11 @@ jobs:
         fi
         echo "PREV_SITE_SHA=$PREV_SITE_SHA" >> "$GITHUB_ENV"
 
-    # No Actions cache for .image_optimization_cache / .last_spell_check_timestamp:
-    # both are git-tracked on main (committed by the "Commit and push" step when they change and
-    # restored on checkout), so an actions/cache layer on top was pure redundancy —
-    # and its hashFiles() key lagged a build behind, masking that fact. The
+    # No Actions cache for .image_optimization_cache: it's git-tracked on main
+    # (committed by the "Commit and push" step when it changes and restored on
+    # checkout), so an actions/cache layer on top was pure redundancy — and its
+    # hashFiles() key lagged a build behind, masking that fact. (The spell-check
+    # timestamp is the spell-check job's own Actions cache.) The
     # incremental build cache below is different: .build-cache.json is gitignored,
     # so the Actions cache is the only thing that persists it between runs.
 
@@ -307,12 +320,10 @@ jobs:
         # already installed, and hitting apt just to re-confirm costs a dpkg
         # lock wait (up to 120s) behind unattended-upgrades.
         MISSING_PKGS=()
+        # No image CLIs (avifenc, cwebp, optipng, jpegoptim): every encode
+        # goes through Pillow in optimize_images.py, and nothing calls them.
         command -v jq       >/dev/null 2>&1 || MISSING_PKGS+=(jq)
         command -v bc       >/dev/null 2>&1 || MISSING_PKGS+=(bc)
-        command -v avifenc  >/dev/null 2>&1 || MISSING_PKGS+=(libavif-bin)
-        command -v optipng  >/dev/null 2>&1 || MISSING_PKGS+=(optipng)
-        command -v jpegoptim >/dev/null 2>&1 || MISSING_PKGS+=(jpegoptim)
-        command -v cwebp    >/dev/null 2>&1 || MISSING_PKGS+=(webp)
         python3 -m pip --version >/dev/null 2>&1 || MISSING_PKGS+=(python3-pip)
         python3 -c 'import venv' >/dev/null 2>&1 || MISSING_PKGS+=(python3-venv)
 
@@ -328,20 +339,6 @@ jobs:
         echo "  ✓ pip: $(python3 -m pip --version)"
         echo "  ✓ jq: $(jq --version)"
         echo "  ✓ bc: $(bc --version | head -n 1)"
-
-        echo ""
-        echo "📊 Image optimization tools installed:"
-        command -v optipng &> /dev/null && echo "  ✅ optipng: $(optipng --version 2>&1 | head -n 1)" || echo "  ⚠️  optipng not found"
-        command -v jpegoptim &> /dev/null && echo "  ✅ jpegoptim: $(jpegoptim --version 2>&1 | head -n 1)" || echo "  ⚠️  jpegoptim not found"
-        command -v cwebp &> /dev/null && echo "  ✅ cwebp: $(cwebp -version 2>&1 | head -n 1)" || echo "  ⚠️  cwebp not found"
-        command -v avifenc &> /dev/null && echo "  ✅ avifenc: $(avifenc --version 2>&1 | head -n 1)" || echo "  ❌ avifenc not found"
-
-        # Verify avifenc works by checking help
-        if command -v avifenc &> /dev/null; then
-          echo ""
-          echo "🧪 Testing avifenc..."
-          avifenc --help &> /dev/null && echo "  ✅ avifenc is functional" || echo "  ⚠️  avifenc may have issues"
-        fi
 
     - name: Verify Python installation
       run: |
@@ -359,16 +356,19 @@ jobs:
         # hash in $HOME (survives the later `git reset --hard origin/main`, which a
         # repo-local stamp would not) and skip when it matches AND the key packages
         # import cleanly. Mirrors the "check before touching apt" gate above.
-        DEPS_SIG="$(sha256sum requirements.txt | awk '{print $1}')-pillow-avif-plugin"
+        DEPS_SIG="$(sha256sum requirements.txt | awk '{print $1}')"
         STAMP="$HOME/.jkcoukblog_deps_stamp"
         if [ "$(cat "$STAMP" 2>/dev/null)" = "$DEPS_SIG" ] \
-           && python3 -c "import requests, bs4, PIL, pillow_avif" 2>/dev/null; then
+           && python3 -c "import requests, bs4; from PIL import features; assert features.check('avif')" 2>/dev/null; then
           echo "✅ Dependencies already satisfied (requirements unchanged) — skipping pip install"
         else
           echo "📦 Installing/updating Python dependencies..."
           python3 -m pip install --upgrade pip --break-system-packages
           python3 -m pip install -r requirements.txt --break-system-packages
-          python3 -m pip install Pillow pillow-avif-plugin --break-system-packages
+          # AVIF comes from Pillow itself (>= 11.2 wheels); pillow-avif-plugin
+          # is no longer installed. Fail here, not mid-build, if this Pillow
+          # can't encode it.
+          python3 -c "from PIL import features; assert features.check('avif'), 'Pillow has no AVIF support'"
           echo "$DEPS_SIG" > "$STAMP"
           echo "✅ Dependencies installed"
         fi
@@ -693,14 +693,24 @@ jobs:
     - name: Optimize images
       timeout-minutes: 40  # Timeout for image optimization
       shell: bash
+      env:
+        REENCODE_IMAGES: ${{ github.event.inputs.reencode_images }}
       run: |
         echo "🖼️  Starting advanced image optimization with AVIF..."
         
         # Run the Python-based optimizer with parallel processing
         # Uses 4 parallel workers, creates AVIF versions by default
         # Cache is stored in .image_optimization_cache/ for persistence
+        # --skip-html: <picture> conversion is done once, by the single-pass
+        # HTML transformer. optimize_images.py's own HTML pass rewrote ~250
+        # pages per build for nothing — on the live build the transformer's
+        # output was byte-identical with and without it.
+        FORCE_FLAG=()
+        [ "$REENCODE_IMAGES" = "true" ] && FORCE_FLAG=(--force)
         python3 scripts/optimize_images.py ./static-output \
           --workers 4 \
+          --skip-html \
+          "${FORCE_FLAG[@]}" \
           --json-output optimization-results.json \
           --cache-dir .image_optimization_cache || {
           echo "⚠️  Image optimization failed (non-blocking)"
@@ -1074,7 +1084,9 @@ jobs:
         SHELL_BIN=$(find "$HOME/.cache/ms-playwright" -path '*chromium_headless_shell-*' -name chrome-headless-shell -type f 2>/dev/null | sort -V | tail -1)
         MISSING_LIBS=$( [ -n "$SHELL_BIN" ] && ldd "$SHELL_BIN" 2>/dev/null | awk '/not found/ {print $1}' | sort -u | tr '\n' ' ')
         if [ -n "$MISSING_LIBS" ]; then
-          echo "::error title=Chromium system libraries missing::$MISSING_LIBS— run once on the runner: sudo $(command -v python3) -m playwright install-deps chromium"
+          # Not `sudo python3 -m playwright install-deps`: Playwright is a
+          # per-user install (~/.local), which root's Python can't import.
+          echo "::error title=Chromium system libraries missing::$MISSING_LIBS— install the apt packages that provide them on the runner (Ubuntu 26.04: libasound2t64 libatk1.0-0t64 libatk-bridge2.0-0t64 libatspi2.0-0t64 libxcomposite1 libxdamage1 libxfixes3 libxrandr2); see docs/TESTING.md"
           exit 1
         fi
 
@@ -1242,10 +1254,10 @@ jobs:
       id: commit_push
       timeout-minutes: 5
       run: |
-        # 1) Build state that stays on main: the image-optimisation cache and
-        #    spell-check timestamp are inputs to the next build, not site
-        #    output. Small, and only committed when they actually changed.
-        git add .last_spell_check_timestamp .image_optimization_cache/ .indexnow_key 2>/dev/null || true
+        # 1) Build state that stays on main: the image-optimisation cache is
+        #    an input to the next build, not site output. Small, and only
+        #    committed when it actually changed.
+        git add .image_optimization_cache/ .indexnow_key 2>/dev/null || true
         if [ -n "$(git diff --cached)" ]; then
           git commit -m "chore(build): update build caches - $(date '+%Y-%m-%d %H:%M:%S')"
           if ! git push origin HEAD:main; then

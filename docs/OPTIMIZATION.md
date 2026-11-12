@@ -24,16 +24,17 @@ Advanced image optimisation using Python-based parallel processing with intellig
 - **AVIF + WebP**: Modern formats generated alongside originals; `<picture>` elements inserted so browsers pick the best format
 - **`fetchpriority="high"`**: Applied to the first image inside `<main>`/`<article>` (the likely LCP element)
 - **Detailed Metrics**: JSON output with per-image statistics
-- **Graceful Degradation**: Build continues even if individual tools are missing
+- **Graceful Degradation**: a failed encode is logged and the build continues
 
 ### Tools Used
 
-| Format | Tool | Settings |
-|--------|------|----------|
-| PNG optimisation | `optipng` | `-o2` |
-| JPEG optimisation | `jpegoptim` | `--max=85 --strip-all` |
-| WebP conversion | `cwebp` | `-q 80` |
-| AVIF conversion | `avifenc` | default |
+Everything is encoded by Pillow in `optimize_images.py`; no external image CLIs are used. Originals are served as-is (not recompressed).
+
+| Output | Encoder | Settings |
+|--------|---------|----------|
+| WebP | Pillow | `quality=85`, `method=6` |
+| AVIF | Pillow (built-in AVIF, >= 11.2) | `quality=85`, `speed=4` |
+| 480 px variants | Pillow | same settings, for `srcset` |
 
 ### Caching System
 

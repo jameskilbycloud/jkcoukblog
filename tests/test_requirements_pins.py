@@ -15,6 +15,7 @@ REQUIREMENT_FILES = (
     'requirements.txt',
     'requirements-images.txt',
     'requirements-dev.txt',
+    'requirements-ui.txt',
 )
 
 

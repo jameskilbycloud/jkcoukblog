@@ -71,7 +71,7 @@ it (`needs: build-and-deploy`, so it doesn't compete for the runner) and is
 
 | Stage | Steps | Blocking? |
 |-------|-------|-----------|
-| Set up | Validate secrets (only `WP_AUTH_TOKEN` is required) · checkout · **restore `public/` from the `site` branch** · restore the incremental build cache and raw HTML snapshot (Actions cache) · install system tools (`avifenc`, `optipng`, `jpegoptim`, `cwebp`, `jq`, `bc` — apt only if missing) · install Python deps (skipped when `requirements.txt` is unchanged) | Yes |
+| Set up | Validate secrets (only `WP_AUTH_TOKEN` is required) · checkout · **restore `public/` from the `site` branch** · restore the incremental build cache and raw HTML snapshot (Actions cache) · install `jq` + `bc` (apt only if missing) · install Python deps (skipped when `requirements.txt` is unchanged) | Yes |
 | Pre-flight | CSP check (`test_csp.py` — Utterances, Plausible, Credly) · `_redirects` under the Pages free-plan limit · WordPress source health (`validate_wordpress_source.py`) | Yes |
 | Generate | `wp_to_static_generator.py` into `./static-output`, seeded from the restored `public/` so only posts modified since the last build are re-fetched · save build cache + raw snapshot | Yes |
 | Extras | Markdown export + `/api/` JSON · `llms.txt` · content quality report (`content_validator.py`) | Content report is non-blocking |
@@ -94,7 +94,7 @@ the pages that actually changed.
 | `.build-cache.json` | Actions cache `incremental-build-cache-<run>` | Which posts were built and when (`modified_after` for the next run) |
 | `.raw-html-snapshot/` | Actions cache `raw-html-snapshot-<run>` | Pre-transform HTML/CSS, so the optimisation passes always start from the same input |
 | `.image_optimization_cache/optimization_cache.json` | Git, on `main` | BLAKE2b hashes of optimised images |
-| `.last_spell_check_timestamp` | Actions cache `spell-check-<sha>` (spell-check job) | Incremental spell checking. The copy in git is a stale fallback (2025-12-27) used only when no cache exists |
+| `.last_spell_check_timestamp` | Actions cache `spell-check-<sha>` (spell-check job) | Incremental spell checking; gitignored. If the cache has expired the spell check falls back to the last 3 posts |
 
 The two Actions caches are restored by prefix, so the most recent one wins.
 `force-full-deploy.yml` deletes them and triggers a deploy; the next run is a
@@ -154,7 +154,7 @@ the change that broke the site on `main` first.
 
 | Workflow | Trigger | What it does |
 |----------|---------|--------------|
-| `force-full-deploy.yml` | Manual · Sundays 03:00 UTC | Deletes the incremental caches, then dispatches a deploy with `force_static_purge=true` |
+| `force-full-deploy.yml` | Manual · Sundays 03:00 UTC | Deletes the incremental caches, then dispatches a deploy with `force_static_purge=true`. Manual runs can set `reencode_images=true` to re-encode every AVIF/WebP from source |
 | `quality-checks.yml` | Dispatched after each deploy · daily 03:00 UTC · manual | Lighthouse + live-site formatting checks against production; records scores to `data/lighthouse-latest.json` on `main` |
 | `wordpress-backup.yml` | 1st + 15th of the month · manual | WordPress backup |
 
@@ -194,9 +194,9 @@ will seed from the newer `site` commit.
 **A change to a template or script didn't reach old posts** — incremental builds
 skip unchanged posts. Run `force-full-deploy.yml` (or wait for Sunday's).
 
-**Images not converting to AVIF** — check `avifenc --version` on the runner and
-the "Optimize images" step log. To force re-optimisation, delete
-`.image_optimization_cache/optimization_cache.json` on `main`.
+**Images not converting to AVIF** — check the "Optimize images" step log for the
+file, and that the "Install dependencies" step's Pillow AVIF check passed. To
+re-encode everything, run `force-full-deploy.yml` with `reencode_images=true`.
 
 **WordPress source validation fails**
 ```bash

@@ -32,16 +32,15 @@ from convert_images_to_picture import (  # noqa: E402
 def _optimize_images():
     """Import optimize_images, or skip.
 
-    It calls sys.exit(1) when Pillow/pillow-avif-plugin are missing, which
-    pytest.importorskip cannot catch (SystemExit is not ImportError). The AVIF
-    encoder lives in requirements-images.txt while CI's unit-test job installs
-    requirements.txt, so this path is the normal one there — the format
-    constants and converter regexes above still get full coverage.
+    It calls sys.exit(1) when Pillow is missing or can't encode AVIF, which
+    pytest.importorskip cannot catch (SystemExit is not ImportError). The PyPI
+    Pillow wheels encode AVIF natively, so this only skips on a Pillow built
+    without libavif.
     """
     try:
         import optimize_images
     except (ImportError, SystemExit):  # noqa: B014 - SystemExit is the real case
-        pytest.skip('needs Pillow + pillow-avif-plugin (requirements-images.txt)')
+        pytest.skip('needs a Pillow build with AVIF support (requirements-images.txt)')
     return optimize_images
 
 
@@ -212,3 +211,21 @@ def test_source_extensions_are_lowercase_and_dotted():
     optimize_images = _optimize_images()
     for ext in optimize_images.ImageOptimizer.SOURCE_EXTENSIONS:
         assert re.fullmatch(r'\.[a-z0-9]+', ext), ext
+
+
+def test_force_reencodes_images_whose_derivatives_already_exist(tmp_path):
+    """Derivatives reused from the previous build normally win over the
+    encoder. --force (force-full-deploy's reencode_images) must not skip them."""
+    optimize_images = _optimize_images()
+    from PIL import Image
+    d = _uploads(tmp_path)
+    Image.new('RGB', (12, 12), 'red').save(d / 'shot.png')
+    (d / 'shot.avif').write_bytes(b'stale')
+    (d / 'shot.webp').write_bytes(b'stale')
+
+    cache = str(tmp_path / '.cache')
+    normal = optimize_images.ImageOptimizer(str(tmp_path), cache_dir=cache)
+    forced = optimize_images.ImageOptimizer(str(tmp_path), cache_dir=cache, force=True)
+    assert not normal.should_optimize_image(d / 'shot.png')
+    assert forced.should_optimize_image(d / 'shot.png')
+    assert not forced.should_optimize_image(d / 'shot.avif')

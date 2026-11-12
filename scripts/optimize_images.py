@@ -11,8 +11,8 @@ Features:
 - Tracks optimization metrics
 
 Requirements:
-- Pillow (PIL) for image processing
-- pillow-avif-plugin for AVIF support
+- Pillow >= 11.2 built with AVIF support (the PyPI wheels are). AVIF used to
+  need pillow-avif-plugin; Pillow now encodes it natively.
 """
 
 import os
@@ -29,11 +29,15 @@ import hashlib
 from datetime import datetime
 
 try:
-    from PIL import Image
-    import pillow_avif
+    from PIL import Image, features
 except ImportError:
     print("ERROR: Required packages not installed")
-    print("Run: pip install Pillow pillow-avif-plugin")
+    print("Run: pip install -r requirements-images.txt")
+    sys.exit(1)
+
+if not features.check('avif'):
+    print("ERROR: this Pillow build can't encode AVIF")
+    print("Install a Pillow >= 11.2 wheel from PyPI: pip install -r requirements-images.txt")
     sys.exit(1)
 
 from bs4 import BeautifulSoup
@@ -60,8 +64,13 @@ class ImageOptimizer:
     # does NOT match this pattern is treated as a full-size original.
     _WP_RESIZE_SUFFIX_RE = re.compile(r'-\d+x\d+(?=\.[^.]+$)')
 
-    def __init__(self, public_dir: str, wp_api_url: str = None, cache_dir: str = None):
+    def __init__(self, public_dir: str, wp_api_url: str = None, cache_dir: str = None,
+                 force: bool = False):
         self.public_dir = Path(public_dir)
+        # Re-encode every source even when its AVIF/WebP are on disk and the
+        # cache matches — for an encoder or quality change. Derivatives
+        # reused from the previous build would otherwise always win.
+        self.force = force
         self.wp_api_url = wp_api_url
         # Use project root cache directory for consistency with GitHub Actions
         if cache_dir:
@@ -130,6 +139,9 @@ class ImageOptimizer:
         # source over itself.
         if image_path.suffix.lower() == '.avif':
             return False
+
+        if self.force:
+            return True
 
         # Check if AVIF and WebP already exist (even if not in cache)
         avif_path = image_path.with_suffix('.avif')
@@ -755,6 +767,11 @@ def main():
         default='.image_optimization_cache',
         help='Directory for optimization cache (default: .image_optimization_cache)'
     )
+    parser.add_argument(
+        '--force',
+        action='store_true',
+        help='Re-encode every image, ignoring the cache and existing AVIF/WebP files'
+    )
 
     args = parser.parse_args()
 
@@ -763,7 +780,9 @@ def main():
     print(f"📦 Cache directory: {args.cache_dir}\n")
 
     # Initialize optimizer with cache directory
-    optimizer = ImageOptimizer(args.public_dir, cache_dir=args.cache_dir)
+    optimizer = ImageOptimizer(args.public_dir, cache_dir=args.cache_dir, force=args.force)
+    if args.force:
+        print("♻️  --force: re-encoding every image\n")
 
     # Optimize images
     optimizer.optimize_all_images(

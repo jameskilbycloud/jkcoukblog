@@ -482,7 +482,7 @@ def main():
         print("⚠️  Interactive UI tests SKIPPED — chromium failed to launch")
         print(f"    ({tests.launch_error})")
         print("    Likely missing system libs (libatk-1.0.so.0 etc).")
-        print("    Install with: sudo playwright install-deps chromium")
+        print("    Install the apt packages that provide them — see docs/TESTING.md")
         print("=" * 72)
         _annotate_skip(f"chromium failed to launch ({tests.launch_error})")
         sys.exit(skip_exit)

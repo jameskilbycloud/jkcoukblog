@@ -1,6 +1,6 @@
 name: Force Full Deploy (no cache)
 
-# Purges the two GH Actions caches that drive incremental behavior in
+# Purges the GH Actions caches that drive incremental behavior in
 # deploy-static-site.yml, then triggers the regular deploy. The next run
 # starts from a clean slate:
 #
@@ -11,9 +11,6 @@ name: Force Full Deploy (no cache)
 #                                   (including / and /page/N/), and
 #                                   reapplies every process_html() pass
 #                                   (e.g. inject_homepage_redesign).
-#   - build-cache-avif-v3-*      →  no .image_optimization_cache restored,
-#                                   so optimize_images.py rebuilds every
-#                                   AVIF/WebP from the original source.
 #   - raw-html-snapshot-*        →  no pre-transform HTML/CSS overlaid on the
 #                                   seed. Without the build cache the deploy
 #                                   doesn't seed at all, so this is belt-and-
@@ -22,13 +19,27 @@ name: Force Full Deploy (no cache)
 #                                   kind of stale state this workflow exists
 #                                   to clear.
 #
+# Images are NOT re-encoded by default: AVIF/WebP from the previous build are
+# reused (each source is hash-checked against
+# .image_optimization_cache/optimization_cache.json, so a replaced image is
+# still re-encoded). Dispatch with reencode_images=true to re-encode every
+# image from source — only for an encoder or quality change, it is slow.
+# (This workflow used to delete a build-cache-avif-v3-* Actions cache for
+# that; the image cache moved into git and the step had done nothing since.)
+#
 # Use this when a script change touches code that only runs on pages the
 # incremental builder would otherwise skip (typically the homepage / archive
-# templates / image pipeline). After the run finishes, the next normal deploy
-# repopulates both caches and incremental behavior resumes.
+# templates). After the run finishes, the next normal deploy repopulates both
+# caches and incremental behavior resumes.
 
 on:
   workflow_dispatch:
+    inputs:
+      reencode_images:
+        description: 'Also re-encode every AVIF/WebP from source (slow; for an encoder/quality change)'
+        required: false
+        default: false
+        type: boolean
   # Weekly full rebuild — Sundays 03:00 UTC.
   #
   # Incremental builds skip unchanged back-catalogue posts, so any SEO/schema
@@ -70,27 +81,6 @@ jobs:
           done
         fi
 
-    - name: Purge image optimization cache
-      env:
-        GH_TOKEN: ${{ github.token }}
-        GH_REPO: ${{ github.repository }}
-      run: |
-        set -euo pipefail
-        echo "🗑️  Searching for build-cache-avif-v3-* entries..."
-        IDS=$(gh cache list --limit 100 --key build-cache-avif-v3 --json id --jq '.[].id' || echo "")
-        if [ -z "$IDS" ]; then
-          echo "ℹ️  No build-cache-avif-v3-* entries to delete."
-        else
-          echo "$IDS" | while read -r id; do
-            [ -z "$id" ] && continue
-            if gh cache delete "$id" >/dev/null 2>&1; then
-              echo "  ✓ deleted $id"
-            else
-              echo "  ⚠️  failed to delete $id"
-            fi
-          done
-        fi
-
     - name: Purge raw pre-transform HTML snapshot
       env:
         GH_TOKEN: ${{ github.token }}
@@ -116,6 +106,7 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
         GH_REPO: ${{ github.repository }}
+        REENCODE_IMAGES: ${{ inputs.reencode_images }}
       run: |
         set -euo pipefail
         echo "🚀 Triggering deploy-static-site.yml on main..."
@@ -125,7 +116,9 @@ jobs:
         # from source — exactly the run where an edge copy is most likely to
         # be stale in a way the diff can't see (subset fonts are served
         # `immutable` for a year). Purge unconditionally here.
-        gh workflow run deploy-static-site.yml --ref main -f force_static_purge=true
+        # Scheduled runs have no inputs, so reencode_images is empty → false.
+        gh workflow run deploy-static-site.yml --ref main -f force_static_purge=true \
+          -f reencode_images="${REENCODE_IMAGES:-false}"
         echo ""
         echo "✅ Triggered. The deploy uses the same concurrency group as a"
         echo "   manual run, so if a deploy is already in flight this one"

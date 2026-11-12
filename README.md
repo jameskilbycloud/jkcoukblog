@@ -209,7 +209,7 @@ The `deploy-static-site.yml` workflow runs the main build job, then a non-blocki
 |---|------|-------|
 | 1 | Validate environment variables | Fails fast on missing secrets |
 | 2 | Restore the published site + build caches | `public/` from the `site` branch; `actions/cache` for the incremental build cache + raw pre-transform HTML snapshot |
-| 3 | Install system + Python dependencies | apt packages (`avifenc`, `optipng`, `jpegoptim`, `cwebp`, `jq`, `bc`) + `pip install -r requirements.txt` |
+| 3 | Install system + Python dependencies | `jq` + `bc` from apt if missing; `pip install -r requirements.txt` (Pillow encodes AVIF/WebP itself — no image CLIs) |
 | 4 | Validate CSP (Utterances, Plausible, Credly) | `test_csp.py` — fails build if the CSP would block them |
 | 5 | Validate `_redirects` size | Fails the build if it would exceed the Cloudflare Pages free-plan limit |
 | 6 | Validate WordPress source health | Pre-flight check before generation |
@@ -304,7 +304,7 @@ Secrets (tokens, credentials) remain in environment variables and GitHub Secrets
 
 - Python 3.11+
 - `pip install -r requirements.txt`
-- System tools: `avifenc`, `optipng`, `jpegoptim`, `cwebp`, `jq`, `bc`
+- System tools: `jq`, `bc` (used by the workflow's shell steps)
 - Self-hosted GitHub runner (for Cloudflare Access authentication)
 - `WP_AUTH_TOKEN` environment variable
 

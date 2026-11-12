@@ -75,9 +75,8 @@ test: ## Run the pytest unit test suite
 
 # ─── Optimisation ─────────────────────────────────────────────────
 
-optimize-images: ## Optimise images (AVIF/WebP)
-	python3 scripts/optimize_images.py $(OUTPUT_DIR) --workers $(WORKERS)
-	python3 scripts/convert_images_to_picture.py $(OUTPUT_DIR)
+optimize-images: ## Encode AVIF/WebP (FORCE=1 re-encodes everything); <picture> markup is done by optimize-html
+	python3 scripts/optimize_images.py $(OUTPUT_DIR) --workers $(WORKERS) --skip-html $(if $(FORCE),--force)
 
 optimize-css: ## Optimise CSS files (remove unused + minify)
 	python3 scripts/optimize_css.py $(OUTPUT_DIR)
