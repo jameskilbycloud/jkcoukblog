@@ -25,8 +25,11 @@ def _brace_depth_ok(css: str) -> bool:
     return depth == 0
 
 
-def _extract(css: str, selectors, tmp_path, file_path=None):
-    """Write css to an external sheet, link it, and run the extractor."""
+def _extract(css: str, tmp_path, file_path=None):
+    """Write css to an external sheet, link it, and run the extractor.
+
+    The page's <main> holds an h1 and a p, so rules for those are above the
+    fold."""
     (tmp_path / 'styles.css').write_text(css, encoding='utf-8')
     soup = BeautifulSoup(
         '<html><head><link rel="stylesheet" href="/styles.css"></head>'
@@ -34,11 +37,11 @@ def _extract(css: str, selectors, tmp_path, file_path=None):
         'html.parser')
     ex = CriticalCSSExtractor()
     ex.public_dir = tmp_path
-    return ex, ex._extract_matching_css_rules(soup, selectors, file_path)
+    return ex, ex._extract_critical_css(soup, file_path)
 
 
 def test_small_input_passes_through(tmp_path):
-    ex, out = _extract('p{color:red}h1{margin:0}', {'p', 'h1'}, tmp_path)
+    ex, out = _extract('p{color:red}h1{margin:0}', tmp_path)
     assert 'color:red' in out
     assert 'margin:0' in out
     assert ex.css_truncated == 0
@@ -54,14 +57,14 @@ def test_render_blocking_sheets_are_skipped(tmp_path):
         'html.parser')
     ex = CriticalCSSExtractor()
     ex.public_dir = tmp_path
-    assert ex._extract_matching_css_rules(soup, {'p'}) == ''
+    assert ex._extract_critical_css(soup) == ''
 
 
 def test_truncation_keeps_braces_balanced(tmp_path):
     # Enough rules to blow the cap, with the boundary landing inside @media.
     rules = ''.join(f'p{{padding:{i}px;color:#0{i % 10}{i % 10}}}' for i in range(300))
     media = '@media (max-width:600px){' + ''.join(f'h1{{margin:{i}px}}' for i in range(600)) + '}'
-    ex, out = _extract(rules + media, {'p', 'h1'}, tmp_path, 'test.html')
+    ex, out = _extract(rules + media, tmp_path, 'test.html')
 
     assert 0 < len(out) <= ex.max_critical_css
     assert _brace_depth_ok(out), 'truncated critical CSS has unbalanced braces'
@@ -69,14 +72,13 @@ def test_truncation_keeps_braces_balanced(tmp_path):
 
 
 def test_media_query_rules_are_wrapped(tmp_path):
-    ex, out = _extract('@media (max-width:600px){h1{margin:0}}', {'h1'}, tmp_path)
+    ex, out = _extract('@media (max-width:600px){h1{margin:0}}', tmp_path)
     assert '@media' in out
     assert _brace_depth_ok(out)
 
 
 def test_keyframes_are_skipped(tmp_path):
-    ex, out = _extract('@keyframes spin{from{opacity:0}to{opacity:1}}p{color:red}',
-                       {'p'}, tmp_path)
+    ex, out = _extract('@keyframes spin{from{opacity:0}to{opacity:1}}p{color:red}', tmp_path)
     assert '@keyframes' not in out
     assert 'color:red' in out
 
@@ -102,13 +104,16 @@ def test_sheet_cache_reuses_parse_and_invalidates_on_rewrite(tmp_path):
 
 def test_cached_extraction_matches_uncached(tmp_path):
     # _parse_css_rules (raw string path) and the cached sheet path must
-    # produce identical output for the same CSS + selector set.
+    # produce identical output for the same CSS + page.
     css = 'p{color:red}@media (max-width:600px){h1{margin:0}.skip{x:1}}'
-    ex, out = _extract(css, {'p', 'h1'}, tmp_path)
+    ex, out = _extract(css, tmp_path)
+    soup = BeautifulSoup('<html><body><main><h1>t</h1><p>x</p></main></body></html>',
+                         'html.parser')
     direct = ''.join(
-        ex._minify_css(r) for r in ex._parse_css_rules(css, {'p', 'h1'})
+        ex._minify_css(r) for r in ex._parse_css_rules(css, ex._above_fold(soup))
     )
     assert out == direct
+    assert '.skip' not in out
 
 
 def test_empty_extraction_still_converts_to_preload(tmp_path):
@@ -177,7 +182,7 @@ def test_excluded_tuple_is_single_source():
 # async with none of their above-fold rules inlined — 0.647 CLS and P73 on
 # 2026-08-09. Same defect #146 fixed in html_transformer's inliner.
 
-def _extract_with_href(css, selectors, tmp_path, href):
+def _extract_with_href(css, tmp_path, href):
     (tmp_path / 'styles.css').write_text(css, encoding='utf-8')
     soup = BeautifulSoup(
         f'<html><head><link rel="stylesheet" href="{href}"></head>'
@@ -185,23 +190,23 @@ def _extract_with_href(css, selectors, tmp_path, href):
         'html.parser')
     ex = CriticalCSSExtractor()
     ex.public_dir = tmp_path
-    return ex._extract_matching_css_rules(soup, selectors)
+    return ex._extract_critical_css(soup)
 
 
 def test_absolute_same_site_href_resolves(tmp_path):
-    out = _extract_with_href('p{color:red}', {'p'}, tmp_path,
+    out = _extract_with_href('p{color:red}', tmp_path,
                              'https://jameskilby.co.uk/styles.css')
     assert 'color:red' in out, 'absolute same-site href did not resolve to disk'
 
 
 def test_query_string_href_resolves(tmp_path):
-    out = _extract_with_href('p{color:red}', {'p'}, tmp_path,
+    out = _extract_with_href('p{color:red}', tmp_path,
                              '/styles.css?ver=3.1.5')
     assert 'color:red' in out, 'cache-busting query string broke the disk lookup'
 
 
 def test_absolute_href_with_query_resolves(tmp_path):
-    out = _extract_with_href('p{color:red}', {'p'}, tmp_path,
+    out = _extract_with_href('p{color:red}', tmp_path,
                              'https://jameskilby.co.uk/styles.css?ver=3.1.5')
     assert 'color:red' in out
 
@@ -213,7 +218,7 @@ def test_href_form_does_not_change_the_output(tmp_path):
     exactly the 4,621 vs 12,058 byte divergence measured before #148."""
     css = 'p{color:red}h1{margin:0}main{display:block}'
     outputs = {
-        href: _extract_with_href(css, {'p', 'h1', 'main'}, tmp_path, href)
+        href: _extract_with_href(css, tmp_path, href)
         for href in (
             '/styles.css',
             'styles.css',
@@ -234,7 +239,7 @@ def test_offsite_href_is_not_resolved(tmp_path):
     """normalize_self_href only strips our own origin — a third-party sheet
     must not be mapped onto a same-named local file."""
     (tmp_path / 'styles.css').write_text('p{color:red}', encoding='utf-8')
-    out = _extract_with_href('p{color:red}', {'p'}, tmp_path,
+    out = _extract_with_href('p{color:red}', tmp_path,
                              'https://cdn.example.com/styles.css')
     assert out == ''
 
@@ -265,17 +270,16 @@ def test_deferred_sheets_have_their_rules_inlined(tmp_path):
 
 # ── cap invariant and truncation accounting ──────────────────────────────
 
-def test_harvest_cap_cannot_trigger_externalisation():
-    """max_critical_css above max_inline_critical would externalise every
-    page's block into an extra render-blocking request — the opposite of what
-    critical CSS is for, and enough to push pages past the 5/5 stylesheet
-    budget. The two constants are set independently, so the relationship has
-    to be asserted rather than assumed."""
+def test_harvest_cap_cannot_exceed_the_inline_budget():
+    """Critical CSS is duplicated into every HTML document, so the harvest cap
+    must stay within max_inline_critical. The two constants are set
+    independently, so the relationship has to be asserted rather than
+    assumed."""
     ex = CriticalCSSExtractor()
     assert ex.max_critical_css <= ex.max_inline_critical
 
     ex.max_critical_css = ex.max_inline_critical + 1
-    with pytest.raises(ValueError, match='render-blocking'):
+    with pytest.raises(ValueError, match='per-page budget'):
         ex._assert_cap_invariant()
 
 
@@ -288,13 +292,12 @@ def test_truncation_totals_are_accumulated(tmp_path):
     big = (''.join(f'p{{padding:{i}px;color:#0{i % 10}{i % 10}}}' for i in range(300))
            + '@media (max-width:600px){'
            + ''.join(f'h1{{margin:{i}px}}' for i in range(600)) + '}')
-    ex, out = _extract(big, {'p', 'h1'}, tmp_path)
+    ex, out = _extract(big, tmp_path)
     # Re-run over a second page to prove the counters accumulate.
-    ex._extract_matching_css_rules(
+    ex._extract_critical_css(
         BeautifulSoup('<html><head><link rel="stylesheet" href="/styles.css">'
-                      '</head><body><main><p>x</p></main></body></html>',
-                      'html.parser'),
-        {'p', 'h1'})
+                      '</head><body><main><h1>t</h1><p>x</p></main></body></html>',
+                      'html.parser'))
 
     assert ex.css_truncated == 2
     assert ex.css_dropped_rules > 0
@@ -372,7 +375,129 @@ def test_header_rules_survive_truncation_over_footer_rules(tmp_path):
     ex.public_dir = tmp_path
     ex.max_critical_css = 600          # room for roughly one sheet
 
-    out = ex._extract_matching_css_rules(soup, {'header', 'footer', '.h1', '.f1'})
+    out = ex._extract_critical_css(soup)
 
     assert 'header' in out, 'header rules were dropped by the cap'
     assert out.index('header') < (out.index('footer') if 'footer' in out else len(out))
+
+
+# ── DOM matching: a rule is critical if it styles something above the fold ──
+
+def _page_extract(css, body, tmp_path, **attrs):
+    (tmp_path / 'styles.css').write_text(css, encoding='utf-8')
+    soup = BeautifulSoup('<html><head><link rel="stylesheet" href="/styles.css"></head>'
+                         f'<body>{body}</body></html>', 'html.parser')
+    ex = CriticalCSSExtractor()
+    ex.public_dir = tmp_path
+    for k, v in attrs.items():
+        setattr(ex, k, v)
+    return ex._extract_critical_css(soup)
+
+
+def test_rules_for_header_descendants_are_kept(tmp_path):
+    """The old token matcher only looked at <header>'s own classes, so the
+    rule hiding the mobile header on desktop never reached the critical block
+    and both headers painted until header.min.css arrived."""
+    out = _page_extract(
+        '@media (min-width:1025px){.site-header .mobile-header{display:none}}',
+        '<header class="site-header"><div class="mobile-header">m</div></header><main><p>x</p></main>',
+        tmp_path)
+    assert 'display:none' in out
+
+
+def test_footer_rules_are_not_critical(tmp_path):
+    """`.widget p` used to qualify just because `p` was on the critical list."""
+    out = _page_extract(
+        '.widget p{color:red}main p{color:blue}',
+        '<main><p>x</p></main><footer><div class="widget"><p>w</p></div></footer>',
+        tmp_path)
+    assert 'color:blue' in out
+    assert 'color:red' not in out
+
+
+def test_rules_below_the_fold_cutoff_are_not_critical(tmp_path):
+    body = '<main>' + '<p>x</p>' * 5 + '<div class="related-posts"><h2>r</h2></div></main>'
+    out = _page_extract('.related-posts h2{margin:9px}main p{margin:1px}', body, tmp_path,
+                        ABOVE_FOLD_MAIN_ELEMENTS=3)
+    assert 'margin:1px' in out
+    assert 'margin:9px' not in out
+
+
+def test_state_and_pseudo_element_rules_follow_their_element(tmp_path):
+    out = _page_extract(
+        'main a:hover{color:red}main p::before{content:"x"}.gone:hover{color:blue}',
+        '<main><p><a href="#">l</a></p></main>', tmp_path)
+    assert 'color:red' in out
+    assert 'content:"x"' in out
+    assert 'color:blue' not in out
+
+
+def test_root_and_document_rules_are_always_kept(tmp_path):
+    out = _page_extract(':root{--bg:#000}html{font-size:16px}body{margin:0}',
+                        '<main><p>x</p></main>', tmp_path)
+    assert all(x in out for x in ('--bg:#000', 'font-size:16px', 'margin:0'))
+
+
+def test_unparseable_selectors_are_kept(tmp_path):
+    """If soupsieve can't evaluate a selector, keep the rule — dropping it
+    could cost a first-paint rule; keeping it costs a few bytes."""
+    out = _page_extract('main p:-unknown-thing(1){color:red}', '<main><p>x</p></main>', tmp_path)
+    assert 'color:red' in out
+
+
+def test_attribute_values_are_not_read_as_classes(tmp_path):
+    out = _page_extract('a[href$=".pdf"]{color:red}', '<main><a href="/x.pdf">p</a></main>', tmp_path)
+    assert 'color:red' in out
+
+
+def test_selector_list_split_respects_parentheses():
+    from extract_critical_css import _split_selector_list
+    assert _split_selector_list('a, :is(b, c) d, e') == ['a', ' :is(b, c) d', ' e']
+
+
+# ── placement: one block per sheet, right before its own <link> ──────────
+
+def test_each_sheet_gets_its_own_block_before_its_link(tmp_path):
+    """One block at the top of <head> loses to every style after it; on the
+    live site that kept mobile content 48 px low until the async sheet came."""
+    (tmp_path / 'header.min.css').write_text('header{height:80px}', encoding='utf-8')
+    (tmp_path / 'content.min.css').write_text('main{padding:4px}', encoding='utf-8')
+    page = tmp_path / 'index.html'
+    page.write_text(
+        '<html><head><link rel="stylesheet" href="/content.min.css">'
+        '<style>main{padding:9px}</style>'
+        '<link rel="stylesheet" href="/header.min.css"></head>'
+        '<body><header>h</header><main><p>x</p></main></body></html>',
+        encoding='utf-8')
+    ex = CriticalCSSExtractor()
+    ex.public_dir = tmp_path
+
+    ex.process_file(page)
+
+    head = BeautifulSoup(page.read_text(encoding='utf-8'), 'html.parser').head
+    order = [(t.name, t.get('data-critical-for') or t.get('href'), t.string)
+             for t in head.find_all(['style', 'link']) if t.parent.name == 'head']
+    crit = [(i, o) for i, o in enumerate(order) if o[0] == 'style' and o[1]]
+    assert [o[1] for _, o in crit] == ['/content.min.css', '/header.min.css']
+    for i, (_, href, _css) in crit:
+        assert order[i + 1][1] == href, 'critical block is not directly before its sheet'
+    assert head.find('style', id='critical-css') is None
+
+
+def test_stale_critical_css_is_replaced(tmp_path):
+    """Seeded HTML can carry a previous build's critical CSS in either form."""
+    (tmp_path / 'styles.css').write_text('main{padding:4px}', encoding='utf-8')
+    page = tmp_path / 'index.html'
+    page.write_text(
+        '<html><head><style id="critical-css">.old{x:1}</style>'
+        '<style data-critical-for="/styles.css">.older{x:1}</style>'
+        '<link rel="stylesheet" href="/styles.css"></head>'
+        '<body><main><p>x</p></main></body></html>', encoding='utf-8')
+    ex = CriticalCSSExtractor()
+    ex.public_dir = tmp_path
+
+    ex.process_file(page)
+
+    html = page.read_text(encoding='utf-8')
+    assert '.old' not in html and '.older' not in html
+    assert html.count('data-critical-for') == 1

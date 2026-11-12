@@ -168,16 +168,25 @@ class HTMLTransformer:
         if self._apply_performance_hints(soup):
             modified = True
 
+        # ── Phase 4.5: Inline tiny WP-shipped stylesheets ────────────────
+        # Has to run on every page (not only WP-regenerated ones) so list
+        # pages like the homepage get their rankmath.min.css inlined.
+        #
+        # Runs BEFORE critical CSS (Phase 4), despite the numbering. A sheet
+        # inlined here is applied in full before first paint, so harvesting
+        # its rules into the critical block only duplicates them. Run after,
+        # it did exactly that: global.min.css and kadence-global-inline-css
+        # (~21 KB) were still <link>s when the extractor ran, their rules
+        # filled the 16 KB cap on every page, and the header/content rules
+        # the async sheets actually need were the ones dropped. The
+        # extractor skips <style>, so inlining first is all it takes.
+        if self._apply_inline_tiny_wp_stylesheets(soup):
+            modified = True
+
         # ── Phase 4: Critical CSS extraction + inlining ──────────────────
         if not self.skip_critical_css:
             if self._apply_critical_css(soup, file_path):
                 modified = True
-
-        # ── Phase 4.5: Inline tiny WP-shipped stylesheets ────────────────
-        # Has to run on every page (not only WP-regenerated ones) so list
-        # pages like the homepage get their rankmath.min.css inlined.
-        if self._apply_inline_tiny_wp_stylesheets(soup):
-            modified = True
 
         # ── Phase 4.7: Inline project stylesheets ────────────────────────
         # brutalist-theme.css and consolidated-inline-styles.min.css are
@@ -467,13 +476,13 @@ class HTMLTransformer:
 
     def _apply_critical_css(self, soup, file_path):
         """Extract and inline critical CSS, convert stylesheets to async preload."""
-        critical_css = self.critical_css._extract_critical_css(soup)
+        blocks = self.critical_css._extract_critical_blocks(soup, file_path)
 
-        modified = False
-        if critical_css and self.critical_css._inline_critical_css(
-                soup, critical_css, file_path):
+        # Always called: it also clears stale critical CSS carried in seeded
+        # HTML when this page now extracts nothing.
+        modified = self.critical_css._inline_critical_css(soup, blocks, file_path)
+        if blocks:
             self.critical_css.css_inlined += 1
-            modified = True
 
         # Convert stylesheets to async preload even when nothing was inlined
         # — a page whose async-eligible sheets match no critical selectors
@@ -563,9 +572,9 @@ class HTMLTransformer:
     # to ~15 KB today; ~32 KB of extra raw CSS adds roughly 7-8 KB on the
     # wire, landing near 23 KB against the 30 KB document budget.
     #
-    # The cap also bounds a deliberate trade-off: critical CSS made these
-    # links async (non-render-blocking), and inlining makes them render-
-    # blocking again. Removing the round-trip is worth more than the parse
+    # The cap also bounds a deliberate trade-off: left linked, critical CSS
+    # would make these sheets async (non-render-blocking); inlined, they are
+    # render-blocking. Removing the round-trip is worth more than the parse
     # cost at these sizes — the same reasoning as _apply_inline_project_
     # stylesheets below — but only while the total stays small.
     _WP_INLINE_TOTAL_MAX_BYTES = 32768
@@ -574,14 +583,12 @@ class HTMLTransformer:
     def _is_inlinable_css_link(link):
         """True for both forms a stylesheet reaches this pass in.
 
-        Phase 4 (critical CSS) runs first and rewrites render-blocking
-        stylesheets into the async pattern
-        `rel="preload" as="style" onload="...this.rel='stylesheet'"`, leaving a
-        plain `<link rel="stylesheet">` behind only inside the <noscript>
-        fallback. Matching `rel="stylesheet"` alone therefore only ever found
-        the noscript copy, so the real request was never eliminated and this
-        whole pass was close to a no-op on any page that had critical CSS
-        extracted (i.e. all of them).
+        This pass now runs before Phase 4 (critical CSS), so links normally
+        arrive as plain `rel="stylesheet"`. The async form
+        `rel="preload" as="style" onload="...this.rel='stylesheet'"` still
+        reaches it from HTML seeded from an earlier build. When this pass ran
+        after Phase 4, matching `rel="stylesheet"` alone only ever found the
+        <noscript> copy, so the real request was never eliminated.
         """
         rel = link.get('rel') or []
         if isinstance(rel, str):

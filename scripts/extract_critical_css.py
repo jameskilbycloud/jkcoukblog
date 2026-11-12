@@ -16,7 +16,46 @@ import re
 import subprocess
 import json
 
+import soupsieve as sv
+
 from enhance_html_performance import normalize_self_href
+
+
+class _AboveFold:
+    """Per-page matching context: which elements count as above the fold."""
+    __slots__ = ('soup', 'elements', 'tokens', 'memo')
+
+    def __init__(self, soup, elements, tokens):
+        self.soup = soup
+        self.elements = elements    # id() of every above-fold element
+        self.tokens = tokens        # '.class' / '#id' present above the fold
+        self.memo = {}              # selector -> bool, per page
+
+
+# Pseudo-classes for states the page isn't in at first paint, and
+# pseudo-elements; the element they hang off is what decides visibility.
+_STATE_PSEUDO = re.compile(
+    r'::?(?:before|after|first-line|first-letter|placeholder|selection|marker|backdrop|'
+    r'file-selector-button|-webkit-[\w-]+|-moz-[\w-]+|-ms-[\w-]+)(?:\([^)]*\))?'
+    r'|:(?:hover|focus|focus-within|focus-visible|active|visited|link|checked|disabled|'
+    r'enabled|target|indeterminate|placeholder-shown|autofill)\b')
+_ROOT_OR_DOCUMENT = re.compile(r'(?:^|[\s>+~]):root\b|^(?:html|body|\*)$')
+_CLASS_OR_ID = re.compile(r'([.#])(-?[_a-zA-Z][\w-]*)')
+
+
+def _split_selector_list(selector):
+    """Split on top-level commas only — `:is(a, b)` stays whole."""
+    parts, depth, start = [], 0, 0
+    for i, ch in enumerate(selector):
+        if ch in '([':
+            depth += 1
+        elif ch in ')]':
+            depth -= 1
+        elif ch == ',' and depth == 0:
+            parts.append(selector[start:i])
+            start = i + 1
+    parts.append(selector[start:])
+    return parts
 
 
 class CriticalCSSExtractor:
@@ -44,11 +83,11 @@ class CriticalCSSExtractor:
         # the inline threshold recovers ~1.4 KB per page of what was being
         # discarded.
         #
-        # It must never exceed max_inline_critical: above that,
-        # _inline_critical_css externalises the block to its own file, which
-        # adds a render-blocking stylesheet request — the opposite of the
-        # point, and it would push pages past the 5/5 Lighthouse stylesheet
-        # budget. _assert_cap_invariant() enforces the relationship.
+        # It must never exceed max_inline_critical, the most critical CSS
+        # worth duplicating into every HTML document. (Above it, the block
+        # used to be externalised to its own file — an extra render-blocking
+        # request; that path is gone, and the cap is what keeps it unneeded.)
+        # _assert_cap_invariant() enforces the relationship.
         self.max_critical_css = self.max_inline_critical
         self._assert_cap_invariant()
         # Tokenized stylesheets keyed by path — the extractor runs once per
@@ -87,11 +126,11 @@ class CriticalCSSExtractor:
             soup = BeautifulSoup(html, 'html.parser')
 
             # Extract critical CSS
-            critical_css = self._extract_critical_css(soup, file_path)
-
-            inlined = False
-            if critical_css:
-                inlined = self._inline_critical_css(soup, critical_css, file_path)
+            blocks = self._extract_critical_blocks(soup, file_path)
+            # Always called: it also clears stale critical CSS from an
+            # earlier build when this run extracts nothing.
+            self._inline_critical_css(soup, blocks, file_path)
+            inlined = bool(blocks)
 
             # Convert external CSS to async preload even when there was
             # nothing to inline — a page whose async-eligible sheets match no
@@ -119,72 +158,51 @@ class CriticalCSSExtractor:
             print(f"⚠️  Error processing {file_path}: {e}")
             return False
 
-    def _extract_critical_css(self, soup, file_path=None):
+    # How far into <main> counts as "above the fold": everything in document
+    # order from the top of <body> to this many elements into <main>, plus the
+    # ancestors of all of it (layout wrappers), minus the footer. Measured on
+    # the live build by rendering the first viewport (1350x940 and 360x640)
+    # with the async sheets blocked: 40 left desktop layout rules out; 100 and
+    # 250 rendered identically to the fully-styled page.
+    ABOVE_FOLD_MAIN_ELEMENTS = 100
+
+    def _above_fold(self, soup):
+        """The elements a reader can see before scrolling, for _is_critical_selector.
+
+        Returned as a context object rather than stored on self: the
+        transformer runs pages on a thread pool against one extractor.
         """
-        Extract critical above-the-fold CSS
-        Uses a simple heuristic: CSS rules for elements in first ~800px of content
-        """
-        critical_selectors = set()
+        body = soup.body or soup
+        main = soup.find('main') or soup.find('article')
+        cutoff = None
+        if main is not None:
+            inner = main.find_all(True)
+            cutoff = inner[min(self.ABOVE_FOLD_MAIN_ELEMENTS, len(inner)) - 1] if inner else main
 
-        # Find elements likely above the fold
-        # Priority: head elements, first main/article content, header, nav
-        above_fold_elements = []
-
-        # Header and navigation
-        for tag in soup.find_all(['header', 'nav']):
-            above_fold_elements.append(tag)
-
-        # First main or article
-        main = soup.find(['main', 'article'])
-        if main:
-            above_fold_elements.append(main)
-            # First few children of main
-            for child in list(main.children)[:10]:
-                if hasattr(child, 'name'):
-                    above_fold_elements.append(child)
-
-        # Collect all CSS selectors for these elements
-        for element in above_fold_elements:
-            # Skip text nodes and other non-tag elements
-            if not hasattr(element, 'name') or not hasattr(element, 'get'):
+        elements = set()
+        tokens = set()
+        for el in body.find_all(True):
+            if el.name == 'footer' or el.find_parent('footer') is not None:
                 continue
+            for node in (el, *el.parents):
+                if id(node) in elements:
+                    break
+                elements.add(id(node))
+                if getattr(node, 'attrs', None) is not None:
+                    tokens.update('.' + c for c in (node.get('class') or []))
+                    if node.get('id'):
+                        tokens.add('#' + node['id'])
+            if el is cutoff:
+                break
+        return _AboveFold(soup, elements, tokens)
 
-            # Element tag name
-            if element.name:
-                critical_selectors.add(element.name)
+    def _extract_critical_blocks(self, soup, file_path=None):
+        """Critical CSS per async stylesheet: [(link, css), ...] in document order."""
+        return self._extract_matching_css_rules(soup, self._above_fold(soup), file_path)
 
-            # Classes
-            classes = element.get('class', [])
-            if isinstance(classes, list):
-                for cls in classes:
-                    critical_selectors.add(f'.{cls}')
-
-            # ID
-            tag_id = element.get('id')
-            if tag_id:
-                critical_selectors.add(f'#{tag_id}')
-
-            # Parent-child combinations (limited depth)
-            parent = element.parent
-            if parent and hasattr(parent, 'name') and parent.name:
-                critical_selectors.add(f'{parent.name} {element.name}')
-
-        # Always include critical base elements. ':root' carries the design
-        # tokens (custom properties) — inlining it above the fold guarantees
-        # var() refs (e.g. body{background:var(--bg-dark)}) resolve before the
-        # full sheet loads, so a dark page can never flash white (FOUC).
-        base_selectors = {
-            'html', 'body', 'head', 'meta', 'link',
-            'h1', 'h2', 'h3', 'p', 'a', 'img',
-            'header', 'nav', 'main', 'article', 'section',
-            ':root',
-        }
-        critical_selectors.update(base_selectors)
-
-        # Extract CSS rules that match critical selectors
-        critical_css = self._extract_matching_css_rules(soup, critical_selectors, file_path)
-
-        return critical_css
+    def _extract_critical_css(self, soup, file_path=None):
+        """All of a page's critical CSS as one string (standalone use and tests)."""
+        return ''.join(css for _, css in self._extract_critical_blocks(soup, file_path))
 
     # Stylesheets that stay render-blocking. Single source of truth, used in
     # two places: _extract_matching_css_rules skips them (their above-fold
@@ -194,19 +212,18 @@ class CriticalCSSExtractor:
     # the @font-face declarations; consolidated-inline-styles is theming
     # layered above critical CSS).
     def _assert_cap_invariant(self):
-        """Fail loudly if the harvest cap could trigger externalisation.
+        """Fail loudly if the harvest cap exceeds the per-page inline budget.
 
-        These two constants are set independently and only interact at the
-        moment a page's block is written, so a well-meaning bump to
-        max_critical_css would otherwise show up as an extra render-blocking
-        stylesheet on every page rather than as an error here.
+        The two are set independently, so a well-meaning bump to
+        max_critical_css would otherwise just grow every HTML document past
+        the budget rather than fail here.
         """
         if self.max_critical_css > self.max_inline_critical:
             raise ValueError(
                 f"max_critical_css ({self.max_critical_css}) exceeds "
                 f"max_inline_critical ({self.max_inline_critical}): every page "
-                "would externalise its critical CSS into an extra "
-                "render-blocking request. Raise max_inline_critical first."
+                "would inline more critical CSS than the per-page budget. "
+                "Raise max_inline_critical first."
             )
 
     RENDER_BLOCKING_CSS = ('brutalist-theme', 'fonts.css', 'consolidated-inline-styles')
@@ -250,8 +267,8 @@ class CriticalCSSExtractor:
                 return rank
         return cls._DEFAULT_SHEET_PRIORITY
 
-    def _extract_matching_css_rules(self, soup, selectors, file_path=None):
-        """Extract critical rules — only from the stylesheets that load ASYNC.
+    def _extract_matching_css_rules(self, soup, fold, file_path=None):
+        """Critical rules per stylesheet — only from the sheets that load ASYNC.
 
         Only async-converted external sheets need their above-fold rules
         inlined. Inline <style> blocks and the render-blocking sheets
@@ -259,31 +276,38 @@ class CriticalCSSExtractor:
         scanning them just duplicates CSS into the critical <style> and blows
         the byte cap — crowding out the async rules that genuinely prevent
         FOUC. So we skip both.
-        """
-        critical_rules = []
 
+        Returns [(link, css), ...] in document order, one entry per sheet that
+        contributed rules. Each block is inlined right before its own <link>
+        (_inline_critical_css), so its rules hold the same cascade position
+        the full sheet will.
+        """
         candidates = []
         for order, link in enumerate(soup.find_all('link', rel='stylesheet')):
             href = link.get('href', '')
             if not href or any(x in href for x in self.RENDER_BLOCKING_CSS):
                 continue
-            candidates.append((self._sheet_priority(href), order, href))
+            candidates.append((self._sheet_priority(href), order, link))
 
-        # Stable within a tier: (priority, document order).
-        for _, _, href in sorted(candidates):
-            css_path = self._resolve_css_path(href)
+        # Stable within a tier: (priority, document order). Each entry is
+        # (document order, link, [minified rules]).
+        per_sheet = []
+        for _, order, link in sorted(candidates, key=lambda c: c[:2]):
+            css_path = self._resolve_css_path(link.get('href', ''))
             if css_path and css_path.exists():
                 nodes = self._get_sheet_nodes(css_path)
                 if nodes:
-                    critical_rules.extend(self._filter_rules(nodes, selectors))
+                    rules = [r for r in (self._minify_css(rule)
+                                         for rule in self._filter_rules(nodes, fold)) if r]
+                    if rules:
+                        per_sheet.append((order, link, rules))
 
-        # Minify each rule separately, then keep whole rules until the size
-        # cap is reached. Each entry in critical_rules is a complete,
-        # brace-balanced rule, so this can never cut inside a @media block —
-        # the old slice-at-15000-chars approach could, leaving an unbalanced
-        # brace that made the browser discard every rule after it.
-        minified_rules = [r for r in (self._minify_css(rule) for rule in critical_rules) if r]
-
+        # Keep whole minified rules, in priority order, until the size cap.
+        # Each rule is complete and brace-balanced, so this can never cut
+        # inside a @media block — the old slice-at-15000-chars approach could,
+        # leaving an unbalanced brace that made the browser discard every rule
+        # after it.
+        minified_rules = [r for _, _, rules in per_sheet for r in rules]
         kept = []
         size = 0
         for i, rule in enumerate(minified_rules):
@@ -308,17 +332,26 @@ class CriticalCSSExtractor:
             kept.append(rule)
             size += len(rule)
 
-        return ''.join(kept)
+        # Hand the kept rules back to their sheets (they were kept as a
+        # prefix of minified_rules, so slicing per sheet in the same order
+        # recovers them), then return in document order.
+        blocks = []
+        remaining = len(kept)
+        for order, link, rules in per_sheet:
+            take = rules[:remaining]
+            remaining -= len(take)
+            if take:
+                blocks.append((order, link, ''.join(take)))
+        return [(link, css) for _, link, css in sorted(blocks, key=lambda b: b[0])]
 
-    def _parse_css_rules(self, css_content, critical_selectors):
-        """Parse CSS and extract rules matching critical selectors.
+    def _parse_css_rules(self, css_content, fold):
+        """Parse CSS and extract the rules that apply above the fold.
 
         Thin wrapper over _tokenize_css_rules (selector-independent, cached
         per stylesheet via _get_sheet_nodes) + _filter_rules (cheap per-page
         matching). Kept as the single entry point for raw CSS strings.
         """
-        return self._filter_rules(self._tokenize_css_rules(css_content),
-                                  critical_selectors)
+        return self._filter_rules(self._tokenize_css_rules(css_content), fold)
 
     def _tokenize_css_rules(self, css_content, _strip_comments=True):
         """Tokenize CSS into (selector, body) nodes — no selector matching.
@@ -403,8 +436,8 @@ class CriticalCSSExtractor:
 
         return nodes
 
-    def _filter_rules(self, nodes, critical_selectors):
-        """Render the tokenized nodes that match critical_selectors.
+    def _filter_rules(self, nodes, fold):
+        """Render the tokenized nodes whose selectors apply above the fold.
 
         Conditional group rules keep only their matching inner rules,
         wrapped back in the at-rule header. Source order is preserved.
@@ -412,10 +445,10 @@ class CriticalCSSExtractor:
         rules = []
         for selector, body in nodes:
             if isinstance(body, list):
-                inner = self._filter_rules(body, critical_selectors)
+                inner = self._filter_rules(body, fold)
                 if inner:
                     rules.append(f"{selector}{{{''.join(inner)}}}")
-            elif self._is_critical_selector(selector, critical_selectors):
+            elif self._is_critical_selector(selector, fold):
                 rules.append(f"{selector}{{{body}}}")
         return rules
 
@@ -444,34 +477,49 @@ class CriticalCSSExtractor:
         self._sheet_cache[cache_key] = (fingerprint, nodes)
         return nodes
 
-    def _is_critical_selector(self, selector, critical_selectors):
-        """Check if a CSS selector matches critical selectors"""
-        # :root must be matched before the pseudo-class strip below, which
-        # would otherwise reduce ":root" to an empty string and drop the token
-        # definitions from the critical set.
-        if ':root' in critical_selectors and re.search(r'(^|[,\s>+~]):root\b', selector):
+    def _is_critical_selector(self, selector, fold):
+        """True if any selector in the list matches an element above the fold.
+
+        Matching against the page's real DOM replaced a token test that took
+        a rule whenever ANY part of its selector named something on a short
+        list (`a`, `p`, `img`, `h2`, `section`, …) — so `.site-footer a` and
+        `.widget p` counted, while the rules for the header's own descendants
+        (the ones that hide the mobile header on desktop) didn't. With the
+        async sheets blocked, the first paint differed from the final render
+        on 43% of first-viewport pixels across a 20-page sample; with this,
+        ~0.5% (anti-aliasing).
+
+        State and pseudo-element parts are stripped first (`:hover`,
+        `::before`, …): the rule matters if the element it hangs off is
+        visible. Anything soupsieve can't evaluate is kept, as before.
+        """
+        if selector.startswith('@'):      # @font-face, @page, … — not element rules
+            return False
+        memo = fold.memo
+        if selector in memo:
+            return memo[selector]
+        result = any(self._selector_part_is_critical(part.strip(), fold)
+                     for part in _split_selector_list(selector) if part.strip())
+        memo[selector] = result
+        return result
+
+    @staticmethod
+    def _selector_part_is_critical(part, fold):
+        if _ROOT_OR_DOCUMENT.search(part):
             return True
-
-        # Remove pseudo-classes and pseudo-elements for matching
-        clean_selector = re.sub(r':+[\w-]+(\([^)]*\))?', '', selector)
-        clean_selector = re.sub(r'\[[^\]]+\]', '', clean_selector)
-
-        # Split compound selectors
-        parts = re.split(r'[,\s>+~]', clean_selector)
-
-        for part in parts:
-            part = part.strip()
-            if part in critical_selectors:
-                return True
-
-            # Check if it's an element selector (no . or #)
-            if part and not part.startswith('.') and not part.startswith('#'):
-                # Check if element name matches
-                element_name = re.sub(r'[^a-zA-Z0-9]', '', part)
-                if element_name in critical_selectors:
-                    return True
-
-        return False
+        cleaned = _STATE_PSEUDO.sub('', part).strip()
+        cleaned = re.sub(r'[\s>+~]+$', '', cleaned).strip() or '*'
+        # Cheap pre-check: a class or id that appears nowhere above the fold
+        # can't match there. Skipped for escaped selectors (`.md\:flex`),
+        # which the token regex can't read.
+        if '\\' not in cleaned:
+            positive = re.sub(r':not\([^)]*\)|\[[^\]]*\]', '', cleaned)
+            if any(kind + name not in fold.tokens for kind, name in _CLASS_OR_ID.findall(positive)):
+                return False
+        try:
+            return any(id(el) in fold.elements for el in sv.iselect(cleaned, fold.soup))
+        except Exception:
+            return True
 
     def _resolve_css_path(self, href):
         """Resolve CSS file path from href.
@@ -526,73 +574,42 @@ class CriticalCSSExtractor:
 
         return css.strip()
 
-    def _inline_critical_css(self, soup, critical_css, file_path):
-        """Inline critical CSS in <head>, or externalize if too large"""
-        if not soup.head or not critical_css:
+    def _inline_critical_css(self, soup, blocks, file_path=None):
+        """Inline each sheet's critical CSS right before that sheet's <link>.
+
+        One <style data-critical-for="href"> per async sheet, at the sheet's
+        own position, so its rules keep the cascade order the full sheet will
+        have. A single block at the top of <head> lost to anything after it —
+        e.g. global.min.css (inlined further down) beat the critical copy of
+        kadence-global-inline-css's mobile .content-area margin, pushing
+        mobile content 48 px down until the async sheet arrived.
+
+        Stale critical CSS from an earlier build is always removed first,
+        including the old single `<style id="critical-css">` and externalised
+        `/assets/css/critical/` links. Returns True if the document changed.
+        """
+        if not soup.head:
             return False
-
-        if len(critical_css) > self.max_inline_critical:
-            return self._externalize_critical_css(soup, critical_css, file_path)
-
-        # If a previous run externalised this page's critical CSS, the
-        # <link rel=stylesheet href=/assets/css/critical/critical-*.css> is
-        # still in <head>. Strip those before inlining so we don't keep both.
+        changed = False
+        for old in soup.find_all('style', id='critical-css') + soup.find_all('style', attrs={'data-critical-for': True}):
+            old.decompose()
+            changed = True
         for link in soup.find_all(
             'link',
             href=lambda h: h and h.startswith('/assets/css/critical/critical-')
         ):
             link.decompose()
+            changed = True
 
-        # Check if critical CSS already inlined
-        existing = soup.find('style', id='critical-css')
-        if existing:
-            # Update existing
-            existing.string = critical_css
-        else:
-            # Create new style tag
-            style_tag = soup.new_tag('style', id='critical-css')
-            style_tag.string = critical_css
-
-            # Insert at top of head (before other styles)
-            soup.head.insert(0, style_tag)
-
-        return True
-
-    def _externalize_critical_css(self, soup, critical_css, file_path):
-        """Write critical CSS to external file and link it to reduce HTML size"""
-        try:
-            rel_path = file_path.relative_to(self.public_dir).as_posix()
-            safe_slug = re.sub(r'[^a-zA-Z0-9_-]+', '-', rel_path).strip('-')
-            css_dir = self.public_dir / 'assets' / 'css' / 'critical'
-            css_dir.mkdir(parents=True, exist_ok=True)
-            css_filename = f'critical-{safe_slug}.css'
-            css_path = css_dir / css_filename
-
-            css_path.write_text(critical_css, encoding='utf-8')
-
-            css_href = f'/assets/css/critical/{css_filename}'
-
-            # Only insert the stylesheet link if not already present —
-            # prevents duplication on repeated pipeline runs.
-            existing_preload = soup.find('link', attrs={'href': css_href, 'rel': True})
-            if not existing_preload:
-                # Insert as a plain stylesheet link; _convert_css_to_preload
-                # will convert it to async preload+onload and add a noscript
-                # fallback in the same pass.
-                link = soup.new_tag('link')
-                link['rel'] = 'stylesheet'
-                link['href'] = css_href
-                soup.head.insert(0, link)
-
-            # Remove any existing inline critical CSS
-            existing = soup.find('style', id='critical-css')
-            if existing:
-                existing.decompose()
-
-            return True
-        except Exception as e:
-            print(f"⚠️  Failed to externalize critical CSS: {e}")
-            return False
+        for link, css in blocks:
+            if link.parent is None or not css:
+                continue
+            style_tag = soup.new_tag('style')
+            style_tag['data-critical-for'] = link.get('href', '')
+            style_tag.string = css
+            link.insert_before(style_tag)
+            changed = True
+        return changed
 
     @staticmethod
     def _dedup_head_links(html):
