@@ -276,3 +276,37 @@ def test_missing_file_is_skipped(tmp_path):
     )
 
     assert transformer._apply_inline_tiny_wp_stylesheets(soup) is False
+
+
+def test_inlined_sheets_are_not_duplicated_into_critical_css(tmp_path):
+    """Inlining runs before critical-CSS extraction. Run after, every
+    inlinable sheet was still a <link> when the extractor harvested, so its
+    rules were copied into the 16 KB critical block as well as inlined in
+    full — and on the live site that filled the cap on every page, dropping
+    the async sheets' header/content rules instead."""
+    small = 'wp-content/themes/kadence/assets/css/global.min.css'
+    big = 'wp-content/themes/kadence/assets/css/header.min.css'
+    for rel, css in (
+        (small, '.site-header{color:red}'),
+        # Over _WP_INLINE_MAX_BYTES, so it stays linked (async) and its
+        # above-fold rules are what the critical block is for.
+        (big, '.site-header{margin:0}' + _css('pad', HTMLTransformer._WP_INLINE_MAX_BYTES + 500)),
+    ):
+        path = tmp_path / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(css, encoding='utf-8')
+    page = tmp_path / 'index.html'
+    page.write_text(
+        '<html><head>'
+        f'<link rel="stylesheet" href="/{small}"/><link rel="stylesheet" href="/{big}"/>'
+        '</head><body><header class="site-header">x</header><main><p>y</p></main></body></html>',
+        encoding='utf-8',
+    )
+
+    HTMLTransformer(tmp_path)._process_file(page)
+
+    soup = BeautifulSoup(page.read_text(encoding='utf-8'), 'html.parser')
+    critical = soup.find('style', id='critical-css').string
+    assert 'margin:0' in critical          # the async sheet's rule is inlined
+    assert 'color:red' not in critical     # the inlined sheet's rule isn't duplicated
+    assert any('color:red' in (s.string or '') for s in soup.find_all('style') if s.get('id') != 'critical-css')
