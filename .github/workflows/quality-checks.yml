@@ -1,14 +1,9 @@
 name: Quality Checks
 
+# No push/pull_request trigger: the built site lives on the site branch (pushed
+# with GITHUB_TOKEN, which can't start other workflows), so deploy-static-site.yml
+# dispatches this workflow after each deploy. Plus the daily schedule below.
 on:
-  push:
-    branches: [main, master]
-    paths:
-      - 'public/**'
-  pull_request:
-    branches: [main, master]
-    paths:
-      - 'public/**'
   workflow_dispatch:
     inputs:
       run_lighthouse:
@@ -260,10 +255,8 @@ jobs:
       # Persist the real Lighthouse scores so the /changelog/ and /stats/ pages
       # can show genuine numbers. generate_changelog.py (run by the deploy
       # pipeline) reads data/lighthouse-latest.json and folds it into
-      # public/changelog/lighthouse-history.json. We commit to a NON-public path
-      # so this push doesn't re-trigger quality-checks (push paths: public/**)
-      # and doesn't collide with the deploy pipeline's regeneration of public/.
-      # Skipped on pull_request — PR runs can't (and shouldn't) push to main.
+      # public/changelog/lighthouse-history.json on the site branch. Committed
+      # to main under data/ because the deploy pipeline owns the site branch.
       - name: Record Lighthouse scores to repo
         if: github.event_name != 'pull_request' && steps.lighthouse_results.outputs.has_results == 'true'
         continue-on-error: true

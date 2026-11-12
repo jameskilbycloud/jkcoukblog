@@ -72,8 +72,9 @@ indexnow-submission.json
 # .github/workflows/deploy-static-site.yml
 .raw-html-snapshot/
 
-# Keep the public/ directory (this is what Cloudflare deploys)
-!public/
+# Built site. Published as a single commit on the site branch (which Cloudflare
+# Pages deploys) by deploy-static-site.yml — never committed to main.
+public/
 docs/IMAGE_CACHE_DIAGNOSIS.md
 
 # Cloudflare Wrangler

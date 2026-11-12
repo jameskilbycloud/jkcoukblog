@@ -40,14 +40,13 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   │   ├── force-full-deploy.yml          # Full (non-incremental) rebuild trigger
 │   │   ├── python-checks.yml              # pytest + ruff on scripts/ and tests/ changes
 │   │   ├── quality-checks.yml             # Lighthouse + live site formatting tests (daily)
-│   │   ├── lighthouse-pr.yml              # Lighthouse audit on pull requests
 │   │   ├── crux-field-data.yml            # Scheduled Chrome UX Report field-data capture
 │   │   ├── spell-check-approval-handler.yml # Spell check approval flow
 │   │   ├── apply-typo-patches.yml         # Apply approved typo fixes to WordPress
 │   │   ├── apply-alt-patches.yml          # Apply approved image alt-text fixes
 │   │   ├── wordpress-backup.yml           # WordPress backup (1st + 15th of month)
 │   │   ├── secret-scan.yml                # Gitleaks secret scanning (weekly)
-│   │   ├── rollback-site.yml              # Deployment rollback
+│   │   ├── rollback-site.yml              # Roll back via Cloudflare Pages deployments
 │   │   └── issue-to-slack-improved.yml    # GitHub issue → Slack notifications
 │   └── CODEOWNERS                         # Auto-assign PR reviewers
 ├── scripts/                               # Python & shell automation
@@ -227,7 +226,7 @@ The `deploy-static-site.yml` workflow runs a non-blocking spell-check job, then 
 | 22 | Validate HTML + deployment | `validate_html.py` + `validate_deployment.py` in parallel — Brotli integrity, AVIF/WebP presence, picture structure |
 | 23 | SEO drift check | `drift_baseline.py` — non-blocking; catches silent regressions on unattended auto-deploys |
 | 24 | Prepare output + changelog/stats | Copies to `public/`, generates changelog and stats pages, recompresses |
-| 25 | Commit and push to git | Triggers Cloudflare Pages auto-deploy |
+| 25 | Commit and push to git | Build caches → main; `public/` → `site` branch (force-push), which triggers the Cloudflare Pages deploy |
 | 26 | Upload search index to Workers KV | `wrangler kv key put` |
 | 27 | Purge changed HTML from KV cache | Waits for the Pages deploy of the pushed commit, then wipes the changed `html:*` entries |
 | 28 | Purge static assets from Cloudflare | Edge cache purge via Cloudflare API |
@@ -317,14 +316,13 @@ Secrets (tokens, credentials) remain in environment variables and GitHub Secrets
 | `force-full-deploy.yml` | Force a full (non-incremental) rebuild |
 | `python-checks.yml` | `pytest` + `ruff` on every change under `scripts/`/`tests/` |
 | `quality-checks.yml` | Lighthouse audits + live site formatting tests (daily, 03:00 UTC) |
-| `lighthouse-pr.yml` | Lighthouse audit on pull requests |
 | `crux-field-data.yml` | Scheduled Chrome UX Report (real-user Core Web Vitals) capture |
 | `spell-check-approval-handler.yml` | PR-based spell correction approval |
 | `apply-typo-patches.yml` | Apply approved typo fixes back to WordPress |
 | `apply-alt-patches.yml` | Apply approved image alt-text fixes |
 | `wordpress-backup.yml` | WordPress backup (1st + 15th of month) |
 | `secret-scan.yml` | Gitleaks secret scanning (on push/PR to main, plus weekly full-history scan) |
-| `rollback-site.yml` | Deployment rollback |
+| `rollback-site.yml` | Roll back to an earlier Cloudflare Pages deployment |
 | `issue-to-slack-improved.yml` | GitHub issue → Slack notifications |
 
 ### Useful Commands
