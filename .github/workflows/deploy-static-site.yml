@@ -1039,61 +1039,48 @@ jobs:
       # JavaScript at runtime — those don't appear in the served HTML so
       # static "is this selector used?" analysis can't see them.
       #
-      # continue-on-error so a missing dependency / runner without
-      # chromium doesn't block deploys; the script itself prints a
-      # grep-friendly SKIP banner in that case.
+      # continue-on-error so a broken browser setup never blocks a deploy.
+      # It must not pass silently either: this step went green on every run
+      # while skipping every test (Playwright refused to download Chromium
+      # for Ubuntu 26.04). Any setup failure now fails the step, which
+      # "Report non-blocking step failures" lists and Slack shows as a
+      # warning — the deploy itself still goes out.
       timeout-minutes: 5
       run: |
-        # Playwright + chromium aren't in requirements.txt because they
-        # weigh ~150 MB and are only needed for this one step. Install
-        # them here, idempotently (cached on the self-hosted runner).
-        #
-        # --break-system-packages is required on Ubuntu 24.04 (PEP 668).
-        # The runner Python is the system Python with EXTERNALLY-MANAGED
-        # set; pip refuses to install without an explicit override.
-        # Without the flag the step exits 1 immediately, the smoke tests
-        # never run, and the surrounding `continue-on-error: true` still
-        # lets the build succeed — which masks the regression-detection
-        # we added in #38.
-        if ! python3 -c "import playwright" 2>/dev/null; then
-          echo "📦 Installing Playwright Python..."
-          pip install --break-system-packages playwright
-        fi
-        # Run the install unconditionally rather than guarding on the
-        # existence of the ms-playwright cache directory. Playwright pins a
-        # build number per release and installs into a versioned subdirectory
-        # (chromium_headless_shell-<build>/). When the pip package is
-        # upgraded it looks for a NEW build number, but the cache directory
-        # from the previous build still exists — so the old `-d` guard saw a
-        # populated cache, skipped the install, and every run since has
-        # launch-failed on a browser that was never fetched:
-        #   Executable doesn't exist at .../chromium_headless_shell-1223/...
-        # `playwright install` is idempotent and a fast no-op when the
-        # matching build is already present, so there's nothing to save by
-        # guarding it.
-        echo "📦 Ensuring Chromium headless shell matches the installed Playwright..."
-        # No --with-deps: that flag triggers `sudo apt install` to fetch
-        # Chromium's runtime libraries, which fails on the self-hosted
-        # runner because sudo requires a password. The libs are already
-        # present on the runner (this step worked before Playwright began
-        # auto-detecting the OS as unsupported); if they ever go missing,
-        # test_interactive_ui.py prints its SKIP banner and
-        # `continue-on-error: true` below still lets the build pass.
-        #
-        # We swallow a non-zero exit here because Playwright validates the
-        # host OS against a hardcoded allowlist and refuses to install on
-        # any release newer than what its pinned binaries support (e.g.
-        # "Playwright does not support chromium on ubuntu26.04-x64").
-        # test_interactive_ui.py catches the missing-chromium case and
-        # prints its own SKIP banner via the launch_failed path, so this
-        # step ends up green and the SKIP is visible in build logs.
-        # Bump the playwright pip package when a newer one adds support.
-        if ! python3 -m playwright install chromium; then
-          echo "::warning::Playwright refused to install chromium on this runner OS — smoke tests will SKIP."
-          echo "    Bump the playwright pip package once a release adds the new OS to its allowlist."
+        # Playwright is pinned in requirements-ui.txt (Dependabot bumps it)
+        # and reinstalled whenever the runner's copy differs. Installing
+        # only when missing left the runner on an old release that predates
+        # its OS. --break-system-packages: the runner uses the system Python
+        # (PEP 668).
+        WANT=$(sed -n 's/^playwright==//p' requirements-ui.txt)
+        HAVE=$(python3 -c "import importlib.metadata as m; print(m.version('playwright'))" 2>/dev/null || true)
+        if [ "$HAVE" != "$WANT" ]; then
+          echo "📦 Installing Playwright $WANT (runner has: ${HAVE:-none})..."
+          python3 -m pip install --break-system-packages -r requirements-ui.txt
         fi
 
-        python3 scripts/test_interactive_ui.py ./static-output
+        # Idempotent, and a fast no-op when this release's browser build is
+        # already present. --only-shell: headless launches use the
+        # chrome-headless-shell build, so the full Chromium isn't needed.
+        # No --with-deps: that runs `sudo apt install`, and sudo needs a
+        # password on the runner.
+        if ! python3 -m playwright install --only-shell chromium; then
+          echo "::error title=Playwright browser install failed::playwright install refused or failed on this runner (see log). Bump playwright in requirements-ui.txt if the OS is unsupported."
+          exit 1
+        fi
+
+        # The browser's shared libraries come from apt, which this step
+        # can't run. Name anything missing so the one-off fix is obvious.
+        SHELL_BIN=$(find "$HOME/.cache/ms-playwright" -path '*chromium_headless_shell-*' -name chrome-headless-shell -type f 2>/dev/null | sort -V | tail -1)
+        MISSING_LIBS=$( [ -n "$SHELL_BIN" ] && ldd "$SHELL_BIN" 2>/dev/null | awk '/not found/ {print $1}' | sort -u | tr '\n' ' ')
+        if [ -n "$MISSING_LIBS" ]; then
+          echo "::error title=Chromium system libraries missing::$MISSING_LIBS— run once on the runner: sudo $(command -v python3) -m playwright install-deps chromium"
+          exit 1
+        fi
+
+        # --require-browser: a run that can't launch Chromium exits non-zero
+        # instead of skipping with 0.
+        python3 scripts/test_interactive_ui.py ./static-output --require-browser
       continue-on-error: true
 
     - name: Validate HTML and deployment (parallel)

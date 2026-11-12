@@ -1,0 +1,10 @@
+# Interactive UI smoke tests (scripts/test_interactive_ui.py) only — kept out of
+# requirements.txt because Playwright + its browser are ~150 MB and only the
+# "Interactive UI smoke tests" deploy step needs them.
+#
+# Pinned so Dependabot bumps it. Playwright refuses to download a browser for
+# an OS release newer than its own allowlist, so a copy that never upgrades
+# stops working when the runner's OS moves on (the runners are on Ubuntu 26.04;
+# 1.64.1 and later know it). The deploy step installs this pin whenever the
+# runner's copy differs.
+playwright==1.65.1
