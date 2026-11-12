@@ -145,7 +145,7 @@ verifies the `Cf-Access-Jwt-Assertion` JWT (signature, issuer, AUD, expiry)
 on every request. If any of the three settings above is missing, the routes
 return 401 rather than run. `/api/sizer/signin` is the sign-in link: Access
 prompts, then it redirects back to `/vmc-analyzer/#design`. Tests:
-`node --test tests/worker/`.
+`node --test 'tests/worker/*.test.mjs'`.
 
 ```bash
 curl -X POST "https://jameskilby.co.uk/.purge?path=/2026/01/my-post/" \

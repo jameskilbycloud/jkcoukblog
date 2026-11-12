@@ -69,4 +69,4 @@ jobs:
       # Node's built-in runner, preinstalled on ubuntu-latest — no npm deps.
       - name: Worker tests
         run: |
-          node --test tests/worker/
+          node --test 'tests/worker/*.test.mjs'

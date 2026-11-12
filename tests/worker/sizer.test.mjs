@@ -1,6 +1,6 @@
 // Tests for the /api/sizer/* proxy in _worker.template.js.
 //
-// Run with: node --test tests/worker/
+// Run with: node --test 'tests/worker/*.test.mjs'
 //
 // The worker template is a plain ES module whose only export is the default
 // fetch handler (Workers treats named exports as entrypoints), so these go
