@@ -608,7 +608,7 @@ def generate_stats_html(lighthouse, build_metrics, git_stats):
             <div class="info-box" style="margin-top: 20px;">
                 <p><strong>🔄 Auto-Updated:</strong> This page regenerates with every site deployment</p>
                 <p><strong>🌐 Public:</strong> All metrics are openly shared for transparency</p>
-                <p><strong>💻 Open Source:</strong> Check the <a href="https://github.com/jameskilbynet/jkcoukblog" target="_blank">GitHub repository</a> to see how this works</p>
+                <p><strong>💻 Open Source:</strong> Check the <a href="https://github.com/{Config.GITHUB_REPO}" target="_blank">GitHub repository</a> to see how this works</p>
             </div>
         </div>
         

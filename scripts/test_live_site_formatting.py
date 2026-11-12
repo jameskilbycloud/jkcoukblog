@@ -40,6 +40,8 @@ from typing import List, Dict, Tuple, Set
 import time
 import re
 
+from config import Config
+
 
 class LiveSiteFormattingTester:
     """Test the live site formatting and structure."""
@@ -612,8 +614,8 @@ class LiveSiteFormattingTester:
         if not repo:
             self.log_error("Missing data-repo attribute for utterances")
             return False
-        elif repo != 'jameskilbynet/jkcoukblog':
-            self.log_warning(f"Unexpected data-repo: '{repo}' (expected 'jameskilbynet/jkcoukblog')")
+        elif repo != Config.UTTERANCES_REPO:
+            self.log_warning(f"Unexpected data-repo: '{repo}' (expected '{Config.UTTERANCES_REPO}')")
         else:
             self.log_success(f"Utterances data-repo correct: {repo}")
 

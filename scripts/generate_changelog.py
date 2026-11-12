@@ -17,6 +17,7 @@ from html import escape as html_escape
 from pathlib import Path
 
 from build_stats import get_lighthouse_scores, get_git_stats
+from config import Config
 
 def load_lighthouse_history():
     """Load historical Lighthouse scores"""
@@ -491,10 +492,10 @@ def generate_changelog_html(lighthouse_scores, git_stats, changes):
         <p class="subtitle">Site improvements, deployments, and performance metrics</p>
 
         <div class="build-status">
-            <a href="https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml"
+            <a href="https://github.com/{Config.GITHUB_REPO}/actions/workflows/quality-checks.yml"
                target="_blank" rel="noopener noreferrer"
                aria-label="View Quality Checks workflow on GitHub">
-                <img src="https://github.com/jameskilbynet/jkcoukblog/actions/workflows/quality-checks.yml/badge.svg"
+                <img src="https://github.com/{Config.GITHUB_REPO}/actions/workflows/quality-checks.yml/badge.svg"
                      alt="Quality Checks workflow status"
                      loading="lazy" decoding="async" width="148" height="20">
             </a>

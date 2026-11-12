@@ -179,16 +179,36 @@ class HomepageRedesign:
         return str(n) if n > 0 else '—'
 
     def _stat_deploys_this_month(self):
+        """Successful deploy-static-site.yml runs since the 1st of the month.
+
+        Was `git log --since=<1st>` on main — every commit, which was only
+        ever a rough proxy and stopped meaning deploys at all once the site
+        moved to its own branch: main now gets code changes, Lighthouse
+        scores and build-cache commits, none of which is a deploy. The
+        Actions API counts the deploys themselves (the repo is public, so no
+        token is needed; GITHUB_TOKEN is used when present for the higher
+        rate limit). The run building this page is still in progress, so
+        it isn't counted.
+        """
         try:
-            import subprocess
+            import os
+            import requests
             from datetime import date
+            from config import Config
             first = date.today().replace(day=1).isoformat()
-            result = subprocess.run(
-                ['git', 'log', f'--since={first}', '--oneline'],
-                capture_output=True, text=True, timeout=10,
+            headers = {'Accept': 'application/vnd.github+json'}
+            if os.environ.get('GITHUB_TOKEN'):
+                headers['Authorization'] = f"Bearer {os.environ['GITHUB_TOKEN']}"
+            # Plain requests, not self.session: that one carries the
+            # WordPress / Cloudflare Access credentials.
+            r = requests.get(
+                f'https://api.github.com/repos/{Config.GITHUB_REPO}'
+                '/actions/workflows/deploy-static-site.yml/runs',
+                params={'status': 'success', 'created': f'>={first}', 'per_page': 1},
+                headers=headers, timeout=10,
             )
-            if result.returncode == 0:
-                return str(sum(1 for line in result.stdout.splitlines() if line))
+            r.raise_for_status()
+            return str(r.json()['total_count'])
         except Exception as e:
             print(f"   ⚠️  deploys.month: {e}")
         return '—'
