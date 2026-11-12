@@ -1566,13 +1566,13 @@ python vmc_rvtools_analyzer.py my_rvtools_export.xlsx --output report.json</pre>
       <div class="card-block">
         <div class="alert alert-meta" id="officialSizerStatusAlert">
           <span class="alert-icon">i</span>
-          <div id="officialSizerStatusText">Checking whether the local analyzer server has a CSP API token configured…</div>
+          <div id="officialSizerStatusText">Checking whether the official Sizer proxy is available…</div>
         </div>
         <p class="hint" style="font-size:0.55rem;color:var(--clr-text-muted);margin-bottom:0.6rem;">
           In <b>Per-VM selection</b> basis, validates every defined cluster separately — each against its own
           assigned host type — the same grouping shown above. Otherwise sends the whole report's VMs as one
           estate through Broadcom's own <a href="https://developer.broadcom.com/xapis/vmware-cloud-sizer-api/latest/" target="_blank" rel="noopener">VMware Cloud Sizer API</a>,
-          via the local server, as a second opinion alongside this tool's own estimate above. Needs the server
+          via the site's Sizer proxy, as a second opinion alongside this tool's own estimate above. Needs the server
           running with <code>VMC_CSP_API_TOKEN</code> set (or a local <code>.vmc_csp_token</code> file) — see the README.
           Request/response schema verified 2026-08-27 against a live call.
         </p>
@@ -4430,8 +4430,13 @@ $('rateCardLabel').addEventListener('change', () => applyRateCardEntry(findRateC
 //  STORAGE_OPT/PERFORMANCE_OPT below are this tool's best guess at the
 //  other enum members, not confirmed against a real response yet.
 // ══════════════════════════════════════════════════════════════════════════
-const SIZER_STATUS_ENDPOINT = 'http://127.0.0.1:8420/api/sizer/status';
-const SIZER_RECOMMENDATION_ENDPOINT = 'http://127.0.0.1:8420/api/sizer/recommendation';
+// Same-origin routes in the site's Cloudflare Worker (owner-only, behind
+// Cloudflare Access). redirect:'manual' turns Access's login redirect into an
+// opaqueredirect response instead of a CORS error, so 'signed out' is detectable.
+const SIZER_STATUS_ENDPOINT = '/api/sizer/status';
+const SIZER_RECOMMENDATION_ENDPOINT = '/api/sizer/recommendation';
+const SIZER_SIGNIN = '/api/sizer/signin';
+const sizerSignedOut = res => res.type === 'opaqueredirect' || res.status === 401;
 
 let sizerConfigured = false;  // last-known server status; re-checked on load and re-applied whenever a report loads
 
@@ -4450,7 +4455,15 @@ async function checkSizerStatus() {
   const alertBox = $('officialSizerStatusAlert');
   const textEl = $('officialSizerStatusText');
   try {
-    const res = await fetch(SIZER_STATUS_ENDPOINT);
+    const res = await fetch(SIZER_STATUS_ENDPOINT, { credentials: 'same-origin', redirect: 'manual' });
+    if (sizerSignedOut(res)) {
+      sizerConfigured = false;
+      textEl.innerHTML = 'Validation against the official Sizer runs on the site owner\'s VMware credentials, ' +
+        `so it needs sign-in. <a href="${SIZER_SIGNIN}">Sign in</a> to enable it.`;
+      alertBox.className = 'alert alert-meta';
+      updateSizerButtonState();
+      return;
+    }
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const body = await res.json();
     sizerConfigured = !!body.configured;
@@ -4458,14 +4471,12 @@ async function checkSizerStatus() {
       textEl.textContent = 'Server has a CSP API token configured — ready to validate.';
       alertBox.className = 'alert alert-meta';
     } else {
-      textEl.innerHTML = 'No CSP API token configured on the server. Set <code>VMC_CSP_API_TOKEN</code> ' +
-        'or create <code>.vmc_csp_token</code> in the repo root (gitignored), then restart the server.';
+      textEl.innerHTML = 'No CSP API token configured. Set the <code>VMC_CSP_API_TOKEN</code> Pages secret, then redeploy.';
       alertBox.className = 'alert alert-warning';
     }
   } catch (err) {
     sizerConfigured = false;
-    textEl.textContent = `Can't reach the local analyzer server (${err.message}) — start it with ` +
-      `"python3 vmc_analyzer_server.py" to enable this.`;
+    textEl.textContent = `Can't reach the Sizer proxy (${err.message}).`;
     alertBox.className = 'alert alert-warning';
   }
   updateSizerButtonState();
@@ -4505,13 +4516,15 @@ async function validateGroupWithSizer(label, vms, hostType, stretched) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ vms, hostType, stretched }),
+      credentials: 'same-origin', redirect: 'manual',
     });
+    if (sizerSignedOut(res)) throw new Error('signed out — sign in again');
     const data = await res.json();
     resultsEl.insertAdjacentHTML('beforeend', officialSizerResultHtml(res.status, data));
   } catch (err) {
     resultsEl.insertAdjacentHTML('beforeend', `<div class="alert alert-warning" style="margin:0.8rem 1rem;">
       <span class="alert-icon">!</span>
-      <div>Could not reach the local server: ${esc(err.message)}</div>
+      <div>Could not reach the Sizer proxy: ${esc(err.message)}</div>
     </div>`);
   }
 }

@@ -10,6 +10,7 @@ on:
       - 'scripts/**.py'
       - 'scripts/**.sh'
       - '*.sh'
+      - '_worker.template.js'
       - 'tests/**'
       - 'requirements*.txt'
       - 'ruff.toml'
@@ -19,6 +20,7 @@ on:
       - 'scripts/**.py'
       - 'scripts/**.sh'
       - '*.sh'
+      - '_worker.template.js'
       - 'tests/**'
       - 'requirements*.txt'
       - 'ruff.toml'
@@ -62,3 +64,9 @@ jobs:
       - name: Run unit tests
         run: |
           pytest tests/ -v
+
+      # The Worker's own tests (the /api/sizer/* access control above all).
+      # Node's built-in runner, preinstalled on ubuntu-latest — no npm deps.
+      - name: Worker tests
+        run: |
+          node --test 'tests/worker/*.test.mjs'

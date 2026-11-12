@@ -130,9 +130,22 @@ see [PAGES_KV_SETUP.md](PAGES_KV_SETUP.md)):
 | `SEARCH_INDEX` | KV | Search index, uploaded by CI |
 | `PURGE_TOKEN` | Secret | Gates `/.purge` and the admin endpoints |
 | `POWER_TOKEN` | Secret | Gates `POST /api/power` ([homelab-power-widget.md](homelab-power-widget.md)) |
+| `VMC_CSP_API_TOKEN` | Secret | VMware CSP API token for the `/vmc-analyzer/` Sizer proxy (`/api/sizer/*`) |
+| `CF_ACCESS_TEAM_DOMAIN` | Variable | Cloudflare Access team (`<team>` or `<team>.cloudflareaccess.com`) |
+| `CF_ACCESS_AUD` | Variable | Audience (AUD) tag of the Access app protecting `/api/sizer` |
 | `ASSETS` | Automatic | The static files of the deployment |
 
 Pages only picks up new variables and secrets on the **next deployment**.
+
+**Sizer proxy (`/api/sizer/*`).** The analyzer's "Validate with official
+VMware Sizer" calls these Worker routes, which spend the owner's CSP
+credential, so they are owner-only: a Cloudflare Access self-hosted app on
+`jameskilby.co.uk/api/sizer` allows only the owner, and the Worker also
+verifies the `Cf-Access-Jwt-Assertion` JWT (signature, issuer, AUD, expiry)
+on every request. If any of the three settings above is missing, the routes
+return 401 rather than run. `/api/sizer/signin` is the sign-in link: Access
+prompts, then it redirects back to `/vmc-analyzer/#design`. Tests:
+`node --test 'tests/worker/*.test.mjs'`.
 
 ```bash
 curl -X POST "https://jameskilby.co.uk/.purge?path=/2026/01/my-post/" \

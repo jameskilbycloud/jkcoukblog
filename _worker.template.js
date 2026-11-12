@@ -312,6 +312,16 @@ export default {
     }
     // ────────────────────────────────────────────────────────────────────────
 
+    // ── VMware Cloud Sizer proxy (/vmc-analyzer/) ────────────────────────────
+    // Owner-only: Cloudflare Access protects /api/sizer/*, and every route
+    // re-verifies the Access JWT itself, so a missing or misconfigured Access
+    // app fails closed instead of spending the CSP credential for anyone.
+    // Before the GET-only guard (recommendation is a POST) and shouldCache.
+    if (path.startsWith('/api/sizer/')) {
+      return handleSizer(request, env, path);
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
     // Only cache GET requests
     if (request.method !== 'GET') {
       return env.ASSETS.fetch(request);
@@ -764,6 +774,254 @@ async function handlePlausibleEvent(request) {
   return new Response(upstream.body, { status: upstream.status, headers: respHeaders });
 }
 // ───────────────────────────────────────────────────────────────────────────
+
+// ── VMware Cloud Sizer proxy ─────────────────────────────────────────────────
+// Ported from VMCTMM's vmc_analyzer_server.py, which /vmc-analyzer/ used to
+// call on http://127.0.0.1:8420 — unreachable from the hosted https page
+// (Safari blocks it outright: "Load failed"). The official Sizer API is a
+// partner API behind CSP OAuth, so the credential stays server-side: a
+// Pages secret, never the browser.
+//
+// Access control is the owner only. Cloudflare Access protects
+// /api/sizer/* (self-hosted app on jameskilby.co.uk/api/sizer); on top of
+// that, every route verifies the Cf-Access-Jwt-Assertion header against the
+// team's signing keys and the app's AUD tag, so if the Access app is
+// missing or misconfigured these routes return 401 rather than run.
+//
+// Bindings (Pages → Settings → Variables and secrets):
+//   VMC_CSP_API_TOKEN      secret  long-lived CSP API token
+//   CF_ACCESS_TEAM_DOMAIN  var     e.g. "jameskilby" or "jameskilby.cloudflareaccess.com"
+//   CF_ACCESS_AUD          var     the Access application's Audience (AUD) tag
+
+const SIZER_CSP_TOKEN_URL = 'https://console.cloud.vmware.com/csp/gateway/am/api/auth/api-tokens/authorize';
+const SIZER_BASE_URL = 'https://vmc.vmware.com/api/vmc-sizer/v5';
+const SIZER_MAX_BODY_BYTES = 8 * 1024 * 1024;
+const SIZER_MAX_VMS = 20000;
+const SIZER_RETURN_TO = '/vmc-analyzer/#design';
+
+// Per-isolate caches. An isolate can be recycled at any time; both are
+// simply refetched when that happens.
+const sizerTokenCache = { token: null, expiresAt: 0 };
+const accessKeyCache = { keys: null, fetchedAt: 0, issuer: null };
+
+function sizerJson(status, body) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Cache-Control': 'no-store',
+      'X-Robots-Tag': 'noindex'
+    }
+  });
+}
+
+function accessIssuer(env) {
+  const team = (env.CF_ACCESS_TEAM_DOMAIN || '').trim()
+    .replace(/^https?:\/\//, '').replace(/\/+$/, '');
+  if (!team) return null;
+  return `https://${team.includes('.') ? team : `${team}.cloudflareaccess.com`}`;
+}
+
+function base64UrlToBytes(s) {
+  const b64 = s.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(s.length / 4) * 4, '=');
+  return Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+}
+
+async function accessSigningKeys(issuer) {
+  const fresh = accessKeyCache.keys && accessKeyCache.issuer === issuer
+    && Date.now() - accessKeyCache.fetchedAt < 10 * 60 * 1000;
+  if (!fresh) {
+    const res = await fetch(`${issuer}/cdn-cgi/access/certs`);
+    if (!res.ok) throw new Error(`Access certs HTTP ${res.status}`);
+    accessKeyCache.keys = (await res.json()).keys || [];
+    accessKeyCache.fetchedAt = Date.now();
+    accessKeyCache.issuer = issuer;
+  }
+  return accessKeyCache.keys;
+}
+
+// Returns the verified JWT payload, or null. Never throws.
+async function verifyAccessJwt(request, env) {
+  const issuer = accessIssuer(env);
+  const aud = (env.CF_ACCESS_AUD || '').trim();
+  const jwt = request.headers.get('Cf-Access-Jwt-Assertion');
+  if (!issuer || !aud || !jwt) return null;
+  try {
+    const [h, p, sig] = jwt.split('.');
+    if (!h || !p || !sig) return null;
+    const header = JSON.parse(new TextDecoder().decode(base64UrlToBytes(h)));
+    const payload = JSON.parse(new TextDecoder().decode(base64UrlToBytes(p)));
+    if (header.alg !== 'RS256') return null;
+    const jwk = (await accessSigningKeys(issuer)).find(k => k.kid === header.kid);
+    if (!jwk) return null;
+    const key = await crypto.subtle.importKey(
+      'jwk', jwk, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['verify']);
+    const ok = await crypto.subtle.verify(
+      'RSASSA-PKCS1-v1_5', key, base64UrlToBytes(sig), new TextEncoder().encode(`${h}.${p}`));
+    if (!ok) return null;
+    const now = Math.floor(Date.now() / 1000);
+    const auds = Array.isArray(payload.aud) ? payload.aud : [payload.aud];
+    if (payload.iss !== issuer || !auds.includes(aud)) return null;
+    if (typeof payload.exp !== 'number' || payload.exp <= now) return null;
+    if (typeof payload.nbf === 'number' && payload.nbf > now + 60) return null;
+    return payload;
+  } catch (_) {
+    return null;
+  }
+}
+
+async function sizerAccessToken(apiToken) {
+  if (sizerTokenCache.token && sizerTokenCache.expiresAt > Date.now()) {
+    return sizerTokenCache.token;
+  }
+  const res = await fetch(SIZER_CSP_TOKEN_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' },
+    body: `refresh_token=${encodeURIComponent(apiToken)}`
+  });
+  const text = await res.text();
+  if (!res.ok) throw new Error(`CSP token exchange failed (${res.status}): ${text.slice(0, 300)}`);
+  let body;
+  try { body = JSON.parse(text); } catch (_) { throw new Error('CSP token exchange returned non-JSON'); }
+  if (!body.access_token) throw new Error('CSP token exchange returned no access_token');
+  const expiresIn = Number(body.expires_in) || 1800;
+  sizerTokenCache.token = body.access_token;
+  // Refresh a minute early rather than racing an exact expiry.
+  sizerTokenCache.expiresAt = Date.now() + Math.max(expiresIn - 60, 60) * 1000;
+  return body.access_token;
+}
+
+// Verified 2026-08-27 against a real CSP token and the live
+// /vmc-sizer/v5/recommendation endpoint (see vmc_analyzer_server.py):
+// the top-level key is "workloadProfiles", sddcHostType takes
+// I3EN/I4I/I7I_24XL/AUTO, vRam/vmdk are plain GiB, and "configurations"
+// needs the full object — a partial one 500s with no useful message.
+// MAZ (stretched) rejects AUTO storage preference, so it's vSAN_ONLY there.
+const SIZER_HOST_TYPE_MAP = { auto: 'AUTO', i3en: 'I3EN', i4i: 'I4I', i7i: 'I7I_24XL' };
+
+function buildSizerPayload(vms, hostType, stretched) {
+  const apiHostType = SIZER_HOST_TYPE_MAP[String(hostType || 'auto').toLowerCase()] || 'AUTO';
+  return {
+    configurations: {
+      cloudType: 'VMC_ON_AWS',
+      computeOvercommitFactor: 4,
+      cpuHeadroom: 0.15,
+      hyperThreadingFactor: 1.25,
+      memoryOvercommitFactor: 1.25,
+      cpuUtilization: 0.3,
+      memoryUtilization: 1.0,
+      storageThresholdFactor: 0.8,
+      compressionRatio: 1.25,
+      dedupRatio: 1.5,
+      ioAccessPattern: null,
+      ioSize: null,
+      ioRatio: null,
+      totalIOPs: null,
+      includeManagementVMs: true,
+      fttFtmType: 'AUTO_AUTO',
+      separateClusters: true,
+      instanceSettingsList: null,
+      vmOutlierLimits: { cpuLimit: 0.75, storageLimit: 0.5, memoryLimit: 0.75 },
+      applianceSize: 'AUTO',
+      addonsList: [],
+      sddcHostType: apiHostType,
+      clusterType: stretched ? 'MAZ' : 'SAZ'
+    },
+    workloadProfiles: [{
+      profileName: 'default',
+      separateCluster: true,
+      isEnabled: true,
+      workloadProfileType: 'GPW_GVM',
+      storagePreference: stretched ? 'vSAN_ONLY' : 'AUTO',
+      extStorageVendorType: stretched ? null : 'AUTO',
+      vmList: vms.map((v, i) => ({
+        vmId: String(i + 1),
+        vmName: v.vm ?? 'unknown',
+        vmState: v.power_state === 'on' ? 'RUNNING' : 'POWERED_OFF',
+        vmComputeInfo: { vCpu: v.vcpu ?? 0, vCpuOverall: v.consumed_vcpu ?? 0 },
+        vmMemoryInfo: { vRam: v.vram_gib || 0, vRamConsumed: v.consumed_vram_gib || 0 },
+        vmStorageInfo: { vmdkTotal: v.provisioned_gib || 0, vmdkUsed: v.in_use_gib || 0 }
+      }))
+    }]
+  };
+}
+
+async function handleSizer(request, env, path) {
+  const user = await verifyAccessJwt(request, env);
+  if (!user) {
+    return sizerJson(401, {
+      error: 'Sign-in required',
+      signin: '/api/sizer/signin',
+      // Names what's missing, never the values — helps set-up without
+      // telling a stranger anything useful.
+      accessConfigured: Boolean(accessIssuer(env) && (env.CF_ACCESS_AUD || '').trim())
+    });
+  }
+
+  // Access makes you sign in to reach this; then it just goes back.
+  if (path === '/api/sizer/signin' && request.method === 'GET') {
+    return new Response(null, { status: 302, headers: { Location: SIZER_RETURN_TO, 'Cache-Control': 'no-store' } });
+  }
+
+  if (path === '/api/sizer/status' && request.method === 'GET') {
+    // Never returns the token — only whether one is configured.
+    return sizerJson(200, { configured: Boolean(env.VMC_CSP_API_TOKEN), user: user.email || null });
+  }
+
+  if (path === '/api/sizer/recommendation' && request.method === 'POST') {
+    if (!env.VMC_CSP_API_TOKEN) {
+      return sizerJson(400, { error: 'No CSP API token configured: set the VMC_CSP_API_TOKEN Pages secret, then redeploy.' });
+    }
+    const length = Number(request.headers.get('Content-Length') || 0);
+    if (length > SIZER_MAX_BODY_BYTES) {
+      return sizerJson(413, { error: `Request body over ${SIZER_MAX_BODY_BYTES / 1024 / 1024} MB.` });
+    }
+    let body;
+    try {
+      body = await request.json();
+    } catch (err) {
+      return sizerJson(400, { error: `Invalid JSON: ${err.message}` });
+    }
+    const vms = body && body.vms;
+    if (!Array.isArray(vms) || vms.length === 0) {
+      return sizerJson(400, { error: 'Expected a non-empty "vms" array.' });
+    }
+    if (vms.length > SIZER_MAX_VMS) {
+      return sizerJson(413, { error: `Too many VMs (${vms.length}); the limit is ${SIZER_MAX_VMS}.` });
+    }
+
+    let accessToken;
+    try {
+      accessToken = await sizerAccessToken(env.VMC_CSP_API_TOKEN);
+    } catch (err) {
+      return sizerJson(502, { error: err.message });
+    }
+
+    const payload = buildSizerPayload(vms, body.hostType, Boolean(body.stretched));
+    let upstream;
+    try {
+      upstream = await fetch(`${SIZER_BASE_URL}/recommendation`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      return sizerJson(502, { error: `Could not reach the sizer API: ${err.message}` });
+    }
+    const raw = await upstream.text();
+    let sizerResponse;
+    try { sizerResponse = raw ? JSON.parse(raw) : {}; } catch (_) { sizerResponse = { error: raw.slice(0, 2000) }; }
+    // Pass the upstream status through: a 400 means the payload mapping
+    // needs adjusting, not that this proxy is broken.
+    return sizerJson(upstream.status, { sizer_request: payload, sizer_response: sizerResponse });
+  }
+
+  return sizerJson(404, { error: 'Not found' });
+}
 
 // ── Homelab live power widget ────────────────────────────────────────────────
 // Reuses the HTML_CACHE KV binding under a single `power:latest` key. Home
