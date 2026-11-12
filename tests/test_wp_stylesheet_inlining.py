@@ -306,7 +306,8 @@ def test_inlined_sheets_are_not_duplicated_into_critical_css(tmp_path):
     HTMLTransformer(tmp_path)._process_file(page)
 
     soup = BeautifulSoup(page.read_text(encoding='utf-8'), 'html.parser')
-    critical = soup.find('style', id='critical-css').string
+    critical = ''.join(s.string for s in soup.find_all('style', attrs={'data-critical-for': True}))
     assert 'margin:0' in critical          # the async sheet's rule is inlined
     assert 'color:red' not in critical     # the inlined sheet's rule isn't duplicated
-    assert any('color:red' in (s.string or '') for s in soup.find_all('style') if s.get('id') != 'critical-css')
+    assert any('color:red' in (s.string or '') for s in soup.find_all('style')
+               if not s.get('data-critical-for'))

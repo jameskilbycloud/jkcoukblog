@@ -476,13 +476,13 @@ class HTMLTransformer:
 
     def _apply_critical_css(self, soup, file_path):
         """Extract and inline critical CSS, convert stylesheets to async preload."""
-        critical_css = self.critical_css._extract_critical_css(soup)
+        blocks = self.critical_css._extract_critical_blocks(soup, file_path)
 
-        modified = False
-        if critical_css and self.critical_css._inline_critical_css(
-                soup, critical_css, file_path):
+        # Always called: it also clears stale critical CSS carried in seeded
+        # HTML when this page now extracts nothing.
+        modified = self.critical_css._inline_critical_css(soup, blocks, file_path)
+        if blocks:
             self.critical_css.css_inlined += 1
-            modified = True
 
         # Convert stylesheets to async preload even when nothing was inlined
         # — a page whose async-eligible sheets match no critical selectors
