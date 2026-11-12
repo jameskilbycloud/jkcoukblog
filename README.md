@@ -52,6 +52,8 @@ wordpress.jameskilby.cloud  |                         (one commit, public/)    j
 │   │   └── issue-to-slack-improved.yml    # GitHub issue → Slack notifications
 │   └── CODEOWNERS                         # Auto-assign PR reviewers
 ├── scripts/                               # Python & shell automation
+│   ├── ci/                                # Long deploy-workflow step bodies (generate, images,
+│   │                                      #   compress, prepare, publish to site, KV purge)
 │   ├── wp_to_static_generator.py          # Core WordPress → static converter (orchestrator;
 │   │                                      #   wires the collaborators below, one per page/build)
 │   │   ├── site_artifacts_builder.py      #   sitemap/RSS/robots.txt, search index, script injection

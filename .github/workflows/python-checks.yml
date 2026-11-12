@@ -1,13 +1,15 @@
 name: Python Checks
 
-# Lint + unit tests for the build scripts. Separate from quality-checks.yml,
-# which checks the deployed site — this one fires on changes to the Python
-# tooling itself.
+# Lint + unit tests for the build scripts (Python, and the shell in
+# scripts/ci/ that deploy-static-site.yml runs). Separate from
+# quality-checks.yml, which checks the deployed site.
 on:
   push:
     branches: [main]
     paths:
       - 'scripts/**.py'
+      - 'scripts/**.sh'
+      - '*.sh'
       - 'tests/**'
       - 'requirements*.txt'
       - 'ruff.toml'
@@ -15,6 +17,8 @@ on:
   pull_request:
     paths:
       - 'scripts/**.py'
+      - 'scripts/**.sh'
+      - '*.sh'
       - 'tests/**'
       - 'requirements*.txt'
       - 'ruff.toml'
@@ -47,6 +51,13 @@ jobs:
       - name: Ruff lint
         run: |
           ruff check scripts/ tests/
+
+      # Warning level: the scripts/ci/ bodies came out of the deploy workflow,
+      # and errors there used to surface only as a failed deploy.
+      # (shellcheck is preinstalled on ubuntu-latest.)
+      - name: ShellCheck
+        run: |
+          shellcheck -S warning scripts/*.sh scripts/ci/*.sh ./*.sh
 
       - name: Run unit tests
         run: |

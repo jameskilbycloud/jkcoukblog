@@ -13,7 +13,6 @@ set -e
 # Configuration
 REPO="jameskilbynet/jkcoukblog"
 WORKFLOW="deploy-static-site.yml"
-WORKFLOW_FILE=".github/workflows/deploy-static-site.yml"
 
 # Change to repo directory
 cd "$(dirname "$0")/.."

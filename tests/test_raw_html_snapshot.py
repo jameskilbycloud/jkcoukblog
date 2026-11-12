@@ -48,11 +48,20 @@ def deploy_steps():
     return _steps(DEPLOY, 'build-and-deploy')
 
 
+def _with_script_body(step):
+    """The step with `run` replaced by its script's text when it delegates
+    to scripts/ci/ (the longer bodies moved out of the workflow)."""
+    m = re.search(r'\$RUNNER_TEMP/ci/([\w.-]+\.sh)', step.get('run', ''))
+    if not m:
+        return step
+    return {**step, 'run': (REPO_ROOT / 'scripts' / 'ci' / m.group(1)).read_text()}
+
+
 @pytest.fixture(scope='module')
 def generate_step(deploy_steps):
     for step in deploy_steps:
         if step.get('name') == 'Generate static site':
-            return step
+            return _with_script_body(step)
     raise AssertionError('"Generate static site" step not found')
 
 
