@@ -1,103 +1,96 @@
-name: Rollback Site to Previous Commit
+name: Rollback Site to Previous Deployment
+
+# The built site is a single force-pushed commit on the site branch, so there
+# is no git history to reset. Cloudflare Pages keeps every deployment, so roll
+# back there instead: by default to the production deployment before the one
+# that's live, or to a specific deployment ID.
+#
+# The rollback only lasts until the next deploy-static-site.yml run, which
+# rebuilds from main. Revert the change that broke the site on main first.
 
 on:
   workflow_dispatch:        # Manual trigger only
+    inputs:
+      deployment_id:
+        description: 'Cloudflare Pages deployment ID to roll back to (blank = the one before the live deployment)'
+        required: false
+        default: ''
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   rollback:
     runs-on: self-hosted
     timeout-minutes: 10
-    
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      TARGET_ID: ${{ github.event.inputs.deployment_id }}
+
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v7
-      with:
-        fetch-depth: 0  # Fetch full history to see previous commits
-        
-    - name: Validate rollback is possible
+    - name: Pick the deployment to roll back to
       run: |
-        echo "🔍 Checking if rollback is possible..."
-        
-        # Get current commit and previous commit
-        CURRENT_COMMIT=$(git rev-parse HEAD)
-        PREVIOUS_COMMIT=$(git rev-parse HEAD~1)
-        
-        echo "📌 Current commit: $CURRENT_COMMIT"
-        echo "📌 Previous commit: $PREVIOUS_COMMIT"
-        
-        # Check if previous commit exists
-        if [ -z "$PREVIOUS_COMMIT" ]; then
-          echo "❌ No previous commit found. Cannot rollback."
+        set -euo pipefail
+        API="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/jkcoukblog"
+        AUTH="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+
+        CURRENT_ID=$(curl -sf -H "$AUTH" "$API" | jq -r '.result.canonical_deployment.id')
+        DEPLOYS=$(curl -sf -H "$AUTH" "$API/deployments?env=production&per_page=25")
+        echo "📌 Live deployment: $CURRENT_ID"
+
+        if [ -z "$TARGET_ID" ]; then
+          # Deployments come newest first: take the first successful one
+          # listed after the live deployment.
+          TARGET_ID=$(printf '%s' "$DEPLOYS" | jq -r --arg cur "$CURRENT_ID" '
+            [.result[]] | (map(.id) | index($cur)) as $i
+            | if $i == null then empty else .[$i+1:][] end
+            | select(.latest_stage.name == "deploy" and .latest_stage.status == "success") | .id' | head -1)
+        fi
+        if [ -z "$TARGET_ID" ] || [ "$TARGET_ID" = "$CURRENT_ID" ]; then
+          echo "❌ No earlier successful production deployment to roll back to"
           exit 1
         fi
-        
-        # Show what we're rolling back
-        echo ""
-        echo "📋 Current commit details:"
-        git log -1 --pretty=format:"  Author: %an%n  Date: %ad%n  Message: %s" HEAD
-        echo ""
-        echo ""
-        echo "📋 Rolling back to:"
-        git log -1 --pretty=format:"  Author: %an%n  Date: %ad%n  Message: %s" HEAD~1
-        echo ""
-        
-        # Save for later steps
-        echo "CURRENT_COMMIT=$CURRENT_COMMIT" >> $GITHUB_ENV
-        echo "PREVIOUS_COMMIT=$PREVIOUS_COMMIT" >> $GITHUB_ENV
-        
+
+        printf '%s' "$DEPLOYS" | jq -r --arg id "$TARGET_ID" \
+          '.result[] | select(.id == $id) | "📋 Rolling back to \(.id) — \(.created_on), site@\(.deployment_trigger.metadata.commit_hash[0:7])"'
+        echo "CURRENT_ID=$CURRENT_ID" >> "$GITHUB_ENV"
+        echo "TARGET_ID=$TARGET_ID" >> "$GITHUB_ENV"
+
     - name: Perform rollback
       run: |
-        echo "🔄 Rolling back to previous commit..."
-        
-        # Configure git
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        
-        # Sync with remote to ensure we're up to date
-        git fetch origin
-        
-        # Reset to previous commit
-        ROLLED_BACK_COMMIT=$(git log -1 --pretty=format:"%s" HEAD)
-        git reset --hard HEAD~1
-        
-        echo "✅ Rollback commit created"
-        echo "📝 Reset to previous commit: $ROLLED_BACK_COMMIT"
-        
-    - name: Push rollback
-      run: |
-        echo "📤 Pushing rollback to remote..."
-        
-        # Attempt push
-        if git push origin main; then
-          echo "✅ Rollback pushed successfully"
-        else
-          echo "⚠️ Push failed, syncing with remote and retrying..."
-          git fetch origin
-          git reset --hard origin/main
-          git reset --hard HEAD~1
-          git push --force-with-lease origin main
+        set -euo pipefail
+        RESP=$(curl -s -X POST \
+          -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+          "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/jkcoukblog/deployments/$TARGET_ID/rollback")
+        if [ "$(printf '%s' "$RESP" | jq -r '.success')" != "true" ]; then
+          echo "❌ Rollback failed: $(printf '%s' "$RESP" | jq -c '.errors')"
+          exit 1
         fi
-        
-        NEW_COMMIT=$(git rev-parse HEAD)
-        echo "NEW_COMMIT=$NEW_COMMIT" >> $GITHUB_ENV
-        
-        echo "✅ Site rolled back successfully"
-        echo "🌐 Cloudflare Pages will auto-deploy the rolled-back version"
-        
+        echo "✅ Production now serves deployment $TARGET_ID"
+
+    # The worker's KV HTML cache still holds pages rendered from the rolled-back
+    # deployment; clear it so visitors get the restored version.
+    - name: Purge KV HTML cache
+      continue-on-error: true
+      run: |
+        if [ -z "${{ secrets.CACHE_PURGE_TOKEN }}" ]; then
+          echo "ℹ️  CACHE_PURGE_TOKEN not set — KV cache entries expire on their own TTL"
+          exit 0
+        fi
+        curl -sf -X POST "https://jameskilby.co.uk/.purge?all=true" \
+          -H "X-Purge-Token: ${{ secrets.CACHE_PURGE_TOKEN }}" | jq -r '"🗑️  Purged \(.count // 0) KV entries"'
+
     - name: Generate summary
       run: |
         echo "## ⏮️ Rollback Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "- **Status:** ✅ Successfully rolled back" >> $GITHUB_STEP_SUMMARY
-        echo "- **Rolled back from:** \`${{ env.CURRENT_COMMIT }}\`" >> $GITHUB_STEP_SUMMARY
-        echo "- **Reverted to:** \`${{ env.PREVIOUS_COMMIT }}\`" >> $GITHUB_STEP_SUMMARY
-        echo "- **New commit:** \`${{ env.NEW_COMMIT }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Rolled back from:** \`${{ env.CURRENT_ID }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Now serving:** \`${{ env.TARGET_ID }}\`" >> $GITHUB_STEP_SUMMARY
         echo "- **Triggered by:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Cloudflare Pages:** Will auto-deploy the rolled-back version" >> $GITHUB_STEP_SUMMARY
-        
+        echo "- **Note:** the next deploy rebuilds from main — revert the bad change there first" >> $GITHUB_STEP_SUMMARY
+
     - name: Notify Slack on Success
       if: success()
       uses: slackapi/slack-github-action@v4.0.0
@@ -113,30 +106,25 @@ jobs:
               {
                 "color": "warning",
                 "title": "⏮️ jkcoukblog Site Rolled Back",
-                "text": "The site has been rolled back to the previous version.",
+                "text": "Production was rolled back to an earlier Cloudflare Pages deployment.",
                 "fields": [
                   {
                     "title": "Rolled back from",
-                    "value": "${{ env.CURRENT_COMMIT }}",
+                    "value": "${{ env.CURRENT_ID }}",
                     "short": true
                   },
                   {
-                    "title": "Reverted to",
-                    "value": "${{ env.PREVIOUS_COMMIT }}",
+                    "title": "Now serving",
+                    "value": "${{ env.TARGET_ID }}",
                     "short": true
                   },
                   {
                     "title": "Triggered by",
                     "value": "${{ github.actor }}",
                     "short": true
-                  },
-                  {
-                    "title": "New Commit",
-                    "value": "${{ env.NEW_COMMIT }}",
-                    "short": true
                   }
                 ],
-                "footer": "🌐 Cloudflare Pages will now deploy the rolled-back version",
+                "footer": "The next deploy rebuilds from main — revert the bad change there first",
                 "footer_icon": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
                 "actions": [
                   {
@@ -148,8 +136,8 @@ jobs:
               }
             ]
           }
-        
-    - name: Notify Slack on Failure  
+
+    - name: Notify Slack on Failure
       if: failure()
       uses: slackapi/slack-github-action@v4.0.0
       with:
@@ -164,16 +152,11 @@ jobs:
               {
                 "color": "danger",
                 "title": "❌ jkcoukblog Rollback Failed",
-                "text": "Failed to rollback the site to the previous version!",
+                "text": "Failed to roll back the site to an earlier deployment!",
                 "fields": [
                   {
                     "title": "Triggered by",
                     "value": "${{ github.actor }}",
-                    "short": true
-                  },
-                  {
-                    "title": "Branch",
-                    "value": "${{ github.ref_name }}",
                     "short": true
                   }
                 ],

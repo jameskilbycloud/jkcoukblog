@@ -2,9 +2,9 @@
 
 Two passes — desktop and mobile — share the same code paths in
 [`quality-checks.yml`](../workflows/quality-checks.yml) (scheduled +
-push, against production) and
-[`lighthouse-pr.yml`](../workflows/lighthouse-pr.yml) (every PR,
-against the CF Pages preview URL).
+dispatched after every deploy, against production). There is no per-PR
+pass: PR branches don't contain a built site (it lives on the `site`
+branch), so Cloudflare Pages has no preview of a PR to measure.
 
 | Pass | Config | Budget | Behaviour |
 |------|--------|--------|-----------|

@@ -1,8 +1,8 @@
 name: Python Checks
 
 # Lint + unit tests for the build scripts. Separate from quality-checks.yml,
-# which is scoped to public/** (the built site) — this one fires on changes
-# to the Python tooling itself.
+# which checks the deployed site — this one fires on changes to the Python
+# tooling itself.
 on:
   push:
     branches: [main]

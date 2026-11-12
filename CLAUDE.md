@@ -4,16 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-A WordPress → static site automation pipeline. WordPress (private, behind Cloudflare Access at `wordpress.jameskilby.cloud`) is the **source of truth** for content. Python scripts pull posts via the REST API, transform them, optimise everything, and commit the resulting static site to `public/`. Cloudflare Pages auto-deploys from `main`.
+A WordPress → static site automation pipeline. WordPress (private, behind Cloudflare Access at `wordpress.jameskilby.cloud`) is the **source of truth** for content. Python scripts pull posts via the REST API, transform them, optimise everything, and publish the resulting static site (`public/`) to the `site` branch. Cloudflare Pages auto-deploys from `site`.
 
 The site at `jameskilby.co.uk` is fronted by an Advanced Mode Worker (`_worker.template.js` → copied to `public/_worker.js` at deploy) that adds a KV-backed HTML cache, view tracking, smart TTLs, and security headers.
 
 ## Branch model — important
 
-`main` is the production branch and **the CI pipeline commits generated artifacts directly to it.** The `deploy-static-site.yml` workflow regenerates `public/`, commits, and pushes — that is by design.
+`main` holds code only. **The built site lives on the `site` branch**: a single parentless commit containing `public/`, force-pushed by `deploy-static-site.yml` on every deploy. Cloudflare Pages' production branch is `site`. `public/` is gitignored on main — the pipeline extracts the published site from `site` at the start of each build (incremental seeding, AVIF/WebP reuse) and diffs against it to decide what to purge.
 
 Implications:
-- Do not be alarmed by frequent auto-commits like `🚀 Auto-update static site - <date>`. Those are the pipeline.
+- `site` has no history by design. Don't branch from it, merge it, or open PRs against it. To undo a bad deploy use `rollback-site.yml`, which rolls back via Cloudflare Pages' own deployment history.
+- The pipeline still commits small build caches to main (`chore(build): update build caches - <date>`), and `quality-checks.yml` commits Lighthouse scores (`chore(lighthouse): …`). Those are expected.
 - Never hand-edit files inside `public/` to "fix" content — content changes belong in WordPress, not in the build artifact. Script/template changes are the only thing humans edit.
 - Code changes (scripts, workflows, worker template) should go through a feature branch + PR.
 
@@ -75,7 +76,7 @@ The order matters and each stage assumes the previous one ran. If you modify a s
 6. **HTML** — `fix_seo_issues.py` (title length, meta description scoped to `<article>`/`<main>`, H1 dedup), `enhance_html_performance.py` (LCP `fetchpriority`, lazy loading, preconnect), `minify_html.py`.
 7. **Compression** (`brotli_compress.py`) — pre-encodes `.br` (quality 11) and `.gz` (level 9) at build time. Only writes if reduction ≥ 5%. Runtime CPU cost is zero because Cloudflare serves the precompressed files.
 8. **Final validation** (`validate_html.py`, `validate_deployment.py`) — checks Brotli integrity, AVIF/WebP presence, picture structure, etc.
-9. **Commit + push** — triggers Cloudflare Pages deploy.
+9. **Commit + push** — build caches to main; `public/` as a fresh parentless commit force-pushed (with lease) to `site`, which triggers the Cloudflare Pages deploy.
 10. **Post-deploy** — search index uploaded to Workers KV (`SEARCH_INDEX` namespace), selective KV cache purge for changed HTML pages, edge cache purge, IndexNow submission, Slack notify.
 
 If you're touching anything in stages 4–7, run `make optimize OUTPUT_DIR=./static-output` after a `make generate` to verify locally.
@@ -102,9 +103,9 @@ The self-hosted runner is required because the WordPress instance is behind Clou
 ## Conventions
 
 - **Python 3.11+**, 4-space indent, snake_case file/function names. Each script in `scripts/` is single-purpose and runnable standalone (`python3 scripts/foo.py [args]`).
-- **Commit prefixes** in use: `feat:`, `fix:`, `docs:`, `chore:`, `debug:`, `revert:` (emoji optional). Auto-pipeline commits use `🚀 Auto-update static site - <date>`.
+- **Commit prefixes** in use: `feat:`, `fix:`, `docs:`, `chore:`, `debug:`, `revert:` (emoji optional). Auto-pipeline commits on main use `chore(build): update build caches - <date>`.
 - **Secrets** are environment variables / GitHub Secrets. The `.git-hooks/pre-commit` hook runs `gitleaks protect --staged` before every commit — enable it with `git config core.hooksPath .git-hooks`. Allowlist false positives in `.gitleaks.toml`, do not bypass with `--no-verify`.
-- **If a PR changes anything that lands in `public/`**, call it out explicitly in the PR description — it makes the next auto-commit diff easier to review.
+- **If a PR changes anything that lands in `public/`**, call it out explicitly in the PR description — the deploy summary's diff stat is the only record of what the next build changed.
 
 ## Documentation
 

@@ -20,8 +20,9 @@ on:
   repository_dispatch:      # Webhook trigger
     types: [wordpress-update]
 
-# Org defaults GITHUB_TOKEN to read-only; this workflow commits the generated
-# site back to main, so it must explicitly grant contents: write.
+# Org defaults GITHUB_TOKEN to read-only; this workflow pushes the generated
+# site to the site branch (and build caches to main), so it must explicitly
+# grant contents: write.
 permissions:
   contents: write
   actions: write   # dispatch quality-checks.yml after a successful deploy
@@ -194,9 +195,31 @@ jobs:
       uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       with:
         fetch-depth: 0  # Fetch full history for accurate git stats in changelog
-      
+
+    # The built site lives on the `site` branch, not on main: one parentless
+    # commit holding public/, force-pushed by "Commit and push static site" and
+    # deployed by Cloudflare Pages (production branch = site). Committing
+    # public/ to main grew the repo to 2 GB of build-artefact history.
+    #
+    # Extract the currently-published site into public/ — incremental builds
+    # seed static-output from it and reuse its AVIF/WebP. PREV_SITE_SHA is the
+    # base the later steps diff against (changed-page KV purge, static-asset
+    # purge) and the lease for the force-push.
+    - name: Restore published site from the site branch
+      run: |
+        rm -rf public/
+        if git fetch --depth=1 origin +refs/heads/site:refs/remotes/origin/site; then
+          PREV_SITE_SHA=$(git rev-parse refs/remotes/origin/site)
+          git archive "$PREV_SITE_SHA" public | tar -x
+          echo "✅ Restored public/ from site@${PREV_SITE_SHA:0:7} ($(find public -type f | wc -l | xargs) files)"
+        else
+          PREV_SITE_SHA=""
+          echo "⚠️  No site branch yet — this run builds without a previous public/"
+        fi
+        echo "PREV_SITE_SHA=$PREV_SITE_SHA" >> "$GITHUB_ENV"
+
     # No Actions cache for .image_optimization_cache / .last_spell_check_timestamp:
-    # both are git-tracked (committed by the "Commit and push" step every run and
+    # both are git-tracked on main (committed by the "Commit and push" step when they change and
     # restored on checkout), so an actions/cache layer on top was pure redundancy —
     # and its hashFiles() key lagged a build behind, masking that fact. The
     # incremental build cache below is different: .build-cache.json is gitignored,
@@ -218,8 +241,8 @@ jobs:
     # Raw (pre-transform) HTML + CSS as it looked immediately after the
     # generator ran, before any optimisation pass touched it.
     #
-    # Incremental builds seed ./static-output from public/ — which is the
-    # *published* output, i.e. HTML that optimize_css / html_transformer have
+    # Incremental builds seed ./static-output from public/ (restored from the
+    # site branch above) — which is the *published* output, i.e. HTML that optimize_css / html_transformer have
     # already rewritten. Re-running those passes over their own output is not
     # idempotent: the WP stylesheet inliner has already converted some
     # <link rel=stylesheet> into <style>, and extract_critical_css only
@@ -626,7 +649,7 @@ jobs:
       run: |
         echo "📋 Running content quality checks..."
 
-        # Run content validator against the freshly-built output (not the committed public/)
+        # Run content validator against the freshly-built output (not the previously published public/)
         python3 scripts/content_validator.py static-output || {
           echo "⚠️  Content validation found issues (non-blocking)"
         }
@@ -1084,7 +1107,7 @@ jobs:
         PID_HTML=$!
         python3 scripts/validate_deployment.py ./static-output &
         PID_DEPLOY=$!
-        # --baseline-sitemap: the committed public/sitemap.xml is the last
+        # --baseline-sitemap: public/sitemap.xml (restored from the site branch) is the last
         # deployed one; fail if this build silently dropped >10% of its URLs.
         python3 scripts/validate_seo.py ./static-output --baseline-sitemap ./public/sitemap.xml &
         PID_SEO=$!
@@ -1232,15 +1255,32 @@ jobs:
       id: commit_push
       timeout-minutes: 5
       run: |
-        git add public/ .last_spell_check_timestamp .image_optimization_cache/ .indexnow_key 2>/dev/null || true
-
-        # Add the IndexNow key verification file by its exact name
-        if [ -f ".indexnow_key" ]; then
-          INDEXNOW_KEY_NAME=$(cat .indexnow_key)
-          git add "${INDEXNOW_KEY_NAME}.txt" 2>/dev/null || true
+        # 1) Build state that stays on main: the image-optimisation cache and
+        #    spell-check timestamp are inputs to the next build, not site
+        #    output. Small, and only committed when they actually changed.
+        git add .last_spell_check_timestamp .image_optimization_cache/ .indexnow_key 2>/dev/null || true
+        if [ -n "$(git diff --cached)" ]; then
+          git commit -m "chore(build): update build caches - $(date '+%Y-%m-%d %H:%M:%S')"
+          if ! git push origin HEAD:main; then
+            echo "⚠️  Push to main failed, rebasing and retrying..."
+            git fetch origin main
+            if ! { git rebase origin/main && git push origin HEAD:main; }; then
+              git rebase --abort 2>/dev/null || true
+              echo "⚠️  Build-cache commit not pushed (non-fatal — next build re-optimises the missing entries)"
+            fi
+          fi
         fi
 
-        if [ -z "$(git diff --cached)" ]; then
+        # 2) The site itself: public/ as a single parentless commit on the
+        #    site branch. A throwaway index keeps it out of main's index;
+        #    -f because public/ is gitignored on main.
+        export GIT_INDEX_FILE="$RUNNER_TEMP/site-index"
+        rm -f "$GIT_INDEX_FILE"
+        git add -f public/
+        NEW_TREE=$(git write-tree)
+        unset GIT_INDEX_FILE
+
+        if [ -n "$PREV_SITE_SHA" ] && [ "$NEW_TREE" = "$(git rev-parse "$PREV_SITE_SHA^{tree}")" ]; then
           echo "ℹ️  No changes to commit"
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## ℹ️ Deployment Summary" >> $GITHUB_STEP_SUMMARY
@@ -1257,35 +1297,29 @@ jobs:
         # files instead of ~20 is the shape the WP-Optimize timestamp churn
         # took (every page rewritten for zero content change), and it was only
         # ever visible by reading `git log --stat` after the fact.
-        DIFF_STAT=$(git diff --cached --shortstat | sed 's/^ *//')
-        DIFF_FILES=$(git diff --cached --name-only | wc -l | tr -d ' ')
+        PREV_TREE=$(git hash-object -t tree /dev/null)
+        if [ -n "$PREV_SITE_SHA" ]; then PREV_TREE=$(git rev-parse "$PREV_SITE_SHA^{tree}"); fi
+        DIFF_STAT=$(git diff --shortstat "$PREV_TREE" "$NEW_TREE" | sed 's/^ *//')
+        DIFF_FILES=$(git diff --name-only "$PREV_TREE" "$NEW_TREE" | wc -l | tr -d ' ')
         echo "diff_stat=${DIFF_STAT:-none}" >> $GITHUB_OUTPUT
         echo "diff_files=${DIFF_FILES}" >> $GITHUB_OUTPUT
         echo "📊 Diff: ${DIFF_STAT}"
 
         echo "📝 Changes detected, committing..."
-        git commit -m "🚀 Auto-update static site - $(date '+%Y-%m-%d %H:%M:%S')"
+        PUSHED_SHA=$(git commit-tree "$NEW_TREE" -m "🚀 Static site - $(date '+%Y-%m-%d %H:%M:%S') (main@${GITHUB_SHA:0:7})")
 
-        echo "📤 Pushing to remote..."
-        if git push origin main; then
-          echo "✅ Push successful"
-        else
-          echo "⚠️  Push failed, trying rebase and retry..."
-          git fetch origin
-          if git rebase origin/main; then
-            git push origin main
-          else
-            git rebase --abort 2>/dev/null || true
-            echo "❌ Push failed after rebase attempt — failing build for manual review"
-            exit 1
-          fi
+        # Parentless commit, so this is always a force-push. The lease pins
+        # it to the site commit this build seeded from: if anything else
+        # published in between, fail rather than silently overwrite it.
+        echo "📤 Pushing to site branch..."
+        if ! git push --force-with-lease="refs/heads/site:${PREV_SITE_SHA}" origin "$PUSHED_SHA:refs/heads/site"; then
+          echo "❌ site branch moved since this build started — failing for manual review"
+          exit 1
         fi
 
-        # Capture the SHA we *actually pushed* — this is what Cloudflare Pages
-        # will create a deployment for. $GITHUB_SHA refers to the commit that
-        # triggered the workflow (the previous main HEAD), so the KV-purge
-        # step polled for a deployment that never existed and timed out.
-        PUSHED_SHA=$(git rev-parse HEAD)
+        # The SHA we pushed is what Cloudflare Pages creates a deployment for
+        # — the KV-purge step polls for it. Not $GITHUB_SHA, which is a main
+        # commit Pages never deploys.
         echo "pushed_sha=$PUSHED_SHA" >> $GITHUB_OUTPUT
         echo "📌 Pushed commit: $PUSHED_SHA"
 
@@ -1294,8 +1328,8 @@ jobs:
         echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "- **Status:** ✅ Successfully deployed" >> $GITHUB_STEP_SUMMARY
-        echo "- **Commit:** $(git rev-parse --short HEAD)" >> $GITHUB_STEP_SUMMARY
-        echo "- **Cloudflare Pages:** Will auto-deploy from repository" >> $GITHUB_STEP_SUMMARY
+        echo "- **Commit:** site@${PUSHED_SHA:0:7} (built from main@${GITHUB_SHA:0:7})" >> $GITHUB_STEP_SUMMARY
+        echo "- **Cloudflare Pages:** Will auto-deploy from the site branch" >> $GITHUB_STEP_SUMMARY
     - name: Notify on success
       if: success()
       run: |
@@ -1468,7 +1502,8 @@ jobs:
         # next visitor. Above MAX_SELECTIVE changed pages (site-wide CSS/
         # template rewrites) purge-all is fewer requests, so fall back.
         MAX_SELECTIVE=30
-        CHANGED_HTML=$(git diff-tree --no-commit-id --name-only -r "$PUSHED_SHA" -- public/ | grep '\.html$' || true)
+        # The site commit is parentless, so diff it against the one it replaced.
+        CHANGED_HTML=$(git diff --name-only "${PREV_SITE_SHA:-$(git hash-object -t tree /dev/null)}" "$PUSHED_SHA" -- public/ | grep '\.html$' || true)
         CHANGED_COUNT=$(printf '%s' "$CHANGED_HTML" | grep -c . || true)
 
         PURGE_METHOD="selective"
@@ -1554,6 +1589,7 @@ jobs:
         CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         FORCE_PURGE: ${{ github.event.inputs.force_static_purge }}
+        PUSHED_SHA: ${{ steps.commit_push.outputs.pushed_sha }}
       run: |
         # Only fire when one of the files purge_static_cache.sh actually
         # purges changed in this deploy. Keep this pattern in sync with the
@@ -1568,10 +1604,13 @@ jobs:
         if [ "$FORCE_PURGE" = "true" ]; then
           # Manual dispatch override — see the workflow_dispatch input.
           CHANGED="force-static-purge=true"
-        elif git rev-parse --verify HEAD~1 >/dev/null 2>&1; then
-          CHANGED=$(git diff --name-only HEAD~1 HEAD | grep -E "$STATIC_ASSET_PATTERN" || true)
+        elif [ -z "$PUSHED_SHA" ]; then
+          # Nothing was published this run, so nothing changed.
+          CHANGED=""
+        elif [ -n "$PREV_SITE_SHA" ]; then
+          CHANGED=$(git diff --name-only "$PREV_SITE_SHA" "$PUSHED_SHA" | grep -E "$STATIC_ASSET_PATTERN" || true)
         else
-          # First commit on the branch — no previous deploy to diff against.
+          # First site-branch deploy — no previous deploy to diff against.
           # Run the purge once to be safe.
           CHANGED="initial-deploy"
         fi
