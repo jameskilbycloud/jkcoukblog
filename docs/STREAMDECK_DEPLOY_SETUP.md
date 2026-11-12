@@ -47,7 +47,7 @@ This option just opens the GitHub Actions page in your browser where you can man
 1. **Add a Button** in Stream Deck
 2. **Select Action**: System > Website
 3. **Configure**:
-   - **URL**: `https://github.com/jameskilbynet/jkcoukblog/actions/workflows/deploy-static-site.yml`
+   - **URL**: `https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/deploy-static-site.yml`
    - **Title**: Deploy Site
    - **Icon**: Choose a rocket 🚀 or deploy icon
 
@@ -61,7 +61,7 @@ This option combines script execution with opening the browser to monitor progre
    - **Action 1**: System > Open
      - App/File: `/Users/w20kilja/Github/jkcoukblog/scripts/streamdeck-deploy.sh`
    - **Action 2**: System > Website
-     - URL: `https://github.com/jameskilbynet/jkcoukblog/actions/workflows/deploy-static-site.yml`
+     - URL: `https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/deploy-static-site.yml`
      - Add 2 second delay before this action
    
 4. **Configure**:
@@ -81,7 +81,7 @@ Before configuring Stream Deck, test that the script works:
 Expected output:
 ```
 🚀 Stream Deck: Triggering deployment...
-📦 Repository: jameskilbynet/jkcoukblog
+📦 Repository: jameskilbycloud/jkcoukblog
 ⚙️  Workflow: deploy-static-site.yml
 
 ⏳ Triggering workflow...
@@ -91,7 +91,7 @@ Expected output:
    gh run list --workflow=deploy-static-site.yml --limit 1
 
 🌐 View in browser:
-   https://github.com/jameskilbynet/jkcoukblog/actions/workflows/deploy-static-site.yml
+   https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/deploy-static-site.yml
 ```
 
 You should also see a macOS notification.
@@ -100,7 +100,7 @@ You should also see a macOS notification.
 
 1. Press the button you configured
 2. Check for the notification (if using Option 1 or 3)
-3. Verify the workflow started at: https://github.com/jameskilbynet/jkcoukblog/actions
+3. Verify the workflow started at: https://github.com/jameskilbycloud/jkcoukblog/actions
 
 ## Monitoring Deployment
 
@@ -123,8 +123,8 @@ gh run view --log
 
 ### Via Browser
 
-- **Actions Page**: https://github.com/jameskilbynet/jkcoukblog/actions
-- **Workflow Page**: https://github.com/jameskilbynet/jkcoukblog/actions/workflows/deploy-static-site.yml
+- **Actions Page**: https://github.com/jameskilbycloud/jkcoukblog/actions
+- **Workflow Page**: https://github.com/jameskilbycloud/jkcoukblog/actions/workflows/deploy-static-site.yml
 - **Production Site**: https://jameskilby.co.uk
 - **Staging Site**: https://jkcoukblog.pages.dev
 
@@ -186,7 +186,7 @@ gh auth status
 
 Ensure you have write access to the repository:
 ```bash
-gh repo view jameskilbynet/jkcoukblog
+gh repo view jameskilbycloud/jkcoukblog
 ```
 
 ### Button doesn't trigger anything
@@ -223,18 +223,17 @@ Check notification permissions:
    - Validate HTML and assets
    - Optimize images (PNG, JPEG → AVIF, WebP)
    - Compress with Brotli
-   - Commit to `public/` directory
+   - Force-push the built site to the `site` branch
    - Submit URLs to IndexNow
 4. **Cloudflare Deploy** (~1-2 minutes):
-   - Cloudflare Pages detects changes to `public/`
-   - Automatically deploys to staging and production
+   - Cloudflare Pages deploys the new `site` commit to production
 5. **Site Live** - https://jameskilby.co.uk updated
 
 Total time: **6-20 minutes** depending on content changes.
 
 ## Related Documentation
 
-- **WARP.md** - Complete project documentation
+- **docs/DEPLOYMENT.md** - How the deploy works
 - **deploy-static-site.yml** - GitHub Actions workflow file
 - **README.md** - Project overview
 

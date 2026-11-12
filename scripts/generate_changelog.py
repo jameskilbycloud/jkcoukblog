@@ -130,13 +130,27 @@ def categorize_commit(subject, body):
     # Default
     return 'other'
 
+# Commits the CI pipelines make on main. They record build state, not changes
+# to the site, so they don't belong in the public changelog.
+PIPELINE_COMMIT_PREFIXES = (
+    '🚀 Auto-update static site',            # pre-site-branch deploy commits
+    'chore(build): update build caches',     # deploy-static-site.yml
+    'chore(lighthouse): record scores',      # quality-checks.yml
+)
+
+
+def is_pipeline_commit(subject):
+    return subject.startswith(PIPELINE_COMMIT_PREFIXES)
+
+
 def get_recent_changes():
     """Get recent significant changes from git log with categorization"""
     print("📝 Extracting recent changes...")
     
-    # Get commits with meaningful messages (exclude auto-updates)
+    # Look back far enough that the 30 shown survive filtering out the
+    # pipeline commits (Lighthouse alone records one most days).
     result = subprocess.run([
-        'git', 'log', '--pretty=format:%H|%ci|%s|%b', '-50'
+        'git', 'log', '--pretty=format:%H|%ci|%s|%b', '-200'
     ], capture_output=True, text=True)
     
     if result.returncode != 0:
@@ -152,8 +166,7 @@ def get_recent_changes():
             commit_hash, date, subject = parts[0], parts[1], parts[2]
             body = parts[3] if len(parts) > 3 else ''
             
-            # Skip auto-update commits for main changelog
-            if '🚀 Auto-update static site' in subject:
+            if is_pipeline_commit(subject):
                 continue
             
             # Parse date

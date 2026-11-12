@@ -162,11 +162,11 @@ git log -1 --format=%ci
 
 **Command:**
 ```bash
-git log --pretty=format:"%H|%ci|%s|%b" -50
+git log --pretty=format:"%H|%ci|%s|%b" -200
 ```
 
 **Filtering:**
-- Excludes commits with "🚀 Auto-update static site"
+- Excludes the CI pipelines' own commits (`is_pipeline_commit`): `chore(build): update build caches`, `chore(lighthouse): record scores`, and the old `🚀 Auto-update static site`
 - Removes "Co-Authored-By: Warp" lines
 - Shows last 30 significant changes
 - Groups by date
@@ -293,8 +293,8 @@ Generated file: `public/changelog/index.html`
 
 - `generate_changelog.py` - Main generator script
 - `.github/workflows/deploy-static-site.yml` - Workflow integration
-- `public/changelog/index.html` - Generated output
-- `docs/CHANGELOG_PAGE.md` - This documentation
+- `public/changelog/index.html` - Generated output (on the `site` branch)
+- `docs/CHANGELOG.md` - This documentation
 
 ## Technical Details
 

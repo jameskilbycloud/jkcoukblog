@@ -40,7 +40,7 @@ Usage:
     python3 scripts/fetch_gsc.py --limit 200           # inspect only first 200 URLs (rate-limit friendly)
     python3 scripts/fetch_gsc.py --site sc-domain:jameskilby.co.uk   # Domain property
     python3 scripts/fetch_gsc.py --key /path/to/sa.json
-    python3 scripts/fetch_gsc.py --out docs/gsc/latest.json
+    python3 scripts/fetch_gsc.py --out docs/seo/gsc/latest.json
 
 Site / property (--site or GSC_SITE), both are valid GSC property forms:
     URL-prefix  https://jameskilby.co.uk/     (default — derived from config.py)
@@ -54,7 +54,8 @@ between inspections and back off on HTTP 429; on repeated quota exhaustion we
 stop cleanly and still write the partial report. Use --limit on big sitemaps.
 
 Output:
-    docs/gsc/gsc-report-<YYYY-MM-DD>.json   (structured; committable — no secrets)
+    docs/seo/gsc/gsc-report-<YYYY-MM-DD>.json   (structured; no secrets, but holds
+    real search queries, so docs/seo/gsc/ is gitignored in this public repo)
     + a concise human summary to stdout.
 
 Exit codes:
@@ -502,7 +503,7 @@ def main(argv=None):
     )
     parser.add_argument(
         '--out', default=None,
-        help='output JSON path (default: docs/gsc/gsc-report-<YYYY-MM-DD>.json)',
+        help='output JSON path (default: docs/seo/gsc/gsc-report-<YYYY-MM-DD>.json)',
     )
     args = parser.parse_args(argv)
 
@@ -578,7 +579,7 @@ def main(argv=None):
         raise
 
     # Write report.
-    out_path = Path(args.out) if args.out else Path('docs/gsc') / f"gsc-report-{date.today().isoformat()}.json"
+    out_path = Path(args.out) if args.out else Path('docs/seo/gsc') / f"gsc-report-{date.today().isoformat()}.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(report, indent=2, ensure_ascii=False))
     print(f"📄 Wrote {out_path}", file=sys.stderr)

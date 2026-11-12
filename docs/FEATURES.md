@@ -66,23 +66,22 @@ A powerful, fast, client-side search feature using Fuse.js for fuzzy searching.
 The search index is automatically created during static site generation:
 ```bash
 export WP_AUTH_TOKEN="your_token"
-python3 wp_to_static_generator.py ./public
+python3 scripts/wp_to_static_generator.py ./static-output
 ```
 
 This creates:
-- `public/search-index.json` - Full search index with formatting
-- `public/search-index.min.json` - Minified version for production
+- `search-index.json` - Full search index with formatting
+- `search-index.min.json` - Minified version for production
+
+CI also uploads `search-index.json` to the `SEARCH_INDEX` Workers KV namespace after each deploy.
 
 #### Step 2: Add Search JavaScript
-The search script is automatically included. To customize, edit `public/js/search.js`.
+The search script is automatically included. Its source is `scripts/assets/js/search.js` (Fuse.js is vendored alongside it); the generator copies it to `/js/search.js`.
 
 #### Step 3: Test
 ```bash
-# Test the search generation and functionality
-python3 test_search.py
-
-# Start local server for testing
-python3 test_search.py --server
+make generate
+make deploy-local   # then open http://localhost:8080 and use the search box
 ```
 
 ### Search Capabilities
@@ -283,7 +282,7 @@ Tested on: Chrome/Edge, Firefox, Safari
 Uses [Utterances](https://utteranc.es/) for GitHub-based comments integrated with the brutalist theme.
 
 ### Configuration
-- **GitHub Repository**: jameskilbynet/jkcoukblog
+- **GitHub Repository**: jameskilbycloud/jkcoukblog
 - **Theme**: GitHub Dark (matches brutalist theme)
 - **Issue Mapping**: By page pathname
 

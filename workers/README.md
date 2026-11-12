@@ -23,16 +23,12 @@ Receives Cloudflare Pages deployment webhooks and forwards formatted
 notifications to Slack. Deployed as a standalone Worker whose URL is
 registered as the Pages notification endpoint.
 
-## Archived
+## Removed
 
-[`archive/`](archive/) contains superseded workers kept only for reference —
-do not edit or redeploy them.
-
-- `html-cache.js` — original edge HTML cache. Replaced by the Advanced Mode
-  Worker in [`../_worker.template.js`](../_worker.template.js), which adds
-  KV-backed caching, smart TTLs, view tracking, and security headers.
-- `slack-notification-handler-improved.js` — experimental rewrite, never
-  promoted.
+The original edge HTML cache (`html-cache.js`) and an experimental
+`slack-notification-handler-improved.js` used to live in `archive/`; both have
+been deleted. HTML caching is done by the Advanced Mode Worker in
+[`../_worker.template.js`](../_worker.template.js).
 
 ## Deployment
 

@@ -6,13 +6,19 @@
 #        make help        (show targets)
 
 SHELL := /bin/bash
-OUTPUT_DIR ?= ./public
 STATIC_DIR ?= ./static-output
+# Optimise/validate/serve what `make generate` just wrote. CI builds in
+# static-output too and only moves it to public/ at publish time; public/ is
+# gitignored (the published site lives on the site branch — see fetch-site).
+OUTPUT_DIR ?= $(STATIC_DIR)
 WORKERS ?= 4
 
 .PHONY: help build generate optimize validate validate-source test-csp \
-        spell-check deploy-local clean install purge-kv-cache \
-        crux drift drift-snapshot
+        spell-check deploy-local clean install install-dev purge-kv-cache \
+        purge-kv-cache-dry-run crux drift drift-snapshot fetch-site lint test \
+        validate-content validate-html validate-deployment optimize-images \
+        optimize-css optimize-html internal-links minify-js compress \
+        indexnow changelog stats
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -120,10 +126,18 @@ drift-snapshot: ## Re-baseline SEO signals from the built site (commit the resul
 
 # ─── Spell Check ──────────────────────────────────────────────────
 
-spell-check: ## Run AI spell checker (requires OLLAMA_API_CREDENTIALS)
-	python3 scripts/ollama_spell_checker.py $(OUTPUT_DIR)
+SPELL_POSTS ?= 3
+
+spell-check: ## AI spell check the last SPELL_POSTS posts (requires WP_AUTH_TOKEN + OLLAMA_API_CREDENTIALS)
+	python3 scripts/ollama_spell_checker.py $(SPELL_POSTS)
 
 # ─── Local Development ───────────────────────────────────────────
+
+fetch-site: ## Extract the published site (site branch) into ./public for inspection
+	git fetch --depth=1 origin site
+	rm -rf ./public
+	git archive FETCH_HEAD public | tar -x
+	@echo "✅ ./public = site@$$(git rev-parse --short FETCH_HEAD) — serve it with: make deploy-local OUTPUT_DIR=./public"
 
 deploy-local: ## Start local preview server on port 8080
 	@echo "Starting local server at http://localhost:8080"

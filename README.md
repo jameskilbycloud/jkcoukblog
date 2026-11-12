@@ -16,20 +16,22 @@ This repository contains a complete automation pipeline that:
 - ✅ **Compresses assets** with Brotli (primary) + Gzip (fallback), pre-encoded at build time
 - ✅ **Generates extras** — per-post Open Graph images, `llms.txt`, Markdown export + JSON API, subsetted heading font
 - ✅ **Validates content** — SEO, accessibility, JSON-LD, og:image, security headers, plus Playwright UI smoke tests
-- ✅ **Deploys to Cloudflare Pages** via git commit, with KV HTML cache purge after deploy
-- ✅ **Submits to IndexNow** (and pings Google on new posts) so crawlers see fresh content immediately
+- ✅ **Deploys to Cloudflare Pages** from a dedicated `site` branch, with a selective KV HTML cache purge after deploy
+- ✅ **Submits to IndexNow** after each deploy so crawlers see fresh content immediately
 
 ## 🏗️ Architecture
 
 ```
-WordPress CMS (Private)  →  Static Site Generator  →  GitHub Repository  →  Cloudflare Pages (Public)
-wordpress.jameskilby.cloud  |                         |                      jameskilby.co.uk
-(Behind Cloudflare Access)  |                         |                      (Public Static Site)
+WordPress CMS (Private)  →  Static Site Generator  →  `site` branch        →  Cloudflare Pages (Public)
+wordpress.jameskilby.cloud  |                         (one commit, public/)    jameskilby.co.uk
+(Behind Cloudflare Access)  |                         |                        (Public Static Site)
                              |                         |
-                        Self-Hosted Runner        Auto-Deploy
+                        Self-Hosted Runner        Auto-Deploy (production branch = site)
                         (has CF Access token)     + Advanced Mode Worker (_worker.js)
                                                   + KV HTML Cache
 ```
+
+`main` holds code only; `public/` is gitignored. Each deploy force-pushes the built site as a single commit to `site` — see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md#the-site-branch).
 
 ## 📁 Repository Structure
 
@@ -39,7 +41,7 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   │   ├── deploy-static-site.yml         # Main build + deploy pipeline
 │   │   ├── force-full-deploy.yml          # Full (non-incremental) rebuild trigger
 │   │   ├── python-checks.yml              # pytest + ruff on scripts/ and tests/ changes
-│   │   ├── quality-checks.yml             # Lighthouse + live site formatting tests (daily)
+│   │   ├── quality-checks.yml             # Lighthouse + live site formatting tests (post-deploy + daily)
 │   │   ├── crux-field-data.yml            # Scheduled Chrome UX Report field-data capture
 │   │   ├── spell-check-approval-handler.yml # Spell check approval flow
 │   │   ├── apply-typo-patches.yml         # Apply approved typo fixes to WordPress
@@ -88,6 +90,7 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── generate_favicon.py                # Favicons generated from the locked JK logo
 │   ├── generate_llms_txt.py               # llms.txt generation for AI crawlers
 │   ├── generate_soft404_artefacts.py      # Soft-404 detection artefacts
+│   ├── copy_standalone_pages.py           # Copies self-contained tools (e.g. /vmc-analyzer/) into the build
 │   ├── stamp_worker_manifest.py           # Stamps Advanced Mode Worker manifest
 │   ├── subset_fonts.py                    # Subsets heading font to used characters
 │   ├── rewrite_vendored_urls.py           # Rewrites stale vendored-CDN URLs
@@ -129,6 +132,7 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │                                          #   security headers, /markdown/ + /api/ routing
 ├── docs/                                  # Documentation hub
 │   ├── README.md                          # Documentation index
+│   ├── TODO.md                            # Open-work list
 │   ├── DEPLOYMENT.md                      # Deployment guide
 │   ├── OPTIMIZATION.md                    # Performance optimisation reference
 │   ├── FEATURES.md                        # Feature documentation
@@ -136,15 +140,15 @@ wordpress.jameskilby.cloud  |                         |                      jam
 │   ├── IMAGE_OPTIMIZATION.md              # Image optimisation guide
 │   ├── DEVELOPMENT.md                     # Local development guide
 │   ├── TESTING.md                         # Testing procedures
-│   ├── CHANGELOG.md                       # Version history
+│   ├── CHANGELOG.md                       # /changelog/ page generator
 │   ├── PAGES_KV_SETUP.md                  # Cloudflare KV setup
-│   ├── BUILD_AND_DEPLOY_DOCUMENTATION.md  # Build system reference
 │   ├── STREAMDECK_DEPLOY_SETUP.md         # Stream Deck integration
 │   ├── STREAMDECK_QUICK_REFERENCE.md      # Stream Deck quick reference card
 │   ├── STREAMDECK_README.md               # Stream Deck overview
 │   ├── homelab-power-widget.md            # Live homelab power-draw widget on /lab/
-│   └── ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md  # Extra performance tips
-├── public/                                # Generated static site (Cloudflare Pages)
+│   ├── seo/                               # Current SEO evidence (Oct 2026)
+│   └── archive/                           # Superseded audits
+├── public/                                # Build output — gitignored; published to the `site` branch
 ├── workers/                               # Cloudflare Workers (deployed independently)
 │   ├── search-api.js                      # Search API endpoint
 │   └── slack-notification-handler.js      # Slack webhook handler
@@ -195,15 +199,16 @@ make help           # Show all targets
 python3 scripts/wp_to_static_generator.py ./static-output
 ```
 
+`make build` works in `./static-output` throughout. To look at what's live, `make fetch-site` extracts the `site` branch into `./public`.
+
 ## 🔄 Build Pipeline
 
-The `deploy-static-site.yml` workflow runs a non-blocking spell-check job, then the main build job:
+The `deploy-static-site.yml` workflow runs the main build job, then a non-blocking spell-check job:
 
 | # | Step | Notes |
 |---|------|-------|
-| 0 | AI spell check | Separate job, Ollama/Llama, `continue-on-error` — never blocks the build |
 | 1 | Validate environment variables | Fails fast on missing secrets |
-| 2 | Restore build caches | `actions/cache` — incremental build cache + raw pre-transform HTML snapshot |
+| 2 | Restore the published site + build caches | `public/` from the `site` branch; `actions/cache` for the incremental build cache + raw pre-transform HTML snapshot |
 | 3 | Install system + Python dependencies | apt packages (`avifenc`, `optipng`, `jpegoptim`, `cwebp`, `jq`, `bc`) + `pip install -r requirements.txt` |
 | 4 | Validate CSP (Utterances, Plausible, Credly) | `test_csp.py` — fails build if the CSP would block them |
 | 5 | Validate `_redirects` size | Fails the build if it would exceed the Cloudflare Pages free-plan limit |
@@ -216,6 +221,7 @@ The `deploy-static-site.yml` workflow runs a non-blocking spell-check job, then 
 | 12 | Optimise CSS | Remove unused selectors + minify |
 | 13 | Single-pass HTML transformer | `html_transformer.py` — SEO fixes, `<img>` → `<picture>`, performance hints, critical CSS inlining, and HTML minification in one parse cycle per file |
 | 14 | Internal links for orphan posts | `internal_links.py` — post-transform pass + verification |
+| 14a | Copy standalone pages | `copy_standalone_pages.py` — self-contained tools such as `/vmc-analyzer/` |
 | 15 | Soft-404 artefacts + worker stamp | `generate_soft404_artefacts.py`, `stamp_worker_manifest.py` |
 | 16 | Generate per-post Open Graph images | `generate_og_images.py` |
 | 17 | Subset heading font | `subset_fonts.py` — Anton subset to characters used in headings |
@@ -223,7 +229,7 @@ The `deploy-static-site.yml` workflow runs a non-blocking spell-check job, then 
 | 19 | Minify JavaScript | `minify_js.py` |
 | 20 | Brotli + Gzip compression | `.br` (primary) + `.gz` (fallback) for all text assets |
 | 21 | Interactive UI smoke tests | Playwright (`test_interactive_ui.py`) |
-| 22 | Validate HTML + deployment | `validate_html.py` + `validate_deployment.py` in parallel — Brotli integrity, AVIF/WebP presence, picture structure |
+| 22 | Validate HTML, deployment + SEO | `validate_html.py`, `validate_deployment.py`, `validate_seo.py` in parallel — Brotli integrity, AVIF/WebP presence, picture structure, sitemap not shrunk vs the previous build |
 | 23 | SEO drift check | `drift_baseline.py` — non-blocking; catches silent regressions on unattended auto-deploys |
 | 24 | Prepare output + changelog/stats | Copies to `public/`, generates changelog and stats pages, recompresses |
 | 25 | Commit and push to git | Build caches → main; `public/` → `site` branch (force-push), which triggers the Cloudflare Pages deploy |
@@ -235,6 +241,7 @@ The `deploy-static-site.yml` workflow runs a non-blocking spell-check job, then 
 | 31 | Trigger Lighthouse quality checks | Explicit `workflow_dispatch` of `quality-checks.yml` — a push with the default `GITHUB_TOKEN` can't trigger it itself (GitHub loop prevention) |
 | 32 | Notify Slack | Success or failure notification |
 | 33 | Clean up on failure | Removes `./static-output` if build failed |
+| — | AI spell check | Separate job after the build (`needs: build-and-deploy`), Ollama/Llama, `continue-on-error` — never blocks the deploy |
 
 ## ✨ Features
 
@@ -267,10 +274,10 @@ The `deploy-static-site.yml` workflow runs a non-blocking spell-check job, then 
 - Canonical URL warnings
 - H1 deduplication
 - `llms.txt` for AI crawlers
-- IndexNow submission after deployment + Google sitemap ping on new posts
+- IndexNow submission after deployment (Google discovers the sitemap via robots.txt + Search Console)
 
 ### 🔒 Security
-- Content Security Policy headers (via `_worker.template.js`)
+- Content Security Policy in the repo-root `_headers` (stamped into the Worker at build time); `test_csp.py` fails the build if it would block Utterances, Plausible or Credly
 - Inline script detection in content validator
 - Mixed content detection
 - Gitleaks secret scanning (pre-commit hook + weekly workflow)
@@ -280,7 +287,7 @@ The `deploy-static-site.yml` workflow runs a non-blocking spell-check job, then 
 - **Utterances** comments (GitHub Issues backed, dark theme)
 - **Slack notifications** on success and failure
 - **GitHub Actions summary** with per-step metrics
-- **Playwright UI smoke tests** before every deploy
+- **Playwright UI smoke tests** before every deploy (non-blocking; skipped when Chromium can't launch on the runner)
 
 ## ⚙️ Configuration
 
@@ -313,10 +320,10 @@ Secrets (tokens, credentials) remain in environment variables and GitHub Secrets
 | Workflow | Purpose |
 |----------|---------|
 | `deploy-static-site.yml` | Main build + deploy pipeline (spell check runs as a non-blocking job within it) |
-| `force-full-deploy.yml` | Force a full (non-incremental) rebuild |
+| `force-full-deploy.yml` | Full (non-incremental) rebuild — manual, and weekly on Sundays 03:00 UTC |
 | `python-checks.yml` | `pytest` + `ruff` on every change under `scripts/`/`tests/` |
-| `quality-checks.yml` | Lighthouse audits + live site formatting tests (daily, 03:00 UTC) |
-| `crux-field-data.yml` | Scheduled Chrome UX Report (real-user Core Web Vitals) capture |
+| `quality-checks.yml` | Lighthouse audits + live site formatting tests (after every deploy, plus daily at 03:00 UTC) |
+| `crux-field-data.yml` | Chrome UX Report (real-user Core Web Vitals) capture — Mondays 06:17 UTC |
 | `spell-check-approval-handler.yml` | PR-based spell correction approval |
 | `apply-typo-patches.yml` | Apply approved typo fixes back to WordPress |
 | `apply-alt-patches.yml` | Apply approved image alt-text fixes |
@@ -349,21 +356,22 @@ gh run rerun <run-id> --failed
 | File | Contents |
 |------|----------|
 | [docs/README.md](docs/README.md) | Documentation hub |
-| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Workflow steps, secrets, troubleshooting |
+| [docs/TODO.md](docs/TODO.md) | Open-work list |
+| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Deploy workflow, `site` branch, Worker, rollback, secrets, troubleshooting |
 | [docs/OPTIMIZATION.md](docs/OPTIMIZATION.md) | Compression, image, CSS, and JS optimisations |
 | [docs/FEATURES.md](docs/FEATURES.md) | Analytics, search, RSS, comments |
 | [docs/SEO.md](docs/SEO.md) | SEO implementation details |
 | [docs/IMAGE_OPTIMIZATION.md](docs/IMAGE_OPTIMIZATION.md) | Image optimisation deep-dive |
 | [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) | Local development guide |
 | [docs/TESTING.md](docs/TESTING.md) | Testing procedures and live site checks |
-| [docs/CHANGELOG.md](docs/CHANGELOG.md) | Version history and improvements |
+| [docs/CHANGELOG.md](docs/CHANGELOG.md) | How the public `/changelog/` page is generated |
 | [docs/PAGES_KV_SETUP.md](docs/PAGES_KV_SETUP.md) | Cloudflare KV setup |
-| [docs/BUILD_AND_DEPLOY_DOCUMENTATION.md](docs/BUILD_AND_DEPLOY_DOCUMENTATION.md) | Build system reference |
 | [docs/STREAMDECK_DEPLOY_SETUP.md](docs/STREAMDECK_DEPLOY_SETUP.md) | Stream Deck integration |
 | [docs/STREAMDECK_QUICK_REFERENCE.md](docs/STREAMDECK_QUICK_REFERENCE.md) | Stream Deck quick reference |
 | [docs/STREAMDECK_README.md](docs/STREAMDECK_README.md) | Stream Deck overview |
 | [docs/homelab-power-widget.md](docs/homelab-power-widget.md) | Live homelab power-draw widget on `/lab/` |
-| [docs/ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md](docs/ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md) | Additional performance recommendations |
+| [docs/seo/](docs/seo/) | Current SEO evidence (Oct 2026) |
+| [docs/archive/](docs/archive/) | Superseded audits; do not work from them |
 
 ---
 

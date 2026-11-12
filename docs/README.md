@@ -4,7 +4,8 @@ Welcome to the jkcoukblog documentation! This site automatically converts a Word
 
 ## 📚 Documentation Categories
 
-### Getting Started
+### Start here
+- [TODO.md](TODO.md) - **The open-work list** (SEO phases, typo patches, docs)
 - [Main README](../README.md) - Project overview, quick start, and architecture
 - [DEVELOPMENT.md](DEVELOPMENT.md) - Development environment, commands, and workflow
 
@@ -14,37 +15,41 @@ Welcome to the jkcoukblog documentation! This site automatically converts a Word
 - [SEO.md](SEO.md) - IndexNow, rich results, security headers, and SEO improvements
 
 ### Deployment & Testing
-- [DEPLOYMENT.md](DEPLOYMENT.md) - GitHub Actions, deployment guide, and environment setup
+- [DEPLOYMENT.md](DEPLOYMENT.md) - Deploy workflow, the `site` branch, the Worker, rollback and secrets
 - [TESTING.md](TESTING.md) - Live site tests, spell checking, and test procedures
 
 ### Reference Documentation
-- [CHANGELOG.md](CHANGELOG.md) - Version history and improvements
-- [BUILD_AND_DEPLOY_DOCUMENTATION.md](BUILD_AND_DEPLOY_DOCUMENTATION.md) - Comprehensive build and deployment guide
+- [CHANGELOG.md](CHANGELOG.md) - How the public /changelog/ page is generated
 - [IMAGE_OPTIMIZATION.md](IMAGE_OPTIMIZATION.md) - Image optimization strategy and implementation
 - [PAGES_KV_SETUP.md](PAGES_KV_SETUP.md) - Cloudflare KV namespace setup
-- [ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md](ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md) - Extra performance tips
+- [homelab-power-widget.md](homelab-power-widget.md) - Live homelab power-draw widget on /lab/
 
 ### Stream Deck Integration
 - [STREAMDECK_DEPLOY_SETUP.md](STREAMDECK_DEPLOY_SETUP.md) - Stream Deck deployment setup
 - [STREAMDECK_QUICK_REFERENCE.md](STREAMDECK_QUICK_REFERENCE.md) - Quick reference card
 - [STREAMDECK_README.md](STREAMDECK_README.md) - Stream Deck overview
 
+### SEO evidence
+- [seo/](seo/) - October 2026 SEO recommendations, code review, Search Console insights and link audit (the basis for TODO.md)
+- [Style/style-guide.md](Style/style-guide.md) - Blog voice, formatting and visual style
+
 ### Archive
-- [archive/](archive/) - Historical implementation docs and archived guides
+- [archive/](archive/) - Superseded audits and recommendations; do not work from them
 
 ## 🚀 Quick Links
 
 ### Common Tasks
 
-**Generate Static Site:**
+**Build locally** (needs `WP_AUTH_TOKEN` and the Cloudflare Access token, so in practice the self-hosted runner):
 ```bash
-export WP_AUTH_TOKEN="your_token"
-python3 scripts/wp_to_static_generator.py ./public
+make build          # generate → optimise → validate, all in ./static-output
+make deploy-local   # serve ./static-output on :8080
 ```
 
-**Test Locally:**
+**Inspect the live build:**
 ```bash
-python3 -m http.server 8080 --directory ./public
+make fetch-site                          # site branch → ./public
+make deploy-local OUTPUT_DIR=./public
 ```
 
 **Deploy via GitHub Actions:**
@@ -73,26 +78,24 @@ python3 scripts/test_live_site_formatting.py
 ```
 docs/
 ├── README.md                                  # Documentation hub
+├── TODO.md                                    # Open-work list
 ├── DEVELOPMENT.md                             # Development guide
 ├── FEATURES.md                                # Feature documentation
 ├── OPTIMIZATION.md                            # Performance optimization
 ├── IMAGE_OPTIMIZATION.md                      # Image optimization
 ├── SEO.md                                     # SEO and search engines
 ├── DEPLOYMENT.md                              # Deployment and CI/CD
-├── BUILD_AND_DEPLOY_DOCUMENTATION.md          # Build system guide
 ├── TESTING.md                                 # Testing procedures
-├── CHANGELOG.md                               # Version history
+├── CHANGELOG.md                               # /changelog/ page generator
 ├── PAGES_KV_SETUP.md                          # Cloudflare KV setup
 ├── STREAMDECK_DEPLOY_SETUP.md                 # Stream Deck deployment setup
 ├── STREAMDECK_QUICK_REFERENCE.md              # Stream Deck quick reference
 ├── STREAMDECK_README.md                       # Stream Deck overview
-├── ADDITIONAL_PERFORMANCE_RECOMMENDATIONS.md  # Extra performance tips
-└── archive/                                   # Historical implementation docs
-    ├── Implementation-specific docs (CLS, CSS, fonts, etc.)
-    ├── Build & validation docs (HTML cache, incremental build)
-    ├── Mobile optimization docs
-    ├── Spell checker implementation history
-    └── Feature implementation records
+├── homelab-power-widget.md                    # /lab/ power widget
+├── Style/style-guide.md                       # Blog style guide
+├── seo/                                       # Current SEO evidence (Oct 2026)
+├── seo-audit-2026-06/seo-baseline.json        # Drift baseline (scripts/drift_baseline.py)
+└── archive/                                   # Superseded audits and recommendations
 ```
 
 ## 🔗 External Resources
@@ -101,7 +104,7 @@ docs/
 - **Staging Site:** [jkcoukblog.pages.dev](https://jkcoukblog.pages.dev)
 - **WordPress CMS:** wordpress.jameskilby.cloud (private)
 - **Analytics:** plausible.jameskilby.cloud
-- **GitHub:** [jameskilbynet/jkcoukblog](https://github.com/jameskilbynet/jkcoukblog)
+- **GitHub:** [jameskilbycloud/jkcoukblog](https://github.com/jameskilbycloud/jkcoukblog)
 
 ## 💡 Contributing
 
