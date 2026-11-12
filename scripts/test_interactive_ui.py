@@ -25,24 +25,25 @@ What it covers
 
 Usage
 -----
-    python3 scripts/test_interactive_ui.py [site_dir]
+    python3 scripts/test_interactive_ui.py [site_dir] [--require-browser]
 
 Defaults to `public`. Spins up a local HTTP server, runs the tests
-headless, prints a pass/fail table, exits non-zero on failure.
+headless, prints a pass/fail table. Exit codes: 0 pass (or skipped), 1 a UI
+test failed, 2 bad site directory, 3 skipped with --require-browser.
 
 Dependencies
 ------------
-    pip install playwright
-    playwright install chromium
+    pip install -r requirements-ui.txt
+    python3 -m playwright install --only-shell chromium
 
-In CI both are installed via the workflow before this step runs.
+In CI both are installed by the deploy step before this runs.
 
 If the playwright import fails (or chromium isn't installed) the script
-prints a clear skip message and exits 0, so the deploy isn't blocked by
-missing test infrastructure on a fresh runner. That's a deliberate
-trade-off: we'd rather miss a regression than refuse to deploy a fix.
-Detect runner-level setup problems by watching for the SKIP banner in
-build logs.
+prints a clear skip message and exits 0, so a local run without the browser
+isn't an error. CI passes --require-browser, which turns a skip into exit 3:
+the deploy step is continue-on-error, so the deploy still goes out, but the
+skip is reported as a failed non-blocking step instead of passing silently
+(it did, on every run, while Playwright couldn't install on the runner's OS).
 """
 
 import contextlib
@@ -430,18 +431,24 @@ class UISmokeTests:
 def _annotate_skip(reason):
     """Surface a skipped run as a GitHub Actions annotation.
 
-    Both skip paths exit 0 by design so missing test infra can't block a
-    deploy. The cost is that a skip is invisible unless someone reads the
-    step's stdout — chromium silently stopped launching and the gate went
-    unnoticed across runs. An annotation puts it on the run summary while
-    keeping the exit code green.
+    Without --require-browser both skip paths exit 0, so a skip is invisible
+    unless someone reads the step's stdout. The annotation puts it on the run
+    summary either way.
     """
     if os.environ.get('GITHUB_ACTIONS') == 'true':
         print(f"::warning title=Interactive UI tests skipped::{reason}")
 
 
+# Exit code for a skipped run under --require-browser — distinct from 1 (a UI
+# test failed) and 2 (bad site directory).
+EXIT_SKIPPED = 3
+
+
 def main():
-    site_dir = Path(sys.argv[1] if len(sys.argv) > 1 else 'public')
+    args = [a for a in sys.argv[1:] if a != '--require-browser']
+    require_browser = len(args) != len(sys.argv) - 1
+    skip_exit = EXIT_SKIPPED if require_browser else 0
+    site_dir = Path(args[0] if args else 'public')
 
     if not _PW_OK:
         # Print a banner that's grep-friendly in CI logs but still exits 0.
@@ -453,7 +460,7 @@ def main():
         print("    Install with: pip install playwright && playwright install chromium")
         print("=" * 72)
         _annotate_skip(f"playwright unavailable ({_PW_ERROR})")
-        sys.exit(0)
+        sys.exit(skip_exit)
 
     if not site_dir.exists():
         print(f"❌ Site directory not found: {site_dir}")
@@ -478,7 +485,7 @@ def main():
         print("    Install with: sudo playwright install-deps chromium")
         print("=" * 72)
         _annotate_skip(f"chromium failed to launch ({tests.launch_error})")
-        sys.exit(0)
+        sys.exit(skip_exit)
 
     elapsed = time.time() - start
     passed = sum(1 for _, ok, _ in tests.results if ok)
