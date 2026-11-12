@@ -174,7 +174,7 @@ All hostnames live in `scripts/config.py` (`Config`). Do not hardcode them elsew
 
 - Must be **self-hosted** (not GitHub-hosted) to access WordPress behind Cloudflare Access
 - Requires Python 3.11+
-- System tools: `avifenc`, `cwebp`, `optipng`, `jpegoptim`, `jq`, `bc` (the deploy workflow installs any that are missing)
+- System tools: `jq`, `bc` (the deploy workflow installs either if missing). Image encoding is Pillow, so no image CLIs
 
 ### Python Dependencies
 
@@ -250,9 +250,9 @@ make install-dev   # requirements.txt + requirements-dev.txt
 - Build-cache commits to `main` rebase and retry automatically, and are non-fatal if they still fail
 
 ### Image optimization not working
-- Check if `optipng` and `jpegoptim` are installed on runner
-- These are optional; workflow continues if not available
-- Install on Ubuntu: `sudo apt-get install optipng jpegoptim`
+- Check the "Optimize images" step log for the failing file
+- Check the "Install dependencies" step: it fails if Pillow can't encode AVIF
+- See [IMAGE_OPTIMIZATION.md](IMAGE_OPTIMIZATION.md#troubleshooting)
 
 ### Staging site shows production URLs
 - Run `convert_to_staging.py` after generation to fix
@@ -280,7 +280,7 @@ make install-dev   # requirements.txt + requirements-dev.txt
 ### `/.last_spell_check_timestamp`
 - ISO timestamp of last spell check
 - Used for incremental spell checking
-- Tracked in git to persist state
+- Gitignored; persisted between runs by the spell-check job's Actions cache
 
 ### `/.indexnow_key`
 - UUID-based API key for IndexNow protocol
@@ -328,11 +328,10 @@ Uses WordPress REST API endpoints:
 
 ## Performance Characteristics
 
-- **Processing Speed**: ~156 URLs in 12 seconds
-- **Success Rate**: 96% (150/156 URLs typical)
-- **Output Size**: ~9.3 MB optimized static site
+- **Size** (2026-11-12 build): 265 HTML pages, ~1,900 source images, 226 MB built output
+- **Incremental deploy**: ~10 minutes end to end; a full rebuild is mostly WordPress fetches + image work
 - **Concurrent Downloads**: Uses ThreadPoolExecutor for parallel processing
-- **Image Optimization**: PNG (optipng -o2), JPEG (jpegoptim --max=85)
+- **Image Optimization**: Pillow → AVIF + WebP (originals served as-is)
 
 ---
 

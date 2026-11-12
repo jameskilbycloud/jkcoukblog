@@ -35,8 +35,9 @@ deploy.log
 # Spell check reports
 spelling_check_report.md
 
-# Spell check timestamp (tracked in repo)
-!.last_spell_check_timestamp
+# Spell check timestamp — persisted by the spell-check job's Actions cache
+# (spell-check-<sha>), not git. The committed copy was never updated.
+.last_spell_check_timestamp
 
 # IDE files
 .vscode/
