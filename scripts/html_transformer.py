@@ -217,6 +217,17 @@ class HTMLTransformer:
             if self._apply_picture_responsive_repair(soup):
                 modified = True
 
+        # ── Phase 4.9: <meta charset> + viewport back to the top of <head> ─
+        # Font/image preloads and critical <style> blocks are inserted at
+        # head index 0 by the passes above, which left charset and viewport
+        # 13–20 tags down. The preload scanner evaluates a responsive image
+        # preload's imagesizes against the viewport it knows at that point —
+        # the 980px desktop default before the viewport meta — so mobile
+        # fetched the 1024w hero alongside the 768w the <picture> then used.
+        # Must stay the last soup pass.
+        if self._hoist_head_metas(soup):
+            modified = True
+
         if not modified:
             return False
 
@@ -851,6 +862,24 @@ class HTMLTransformer:
                 modified += 1
 
         return modified > 0
+
+    @staticmethod
+    def _hoist_head_metas(soup):
+        """Make <meta charset> then <meta name=viewport> the first <head> tags."""
+        head = soup.head
+        if not head:
+            return False
+        wanted = [
+            head.find('meta', charset=True, recursive=False),
+            head.find('meta', attrs={'name': 'viewport'}, recursive=False),
+        ]
+        wanted = [m for m in wanted if m]
+        leading = [c for c in head.children if getattr(c, 'name', None)][:len(wanted)]
+        if len(leading) == len(wanted) and all(a is b for a, b in zip(leading, wanted)):
+            return False
+        for meta in reversed(wanted):
+            head.insert(0, meta.extract())
+        return True
 
     @staticmethod
     def _dedup_head_string(html):

@@ -2,7 +2,7 @@
 """
 Subset woff2 fonts to the characters actually used in rendered HTML.
 
-Five of the six self-hosted fonts ship full-size and are discovered by the
+The six self-hosted fonts ship full-size and are discovered by the
 browser the instant `brutalist-theme.css` parses (the @font-face block is
 inlined at the top of the stylesheet). On mobile this puts ~360 KB of
 WOFF2 onto the LCP critical path — even with `font-display: optional`
@@ -30,9 +30,8 @@ How it works
    so its full Latin range is overkill. JetBrains Mono 400/700 and Space
    Grotesk 500/700 were added in June 2026 to reclaim ~310 KB on mobile
    that was sitting on the critical-request chain. Space Grotesk 400
-   (body) is intentionally not subsetted — body text uses a much wider
-   character set so the savings would be small and the .notdef risk
-   higher.
+   (body, preloaded) followed in November 2026: 69 KB → ~12 KB with a
+   Latin-1 + punctuation pad over every character in <body>.
 
 Idempotent: outputs are written over the inputs, and each run begins by
 restoring from the master so the in-place edit is safe across rebuilds.
@@ -81,6 +80,11 @@ ASCII_PRINTABLE = ''.join(chr(c) for c in range(0x20, 0x7F))
 # subset-output from rendering smart quotes / em-dashes / ellipsis as
 # .notdef boxes when a future post adds a stray Unicode punctuation.
 TYPO_PAD = "'\"…–—·•‘’“”«»"
+# Body-text pads: all of Latin-1 Supplement (accented names, £, ×, °) and
+# the General Punctuation block plus common currency/arrows, so the body
+# subset covers anything a post is likely to type, not just what's live now.
+LATIN1_PAD = ''.join(chr(c) for c in range(0xA0, 0x100))
+PUNCT_PAD = ''.join(chr(c) for c in range(0x2010, 0x2070)) + '€™←→↑↓'
 # Common code glyphs that aren't in standard ASCII printable. Useful for
 # any monospace font subset where future code might use them.
 CODE_PAD = "→←↑↓⇒⇐⇔≈≠≤≥≡∞±°²³¬"
@@ -205,9 +209,18 @@ FONT_SPECS = (
         ),
     ),
 
-    # Space Grotesk 400 (body) intentionally NOT subsetted — body text
-    # uses the whole Latin set and the savings would be small relative
-    # to the .notdef risk for blockquoted comments or quoted strings.
+    # Space Grotesk 400 — body text, preloaded on every page. Was left at
+    # the full 69 KB on the theory that body text needs the whole Latin set;
+    # in practice the site uses ~100 distinct glyphs and the subset with a
+    # Latin-1 + punctuation pad is ~12 KB. Scanning <body> over-collects
+    # (code, chrome) rather than risk missing body characters.
+    FontSpec(
+        label='Space Grotesk 400',
+        target_rel='assets/fonts/spacegrotesk-v22-latin-400.woff2',
+        master_rel='scripts/fonts/spacegrotesk-v22-latin-400.woff2',
+        tag_selectors=('body',),
+        safety_pad=ASCII_PRINTABLE + TYPO_PAD + LATIN1_PAD + PUNCT_PAD,
+    ),
 )
 
 

@@ -113,3 +113,45 @@ def test_normalize_self_href_maps_absolute_same_site_to_relative():
     assert (normalize_self_href('https://jameskilby.co.uk')
             == 'https://jameskilby.co.uk')
     assert normalize_self_href('https://utteranc.es/x.js') == 'https://utteranc.es/x.js'
+
+
+class TestHoistHeadMetas:
+    """Preloads and critical <style> blocks are inserted at head index 0,
+    which pushed charset/viewport down the head. A responsive image preload
+    seen before the viewport meta is sized against the 980px default
+    viewport, so mobile fetched a second, larger hero."""
+
+    @staticmethod
+    def _soup(head):
+        from bs4 import BeautifulSoup
+        return BeautifulSoup(f'<html><head>{head}</head><body></body></html>', 'html.parser')
+
+    @staticmethod
+    def _leading(soup, n=2):
+        return [str(t) for t in soup.head.find_all(recursive=False)[:n]]
+
+    def test_moves_charset_then_viewport_to_top(self):
+        soup = self._soup(
+            '<link rel="preload" as="image" href="/a.avif" imagesizes="95vw">'
+            '<style>a{}</style>'
+            '<meta name="viewport" content="width=device-width">'
+            '<meta charset="utf-8">'
+        )
+        assert HTMLTransformer._hoist_head_metas(soup) is True
+        assert self._leading(soup) == [
+            '<meta charset="utf-8"/>',
+            '<meta content="width=device-width" name="viewport"/>',
+        ]
+        assert len(soup.head.find_all(recursive=False)) == 4
+
+    def test_already_ordered_is_a_no_op(self):
+        soup = self._soup(
+            '<meta charset="utf-8"><meta name="viewport" content="width=device-width">'
+            '<link rel="preload" as="font" href="/f.woff2">'
+        )
+        assert HTMLTransformer._hoist_head_metas(soup) is False
+
+    def test_missing_viewport_still_hoists_charset(self):
+        soup = self._soup('<style>a{}</style><meta charset="utf-8">')
+        assert HTMLTransformer._hoist_head_metas(soup) is True
+        assert self._leading(soup, 1) == ['<meta charset="utf-8"/>']
