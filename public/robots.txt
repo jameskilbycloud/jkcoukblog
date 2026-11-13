@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Stop crawlers from wasting crawl budget on per-archive feed URLs
+# (e.g. /category/foo/feed/) and the JSON API directory — neither
+# is indexable content. The root /feed/ is allowed because it 301s
+# to /feed/index.xml which is the canonical RSS feed.
+Disallow: /*/feed/
+Disallow: /api/
+
+# The 404 page carries <meta name="robots" content="noindex,follow">
+# and Cloudflare also sends X-Robots-Tag: noindex on it. We do NOT
+# Disallow noindex pages here — Google must be allowed to crawl them
+# in order to see the directive. Blocking crawl leaves the URLs in
+# the index as URL-only entries and prevents clean removal.
+
+# AI crawler policy
+# ────────────────────
+# GPTBot, ClaudeBot, PerplexityBot, Google-Extended, Applebot-Extended,
+# Bytespider and the rest of the LLM ingestion fleet are deliberately
+# NOT Disallowed. This site publishes a markdown mirror at /markdown/,
+# a JSON API mirror at /api/, an llmstxt.org index at /llms.txt and a
+# full-content corpus at /llms-full.txt — all built for AI ingestion.
+# Blocking the crawlers would defeat that on-purpose investment.
+# Steering happens via /llms.txt, not robots.txt.
+
+Sitemap: https://jameskilby.co.uk/sitemap.xml

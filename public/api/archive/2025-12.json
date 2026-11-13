@@ -1,0 +1,74 @@
+{
+  "year": 2025,
+  "month": 12,
+  "month_name": "December",
+  "posts": [
+    {
+      "slug": "ubuntu-disk-expansion-steps",
+      "title": "How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step",
+      "description": "Step-by-step Ubuntu disk expansion with LVM: pvresize, vgextend, lvextend, resize2fs. Works after resizing the VM disk in vSphere/Hyper-V/KVM.",
+      "date": "2025-12-15T20:56:40Z",
+      "modified": "2026-11-04T11:43:29Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/",
+      "markdown_url": "/markdown/posts/ubuntu-disk-expansion-steps.md",
+      "api_url": "/api/posts/ubuntu-disk-expansion-steps.json",
+      "categories": [
+        "Ubuntu",
+        "Ansible",
+        "Automation",
+        "Github"
+      ],
+      "tags": [
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/12/UbuntuExpand.png)\n\n[Ubuntu](https://jameskilby.co.uk/category/ubuntu/)\n\n# How to Expand Ubuntu Disk Space: LVM pvresize Step-by-Step\n\nBy[James Kilby](https://jameskilby.co.uk) December 15, 2025 · Updated November 4, 2026 • 📖1 min read(104 words..."
+    },
+    {
+      "slug": "time-in-a-vmc-environment",
+      "title": "VMware Cloud on AWS Time Sync & NTP Configuration",
+      "description": "How to configure Time Sync and NTP in VMware Cloud on AWS using the Amazon Time Sync Service — setup, firewall rules, and troubleshooting tips.",
+      "date": "2025-12-08T14:03:44Z",
+      "modified": "2026-07-11T07:33:15Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/",
+      "markdown_url": "/markdown/posts/time-in-a-vmc-environment.md",
+      "api_url": "/api/posts/time-in-a-vmc-environment.json",
+      "categories": [
+        "VMware Cloud on AWS",
+        "VMware"
+      ],
+      "tags": [
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2025/02/Picture-1-e1768509620339.png)\n\n[VMware Cloud on AWS](https://jameskilby.co.uk/category/vmware/vmware-cloud-on-aws/)\n\n# VMware Cloud on AWS Time Sync & NTP Configuration\n\nBy[James Kilby](https://jameskilby.co.uk) December 8, 2025 · Updated July ..."
+    },
+    {
+      "slug": "vsan-cluster-shutdown",
+      "title": "vSAN Cluster Shutdown – Orchestration",
+      "description": "As can be seen on my Lab Overview page. I have a GPU/Management cluster that is usually running 24x7.",
+      "date": "2025-12-06T10:59:14Z",
+      "modified": "2026-06-01T21:07:13Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/",
+      "markdown_url": "/markdown/posts/vsan-cluster-shutdown.md",
+      "api_url": "/api/posts/vsan-cluster-shutdown.json",
+      "categories": [
+        "VMware",
+        "vSAN",
+        "Homelab",
+        "Nutanix",
+        "VMware Cloud on AWS",
+        "Ansible",
+        "Automation",
+        "Runecast"
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg",
+      "excerpt": "![](https://jameskilby.co.uk/wp-content/uploads/2023/11/OrigionalPoweredByvSAN-550x324-1.jpg)\n\n[VMware](https://jameskilby.co.uk/category/vmware/) | [vSAN](https://jameskilby.co.uk/category/vmware/vsan-vmware/)\n\n# vSAN Cluster Shutdown – Orchestration\n\nBy[James Kilby](https://jameskilby.co.uk) Decem..."
+    }
+  ]
+}
