@@ -150,3 +150,14 @@ def test_subset_output_is_byte_stable(tmp_path):
         'subset output varies between runs — head.modified is being '
         'recalculated, which recommits every font on every build'
     )
+
+
+def test_every_spec_has_a_committed_master():
+    """A missing master is bootstrapped from the deployed file, but CI seeds
+    the deployed tree from the site branch, where the font is already a
+    subset — so the 'master' would be a subset and each build would strip it
+    further. Every spec must ship its full-glyph master in the repo."""
+    repo_root = Path(__file__).resolve().parent.parent
+    missing = [s.master_rel for s in subset_fonts.FONT_SPECS
+               if not (repo_root / s.master_rel).is_file()]
+    assert not missing
