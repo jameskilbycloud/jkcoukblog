@@ -70,6 +70,10 @@ Not indexed: lab-storage, and-now-for-something-completely-different, vmc-host-e
 - [ ] Decide on AI crawler access in `robots.txt`. *(June audit M3)*
 - [ ] Optional `humans.txt`. *(June audit L2)*
 
+## Cloudflare dashboard (James)
+
+- [ ] **Turn off Email Address Obfuscation** (jameskilby.co.uk → Security → Settings, or Scrape Shield). There are no contact addresses on the site; it only mangles code samples (`administrator@vsphere.local`, `slack-github-action@v1.23.0`, …) on 5 posts into `/cdn-cgi/l/email-protection` links that 404 for crawlers, and adds a render-blocking script. No rebuild needed. Verify: `curl -s https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/ | grep -c email-protection` → `0`. *(audit 2026-11-12, T3)*
+
 ## Typo patches
 
 - [ ] **Reconcile `typo-patches.json` with the live site.** It still holds all 338 patches from 2026-06-01, but [`typo-patches-pending.md`](../typo-patches-pending.md) says 208 already landed. CONTRIBUTING says applied entries should be removed. Drop the applied ones, then work through the pending list (52 `NEVER_APPLIED` first).
