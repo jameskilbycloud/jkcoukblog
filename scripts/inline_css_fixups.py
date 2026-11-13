@@ -17,9 +17,9 @@ Four per-page passes, in the order process_html() ran them:
   query strings from <link>/<script> URLs and renames the matching files on
   disk — Cloudflare Pages strips query strings from requests, so a
   downloaded file at the versioned path would otherwise 404.
-- fix_splide_carousel(): adds the Splide.js carousel library + init script
-  for the Kadence theme's related/similar-posts carousel, which WordPress
-  renders server-side but never ships the JS for in a static export.
+- fix_splide_carousel(): for the Kadence theme's related/similar-posts
+  carousel, swaps the theme's Splide scripts for the vendored Splide.js
+  library + init script so the carousel is loaded and mounted once.
 
 Needs wp_url (URL rewriting) and output_dir (css_output_dir derives from
 it, and strip_asset_version_queries renames files under it).
@@ -165,12 +165,16 @@ class InlineCSSFixups:
                     versioned_path.rename(clean_path)
                     print(f"   📦 Renamed asset: {src} → {clean_src}")
 
+    _THEME_SPLIDE_SCRIPT_IDS = ['kad-splide-js', 'kadence-slide-init-js', 'kadence-slide-init-js-extra']
+    _THEME_SPLIDE_SRCS = ('/kadence/assets/js/splide.min.js', '/kadence/assets/js/splide-init.min.js')
+
     def fix_splide_carousel(self, soup):
         """Fix the Kadence theme's Splide carousel for the Similar Posts section.
 
         The WordPress Kadence theme uses Splide.js for the related/similar posts
-        carousel, but the JS was never included in the static export. This method
-        adds Splide JS from CDN and initialization code.
+        carousel. This method strips the theme's own Splide scripts and preloads
+        (when WordPress ships them) and adds the vendored /js/splide.min.js plus
+        an initialization script, so the carousel is loaded and mounted once.
         """
         # Only add if there's a Splide carousel on the page
         carousels = soup.find_all(class_=lambda x: x and 'kadence-slide-init' in x)
@@ -187,6 +191,16 @@ class InlineCSSFixups:
                 if cls in classes:
                     classes.remove(cls)
             carousel['class'] = classes
+
+        # WordPress now ships the theme's own Splide (kad-splide-js) and
+        # kadenceSlide init alongside the carousel. Left in, the page loads
+        # Splide twice and mounts the carousel twice, so drop the theme's
+        # copy (scripts, localized config, preloads) in favour of ours.
+        for script in soup.find_all('script', id=self._THEME_SPLIDE_SCRIPT_IDS):
+            script.decompose()
+        for link in soup.find_all('link', rel='preload', href=True):
+            if link['href'].split('?')[0].endswith(self._THEME_SPLIDE_SRCS):
+                link.decompose()
 
         # Add Splide arrow/pagination styles inline (CSS optimizer strips
         # them from the external stylesheet because JS-injected elements
