@@ -50453,5 +50453,205 @@
     "avif_created": true,
     "webp": "wp-content/uploads/og/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu-480x252.webp",
     "avif": "wp-content/uploads/og/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu-480x252.avif"
+  },
+  "wp-content/uploads/2026/11/Dual-P4-in-Z840-150x150.jpeg": {
+    "hash": "55035b76e7803a735fb1d8372e5fecc8",
+    "optimized_at": "2026-11-15T10:40:06.215029",
+    "optimized_size": 6588,
+    "timestamp": 1794739206.2150443,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/Dual-P4-in-Z840-150x150.webp",
+    "avif": "wp-content/uploads/2026/11/Dual-P4-in-Z840-150x150.avif"
+  },
+  "wp-content/uploads/2026/11/A10-in-Z840-300x225.jpeg": {
+    "hash": "ae0b0d7cb523d532cb3917372915b3f9",
+    "optimized_at": "2026-11-15T10:40:07.462079",
+    "optimized_size": 14204,
+    "timestamp": 1794739207.462093,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/A10-in-Z840-300x225.webp",
+    "avif": "wp-content/uploads/2026/11/A10-in-Z840-300x225.avif"
+  },
+  "wp-content/uploads/2026/11/A10-in-Z840-1536x1152.jpeg": {
+    "hash": "69f24ca42702d638cee6fe9e5ea7a59c",
+    "optimized_at": "2026-11-15T10:40:32.097222",
+    "optimized_size": 196218,
+    "timestamp": 1794739232.097237,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/A10-in-Z840-1536x1152.webp",
+    "avif": "wp-content/uploads/2026/11/A10-in-Z840-1536x1152.avif"
+  },
+  "wp-content/uploads/2026/11/Dual-P4-in-Z840-768x576.jpeg": {
+    "hash": "490ca674e0ee175293334cec4bfd751c",
+    "optimized_at": "2026-11-15T10:40:40.394227",
+    "optimized_size": 74770,
+    "timestamp": 1794739240.3942392,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/Dual-P4-in-Z840-768x576.webp",
+    "avif": "wp-content/uploads/2026/11/Dual-P4-in-Z840-768x576.avif"
+  },
+  "wp-content/uploads/2026/11/Dual-P4-in-Z840-300x225.jpeg": {
+    "hash": "d467b7ec9fbb2ca30b38b7c85e293b02",
+    "optimized_at": "2026-11-15T10:40:42.415112",
+    "optimized_size": 16490,
+    "timestamp": 1794739242.4151306,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/Dual-P4-in-Z840-300x225.webp",
+    "avif": "wp-content/uploads/2026/11/Dual-P4-in-Z840-300x225.avif"
+  },
+  "wp-content/uploads/2026/11/A10-in-Z840-2048x1536.jpeg": {
+    "hash": "26295b7adb94823f0bcd2d6f38985568",
+    "optimized_at": "2026-11-15T10:40:52.403491",
+    "optimized_size": 299844,
+    "timestamp": 1794739252.403505,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/A10-in-Z840-2048x1536.webp",
+    "avif": "wp-content/uploads/2026/11/A10-in-Z840-2048x1536.avif"
+  },
+  "wp-content/uploads/2026/11/A10-in-Z840-150x150.jpeg": {
+    "hash": "edf515a55a1a9bc8208f9e50b121e292",
+    "optimized_at": "2026-11-15T10:40:53.179645",
+    "optimized_size": 5130,
+    "timestamp": 1794739253.1796696,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/A10-in-Z840-150x150.webp",
+    "avif": "wp-content/uploads/2026/11/A10-in-Z840-150x150.avif"
+  },
+  "wp-content/uploads/2026/11/Dual-P4-in-Z840-2048x1536.jpeg": {
+    "hash": "5cc0c7edbc1c636e9200ef5d9916a259",
+    "optimized_at": "2026-11-15T10:40:56.101340",
+    "optimized_size": 337990,
+    "timestamp": 1794739256.1013584,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/Dual-P4-in-Z840-2048x1536.webp",
+    "avif": "wp-content/uploads/2026/11/Dual-P4-in-Z840-2048x1536.avif"
+  },
+  "wp-content/uploads/2026/11/A10-in-Z840-768x576.jpeg": {
+    "hash": "b5838443baf875c3197e4ac185fbb623",
+    "optimized_at": "2026-11-15T10:41:02.405726",
+    "optimized_size": 68828,
+    "timestamp": 1794739262.4057462,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/A10-in-Z840-768x576.webp",
+    "avif": "wp-content/uploads/2026/11/A10-in-Z840-768x576.avif"
+  },
+  "wp-content/uploads/2026/11/Dual-P4-in-Z840-1024x768.jpeg": {
+    "hash": "77b723a56ac0382410634e018d78bb97",
+    "optimized_at": "2026-11-15T10:41:07.216843",
+    "optimized_size": 118002,
+    "timestamp": 1794739267.2168562,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/Dual-P4-in-Z840-1024x768.webp",
+    "avif": "wp-content/uploads/2026/11/Dual-P4-in-Z840-1024x768.avif"
+  },
+  "wp-content/uploads/2026/11/A10-in-Z840-1024x768.jpeg": {
+    "hash": "cdde81f23979d1800c934c40281b52b0",
+    "optimized_at": "2026-11-15T10:41:19.506625",
+    "optimized_size": 105424,
+    "timestamp": 1794739279.5066383,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/A10-in-Z840-1024x768.webp",
+    "avif": "wp-content/uploads/2026/11/A10-in-Z840-1024x768.avif"
+  },
+  "wp-content/uploads/2026/11/A10-in-Z840-scaled.jpeg": {
+    "hash": "c627d3a4b609e29a7f863344b2e27113",
+    "optimized_at": "2026-11-15T10:41:23.906723",
+    "optimized_size": 413054,
+    "timestamp": 1794739283.9067385,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/A10-in-Z840-scaled.webp",
+    "avif": "wp-content/uploads/2026/11/A10-in-Z840-scaled.avif"
+  },
+  "wp-content/uploads/2026/11/Dual-P4-in-Z840-1536x1152.jpeg": {
+    "hash": "99b4a65c9e60f165678d294b50cfda42",
+    "optimized_at": "2026-11-15T10:41:30.432449",
+    "optimized_size": 224848,
+    "timestamp": 1794739290.432465,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/Dual-P4-in-Z840-1536x1152.webp",
+    "avif": "wp-content/uploads/2026/11/Dual-P4-in-Z840-1536x1152.avif"
+  },
+  "wp-content/uploads/2026/11/a10-sustained-load-768x614.png": {
+    "hash": "944eb12e93c08530f527f588a7905a7a",
+    "optimized_at": "2026-11-15T10:41:31.754561",
+    "optimized_size": 22726,
+    "timestamp": 1794739291.7545738,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/a10-sustained-load-768x614.webp",
+    "avif": "wp-content/uploads/2026/11/a10-sustained-load-768x614.avif"
+  },
+  "wp-content/uploads/2026/11/a10-sustained-load-1024x819.png": {
+    "hash": "3711464d9b291d4d25b43c55d14bccd2",
+    "optimized_at": "2026-11-15T10:41:46.148651",
+    "optimized_size": 32896,
+    "timestamp": 1794739306.1486733,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/a10-sustained-load-1024x819.webp",
+    "avif": "wp-content/uploads/2026/11/a10-sustained-load-1024x819.avif"
+  },
+  "wp-content/uploads/2026/11/a10-sustained-load-150x150.png": {
+    "hash": "9349fd2cc4fbd6bc307db1b2d43e4148",
+    "optimized_at": "2026-11-15T10:41:47.471784",
+    "optimized_size": 2464,
+    "timestamp": 1794739307.4717975,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/a10-sustained-load-150x150.webp",
+    "avif": "wp-content/uploads/2026/11/a10-sustained-load-150x150.avif"
+  },
+  "wp-content/uploads/2026/11/a10-sustained-load-1536x1229.png": {
+    "hash": "a953453542d8ef68dcec7e824d0039cc",
+    "optimized_at": "2026-11-15T10:41:49.598208",
+    "optimized_size": 53666,
+    "timestamp": 1794739309.598221,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/a10-sustained-load-1536x1229.webp",
+    "avif": "wp-content/uploads/2026/11/a10-sustained-load-1536x1229.avif"
+  },
+  "wp-content/uploads/2026/11/a10-sustained-load-300x240.png": {
+    "hash": "5b319f43519d001d269bb8425bcec47f",
+    "optimized_at": "2026-11-15T10:41:50.602077",
+    "optimized_size": 5800,
+    "timestamp": 1794739310.6021085,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/a10-sustained-load-300x240.webp",
+    "avif": "wp-content/uploads/2026/11/a10-sustained-load-300x240.avif"
+  },
+  "wp-content/uploads/2026/11/Dual-P4-in-Z840-scaled.jpeg": {
+    "hash": "fbca535585e73b874a0f046f44aebb9d",
+    "optimized_at": "2026-11-15T10:41:55.446601",
+    "optimized_size": 476010,
+    "timestamp": 1794739315.4466138,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/Dual-P4-in-Z840-scaled.webp",
+    "avif": "wp-content/uploads/2026/11/Dual-P4-in-Z840-scaled.avif"
+  },
+  "wp-content/uploads/2026/11/a10-sustained-load.png": {
+    "hash": "597d9e27f3806763fffb90f2dcdc7dca",
+    "optimized_at": "2026-11-15T10:41:57.667444",
+    "optimized_size": 70110,
+    "timestamp": 1794739317.6674562,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/a10-sustained-load.webp",
+    "avif": "wp-content/uploads/2026/11/a10-sustained-load.avif"
   }
 }
