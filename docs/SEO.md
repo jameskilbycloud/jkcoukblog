@@ -80,7 +80,7 @@ export CLOUDFLARE_ACCOUNT_ID=…
 python3 scripts/purge_soft404_kv_cache.py --dry-run   # review
 python3 scripts/purge_soft404_kv_cache.py             # execute
 
-# Sanity check — both should return 404 with X-Cache-Status: SOFT404-FIXED
+# Sanity check (X-Cache-Status: SOFT404-FIXED appears only when the Worker builds the 404 itself)
 curl -I https://jameskilby.co.uk/nutanix-ce              # expect: 301 → /2018/01/nutanix-ce/
 curl -I https://jameskilby.co.uk/this-does-not-exist-xyz # expect: 404
 curl -I https://jameskilby.co.uk/                        # expect: 200
@@ -94,13 +94,13 @@ curl -I https://jameskilby.co.uk/                        # expect: 200
 IndexNow is a protocol that allows websites to instantly notify search engines (Bing, Yandex, etc.) when content is published or updated.
 
 ### Implementation
-Script: `submit_indexnow.py`
+Script: `scripts/submit_indexnow.py`
 
 ### Usage
 
 **Submit all pages:**
 ```bash
-python submit_indexnow.py ./public
+python3 scripts/submit_indexnow.py ./public
 ```
 
 **The script automatically:**
@@ -132,7 +132,7 @@ cat indexnow-submission.json | jq '.recent_submissions'
 Automatically runs after each deployment:
 ```yaml
 - name: Submit to IndexNow
-  run: python3 submit_indexnow.py ./public
+  run: python3 scripts/submit_indexnow.py ./public
 ```
 
 ---
@@ -245,8 +245,9 @@ HTTP security headers protect against common web vulnerabilities and improve SEO
 
 #### Content Security Policy (CSP)
 ```
-Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' plausible.jameskilby.cloud
+Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' plausible.jameskilby.cloud utteranc.es static.cloudflareinsights.com cdn.credly.com cdn.youracclaim.com; ...
 ```
+Abridged. The full policy is the `Content-Security-Policy` line in the repo-root `_headers` file, which the build also stamps into the Worker. Run `make test-csp` after changing it.
 
 #### X-Content-Type-Options
 ```
@@ -264,12 +265,13 @@ Protects against clickjacking.
 ```
 Referrer-Policy: strict-origin-when-cross-origin
 ```
-Controls referrer information.
+Controls referrer information. Set by the Worker (`getSecurityHeaders()` in `_worker.template.js`), not by `_headers`.
 
 #### Permissions-Policy
 ```
-Permissions-Policy: geolocation=(), microphone=(), camera=()
+Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=()
 ```
+Set in `_headers` and repeated in the Worker; keep the two in sync.
 Disables unnecessary browser features.
 
 ### Configuration
@@ -302,7 +304,7 @@ https://securityheaders.com/?q=jameskilby.co.uk
 
 #### Content Optimization
 - ✅ Heading hierarchy (H1 → H2 → H3)
-- ✅ Alt text on all images
+- [ ] Alt text on all images (about 21 pages still have empty or filename-style alt text)
 - ✅ Internal linking structure
 - ✅ Clean URL structure
 - ✅ Reading time and word count visible on posts
@@ -329,7 +331,7 @@ https://securityheaders.com/?q=jameskilby.co.uk
 - [ ] Create cornerstone content
 
 #### Technical
-- [ ] Implement WebP with fallback
+- ✅ AVIF/WebP with `<picture>` fallback
 - [ ] Add service worker for offline support
 - [ ] Create AMP versions of key pages
 - [ ] Implement lazy loading for fonts

@@ -14,7 +14,7 @@ This repository contains a complete automation pipeline that:
 - ✅ **Optimises images** to AVIF/WebP with `<picture>` elements and intelligent caching
 - ✅ **Transforms HTML in a single pass** — SEO fixes, `<picture>` conversion, performance hints, critical CSS inlining, and minification in one parse cycle per file
 - ✅ **Compresses assets** with Brotli (primary) + Gzip (fallback), pre-encoded at build time
-- ✅ **Generates extras** — per-post Open Graph images, `llms.txt`, Markdown export + JSON API, subsetted heading font
+- ✅ **Generates extras** — per-post Open Graph images, `llms.txt`, Markdown export + JSON API, subsetted self-hosted fonts
 - ✅ **Validates content** — SEO, accessibility, JSON-LD, og:image, security headers, plus Playwright UI smoke tests
 - ✅ **Deploys to Cloudflare Pages** from a dedicated `site` branch, with a selective KV HTML cache purge after deploy
 - ✅ **Submits to IndexNow** after each deploy so crawlers see fresh content immediately
@@ -94,7 +94,7 @@ wordpress.jameskilby.cloud  |                         (one commit, public/)    j
 │   ├── generate_soft404_artefacts.py      # Soft-404 detection artefacts
 │   ├── copy_standalone_pages.py           # Copies self-contained tools (e.g. /vmc-analyzer/) into the build
 │   ├── stamp_worker_manifest.py           # Stamps Advanced Mode Worker manifest
-│   ├── subset_fonts.py                    # Subsets heading font to used characters
+│   ├── subset_fonts.py                    # Subsets the six self-hosted fonts to used characters
 │   ├── rewrite_vendored_urls.py           # Rewrites stale vendored-CDN URLs
 │   ├── content_validator.py               # SEO, JSON-LD, accessibility, security
 │   ├── validate_html.py                   # HTML structural validation
@@ -219,14 +219,14 @@ The `deploy-static-site.yml` workflow runs the main build job, then a non-blocki
 | 8 | Export to Markdown + Markdown API | `markdown_exporter.py`, `markdown_api.py` — `/markdown/` and `/api/` paths |
 | 9 | Generate llms.txt | `generate_llms_txt.py` |
 | 10 | Content quality validation | `content_validator.py` — non-blocking |
-| 11 | Optimise images | AVIF + WebP, 4 parallel workers, BLAKE2b cache |
+| 11 | Optimise images | AVIF + WebP, 4 parallel workers (all cores on a full re-encode), BLAKE2b cache |
 | 12 | Optimise CSS | Remove unused selectors + minify |
 | 13 | Single-pass HTML transformer | `html_transformer.py` — SEO fixes, `<img>` → `<picture>`, performance hints, critical CSS inlining, and HTML minification in one parse cycle per file |
 | 14 | Internal links for orphan posts | `internal_links.py` — post-transform pass + verification |
 | 14a | Copy standalone pages | `copy_standalone_pages.py` — self-contained tools such as `/vmc-analyzer/` |
 | 15 | Soft-404 artefacts + worker stamp | `generate_soft404_artefacts.py`, `stamp_worker_manifest.py` |
 | 16 | Generate per-post Open Graph images | `generate_og_images.py` |
-| 17 | Subset heading font | `subset_fonts.py` — Anton subset to characters used in headings |
+| 17 | Subset fonts | `subset_fonts.py` — Anton, JetBrains Mono and Space Grotesk (six files) subset to the characters the site uses |
 | 18 | Rewrite stale vendored-CDN URLs | `rewrite_vendored_urls.py` |
 | 19 | Minify JavaScript | `minify_js.py` |
 | 20 | Brotli + Gzip compression | `.br` (primary) + `.gz` (fallback) for all text assets |
@@ -250,7 +250,7 @@ The `deploy-static-site.yml` workflow runs the main build job, then a non-blocki
 ### 🖼️ Image Optimisation
 - AVIF + WebP generation with `<picture>` elements for browser-native selection
 - BLAKE2b-based caching — skips unchanged images across runs
-- 4 parallel workers for fast processing
+- 4 parallel workers for fast processing (a full re-encode uses every runner core)
 - `fetchpriority="high"` on the first `<main>`/`<article>` image (LCP candidate)
 - `loading="lazy"` + `decoding="async"` on all other images
 - Per-post Open Graph images generated at build time
@@ -264,8 +264,8 @@ The `deploy-static-site.yml` workflow runs the main build job, then a non-blocki
 ### ⚡ Performance
 - Single-pass HTML transformer — one BeautifulSoup parse/serialise cycle per file instead of 5–6 separate passes
 - Critical CSS extracted and inlined for zero render-blocking on first paint
-- Heading font subsetted to only the characters actually used
-- DNS prefetch + preconnect for Plausible Analytics
+- All six self-hosted font files subsetted to only the characters actually used
+- Plausible served same-origin through the Worker, so no third-party connection on the critical path
 - Cloudflare KV HTML cache with smart TTL (5 min homepage, 15 min recent posts, 1 hr older)
 - KV TTL uses absolute expiry — view-count updates do not reset the cache clock
 
@@ -289,7 +289,7 @@ The `deploy-static-site.yml` workflow runs the main build job, then a non-blocki
 - **Utterances** comments (GitHub Issues backed, dark theme)
 - **Slack notifications** on success and failure
 - **GitHub Actions summary** with per-step metrics
-- **Playwright UI smoke tests** before every deploy (non-blocking; skipped when Chromium can't launch on the runner)
+- **Playwright UI smoke tests** before every deploy (a failed UI test blocks the deploy; a browser setup problem is reported but doesn't block)
 
 ## ⚙️ Configuration
 
@@ -298,7 +298,7 @@ All URLs and domains are centralised in `scripts/config.py`:
 - `TARGET_DOMAIN`: `https://jameskilby.co.uk`
 - `STAGING_DOMAIN`: `jkcoukblog.pages.dev`
 - `OLLAMA_URL`: `https://ollama.jameskilby.cloud`
-- `PLAUSIBLE_DOMAIN`: `plausible.jameskilby.cloud`
+- `PLAUSIBLE_URL`: `plausible.jameskilby.cloud`
 
 Secrets (tokens, credentials) remain in environment variables and GitHub Secrets.
 

@@ -51,7 +51,7 @@ When you press the Stream Deck button:
 2. 🔔 Shows macOS notification
 3. 🏗️ Builds static site (5-15 min)
 4. 🖼️ Optimizes images (AVIF, WebP)
-5. 📦 Commits to repository
+5. 📦 Force-pushes the built site to the `site` branch
 6. 🌐 Cloudflare auto-deploys (1-2 min)
 7. ✨ **Site live** at https://jameskilby.co.uk
 
@@ -76,8 +76,8 @@ gh run watch
 ## 💡 Tips
 
 - **Multi-Action Button**: Combine script execution + opening Actions page
-- **Auto-Open Browser**: Uncomment line 61 in the script
-- **Custom Notification**: Edit line 56 for different sound
+- **Auto-Open Browser**: Uncomment line 60 in the script
+- **Custom Notification**: Edit line 55 for different sound
 - **Keyboard Shortcut**: Use the script with Automator/BetterTouchTool
 
 ## 🆘 Troubleshooting

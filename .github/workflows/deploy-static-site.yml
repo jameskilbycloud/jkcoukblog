@@ -663,16 +663,17 @@ jobs:
           || echo "⚠️  og:image generation failed (non-blocking)"
       continue-on-error: true
 
-    - name: Subset Anton font to chars used in headings
+    - name: Subset self-hosted fonts to chars used on the site
       id: font_subset
-      # Anton ships at ~130 KB and is preloaded (LCP critical path), but
-      # only ~90 of its glyphs are actually used across the site. Subset
-      # to ~12 KB. Must run BEFORE Brotli so the .br/.gz sidecars get
+      # subset_fonts.py subsets all six self-hosted WOFF2 files (Anton,
+      # JetBrains Mono 400/700, Space Grotesk 400/500/700) to the glyphs the
+      # site actually uses. Anton alone drops from ~130 KB to ~12 KB. Must
+      # run BEFORE Brotli so the .br/.gz sidecars get
       # regenerated against the smaller font in the next compress step.
       # Subsetting is idempotent — re-running against an already-subsetted
       # file is a near-no-op.
       run: |
-        echo "🔤 Subsetting Anton font to used characters..."
+        echo "🔤 Subsetting self-hosted fonts to used characters..."
         python3 scripts/subset_fonts.py ./static-output \
           || echo "⚠️  Font subsetting failed (non-blocking)"
       continue-on-error: true

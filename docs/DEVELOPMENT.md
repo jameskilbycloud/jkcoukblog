@@ -223,7 +223,7 @@ make install-dev   # requirements.txt + requirements-dev.txt
 ### Search Implementation
 - Client-side search using Fuse.js (no server required)
 - Search index generated during static site creation
-- Includes title, content, categories, tags, dates
+- Each entry holds title, URL, description and content (no categories, tags or dates)
 - Fuzzy search for typo tolerance
 
 ### Analytics

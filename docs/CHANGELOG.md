@@ -10,14 +10,14 @@ An automatically generated public changelog page that displays site improvements
 
 ### 📊 Deployment Statistics
 
-- **Total Deployments** - Git commit count
+- **Total Deployments** - commit count on `main` (`git rev-list --count HEAD`). Since the built site moved to the `site` branch this counts code and cache commits, not deploys
 - **Repository Age** - Days since first commit
 - **Contributors** - Number of contributors
 - **Last Deployment** - Most recent deployment date/time
 
 ### 🚀 Lighthouse Performance Scores
 
-Real-time performance metrics fetched from Google PageSpeed Insights API:
+Performance scores measured by the Lighthouse run in `quality-checks.yml`:
 - **Performance** - Page load speed and optimization
 - **Accessibility** - WCAG compliance and usability
 - **Best Practices** - Modern web standards
@@ -45,7 +45,7 @@ Last 30 significant changes from git history:
 **Language:** Python 3
 
 **Functions:**
-- `get_lighthouse_scores()` - Fetches live Lighthouse data from PageSpeed Insights API
+- `get_lighthouse_scores()` - Reads the latest scores from `data/lighthouse-latest.json` (written by `quality-checks.yml`)
 - `get_git_stats()` - Extracts repository statistics from git
 - `get_recent_changes()` - Parses git log for meaningful commits
 - `generate_changelog_html()` - Generates complete HTML page
@@ -68,7 +68,7 @@ Last 30 significant changes from git history:
 
 **Failure handling:**
 - Non-blocking (won't fail deployment)
-- Falls back to estimated scores if API unavailable
+- Keeps the last recorded scores if `data/lighthouse-latest.json` is missing
 - Logs warning but continues
 
 ### Output
@@ -130,16 +130,9 @@ Last 30 significant changes from git history:
 
 ### Lighthouse Scores
 
-**Source:** Google PageSpeed Insights API  
-**Endpoint:** `https://www.googleapis.com/pagespeedonline/v5/runPagespeed`
+**Source:** `data/lighthouse-latest.json`, committed to `main` by `quality-checks.yml` (`chore(lighthouse): record scores …`) after each Lighthouse run of the homepage. `get_lighthouse_scores()` in `scripts/build_stats.py` reads it; no API is called at build time.
 
-**Parameters:**
-- URL: `https://jameskilby.co.uk`
-- Categories: `performance`, `accessibility`, `best-practices`, `seo`
-- Strategy: `mobile`
-
-**Response time:** 10-60 seconds  
-**Fallback:** Estimated scores (95/95/100/100) if API fails
+**Fallback:** if the file is missing or unreadable, no new score is recorded and the page shows the most recent real entry from `lighthouse-history.json`. Scores are never estimated.
 
 ### Git Statistics
 
@@ -223,7 +216,7 @@ git log --pretty=format:"%H|%ci|%s|%b" -200
 Edit `get_lighthouse_scores()` in `generate_changelog.py`
 
 **To change displayed commits:**
-Edit line 414: `for change in changes[:30]` (currently 30)
+Edit `for change in changes[:30]` in `generate_changelog_html()` (currently 30)
 
 **To modify design:**
 Edit CSS in `generate_changelog_html()` function
@@ -240,10 +233,10 @@ Generated file: `public/changelog/index.html`
 
 ### Troubleshooting
 
-**Lighthouse API fails:**
-- Script falls back to estimated scores
+**No new Lighthouse scores:**
+- The page keeps the last recorded scores
 - Warning logged but deployment continues
-- Check Google API status
+- Check the latest `quality-checks.yml` run and whether it committed `data/lighthouse-latest.json`
 
 **Git commands fail:**
 - Stats show as 'N/A'
@@ -308,25 +301,9 @@ Generated file: `public/changelog/index.html`
 
 Already in `requirements.txt` ✅
 
-### API Rate Limits
-
-**PageSpeed Insights API:**
-- Free tier: 400 queries/day
-- No API key required for public URLs
-- Deployments: ~5-10/day typically
-- Well within limits ✅
-
 ### Error Handling
 
-**API failures:**
-```python
-try:
-    response = requests.get(url, params=params, timeout=60)
-    # ... process response
-except Exception as e:
-    print(f"⚠️  Could not fetch Lighthouse scores: {e}")
-    # Return estimated scores
-```
+**Missing scores file:** `get_lighthouse_scores()` returns `None` and the page keeps the last recorded real scores.
 
 **Git failures:**
 ```python

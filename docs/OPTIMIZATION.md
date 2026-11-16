@@ -148,8 +148,8 @@ Files under **1 KB** are skipped — the header overhead of Brotli/Gzip outweigh
 
 1. Parses each page's external stylesheets.
 2. Identifies CSS rules that apply to elements in the **above-the-fold** viewport (approximately the first screenful of content).
-3. Inlines those rules directly into `<head>` as a `<style>` block.
-4. Changes the original `<link rel="stylesheet">` to load asynchronously via `media="print" onload="this.media='all'"` — a well-known non-blocking CSS pattern.
+3. Inlines those rules as a `<style data-critical-for>` block placed right before that sheet's `<link>`, so the cascade order matches the final page. The inlined CSS is capped at 16 KB.
+4. Changes the original `<link rel="stylesheet">` to `<link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">`, with a `<noscript>` fallback link. The theme stylesheet stays synchronous because it carries the `@font-face` rules.
 
 ### Result
 
@@ -183,31 +183,18 @@ Any other stylesheet (e.g. `bootstrap-styles.css`, `theme-stylesheet.css`) is **
 
 The match is applied to the filename portion of the href only (not the full path), so `/assets/css/main.css` is matched but `/assets/main-content.css` is not.
 
+### Other preloads
+
+- **LCP image:** the first image in `<main>`/`<article>` gets `<link rel="preload" as="image" fetchpriority="high">`. When the image sits in a `<picture>`, the hint points at its first AVIF/WebP `<source>` (with `imagesrcset`/`imagesizes`), so the browser doesn't download two formats.
+- **Fonts:** only the body font (Space Grotesk 400) and the heading font (Anton) are preloaded. The other four files rely on `font-display: optional`.
+
 ---
 
 ## DNS Prefetch & Preconnect
 
 **Script:** `scripts/enhance_html_performance.py` — `add_resource_hints()`
 
-Resource hints warm up connections to external domains before they are needed.
-
-### What is added
-
-**DNS prefetch** (added for all detected external domains):
-```html
-<link rel="dns-prefetch" href="//plausible.jameskilby.cloud">
-```
-
-**Preconnect** (stronger; added only for critical domains that are actually used on the page):
-```html
-<link rel="preconnect" href="https://plausible.jameskilby.cloud">
-```
-
-### Performance Impact
-
-Without resource hints, loading the Plausible script involves serial DNS → TCP → TLS → HTTP steps (~400–900 ms on cold connections). With preconnect, steps 1–3 happen in parallel with page parsing.
-
-**Typical saving:** 200–600 ms on first load.
+This pass currently adds nothing. Plausible used to be its only critical domain, but the script is now served same-origin (`/js/script.js`, proxied by the Worker), so the list of critical domains is empty. `add_plausible_analytics()` also removes old `dns-prefetch`/`preconnect` hints to the Plausible host from pages. The pass stays in place for any future third-party domain that is on the critical path.
 
 ---
 
@@ -220,32 +207,36 @@ Without resource hints, loading the Plausible script involves serial DNS → TCP
 Dispatched by the deploy workflow after every deploy, and daily at 03:00 UTC.
 
 #### Pages tested
-1. Homepage — `https://jameskilby.co.uk`
-2. Category page — `https://jameskilby.co.uk/category/`
-3. Recent posts archive
+The homepage (`https://jameskilby.co.uk`) only, three runs each on desktop and mobile settings.
 
 #### Performance budgets
 
-| Metric | Budget |
-|--------|--------|
-| First Contentful Paint (FCP) | ≤ 2000 ms |
-| Largest Contentful Paint (LCP) | ≤ 2500 ms |
-| Time to Interactive (TTI) | ≤ 3500 ms |
-| Cumulative Layout Shift (CLS) | ≤ 0.1 |
-| Total Blocking Time (TBT) | ≤ 300 ms |
+From `.github/lighthouse/budget.json` (desktop) and `budget-mobile.json` (mobile):
+
+| Metric | Desktop | Mobile |
+|--------|---------|--------|
+| First Contentful Paint (FCP) | ≤ 1500 ms | ≤ 5500 ms |
+| Largest Contentful Paint (LCP) | ≤ 2500 ms | ≤ 7000 ms |
+| Time to Interactive (TTI) | ≤ 3000 ms | ≤ 8000 ms |
+| Speed Index | ≤ 1500 ms | ≤ 5500 ms |
+| Total Blocking Time (TBT) | ≤ 300 ms | ≤ 400 ms |
+| Cumulative Layout Shift (CLS) | ≤ 0.05 | ≤ 0.05 |
 
 #### Resource budgets
 
+Same on desktop and mobile:
+
 | Resource | Budget |
 |----------|--------|
-| HTML | 50 KB |
-| CSS | 100 KB |
-| JS | 200 KB |
-| Images | 500 KB |
-| Fonts | 100 KB |
-| **Total** | **1 MB** |
+| HTML | 30 KB |
+| CSS | 30 KB |
+| JS | 40 KB |
+| Images | 450 KB |
+| Fonts | 600 KB |
+| Third-party | 30 KB |
+| **Total** | **1,100 KB** |
 
-Budgets exceeded → Slack alert + workflow failure.
+The budgets also cap request counts (5 stylesheets, 6 scripts, 18 images, 6 fonts, 3 third-party). Every run posts its scores to Slack.
 
 ### Viewing Reports
 
@@ -257,7 +248,7 @@ gh run list --workflow=quality-checks.yml
 gh run download <run-id>
 ```
 
-Reports are retained for **30 days**.
+Reports are uploaded as workflow artifacts (kept for the repository's artifact retention period) and to Lighthouse's temporary public storage.
 
 ---
 

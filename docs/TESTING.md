@@ -30,12 +30,9 @@ python3 scripts/test_live_site_formatting.py
 python3 scripts/test_live_site_formatting.py --url https://jkcoukblog.pages.dev
 ```
 
-**Test specific post:**
-```bash
-python3 scripts/test_live_site_formatting.py --post https://jameskilby.co.uk/2025/12/post-slug/
-```
+`--url` is the only option; it sets the site to test (default: production).
 
-### What Gets Tested (14 Tests)
+### What Gets Tested (18 Tests)
 
 #### HTML & Structure
 - ✅ Valid DOCTYPE and HTML structure
@@ -68,6 +65,12 @@ python3 scripts/test_live_site_formatting.py --post https://jameskilby.co.uk/202
 - ✅ Internal links are not broken
 - ✅ WordPress-specific elements removed
 - ✅ Cache control headers present
+
+#### Security, Performance, Accessibility, Mobile
+- ✅ Security headers (CSP, X-Frame-Options and others)
+- ✅ Performance hints (preconnect, preload, lazy loading)
+- ✅ Basic accessibility checks
+- ✅ Mobile viewport and responsive layout
 
 ### Exit Codes
 - **0** = All tests passed ✅
@@ -113,7 +116,7 @@ export SINCE_TIMESTAMP="2025-01-01T00:00:00Z"
 python3 scripts/ollama_spell_checker.py
 ```
 
-**Check all recent posts:**
+**Check the default (last 5 posts):**
 ```bash
 python3 scripts/ollama_spell_checker.py
 ```
