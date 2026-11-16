@@ -197,7 +197,7 @@ Lighthouse/PSI lab scores are estimates.
 
 ```bash
 export CRUX_API_KEY=...        # free key: https://goo.gle/crux-api-key
-make crux                      # origin, PHONE form factor → docs/seo-audit-2026-06/crux-latest.json
+make crux                      # origin, PHONE form factor → data/crux-latest.json (same file the weekly workflow updates)
 python3 scripts/fetch_crux_metrics.py --form-factor DESKTOP
 python3 scripts/fetch_crux_metrics.py --url https://jameskilby.co.uk/some/post/
 ```
