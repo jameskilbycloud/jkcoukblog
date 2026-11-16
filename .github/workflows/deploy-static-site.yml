@@ -473,16 +473,6 @@ jobs:
         WP_AUTH_TOKEN: ${{ secrets.WP_AUTH_TOKEN }}
       run: bash "$RUNNER_TEMP/ci/generate_site.sh"
 
-    - name: Save incremental build cache
-      if: success()
-      uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-      with:
-        path: .build-cache.json
-        # Must match the restore key above — include run_attempt so re-runs
-        # don't fail with "Unable to reserve cache with key ... — another
-        # job may be creating this cache" against their own prior attempt.
-        key: incremental-build-cache-${{ github.run_id }}-${{ github.run_attempt }}
-
     # Saved here rather than at the end of the job: static-output is moved to
     # public/ in "Prepare output for deployment", and by then every file in it
     # has been through the optimisation passes. The snapshot is only useful as
@@ -879,6 +869,25 @@ jobs:
       id: commit_push
       timeout-minutes: 5
       run: bash "$RUNNER_TEMP/ci/publish_site.sh"
+
+    # Saved only once the site is published, not straight after generation.
+    # The cache records which posts are built as of last_build_time; the
+    # next run re-fetches only posts modified after that and seeds the rest
+    # from the published site. Saved by a run that then failed (e.g. the
+    # image step timing out, Nov 2026), it marked posts as built that never
+    # went live, so a later deploy would skip an edited post until the next
+    # full deploy. (The raw HTML snapshot above is still saved early: it is
+    # an input snapshot, and posts the cache doesn't count as built are
+    # regenerated over it.)
+    - name: Save incremental build cache
+      if: success()
+      uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: .build-cache.json
+        # Must match the restore key above — include run_attempt so re-runs
+        # don't fail with "Unable to reserve cache with key ... — another
+        # job may be creating this cache" against their own prior attempt.
+        key: incremental-build-cache-${{ github.run_id }}-${{ github.run_attempt }}
     - name: Notify on success
       if: success()
       run: |
