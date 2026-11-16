@@ -15,10 +15,20 @@ echo "🖼️  Starting advanced image optimization with AVIF..."
 # HTML transformer. optimize_images.py's own HTML pass rewrote ~250
 # pages per build for nothing — on the live build the transformer's
 # output was byte-identical with and without it.
+# A full re-encode (reencode_images=true) re-encodes every image (~4,300,
+# ~2.5h on 4 workers), so it uses every core; normal runs only encode new
+# images and keep 4 workers. -u: unbuffered, so progress lines reach the
+# log as they happen rather than in bursts.
 FORCE_FLAG=()
-[ "$REENCODE_IMAGES" = "true" ] && FORCE_FLAG=(--force)
-python3 scripts/optimize_images.py ./static-output \
-  --workers 4 \
+WORKERS=4
+if [ "$REENCODE_IMAGES" = "true" ]; then
+  FORCE_FLAG=(--force)
+  CORES=$(nproc 2>/dev/null || echo 4)
+  [ "$CORES" -gt "$WORKERS" ] && WORKERS=$CORES
+  echo "♻️  Full re-encode: $WORKERS workers"
+fi
+python3 -u scripts/optimize_images.py ./static-output \
+  --workers "$WORKERS" \
   --skip-html \
   "${FORCE_FLAG[@]}" \
   --json-output optimization-results.json \

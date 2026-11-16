@@ -156,7 +156,9 @@ jobs:
     # optimization (≤40m) back to back, which alone can exceed a 60m job
     # budget and get killed mid-image-pass. Incremental builds finish in a
     # fraction of this; the ceiling only bites on a cold first run.
-    timeout-minutes: 90  # Prevent workflow from running indefinitely
+    # A full re-encode (reencode_images=true) needs ~2.5h for images alone,
+    # so it gets 5h; every other run keeps the 90m ceiling.
+    timeout-minutes: ${{ github.event.inputs.reencode_images == 'true' && 300 || 90 }}
     
     steps:
     - name: Validate required environment variables
@@ -559,7 +561,10 @@ jobs:
         path: validation-report.json
 
     - name: Optimize images
-      timeout-minutes: 40  # Timeout for image optimization
+      # 40m covers incremental runs (seconds to minutes). A full re-encode
+      # of ~4,300 images timed out at 40m with 1,006 done (Nov 2026), and a
+      # timed-out run publishes nothing, so it gets 240m.
+      timeout-minutes: ${{ github.event.inputs.reencode_images == 'true' && 240 || 40 }}
       env:
         REENCODE_IMAGES: ${{ github.event.inputs.reencode_images }}
       run: bash "$RUNNER_TEMP/ci/optimize_images.sh"

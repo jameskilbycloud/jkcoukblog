@@ -32,7 +32,11 @@ workflow.
      leaves that to the transformer below. Doing both rewrote ~250 pages per
      build for nothing — the final HTML was byte-identical either way.
    - `--force` (`reencode_images=true`) re-encodes every source even when its
-     AVIF/WebP exist and the hash matches.
+     AVIF/WebP exist and the hash matches. That is ~4,300 images and about
+     2.5 hours on 4 workers, so a re-encode run uses every runner core, gets a
+     240-minute image step (5-hour job; normally 40 and 90), and logs progress
+     with an estimate of the time left every 250 images. A run that still
+     times out publishes nothing and keeps none of its work: re-run it.
 3. **The single-pass HTML transformer** (`html_transformer.py`) runs
    `convert_images_to_picture.py` over every page: `<picture>` with AVIF and
    WebP `<source>`s and the original as the `<img>` fallback. In the same pass,
