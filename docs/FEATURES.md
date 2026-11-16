@@ -257,7 +257,7 @@ Tested on: Chrome/Edge, Firefox, Safari
 Uses [Utterances](https://utteranc.es/) for GitHub-based comments integrated with the brutalist theme.
 
 ### Configuration
-- **GitHub Repository**: `Config.UTTERANCES_REPO` is still `jameskilbynet/jkcoukblog`, the repo's old name; GitHub redirects it to `jameskilbycloud/jkcoukblog`
+- **GitHub Repository**: `jameskilbycloud/jkcoukblog` (`Config.UTTERANCES_REPO`, the same as the code repo). It must be the current name: Utterances looks up each page's issue with GitHub's search API, which doesn't follow repo renames. The [Utterances app](https://github.com/apps/utterances) must be installed on this repo
 - **Theme**: GitHub Dark (matches brutalist theme)
 - **Issue Mapping**: By page pathname
 
