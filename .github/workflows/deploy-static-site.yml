@@ -760,9 +760,26 @@ jobs:
         fi
 
         # --require-browser: a run that can't launch Chromium exits non-zero
-        # instead of skipping with 0.
-        python3 scripts/test_interactive_ui.py ./static-output --require-browser
+        # instead of skipping with 0. Exit 1 means a UI test itself failed:
+        # flag it so the next step stops the deploy (setup problems, exits
+        # 2/3, stay non-blocking).
+        RC=0
+        python3 scripts/test_interactive_ui.py ./static-output --require-browser || RC=$?
+        if [ "$RC" -eq 1 ]; then
+          echo "ui_regression=true" >> "$GITHUB_OUTPUT"
+        fi
+        exit "$RC"
       continue-on-error: true
+
+    - name: Block deploy on interactive UI regressions
+      # The smoke test step above is continue-on-error so a broken browser
+      # setup never blocks a deploy, but a real UI failure must. In Nov 2026
+      # the related-posts carousel shipped collapsed (12,000px of empty page
+      # on every post) for three days while this test failed every run.
+      if: steps.smoke_tests.outputs.ui_regression == 'true'
+      run: |
+        echo "::error title=Interactive UI regression::A UI smoke test failed (see 'Interactive UI smoke tests' above). The site was not published."
+        exit 1
 
     - name: Validate HTML and deployment (parallel)
       id: validation

@@ -18,7 +18,9 @@ class of regression turns into a noisy CI failure instead of a stealth break.
 What it covers
 --------------
 1. Mobile menu drawer opens when the hamburger is tapped.
-2. Splide carousel on a known post page reaches `is-initialized` state.
+2. Splide carousel on a known post page reaches `is-initialized` state,
+   lays its slides out in a row and keeps a sane height.
+2b. Its prev/next arrows render a visible icon and actually move it.
 3. Sticky-header logic engages once you've scrolled.
 4. Sub-menu expansion — only if the site actually has nav items with
    children. Skipped automatically when none are present.
@@ -44,6 +46,8 @@ isn't an error. CI passes --require-browser, which turns a skip into exit 3:
 the deploy step is continue-on-error, so the deploy still goes out, but the
 skip is reported as a failed non-blocking step instead of passing silently
 (it did, on every run, while Playwright couldn't install on the runner's OS).
+Exit 1 (a UI test failed) is different: the deploy workflow's next step
+blocks the deploy on it.
 """
 
 import contextlib
@@ -256,8 +260,15 @@ class UISmokeTests:
                     // ~15 % of the viewport. Sabotaged carousels collapse
                     // to ~7 % (single column of intrinsic content width).
                     const minSlideW = viewportW * 0.15;
+                    // A collapsed carousel can also stack every slide into
+                    // one very tall, mostly empty section (Nov 2026: 12,000px).
+                    const section = document.querySelector('.splide');
+                    const sectionH = section.getBoundingClientRect().height;
+                    const maxSectionH = window.innerHeight * 2;
                     return {
-                        ok: slideW >= minSlideW,
+                        ok: slideW >= minSlideW && sectionH <= maxSectionH,
+                        sectionH: Math.round(sectionH),
+                        maxSectionH: Math.round(maxSectionH),
                         slideW: Math.round(slideW),
                         listW: Math.round(listW),
                         slideCount: slides.length,
@@ -277,11 +288,62 @@ class UISmokeTests:
                 if not why:
                     why = (
                         f"slides collapsed: slideW={layout['slideW']}px "
-                        f"< minSlideW={layout['minSlideW']}px on "
-                        f"viewport={layout['viewportW']}px — .splide__slide / "
-                        f".splide__list width rules likely stripped"
+                        f"(min {layout['minSlideW']}px), carousel height "
+                        f"{layout['sectionH']}px (max {layout['maxSectionH']}px) "
+                        f"on viewport={layout['viewportW']}px — .splide__list "
+                        f"is not laid out as a row (missing splide-initial "
+                        f"class, or .splide__slide / .splide__list rules stripped)"
                     )
                 self.record(name, False, f"initialised but layout broken — {why}")
+        finally:
+            context.close()
+
+    def test_splide_arrows_work(self, browser):
+        """Prev/next arrows show their icon and move the carousel.
+
+        Splide builds the arrow buttons in JS, so their core CSS (absolute
+        position, centred icon) is invisible to optimize_css and has to be
+        inlined by inline_css_fixups. Without it the theme's button padding
+        squeezed the 16px icon to 0px wide: two empty orange circles.
+        """
+        name = "Splide carousel arrows show an icon and move the slides"
+        url = urljoin(self.base_url, '2025/09/managing-my-homelab-with-semaphoreui/')
+        context = browser.new_context(viewport={'width': 1280, 'height': 800})
+        page = context.new_page()
+        try:
+            page.goto(url, wait_until='load', timeout=15_000)
+            try:
+                page.wait_for_selector('.splide.is-initialized .splide__arrow--next', timeout=8_000)
+            except PWTimeoutError:
+                self.record(name, False, "no arrows rendered (carousel never initialised?)")
+                return
+            arrows = page.evaluate(
+                """() => {
+                    const carousel = document.querySelector('.splide').getBoundingClientRect();
+                    return [...document.querySelectorAll('.splide__arrow')].map(btn => {
+                        const b = btn.getBoundingClientRect();
+                        const svg = btn.querySelector('svg');
+                        const i = svg ? svg.getBoundingClientRect() : {width: 0, height: 0};
+                        return {
+                            cls: btn.className,
+                            iconW: Math.round(i.width), iconH: Math.round(i.height),
+                            inside: b.left >= carousel.left - 1 && b.right <= carousel.right + 1,
+                        };
+                    });
+                }"""
+            )
+            bad = [a for a in arrows if a['iconW'] < 8 or a['iconH'] < 8 or not a['inside']]
+            if len(arrows) < 2 or bad:
+                self.record(name, False, f"arrow icon hidden or misplaced: {bad or arrows}")
+                return
+            before = page.evaluate("document.querySelector('.splide__list').style.transform")
+            page.click('.splide__arrow--next')
+            page.wait_for_timeout(1_000)
+            after = page.evaluate("document.querySelector('.splide__list').style.transform")
+            if before == after:
+                self.record(name, False, f"clicking next didn't move the slides ({before!r})")
+                return
+            self.record(name, True, f"{len(arrows)} arrows, icons {arrows[0]['iconW']}px, next moves slides")
         finally:
             context.close()
 
@@ -422,6 +484,7 @@ class UISmokeTests:
             try:
                 self.test_mobile_drawer_opens(browser)
                 self.test_splide_carousel_initializes(browser)
+                self.test_splide_arrows_work(browser)
                 self.test_sticky_header_engages_on_scroll(browser)
                 self.test_submenu_expands_on_hover(browser)
             finally:

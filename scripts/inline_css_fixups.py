@@ -184,7 +184,8 @@ class InlineCSSFixups:
         # Strip pre-baked Splide state classes from static HTML.
         # WordPress server-side rendering adds is-initialized/is-active/splide-initial
         # but without the JS these cause broken display (e.g. display:block on the list).
-        # Splide will re-add them correctly when it mounts.
+        # Splide re-adds is-* when it mounts; our init script below re-adds
+        # splide-initial (Splide itself never does).
         for carousel in carousels:
             classes = carousel.get('class', [])
             for cls in ['is-initialized', 'is-active', 'splide-initial', 'is-rendered']:
@@ -204,14 +205,18 @@ class InlineCSSFixups:
 
         # Add Splide arrow/pagination styles inline (CSS optimizer strips
         # them from the external stylesheet because JS-injected elements
-        # don't exist in the static HTML at build time)
+        # don't exist in the static HTML at build time). The arrow rules
+        # include Splide's own core layout (absolute, centred icon, flipped
+        # prev icon): without it the buttons sit in normal flow and the
+        # 16px icon is squeezed to 0px by the theme's button padding.
         if soup.head:
             splide_style = soup.new_tag('style')
             splide_style.string = """
-.splide button.splide__arrow{background:transparent!important;opacity:1!important;width:36px!important;height:36px!important;border-radius:50%!important;border:2px solid #f6821f!important;transition:all .2s!important}
+.splide button.splide__arrow{position:absolute!important;top:50%!important;transform:translateY(-50%)!important;z-index:1!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;background:transparent!important;opacity:1!important;width:36px!important;height:36px!important;border-radius:50%!important;border:2px solid #f6821f!important;transition:all .2s!important}
 .splide button.splide__arrow:hover{background:#f6821f!important}
 .splide button.splide__arrow svg{fill:#f6821f!important;width:16px!important;height:16px!important;transition:fill .2s!important}
 .splide button.splide__arrow:hover svg{fill:#0a0a0a!important}
+.splide button.splide__arrow--prev svg{transform:scaleX(-1)}
 .splide button.splide__arrow--prev{left:0.5em!important}
 .splide button.splide__arrow--next{right:0.5em!important}
 .splide .splide__pagination{padding:0.75rem 0!important}
@@ -249,6 +254,11 @@ document.addEventListener('DOMContentLoaded', function() {
     var speed = parseInt(el.dataset.sliderAnimSpeed || 400);
     var perMove = parseInt(el.dataset.sliderScroll || 1);
 
+    // The theme's only rule that lays the slides out in a row is
+    // `.splide.splide-initial .splide__list.grid-cols{display:flex}`; its
+    // own init (stripped above) added this class. Without it the list
+    // stays a CSS grid and every slide collapses to ~80px.
+    el.classList.add('splide-initial');
     new Splide(el, {
       type: loop ? 'loop' : 'slide',
       perPage: cols,
