@@ -15,7 +15,7 @@ Usage:
     python3 scripts/fetch_crux_metrics.py                 # origin, PHONE
     python3 scripts/fetch_crux_metrics.py --form-factor DESKTOP
     python3 scripts/fetch_crux_metrics.py --url https://jameskilby.co.uk/2024/10/foo/
-    python3 scripts/fetch_crux_metrics.py --out docs/seo-audit-2026-06/crux-latest.json
+    python3 scripts/fetch_crux_metrics.py --out data/crux-latest.json
 
 Exit codes:
     0  ran successfully (even if some targets had no field data — low-traffic

@@ -115,7 +115,7 @@ stats: ## Generate stats page (requires PLAUSIBLE_SHARE_LINK)
 # ─── SEO Monitoring ───────────────────────────────────────────────
 
 crux: ## Fetch real Core Web Vitals field data from CrUX (requires CRUX_API_KEY)
-	python3 scripts/fetch_crux_metrics.py --out docs/seo-audit-2026-06/crux-latest.json
+	python3 scripts/fetch_crux_metrics.py --out data/crux-latest.json
 
 drift: ## Check the built site for SEO drift against the committed baseline
 	python3 scripts/drift_baseline.py --check $(OUTPUT_DIR)
