@@ -1,6 +1,6 @@
 # Cloudflare Pages KV Bindings Setup
 
-The Cloudflare Pages Advanced Mode Worker (`_worker.template.js` → `public/_worker.js`) reads two KV namespaces and one secret from the Pages project bindings. These have to be configured in the **Cloudflare dashboard**, not in `wrangler.toml` — Pages does not read `wrangler.toml` for binding configuration.
+The Cloudflare Pages Advanced Mode Worker (`_worker.template.js` → `public/_worker.js`) reads two KV namespaces and a token used by the purge and diagnostic endpoints from the Pages project bindings. Other features need more Pages variables (`POWER_TOKEN`, `VMC_CSP_API_TOKEN`, `CF_ACCESS_TEAM_DOMAIN`, `CF_ACCESS_AUD`); [DEPLOYMENT.md](DEPLOYMENT.md) lists them all. These have to be configured in the **Cloudflare dashboard**, not in `wrangler.toml` — Pages does not read `wrangler.toml` for binding configuration.
 
 If you ever recreate the Pages project (or move it to a new Cloudflare account) you need to redo these steps once. After that the worker just picks them up automatically on every deploy.
 

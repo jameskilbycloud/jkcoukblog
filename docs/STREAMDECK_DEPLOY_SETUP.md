@@ -138,14 +138,14 @@ To automatically open the workflow page in your browser after triggering, edit t
 nano /Users/w20kilja/Github/jkcoukblog/scripts/streamdeck-deploy.sh
 ```
 
-Uncomment line 61:
+Uncomment line 60:
 ```bash
 # open "https://github.com/$REPO/actions/workflows/deploy-static-site.yml"
 ```
 
 ### Change Notification Sound
 
-Edit line 56 to use a different macOS sound:
+Edit line 55 to use a different macOS sound:
 ```bash
 osascript -e "display notification \"Deployment workflow triggered\" with title \"jkcoukblog Deploy\" sound name \"Submarine\""
 ```

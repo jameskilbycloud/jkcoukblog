@@ -17,32 +17,27 @@ This document covers all the major features implemented in the static site gener
 The static site generator automatically injects [Plausible Analytics](https://plausible.io/) tracking code into every generated page. This ensures consistent, privacy-focused analytics tracking across your entire site without requiring manual configuration in WordPress.
 
 ### Features
-- **Automatic Injection**: The generator automatically adds the Plausible script to every HTML page during static site generation
-- **Idempotent**: If the script already exists in WordPress, it updates the configuration rather than creating duplicates
-- **Fail-safe**: Works even if analytics are missing from WordPress templates
-- **Domain Verification**: Ensures `data-domain` is always set to `jameskilby.co.uk`
-- **Correct URL**: Uses the self-hosted Plausible instance at `https://plausible.jameskilby.cloud`
-- **Proper Attributes**: Adds the `defer` attribute for optimal page load performance
+- **Automatic injection**: the build adds the Plausible script to every HTML page
+- **Idempotent**: if WordPress already emits a Plausible script, its attributes are corrected instead of adding a second one
+- **Domain**: `data-domain` is always set to `jameskilby.co.uk`
+- **Same-origin script**: the page loads `/js/script.js` from the site itself; the Worker proxies it to the self-hosted Plausible instance (`Config.PLAUSIBLE_URL`), so no preconnect to a third-party host is needed. Old `dns-prefetch`/`preconnect` hints to the Plausible host are removed
+- **Attributes**: `defer`, and `data-cfasync="false"` so Cloudflare Rocket Loader leaves it alone
 
 ### Implementation
-Location: `wp_to_static_generator.py` in the `add_plausible_analytics()` method
+Location: `scripts/head_chrome_optimizations.py`, `add_plausible_analytics()`
 
-The generator adds this script tag to the `<head>` section of every page:
+The tag added to `<head>`:
 ```html
-<script defer="" src="https://plausible.jameskilby.cloud/js/script.js" data-domain="jameskilby.co.uk"></script>
+<script data-domain="jameskilby.co.uk" defer="" data-cfasync="false" src="/js/script.js"></script>
 ```
 
 ### Privacy
-- **Self-hosted**: Uses a self-hosted Plausible instance for full data control
-- **No cookies**: Plausible is cookie-free and doesn't require cookie banners
-- **GDPR compliant**: Plausible is designed for privacy compliance
-- **Lightweight**: The script is only ~1KB and loads asynchronously with `defer`
+- **Self-hosted**: Plausible Community Edition, so the data stays under our control
+- **No cookies**: no cookie banner needed
+- **Lightweight**: the script is about 1 KB and loads with `defer`
 
 ### Testing
-Run validation tests with:
-```bash
-python3 test_plausible_integration.py
-```
+`make test-csp` checks the CSP still allows Plausible, and `scripts/test_live_site_formatting.py` checks the script and its `data-domain` on the live site.
 
 ---
 
@@ -54,7 +49,7 @@ A powerful, fast, client-side search feature using Fuse.js for fuzzy searching.
 ### Features
 - ⚡ **Fast Client-Side Search**: No server required, instant results
 - 🔍 **Fuzzy Search**: Finds results even with typos
-- 🏷️ **Multi-field Search**: Searches titles, content, categories, and tags
+- 🏷️ **Multi-field Search**: Searches titles, descriptions and post content
 - 🎨 **Beautiful UI**: Modal overlay with highlighted search terms
 - ⌨️ **Keyboard Shortcuts**: Ctrl+K (Cmd+K on Mac) to quickly open search
 - 📱 **Mobile Friendly**: Responsive design that works on all devices
@@ -87,24 +82,20 @@ make deploy-local   # then open http://localhost:8080 and use the search box
 ### Search Capabilities
 - **Fuzzy Matching**: Finds "homelab" when you type "homelb"
 - **Multi-word Search**: "docker networking" finds posts about both topics
-- **Category/Tag Search**: Find all posts in specific categories
 - **Partial Matching**: "AI" finds "Artificial Intelligence"
 
 ### Configuration
-Edit `public/js/search.js` to customize search behavior:
+Edit `scripts/assets/js/search.js` (never the built copy in `public/`). The Fuse options:
 ```javascript
-const fuseOptions = {
-    keys: [
-        { name: 'title', weight: 0.4 },
-        { name: 'description', weight: 0.3 },
-        { name: 'content', weight: 0.2 },
-        { name: 'categories', weight: 0.05 },
-        { name: 'tags', weight: 0.05 }
-    ],
-    threshold: 0.4,  // Lower = more strict, Higher = more fuzzy
+new Fuse(index, {
+    keys: ['title', 'description', 'content'],
+    threshold: 0.4,          // Lower = stricter, higher = fuzzier
+    includeMatches: true,
+    ignoreLocation: true,
     minMatchCharLength: 2
-};
+});
 ```
+Each index entry holds `title`, `url`, `description` and `content`. Categories, tags and dates are not in the index.
 
 ### Performance
 - **Index Size**: Typically 50-200KB for a blog with 100+ posts
@@ -137,9 +128,9 @@ Automatically generates an RSS 2.0 feed from your static site content.
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Jameskilbycouk</title>
+    <title>James Kilby</title>
     <link>https://jameskilby.co.uk/</link>
-    <description>VMware and cloud infrastructure tutorials</description>
+    <description>VMware and cloud infrastructure tutorials, homelab guides, and DevOps insights</description>
     <language>en-gb</language>
     <lastBuildDate>Wed, 04 Dec 2025 12:00:00 +0000</lastBuildDate>
     <atom:link href="https://jameskilby.co.uk/feed/index.xml" rel="self" type="application/rss+xml" />
@@ -157,7 +148,7 @@ Automatically generates an RSS 2.0 feed from your static site content.
 ```
 
 ### Implementation
-Location: `wp_to_static_generator.py` in the `generate_rss_feed()` method (line 1022)
+Location: `scripts/site_artifacts_builder.py`, `generate_rss_feed()`
 
 The RSS feed is automatically generated during the static site build process.
 
@@ -179,10 +170,9 @@ curl -s https://jameskilby.co.uk/feed/index.xml | grep -c "<item>"
 - **Browser**: Most browsers will display RSS nicely
 
 ### Customization
-To customize the feed, edit `wp_to_static_generator.py`:
-- **Change post count**: Line 1097 - `posts = posts[:20]` (change 20 to desired number)
-- **Modify description**: Line 1112 - Update channel description
-- **Change title**: Line 1110 - Update feed title
+To customize the feed, edit `generate_rss_feed()` in `scripts/site_artifacts_builder.py`:
+- **Post count**: `posts = posts[:20]`
+- **Title and description**: the `<title>` and `<description>` lines in `rss_lines`
 
 ---
 
@@ -203,57 +193,42 @@ A brutalist dark theme inspired by [justfuckingusecloudflare.com](https://justfu
 - **Custom selection color**: Orange background when selecting text
 
 ### Files
-1. **`brutalist-theme.css`** - Complete CSS theme with all styling rules
-2. **`wp_to_static_generator.py`** - Modified to inject CSS into generated pages
-3. **`brutalist-theme-demo.html`** - Demo page to preview the theme
+- **`scripts/brutalist-theme.css`** — the theme, including the `@font-face` rules; the build copies it to `/assets/css/brutalist-theme.css`
+- **`scripts/head_chrome_optimizations.py`** — links the theme into every page's `<head>`
 
 ### How It Works
-When you run the static site generator, it will:
-1. Process HTML from WordPress
-2. Inject the brutalist theme CSS into the `<head>` section
-3. Update the theme-color meta tag for mobile browsers
-4. Apply dark theme to Utterances comments
+During generation the build:
+1. Processes the HTML from WordPress
+2. Adds a `preload` and a normal `<link rel="stylesheet">` for the theme. It loads synchronously on purpose: the browser must parse it to find the font URLs
+3. Updates the theme-color meta tag for mobile browsers
+4. Sets the Utterances comments to the dark theme
 
 ### Usage
-
-#### Preview the Theme
 ```bash
-open brutalist-theme-demo.html
+make generate        # needs WP_AUTH_TOKEN and access to WordPress
+make deploy-local    # preview on http://localhost:8080
 ```
-
-#### Generate Site with Theme
-```bash
-export WP_AUTH_TOKEN="your_token_here"
-python3 wp_to_static_generator.py ./static-output
-```
-
-#### Deploy to Staging
-```bash
-python3 deploy_static_site.py full ./static-output --git
-```
+To publish, merge to `main` and run `deploy-static-site.yml` (see [DEPLOYMENT.md](DEPLOYMENT.md)). A theme change only reaches the pages a build re-renders, so run **Force Full Deploy (no cache)** after merging one.
 
 ### Customization
 
 #### Colors
-Edit `brutalist-theme.css`:
+Edit `scripts/brutalist-theme.css`:
 ```css
 :root {
   --bg-dark: #0a0a0a;        /* Background color */
   --text-light: #fafafa;     /* Text color */
   --accent-orange: #f6821f;  /* Links, buttons, highlights */
   --gray-mid: #404040;       /* Borders */
-  --gray-light: #666666;     /* Meta text */
+  --gray-light: #949494;     /* Meta text */
 }
 ```
 
 #### Typography
-To use different fonts, modify the Google Fonts import in `brutalist-theme.css`:
-```css
-@import url('https://fonts.googleapis.com/css2?family=YourFont&display=swap');
-```
+Fonts are self-hosted WOFF2 files under `/assets/fonts/`, declared with `@font-face` at the top of `scripts/brutalist-theme.css` (`font-display: optional`). To change a font, add its WOFF2 file and update the matching `@font-face` rule. The build subsets all six font files to the characters the site uses (`scripts/subset_fonts.py`).
 
 #### Noise Intensity
-Adjust the noise overlay opacity in `brutalist-theme.css`:
+Adjust the noise overlay opacity in `scripts/brutalist-theme.css`:
 ```css
 body::before {
   opacity: 0.03;  /* Lower = less noise, Higher = more noise */
@@ -261,8 +236,8 @@ body::before {
 ```
 
 ### Performance Impact
-- **CSS file size**: ~11 KB uncompressed
-- **Font loading**: 3 Google Fonts families
+- **CSS file size**: about 68 KB uncompressed (before the build's unused-rule removal, minify and Brotli)
+- **Font loading**: 3 self-hosted families, 6 files, no third-party font requests
 - **Rendering**: No JavaScript required, pure CSS
 - **Mobile**: Optimized with responsive breakpoints
 
@@ -282,12 +257,12 @@ Tested on: Chrome/Edge, Firefox, Safari
 Uses [Utterances](https://utteranc.es/) for GitHub-based comments integrated with the brutalist theme.
 
 ### Configuration
-- **GitHub Repository**: jameskilbycloud/jkcoukblog
+- **GitHub Repository**: `Config.UTTERANCES_REPO` is still `jameskilbynet/jkcoukblog`, the repo's old name; GitHub redirects it to `jameskilbycloud/jkcoukblog`
 - **Theme**: GitHub Dark (matches brutalist theme)
 - **Issue Mapping**: By page pathname
 
 ### Implementation
-Comments are automatically configured during static site generation to match the site theme.
+`add_utterances_comments()` in `scripts/head_chrome_optimizations.py` adds the widget to posts during generation.
 
 ---
 
