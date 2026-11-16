@@ -142,7 +142,14 @@ Spell checking runs as the `spell-check` job of `deploy-static-site.yml`, after 
 
 ## UI smoke tests (Playwright)
 
-`scripts/test_interactive_ui.py` serves the build locally and drives headless Chromium through the JS-driven UI (mobile drawer, Splide carousel, sticky header, sub-menus). The deploy runs it after compression with `--require-browser`, so a run that can't launch Chromium fails the step instead of skipping silently. The step is `continue-on-error`: a failure is reported in "Report non-blocking step failures" and the Slack warning, and the deploy still goes out.
+`scripts/test_interactive_ui.py` serves the build locally and drives headless Chromium through the JS-driven UI (mobile drawer, Splide carousel layout and arrows, sticky header, sub-menus). The deploy runs it after compression with `--require-browser`, so a run that can't launch Chromium fails the step instead of skipping silently.
+
+What happens on failure depends on the exit code:
+
+- **Exit 1, a UI test failed: the deploy is blocked.** "Block deploy on interactive UI regressions" fails the job before anything is published, and Slack gets the failure notice. Added after the related-posts carousel shipped collapsed on every post for three days in November 2026 while this test failed every run.
+- **Exit 2 or 3, bad site directory or browser setup problem: non-blocking.** It is reported in "Report non-blocking step failures" and the Slack warning, and the deploy still goes out.
+
+A fix to page markup only reaches the posts a build re-renders, so after merging one, run **Force Full Deploy (no cache)** rather than a normal deploy.
 
 Playwright is pinned in `requirements-ui.txt` (Dependabot bumps it); the step installs the pin whenever the runner's copy differs, then `playwright install --only-shell chromium`.
 

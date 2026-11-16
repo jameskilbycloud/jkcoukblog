@@ -51,3 +51,30 @@ def test_page_without_carousel_untouched():
     soup = _run(THEME_BODY)
     assert _splide_srcs(soup) == [f'{THEME}/splide.min.js', f'{THEME}/splide-init.min.js']
     assert len(soup.find_all('link', rel='preload')) == 3
+
+
+def _init_js(soup):
+    return next(s.string for s in soup.find_all('script') if s.string and 'new Splide(' in s.string)
+
+
+def _inline_css(soup):
+    return ''.join(s.string or '' for s in soup.find_all('style'))
+
+
+def test_init_adds_splide_initial_before_mount():
+    # The theme lays the slides out in a row only under .splide.splide-initial;
+    # without it the list stays a grid and every slide collapses (Nov 2026).
+    js = _init_js(_run(CAROUSEL + THEME_BODY))
+    assert "el.classList.add('splide-initial')" in js
+    assert js.index("classList.add('splide-initial')") < js.index('new Splide(')
+
+
+def test_arrow_css_includes_splide_core_layout():
+    # Without Splide's core arrow rules the buttons sit in normal flow and
+    # the theme's button padding squeezes the icon to 0px wide.
+    css = _inline_css(_run(CAROUSEL + THEME_BODY))
+    arrow = css.split('.splide button.splide__arrow{', 1)[1].split('}', 1)[0]
+    for decl in ('position:absolute', 'display:flex', 'align-items:center',
+                 'justify-content:center', 'padding:0'):
+        assert decl in arrow
+    assert '.splide button.splide__arrow--prev svg{transform:scaleX(-1)}' in css
