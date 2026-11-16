@@ -212,7 +212,8 @@ skip unchanged posts. Run `force-full-deploy.yml` (or wait for Sunday's).
 
 **Images not converting to AVIF** — check the "Optimize images" step log for the
 file, and that the "Install dependencies" step's Pillow AVIF check passed. To
-re-encode everything, run `force-full-deploy.yml` with `reencode_images=true`.
+re-encode everything, run `force-full-deploy.yml` with `reencode_images=true`
+(allow a few hours: it holds the deploy queue until it finishes).
 
 **WordPress source validation fails**
 ```bash

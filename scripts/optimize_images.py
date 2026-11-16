@@ -469,6 +469,17 @@ class ImageOptimizer:
 
         return images
 
+    # A full re-encode (--force) is thousands of images and runs for hours;
+    # report progress so the log shows how far it got and how long is left.
+    PROGRESS_EVERY = 250
+
+    @staticmethod
+    def _print_progress(done: int, total: int, elapsed: float):
+        rate = done / elapsed if elapsed > 0 else 0
+        eta_min = (total - done) / rate / 60 if rate else 0
+        print(f"⏳ {done}/{total} images ({done * 100 // total}%) — "
+              f"{rate * 60:.0f}/min, ~{eta_min:.0f} min left", flush=True)
+
     def optimize_all_images(self, max_workers: int = 4, quality: int = 85):
         """
         Optimize all images in parallel
@@ -491,8 +502,12 @@ class ImageOptimizer:
                 for img in images
             }
 
+            done = 0
             for future in as_completed(futures):
-                result = future.result()
+                future.result()
+                done += 1
+                if done % self.PROGRESS_EVERY == 0 and done < len(images):
+                    self._print_progress(done, len(images), time.time() - start_time)
 
         duration = time.time() - start_time
 
