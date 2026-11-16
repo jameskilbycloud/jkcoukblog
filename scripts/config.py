@@ -91,10 +91,12 @@ class Config:
     # while GitHub keeps redirecting it.
     GITHUB_REPO = 'jameskilbycloud/jkcoukblog'
 
-    # GitHub repo (owner/name) whose issues back Utterances comments. The
-    # Utterances app must stay installed on this exact repo — do not change
-    # this to the code repo without migrating the comment issues.
-    UTTERANCES_REPO = 'jameskilbynet/jkcoukblog'
+    # GitHub repo (owner/name) whose issues back Utterances comments. It is
+    # the code repo: the comment issues moved with it to jameskilbycloud/.
+    # Must be the current name — Utterances finds a page's issue with the
+    # GitHub search API, which rejects the old name instead of following the
+    # redirect. The Utterances app must be installed on this repo.
+    UTTERANCES_REPO = GITHUB_REPO
 
     # Site logo, used as the default og:image fallback and the Organization
     # JSON-LD logo. Path is relative to TARGET_DOMAIN.
