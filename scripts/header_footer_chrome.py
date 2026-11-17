@@ -104,7 +104,7 @@ class HeaderFooterChrome:
         '<div id="blog-search-container" style="padding: 0; margin-bottom: 16px;">'
         '<div style="max-width: 480px; margin: 0 auto;">'
         '<div style="position: relative;">'
-        '<input type="text" id="blog-search-input" placeholder="Search posts…"'
+        '<input type="text" id="blog-search-input" aria-label="Search posts" placeholder="Search posts…"'
         ' style="width: 100%; padding: 10px 44px 10px 14px; font-size: 15px;'
         ' border: 1px solid #262625; border-radius: 0; outline: none;'
         ' box-sizing: border-box; background: #111110; color: #f5f3ee;'

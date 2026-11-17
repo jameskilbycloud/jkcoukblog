@@ -32,6 +32,7 @@ console.log('[Search] Script loaded');
                     <div style="position: relative;">
                         <input type="text"
                                id="blog-search-input"
+                               aria-label="Search posts"
                                placeholder="Search posts…"
                                style="width: 100%; padding: 10px 44px 10px 14px; font-size: 15px; border: 1px solid #262625; border-radius: 0; outline: none; box-sizing: border-box; background: #111110; color: #f5f3ee; transition: border-color 0.2s ease, box-shadow 0.2s ease; font-family: inherit;">
                         <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #7a766c; pointer-events: none; font-size: 12px; font-family: 'JetBrains Mono', monospace;">⌘K</span>
@@ -122,7 +123,7 @@ console.log('[Search] Script loaded');
             + 'align-items:flex-start;justify-content:center;padding:80px 20px 20px;'
             + 'animation:fadeIn 0.2s ease;';
         overlay.innerHTML = '<div style="max-width:650px;width:100%;position:relative;">'
-            + '<input type="text" id="blog-search-input" placeholder="Search posts…"'
+            + '<input type="text" id="blog-search-input" aria-label="Search posts" placeholder="Search posts…"'
             + ' autocomplete="off" style="width:100%;padding:16px 52px 16px 18px;'
             + 'font-size:18px;border:1px solid #33322e;border-radius:0;outline:none;'
             + 'box-sizing:border-box;background:#171613!important;color:#f5f3ee;'
