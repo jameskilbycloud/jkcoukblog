@@ -7,4 +7,4 @@
 # stops working when the runner's OS moves on (the runners are on Ubuntu 26.04;
 # 1.64.1 and later know it). The deploy step installs this pin whenever the
 # runner's copy differs.
-playwright==1.65.1
+playwright==1.65.2
