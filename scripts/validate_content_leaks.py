@@ -18,8 +18,10 @@ Checked on every HTML page:
   - footer structure: a page with a <footer> has exactly one .jk-footer-row
     and no empty <p> left behind by a strip
 
-Checked on /markdown/, /api/, llms*.txt, the search index, feeds and sitemaps:
+Checked on /markdown/, /api/, llms*.txt, the search index, feeds, sitemaps
+and stylesheets:
   - the Kadence credit
+  - sourceURL comments naming the private WordPress hostname
   - links to WordPress assets (wp-content / wp-includes on the private host),
     which are behind Cloudflare Access and break for readers
 
@@ -46,7 +48,7 @@ KADENCE_RE = re.compile(r'Theme by\s+Kadence|kadencewp\.com', re.I)
 WP_ASSET_RE = re.compile(r'https?://' + re.escape(WP_HOST) + r'/wp-(?:content|includes)/', re.I)
 WP_SOURCEURL_RE = re.compile(r'sourceURL=https?://' + re.escape(WP_HOST), re.I)
 
-TEXT_SUFFIXES = {'.md', '.json', '.txt', '.xml'}
+TEXT_SUFFIXES = {'.md', '.json', '.txt', '.xml', '.css'}
 MAX_PER_RULE = 10
 
 
@@ -73,6 +75,8 @@ def check_text(text):
     issues = []
     if KADENCE_RE.search(text):
         issues.append(('kadence-credit', 'Kadence theme credit present'))
+    if WP_SOURCEURL_RE.search(text):
+        issues.append(('wp-host', f'sourceURL comment names {WP_HOST}'))
     m = WP_ASSET_RE.search(text)
     if m:
         issues.append(('wp-asset-link', f'links to a WordPress asset ({m.group(0)}…)'))
@@ -126,7 +130,7 @@ def check_html(html):
     return issues
 
 
-def scan(site_dir, private_terms=()):
+def scan(site_dir, private_terms=(), public_terms=Config.PUBLIC_CONTENT_DENYLIST):
     """Return {rule: [(relative path, detail), ...]} for the whole build."""
     site = Path(site_dir)
     found = {}
@@ -138,7 +142,7 @@ def scan(site_dir, private_terms=()):
             continue
         text = path.read_text(encoding='utf-8', errors='replace')
         issues = check_html(text) if is_html else check_text(text)
-        issues += check_denylist(text, private_terms=private_terms)
+        issues += check_denylist(text, public_terms=public_terms, private_terms=private_terms)
         rel = str(path.relative_to(site))
         for rule, detail in issues:
             found.setdefault(rule, []).append((rel, detail))

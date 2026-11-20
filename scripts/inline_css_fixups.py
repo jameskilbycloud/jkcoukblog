@@ -72,6 +72,7 @@ class InlineCSSFixups:
     def extract_inline_css(self, soup, current_url):
         """Extract inline CSS to external files to reduce HTML payload"""
         import hashlib
+        from wordpress_cleanup import strip_wp_sourceurl
 
         # Find all inline style tags
         style_tags = soup.find_all('style')
@@ -89,7 +90,7 @@ class InlineCSSFixups:
 
             # Get style ID if present
             style_id = style_tag.get('id', 'inline-styles')
-            css_content = style_tag.string
+            css_content = strip_wp_sourceurl(style_tag.string)
 
             # Skip very small CSS blocks (< 100 bytes) - not worth extracting
             if len(css_content) < 100:

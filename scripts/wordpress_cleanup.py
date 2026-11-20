@@ -23,6 +23,24 @@ import re
 
 from bs4 import Comment
 
+from config import Config
+
+# WordPress appends `/*# sourceURL=https://<wp host>/wp-includes/... */` to
+# the block styles it inlines, which publishes the private CMS hostname.
+# inline_css_fixups extracts those styles to /assets/css/*.css and
+# html_transformer later inlines the small ones back, so both strip it;
+# validate_content_leaks.py fails the build on any left.
+WP_SOURCEURL_RE = re.compile(
+    r"/\*#\s*sourceURL=https?://" + re.escape(Config.WP_URL.split('://', 1)[-1])
+    + r"[^*]*\*/",
+    re.IGNORECASE,
+)
+
+
+def strip_wp_sourceurl(text):
+    """Remove sourceURL comments that name the private WordPress host."""
+    return WP_SOURCEURL_RE.sub('', text)
+
 
 class WordPressCleanup:
     """Strip WordPress-specific artifacts and convert embed blocks to plain

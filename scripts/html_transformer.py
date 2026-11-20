@@ -34,8 +34,7 @@ from enhance_html_performance import HTMLPerformanceEnhancer, normalize_self_hre
 from convert_images_to_picture import ImageToPictureConverter
 from extract_critical_css import CriticalCSSExtractor
 from minify_html import minify_html
-from wordpress_cleanup import WordPressCleanup
-from config import Config
+from wordpress_cleanup import WordPressCleanup, strip_wp_sourceurl
 
 
 class HTMLTransformer:
@@ -79,6 +78,7 @@ class HTMLTransformer:
             return
 
         print(f"🔄 Single-pass HTML transformer: {len(html_files)} files")
+        self._clean_extracted_css()
         start_time = time.time()
 
         for html_file in html_files:
@@ -129,15 +129,19 @@ class HTMLTransformer:
         re.IGNORECASE,
     )
 
-    # WordPress appends `/*# sourceURL=https://<wp host>/wp-includes/... */`
-    # to the block styles it inlines, which publishes the private CMS
-    # hostname on every page that carries them. Only comments naming the WP
-    # host are stripped; validate_content_leaks.py fails the build on any left.
-    _WP_SOURCEURL_RE = re.compile(
-        r"/\*#\s*sourceURL=https?://" + re.escape(Config.WP_URL.split('://', 1)[-1])
-        + r"[^*]*\*/",
-        re.IGNORECASE,
-    )
+    def _clean_extracted_css(self):
+        """Strip WP sourceURL comments from /assets/css/*.css before any page
+        inlines them (Phase 4.5). inline_css_fixups now writes them clean,
+        but files seeded from the previous deploy still carry the comment."""
+        cleaned = 0
+        for css in (self.public_dir / 'assets' / 'css').glob('*.css'):
+            text = css.read_text(encoding='utf-8')
+            stripped = strip_wp_sourceurl(text)
+            if stripped != text:
+                css.write_text(stripped, encoding='utf-8')
+                cleaned += 1
+        if cleaned:
+            print(f"   🧽 Stripped WP sourceURL comments from {cleaned} CSS file(s)")
 
     def _process_file(self, file_path):
         """Apply all transforms to a single HTML file in one parse cycle."""
@@ -157,8 +161,8 @@ class HTMLTransformer:
         # scrollbars are already 0.
         original_html = self._SCROLLBAR_OFFSET_SCRIPT_RE.sub('', original_html)
 
-        # ── Phase 0a.2: Strip WP sourceURL comments (see _WP_SOURCEURL_RE) ─
-        original_html = self._WP_SOURCEURL_RE.sub('', original_html)
+        # ── Phase 0a.2: Strip WP sourceURL comments (see WP_SOURCEURL_RE) ──
+        original_html = strip_wp_sourceurl(original_html)
 
         # String-level phases change the page without touching the soup, so
         # they count as a modification on their own; otherwise a page whose
