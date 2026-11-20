@@ -84,15 +84,22 @@ class WordPressCleanup:
             comment.extract()
             print("   🗑️  Removed Rank Math HTML comments")
 
-        # Remove Kadence WP footer credit/links
-        for link in soup.find_all('a', href=lambda x: x and 'kadencewp.com' in x):
-            # Remove the parent paragraph or just the link
-            parent = link.parent
-            if parent and parent.name == 'p' and 'WordPress Theme by' in parent.get_text():
-                parent.decompose()
+        # Remove the Kadence footer credit ("WordPress Theme by Kadence WP"),
+        # whether it links to kadencewp.com or is plain text. The whole line
+        # goes (the nearest <p> holding "Theme by"), so no orphaned
+        # "WordPress Theme by" text is left behind.
+        credits = soup.find_all('a', href=lambda x: x and 'kadencewp.com' in x)
+        credits += [s.parent for s in soup.find_all(string=re.compile(r'Theme by\s+Kadence', re.I))
+                    if s.parent is not None]
+        for el in credits:
+            if el.decomposed:
+                continue
+            line = el if el.name == 'p' else el.find_parent('p')
+            if line is not None and 'theme by' in line.get_text().lower():
+                line.decompose()
                 print("   🗑️  Removed Kadence WP footer credit")
             else:
-                link.decompose()
+                el.decompose()
 
         # Remove the wp-emoji loader. WordPress inlines an emoji-detection script
         # that spins up a Web Worker from a blob: URL to test emoji rendering.
