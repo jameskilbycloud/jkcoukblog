@@ -16,7 +16,7 @@ WORKERS ?= 4
 .PHONY: help build generate optimize validate validate-source test-csp \
         spell-check deploy-local clean install install-dev purge-kv-cache \
         purge-kv-cache-dry-run crux drift drift-snapshot fetch-site lint test \
-        validate-content validate-html validate-deployment optimize-images \
+        validate-content validate-html validate-deployment validate-leaks optimize-images \
         optimize-css optimize-html internal-links minify-js compress \
         indexnow changelog stats
 
@@ -63,7 +63,10 @@ validate-html: ## Validate final HTML structure
 validate-deployment: ## Post-optimisation deployment validation
 	python3 scripts/validate_deployment.py $(OUTPUT_DIR)
 
-validate: test-csp validate-html validate-deployment ## Run all validation checks
+validate-leaks: ## Fail on WordPress leftovers or denylisted words in the build
+	python3 scripts/validate_content_leaks.py $(OUTPUT_DIR)
+
+validate: test-csp validate-html validate-deployment validate-leaks ## Run all validation checks
 
 # ─── Lint + Unit Tests (mirrors .github/workflows/python-checks.yml) ──
 

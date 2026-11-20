@@ -34,6 +34,8 @@ from enhance_html_performance import HTMLPerformanceEnhancer, normalize_self_hre
 from convert_images_to_picture import ImageToPictureConverter
 from extract_critical_css import CriticalCSSExtractor
 from minify_html import minify_html
+from wordpress_cleanup import WordPressCleanup
+from config import Config
 
 
 class HTMLTransformer:
@@ -127,9 +129,19 @@ class HTMLTransformer:
         re.IGNORECASE,
     )
 
+    # WordPress appends `/*# sourceURL=https://<wp host>/wp-includes/... */`
+    # to the block styles it inlines, which publishes the private CMS
+    # hostname on every page that carries them. Only comments naming the WP
+    # host are stripped; validate_content_leaks.py fails the build on any left.
+    _WP_SOURCEURL_RE = re.compile(
+        r"/\*#\s*sourceURL=https?://" + re.escape(Config.WP_URL.split('://', 1)[-1])
+        + r"[^*]*\*/",
+        re.IGNORECASE,
+    )
+
     def _process_file(self, file_path):
         """Apply all transforms to a single HTML file in one parse cycle."""
-        original_html = file_path.read_text(encoding='utf-8')
+        raw_html = original_html = file_path.read_text(encoding='utf-8')
         original_size = len(original_html.encode('utf-8'))
 
         # ── Phase 0a: Strip the Kadence scrollbar-offset script ─────────
@@ -145,6 +157,14 @@ class HTMLTransformer:
         # scrollbars are already 0.
         original_html = self._SCROLLBAR_OFFSET_SCRIPT_RE.sub('', original_html)
 
+        # ── Phase 0a.2: Strip WP sourceURL comments (see _WP_SOURCEURL_RE) ─
+        original_html = self._WP_SOURCEURL_RE.sub('', original_html)
+
+        # String-level phases change the page without touching the soup, so
+        # they count as a modification on their own; otherwise a page whose
+        # soup passes are all no-ops would never be written back.
+        string_modified = original_html != raw_html
+
         # ── Phase 0b: Aggressive string-level cleanup ───────────────────
         # Seeded files from public/ may carry accumulated corruption from
         # prior pipeline runs (orphaned </noscript> tags, preload links
@@ -153,7 +173,13 @@ class HTMLTransformer:
 
         # Parse once
         soup = BeautifulSoup(html, 'html.parser')
-        modified = False
+        modified = string_modified
+
+        # ── Phase 0c: Kadence footer credit ─────────────────────────────
+        # The generator strips it from regenerated pages; this catches pages
+        # seeded from the previous deploy that were never regenerated.
+        if WordPressCleanup.remove_kadence_credit(soup):
+            modified = True
 
         # ── Phase 1: SEO fixes ──────────────────────────────────────────
         if self._apply_seo_fixes(soup, file_path):

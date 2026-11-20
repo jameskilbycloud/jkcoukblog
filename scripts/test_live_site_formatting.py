@@ -261,7 +261,15 @@ class LiveSiteFormattingTester:
             all_good = False
         else:
             self.log_success("WordPress admin bar removed")
-            
+
+        # Check for the Kadence theme footer credit
+        if soup.find('a', href=lambda x: x and 'kadencewp.com' in x) or \
+                re.search(r'Theme by\s+Kadence', soup.get_text(), re.I):
+            self.log_error("Kadence 'WordPress Theme by' footer credit still present")
+            all_good = False
+        else:
+            self.log_success("Kadence footer credit removed")
+
         return all_good
         
     def test_images(self, html: str, sample_size: int = 10) -> bool:
