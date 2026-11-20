@@ -50913,5 +50913,215 @@
     "avif_created": true,
     "webp": "wp-content/uploads/2026/11/A10-in-Z840-scaled-480x360.webp",
     "avif": "wp-content/uploads/2026/11/A10-in-Z840-scaled-480x360.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-native-ai-diagram-300x160.png": {
+    "hash": "c2a039461817f6a3d5f4d261360168df",
+    "optimized_at": "2026-11-20T16:29:32.388987",
+    "optimized_size": 4838,
+    "timestamp": 1795192172.3890011,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-native-ai-diagram-300x160.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-native-ai-diagram-300x160.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-ai-filing-diagram-300x180.png": {
+    "hash": "80d0decffce80fc37d250aa90c787b3f",
+    "optimized_at": "2026-11-20T16:29:32.812960",
+    "optimized_size": 6288,
+    "timestamp": 1795192172.8129735,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-ai-filing-diagram-300x180.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-ai-filing-diagram-300x180.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-native-ai-diagram-150x150.png": {
+    "hash": "b70843c9beef80e6848f8ac76610e499",
+    "optimized_at": "2026-11-20T16:29:33.134894",
+    "optimized_size": 3312,
+    "timestamp": 1795192173.1349072,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-native-ai-diagram-150x150.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-native-ai-diagram-150x150.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-ai-filing-diagram-768x461.png": {
+    "hash": "ca386190d57ab68f54253d5f3e80c941",
+    "optimized_at": "2026-11-20T16:29:38.292499",
+    "optimized_size": 25394,
+    "timestamp": 1795192178.292514,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-ai-filing-diagram-768x461.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-ai-filing-diagram-768x461.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-ai-filing-diagram-150x150.png": {
+    "hash": "a971a131183c6c66de9aedd0dde97e48",
+    "optimized_at": "2026-11-20T16:29:39.721876",
+    "optimized_size": 3426,
+    "timestamp": 1795192179.7218883,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-ai-filing-diagram-150x150.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-ai-filing-diagram-150x150.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-native-ai-diagram-1024x546.png": {
+    "hash": "cf117eb155266b112b0762b15ac9107a",
+    "optimized_at": "2026-11-20T16:29:46.018959",
+    "optimized_size": 30692,
+    "timestamp": 1795192186.0189722,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-native-ai-diagram-1024x546.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-native-ai-diagram-1024x546.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-stack-diagram-768x461.png": {
+    "hash": "6bfeefbd892cce9c40dd5ce1c62adf17",
+    "optimized_at": "2026-11-20T16:29:48.478153",
+    "optimized_size": 24294,
+    "timestamp": 1795192188.478167,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-stack-diagram-768x461.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-stack-diagram-768x461.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-stack-diagram-1536x922.png": {
+    "hash": "c267dcdf45f5b118b85299c2e3c0b2e5",
+    "optimized_at": "2026-11-20T16:29:55.344205",
+    "optimized_size": 60860,
+    "timestamp": 1795192195.3442338,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-stack-diagram-1536x922.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-stack-diagram-1536x922.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-native-ai-diagram-1536x819.png": {
+    "hash": "2c6484eae55212d1413992df38025f60",
+    "optimized_at": "2026-11-20T16:29:56.744136",
+    "optimized_size": 54098,
+    "timestamp": 1795192196.7441485,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-native-ai-diagram-1536x819.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-native-ai-diagram-1536x819.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-native-ai-diagram-2048x1092.png": {
+    "hash": "e000b407572cabbedbbd180b3cbfca4c",
+    "optimized_at": "2026-11-20T16:30:24.339448",
+    "optimized_size": 73108,
+    "timestamp": 1795192224.3394723,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-native-ai-diagram-2048x1092.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-native-ai-diagram-2048x1092.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-stack-diagram-2048x1229.png": {
+    "hash": "7b4277ac177cf8b92befab3454038505",
+    "optimized_at": "2026-11-20T16:30:30.925637",
+    "optimized_size": 83508,
+    "timestamp": 1795192230.9256492,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-stack-diagram-2048x1229.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-stack-diagram-2048x1229.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-native-ai-diagram.png": {
+    "hash": "587ee1a24f175ce98c57a0cc9f6c7770",
+    "optimized_at": "2026-11-20T16:30:47.975034",
+    "optimized_size": 89952,
+    "timestamp": 1795192247.9750464,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-native-ai-diagram.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-native-ai-diagram.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-ai-filing-diagram-1536x922.png": {
+    "hash": "0a95436af326fe7c3f5968a327380801",
+    "optimized_at": "2026-11-20T16:30:51.969933",
+    "optimized_size": 64244,
+    "timestamp": 1795192251.9699457,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-ai-filing-diagram-1536x922.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-ai-filing-diagram-1536x922.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-stack-diagram-150x150.png": {
+    "hash": "40c96dd40754958218b92dc0bc004f97",
+    "optimized_at": "2026-11-20T16:30:53.438983",
+    "optimized_size": 3060,
+    "timestamp": 1795192253.4389963,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-stack-diagram-150x150.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-stack-diagram-150x150.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-ai-filing-diagram.png": {
+    "hash": "ac5c47f6a4ae39c40bbcf42915f23959",
+    "optimized_at": "2026-11-20T16:30:53.765312",
+    "optimized_size": 112296,
+    "timestamp": 1795192253.7653372,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-ai-filing-diagram.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-ai-filing-diagram.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-stack-diagram-300x180.png": {
+    "hash": "89a3645a6fb760050651bc8215836d6a",
+    "optimized_at": "2026-11-20T16:30:56.904915",
+    "optimized_size": 5726,
+    "timestamp": 1795192256.9049284,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-stack-diagram-300x180.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-stack-diagram-300x180.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-native-ai-diagram-768x410.png": {
+    "hash": "5bda70fde38899b4081e271197a331bc",
+    "optimized_at": "2026-11-20T16:31:01.209880",
+    "optimized_size": 20792,
+    "timestamp": 1795192261.2098927,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-native-ai-diagram-768x410.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-native-ai-diagram-768x410.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-ai-filing-diagram-1024x614.png": {
+    "hash": "8121df756f8e18e6eb39a861bd522458",
+    "optimized_at": "2026-11-20T16:31:01.637667",
+    "optimized_size": 37536,
+    "timestamp": 1795192261.63768,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-ai-filing-diagram-1024x614.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-ai-filing-diagram-1024x614.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-stack-diagram-1024x614.png": {
+    "hash": "f16d279d425cb232e5ac65529b81eec8",
+    "optimized_at": "2026-11-20T16:31:14.347211",
+    "optimized_size": 36306,
+    "timestamp": 1795192274.347223,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-stack-diagram-1024x614.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-stack-diagram-1024x614.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-stack-diagram.png": {
+    "hash": "17d0a112f3d7249511a7b4c45ba310bf",
+    "optimized_at": "2026-11-20T16:31:20.059332",
+    "optimized_size": 106424,
+    "timestamp": 1795192280.0593445,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-stack-diagram.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-stack-diagram.avif"
+  },
+  "wp-content/uploads/2026/11/paperless-ai-filing-diagram-2048x1229.png": {
+    "hash": "eb33bf7428b331bce8f095d1ed78ca4e",
+    "optimized_at": "2026-11-20T16:31:22.129801",
+    "optimized_size": 90390,
+    "timestamp": 1795192282.1298137,
+    "webp_created": true,
+    "avif_created": true,
+    "webp": "wp-content/uploads/2026/11/paperless-ai-filing-diagram-2048x1229.webp",
+    "avif": "wp-content/uploads/2026/11/paperless-ai-filing-diagram-2048x1229.avif"
   }
 }
