@@ -1,0 +1,37 @@
+{
+  "year": 2025,
+  "month": 9,
+  "month_name": "September",
+  "posts": [
+    {
+      "slug": "managing-my-homelab-with-semaphoreui",
+      "title": "Managing my Homelab with SemaphoreUI",
+      "description": "Set up SemaphoreUI in Docker and run Ansible from a web UI. Step by step: the compose file, repositories, key store, inventory and a first playbook.",
+      "date": "2025-09-02T16:01:48Z",
+      "modified": "2026-11-17T08:08:19Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/",
+      "markdown_url": "/markdown/posts/managing-my-homelab-with-semaphoreui.md",
+      "api_url": "/api/posts/managing-my-homelab-with-semaphoreui.json",
+      "categories": [
+        "Ansible",
+        "Homelab",
+        "Hosting",
+        "Nutanix",
+        "Artificial Intelligence",
+        "Docker",
+        "Storage",
+        "Networking",
+        "Mikrotik"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png",
+      "excerpt": "![SemaphoreUI logo](https://jameskilby.co.uk/wp-content/uploads/2025/07/semaphore.png)\n\n[Ansible](https://jameskilby.co.uk/category/ansible/) | [Homelab](https://jameskilby.co.uk/category/homelab/)\n\n# Managing my Homelab with SemaphoreUI\n\nBy[James Kilby](https://jameskilby.co.uk) September 2, 2025 ·..."
+    }
+  ]
+}

@@ -1,0 +1,1293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://jameskilby.co.uk/</loc>
+    <lastmod>2026-11-20</lastmod>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/packer-github-actions-vsphere-pipeline-768x452.png</image:loc>
+      <image:title>Diagram of the Packer, GitHub Actions and vSphere golden image pipeline</image:title>
+      <image:caption>Diagram of the Packer, GitHub Actions and vSphere golden image pipeline</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2017/05/money-saving-uk-version/</loc>
+    <lastmod>2026-07-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2018/01/lab-storage/</loc>
+    <lastmod>2026-06-01</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2018/01/nutanix-ce/</loc>
+    <lastmod>2026-06-01</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2018/03/aws-for-beginners1/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/AWS_Services.gif</image:loc>
+      <image:title>Overview of AWS services: EC2, RDS, Direct Connect, EBS, S3, Elastic Load Balancing, Route 53, VPC and Elastic IP</image:title>
+      <image:caption>Overview of AWS services: EC2, RDS, Direct Connect, EBS, S3, Elastic Load Balancing, Route 53, VPC and Elastic IP</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2018/03/cloudflare/</loc>
+    <lastmod>2026-06-01</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2018/04/nutanix-life-cycle-manager/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screen-Shot-2018-02-14-at-19.38.25-1024x238.png</image:loc>
+      <image:title>Nutanix Life Cycle Manager dashboard showing an available Cluster Software Component update</image:title>
+      <image:caption>Nutanix Life Cycle Manager dashboard showing an available Cluster Software Component update</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screen-Shot-2018-02-14-at-19.38.36-2-1024x486.png</image:loc>
+      <image:title>Nutanix Life Cycle Manager inventory screen before any updates have been run</image:title>
+      <image:caption>Nutanix Life Cycle Manager inventory screen before any updates have been run</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2018/04/DeviceToUpdate.png</image:loc>
+      <image:title>Nutanix Life Cycle Manager listing available firmware updates on a three-node cluster</image:title>
+      <image:caption>Nutanix Life Cycle Manager listing available firmware updates on a three-node cluster</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2018/05/aws-status-page-monitoring-included/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screen-Shot-2018-05-15-at-22.39.01.png</image:loc>
+      <image:title>Pingdom chart of jameskilby.co.uk average readable time and total load time</image:title>
+      <image:caption>Pingdom chart of jameskilby.co.uk average readable time and total load time</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2018/06/nutanix-command-reference-guide/</loc>
+    <lastmod>2026-07-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2018/10/and-now-for-something-completely-different/</loc>
+    <lastmod>2026-07-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2018/12/new-laptop/</loc>
+    <lastmod>2026-06-01</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2019/01/whats-in-my-backpack/</loc>
+    <lastmod>2026-06-01</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2019/02/lab-storage-2/</loc>
+    <lastmod>2026-06-05</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/iu-768x432-1.jpg</image:loc>
+      <image:title>Lab Storage</image:title>
+      <image:caption>Lab Storage</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2019/12/aws-solution-architect-associate/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2019/12/monitoring-vmc-part-1/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/VMC-Vms-1024x296.png</image:loc>
+      <image:title>vCenter VM list in VMware Cloud on AWS</image:title>
+      <image:caption>vCenter VM list in VMware Cloud on AWS</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2019-12-17-at-21.19.40-1024x500.png</image:loc>
+      <image:title>vCenter cluster resource overview in VMware Cloud on AWS</image:title>
+      <image:caption>vCenter cluster resource overview in VMware Cloud on AWS</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2019-12-17-at-21.19.30-1024x472.png</image:loc>
+      <image:title>vCenter datastore performance chart for the last hour</image:title>
+      <image:caption>vCenter datastore performance chart for the last hour</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2020/06/veeamon2020/</loc>
+    <lastmod>2026-06-01</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2020/07/i3en/</loc>
+    <lastmod>2026-06-05</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2020/07/nutanix-ncp/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2020/09/vmc-host-errors/</loc>
+    <lastmod>2026-06-05</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2020-08-27-at-16.56.37-1536x182-2-1024x121.png</image:loc>
+      <image:title>VMC Host Errors Screenshot</image:title>
+      <image:caption>VMC Host Errors Screenshot</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2020/09/vmware-certified-master-specialist-hci-2020/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2020/12/my-first-pull/</loc>
+    <lastmod>2026-06-05</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2021/01/hashicorp-packer/</loc>
+    <lastmod>2026-06-05</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2021/01/my-home-office-setup-upgrades/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7017-scaled-1-1024x768.jpeg</image:loc>
+      <image:title>Home office desk with ultrawide monitor, ring light and microphone arm</image:title>
+      <image:caption>Home office desk with ultrawide monitor, ring light and microphone arm</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7021-scaled-1-1-1024x768.jpeg</image:loc>
+      <image:title>Camera mounted in the centre of a ring light</image:title>
+      <image:caption>Camera mounted in the centre of a ring light</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2021-01-15-at-00.09.45-1024x567.png</image:loc>
+      <image:title>Webcam view of James Kilby wearing headphones in his home office</image:title>
+      <image:caption>Webcam view of James Kilby wearing headphones in his home office</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7021-scaled-1-1024x768.jpeg</image:loc>
+      <image:title>Camera mounted in the centre of a ring light</image:title>
+      <image:caption>Camera mounted in the centre of a ring light</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7023-scaled-1-1024x768.jpeg</image:loc>
+      <image:title>Shure microphone on a boom arm in front of the monitor</image:title>
+      <image:caption>Shure microphone on a boom arm in front of the monitor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_7022-scaled-1-1024x768.jpeg</image:loc>
+      <image:title>Blackmagic ATEM Mini video switcher on the desk</image:title>
+      <image:caption>Blackmagic ATEM Mini video switcher on the desk</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2021-01-15-at-02.06.47.png</image:loc>
+      <image:title>macOS display settings showing a Dell U4919DW and a Blackmagic HDMI display</image:title>
+      <image:caption>macOS display settings showing a Dell U4919DW and a Blackmagic HDMI display</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2021/02/apple-content-caching/</loc>
+    <lastmod>2026-07-11</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2021-02-05-at-23.55.08.png</image:loc>
+      <image:title>Cache Served Graph</image:title>
+      <image:caption>Cache Served Graph</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2021-02-08-at-12.56.43.png</image:loc>
+      <image:title>Apple Content Caching Screenshot</image:title>
+      <image:caption>Apple Content Caching Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2021-02-08-at-12.57.20-2-1020x1024.png</image:loc>
+      <image:title>Apple Content Caching Screenshot</image:title>
+      <image:caption>Apple Content Caching Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2021-02-08-at-12.57.46-1024x827.png</image:loc>
+      <image:title>Apple Content Caching Screenshot</image:title>
+      <image:caption>Apple Content Caching Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2021-02-08-at-12.57.37-1.png</image:loc>
+      <image:title>Apple Content Caching Screenshot</image:title>
+      <image:caption>Apple Content Caching Screenshot</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2022/01/cloudflare-workers-limits-of-the-free-tier/</loc>
+    <lastmod>2026-07-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2022/01/lab-update-part-1-compute/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_4536-scaled-1-768x1024.jpg</image:loc>
+      <image:title>Lab Update - Compute</image:title>
+      <image:caption>Lab Update - Compute</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2022/01/lab-update-part-2-storage/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/iu-1.jpeg</image:loc>
+      <image:title>Lab Update - Part 2 Storage Truenas Scale</image:title>
+      <image:caption>Lab Update - Part 2 Storage Truenas Scale</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2022/01/Screenshot-2022-01-17-at-09.11.14.png</image:loc>
+      <image:title>Lab Update - Part 2 Storage Truenas Scale Screenshot</image:title>
+      <image:caption>Lab Update - Part 2 Storage Truenas Scale Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2022/01/NVMe.png</image:loc>
+      <image:title>Lab Update - Part 2 Storage Truenas Scale</image:title>
+      <image:caption>Lab Update - Part 2 Storage Truenas Scale</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2022/01/Screenshot-2022-01-17-at-09.07.00.png</image:loc>
+      <image:title>Lab Update - Part 2 Storage Truenas Scale Screenshot</image:title>
+      <image:caption>Lab Update - Part 2 Storage Truenas Scale Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2022/01/Synology-1024x725.png</image:loc>
+      <image:title>CrystalDiskMark results for Synology storage</image:title>
+      <image:caption>CrystalDiskMark results for Synology storage</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2022/01/lab-update-part-3-network/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2022/01/lab-update-part-5-desired-workloads/</loc>
+    <lastmod>2026-06-01</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2022/01/web-development/</loc>
+    <lastmod>2026-07-11</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2021-12-19-at-19.30.43-2048x751-1-1024x376.png</image:loc>
+      <image:title>Web performance report</image:title>
+      <image:caption>Web performance report</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2022/01/wrangler-and-node-versions/</loc>
+    <lastmod>2026-07-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2022/10/how-i-moved-my-wordpress-site-to-cloudflare-pages/</loc>
+    <lastmod>2026-07-11</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2022-10-19-at-23.02.09-2048x860-1-1024x430.png</image:loc>
+      <image:title>Screenshot 2022 10 19 at 23.02.09 1</image:title>
+      <image:caption>Screenshot 2022 10 19 at 23.02.09 1</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2022/10/Screenshot-2022-07-09-at-17.29.07-2048x1191-1-1024x596.png</image:loc>
+      <image:title>Static WordPress hosting using Cloudflare Screenshot</image:title>
+      <image:caption>Static WordPress hosting using Cloudflare Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2022-07-09-at-18.53.21-1024x925.png</image:loc>
+      <image:title>Static WordPress hosting using Cloudflare Screenshot</image:title>
+      <image:caption>Static WordPress hosting using Cloudflare Screenshot</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2022/10/starlink/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2022-10-05-at-12.56.21-1-1024x187.png</image:loc>
+      <image:title>Chart of packet loss on the WAN interfaces</image:title>
+      <image:caption>Chart of packet loss on the WAN interfaces</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_8711-805x1024.png</image:loc>
+      <image:title>Starlink app speed test: 510 Mbps Wi-Fi and 171 Mbps Starlink</image:title>
+      <image:caption>Starlink app speed test: 510 Mbps Wi-Fi and 171 Mbps Starlink</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_8718-710x1536-1-473x1024.png</image:loc>
+      <image:title>IMG 8718 1</image:title>
+      <image:caption>IMG 8718 1</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2022-10-11-at-13.03.37-2048x695-1-1024x348.png</image:loc>
+      <image:title>Screenshot 2022 10 11 at 13.03.37 1</image:title>
+      <image:caption>Screenshot 2022 10 11 at 13.03.37 1</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2022/11/homelab-bad-days-almost/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2022-11-14-at-20.56.39.png</image:loc>
+      <image:title>Homelab bad days (almost) Screenshot</image:title>
+      <image:caption>Homelab bad days (almost) Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Drive-Errors-2048x236-1-1024x118.png</image:loc>
+      <image:title>Synology log of drive errors</image:title>
+      <image:caption>Synology log of drive errors</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2022-11-21-at-16.43.51.png</image:loc>
+      <image:title>Homelab bad days (almost) Screenshot</image:title>
+      <image:caption>Homelab bad days (almost) Screenshot</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2022/12/100gb-s-in-my-homelab-sort-of/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/2157_hi_res-1024x462.png</image:loc>
+      <image:title>MikroTik CRS504 100GbE switch</image:title>
+      <image:caption>MikroTik CRS504 100GbE switch</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2022/12/forcing-an-upgrade-to-vsphere-8/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-12-14-at-21.24.32-1024x245.png</image:loc>
+      <image:title>vSphere warning that the host is not compatible with the image</image:title>
+      <image:caption>vSphere warning that the host is not compatible with the image</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2022/12/use-portainer-in-a-homelab-with-github/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-11-21-at-17.36.13-1024x638.png</image:loc>
+      <image:title>Portainer platform architecture diagram</image:title>
+      <image:caption>Portainer platform architecture diagram</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/Screenshot-2022-11-21-at-17.59.31.png</image:loc>
+      <image:title>Portainer Stacks page with the Add stack button</image:title>
+      <image:caption>Portainer Stacks page with the Add stack button</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2022/12/Screenshot-2022-11-22-at-11.56.52-2048x1133-1-1024x567.png</image:loc>
+      <image:title>Screenshot 2022 11 22 at 11.56.52 1</image:title>
+      <image:caption>Screenshot 2022 11 22 at 11.56.52 1</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2023/04/intel-optane/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/04/IMG_2109-1024x683.jpeg</image:loc>
+      <image:title>Two Intel Optane SSD DC P4800X PCIe cards</image:title>
+      <image:caption>Two Intel Optane SSD DC P4800X PCIe cards</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2023/05/homelab-storage-refresh-part-1/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/IMG_0397-1024x737.jpeg</image:loc>
+      <image:title>Inside a homelab server with PCIe cards installed</image:title>
+      <image:caption>Inside a homelab server with PCIe cards installed</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-19-at-10.54.27.png</image:loc>
+      <image:title>CrystalDiskMark results for TrueNAS Scale storage</image:title>
+      <image:caption>CrystalDiskMark results for TrueNAS Scale storage</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2022/01/Synology-1024x725.png</image:loc>
+      <image:title>CrystalDiskMark results for Synology storage</image:title>
+      <image:caption>CrystalDiskMark results for Synology storage</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2023/05/how-to-take-a-wordpress-site-and-publish-it-as-a-static-site-on-cloudflare-pages/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-13-at-10.31.30-1024x674.png</image:loc>
+      <image:title>Simply Static diagnostics page with all checks passing</image:title>
+      <image:caption>Simply Static diagnostics page with all checks passing</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-13-at-11.11.53-931x1024.png</image:loc>
+      <image:title>Cloudflare Pages project setup form</image:title>
+      <image:caption>Cloudflare Pages project setup form</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-13-at-11.15.54.png</image:loc>
+      <image:title>Cloudflare Pages project for the WordPress site with a production deployment</image:title>
+      <image:caption>Cloudflare Pages project for the WordPress site with a production deployment</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2023/05/runecast-remediation-scripts/</loc>
+    <lastmod>2026-06-01</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/05/Screenshot-2023-05-16-at-11.31.30-1024x536.png</image:loc>
+      <image:title>Runecast Remediation Script's Screenshot</image:title>
+      <image:caption>Runecast Remediation Script's Screenshot</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2023/10/going-out-with-a-bang/</loc>
+    <lastmod>2026-06-01</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/10/IMG_3745-768x1024.jpeg</image:loc>
+      <image:title>VMware - Going out with a Bang!</image:title>
+      <image:caption>VMware - Going out with a Bang!</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/10/Screenshot-2023-09-22-at-15.07.27.png</image:loc>
+      <image:title>VMware - Going out with a Bang! Screenshot</image:title>
+      <image:caption>VMware - Going out with a Bang! Screenshot</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2023/10/vgpu-setup-in-my-homelab/</loc>
+    <lastmod>2026-07-11</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/10/Screenshot-2023-10-23-at-15.00.32-1024x435.png</image:loc>
+      <image:title>Nvidia Tesla P4 Homelab Setup Screenshot</image:title>
+      <image:caption>Nvidia Tesla P4 Homelab Setup Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/10/Screenshot-2023-10-23-at-15.00.07-1024x313.png</image:loc>
+      <image:title>Nvidia Tesla P4 Homelab Setup Screenshot</image:title>
+      <image:caption>Nvidia Tesla P4 Homelab Setup Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/10/Screenshot-2023-10-23-at-15.25.01-1-1024x850.png</image:loc>
+      <image:title>Nvidia Tesla P4 Homelab Setup Screenshot</image:title>
+      <image:caption>Nvidia Tesla P4 Homelab Setup Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/10/Screenshot-2023-10-23-at-15.24.54-746x1024.png</image:loc>
+      <image:title>Nvidia Tesla P4 Homelab Setup Screenshot</image:title>
+      <image:caption>Nvidia Tesla P4 Homelab Setup Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/10/Screenshot-2023-10-09-at-17.36.02-1024x408.png</image:loc>
+      <image:title>Nvidia Tesla P4 Homelab Setup Screenshot</image:title>
+      <image:caption>Nvidia Tesla P4 Homelab Setup Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/10/Screenshot-2023-10-07-at-14.12.01-1024x273.png</image:loc>
+      <image:title>Nvidia Tesla P4 Homelab Setup Screenshot</image:title>
+      <image:caption>Nvidia Tesla P4 Homelab Setup Screenshot</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2023/11/advanced-deploy-vmware-vsphere-7-x-3v0-22-21n/</loc>
+    <lastmod>2026-06-01</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2023/11/analytics-in-a-privacy-focused-world/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/11/Screenshot-2023-11-10-at-16.42.39-1024x527.png</image:loc>
+      <image:title>Plausible results</image:title>
+      <image:caption>Plausible results</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2023/11/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router/</loc>
+    <lastmod>2026-06-01</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/11/Screenshot-2023-11-14-at-09.32.55.png</image:loc>
+      <image:title>VLAN Interface</image:title>
+      <image:caption>VLAN Interface</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/11/Screenshot-2023-11-14-at-19.38.42-1024x455.png</image:loc>
+      <image:title>Configuring a Zen Internet and City Fibre connection with a 3rd party router Screenshot</image:title>
+      <image:caption>Configuring a Zen Internet and City Fibre connection with a 3rd party router Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/11/Screenshot-2023-11-15-at-19.12.27-1024x932.png</image:loc>
+      <image:title>Configuring a Zen Internet and City Fibre connection with a 3rd party router Screenshot</image:title>
+      <image:caption>Configuring a Zen Internet and City Fibre connection with a 3rd party router Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/11/Screenshot-2023-11-15-at-19.22.11-1024x537.png</image:loc>
+      <image:title>Configuring a Zen Internet and City Fibre connection with a 3rd party router Screenshot</image:title>
+      <image:caption>Configuring a Zen Internet and City Fibre connection with a 3rd party router Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/11/Screenshot-2023-11-15-at-19.28.44-1024x503.png</image:loc>
+      <image:title>Configuring a Zen Internet and City Fibre connection with a 3rd party router Screenshot</image:title>
+      <image:caption>Configuring a Zen Internet and City Fibre connection with a 3rd party router Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/11/Screenshot-2023-11-15-at-19.30.15-1-1024x243.png</image:loc>
+      <image:title>Configuring a Zen Internet and City Fibre connection with a 3rd party router Screenshot</image:title>
+      <image:caption>Configuring a Zen Internet and City Fibre connection with a 3rd party router Screenshot</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2023/11/truenas-scale-useful-commands/</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2023/11/vsan-esa-and-the-improvements-it-brings-to-vmc/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/10/Introducing-ESA-Figure01-1024x422.png</image:loc>
+      <image:title>Comparison of 2012 and 2022 server hardware that led to vSAN ESA</image:title>
+      <image:caption>Comparison of 2012 and 2022 server hardware that led to vSAN ESA</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2024/01/holodeck-cpu-fixes/</loc>
+    <lastmod>2026-06-01</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/09/Screenshot-2023-09-27-at-12.55.09.png</image:loc>
+      <image:title>ESXi unsupported error</image:title>
+      <image:caption>ESXi unsupported error</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2023/10/Screenshot-2023-10-02-at-14.28.25.png</image:loc>
+      <image:title>Holodeck CPU Fixes Screenshot</image:title>
+      <image:caption>Holodeck CPU Fixes Screenshot</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2024/01/multihost-holodeck-vcf/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/01/IMG_5286-1-1024x996.jpeg</image:loc>
+      <image:title>MultiHost Holodeck VCF</image:title>
+      <image:caption>MultiHost Holodeck VCF</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/01/Standard-Switch-1024x299.png</image:loc>
+      <image:title>vSphere standard switch configuration for Holodeck</image:title>
+      <image:caption>vSphere standard switch configuration for Holodeck</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/01/Screenshot-2024-01-19-at-09.08.41-1-1024x545.png</image:loc>
+      <image:title>MultiHost Holodeck VCF Screenshot</image:title>
+      <image:caption>MultiHost Holodeck VCF Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/01/Screenshot-2024-01-17-at-15.39.41-1024x549.png</image:loc>
+      <image:title>MultiHost Holodeck VCF Screenshot</image:title>
+      <image:caption>MultiHost Holodeck VCF Screenshot</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2024/06/unifi-dhcp-option-43/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2024/07/new-nodes/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/04/Screenshot-2024-04-06-at-22.50.57.png</image:loc>
+      <image:title>New Nodes Screenshot</image:title>
+      <image:caption>New Nodes Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/06/mimetype.jpg</image:loc>
+      <image:title>IIS Add MIME Type dialog setting .iso to application/octet-stream</image:title>
+      <image:caption>IIS Add MIME Type dialog setting .iso to application/octet-stream</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/04/Screenshot-2024-04-05-at-11.57.17.png</image:loc>
+      <image:title>New Nodes Screenshot</image:title>
+      <image:caption>New Nodes Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/04/Screenshot-2024-04-05-at-13.21.24-1024x700.png</image:loc>
+      <image:title>Terminal output of a node imaging installation completing</image:title>
+      <image:caption>Terminal output of a node imaging installation completing</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/04/Screenshot-2024-04-05-at-12.18.02-1.png</image:loc>
+      <image:title>Server management page showing component status</image:title>
+      <image:caption>Server management page showing component status</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6628-1-1024x372.jpeg</image:loc>
+      <image:title>Front of the SuperMicro BigTwin chassis with drive bays populated</image:title>
+      <image:caption>Front of the SuperMicro BigTwin chassis with drive bays populated</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/07/Screenshot-2024-07-02-at-08.56.49-1.png</image:loc>
+      <image:title>New Nodes Screenshot</image:title>
+      <image:caption>New Nodes Screenshot</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2024/09/can-you-really-squeeze-96tb-in-1u/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/08/IMG_7063-744x1024.jpeg</image:loc>
+      <image:title>Can you really squeeze 96TB in 1U ?</image:title>
+      <image:caption>Can you really squeeze 96TB in 1U ?</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/09/Screenshot-2024-08-29-at-10.02.01.png</image:loc>
+      <image:title>Can you really squeeze 96TB in 1U ? Screenshot</image:title>
+      <image:caption>Can you really squeeze 96TB in 1U ? Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/09/Screenshot-2024-09-11-at-15.07.42-1024x203.png</image:loc>
+      <image:title>L2ARC Warming up</image:title>
+      <image:caption>L2ARC Warming up</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/09/Screenshot-2024-09-10-at-11.32.39-1024x513.png</image:loc>
+      <image:title>Can you really squeeze 96TB in 1U ? Screenshot</image:title>
+      <image:caption>Can you really squeeze 96TB in 1U ? Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600-1-1024x537.jpg</image:loc>
+      <image:title>Dual-port network adapter card</image:title>
+      <image:caption>Dual-port network adapter card</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2024/09/home-network-upgrade/</loc>
+    <lastmod>2026-06-05</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/01/Home-Net-overview-1024x633.png</image:loc>
+      <image:title>Network Overview</image:title>
+      <image:caption>Network Overview</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2024/10/self-hosting-ai-stack-using-vsphere-docker-and-nvidia-gpu/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/09/Screenshot-2024-09-05-at-11.57.47.png</image:loc>
+      <image:title>nvtop showing the Tesla P4 idle at 7 W</image:title>
+      <image:caption>nvtop showing the Tesla P4 idle at 7 W</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/09/Screenshot-2024-09-05-at-12.01.26.png</image:loc>
+      <image:title>nvtop showing the Tesla P4 with models loaded</image:title>
+      <image:caption>nvtop showing the Tesla P4 with models loaded</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/09/Screenshot-2024-09-16-at-14.41.52.png</image:loc>
+      <image:title>nvtop showing the Tesla P4 under load running models</image:title>
+      <image:caption>nvtop showing the Tesla P4 under load running models</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2024/12/zfs-on-vmware/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/IMG_20140330_210511-1024x845.jpeg</image:loc>
+      <image:title>How to Run ZFS on VMware vSphere: Setup Guide and Best Practices</image:title>
+      <image:caption>How to Run ZFS on VMware vSphere: Setup Guide and Best Practices</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/Disk-Serials-1024x125.png</image:loc>
+      <image:title>Disk list showing drive serial numbers</image:title>
+      <image:caption>Disk list showing drive serial numbers</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/trimming-1-1024x452.png</image:loc>
+      <image:title>Terminal output of zpool trim and zpool status on TrueNAS</image:title>
+      <image:caption>Terminal output of zpool trim and zpool status on TrueNAS</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/vm-Before-2.png</image:loc>
+      <image:title>VM usage before the change: 0 MHz CPU, 0 MB memory, 209.15 GB storage</image:title>
+      <image:caption>VM usage before the change: 0 MHz CPU, 0 MB memory, 209.15 GB storage</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/vm-After.png</image:loc>
+      <image:title>VM usage after the change: 1.014 GHz CPU, 1.92 GB memory, 48.23 GB storage</image:title>
+      <image:caption>VM usage after the change: 1.014 GHz CPU, 1.92 GB memory, 48.23 GB storage</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/vSAN-Before.png</image:loc>
+      <image:title>vSAN capacity before: 2.91 TB used of 7.42 TB</image:title>
+      <image:caption>vSAN capacity before: 2.91 TB used of 7.42 TB</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/vSAN-After-1.png</image:loc>
+      <image:title>vSAN capacity after: 2.33 TB used of 7.42 TB</image:title>
+      <image:caption>vSAN capacity after: 2.33 TB used of 7.42 TB</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2025/01/how-i-migrated-from-pocket-to-hoarder-and-introduced-some-ai-along-the-way/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/01/HoarderApp-1024x491.png</image:loc>
+      <image:title>Hoarder architecture diagram: web app, workers, SQLite, Redis, Ollama and headless Chrome</image:title>
+      <image:caption>Hoarder architecture diagram: web app, workers, SQLite, Redis, Ollama and headless Chrome</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-22.52.45-1024x124.png</image:loc>
+      <image:title>How I Migrated from Pocket to Hoarder with AI Integration Screenshot</image:title>
+      <image:caption>How I Migrated from Pocket to Hoarder with AI Integration Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.00.23-1024x329.png</image:loc>
+      <image:title>How I Migrated from Pocket to Hoarder with AI Integration Screenshot</image:title>
+      <image:caption>How I Migrated from Pocket to Hoarder with AI Integration Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/01/Screenshot-2025-01-29-at-23.21.32-1024x590.png</image:loc>
+      <image:title>How I Migrated from Pocket to Hoarder with AI Integration Screenshot</image:title>
+      <image:caption>How I Migrated from Pocket to Hoarder with AI Integration Screenshot</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2025/04/warp-the-intelligent-terminal/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/04/Screenshot-2025-04-11-at-14.12.14-1024x95.png</image:loc>
+      <image:title>Terminal output warning about duplicate apt sources entries</image:title>
+      <image:caption>Terminal output warning about duplicate apt sources entries</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/04/Screenshot-2025-04-11-at-14.19.09-1024x137.png</image:loc>
+      <image:title>Terminal output adding the Docker apt repository</image:title>
+      <image:caption>Terminal output adding the Docker apt repository</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2025/05/vmc-quick-sizing-guide/</loc>
+    <lastmod>2026-07-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2025/08/vmc-host-deepdive/</loc>
+    <lastmod>2026-11-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2025/09/managing-my-homelab-with-semaphoreui/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/09/Ansible-Inventory.png</image:loc>
+      <image:title>Semaphore web UI dashboard managing Ansible playbooks in my homelab</image:title>
+      <image:caption>Semaphore web UI dashboard managing Ansible playbooks in my homelab</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/07/Semaphore-Repo-1024x80.png</image:loc>
+      <image:title>SemaphoreUI repository list</image:title>
+      <image:caption>SemaphoreUI repository list</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/09/New-Repo-1024x350.png</image:loc>
+      <image:title>SemaphoreUI repositories page with the new repository button highlighted</image:title>
+      <image:caption>SemaphoreUI repositories page with the new repository button highlighted</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/09/Repo-Settings.png</image:loc>
+      <image:title>SemaphoreUI New Repository form</image:title>
+      <image:caption>SemaphoreUI New Repository form</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/09/Screenshot-2025-09-02-at-13.28.53.png</image:loc>
+      <image:title>Managing my Homelab with SemaphoreUI Screenshot</image:title>
+      <image:caption>Managing my Homelab with SemaphoreUI Screenshot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/09/Docker-Task-1-1024x553.png</image:loc>
+      <image:title>SemaphoreUI new Ansible playbook task template form</image:title>
+      <image:caption>SemaphoreUI new Ansible playbook task template form</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/09/Task-Running.png</image:loc>
+      <image:title>SemaphoreUI task output while installing Docker</image:title>
+      <image:caption>SemaphoreUI task output while installing Docker</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2025/10/how-i-deploy-my-blog-as-a-static-website-with-github-actions-and-cloudflare/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/10/Wordpress-Authoring-2-1024x677.png</image:loc>
+      <image:title>Diagram of WordPress authoring behind a firewall, a GitHub runner and Cloudflare CDN serving jameskilby.co.uk</image:title>
+      <image:caption>Diagram of WordPress authoring behind a firewall, a GitHub runner and Cloudflare CDN serving jameskilby.co.uk</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/10/Cloudflare-Events-1024x214.png</image:loc>
+      <image:title>Cloudflare Pages deployment notification events</image:title>
+      <image:caption>Cloudflare Pages deployment notification events</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2025/12/time-in-a-vmc-environment/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2025/12/ubuntu-disk-expansion-steps/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2025/12/vsan-cluster-shutdown/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/vSphere-Overview-1024x530.png</image:loc>
+      <image:title>Homelab vSphere diagram: management cluster, vSAN ESA cluster and TrueNAS iSCSI storage</image:title>
+      <image:caption>Homelab vSphere diagram: management cluster, vSAN ESA cluster and TrueNAS iSCSI storage</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/04/vSAN-Services-Menu-1024x564.png</image:loc>
+      <image:title>vSAN services page with the shutdown cluster option highlighted</image:title>
+      <image:caption>vSAN services page with the shutdown cluster option highlighted</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/04/Shutdown-Precheck.png</image:loc>
+      <image:title>vSAN cluster shutdown wizard: pre-checks passed</image:title>
+      <image:caption>vSAN cluster shutdown wizard: pre-checks passed</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/04/Confirmation.png</image:loc>
+      <image:title>vSAN cluster shutdown wizard: confirm shutdown step</image:title>
+      <image:caption>vSAN cluster shutdown wizard: confirm shutdown step</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/03/Restart-vSAN.png</image:loc>
+      <image:title>vSAN cluster shut down message with a Restart button</image:title>
+      <image:caption>vSAN cluster shut down message with a Restart button</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2026/01/using-content-libraries-in-vmc-to-deploy-software-faster/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/ContentLibraryFlow-1024x358.png</image:loc>
+      <image:title>Diagram of content library sync from on-premises vCenter to VMC vCenter over HTTPS 443</image:title>
+      <image:caption>Diagram of content library sync from on-premises vCenter to VMC vCenter over HTTPS 443</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/ContentLibary-1024x368.png</image:loc>
+      <image:title>vSphere Client shortcuts page with Content Libraries highlighted</image:title>
+      <image:caption>vSphere Client shortcuts page with Content Libraries highlighted</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/NameLocation-1024x440.png</image:loc>
+      <image:title>New Content Library wizard: name and location</image:title>
+      <image:caption>New Content Library wizard: name and location</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/ConfigureContentLibrary-1024x631.png</image:loc>
+      <image:title>New Content Library wizard: configure content library with publishing enabled</image:title>
+      <image:caption>New Content Library wizard: configure content library with publishing enabled</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/Select-Storage-1024x481.png</image:loc>
+      <image:title>New Content Library wizard, Add storage step with an NFS datastore selected</image:title>
+      <image:caption>New Content Library wizard, Add storage step with an NFS datastore selected</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/ReadyToComplete-1024x507.png</image:loc>
+      <image:title>New Content Library wizard: ready to complete</image:title>
+      <image:caption>New Content Library wizard: ready to complete</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/CompleteWithUrl-1024x558.png</image:loc>
+      <image:title>Content library settings showing the publishing subscription URL</image:title>
+      <image:caption>Content library settings showing the publishing subscription URL</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/VMCSubscriber-1024x906.png</image:loc>
+      <image:title>Subscribed content library settings in VMC using the publisher's subscription URL</image:title>
+      <image:caption>Subscribed content library settings in VMC using the publisher's subscription URL</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2026/01/web-development-improvements/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/10/Wordpress-Authoring-2-1024x677.png</image:loc>
+      <image:title>Diagram of WordPress authoring behind a firewall, a GitHub runner and Cloudflare CDN serving jameskilby.co.uk</image:title>
+      <image:caption>Diagram of WordPress authoring behind a firewall, a GitHub runner and Cloudflare CDN serving jameskilby.co.uk</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/Slack-Lighthouse-Perfomance.png</image:loc>
+      <image:title>Slack message from Lighthouse CI with daily performance, accessibility, best practices and SEO scores</image:title>
+      <image:caption>Slack message from Lighthouse CI with daily performance, accessibility, best practices and SEO scores</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/Secret-Scanning-Slack-Alert-1024x396.png</image:loc>
+      <image:title>Slack security alert from Gitleaks reporting secrets detected in the repository</image:title>
+      <image:caption>Slack security alert from Gitleaks reporting secrets detected in the repository</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2026/02/automating-the-deployment-of-my-ai-homelab-and-other-improvements/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/Add-PCI-Device-1-402x1024.png</image:loc>
+      <image:title>Adding a PCI device for NVIDIA GPU passthrough in vSphere VM settings</image:title>
+      <image:caption>Adding a PCI device for NVIDIA GPU passthrough in vSphere VM settings</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/GPU-Profiles-1024x397.png</image:loc>
+      <image:title>NVIDIA vGPU profile selection in vSphere for AI homelab workloads</image:title>
+      <image:caption>NVIDIA vGPU profile selection in vSphere for AI homelab workloads</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/nvidia-smi-1024x654.png</image:loc>
+      <image:title>nvidia-smi output confirming homelab AI infrastructure GPU is detected in Ubuntu</image:title>
+      <image:caption>nvidia-smi output confirming homelab AI infrastructure GPU is detected in Ubuntu</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/01/Traefik-Docker-Setup-2-1024x342.png</image:loc>
+      <image:title>Ansible playbook configuring Traefik and Docker on the homelab AI VM</image:title>
+      <image:caption>Ansible playbook configuring Traefik and Docker on the homelab AI VM</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/nginx-cert-1024x997.png</image:loc>
+      <image:title>Nginx TLS certificate verification via Traefik in the homelab setup</image:title>
+      <image:caption>Nginx TLS certificate verification via Traefik in the homelab setup</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/TraefikDashboard-1024x478.png</image:loc>
+      <image:title>Traefik dashboard running in the homelab with Docker and Ansible</image:title>
+      <image:caption>Traefik dashboard running in the homelab with Docker and Ansible</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/Traefik-Variables-804x1024.png</image:loc>
+      <image:title>Traefik variable definitions in the Ansible playbook for the AI homelab</image:title>
+      <image:caption>Traefik variable definitions in the Ansible playbook for the AI homelab</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/SemaphoreSecrets-1024x262.png</image:loc>
+      <image:title>Ansible secrets configuration in Semaphore for secure homelab automation</image:title>
+      <image:caption>Ansible secrets configuration in Semaphore for secure homelab automation</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/httpd-1024x383.png</image:loc>
+      <image:title>Apache httpd test response confirming Docker and Traefik are running correctly</image:title>
+      <image:caption>Apache httpd test response confirming Docker and Traefik are running correctly</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/Semaphore_repo.png</image:loc>
+      <image:title>Adding a Git repository to Semaphore for Ansible homelab automation</image:title>
+      <image:caption>Adding a Git repository to Semaphore for Ansible homelab automation</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/NewKey-802x1024.png</image:loc>
+      <image:title>Creating a new SSH key in Semaphore for Ansible authentication</image:title>
+      <image:caption>Creating a new SSH key in Semaphore for Ansible authentication</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/PassAuth.png</image:loc>
+      <image:title>Semaphore password authentication configuration for Ansible inventory access</image:title>
+      <image:caption>Semaphore password authentication configuration for Ansible inventory access</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/blogtest_ansible_inventory-670x1024.png</image:loc>
+      <image:title>Ansible inventory file showing homelab host configuration in Semaphore</image:title>
+      <image:caption>Ansible inventory file showing homelab host configuration in Semaphore</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/VariableGroup-813x1024.png</image:loc>
+      <image:title>Semaphore variable group configuration for Ansible homelab automation</image:title>
+      <image:caption>Semaphore variable group configuration for Ansible homelab automation</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/Variable-Group-1024x547.png</image:loc>
+      <image:title>Expanded Semaphore variable group showing all Ansible environment variables</image:title>
+      <image:caption>Expanded Semaphore variable group showing all Ansible environment variables</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/01/TaskTemplates-1024x263.png</image:loc>
+      <image:title>Semaphore task templates for running Ansible playbooks in the homelab</image:title>
+      <image:caption>Semaphore task templates for running Ansible playbooks in the homelab</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2026/03/my-self-hosted-ai-stack-a-technical-deep-dive/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/03/ai-stack-featured-1024x538.png</image:loc>
+      <image:title>Self-hosted AI stack architecture overview</image:title>
+      <image:caption>Self-hosted AI stack architecture overview</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/03/AI-Cutdown-1024x371.png</image:loc>
+      <image:title>AI request routing diagram showing SmarterRouter directing traffic across the self-hosted AI stack</image:title>
+      <image:caption>AI request routing diagram showing SmarterRouter directing traffic across the self-hosted AI stack</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2026/03/octopus-agile-battery-solar-calculator/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/03/Screenshot-2026-03-07-at-07.30.35-1024x713.png</image:loc>
+      <image:title>Agile Rate Profile</image:title>
+      <image:caption>Agile Rate Profile</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/03/Agile-usage-Summary-1024x247.png</image:loc>
+      <image:title>Octopus Agile usage summary with total kWh, average rate and cost figures</image:title>
+      <image:caption>Octopus Agile usage summary with total kWh, average rate and cost figures</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/03/Agile-Rate-Distribution-1024x347.png</image:loc>
+      <image:title>Chart of Octopus Agile usage by rate band</image:title>
+      <image:caption>Chart of Octopus Agile usage by rate band</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/03/BatteryRecomendation--1024x447.png</image:loc>
+      <image:title>Battery Recommendation</image:title>
+      <image:caption>Battery Recommendation</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/03/Best-Combination-1024x375.png</image:loc>
+      <image:title>Best Solar and Battery Combination</image:title>
+      <image:caption>Best Solar and Battery Combination</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2026/04/automated-vcf-9-offline-depot/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/VCF-Offline-Depot-1024x538.png</image:loc>
+      <image:title>Diagram of the VCF 9 offline depot: Traefik in front of nginx serving the depot files</image:title>
+      <image:caption>Diagram of the VCF 9 offline depot: Traefik in front of nginx serving the depot files</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/RunDeployment-1024x508.png</image:loc>
+      <image:title>Terminal prompts from the VCF 9 offline depot deployment script</image:title>
+      <image:caption>Terminal prompts from the VCF 9 offline depot deployment script</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/workingnginx-1024x752.png</image:loc>
+      <image:title>VCF 9 offline depot landing page after a successful deployment</image:title>
+      <image:caption>VCF 9 offline depot landing page after a successful deployment</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikrouters-1024x254.png</image:loc>
+      <image:title>Traefik dashboard list of HTTP routers</image:title>
+      <image:caption>Traefik dashboard list of HTTP routers</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/traefikservices-1024x326.png</image:loc>
+      <image:title>Traefik dashboard list of services</image:title>
+      <image:caption>Traefik dashboard list of services</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2026/04/my-self-hosted-ai-stack-infrastructure-deep-dive-part-2/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2025/01/Traefik-Docker-Setup-1024x342.png</image:loc>
+      <image:title>Diagram of Traefik load balancing traffic from Cloudflare to Docker containers</image:title>
+      <image:caption>Diagram of Traefik load balancing traffic from Cloudflare to Docker containers</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/03/AI-Network--1020x1024.png</image:loc>
+      <image:title>Network diagram of the self-hosted AI stack behind the firewall</image:title>
+      <image:caption>Network diagram of the self-hosted AI stack behind the firewall</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2026/04/new-vmc-host-i7i-metal-24xl/</loc>
+    <lastmod>2026-11-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2026/04/packer-vsphere-golden-images/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/PackerFullFlow-912x1024.png</image:loc>
+      <image:title>Flowchart of the full Packer template build pipeline</image:title>
+      <image:caption>Flowchart of the full Packer template build pipeline</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/BuildSelection.png</image:loc>
+      <image:title>GitHub Actions workflow dispatch menu for choosing which templates to build</image:title>
+      <image:caption>GitHub Actions workflow dispatch menu for choosing which templates to build</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/Packer-Workflow-1024x160.png</image:loc>
+      <image:title>GitHub Actions build-templates workflow graph</image:title>
+      <image:caption>GitHub Actions build-templates workflow graph</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/smoke-ubuntu-2404-desktop-20260529-26645739266-midwait-1024x614.png</image:loc>
+      <image:title>Ubuntu desktop login screen captured by a failed smoke test</image:title>
+      <image:caption>Ubuntu desktop login screen captured by a failed smoke test</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/SuccessfulPackerDeployment-1024x173.png</image:loc>
+      <image:title>GitHub Actions workflow graph of a successful Packer deployment</image:title>
+      <image:caption>GitHub Actions workflow graph of a successful Packer deployment</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2026/04/vsphere-power-management-driven-by-ansible/</loc>
+    <lastmod>2026-06-01</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/AgileRates-1024x707.png</image:loc>
+      <image:title>Octopus Agile electricity price rates dashboard showing half-hourly pricing</image:title>
+      <image:caption>Octopus Agile electricity price rates dashboard showing half-hourly pricing</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/OctopusGreen-1024x259.png</image:loc>
+      <image:title>Octopus Energy carbon intensity graph showing grid demand over time</image:title>
+      <image:caption>Octopus Energy carbon intensity graph showing grid demand over time</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/04/vSphereChangePower-1024x90.png</image:loc>
+      <image:title>vSphere Power Management driven by Ansible changing ESXi host power policy from Balanced to Low Power</image:title>
+      <image:caption>vSphere Power Management driven by Ansible changing ESXi host power policy from Balanced to Low Power</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/2026/06/ubiquiti-udm-beast/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/06/Beast2.3Gbps.png</image:loc>
+      <image:title>Speed test result: 2.21 Gbps down and 2.53 Gbps up through the UDM Beast</image:title>
+      <image:caption>Speed test result: 2.21 Gbps down and 2.53 Gbps up through the UDM Beast</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/06/udm-beast-5-1024x1024.png</image:loc>
+      <image:title>Angled product render of the UniFi UDM Beast, showing its front drive bays, RJ45 ports and SFP cages.</image:title>
+      <image:caption>Angled product render of the UniFi UDM Beast, showing its front drive bays, RJ45 ports and SFP cages.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/06/NewHouseNet-3-1024x634.png</image:loc>
+      <image:title>Network topology diagram: a 900 Mb/s internet link feeds the UDM Beast firewall in the House; 10 Gb/s links connect the Office and House to a core switch in the Server Room, where the vSAN cluster, ma</image:title>
+      <image:caption>Network topology diagram: a 900 Mb/s internet link feeds the UDM Beast firewall in the House; 10 Gb/s links connect the Office and House to a core switch in the Server Room, where the vSAN cluster, ma</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/06/ZenWanPerfomance.png</image:loc>
+      <image:title>UniFi UDM Beast WAN speed test result showing 877 Mbps download, 977 Mbps upload and 8 ms latency on 16 June 2026.</image:title>
+      <image:caption>UniFi UDM Beast WAN speed test result showing 877 Mbps download, 977 Mbps upload and 8 ms latency on 16 June 2026.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/06/CityFibreVlan.png</image:loc>
+      <image:title>UDM Beast WAN setup for the Zen Internet connection on Port 9 (10 GbE), with VLAN ID 911 set manually for CityFibre.</image:title>
+      <image:caption>UDM Beast WAN setup for the Zen Internet connection on Port 9 (10 GbE), with VLAN ID 911 set manually for CityFibre.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/06/PPP-and-IP-689x1024.png</image:loc>
+      <image:title>UDM Beast PPPoE configuration showing the Zen Internet username and password, plus the additional /32 IPv4 addresses from the /29 allocation.</image:title>
+      <image:caption>UDM Beast PPPoE configuration showing the Zen Internet username and password, plus the additional /32 IPv4 addresses from the /29 allocation.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/06/UnifiRouteTable-1024x549.png</image:loc>
+      <image:title>UniFi UDM Beast routing table showing BGP-learned routes (192.168.100.0/24 to 192.168.105.0/24) via next hop 192.168.3.1, alongside directly connected VLANs such as iSCSI, VMware MGMT, IoT and ServerV</image:title>
+      <image:caption>UniFi UDM Beast routing table showing BGP-learned routes (192.168.100.0/24 to 192.168.105.0/24) via next hop 192.168.3.1, alongside directly connected VLANs such as iSCSI, VMware MGMT, IoT and ServerV</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/about-james-kilby-solution-architect/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/02/55f91c39-f0dd-42e1-939a-cdffc92c0b52-1024x768.jpeg</image:loc>
+      <image:title>James Kilby presenting on stage at VMUG UserCon London</image:title>
+      <image:caption>James Kilby presenting on stage at VMUG UserCon London</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/evs/</loc>
+    <lastmod>2026-10-19</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/homelab-software/</loc>
+    <lastmod>2026-11-13</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/lab/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2024/12/vSphere-Overview-1024x530.png</image:loc>
+      <image:title>Homelab vSphere diagram: management cluster, vSAN ESA cluster and TrueNAS iSCSI storage</image:title>
+      <image:caption>Homelab vSphere diagram: management cluster, vSAN ESA cluster and TrueNAS iSCSI storage</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://jameskilby.co.uk/wp-content/uploads/2026/08/NewHouseNet-4-1024x634.png</image:loc>
+      <image:title>Home network diagram: internet link, UDM Beast router, office and server room switches, vSAN cluster and storage</image:title>
+      <image:caption>Home network diagram: internet link, UDM Beast router, office and server room switches, vSAN cluster and storage</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/media/</loc>
+    <lastmod>2026-06-01</lastmod>
+  </url>
+  <url>
+    <loc>https://jameskilby.co.uk/vmc/</loc>
+    <lastmod>2026-11-20</lastmod>
+  </url>
+</urlset>

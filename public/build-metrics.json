@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-11-20T16:28:54.085463",
+  "generation_duration_seconds": 99.63,
+  "urls_processed": 261,
+  "assets_downloaded": 1775,
+  "errors": 0,
+  "total_size_mb": 93.56,
+  "total_size_bytes": 98107927,
+  "git_commit": "b78e2aebb60b56700c52bfe516b44baeb7aa5164",
+  "output_directory": "/home/w20kilja/actions-runner/_work/jkcoukblog/jkcoukblog/static-output"
+}

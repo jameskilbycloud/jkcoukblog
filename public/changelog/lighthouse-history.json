@@ -1,0 +1,20 @@
+[
+  {
+    "date": "2026-11-20",
+    "timestamp": "2026-11-20 11:06:20 UTC",
+    "runs": 1,
+    "performance": 96,
+    "accessibility": 96,
+    "best_practices": 100,
+    "seo": 100,
+    "samples": [
+      {
+        "timestamp": "2026-11-20 11:06:20 UTC",
+        "performance": 96,
+        "accessibility": 96,
+        "best_practices": 100,
+        "seo": 100
+      }
+    ]
+  }
+]
