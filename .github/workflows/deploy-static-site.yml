@@ -780,10 +780,14 @@ jobs:
     - name: Validate HTML and deployment (parallel)
       id: validation
       timeout-minutes: 10
+      env:
+        # Private words that must never be published (comma-separated).
+        # Optional: unset means only Config.PUBLIC_CONTENT_DENYLIST applies.
+        PUBLIC_CONTENT_DENYLIST_EXTRA: ${{ secrets.PUBLIC_CONTENT_DENYLIST_EXTRA }}
       run: |
         echo "🔍 Running HTML validation and deployment validation in parallel..."
 
-        # All three validators are read-only — safe to run simultaneously.
+        # All four validators are read-only — safe to run simultaneously.
         python3 scripts/validate_html.py ./static-output &
         PID_HTML=$!
         python3 scripts/validate_deployment.py ./static-output &
@@ -792,14 +796,20 @@ jobs:
         # deployed one; fail if this build silently dropped >10% of its URLs.
         python3 scripts/validate_seo.py ./static-output --baseline-sitemap ./public/sitemap.xml &
         PID_SEO=$!
+        # WordPress leftovers (Kadence credit, private CMS host, generator
+        # tag…) and denylisted words in every published file, seeded or not.
+        python3 scripts/validate_content_leaks.py ./static-output &
+        PID_LEAKS=$!
 
         HTML_OK=true
         DEPLOY_OK=true
         SEO_OK=true
+        LEAKS_OK=true
 
         wait $PID_HTML   || HTML_OK=false
         wait $PID_DEPLOY || DEPLOY_OK=false
         wait $PID_SEO    || SEO_OK=false
+        wait $PID_LEAKS  || LEAKS_OK=false
 
         if [ "$HTML_OK" = true ]; then
           echo "✅ HTML validation passed!"
@@ -819,6 +829,12 @@ jobs:
           echo "❌ SEO validation failed!"
         fi
 
+        if [ "$LEAKS_OK" = true ]; then
+          echo "✅ Content leak check passed!"
+        else
+          echo "❌ Content leak check failed!"
+        fi
+
         # Add to GitHub Actions summary
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "## ✅ Validation" >> $GITHUB_STEP_SUMMARY
@@ -826,9 +842,10 @@ jobs:
         echo "- **HTML Validation:** $([ "$HTML_OK" = true ] && echo '✅ Passed' || echo '❌ Failed')" >> $GITHUB_STEP_SUMMARY
         echo "- **Deployment Validation:** $([ "$DEPLOY_OK" = true ] && echo '✅ Passed' || echo '❌ Failed')" >> $GITHUB_STEP_SUMMARY
         echo "- **SEO Validation:** $([ "$SEO_OK" = true ] && echo '✅ Passed' || echo '❌ Failed')" >> $GITHUB_STEP_SUMMARY
+        echo "- **Content Leak Check:** $([ "$LEAKS_OK" = true ] && echo '✅ Passed' || echo '❌ Failed')" >> $GITHUB_STEP_SUMMARY
 
         # Fail step if any validation failed
-        if [ "$HTML_OK" = false ] || [ "$DEPLOY_OK" = false ] || [ "$SEO_OK" = false ]; then
+        if [ "$HTML_OK" = false ] || [ "$DEPLOY_OK" = false ] || [ "$SEO_OK" = false ] || [ "$LEAKS_OK" = false ]; then
           exit 1
         fi
 
