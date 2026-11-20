@@ -56,9 +56,9 @@ def test_text_outputs():
 
 
 def test_denylist_public_is_whole_word_and_case_sensitive():
-    assert v.check_denylist('I run Stash at home', public_terms=('Stash',))
-    assert v.check_denylist('git stash pop', public_terms=('Stash',)) == []
-    assert v.check_denylist('Stashed it', public_terms=('Stash',)) == []
+    assert v.check_denylist('I run Zorblat at home', public_terms=('Zorblat',))
+    assert v.check_denylist('zorblat pop', public_terms=('Zorblat',)) == []
+    assert v.check_denylist('Zorblats it', public_terms=('Zorblat',)) == []
 
 
 def test_denylist_private_terms_are_never_echoed():
@@ -71,11 +71,11 @@ def test_scan_walks_html_and_text_outputs(tmp_path):
     (tmp_path / 'markdown').mkdir()
     (tmp_path / 'markdown' / 'p.md').write_text('WordPress Theme by Kadence WP')
     (tmp_path / 'api').mkdir()
-    (tmp_path / 'api' / 'p.json').write_text(json.dumps({'body': 'I run Stash'}))
-    (tmp_path / 'img.png').write_bytes(b'Stash')  # binaries are skipped
-    found = v.scan(tmp_path)
+    (tmp_path / 'api' / 'p.json').write_text(json.dumps({'body': 'I run Zorblat'}))
+    (tmp_path / 'img.png').write_bytes(b'Zorblat')  # binaries are skipped
+    found = v.scan(tmp_path, public_terms=('Zorblat',))
     assert set(found) == {'kadence-credit', 'denylist'}
-    assert found['denylist'] == [('api/p.json', 'contains "Stash"')]
+    assert found['denylist'] == [('api/p.json', 'contains "Zorblat"')]
 
 
 def test_transformer_strips_what_the_gate_rejects(tmp_path):
@@ -92,3 +92,35 @@ def test_transformer_strips_what_the_gate_rejects(tmp_path):
     t = HTMLTransformer(str(tmp_path), skip_images=True, skip_critical_css=True)
     assert t._process_file(page) is True
     assert v.check_html(page.read_text()) == []
+
+
+def test_seeded_extracted_css_is_cleaned_before_inlining(tmp_path):
+    """The Nov 2026 failure: WP block styles are extracted to
+    /assets/css/*.css with the sourceURL comment, and the transformer inlines
+    the small ones back into pages after its own string-level strip. A seeded
+    CSS file must be cleaned first, so neither the page nor the file leaks."""
+    css_dir = tmp_path / 'assets' / 'css'
+    css_dir.mkdir(parents=True)
+    css = css_dir / 'wp-block-list-inline-css-abcd1234.min.css'
+    css.write_text(f'ol,ul{{box-sizing:border-box}}\n/*# sourceURL=https://{HOST}/wp-includes/blocks/list/style.min.css */')
+    page = tmp_path / 'index.html'
+    page.write_text(CLEAN.replace(
+        '</head>', '<link rel="stylesheet" href="/assets/css/' + css.name + '" media="all"></head>'))
+    assert 'wp-host' in _rules(v.check_text(css.read_text()))
+
+    HTMLTransformer(str(tmp_path), skip_images=True, skip_critical_css=True).process_all_files()
+    assert v.scan(tmp_path, public_terms=()) == {}
+    assert 'box-sizing:border-box' in page.read_text() or 'box-sizing: border-box' in page.read_text()
+
+
+def test_extracted_css_is_written_clean(tmp_path):
+    from bs4 import BeautifulSoup
+    from inline_css_fixups import InlineCSSFixups
+    soup = BeautifulSoup(
+        '<html><head><style id="wp-block-list-inline-css">ol,ul{box-sizing:border-box;padding:0;margin:0}'
+        'ol.x,ul.x{list-style:none}' + 'li.y{padding-left:1em}' * 5 + f'\n/*# sourceURL=https://{HOST}/wp-includes/blocks/list/style.min.css */'
+        '</style></head><body></body></html>', 'html.parser')
+    fx = InlineCSSFixups('https://example.test', tmp_path)
+    fx.extract_inline_css(soup, 'https://example.test/')
+    files = list((tmp_path / 'assets' / 'css').glob('*.css'))
+    assert files and all(HOST not in f.read_text() for f in files)

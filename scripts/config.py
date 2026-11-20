@@ -204,7 +204,7 @@ class Config:
     # only list terms that are safe to name here; private terms (names,
     # addresses, registrations) go in the PUBLIC_CONTENT_DENYLIST_EXTRA
     # secret, comma-separated, matched case-insensitively and never echoed.
-    PUBLIC_CONTENT_DENYLIST = ('Stash',)
+    PUBLIC_CONTENT_DENYLIST = ()
     
     @classmethod
     def get_plausible_script_url(cls):
