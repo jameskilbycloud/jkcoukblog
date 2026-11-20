@@ -197,6 +197,14 @@ class Config:
     SEO_TITLE_MAX_CHARS = 60
     SEO_META_DESC_MIN_CHARS = 120
     SEO_META_DESC_MAX_CHARS = 160
+
+    # Words that must never appear in anything published (pages, /markdown/,
+    # /api/, llms*.txt, feeds). scripts/validate_content_leaks.py fails the
+    # build on a whole-word, case-sensitive match. This repo is public, so
+    # only list terms that are safe to name here; private terms (names,
+    # addresses, registrations) go in the PUBLIC_CONTENT_DENYLIST_EXTRA
+    # secret, comma-separated, matched case-insensitively and never echoed.
+    PUBLIC_CONTENT_DENYLIST = ()
     
     @classmethod
     def get_plausible_script_url(cls):
