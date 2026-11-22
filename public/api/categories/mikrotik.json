@@ -1,0 +1,86 @@
+{
+  "name": "Mikrotik",
+  "slug": "mikrotik",
+  "posts": [
+    {
+      "slug": "home-network-upgrade",
+      "title": "Home Network Upgrade to 25Gb/s with MikroTik Switching",
+      "description": "My home network upgrade to 25Gb/s: MikroTik CRS504 switching, DACs, optics, and the gotchas I hit going beyond 10Gb at home.",
+      "date": "2024-09-09T08:25:08Z",
+      "modified": "2026-06-05T18:49:23Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2024/09/home-network-upgrade/",
+      "markdown_url": "/markdown/posts/home-network-upgrade.md",
+      "api_url": "/api/posts/home-network-upgrade.json",
+      "categories": [
+        "Mikrotik",
+        "Networking",
+        "Homelab",
+        "Storage",
+        "Ansible",
+        "Automation",
+        "TrueNAS Scale",
+        "VMware"
+      ],
+      "tags": [
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg",
+      "excerpt": "![CRS-504](https://jameskilby.co.uk/wp-content/uploads/2024/09/s-l1600.jpg)\n\n[Mikrotik](https://jameskilby.co.uk/category/mikrotik/) | [Networking](https://jameskilby.co.uk/category/networking/)\n\n# Home Network Upgrade to 25Gb/s with MikroTik Switching\n\nBy[James Kilby](https://jameskilby.co.uk) Sept..."
+    },
+    {
+      "slug": "new-nodes",
+      "title": "New Homelab Nodes: SuperMicro BigTwin for VMware & Nutanix",
+      "description": "I refreshed my homelab nodes with SuperMicro BigTwin hardware — building a Nutanix CE cluster and an ESXi host, all at very little cost.",
+      "date": "2024-07-02T08:01:04Z",
+      "modified": "2026-11-16T23:12:21Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2024/07/new-nodes/",
+      "markdown_url": "/markdown/posts/new-nodes.md",
+      "api_url": "/api/posts/new-nodes.json",
+      "categories": [
+        "Homelab",
+        "Nutanix",
+        "VMware",
+        "Networking",
+        "VMware Cloud on AWS",
+        "Mikrotik",
+        "Ansible",
+        "Artificial Intelligence"
+      ],
+      "tags": [
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2024/04/Screenshot-2024-04-06-at-22.50.57.png",
+      "excerpt": "![Front of a Nutanix-branded SuperMicro BigTwin chassis](https://jameskilby.co.uk/wp-content/uploads/2024/07/IMG_6629-scaled.jpeg)\n\n[Homelab](https://jameskilby.co.uk/category/homelab/) | [Nutanix](https://jameskilby.co.uk/category/nutanix/) | [VMware](https://jameskilby.co.uk/category/vmware/)\n\n# N..."
+    },
+    {
+      "slug": "configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router",
+      "title": "Configuring a Zen Internet and City Fibre connection with a 3rd party router",
+      "description": "Connect Zen Internet on CityFibre to your own router or firewall: VLAN 911, your PPPoE login and a /29 static IP block. Shown on a WatchGuard M200.",
+      "date": "2023-11-15T19:27:48Z",
+      "modified": "2026-06-01T19:02:54Z",
+      "author": "James Kilby",
+      "url": "https://jameskilby.co.uk/2023/11/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router/",
+      "markdown_url": "/markdown/posts/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router.md",
+      "api_url": "/api/posts/configuring-a-zen-internet-and-city-fibre-connection-with-a-3rd-party-router.json",
+      "categories": [
+        "Networking",
+        "Homelab",
+        "Mikrotik"
+      ],
+      "tags": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "image": "https://jameskilby.co.uk/wp-content/uploads/2023/11/cityfibre-zen-1024x538.jpg",
+      "excerpt": "![CityFibre and Zen Internet logos over fibre optic strands](https://jameskilby.co.uk/wp-content/uploads/2023/11/cityfibre-zen.jpg)\n\n[Networking](https://jameskilby.co.uk/category/networking/)\n\n# Configuring a Zen Internet and City Fibre connection with a 3rd party router\n\nBy[James Kilby](https://ja..."
+    }
+  ]
+}
