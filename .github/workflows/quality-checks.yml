@@ -306,7 +306,7 @@ jobs:
         # scheduled ones, and those posted nothing at all. Every run reports
         # now, including the deploy pipeline's explicit dispatch.
         if: always() && steps.lighthouse_results.outputs.has_results == 'true'
-        uses: slackapi/slack-github-action@v4.0.0
+        uses: slackapi/slack-github-action@v4.1.0
         with:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
@@ -394,7 +394,7 @@ jobs:
 
       - name: Notify Slack with daily metrics
         if: github.event_name == 'schedule' && steps.lighthouse_results.outputs.has_results == 'true'
-        uses: slackapi/slack-github-action@v4.0.0
+        uses: slackapi/slack-github-action@v4.1.0
         with:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
